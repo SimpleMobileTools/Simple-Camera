@@ -4,82 +4,50 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends AppCompatActivity {
+    @Bind(R.id.viewHolder) RelativeLayout viewHolder;
 
-    @Bind(R.id.surfaceView) SurfaceView surfaceView;
-    private Camera camera;
-    private boolean isOpen;
-    private SurfaceHolder surfaceHolder;
+    private static final String TAG = Preview.class.getSimpleName();
+    private Preview preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.addCallback(this);
+        preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
+        preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        viewHolder.addView(preview);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        openCamera();
+
+        try {
+            Camera camera = Camera.open(0);
+            preview.setCamera(camera);
+        } catch (Exception e) {
+            Log.e(TAG, "onResume IOException " + e.getMessage());
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        releaseCamera();
-    }
-
-    private void openCamera() {
-        isOpen = false;
-
-        try {
-            releaseCamera();
-            camera = Camera.open();
-
-            if (camera != null) {
-                isOpen = true;
-                camera.setDisplayOrientation(90);
-                camera.setPreviewDisplay(surfaceHolder);
-                camera.startPreview();
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "openCamera exception " + e.getMessage());
-        }
-    }
-
-    private void releaseCamera() {
-        if (camera != null) {
-            camera.release();
-            camera = null;
-        }
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        openCamera();
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        if (camera != null) {
-            camera.stopPreview();
-        }
+        preview.releaseCamera();
     }
 }
