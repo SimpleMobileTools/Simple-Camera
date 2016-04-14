@@ -5,7 +5,6 @@ import android.hardware.Camera;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
@@ -91,27 +90,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        if (changed && getChildCount() > 0) {
-            final View child = getChildAt(0);
-
-            final int width = r - l;
-            final int height = b - t;
-
-            int previewWidth = width;
-            int previewHeight = height;
-            if (previewSize != null) {
-                previewWidth = previewSize.width;
-                previewHeight = previewSize.height;
-            }
-
-            if (width * previewHeight > height * previewWidth) {
-                final int scaledChildWidth = previewWidth * height / previewHeight;
-                child.layout((width - scaledChildWidth) / 2, 0, (width + scaledChildWidth) / 2, height);
-            } else {
-                final int scaledChildHeight = previewHeight * width / previewWidth;
-                child.layout(0, (height - scaledChildHeight) / 2, width, (height + scaledChildHeight) / 2);
-            }
-        }
     }
 
     private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
