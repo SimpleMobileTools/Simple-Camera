@@ -72,32 +72,19 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
     private Camera.PictureCallback takePictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
-            final File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-            if (pictureFile == null) {
+            final File photoFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+            if (photoFile == null) {
                 return;
             }
 
             try {
-                final FileOutputStream fos = new FileOutputStream(pictureFile);
-                final ExifInterface exif = new ExifInterface(pictureFile.toString());
-                Bitmap realImage = BitmapFactory.decodeByteArray(data, 0, data.length);
-
-                if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")) {
-                    realImage = rotateImage(realImage, 90);
-                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")) {
-                    realImage = rotateImage(realImage, 270);
-                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")) {
-                    realImage = rotateImage(realImage, 180);
-                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")) {
-                    realImage = rotateImage(realImage, 90);
-                }
-
-                realImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
+                final FileOutputStream fos = new FileOutputStream(photoFile);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                bitmap = setBitmapRotation(bitmap, photoFile.toString());
+                bitmap = setAspectRatio(bitmap);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.close();
-
-                final String[] picturePath = {pictureFile.getAbsolutePath()};
-                MediaScannerConnection.scanFile(context, picturePath, null, null);
+                scanPhoto(photoFile);
             } catch (FileNotFoundException e) {
                 Log.d(TAG, "onPictureTaken file not found: " + e.getMessage());
             } catch (IOException e) {
@@ -124,10 +111,42 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
         return null;
     }
 
+    private Bitmap setBitmapRotation(Bitmap bitmap, String path) throws IOException {
+        final ExifInterface exif = new ExifInterface(path);
+        if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")) {
+            bitmap = rotateImage(bitmap, 90);
+        } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")) {
+            bitmap = rotateImage(bitmap, 270);
+        } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")) {
+            bitmap = rotateImage(bitmap, 180);
+        } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")) {
+            bitmap = rotateImage(bitmap, 90);
+        }
+        return bitmap;
+    }
+
     public static Bitmap rotateImage(Bitmap source, float angle) {
         final Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
+    private Bitmap setAspectRatio(Bitmap bitmap) {
+        final double wantedAspect = (double) 16 / (double) 9;
+        final double bmpWidth = bitmap.getWidth();
+        final double bmpHeight = bitmap.getHeight();
+
+        if (bmpHeight / bmpWidth < wantedAspect) {
+            final double extraWidth = bmpWidth - (bmpHeight / wantedAspect);
+            final int startX = (int) (extraWidth / 2);
+            return Bitmap.createBitmap(bitmap, startX, 0, (int) (bmpWidth - extraWidth), (int) bmpHeight);
+        }
+        return bitmap;
+    }
+
+    private void scanPhoto(File photo) {
+        final String[] photoPath = {photo.getAbsolutePath()};
+        MediaScannerConnection.scanFile(context, photoPath, null, null);
     }
 
     public void releaseCamera() {

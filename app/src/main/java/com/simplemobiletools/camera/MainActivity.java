@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.viewHolder) RelativeLayout viewHolder;
 
     private static final String TAG = Preview.class.getSimpleName();
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Preview preview;
 
     @Override
