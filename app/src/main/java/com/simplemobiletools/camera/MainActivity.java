@@ -12,11 +12,13 @@ import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.viewHolder) RelativeLayout viewHolder;
 
     private static final String TAG = Preview.class.getSimpleName();
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Preview preview;
 
     @Override
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         viewHolder.addView(preview);
+    }
+
+    @OnClick(R.id.shutter)
+    public void takePicture() {
+        preview.takePicture();
     }
 
     @Override

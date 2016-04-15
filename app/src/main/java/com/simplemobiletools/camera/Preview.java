@@ -1,30 +1,45 @@
 package com.simplemobiletools.camera;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.media.ExifInterface;
+import android.media.MediaScannerConnection;
+import android.os.Environment;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Preview extends ViewGroup implements SurfaceHolder.Callback {
     private static final String TAG = Preview.class.getSimpleName();
+    private static final int MEDIA_TYPE_IMAGE = 1;
 
-    private SurfaceHolder surfaceHolder;
-    private Camera camera;
-    private List<Camera.Size> supportedPreviewSizes;
-    private SurfaceView surfaceView;
-    private Camera.Size previewSize;
+    private static Context context;
+    private static SurfaceHolder surfaceHolder;
+    private static Camera camera;
+    private static List<Camera.Size> supportedPreviewSizes;
+    private static SurfaceView surfaceView;
+    private static Camera.Size previewSize;
 
-    public Preview(Context context) {
-        super(context);
+    public Preview(Context cxt) {
+        super(cxt);
+        context = cxt;
     }
 
-    public Preview(Context context, SurfaceView sv) {
-        super(context);
+    public Preview(Context cxt, SurfaceView sv) {
+        super(cxt);
+        context = cxt;
 
         surfaceView = sv;
         surfaceHolder = surfaceView.getHolder();
@@ -48,6 +63,71 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
             params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             camera.setParameters(params);
         }
+    }
+
+    public void takePicture() {
+        camera.takePicture(null, null, takePictureCallback);
+    }
+
+    private Camera.PictureCallback takePictureCallback = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            final File pictureFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+            if (pictureFile == null) {
+                return;
+            }
+
+            try {
+                final FileOutputStream fos = new FileOutputStream(pictureFile);
+                final ExifInterface exif = new ExifInterface(pictureFile.toString());
+                Bitmap realImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")) {
+                    realImage = rotateImage(realImage, 90);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")) {
+                    realImage = rotateImage(realImage, 270);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")) {
+                    realImage = rotateImage(realImage, 180);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")) {
+                    realImage = rotateImage(realImage, 90);
+                }
+
+                realImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+                fos.close();
+
+                final String[] picturePath = {pictureFile.getAbsolutePath()};
+                MediaScannerConnection.scanFile(context, picturePath, null, null);
+            } catch (FileNotFoundException e) {
+                Log.d(TAG, "onPictureTaken file not found: " + e.getMessage());
+            } catch (IOException e) {
+                Log.e(TAG, "onPictureTaken ioexception " + e.getMessage());
+            }
+        }
+    };
+
+    private static File getOutputMediaFile(int type) {
+        final String appName = context.getResources().getString(R.string.app_name);
+        final File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), appName);
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        if (type == MEDIA_TYPE_IMAGE) {
+            return new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
+        }
+
+        return null;
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        final Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
     public void releaseCamera() {
