@@ -14,9 +14,9 @@
         android:id="@+id/shutter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/preview_btn_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/preview_btn_margin"
         android:src="@mipmap/ic_launcher"/>
 
 </RelativeLayout>

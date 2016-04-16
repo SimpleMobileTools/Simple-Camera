@@ -62,6 +62,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
             final Camera.Parameters params = camera.getParameters();
             params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             camera.setParameters(params);
+            camera.setDisplayOrientation(90);
         }
     }
 
@@ -191,9 +192,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
     }
 
-    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
+    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int height, int width) {
         final double ASPECT_TOLERANCE = 0.1;
-        double targetRatio = (double) h / w;
+        double targetRatio = (double) height / width;
 
         if (sizes == null)
             return null;
@@ -205,18 +206,18 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
             double ratio = (double) size.width / size.height;
             if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
                 continue;
-            if (Math.abs(size.height - h) < minDiff) {
+            if (Math.abs(size.height - height) < minDiff) {
                 optimalSize = size;
-                minDiff = Math.abs(size.height - h);
+                minDiff = Math.abs(size.height - height);
             }
         }
 
         if (optimalSize == null) {
             minDiff = Double.MAX_VALUE;
             for (Camera.Size size : sizes) {
-                if (Math.abs(size.height - h) < minDiff) {
+                if (Math.abs(size.height - height) < minDiff) {
                     optimalSize = size;
-                    minDiff = Math.abs(size.height - h);
+                    minDiff = Math.abs(size.height - height);
                 }
             }
         }
