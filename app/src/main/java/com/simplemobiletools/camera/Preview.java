@@ -114,13 +114,14 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
 
     private Bitmap setBitmapRotation(Bitmap bitmap, String path) throws IOException {
         final ExifInterface exif = new ExifInterface(path);
-        if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")) {
+        final String orientation = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        if (orientation.equalsIgnoreCase("6")) {
             bitmap = rotateImage(bitmap, 90);
-        } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")) {
+        } else if (orientation.equalsIgnoreCase("8")) {
             bitmap = rotateImage(bitmap, 270);
-        } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")) {
+        } else if (orientation.equalsIgnoreCase("3")) {
             bitmap = rotateImage(bitmap, 180);
-        } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")) {
+        } else if (orientation.equalsIgnoreCase("0")) {
             bitmap = rotateImage(bitmap, 90);
         }
         return bitmap;
