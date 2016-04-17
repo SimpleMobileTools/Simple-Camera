@@ -4,13 +4,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.File;
@@ -18,12 +21,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Preview extends ViewGroup implements SurfaceHolder.Callback {
+public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener {
     private static final String TAG = Preview.class.getSimpleName();
     private static final int MEDIA_TYPE_IMAGE = 1;
+    private static final int FOCUS_AREA_SIZE = 200;
 
     private static Context context;
     private static SurfaceHolder surfaceHolder;
@@ -45,6 +50,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        setOnTouchListener(this);
     }
 
     public void setCamera(Camera newCamera) {
@@ -151,6 +157,50 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
         MediaScannerConnection.scanFile(context, photoPath, null, null);
     }
 
+    private void focusArea(MotionEvent event) {
+        if (camera == null)
+            return;
+
+        camera.cancelAutoFocus();
+        Rect focusRect = calculateFocusArea(event.getX(), event.getY());
+
+        final Camera.Parameters parameters = camera.getParameters();
+        if (parameters.getMaxNumFocusAreas() > 0) {
+            final List<Camera.Area> focusAreas = new ArrayList<>(1);
+            focusAreas.add(new Camera.Area(focusRect, 1000));
+            parameters.setFocusAreas(focusAreas);
+        }
+
+        camera.setParameters(parameters);
+        camera.autoFocus(new Camera.AutoFocusCallback() {
+            @Override
+            public void onAutoFocus(boolean success, Camera camera) {
+                camera.cancelAutoFocus();
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                camera.setParameters(parameters);
+            }
+        });
+    }
+
+    private Rect calculateFocusArea(float x, float y) {
+        int left = clamp(Float.valueOf((x / surfaceView.getWidth()) * 2000 - 1000).intValue());
+        int top = clamp(Float.valueOf((y / surfaceView.getHeight()) * 2000 - 1000).intValue());
+
+        return new Rect(left, top, Math.min(left + FOCUS_AREA_SIZE, 1000), Math.min(top + FOCUS_AREA_SIZE, 1000));
+    }
+
+    private int clamp(int touchCoord) {
+        if (Math.abs(touchCoord) + FOCUS_AREA_SIZE / 2 > 1000) {
+            if (touchCoord > 0) {
+                return 1000 - FOCUS_AREA_SIZE / 2;
+            } else {
+                return -1000 + FOCUS_AREA_SIZE / 2;
+            }
+        }
+
+        return touchCoord - FOCUS_AREA_SIZE / 2;
+    }
+
     public void releaseCamera() {
         if (camera != null) {
             camera.stopPreview();
@@ -234,5 +284,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback {
         if (supportedPreviewSizes != null) {
             previewSize = getOptimalPreviewSize(supportedPreviewSizes, width, height);
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        focusArea(event);
+        return false;
     }
 }
