@@ -162,8 +162,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             return;
 
         camera.cancelAutoFocus();
-        Rect focusRect = calculateFocusArea(event.getX(), event.getY());
-
+        final Rect focusRect = calculateFocusArea(event.getX(), event.getY());
         final Camera.Parameters parameters = camera.getParameters();
         if (parameters.getMaxNumFocusAreas() > 0) {
             final List<Camera.Area> focusAreas = new ArrayList<>(1);
@@ -183,22 +182,18 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private Rect calculateFocusArea(float x, float y) {
-        int left = clamp(Float.valueOf((x / surfaceView.getWidth()) * 2000 - 1000).intValue());
-        int top = clamp(Float.valueOf((y / surfaceView.getHeight()) * 2000 - 1000).intValue());
+        int left = Float.valueOf((x / surfaceView.getWidth()) * 2000 - 1000).intValue();
+        int top = Float.valueOf((y / surfaceView.getHeight()) * 2000 - 1000).intValue();
 
-        return new Rect(left, top, Math.min(left + FOCUS_AREA_SIZE, 1000), Math.min(top + FOCUS_AREA_SIZE, 1000));
-    }
+        int tmp = left;
+        left = top;
+        top = -tmp;
 
-    private int clamp(int touchCoord) {
-        if (Math.abs(touchCoord) + FOCUS_AREA_SIZE / 2 > 1000) {
-            if (touchCoord > 0) {
-                return 1000 - FOCUS_AREA_SIZE / 2;
-            } else {
-                return -1000 + FOCUS_AREA_SIZE / 2;
-            }
-        }
-
-        return touchCoord - FOCUS_AREA_SIZE / 2;
+        final int rectLeft = Math.max(left - FOCUS_AREA_SIZE / 2, -1000);
+        final int rectTop = Math.max(top - FOCUS_AREA_SIZE / 2, -1000);
+        final int rectRight = Math.min(left + FOCUS_AREA_SIZE / 2, 1000);
+        final int rectBottom = Math.min(top + FOCUS_AREA_SIZE / 2, 1000);
+        return new Rect(rectLeft, rectTop, rectRight, rectBottom);
     }
 
     public void releaseCamera() {
