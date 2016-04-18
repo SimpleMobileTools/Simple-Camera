@@ -39,7 +39,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         canTakePicture = true;
-        setOnTouchListener(this);
+        surfaceView.setOnTouchListener(this);
     }
 
     public void setCamera(Camera newCamera) {
