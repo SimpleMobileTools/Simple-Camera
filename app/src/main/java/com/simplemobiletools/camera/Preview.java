@@ -1,14 +1,9 @@
 package com.simplemobiletools.camera;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.hardware.Camera;
-import android.media.ExifInterface;
-import android.media.MediaScannerConnection;
-import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -16,40 +11,34 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener {
     private static final String TAG = Preview.class.getSimpleName();
-    private static final int MEDIA_TYPE_IMAGE = 1;
     private static final int FOCUS_AREA_SIZE = 200;
+    private static final int PHOTO_PREVIEW_LENGTH = 1000;
 
-    private static Context context;
     private static SurfaceHolder surfaceHolder;
     private static Camera camera;
     private static List<Camera.Size> supportedPreviewSizes;
     private static SurfaceView surfaceView;
     private static Camera.Size previewSize;
+    private static boolean canTakePicture;
 
     public Preview(Context cxt) {
         super(cxt);
-        context = cxt;
     }
 
     public Preview(Context cxt, SurfaceView sv) {
         super(cxt);
-        context = cxt;
 
         surfaceView = sv;
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        canTakePicture = true;
         setOnTouchListener(this);
     }
 
@@ -73,89 +62,26 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public void takePicture() {
-        camera.takePicture(null, null, takePictureCallback);
+        if (canTakePicture) {
+            camera.takePicture(null, null, takePictureCallback);
+        }
+        canTakePicture = false;
     }
 
     private Camera.PictureCallback takePictureCallback = new Camera.PictureCallback() {
         @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            final File photoFile = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-            if (photoFile == null) {
-                return;
-            }
+        public void onPictureTaken(byte[] data, Camera cam) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    camera.startPreview();
+                    canTakePicture = true;
+                }
+            }, PHOTO_PREVIEW_LENGTH);
 
-            try {
-                final FileOutputStream fos = new FileOutputStream(photoFile);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                bitmap = setBitmapRotation(bitmap, photoFile.toString());
-                bitmap = setAspectRatio(bitmap);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.close();
-                scanPhoto(photoFile);
-            } catch (FileNotFoundException e) {
-                Log.d(TAG, "onPictureTaken file not found: " + e.getMessage());
-            } catch (IOException e) {
-                Log.e(TAG, "onPictureTaken ioexception " + e.getMessage());
-            }
+            new PhotoProcessor(getContext()).execute(data);
         }
     };
-
-    private static File getOutputMediaFile(int type) {
-        final String appName = context.getResources().getString(R.string.app_name);
-        final File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), appName);
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-
-        final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        if (type == MEDIA_TYPE_IMAGE) {
-            return new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg");
-        }
-
-        return null;
-    }
-
-    private Bitmap setBitmapRotation(Bitmap bitmap, String path) throws IOException {
-        final ExifInterface exif = new ExifInterface(path);
-        final String orientation = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-        if (orientation.equalsIgnoreCase("6")) {
-            bitmap = rotateImage(bitmap, 90);
-        } else if (orientation.equalsIgnoreCase("8")) {
-            bitmap = rotateImage(bitmap, 270);
-        } else if (orientation.equalsIgnoreCase("3")) {
-            bitmap = rotateImage(bitmap, 180);
-        } else if (orientation.equalsIgnoreCase("0")) {
-            bitmap = rotateImage(bitmap, 90);
-        }
-        return bitmap;
-    }
-
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        final Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-    }
-
-    private Bitmap setAspectRatio(Bitmap bitmap) {
-        final double wantedAspect = (double) 16 / (double) 9;
-        final double bmpWidth = bitmap.getWidth();
-        final double bmpHeight = bitmap.getHeight();
-
-        if (bmpHeight / bmpWidth < wantedAspect) {
-            final double extraWidth = bmpWidth - (bmpHeight / wantedAspect);
-            final int startX = (int) (extraWidth / 2);
-            return Bitmap.createBitmap(bitmap, startX, 0, (int) (bmpWidth - extraWidth), (int) bmpHeight);
-        }
-        return bitmap;
-    }
-
-    private void scanPhoto(File photo) {
-        final String[] photoPath = {photo.getAbsolutePath()};
-        MediaScannerConnection.scanFile(context, photoPath, null, null);
-    }
 
     private void focusArea(MotionEvent event) {
         if (camera == null)
