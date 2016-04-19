@@ -49,7 +49,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     public void setCamera(int cameraId) {
         currCameraId = cameraId;
-        final Camera newCamera = Camera.open(cameraId);
+        Camera newCamera;
+        try {
+            newCamera = Camera.open(cameraId);
+        } catch (Exception e) {
+            Utils.showToast(getContext(), R.string.camera_open_error);
+            Log.e(TAG, "setCamera open " + e.getMessage());
+            return;
+        }
+
         if (camera == newCamera) {
             return;
         }
@@ -73,7 +81,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 try {
                     camera.setPreviewDisplay(surfaceHolder);
                 } catch (IOException e) {
-                    Log.e(TAG, "setCamera " + e.getMessage());
+                    Log.e(TAG, "setCamera setPreviewDisplay " + e.getMessage());
                 }
                 setupPreview();
             }

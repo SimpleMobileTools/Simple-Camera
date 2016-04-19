@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Simple Camera</string>
+    <string name="camera_open_error">An error occurred at obtaining the camera</string>
 </resources>
