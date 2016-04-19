@@ -210,9 +210,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     private void setupPreview() {
         canTakePicture = true;
-        if (camera != null) {
+        if (camera != null && previewSize != null) {
             final Camera.Parameters parameters = camera.getParameters();
             parameters.setPreviewSize(previewSize.width, previewSize.height);
+
             requestLayout();
 
             camera.setParameters(parameters);
