@@ -37,7 +37,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.toggle_camera)
     public void toggleCamera() {
+        if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK)
+            currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
+        else
+            currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
 
+        preview.releaseCamera();
+        preview.setCamera(currCamera);
     }
 
     @OnClick(R.id.shutter)
@@ -53,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         if (cnt == 1) {
             toggleCameraBtn.setVisibility(View.INVISIBLE);
         }
-        Camera camera = Camera.open(currCamera);
-        preview.setCamera(camera);
+        preview.setCamera(currCamera);
     }
 
     @Override

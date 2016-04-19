@@ -1,11 +1,13 @@
 package com.simplemobiletools.camera;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -26,23 +28,28 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static SurfaceView surfaceView;
     private static Camera.Size previewSize;
     private static boolean canTakePicture;
+    private static Activity activity;
+    private static int currCameraId;
 
-    public Preview(Context cxt) {
-        super(cxt);
+    public Preview(Context context) {
+        super(context);
     }
 
-    public Preview(Context cxt, SurfaceView sv) {
-        super(cxt);
+    public Preview(Activity act, SurfaceView sv) {
+        super(act);
 
+        activity = act;
         surfaceView = sv;
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        canTakePicture = true;
+        canTakePicture = false;
         surfaceView.setOnTouchListener(this);
     }
 
-    public void setCamera(Camera newCamera) {
+    public void setCamera(int cameraId) {
+        currCameraId = cameraId;
+        final Camera newCamera = Camera.open(cameraId);
         if (camera == newCamera) {
             return;
         }
@@ -55,10 +62,51 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             requestLayout();
 
             final Camera.Parameters params = camera.getParameters();
-            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            final List<String> focusModes = params.getSupportedFocusModes();
+            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+
             camera.setParameters(params);
-            camera.setDisplayOrientation(90);
+            setCameraDisplayOrientation(cameraId, camera);
+
+            if (canTakePicture) {
+                try {
+                    camera.setPreviewDisplay(surfaceHolder);
+                } catch (IOException e) {
+                    Log.e(TAG, "setCamera " + e.getMessage());
+                }
+                setupPreview();
+            }
         }
+    }
+
+    public static void setCameraDisplayOrientation(int cameraId, android.hardware.Camera camera) {
+        final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;
+        } else {
+            result = (info.orientation - degrees + 360) % 360;
+        }
+        camera.setDisplayOrientation(result);
     }
 
     public void takePicture() {
@@ -74,12 +122,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    camera.startPreview();
+                    if (camera != null)
+                        camera.startPreview();
+
                     canTakePicture = true;
                 }
             }, PHOTO_PREVIEW_LENGTH);
 
-            new PhotoProcessor(getContext()).execute(data);
+            final Camera.CameraInfo info = Utils.getCameraInfo(currCameraId);
+            new PhotoProcessor(getContext(), info.facing).execute(data);
         }
     };
 
@@ -101,7 +152,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             @Override
             public void onAutoFocus(boolean success, Camera camera) {
                 camera.cancelAutoFocus();
-                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                final List<String> focusModes = parameters.getSupportedFocusModes();
+                if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+                    parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+
                 camera.setParameters(parameters);
             }
         });
@@ -134,7 +188,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     public void surfaceCreated(SurfaceHolder holder) {
         try {
             if (camera != null) {
-                camera.setPreviewDisplay(holder);
+                camera.setPreviewDisplay(surfaceHolder);
             }
         } catch (IOException e) {
             Log.e(TAG, "surfaceCreated IOException " + e.getMessage());
@@ -143,6 +197,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        setupPreview();
+    }
+
+    private void setupPreview() {
+        canTakePicture = true;
         if (camera != null) {
             final Camera.Parameters parameters = camera.getParameters();
             parameters.setPreviewSize(previewSize.width, previewSize.height);

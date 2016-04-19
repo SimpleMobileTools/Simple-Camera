@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.os.AsyncTask;
@@ -19,10 +20,12 @@ import java.util.Date;
 
 public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
     private static final String TAG = PhotoProcessor.class.getSimpleName();
-    private static Context context;
+    private static Context mContext;
+    private static int mCameraId;
 
-    public PhotoProcessor(Context cxt) {
-        context = cxt;
+    public PhotoProcessor(Context context, int cameraId) {
+        mContext = context;
+        mCameraId = cameraId;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
     }
 
     private static File getOutputMediaFile() {
-        final String appName = context.getResources().getString(R.string.app_name);
+        final String appName = mContext.getResources().getString(R.string.app_name);
         final File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), appName);
 
         if (!mediaStorageDir.exists()) {
@@ -67,21 +70,28 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
     private Bitmap setBitmapRotation(Bitmap bitmap, String path) throws IOException {
         final ExifInterface exif = new ExifInterface(path);
         final String orientation = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+
+        float angle = 0f;
         if (orientation.equalsIgnoreCase("6")) {
-            bitmap = rotateImage(bitmap, 90);
+            angle = 90;
         } else if (orientation.equalsIgnoreCase("8")) {
-            bitmap = rotateImage(bitmap, 270);
+            angle = 270;
         } else if (orientation.equalsIgnoreCase("3")) {
-            bitmap = rotateImage(bitmap, 180);
+            angle = 180;
         } else if (orientation.equalsIgnoreCase("0")) {
-            bitmap = rotateImage(bitmap, 90);
+            angle = 90;
         }
-        return bitmap;
+        return rotateImage(bitmap, angle);
     }
 
     public static Bitmap rotateImage(Bitmap source, float angle) {
         final Matrix matrix = new Matrix();
         matrix.postRotate(angle);
+
+        final Camera.CameraInfo info = Utils.getCameraInfo(mCameraId);
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT)
+            matrix.preScale(-1.f, 1.f);
+
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
@@ -100,6 +110,6 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
 
     private void scanPhoto(File photo) {
         final String[] photoPath = {photo.getAbsolutePath()};
-        MediaScannerConnection.scanFile(context, photoPath, null, null);
+        MediaScannerConnection.scanFile(mContext, photoPath, null, null);
     }
 }
