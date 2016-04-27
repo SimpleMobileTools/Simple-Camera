@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import butterknife.Bind;
@@ -17,9 +18,11 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.viewHolder) RelativeLayout viewHolder;
     @Bind(R.id.toggle_camera) View toggleCameraBtn;
+    @Bind(R.id.toggle_flash) ImageView toggleFlashBtn;
 
     private Preview preview;
     private int currCamera;
+    private boolean isFlashEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +40,31 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.toggle_camera)
     public void toggleCamera() {
-        if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK)
+        if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
             currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
-        else
+        } else {
             currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+        }
 
+        disableFlash();
         preview.releaseCamera();
         preview.setCamera(currCamera);
+    }
+
+    @OnClick(R.id.toggle_flash)
+    public void toggleFlash() {
+        if (isFlashEnabled) {
+            disableFlash();
+        } else if (preview.enableFlash()) {
+            isFlashEnabled = preview.enableFlash();
+            toggleFlashBtn.setImageResource(R.mipmap.flash_on);
+        }
+    }
+
+    private void disableFlash() {
+        preview.disableFlash();
+        isFlashEnabled = false;
+        toggleFlashBtn.setImageResource(R.mipmap.flash_off);
     }
 
     @OnClick(R.id.shutter)

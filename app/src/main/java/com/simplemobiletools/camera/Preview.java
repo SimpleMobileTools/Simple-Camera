@@ -30,6 +30,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean canTakePicture;
     private static Activity activity;
     private static int currCameraId;
+    private static boolean isFlashEnabled;
+    private static Camera.Parameters parameters;
 
     public Preview(Context context) {
         super(context);
@@ -66,15 +68,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         camera = newCamera;
 
         if (camera != null) {
-            supportedPreviewSizes = camera.getParameters().getSupportedPreviewSizes();
+            parameters = camera.getParameters();
+            supportedPreviewSizes = parameters.getSupportedPreviewSizes();
             requestLayout();
 
-            final Camera.Parameters params = camera.getParameters();
-            final List<String> focusModes = params.getSupportedFocusModes();
+            final List<String> focusModes = parameters.getSupportedFocusModes();
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
-                params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
-            camera.setParameters(params);
+            camera.setParameters(parameters);
             setCameraDisplayOrientation(cameraId, camera);
 
             if (canTakePicture) {
@@ -119,6 +121,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     public void takePicture() {
         if (canTakePicture) {
+            if (isFlashEnabled) {
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                camera.setParameters(parameters);
+            }
             camera.takePicture(null, null, takePictureCallback);
         }
         canTakePicture = false;
@@ -139,6 +145,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
             final Camera.CameraInfo info = Utils.getCameraInfo(currCameraId);
             new PhotoProcessor(getContext(), info.facing).execute(data);
+
+            if (isFlashEnabled) {
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                camera.setParameters(parameters);
+            }
         }
     };
 
@@ -148,7 +159,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
         camera.cancelAutoFocus();
         final Rect focusRect = calculateFocusArea(event.getX(), event.getY());
-        final Camera.Parameters parameters = camera.getParameters();
         if (parameters.getMaxNumFocusAreas() > 0) {
             final List<Camera.Area> focusAreas = new ArrayList<>(1);
             focusAreas.add(new Camera.Area(focusRect, 1000));
@@ -211,7 +221,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private void setupPreview() {
         canTakePicture = true;
         if (camera != null && previewSize != null) {
-            final Camera.Parameters parameters = camera.getParameters();
             parameters.setPreviewSize(previewSize.width, previewSize.height);
 
             requestLayout();
@@ -279,5 +288,18 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     public boolean onTouch(View v, MotionEvent event) {
         focusArea(event);
         return false;
+    }
+
+    public boolean enableFlash() {
+        if (!Utils.hasFlash(camera)) {
+            return false;
+        }
+
+        isFlashEnabled = true;
+        return true;
+    }
+
+    public void disableFlash() {
+        isFlashEnabled = false;
     }
 }

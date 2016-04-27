@@ -37,8 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_launcher"
-            android:visibility="invisible"/>
+            android:src="@mipmap/flash_off"/>
 
     </LinearLayout>
 </RelativeLayout>
