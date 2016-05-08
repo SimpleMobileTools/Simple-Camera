@@ -47,6 +47,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         canTakePicture = false;
         surfaceView.setOnTouchListener(this);
+        isFlashEnabled = false;
     }
 
     public void setCamera(int cameraId) {
@@ -123,8 +124,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (canTakePicture) {
             if (isFlashEnabled) {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                camera.setParameters(parameters);
+            } else {
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
+            camera.setParameters(parameters);
             camera.takePicture(null, null, takePictureCallback);
         }
         canTakePicture = false;
