@@ -11,14 +11,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.viewHolder) RelativeLayout viewHolder;
-    @Bind(R.id.toggle_camera) View toggleCameraBtn;
-    @Bind(R.id.toggle_flash) ImageView toggleFlashBtn;
+    @BindView(R.id.viewHolder) RelativeLayout viewHolder;
+    @BindView(R.id.toggle_camera) View toggleCameraBtn;
+    @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
 
     private Preview preview;
     private int currCamera;
