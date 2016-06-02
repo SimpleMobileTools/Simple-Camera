@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewHolder) RelativeLayout viewHolder;
-    @BindView(R.id.toggle_camera) View toggleCameraBtn;
+    @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
 
     private Preview preview;
@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
     public void toggleCamera() {
         if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
             currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            toggleCameraBtn.setImageResource(R.mipmap.camera_rear);
         } else {
             currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+            toggleCameraBtn.setImageResource(R.mipmap.camera_front);
         }
 
         disableFlash();

@@ -1,4 +1,6 @@
 <resources>
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="preview_btn_margin">32dp</dimen>
+    <dimen name="side_icon_size">36dp</dimen>
+    <dimen name="main_icon_size">48dp</dimen>
 </resources>
