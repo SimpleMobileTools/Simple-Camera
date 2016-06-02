@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         viewHolder.addView(preview);
-        hideNavigationBarIcons();
     }
 
     @OnClick(R.id.toggle_camera)
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             toggleCameraBtn.setVisibility(View.INVISIBLE);
         }
         preview.setCamera(currCamera);
+        hideNavigationBarIcons();
     }
 
     @Override
