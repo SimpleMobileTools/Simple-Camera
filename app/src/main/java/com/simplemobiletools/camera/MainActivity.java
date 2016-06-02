@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -73,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.shutter)
     public void takePicture() {
         preview.takePicture();
+    }
+
+    @OnClick(R.id.about)
+    public void launchAbout() {
+        final Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+        startActivity(intent);
     }
 
     private void hideNavigationBarIcons() {

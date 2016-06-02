@@ -10,6 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <ImageView
+        android:id="@+id/about"
+        android:layout_width="@dimen/side_icon_size"
+        android:layout_height="@dimen/side_icon_size"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/activity_margin"
+        android:src="@mipmap/about"/>
+
     <LinearLayout
         android:id="@+id/btn_holder"
         android:layout_width="match_parent"

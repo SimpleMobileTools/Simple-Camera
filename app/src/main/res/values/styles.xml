@@ -9,6 +9,8 @@
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
     </style>
 
+    <style name="FullScreenTheme" parent="AppTheme.Base"/>
+
     <style name="AppTheme.ActionBarStyle" parent="@style/Base.Widget.AppCompat.ActionBar">
         <item name="background">@color/colorPrimary</item>
         <item name="titleTextStyle">@style/AppTheme.ActionBar.TitleTextStyle</item>
