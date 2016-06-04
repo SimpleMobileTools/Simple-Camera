@@ -3,7 +3,7 @@
 
 A front/rear camera with flash.
 
-This is a camera useable for simple photo taking suitable well enough for very most people. It can switch between front and rear camera, as well as the flash can be turned on and off (no auto mode). Does not require any unnecessary permissions needed by many other cameras.
+This is a camera useable for simple photo taking suitable well enough for very most people. It can switch between front and rear camera, as well as the flash can be turned on and off. Does not require any unnecessary permissions needed by many other cameras.
 
 Unable to record videos for now.
 
