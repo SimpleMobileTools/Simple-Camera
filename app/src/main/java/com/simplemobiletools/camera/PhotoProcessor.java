@@ -41,7 +41,9 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             bitmap = setBitmapRotation(bitmap, photoFile.toString());
             bitmap = setAspectRatio(bitmap);
+            bitmap = checkLandscape(bitmap);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
             fos.close();
             scanPhoto(photoFile);
         } catch (FileNotFoundException e) {
@@ -81,6 +83,7 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
         } else if (orientation.equalsIgnoreCase("0")) {
             angle = 90;
         }
+
         return rotateImage(bitmap, angle);
     }
 
@@ -93,6 +96,23 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             matrix.preScale(-1.f, 1.f);
 
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
+    private Bitmap checkLandscape(Bitmap bitmap) {
+        int angle = 0;
+        if (MainActivity.orientation == Constants.ORIENT_LANDSCAPE_LEFT) {
+            angle = -90;
+        } else if (MainActivity.orientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
+            angle = 90;
+        }
+
+        if (angle != 0) {
+            Matrix matrix = new Matrix();
+            matrix.setRotate(angle);
+            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+        }
+
+        return bitmap;
     }
 
     private Bitmap setAspectRatio(Bitmap bitmap) {

@@ -2,6 +2,10 @@ package com.simplemobiletools.camera;
 
 import android.content.Intent;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceView;
@@ -16,11 +20,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
     @BindView(R.id.viewHolder) RelativeLayout viewHolder;
     @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
 
+    public static int orientation;
+    private static SensorManager sensorManager;
     private Preview preview;
     private int currCamera;
     private boolean isFlashEnabled;
@@ -37,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         viewHolder.addView(preview);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
     }
 
     @OnClick(R.id.toggle_camera)
@@ -95,11 +102,37 @@ public class MainActivity extends AppCompatActivity {
         }
         preview.setCamera(currCamera);
         hideNavigationBarIcons();
+
+        if (sensorManager != null) {
+            final Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         preview.releaseCamera();
+
+        if (sensorManager != null)
+            sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.values[1] < 6.5 && event.values[1] > -6.5) {
+            if (event.values[0] > 0) {
+                orientation = Constants.ORIENT_LANDSCAPE_LEFT;
+            } else {
+                orientation = Constants.ORIENT_LANDSCAPE_RIGHT;
+            }
+        } else {
+            orientation = Constants.ORIENT_PORTRAIT;
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
