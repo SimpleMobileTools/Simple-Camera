@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -127,6 +128,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             } else {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
+            MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
             camera.setParameters(parameters);
             camera.takePicture(null, null, takePictureCallback);
         }
