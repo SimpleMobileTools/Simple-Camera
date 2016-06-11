@@ -1,6 +1,7 @@
 package com.simplemobiletools.camera;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -24,12 +25,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @BindView(R.id.viewHolder) RelativeLayout viewHolder;
     @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
+    @BindView(R.id.toggle_videocam) ImageView togglePhotoVideoBtn;
+    @BindView(R.id.shutter) ImageView shutterBtn;
 
     public static int orientation;
     private static SensorManager sensorManager;
     private Preview preview;
     private int currCamera;
     private boolean isFlashEnabled;
+    private boolean isPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         viewHolder.addView(preview);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        isPhoto = true;
     }
 
     @OnClick(R.id.toggle_camera)
@@ -78,8 +83,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @OnClick(R.id.shutter)
-    public void takePicture() {
-        preview.takePicture();
+    public void shutterPressed() {
+        if (isPhoto) {
+            preview.takePicture();
+        } else {
+
+        }
     }
 
     @OnClick(R.id.about)
@@ -88,9 +97,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivity(intent);
     }
 
-    @OnClick(R.id.videocam)
+    @OnClick(R.id.toggle_videocam)
     public void toggleVideo() {
+        final Resources res = getResources();
+        isPhoto = !isPhoto;
 
+        if (isPhoto) {
+            togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
+            shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
+        } else {
+            togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
+            shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+        }
     }
 
     private void hideNavigationBarIcons() {
