@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivity(intent);
     }
 
+    @OnClick(R.id.videocam)
+    public void toggleVideo() {
+
+    }
+
     private void hideNavigationBarIcons() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
     }
