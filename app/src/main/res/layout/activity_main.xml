@@ -12,11 +12,22 @@
 
     <ImageView
         android:id="@+id/about"
-        android:layout_width="@dimen/side_icon_size"
-        android:layout_height="@dimen/side_icon_size"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/activity_margin"
+        android:padding="@dimen/side_icon_padding"
         android:src="@mipmap/about"/>
+
+    <ImageView
+        android:id="@+id/videocam"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/about"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:padding="@dimen/side_icon_padding"
+        android:src="@mipmap/videocam"/>
 
     <LinearLayout
         android:id="@+id/btn_holder"
@@ -28,23 +39,25 @@
 
         <ImageView
             android:id="@+id/toggle_camera"
-            android:layout_width="@dimen/side_icon_size"
-            android:layout_height="@dimen/side_icon_size"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
+            android:padding="@dimen/side_icon_padding"
             android:src="@mipmap/camera_front"/>
 
         <ImageView
             android:id="@+id/shutter"
-            android:layout_width="@dimen/main_icon_size"
-            android:layout_height="@dimen/main_icon_size"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
             android:src="@mipmap/camera"/>
 
         <ImageView
             android:id="@+id/toggle_flash"
-            android:layout_width="@dimen/side_icon_size"
-            android:layout_height="@dimen/side_icon_size"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
+            android:padding="@dimen/side_icon_padding"
             android:src="@mipmap/flash_off"/>
 
     </LinearLayout>
