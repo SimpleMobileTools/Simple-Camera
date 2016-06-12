@@ -213,14 +213,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.values[1] < 6.5 && event.values[1] > -6.5) {
+        if (event.values[0] < 6.5 && event.values[0] > -6.5) {
+            orientation = Constants.ORIENT_PORTRAIT;
+        } else {
             if (event.values[0] > 0) {
                 orientation = Constants.ORIENT_LANDSCAPE_LEFT;
             } else {
                 orientation = Constants.ORIENT_LANDSCAPE_RIGHT;
             }
-        } else {
-            orientation = Constants.ORIENT_PORTRAIT;
         }
     }
 
