@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="camera_open_error">An error occurred at obtaining the camera</string>
+    <string name="video_creating_error">An error occurred at creating the video file</string>
+    <string name="video_directory">Simple Videos</string>
+    <string name="photo_directory">Simple Photos</string>
 
     <!-- About -->
     <string name="about">About</string>

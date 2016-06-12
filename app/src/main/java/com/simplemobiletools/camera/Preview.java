@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.media.CamcorderProfile;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -33,6 +35,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static int currCameraId;
     private static boolean isFlashEnabled;
     private static Camera.Parameters parameters;
+
+    private static MediaRecorder recorder;
+    private static boolean isRecording;
+    private static boolean isVideoMode;
+    private static String curVideoPath;
 
     public Preview(Context context) {
         super(context);
@@ -68,7 +75,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
         releaseCamera();
         camera = newCamera;
-
         if (camera != null) {
             parameters = camera.getParameters();
             supportedPreviewSizes = parameters.getSupportedPreviewSizes();
@@ -90,6 +96,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 setupPreview();
             }
         }
+
+        if (isVideoMode)
+            initRecorder();
     }
 
     public static void setCameraDisplayOrientation(int cameraId, android.hardware.Camera camera) {
@@ -141,8 +150,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (camera != null)
+                    if (camera != null) {
                         camera.startPreview();
+                    }
 
                     canTakePicture = true;
                 }
@@ -200,6 +210,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public void releaseCamera() {
+        stopRecording();
+
         if (camera != null) {
             camera.stopPreview();
             camera.release();
@@ -239,6 +251,19 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     public void surfaceDestroyed(SurfaceHolder holder) {
         if (camera != null) {
             camera.stopPreview();
+        }
+
+        cleanupRecorder();
+    }
+
+    private void cleanupRecorder() {
+        if (recorder != null) {
+            if (isRecording) {
+                recorder.stop();
+            }
+
+            recorder.release();
+            recorder = null;
         }
     }
 
@@ -306,5 +331,65 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     public void disableFlash() {
         isFlashEnabled = false;
+    }
+
+    public void initPhotoMode() {
+        isRecording = false;
+        isVideoMode = false;
+        stopRecording();
+        cleanupRecorder();
+    }
+
+    // VIDEO RECORDING
+    public void initRecorder() {
+        isRecording = false;
+        isVideoMode = true;
+        recorder = new MediaRecorder();
+        recorder.setCamera(camera);
+        recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+        recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+
+        curVideoPath = Utils.getOutputMediaFile(getContext(), false);
+        if (curVideoPath.isEmpty()) {
+            Utils.showToast(getContext(), R.string.video_creating_error);
+            return;
+        }
+
+        final CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        recorder.setProfile(cpHigh);
+        recorder.setOutputFile(curVideoPath);
+        recorder.setPreviewDisplay(surfaceHolder.getSurface());
+        recorder.setOrientationHint(90);
+
+        try {
+            recorder.prepare();
+        } catch (IllegalStateException e) {
+            Log.e(TAG, "initRecorder " + e.getMessage());
+        } catch (IOException e) {
+            Log.e(TAG, "initRecorder " + e.getMessage());
+        }
+    }
+
+    public boolean toggleRecording() {
+        if (isRecording) {
+            stopRecording();
+            initRecorder();
+        } else {
+            camera.lock();
+            camera.unlock();
+            recorder.start();
+            isRecording = true;
+        }
+        return isRecording;
+    }
+
+    private void stopRecording() {
+        if (recorder != null && isRecording) {
+            recorder.stop();
+            recorder = null;
+        }
+
+        isRecording = false;
+        Utils.scanFile(curVideoPath, getContext());
     }
 }

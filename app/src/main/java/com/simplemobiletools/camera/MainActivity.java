@@ -87,7 +87,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (isPhoto) {
             preview.takePicture();
         } else {
-
+            final Resources res = getResources();
+            final boolean isRecording = preview.toggleRecording();
+            if (isRecording) {
+                shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_stop));
+                toggleCameraBtn.setVisibility(View.INVISIBLE);
+            } else {
+                shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+                toggleCameraBtn.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -99,16 +107,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_videocam)
     public void toggleVideo() {
-        final Resources res = getResources();
         isPhoto = !isPhoto;
+        toggleCameraBtn.setVisibility(View.VISIBLE);
 
         if (isPhoto) {
+            final Resources res = getResources();
             togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
             shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
+            preview.initPhotoMode();
         } else {
-            togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
-            shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+            initVideo();
         }
+    }
+
+    private void initVideo() {
+        final Resources res = getResources();
+        togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
+        shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+        preview.initRecorder();
+        toggleCameraBtn.setVisibility(View.VISIBLE);
     }
 
     private void hideNavigationBarIcons() {
@@ -130,12 +147,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             final Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
         }
+
+        if (!isPhoto) {
+            preview.initRecorder();
+            initVideo();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        preview.releaseCamera();
+        if (preview != null) {
+            preview.releaseCamera();
+        }
 
         if (sensorManager != null)
             sensorManager.unregisterListener(this);
