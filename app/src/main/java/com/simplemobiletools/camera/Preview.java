@@ -85,7 +85,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
             camera.setParameters(parameters);
-            setCameraDisplayOrientation(cameraId, camera);
+            camera.setDisplayOrientation(getCameraRotation(cameraId));
 
             if (canTakePicture) {
                 try {
@@ -101,7 +101,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             initRecorder();
     }
 
-    public static void setCameraDisplayOrientation(int cameraId, android.hardware.Camera camera) {
+    public static int getCameraRotation(int cameraId) {
         final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
         int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int degrees = 0;
@@ -127,7 +127,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         } else {
             result = (info.orientation - degrees + 360) % 360;
         }
-        camera.setDisplayOrientation(result);
+        return result;
     }
 
     public void takePicture() {
@@ -359,7 +359,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         recorder.setProfile(cpHigh);
         recorder.setOutputFile(curVideoPath);
         recorder.setPreviewDisplay(surfaceHolder.getSurface());
-        recorder.setOrientationHint(90);
+
+        if (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            recorder.setOrientationHint(270);
+        } else {
+            recorder.setOrientationHint(getCameraRotation(currCameraId));
+        }
 
         try {
             recorder.prepare();
@@ -387,9 +392,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (recorder != null && isRecording) {
             recorder.stop();
             recorder = null;
+            Utils.scanFile(curVideoPath, getContext());
         }
 
         isRecording = false;
-        Utils.scanFile(curVideoPath, getContext());
     }
 }
