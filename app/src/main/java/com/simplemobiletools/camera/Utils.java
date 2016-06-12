@@ -77,4 +77,20 @@ public class Utils {
         final String[] paths = {path};
         MediaScannerConnection.scanFile(context, paths, null, null);
     }
+
+    public static String formatSeconds(int duration) {
+        final StringBuilder sb = new StringBuilder(8);
+        final int hours = duration / (60 * 60);
+        final int minutes = (duration % (60 * 60)) / 60;
+        final int seconds = ((duration % (60 * 60)) % 60);
+
+        if (duration > 3600000) {
+            sb.append(String.format(Locale.getDefault(), "%02d", hours)).append(":");
+        }
+
+        sb.append(String.format(Locale.getDefault(), "%02d", minutes));
+        sb.append(":").append(String.format(Locale.getDefault(), "%02d", seconds));
+
+        return sb.toString();
+    }
 }

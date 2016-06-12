@@ -61,4 +61,14 @@
             android:src="@mipmap/flash_off"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/video_rec_curr_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_holder"
+        android:layout_centerHorizontal="true"
+        android:text="00:00"
+        android:textColor="@android:color/white"
+        android:visibility="gone"/>
 </RelativeLayout>

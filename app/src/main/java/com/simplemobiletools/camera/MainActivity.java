@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceView;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
     @BindView(R.id.toggle_videocam) ImageView togglePhotoVideoBtn;
     @BindView(R.id.shutter) ImageView shutterBtn;
+    @BindView(R.id.video_rec_curr_timer) TextView recCurrTimer;
 
     public static int orientation;
     private static SensorManager sensorManager;
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private int currCamera;
     private boolean isFlashEnabled;
     private boolean isPhoto;
+    private int currVideoRecTimer;
+    private Handler timerHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +54,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         viewHolder.addView(preview);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         isPhoto = true;
+        timerHandler = new Handler();
     }
 
     @OnClick(R.id.toggle_camera)
     public void toggleCamera() {
+        hideTimer();
         if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
             currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
             toggleCameraBtn.setImageResource(R.mipmap.camera_rear);
@@ -92,9 +99,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (isRecording) {
                 shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_stop));
                 toggleCameraBtn.setVisibility(View.INVISIBLE);
+                showTimer();
             } else {
                 shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
                 toggleCameraBtn.setVisibility(View.VISIBLE);
+                hideTimer();
             }
         }
     }
@@ -107,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_videocam)
     public void toggleVideo() {
+        hideTimer();
         isPhoto = !isPhoto;
         toggleCameraBtn.setVisibility(View.VISIBLE);
 
@@ -130,6 +140,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void hideNavigationBarIcons() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+    }
+
+    private void hideTimer() {
+        recCurrTimer.setText(Utils.formatSeconds(0));
+        recCurrTimer.setVisibility(View.GONE);
+        currVideoRecTimer = 0;
+        timerHandler.removeCallbacksAndMessages(null);
+    }
+
+    private void showTimer() {
+        recCurrTimer.setVisibility(View.VISIBLE);
+        setupTimer();
+    }
+
+    private void setupTimer() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                recCurrTimer.setText(Utils.formatSeconds(currVideoRecTimer++));
+                timerHandler.postDelayed(this, 1000);
+            }
+        });
     }
 
     @Override
@@ -157,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
+        hideTimer();
         if (preview != null) {
             preview.releaseCamera();
         }
