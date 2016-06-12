@@ -35,7 +35,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static int currCameraId;
     private static boolean isFlashEnabled;
     private static Camera.Parameters parameters;
-
+    private static PreviewListener callback;
     private static MediaRecorder recorder;
     private static boolean isRecording;
     private static boolean isVideoMode;
@@ -45,10 +45,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         super(context);
     }
 
-    public Preview(Activity act, SurfaceView sv) {
+    public Preview(Activity act, SurfaceView sv, PreviewListener cb) {
         super(act);
 
         activity = act;
+        callback = cb;
         surfaceView = sv;
         surfaceHolder = surfaceView.getHolder();
         surfaceHolder.addCallback(this);
@@ -95,6 +96,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 }
                 setupPreview();
             }
+
+            callback.setFlashAvailable(Utils.hasFlash(camera));
         }
 
         if (isVideoMode)
@@ -321,10 +324,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public boolean enableFlash() {
-        if (!Utils.hasFlash(camera)) {
-            return false;
-        }
-
         isFlashEnabled = true;
         return true;
     }
@@ -396,5 +395,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
 
         isRecording = false;
+    }
+
+    public interface PreviewListener {
+        void setFlashAvailable(boolean available);
     }
 }

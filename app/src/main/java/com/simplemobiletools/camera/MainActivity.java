@@ -19,11 +19,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simplemobiletools.camera.Preview.PreviewListener;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, PreviewListener {
     @BindView(R.id.viewHolder) RelativeLayout viewHolder;
     @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
-        preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView));
+        preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView), this);
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         viewHolder.addView(preview);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -77,9 +79,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void toggleFlash() {
         if (isFlashEnabled) {
             disableFlash();
-        } else if (preview.enableFlash()) {
-            isFlashEnabled = preview.enableFlash();
-            toggleFlashBtn.setImageResource(R.mipmap.flash_on);
+        } else {
+            enableFlash();
         }
     }
 
@@ -87,6 +88,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         preview.disableFlash();
         isFlashEnabled = false;
         toggleFlashBtn.setImageResource(R.mipmap.flash_off);
+    }
+
+    private void enableFlash() {
+        preview.enableFlash();
+        isFlashEnabled = true;
+        toggleFlashBtn.setImageResource(R.mipmap.flash_on);
     }
 
     @OnClick(R.id.shutter)
@@ -214,5 +221,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void setFlashAvailable(boolean available) {
+        if (available) {
+            toggleFlashBtn.setVisibility(View.VISIBLE);
+        } else {
+            toggleFlashBtn.setVisibility(View.INVISIBLE);
+            disableFlash();
+        }
     }
 }
