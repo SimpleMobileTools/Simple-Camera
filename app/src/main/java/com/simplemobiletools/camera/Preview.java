@@ -323,13 +323,19 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return false;
     }
 
-    public boolean enableFlash() {
+    public void enableFlash() {
+        if (isVideoMode) {
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(parameters);
+        }
+
         isFlashEnabled = true;
-        return true;
     }
 
     public void disableFlash() {
         isFlashEnabled = false;
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        camera.setParameters(parameters);
     }
 
     public void initPhotoMode() {

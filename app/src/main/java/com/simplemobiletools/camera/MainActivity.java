@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_camera)
     public void toggleCamera() {
+        disableFlash();
         hideTimer();
         if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
             currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
@@ -123,18 +124,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_videocam)
     public void toggleVideo() {
+        disableFlash();
         hideTimer();
         isPhoto = !isPhoto;
         toggleCameraBtn.setVisibility(View.VISIBLE);
 
         if (isPhoto) {
-            final Resources res = getResources();
-            togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
-            shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
-            preview.initPhotoMode();
+            initPhoto();
         } else {
             initVideo();
         }
+    }
+
+    private void initPhoto() {
+        final Resources res = getResources();
+        togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
+        shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
+        preview.initPhotoMode();
     }
 
     private void initVideo() {
