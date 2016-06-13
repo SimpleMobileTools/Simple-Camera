@@ -5,6 +5,7 @@
     <string name="video_directory">Simple Videos</string>
     <string name="photo_directory">Simple Photos</string>
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
+    <string name="no_audio_permissions">We need the audio permission for recording videos</string>
 
     <!-- About -->
     <string name="about">About</string>

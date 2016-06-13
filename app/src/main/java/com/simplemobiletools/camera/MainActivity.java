@@ -2,6 +2,7 @@ package com.simplemobiletools.camera;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -40,11 +41,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public static int orientation;
     private static final int CAMERA_STORAGE_PERMISSION = 1;
+    private static final int AUDIO_PERMISSION = 2;
     private static SensorManager sensorManager;
     private Preview preview;
     private int currCamera;
     private boolean isFlashEnabled;
     private boolean isPhoto;
+    private boolean isAskingPermissions;
     private int currVideoRecTimer;
     private Handler timerHandler;
 
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        isAskingPermissions = false;
 
         if (requestCode == CAMERA_STORAGE_PERMISSION) {
             if (hasCameraAndStoragePermission()) {
@@ -98,6 +102,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             } else {
                 Utils.showToast(getApplicationContext(), R.string.no_permissions);
                 finish();
+            }
+        } else if (requestCode == AUDIO_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                toggleVideo();
+            } else {
+                Utils.showToast(getApplicationContext(), R.string.no_audio_permissions);
             }
         }
     }
@@ -167,6 +177,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_videocam)
     public void toggleVideo() {
+        if (!Utils.hasAudioPermission(getApplicationContext())) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, AUDIO_PERMISSION);
+            isAskingPermissions = true;
+            return;
+        }
         disableFlash();
         hideTimer();
         isPhoto = !isPhoto;
@@ -251,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
-        if (!hasCameraAndStoragePermission())
+        if (!hasCameraAndStoragePermission() || isAskingPermissions)
             return;
 
         hideTimer();

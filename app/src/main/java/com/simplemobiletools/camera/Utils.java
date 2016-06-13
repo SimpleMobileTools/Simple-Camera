@@ -104,4 +104,8 @@ public class Utils {
     public static boolean hasStoragePermission(Context cxt) {
         return ContextCompat.checkSelfPermission(cxt, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
+
+    public static boolean hasAudioPermission(Context cxt) {
+        return ContextCompat.checkSelfPermission(cxt, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+    }
 }
