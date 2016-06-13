@@ -15,7 +15,7 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/activity_margin"
+        android:layout_margin="@dimen/side_icon_padding"
         android:padding="@dimen/side_icon_padding"
         android:src="@mipmap/about"/>
 
@@ -25,7 +25,7 @@
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/about"
-        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/side_icon_padding"
         android:padding="@dimen/side_icon_padding"
         android:src="@mipmap/videocam"/>
 
