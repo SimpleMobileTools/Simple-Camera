@@ -1,10 +1,13 @@
 package com.simplemobiletools.camera;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.hardware.Camera;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import java.io.File;
@@ -92,5 +95,13 @@ public class Utils {
         sb.append(":").append(String.format(Locale.getDefault(), "%02d", seconds));
 
         return sb.toString();
+    }
+
+    public static boolean hasCameraPermission(Context cxt) {
+        return ContextCompat.checkSelfPermission(cxt, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static boolean hasStoragePermission(Context cxt) {
+        return ContextCompat.checkSelfPermission(cxt, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 }

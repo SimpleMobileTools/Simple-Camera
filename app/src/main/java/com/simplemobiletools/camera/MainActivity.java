@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.Camera;
@@ -9,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceView;
 import android.view.View;
@@ -20,6 +22,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.simplemobiletools.camera.Preview.PreviewListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @BindView(R.id.video_rec_curr_timer) TextView recCurrTimer;
 
     public static int orientation;
+    private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static SensorManager sensorManager;
     private Preview preview;
     private int currCamera;
@@ -47,9 +53,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        tryInitCamera();
+    }
 
+    private void tryInitCamera() {
+        if (hasCameraAndStoragePermission()) {
+            initializeCamera();
+        } else {
+            final List<String> permissions = new ArrayList<>(2);
+            if (!Utils.hasCameraPermission(getApplicationContext())) {
+                permissions.add(Manifest.permission.CAMERA);
+            }
+            if (!Utils.hasStoragePermission(getApplicationContext())) {
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+            ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), CAMERA_STORAGE_PERMISSION);
+        }
+    }
+
+    private void initializeCamera() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
         preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView), this);
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -57,6 +82,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         isPhoto = true;
         timerHandler = new Handler();
+    }
+
+    private boolean hasCameraAndStoragePermission() {
+        return Utils.hasCameraPermission(getApplicationContext()) && Utils.hasStoragePermission(getApplicationContext());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CAMERA_STORAGE_PERMISSION) {
+            if (hasCameraAndStoragePermission()) {
+                initializeCamera();
+            } else {
+                Utils.showToast(getApplicationContext(), R.string.no_permissions);
+                finish();
+            }
+        }
     }
 
     @OnClick(R.id.toggle_camera)
@@ -180,11 +223,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
+        if (hasCameraAndStoragePermission()) {
+            resumeCameraItems();
+        }
+    }
 
+    private void resumeCameraItems() {
         final int cnt = Camera.getNumberOfCameras();
         if (cnt == 1) {
             toggleCameraBtn.setVisibility(View.INVISIBLE);
         }
+
         preview.setCamera(currCamera);
         hideNavigationBarIcons();
 
@@ -202,6 +251,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
+        if (!hasCameraAndStoragePermission())
+            return;
+
         hideTimer();
         if (preview != null) {
             preview.releaseCamera();
