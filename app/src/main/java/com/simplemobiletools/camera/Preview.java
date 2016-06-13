@@ -16,6 +16,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,9 +65,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         Camera newCamera;
         try {
             newCamera = Camera.open(cameraId);
+            callback.setIsCameraAvailable(true);
         } catch (Exception e) {
             Utils.showToast(getContext(), R.string.camera_open_error);
             Log.e(TAG, "setCamera open " + e.getMessage());
+            callback.setIsCameraAvailable(false);
             return;
         }
 
@@ -351,6 +354,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     // VIDEO RECORDING
     public void initRecorder() {
+        if (camera == null)
+            return;
+
         isRecording = false;
         isVideoMode = true;
         recorder = new MediaRecorder();
@@ -399,9 +405,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     private void stopRecording() {
         if (recorder != null && isRecording) {
-            recorder.stop();
-            recorder = null;
-            Utils.scanFile(curVideoPath, getContext());
+            try {
+                recorder.stop();
+                Utils.scanFile(curVideoPath, getContext());
+            } catch (RuntimeException e) {
+                new File(curVideoPath).delete();
+                Utils.showToast(getContext(), R.string.video_saving_error);
+            } finally {
+                recorder = null;
+            }
         }
 
         isRecording = false;
@@ -409,5 +421,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     public interface PreviewListener {
         void setFlashAvailable(boolean available);
+
+        void setIsCameraAvailable(boolean available);
     }
 }

@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isFlashEnabled;
     private boolean isPhoto;
     private boolean isAskingPermissions;
+    private boolean isCameraAvailable;
     private int currVideoRecTimer;
     private Handler timerHandler;
 
@@ -114,6 +115,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_camera)
     public void toggleCamera() {
+        if (!checkCameraAvailable()) {
+            return;
+        }
+
         disableFlash();
         hideTimer();
         if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
@@ -131,6 +136,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_flash)
     public void toggleFlash() {
+        if (!checkCameraAvailable()) {
+            return;
+        }
+
         if (isFlashEnabled) {
             disableFlash();
         } else {
@@ -152,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.shutter)
     public void shutterPressed() {
+        if (!checkCameraAvailable()) {
+            return;
+        }
+
         if (isPhoto) {
             preview.takePicture();
         } else {
@@ -177,6 +190,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @OnClick(R.id.toggle_videocam)
     public void toggleVideo() {
+        if (!checkCameraAvailable()) {
+            return;
+        }
+
         if (!Utils.hasAudioPermission(getApplicationContext())) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, AUDIO_PERMISSION);
             isAskingPermissions = true;
@@ -295,6 +312,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    private boolean checkCameraAvailable() {
+        if (!isCameraAvailable) {
+            Utils.showToast(getApplicationContext(), R.string.camera_unavailable);
+        }
+        return isCameraAvailable;
+    }
+
     @Override
     public void setFlashAvailable(boolean available) {
         if (available) {
@@ -303,5 +327,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             toggleFlashBtn.setVisibility(View.INVISIBLE);
             disableFlash();
         }
+    }
+
+    @Override
+    public void setIsCameraAvailable(boolean available) {
+        isCameraAvailable = available;
     }
 }
