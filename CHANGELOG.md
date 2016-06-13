@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.3 *(2016-06-13)*
+----------------------------
+
+ * Properly handle Marshmallow+ permissions
+ * Activate the Shutter at long pressing the preview
+
 Version 1.2 *(2016-06-12)*
 ----------------------------
 
