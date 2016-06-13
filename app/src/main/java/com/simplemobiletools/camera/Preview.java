@@ -236,6 +236,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         setupPreview();
+
+        if (isVideoMode) {
+            initRecorder();
+        }
     }
 
     private void setupPreview() {
