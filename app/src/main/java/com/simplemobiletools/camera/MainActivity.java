@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Preview preview;
     private int currCamera;
     private boolean isFlashEnabled;
-    private boolean isPhoto;
+    private boolean isInPhotoMode;
     private boolean isAskingPermissions;
     private boolean isCameraAvailable;
     private int currVideoRecTimer;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         viewHolder.addView(preview);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        isPhoto = true;
+        isInPhotoMode = true;
         timerHandler = new Handler();
     }
 
@@ -165,7 +165,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
-        if (isPhoto) {
+        handleShutter();
+    }
+
+    private void handleShutter() {
+        if (isInPhotoMode) {
             preview.takePicture();
         } else {
             final Resources res = getResources();
@@ -201,10 +205,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         disableFlash();
         hideTimer();
-        isPhoto = !isPhoto;
+        isInPhotoMode = !isInPhotoMode;
         toggleCameraBtn.setVisibility(View.VISIBLE);
 
-        if (isPhoto) {
+        if (isInPhotoMode) {
             initPhotoButtons();
         } else {
             initVideoButtons();
@@ -274,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
         }
 
-        if (!isPhoto) {
+        if (!isInPhotoMode) {
             initVideoButtons();
         }
     }
@@ -332,5 +336,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void setIsCameraAvailable(boolean available) {
         isCameraAvailable = available;
+    }
+
+    @Override
+    public void activateShutter() {
+        handleShutter();
     }
 }

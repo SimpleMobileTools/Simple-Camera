@@ -14,6 +14,7 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 
 import java.io.File;
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener {
+public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener{
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 200;
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
@@ -41,6 +42,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean isRecording;
     private static boolean isVideoMode;
     private static String curVideoPath;
+    private static int lastClickX;
+    private static int lastClickY;
 
     public Preview(Context context) {
         super(context);
@@ -57,6 +60,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         canTakePicture = false;
         surfaceView.setOnTouchListener(this);
+        surfaceView.setOnClickListener(this);
+        surfaceView.setOnLongClickListener(this);
         isFlashEnabled = false;
     }
 
@@ -174,12 +179,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
     };
 
-    private void focusArea(MotionEvent event) {
+    private void focusArea() {
         if (camera == null)
             return;
 
         camera.cancelAutoFocus();
-        final Rect focusRect = calculateFocusArea(event.getX(), event.getY());
+        final Rect focusRect = calculateFocusArea(lastClickX, lastClickY);
         if (parameters.getMaxNumFocusAreas() > 0) {
             final List<Camera.Area> focusAreas = new ArrayList<>(1);
             focusAreas.add(new Camera.Area(focusRect, 1000));
@@ -326,7 +331,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        focusArea(event);
+        lastClickX = (int) event.getX();
+        lastClickY = (int) event.getY();
         return false;
     }
 
@@ -419,9 +425,22 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         isRecording = false;
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        callback.activateShutter();
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        focusArea();
+    }
+
     public interface PreviewListener {
         void setFlashAvailable(boolean available);
 
         void setIsCameraAvailable(boolean available);
+
+        void activateShutter();
     }
 }
