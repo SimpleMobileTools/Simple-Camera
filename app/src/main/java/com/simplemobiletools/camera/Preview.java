@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener{
+public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener {
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 200;
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
@@ -93,8 +93,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
                 parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
+            int rotation = getPreviewRotation(cameraId);
+            camera.setDisplayOrientation(rotation);
+
+            rotation = getPictureRotation(cameraId);
+            parameters.setRotation(rotation);
             camera.setParameters(parameters);
-            camera.setDisplayOrientation(getCameraRotation(cameraId));
 
             if (canTakePicture) {
                 try {
@@ -112,24 +116,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             initRecorder();
     }
 
-    public static int getCameraRotation(int cameraId) {
+    private static int getPreviewRotation(int cameraId) {
         final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-        int degrees = 0;
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
-        }
+        int degrees = getRotationDegrees();
 
         int result;
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
@@ -138,7 +127,34 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         } else {
             result = (info.orientation - degrees + 360) % 360;
         }
+
         return result;
+    }
+
+    private static int getPictureRotation(int cameraId) {
+        int degrees = getRotationDegrees();
+        final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            return (360 + info.orientation + degrees) % 360;
+        }
+
+        return (360 + info.orientation - degrees) % 360;
+    }
+
+    private static int getRotationDegrees() {
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                return 0;
+            case Surface.ROTATION_90:
+                return 90;
+            case Surface.ROTATION_180:
+                return 180;
+            case Surface.ROTATION_270:
+                return 270;
+            default:
+                return 0;
+        }
     }
 
     public void takePicture() {
@@ -148,6 +164,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             } else {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
+
+            final Camera.Size maxPictureSize = parameters.getSupportedPictureSizes().get(0);
+            parameters.setPictureSize(maxPictureSize.width, maxPictureSize.height);
+
             MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
             camera.setParameters(parameters);
             camera.takePicture(null, null, takePictureCallback);
@@ -284,9 +304,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+
     }
 
-    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int height, int width) {
+    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int width, int height) {
         final double ASPECT_TOLERANCE = 0.1;
         double targetRatio = (double) height / width;
 
@@ -384,7 +405,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             recorder.setOrientationHint(270);
         } else {
-            recorder.setOrientationHint(getCameraRotation(currCameraId));
+            recorder.setOrientationHint(getPreviewRotation(currCameraId));
         }
 
         try {

@@ -2,7 +2,6 @@ package com.simplemobiletools.camera;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.media.ExifInterface;
@@ -35,12 +34,13 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             final File photoFile = new File(photoPath);
             final byte[] data = params[0];
             final FileOutputStream fos = new FileOutputStream(photoFile);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            /*Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             bitmap = setBitmapRotation(bitmap, photoFile.toString());
             bitmap = setAspectRatio(bitmap);
             bitmap = checkLandscape(bitmap);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);*/
 
+            fos.write(data);
             fos.close();
             Utils.scanFile(photoPath, mContext);
         } catch (FileNotFoundException e) {
