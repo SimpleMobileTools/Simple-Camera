@@ -258,6 +258,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return degrees;
     }
 
+    private int getFinalRotation() {
+        int rotation = getMediaRotation(currCameraId);
+        rotation += compensateDeviceRotation();
+        return rotation % 360;
+    }
+
     private void focusArea() {
         if (camera == null)
             return;
@@ -358,7 +364,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private void cleanupRecorder() {
         if (recorder != null) {
             if (isRecording) {
-                recorder.stop();
+                stopRecording();
             }
 
             recorder.release();
@@ -448,6 +454,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (camera == null || recorder != null || !isSurfaceCreated)
             return;
 
+        camera.lock();
         final Camera.Size preferred = parameters.getPreferredPreviewSizeForVideo();
         parameters.setPreviewSize(preferred.width, preferred.height);
         camera.setParameters(parameters);
@@ -456,8 +463,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         isVideoMode = true;
         recorder = new MediaRecorder();
         recorder.setCamera(camera);
-        recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+        recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
         curVideoPath = Utils.getOutputMediaFile(getContext(), false);
         if (curVideoPath.isEmpty()) {
@@ -465,17 +472,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             return;
         }
 
+        final Camera.Size videoSize = getOptimalVideoSize();
         final CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        cpHigh.videoFrameWidth = videoSize.width;
+        cpHigh.videoFrameHeight = videoSize.height;
         recorder.setProfile(cpHigh);
         recorder.setOutputFile(curVideoPath);
         recorder.setPreviewDisplay(surfaceHolder.getSurface());
 
-        final Camera.Size videoSize = getOptimalVideoSize();
-        recorder.setVideoSize(videoSize.width, videoSize.height);
-
-        int rotation = getMediaRotation(currCameraId);
-        rotation += compensateDeviceRotation();
-        rotation %= 360;
+        int rotation = getFinalRotation();
         initVideoRotation = rotation;
         recorder.setOrientationHint(rotation);
 
@@ -484,6 +489,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         } catch (Exception e) {
             Utils.showToast(getContext(), R.string.video_setup_error);
             Log.e(TAG, "initRecorder " + e.getMessage());
+            releaseCamera();
         }
     }
 
@@ -498,14 +504,19 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private void startRecording() {
-        camera.lock();
-        camera.unlock();
+        if (initVideoRotation != getFinalRotation()) {
+            cleanupRecorder();
+            initRecorder();
+        }
+
         try {
+            camera.unlock();
             recorder.start();
             isRecording = true;
         } catch (Exception e) {
             Utils.showToast(getContext(), R.string.video_setup_error);
             Log.e(TAG, "toggleRecording " + e.getMessage());
+            releaseCamera();
         }
     }
 
@@ -518,8 +529,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 new File(curVideoPath).delete();
                 Utils.showToast(getContext(), R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
+                releaseCamera();
             } finally {
                 recorder = null;
+                isRecording = false;
             }
         }
 
@@ -527,7 +540,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (file.exists() && file.length() == 0) {
             file.delete();
         }
-        isRecording = false;
     }
 
     @Override

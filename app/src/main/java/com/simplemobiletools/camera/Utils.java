@@ -56,11 +56,11 @@ public class Utils {
             }
         }
 
-        final String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        final String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         if (isPhoto) {
-            return mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpg";
+            return mediaStorageDir.getPath() + File.separator + "IMG_" + timestamp + ".jpg";
         } else {
-            return mediaStorageDir.getPath() + File.separator + "VID_" + timeStamp + ".mp4";
+            return mediaStorageDir.getPath() + File.separator + "VID_" + timestamp + ".mp4";
         }
     }
 
