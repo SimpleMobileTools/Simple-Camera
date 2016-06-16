@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.4 *(2016-06-17)*
+----------------------------
+
+ * Properly rotate photos at videos at landscape/selfies
+ * Offer the app at third party Image Capture actions
+ * Use the highest possible photo resolution, with limit at 8 mpx
+
 Version 1.3 *(2016-06-13)*
 ----------------------------
 
