@@ -67,6 +67,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         isFlashEnabled = false;
         isVideoMode = false;
         isSurfaceCreated = false;
+        curVideoPath = "";
     }
 
     public void setCamera(int cameraId) {
@@ -507,6 +508,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             }
         }
 
+        final File file = new File(curVideoPath);
+        if (file.exists() && file.length() == 0) {
+            file.delete();
+        }
         isRecording = false;
     }
 
