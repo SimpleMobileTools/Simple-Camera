@@ -32,9 +32,9 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             fos.close();
             Utils.scanFile(photoPath, mContext);
         } catch (FileNotFoundException e) {
-            Log.d(TAG, "onPictureTaken file not found: " + e.getMessage());
+            Log.d(TAG, "PhotoProcessor file not found: " + e.getMessage());
         } catch (IOException e) {
-            Log.e(TAG, "onPictureTaken ioexception " + e.getMessage());
+            Log.e(TAG, "PhotoProcessor ioexception " + e.getMessage());
         }
 
         return null;

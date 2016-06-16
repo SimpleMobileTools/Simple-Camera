@@ -477,11 +477,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             camera.unlock();
             try {
                 recorder.start();
+                isRecording = true;
             } catch (Exception e) {
                 Utils.showToast(getContext(), R.string.video_setup_error);
                 Log.e(TAG, "toggleRecording " + e.getMessage());
             }
-            isRecording = true;
         }
         return isRecording;
     }
@@ -494,6 +494,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             } catch (RuntimeException e) {
                 new File(curVideoPath).delete();
                 Utils.showToast(getContext(), R.string.video_saving_error);
+                Log.e(TAG, "stopRecording " + e.getMessage());
             } finally {
                 recorder = null;
             }
