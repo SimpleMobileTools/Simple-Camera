@@ -26,6 +26,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 200;
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
+    private static final float RATIO_TOLERANCE = 0.1f;
 
     private static SurfaceHolder surfaceHolder;
     private static Camera camera;
@@ -199,17 +200,29 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
     };
 
-    // limit the max picture size at 8 megapixels
     private Camera.Size getPictureSize() {
         List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
-            if (size.width * size.height < 9000000) {
+            final boolean isEightMegapixelsMax = isEightMegapixelsMax(size);
+            final boolean isSixteenToNine = isSixteenToNine(size);
+            if (isEightMegapixelsMax && isSixteenToNine) {
                 maxSize = size;
                 break;
             }
         }
         return maxSize;
+    }
+
+    private boolean isEightMegapixelsMax(Camera.Size size) {
+        return size.width * size.height < 9000000;
+    }
+
+    private boolean isSixteenToNine(Camera.Size size) {
+        final float currRatio = (float) size.height / size.width;
+        final float wantedRatio = (float) 9 / 16;
+        final float diff = Math.abs(currRatio - wantedRatio);
+        return diff < RATIO_TOLERANCE;
     }
 
     private void focusArea() {

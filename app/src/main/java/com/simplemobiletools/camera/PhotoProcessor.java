@@ -36,7 +36,6 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             final FileOutputStream fos = new FileOutputStream(photoFile);
             /*Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             bitmap = setBitmapRotation(bitmap, photoFile.toString());
-            bitmap = setAspectRatio(bitmap);
             bitmap = checkLandscape(bitmap);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);*/
 
@@ -95,19 +94,6 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
         }
 
-        return bitmap;
-    }
-
-    private Bitmap setAspectRatio(Bitmap bitmap) {
-        final double wantedAspect = (double) 16 / (double) 9;
-        final double bmpWidth = bitmap.getWidth();
-        final double bmpHeight = bitmap.getHeight();
-
-        if (bmpHeight / bmpWidth < wantedAspect) {
-            final double extraWidth = bmpWidth - (bmpHeight / wantedAspect);
-            final int startX = (int) (extraWidth / 2);
-            return Bitmap.createBitmap(bitmap, startX, 0, (int) (bmpWidth - extraWidth), (int) bmpHeight);
-        }
         return bitmap;
     }
 }
