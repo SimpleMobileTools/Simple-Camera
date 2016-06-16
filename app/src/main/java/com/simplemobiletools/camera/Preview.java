@@ -94,11 +94,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
                 parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
-            int rotation = getPreviewRotation(cameraId);
+            final int rotation = getPreviewRotation(cameraId);
             camera.setDisplayOrientation(rotation);
-
-            rotation = getPictureRotation(cameraId);
-            parameters.setRotation(rotation);
             camera.setParameters(parameters);
 
             if (canTakePicture) {
@@ -124,12 +121,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         int result;
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             result = (info.orientation + degrees) % 360;
-            result = (360 - result) % 360;
+            result = 360 - result;
         } else {
-            result = (info.orientation - degrees + 360) % 360;
+            result = info.orientation - degrees + 360;
         }
 
-        return result;
+        return result % 360;
     }
 
     private static int getPictureRotation(int cameraId) {
@@ -158,7 +155,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
     }
 
-    public void takePicture() {
+    public void takePicture(int orientation) {
         if (canTakePicture) {
             if (isFlashEnabled) {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -166,8 +163,16 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
 
+            int rotation = getPictureRotation(currCameraId);
+            if (orientation == Constants.ORIENT_LANDSCAPE_LEFT) {
+                rotation += 270;
+            } else if (orientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
+                rotation += 90;
+            }
+
             final Camera.Size maxSize = getPictureSize();
             parameters.setPictureSize(maxSize.width, maxSize.height);
+            parameters.setRotation(rotation % 360);
 
             MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
             camera.setParameters(parameters);
@@ -190,9 +195,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 }
             }, PHOTO_PREVIEW_LENGTH);
 
-            final Camera.CameraInfo info = Utils.getCameraInfo(currCameraId);
-            new PhotoProcessor(getContext(), info.facing).execute(data);
-
+            new PhotoProcessor(getContext()).execute(data);
             if (isFlashEnabled) {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                 camera.setParameters(parameters);

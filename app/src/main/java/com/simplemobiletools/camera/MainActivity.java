@@ -39,17 +39,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @BindView(R.id.shutter) ImageView shutterBtn;
     @BindView(R.id.video_rec_curr_timer) TextView recCurrTimer;
 
-    public static int orientation;
     private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static final int AUDIO_PERMISSION = 2;
     private static SensorManager sensorManager;
     private Preview preview;
-    private int currCamera;
     private boolean isFlashEnabled;
     private boolean isInPhotoMode;
     private boolean isAskingPermissions;
     private boolean isCameraAvailable;
     private int currVideoRecTimer;
+    private int orientation;
+    private int currCamera;
     private Handler timerHandler;
 
     @Override
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void handleShutter() {
         if (isInPhotoMode) {
-            preview.takePicture();
+            preview.takePicture(orientation);
         } else {
             final Resources res = getResources();
             final boolean isRecording = preview.toggleRecording();
