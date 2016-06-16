@@ -165,8 +165,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
 
-            final Camera.Size maxPictureSize = parameters.getSupportedPictureSizes().get(0);
-            parameters.setPictureSize(maxPictureSize.width, maxPictureSize.height);
+            final Camera.Size maxSize = getPictureSize();
+            parameters.setPictureSize(maxSize.width, maxSize.height);
 
             MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
             camera.setParameters(parameters);
@@ -198,6 +198,19 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             }
         }
     };
+
+    // limit the max picture size at 8 megapixels
+    private Camera.Size getPictureSize() {
+        List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+        Camera.Size maxSize = sizes.get(0);
+        for (Camera.Size size : sizes) {
+            if (size.width * size.height < 9000000) {
+                maxSize = size;
+                break;
+            }
+        }
+        return maxSize;
+    }
 
     private void focusArea() {
         if (camera == null)
