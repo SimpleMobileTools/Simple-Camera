@@ -175,6 +175,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             parameters.setRotation(rotation % 360);
 
             MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                camera.enableShutterSound(false);
+            }
             camera.setParameters(parameters);
             camera.takePicture(null, null, takePictureCallback);
         }
