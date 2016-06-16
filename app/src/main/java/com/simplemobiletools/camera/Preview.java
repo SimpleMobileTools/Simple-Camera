@@ -42,6 +42,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static MediaRecorder recorder;
     private static boolean isRecording;
     private static boolean isVideoMode;
+    private static boolean isSurfaceCreated;
     private static String curVideoPath;
     private static int lastClickX;
     private static int lastClickY;
@@ -64,6 +65,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         surfaceView.setOnClickListener(this);
         surfaceView.setOnLongClickListener(this);
         isFlashEnabled = false;
+        isVideoMode = false;
+        isSurfaceCreated = false;
     }
 
     public void setCamera(int cameraId) {
@@ -110,8 +113,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             callback.setFlashAvailable(Utils.hasFlash(camera));
         }
 
-        if (isVideoMode)
+        if (isVideoMode) {
             initRecorder();
+        }
     }
 
     private static int getPreviewRotation(int cameraId) {
@@ -297,6 +301,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        isSurfaceCreated = true;
         try {
             if (camera != null) {
                 camera.setPreviewDisplay(surfaceHolder);
@@ -308,6 +313,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        isSurfaceCreated = true;
         setupPreview();
 
         if (isVideoMode) {
@@ -329,6 +335,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
+        isSurfaceCreated = false;
         if (camera != null) {
             camera.stopPreview();
         }
@@ -426,7 +433,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     // VIDEO RECORDING
     public void initRecorder() {
-        if (camera == null || recorder != null)
+        if (camera == null || recorder != null || !isSurfaceCreated)
             return;
 
         final Camera.Size preferred = parameters.getPreferredPreviewSizeForVideo();
