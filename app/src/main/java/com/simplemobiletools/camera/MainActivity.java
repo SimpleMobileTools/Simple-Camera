@@ -9,8 +9,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceView;
@@ -31,13 +33,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener, PreviewListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener {
     @BindView(R.id.viewHolder) RelativeLayout viewHolder;
     @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
     @BindView(R.id.toggle_videocam) ImageView togglePhotoVideoBtn;
     @BindView(R.id.shutter) ImageView shutterBtn;
     @BindView(R.id.video_rec_curr_timer) TextView recCurrTimer;
+    @BindView(R.id.about) View aboutBtn;
 
     private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static final int AUDIO_PERMISSION = 2;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isInPhotoMode;
     private boolean isAskingPermissions;
     private boolean isCameraAvailable;
+    private boolean isImageCaptureIntent;
     private int currVideoRecTimer;
     private int orientation;
     private int currCamera;
@@ -58,6 +62,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         tryInitCamera();
+
+        final Intent intent = getIntent();
+        if (intent != null && intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
+            isImageCaptureIntent = true;
+            togglePhotoVideoBtn.setVisibility(View.GONE);
+            aboutBtn.setVisibility(View.GONE);
+
+            final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
+            if (output != null && output instanceof Uri) {
+                preview.setTargetUri((Uri) output);
+            }
+        }
     }
 
     private void tryInitCamera() {
@@ -346,5 +362,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public int getCurrentOrientation() {
         return orientation;
+    }
+
+    @Override
+    public void mediaSaved() {
+        if (isImageCaptureIntent) {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }

@@ -1,12 +1,12 @@
 package com.simplemobiletools.camera;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -34,7 +34,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static SurfaceView surfaceView;
     private static Camera.Size previewSize;
     private static boolean canTakePicture;
-    private static Activity activity;
+    private static MainActivity activity;
     private static int currCameraId;
     private static boolean isFlashEnabled;
     private static Camera.Parameters parameters;
@@ -47,12 +47,13 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static int lastClickX;
     private static int lastClickY;
     private static int initVideoRotation;
+    private static Uri targetUri;
 
     public Preview(Context context) {
         super(context);
     }
 
-    public Preview(Activity act, SurfaceView sv, PreviewListener cb) {
+    public Preview(MainActivity act, SurfaceView sv, PreviewListener cb) {
         super(act);
 
         activity = act;
@@ -118,6 +119,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (isVideoMode) {
             initRecorder();
         }
+    }
+
+    public void setTargetUri(Uri uri) {
+        targetUri = uri;
     }
 
     private static int getPreviewRotation(int cameraId) {
@@ -200,7 +205,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 }
             }, PHOTO_PREVIEW_LENGTH);
 
-            new PhotoProcessor(getContext()).execute(data);
+            new PhotoProcessor(activity, targetUri).execute(data);
             if (isFlashEnabled) {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                 camera.setParameters(parameters);
