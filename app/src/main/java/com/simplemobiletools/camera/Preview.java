@@ -170,7 +170,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 rotation += 90;
             }
 
-            final Camera.Size maxSize = getPictureSize();
+            final Camera.Size maxSize = getOptimalPictureSize();
             parameters.setPictureSize(maxSize.width, maxSize.height);
             parameters.setRotation(rotation % 360);
 
@@ -206,8 +206,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
     };
 
-    private Camera.Size getPictureSize() {
-        List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+    private Camera.Size getOptimalPictureSize() {
+        final List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
             final boolean isEightMegapixelsMax = isEightMegapixelsMax(size);
@@ -229,6 +229,19 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         final float wantedRatio = (float) 9 / 16;
         final float diff = Math.abs(currRatio - wantedRatio);
         return diff < RATIO_TOLERANCE;
+    }
+
+    private Camera.Size getOptimalVideoSize() {
+        final List<Camera.Size> sizes = parameters.getSupportedVideoSizes();
+        Camera.Size maxSize = sizes.get(0);
+        for (Camera.Size size : sizes) {
+            final boolean isSixteenToNine = isSixteenToNine(size);
+            if (isSixteenToNine) {
+                maxSize = size;
+                break;
+            }
+        }
+        return maxSize;
     }
 
     private void focusArea() {
@@ -413,8 +426,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     // VIDEO RECORDING
     public void initRecorder() {
-        if (camera == null)
+        if (camera == null || recorder != null)
             return;
+
+        final Camera.Size preferred = parameters.getPreferredPreviewSizeForVideo();
+        parameters.setPreviewSize(preferred.width, preferred.height);
+        camera.setParameters(parameters);
 
         isRecording = false;
         isVideoMode = true;
@@ -434,6 +451,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         recorder.setOutputFile(curVideoPath);
         recorder.setPreviewDisplay(surfaceHolder.getSurface());
 
+        final Camera.Size videoSize = getOptimalVideoSize();
+        recorder.setVideoSize(videoSize.width, videoSize.height);
+
         if (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             recorder.setOrientationHint(270);
         } else {
@@ -442,9 +462,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
         try {
             recorder.prepare();
-        } catch (IllegalStateException e) {
-            Log.e(TAG, "initRecorder " + e.getMessage());
-        } catch (IOException e) {
+        } catch (Exception e) {
+            Utils.showToast(getContext(), R.string.video_setup_error);
             Log.e(TAG, "initRecorder " + e.getMessage());
         }
     }
@@ -456,7 +475,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         } else {
             camera.lock();
             camera.unlock();
-            recorder.start();
+            try {
+                recorder.start();
+            } catch (Exception e) {
+                Utils.showToast(getContext(), R.string.video_setup_error);
+                Log.e(TAG, "toggleRecording " + e.getMessage());
+            }
             isRecording = true;
         }
         return isRecording;
