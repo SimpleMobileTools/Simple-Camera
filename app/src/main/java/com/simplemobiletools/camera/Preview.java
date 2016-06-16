@@ -46,6 +46,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static String curVideoPath;
     private static int lastClickX;
     private static int lastClickY;
+    private static int initVideoRotation;
 
     public Preview(Context context) {
         super(context);
@@ -134,7 +135,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return result % 360;
     }
 
-    private static int getPictureRotation(int cameraId) {
+    private static int getMediaRotation(int cameraId) {
         int degrees = getRotationDegrees();
         final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
@@ -160,7 +161,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
     }
 
-    public void takePicture(int orientation) {
+    public void takePicture() {
         if (canTakePicture) {
             if (isFlashEnabled) {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -168,12 +169,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
 
-            int rotation = getPictureRotation(currCameraId);
-            if (orientation == Constants.ORIENT_LANDSCAPE_LEFT) {
-                rotation += 270;
-            } else if (orientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
-                rotation += 90;
-            }
+            int rotation = getMediaRotation(currCameraId);
+            rotation += compensateDeviceRotation();
 
             final Camera.Size maxSize = getOptimalPictureSize();
             parameters.setPictureSize(maxSize.width, maxSize.height);
@@ -249,6 +246,18 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return maxSize;
     }
 
+    private int compensateDeviceRotation() {
+        int degrees = 0;
+        boolean isFrontCamera = (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
+        int deviceOrientation = callback.getCurrentOrientation();
+        if (deviceOrientation == Constants.ORIENT_LANDSCAPE_LEFT) {
+            degrees += isFrontCamera ? 90 : 270;
+        } else if (deviceOrientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
+            degrees += isFrontCamera ? 270 : 90;
+        }
+        return degrees;
+    }
+
     private void focusArea() {
         if (camera == null)
             return;
@@ -298,6 +307,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             camera.release();
             camera = null;
         }
+
+        cleanupRecorder();
     }
 
     @Override
@@ -462,11 +473,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         final Camera.Size videoSize = getOptimalVideoSize();
         recorder.setVideoSize(videoSize.width, videoSize.height);
 
-        if (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            recorder.setOrientationHint(270);
-        } else {
-            recorder.setOrientationHint(getPreviewRotation(currCameraId));
-        }
+        int rotation = getMediaRotation(currCameraId);
+        rotation += compensateDeviceRotation();
+        rotation %= 360;
+        initVideoRotation = rotation;
+        recorder.setOrientationHint(rotation);
 
         try {
             recorder.prepare();
@@ -481,17 +492,21 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             stopRecording();
             initRecorder();
         } else {
-            camera.lock();
-            camera.unlock();
-            try {
-                recorder.start();
-                isRecording = true;
-            } catch (Exception e) {
-                Utils.showToast(getContext(), R.string.video_setup_error);
-                Log.e(TAG, "toggleRecording " + e.getMessage());
-            }
+            startRecording();
         }
         return isRecording;
+    }
+
+    private void startRecording() {
+        camera.lock();
+        camera.unlock();
+        try {
+            recorder.start();
+            isRecording = true;
+        } catch (Exception e) {
+            Utils.showToast(getContext(), R.string.video_setup_error);
+            Log.e(TAG, "toggleRecording " + e.getMessage());
+        }
     }
 
     private void stopRecording() {
@@ -532,5 +547,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         void setIsCameraAvailable(boolean available);
 
         void activateShutter();
+
+        int getCurrentOrientation();
     }
 }

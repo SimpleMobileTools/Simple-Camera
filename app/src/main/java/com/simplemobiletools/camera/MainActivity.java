@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void handleShutter() {
         if (isInPhotoMode) {
-            preview.takePicture(orientation);
+            preview.takePicture();
         } else {
             final Resources res = getResources();
             final boolean isRecording = preview.toggleRecording();
@@ -341,5 +341,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void activateShutter() {
         handleShutter();
+    }
+
+    @Override
+    public int getCurrentOrientation() {
+        return orientation;
     }
 }
