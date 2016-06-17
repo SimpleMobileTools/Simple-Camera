@@ -63,35 +63,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         tryInitCamera();
-
-        final Intent intent = getIntent();
-        if (intent != null) {
-            if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
-                isImageCaptureIntent = true;
-
-                hideToggleModeAbout();
-                final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
-                if (output != null && output instanceof Uri) {
-                    preview.setTargetUri((Uri) output);
-                }
-            } else if (intent.getAction().equals(MediaStore.ACTION_VIDEO_CAPTURE)) {
-                isVideoCaptureIntent = true;
-                hideToggleModeAbout();
-                preview.trySwitchToVideo();
-                preview.setIsVideoCaptureIntent();
-                shutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
-            }
-        }
     }
 
     private void hideToggleModeAbout() {
-        togglePhotoVideoBtn.setVisibility(View.GONE);
-        aboutBtn.setVisibility(View.GONE);
+        if (togglePhotoVideoBtn != null)
+            togglePhotoVideoBtn.setVisibility(View.GONE);
+
+        if (aboutBtn != null)
+            aboutBtn.setVisibility(View.GONE);
     }
 
     private void tryInitCamera() {
         if (hasCameraAndStoragePermission()) {
             initializeCamera();
+            handleIntent();
         } else {
             final List<String> permissions = new ArrayList<>(2);
             if (!Utils.hasCameraPermission(getApplicationContext())) {
@@ -101,6 +86,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
             ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), CAMERA_STORAGE_PERMISSION);
+        }
+    }
+
+    private void handleIntent() {
+        final Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
+                isImageCaptureIntent = true;
+                hideToggleModeAbout();
+                final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
+                if (output != null && output instanceof Uri) {
+                    preview.setTargetUri((Uri) output);
+                }
+            } else if (intent.getAction().equals(MediaStore.ACTION_VIDEO_CAPTURE)) {
+                isVideoCaptureIntent = true;
+                hideToggleModeAbout();
+                preview.setIsVideoCaptureIntent();
+                shutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
+            }
         }
     }
 
@@ -129,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (requestCode == CAMERA_STORAGE_PERMISSION) {
             if (hasCameraAndStoragePermission()) {
                 initializeCamera();
+                handleIntent();
             } else {
                 Utils.showToast(getApplicationContext(), R.string.no_permissions);
                 finish();
@@ -138,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 toggleVideo();
             } else {
                 Utils.showToast(getApplicationContext(), R.string.no_audio_permissions);
+                if (isVideoCaptureIntent)
+                    finish();
             }
         }
     }
@@ -241,6 +248,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             isAskingPermissions = true;
             return;
         }
+
+        if (isVideoCaptureIntent)
+            preview.trySwitchToVideo();
+
         disableFlash();
         hideTimer();
         isInPhotoMode = !isInPhotoMode;
@@ -304,10 +315,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         if (hasCameraAndStoragePermission()) {
             resumeCameraItems();
-        }
 
-        if (isVideoCaptureIntent && isInPhotoMode) {
-            toggleVideo();
+            if (isVideoCaptureIntent && isInPhotoMode) {
+                toggleVideo();
+            }
         }
     }
 
