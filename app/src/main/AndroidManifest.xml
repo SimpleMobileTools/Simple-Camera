@@ -46,5 +46,15 @@
             android:name=".AboutActivity"
             android:label="@string/about"
             android:screenOrientation="portrait"/>
+
+        <receiver
+            android:name=".HardwareShutterReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.CAMERA_BUTTON"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

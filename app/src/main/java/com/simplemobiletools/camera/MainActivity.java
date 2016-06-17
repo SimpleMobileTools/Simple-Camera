@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void handleIntent() {
         final Intent intent = getIntent();
-        if (intent != null) {
+        if (intent != null && intent.getAction() != null) {
             if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
                 isImageCaptureIntent = true;
                 hideToggleModeAbout();
