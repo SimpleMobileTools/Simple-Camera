@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 isVideoCaptureIntent = true;
                 hideToggleModeAbout();
                 preview.trySwitchToVideo();
+                preview.setIsVideoCaptureIntent();
                 shutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
             }
         }
@@ -395,6 +396,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public int getCurrentOrientation() {
         return orientation;
+    }
+
+    @Override
+    public void videoSaved(Uri uri) {
+        if (isVideoCaptureIntent) {
+            final Intent intent = new Intent();
+            intent.setData(uri);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     @Override

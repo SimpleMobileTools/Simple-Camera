@@ -6,6 +6,7 @@ import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
@@ -22,7 +23,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener {
+public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener,
+        MediaScannerConnection.OnScanCompletedListener {
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 200;
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
@@ -44,6 +46,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean isVideoMode;
     private static boolean isSurfaceCreated;
     private static boolean switchToVideoAsap;
+    private static boolean isVideoCaptureIntent;
     private static String curVideoPath;
     private static int lastClickX;
     private static int lastClickY;
@@ -79,6 +82,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         } else {
             switchToVideoAsap = true;
         }
+    }
+
+    public void setIsVideoCaptureIntent() {
+        isVideoCaptureIntent = true;
     }
 
     public boolean setCamera(int cameraId) {
@@ -549,7 +556,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (recorder != null && isRecording) {
             try {
                 recorder.stop();
-                Utils.scanFile(curVideoPath, getContext());
+                final String[] paths = {curVideoPath};
+                MediaScannerConnection.scanFile(getContext(), paths, null, isVideoCaptureIntent ? this : null);
             } catch (RuntimeException e) {
                 new File(curVideoPath).delete();
                 Utils.showToast(getContext(), R.string.video_saving_error);
@@ -578,6 +586,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         focusArea();
     }
 
+    @Override
+    public void onScanCompleted(String path, Uri uri) {
+        callback.videoSaved(uri);
+    }
+
     public interface PreviewListener {
         void setFlashAvailable(boolean available);
 
@@ -586,5 +599,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         void activateShutter();
 
         int getCurrentOrientation();
+
+        void videoSaved(Uri uri);
     }
 }
