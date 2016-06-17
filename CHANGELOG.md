@@ -1,12 +1,13 @@
 Change Log
 ==========
 
-Version 1.5 *(2016-06---)*
+Version 1.6 *(2016-06-18)*
 ----------------------------
 
- * Recognize the hardware shutter button
+ * Recognize the hardware camera button
+ * Allow opening the app on Hardware camera button
 
-Version 1.4 *(2016-06-17)*
+Version 1.5 *(2016-06-17)*
 ----------------------------
 
  * Offer the app at third party Video Capture actions
