@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.5 *(2016-06---)*
+----------------------------
+
+ * Recognize the hardware shutter button
+
 Version 1.4 *(2016-06-17)*
 ----------------------------
 
