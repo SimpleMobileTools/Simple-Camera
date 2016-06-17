@@ -4,6 +4,12 @@ Change Log
 Version 1.4 *(2016-06-17)*
 ----------------------------
 
+ * Offer the app at third party Video Capture actions
+ * Added some additional checks for releasing the camera
+
+Version 1.4 *(2016-06-17)*
+----------------------------
+
  * Properly rotate photos at videos at landscape/selfies
  * Offer the app at third party Image Capture actions
  * Use the highest possible photo resolution, with limit at 8 mpx
