@@ -261,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @OnClick(R.id.toggle_photo_video)
     public void handleToggleVideo() {
         toggleVideo();
+        checkButtons();
     }
 
     private void toggleVideo() {
@@ -281,7 +282,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         hideTimer();
         isInPhotoMode = !isInPhotoMode;
         toggleCameraBtn.setVisibility(View.VISIBLE);
+    }
 
+    private void checkButtons() {
         if (isInPhotoMode) {
             initPhotoButtons();
         } else {
@@ -343,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             if (isVideoCaptureIntent && isInPhotoMode) {
                 toggleVideo();
+                checkButtons();
             }
         }
     }
