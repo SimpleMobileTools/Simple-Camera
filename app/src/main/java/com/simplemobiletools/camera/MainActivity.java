@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isCameraAvailable;
     private boolean isImageCaptureIntent;
     private boolean isVideoCaptureIntent;
+    private boolean isHardwareShutterHandled;
     private int currVideoRecTimer;
     private int orientation;
     private int currCamera;
@@ -63,6 +65,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         tryInitCamera();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_CAMERA && !isHardwareShutterHandled) {
+            isHardwareShutterHandled = true;
+            shutterPressed();
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_CAMERA) {
+            isHardwareShutterHandled = false;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
     private void hideToggleModeAbout() {
@@ -201,7 +222,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @OnClick(R.id.shutter)
-    public void shutterPressed() {
+    public void handleShutterPressed() {
+        shutterPressed();
+    }
+
+    private void shutterPressed() {
         if (!checkCameraAvailable()) {
             return;
         }
