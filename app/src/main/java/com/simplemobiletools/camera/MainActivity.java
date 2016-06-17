@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (isInPhotoMode) {
             initPhotoButtons();
         } else {
-            initVideoButtons();
+            initVideoButtons(true);
         }
     }
 
@@ -299,14 +299,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         preview.initPhotoMode();
     }
 
-    private void initVideoButtons() {
+    private void initVideoButtons(boolean warnOnError) {
         if (preview.initRecorder()) {
             final Resources res = getResources();
             togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
             shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
             toggleCameraBtn.setVisibility(View.VISIBLE);
         } else {
-            if (!isVideoCaptureIntent) {
+            if (!isVideoCaptureIntent && warnOnError) {
                 Utils.showToast(getApplicationContext(), R.string.video_mode_error);
             }
         }
@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
             if (!isInPhotoMode) {
-                initVideoButtons();
+                initVideoButtons(false);
             }
         } else {
             Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
