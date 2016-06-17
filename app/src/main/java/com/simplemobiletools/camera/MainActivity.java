@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @BindView(R.id.viewHolder) RelativeLayout viewHolder;
     @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
-    @BindView(R.id.toggle_videocam) ImageView togglePhotoVideoBtn;
+    @BindView(R.id.toggle_photo_video) ImageView togglePhotoVideoBtn;
     @BindView(R.id.shutter) ImageView shutterBtn;
     @BindView(R.id.video_rec_curr_timer) TextView recCurrTimer;
     @BindView(R.id.about) View aboutBtn;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isAskingPermissions;
     private boolean isCameraAvailable;
     private boolean isImageCaptureIntent;
+    private boolean isVideoCaptureIntent;
     private int currVideoRecTimer;
     private int orientation;
     private int currCamera;
@@ -64,16 +65,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         tryInitCamera();
 
         final Intent intent = getIntent();
-        if (intent != null && intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
-            isImageCaptureIntent = true;
-            togglePhotoVideoBtn.setVisibility(View.GONE);
-            aboutBtn.setVisibility(View.GONE);
+        if (intent != null) {
+            if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
+                isImageCaptureIntent = true;
 
-            final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
-            if (output != null && output instanceof Uri) {
-                preview.setTargetUri((Uri) output);
+                hideToggleModeAbout();
+                final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
+                if (output != null && output instanceof Uri) {
+                    preview.setTargetUri((Uri) output);
+                }
+            } else if (intent.getAction().equals(MediaStore.ACTION_VIDEO_CAPTURE)) {
+                isVideoCaptureIntent = true;
+                hideToggleModeAbout();
+                preview.trySwitchToVideo();
+                shutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
             }
         }
+    }
+
+    private void hideToggleModeAbout() {
+        togglePhotoVideoBtn.setVisibility(View.GONE);
+        aboutBtn.setVisibility(View.GONE);
     }
 
     private void tryInitCamera() {
@@ -213,8 +225,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivity(intent);
     }
 
-    @OnClick(R.id.toggle_videocam)
-    public void toggleVideo() {
+    @OnClick(R.id.toggle_photo_video)
+    public void handleToggleVideo() {
+        toggleVideo();
+    }
+
+    private void toggleVideo() {
         if (!checkCameraAvailable()) {
             return;
         }
@@ -250,7 +266,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
             toggleCameraBtn.setVisibility(View.VISIBLE);
         } else {
-            Utils.showToast(getApplicationContext(), R.string.video_mode_error);
+            if (!isVideoCaptureIntent) {
+                Utils.showToast(getApplicationContext(), R.string.video_mode_error);
+            }
         }
     }
 
@@ -285,6 +303,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         if (hasCameraAndStoragePermission()) {
             resumeCameraItems();
+        }
+
+        if (isVideoCaptureIntent && isInPhotoMode) {
+            toggleVideo();
         }
     }
 

@@ -20,7 +20,7 @@
         android:src="@mipmap/about"/>
 
     <ImageView
-        android:id="@+id/toggle_videocam"
+        android:id="@+id/toggle_photo_video"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"

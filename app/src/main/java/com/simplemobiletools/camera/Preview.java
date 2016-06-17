@@ -43,6 +43,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean isRecording;
     private static boolean isVideoMode;
     private static boolean isSurfaceCreated;
+    private static boolean switchToVideoAsap;
     private static String curVideoPath;
     private static int lastClickX;
     private static int lastClickY;
@@ -70,6 +71,14 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         isVideoMode = false;
         isSurfaceCreated = false;
         curVideoPath = "";
+    }
+
+    public void trySwitchToVideo() {
+        if (isSurfaceCreated) {
+            initRecorder();
+        } else {
+            switchToVideoAsap = true;
+        }
     }
 
     public boolean setCamera(int cameraId) {
@@ -332,6 +341,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             if (camera != null) {
                 camera.setPreviewDisplay(surfaceHolder);
             }
+
+            if (switchToVideoAsap)
+                initRecorder();
         } catch (IOException e) {
             Log.e(TAG, "surfaceCreated IOException " + e.getMessage());
         }
@@ -462,6 +474,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (camera == null || recorder != null || !isSurfaceCreated)
             return false;
 
+        switchToVideoAsap = false;
         final Camera.Size preferred = parameters.getPreferredPreviewSizeForVideo();
         if (preferred == null)
             return false;
