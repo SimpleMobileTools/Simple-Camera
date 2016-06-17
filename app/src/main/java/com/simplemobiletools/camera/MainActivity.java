@@ -135,19 +135,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
-        disableFlash();
-        hideTimer();
         if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
             currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
-            toggleCameraBtn.setImageResource(R.mipmap.camera_rear);
         } else {
             currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
-            toggleCameraBtn.setImageResource(R.mipmap.camera_front);
         }
 
-        disableFlash();
+        int newIconId = R.mipmap.camera_front;
         preview.releaseCamera();
-        preview.setCamera(currCamera);
+        if (preview.setCamera(currCamera)) {
+            if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                newIconId = R.mipmap.camera_rear;
+            }
+            toggleCameraBtn.setImageResource(newIconId);
+            disableFlash();
+            hideTimer();
+        } else {
+            Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
+        }
     }
 
     @OnClick(R.id.toggle_flash)
@@ -239,11 +244,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void initVideoButtons() {
-        final Resources res = getResources();
-        togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
-        shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
-        preview.initRecorder();
-        toggleCameraBtn.setVisibility(View.VISIBLE);
+        if (preview.initRecorder()) {
+            final Resources res = getResources();
+            togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
+            shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+            toggleCameraBtn.setVisibility(View.VISIBLE);
+        } else {
+            Utils.showToast(getApplicationContext(), R.string.video_mode_error);
+        }
     }
 
     private void hideNavigationBarIcons() {
@@ -286,16 +294,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             toggleCameraBtn.setVisibility(View.INVISIBLE);
         }
 
-        preview.setCamera(currCamera);
-        hideNavigationBarIcons();
+        if (preview.setCamera(currCamera)) {
+            hideNavigationBarIcons();
 
-        if (sensorManager != null) {
-            final Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
-        }
+            if (sensorManager != null) {
+                final Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+            }
 
-        if (!isInPhotoMode) {
-            initVideoButtons();
+            if (!isInPhotoMode) {
+                initVideoButtons();
+            }
+        } else {
+            Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
         }
     }
 
@@ -370,5 +381,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             setResult(RESULT_OK);
             finish();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (preview != null)
+            preview.releaseCamera();
     }
 }

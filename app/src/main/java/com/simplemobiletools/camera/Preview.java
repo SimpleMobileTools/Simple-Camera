@@ -72,7 +72,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         curVideoPath = "";
     }
 
-    public void setCamera(int cameraId) {
+    public boolean setCamera(int cameraId) {
         currCameraId = cameraId;
         Camera newCamera;
         try {
@@ -82,11 +82,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             Utils.showToast(getContext(), R.string.camera_open_error);
             Log.e(TAG, "setCamera open " + e.getMessage());
             callback.setIsCameraAvailable(false);
-            return;
+            return false;
         }
 
         if (camera == newCamera) {
-            return;
+            return false;
         }
 
         releaseCamera();
@@ -109,6 +109,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                     camera.setPreviewDisplay(surfaceHolder);
                 } catch (IOException e) {
                     Log.e(TAG, "setCamera setPreviewDisplay " + e.getMessage());
+                    return false;
                 }
                 setupPreview();
             }
@@ -119,6 +120,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (isVideoMode) {
             initRecorder();
         }
+
+        return true;
     }
 
     public void setTargetUri(Uri uri) {
@@ -455,12 +458,14 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     // VIDEO RECORDING
-    public void initRecorder() {
+    public boolean initRecorder() {
         if (camera == null || recorder != null || !isSurfaceCreated)
-            return;
+            return false;
 
-        camera.lock();
         final Camera.Size preferred = parameters.getPreferredPreviewSizeForVideo();
+        if (preferred == null)
+            return false;
+
         parameters.setPreviewSize(preferred.width, preferred.height);
         camera.setParameters(parameters);
 
@@ -474,7 +479,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         curVideoPath = Utils.getOutputMediaFile(getContext(), false);
         if (curVideoPath.isEmpty()) {
             Utils.showToast(getContext(), R.string.video_creating_error);
-            return;
+            return false;
         }
 
         final Camera.Size videoSize = getOptimalVideoSize();
@@ -495,7 +500,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             Utils.showToast(getContext(), R.string.video_setup_error);
             Log.e(TAG, "initRecorder " + e.getMessage());
             releaseCamera();
+            return false;
         }
+        return true;
     }
 
     public boolean toggleRecording() {

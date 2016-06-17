@@ -5,8 +5,10 @@
     <string name="video_creating_error">An error occurred at creating the video file</string>
     <string name="video_saving_error">An error occurred at saving the video file</string>
     <string name="video_setup_error">An error occurred at setting up the recorder</string>
+    <string name="video_mode_error">Switching to video mode failed</string>
     <string name="video_directory">Simple Videos</string>
     <string name="photo_directory">Simple Photos</string>
+    <string name="camera_switch_error">Switching camera failed</string>
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need the audio permission for recording videos</string>
 
