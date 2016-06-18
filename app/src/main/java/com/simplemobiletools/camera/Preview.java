@@ -72,7 +72,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         canTakePicture = false;
         surfaceView.setOnTouchListener(this);
         surfaceView.setOnClickListener(this);
-        surfaceView.setOnLongClickListener(this);
         isFlashEnabled = false;
         isVideoMode = false;
         isSurfaceCreated = false;
@@ -142,6 +141,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (isVideoMode) {
             initRecorder();
         }
+
+        final boolean isLongTapEnabled = Config.newInstance(getContext()).getLongTapEnabled();
+        surfaceView.setOnLongClickListener(isLongTapEnabled ? this : null);
 
         return true;
     }
