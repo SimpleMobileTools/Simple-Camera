@@ -504,10 +504,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public void initPhotoMode() {
-        mIsRecording = false;
-        mIsVideoMode = false;
         stopRecording();
         cleanupRecorder();
+        mIsRecording = false;
+        mIsVideoMode = false;
     }
 
     // VIDEO RECORDING
