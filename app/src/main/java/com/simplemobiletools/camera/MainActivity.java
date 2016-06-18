@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void handleShutter() {
         if (isInPhotoMode) {
-            preview.takePicture();
+            preview.tryTakePicture();
         } else {
             final Resources res = getResources();
             final boolean isRecording = preview.toggleRecording();

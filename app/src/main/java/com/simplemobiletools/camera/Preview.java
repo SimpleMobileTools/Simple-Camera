@@ -193,7 +193,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
     }
 
-    public void takePicture() {
+    public void tryTakePicture() {
+        focusArea(true);
+    }
+
+    private void takePicture() {
         if (canTakePicture) {
             if (isFlashEnabled) {
                 parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -296,7 +300,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return rotation % 360;
     }
 
-    private void focusArea() {
+    private void focusArea(final boolean takePictureAfter) {
         if (camera == null)
             return;
 
@@ -318,6 +322,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                     parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
                 camera.setParameters(parameters);
+                if (takePictureAfter) {
+                    takePicture();
+                }
             }
         });
     }
@@ -600,7 +607,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void onClick(View v) {
-        focusArea();
+        focusArea(false);
     }
 
     @Override
