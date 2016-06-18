@@ -214,22 +214,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
+        mIsFlashEnabled = !mIsFlashEnabled;
+        checkFlash();
+    }
+
+    private void checkFlash() {
         if (mIsFlashEnabled) {
-            disableFlash();
-        } else {
             enableFlash();
+        } else {
+            disableFlash();
         }
     }
 
     private void disableFlash() {
         mPreview.disableFlash();
-        mIsFlashEnabled = false;
         mToggleFlashBtn.setImageResource(R.mipmap.flash_off);
     }
 
     private void enableFlash() {
         mPreview.enableFlash();
-        mIsFlashEnabled = true;
         mToggleFlashBtn.setImageResource(R.mipmap.flash_on);
     }
 
@@ -300,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (mIsInPhotoMode) {
             initPhotoButtons();
         } else {
-            initVideoButtons(true);
+            initVideoButtons();
         }
     }
 
@@ -311,17 +314,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mPreview.initPhotoMode();
     }
 
-    private void initVideoButtons(boolean warnOnError) {
+    private void initVideoButtons() {
         if (mPreview.initRecorder()) {
-            final Resources res = getResources();
-            mTogglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
-            mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
-            mToggleCameraBtn.setVisibility(View.VISIBLE);
+            setupVideoIcons();
         } else {
-            if (!mIsVideoCaptureIntent && warnOnError) {
+            if (!mIsVideoCaptureIntent) {
                 Utils.showToast(getApplicationContext(), R.string.video_mode_error);
             }
         }
+    }
+
+    private void setupVideoIcons() {
+        final Resources res = getResources();
+        mTogglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
+        mToggleCameraBtn.setVisibility(View.VISIBLE);
+        mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+        checkFlash();
     }
 
     private void hideNavigationBarIcons() {
@@ -378,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
             if (!mIsInPhotoMode) {
-                initVideoButtons(false);
+                setupVideoIcons();
             }
         } else {
             Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
