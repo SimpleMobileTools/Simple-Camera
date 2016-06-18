@@ -8,4 +8,5 @@ public class Constants {
     // Shared preferences
     public static final String PREFS_KEY = "Camera";
     public static final String LONG_TAP = "long_tap";
+    public static final String FOCUS_BEFORE_CAPTURE = "focus_before_capture";
 }

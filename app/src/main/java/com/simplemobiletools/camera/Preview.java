@@ -48,6 +48,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean isSurfaceCreated;
     private static boolean switchToVideoAsap;
     private static boolean isVideoCaptureIntent;
+    private static boolean focusBeforeCapture;
     private boolean setupPreviewAfterMeasure;
     private static String curVideoPath;
     private static int lastClickX;
@@ -145,6 +146,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         final boolean isLongTapEnabled = Config.newInstance(getContext()).getLongTapEnabled();
         surfaceView.setOnLongClickListener(isLongTapEnabled ? this : null);
 
+        focusBeforeCapture = Config.newInstance(getContext()).getFocusBeforeCaptureEnabled();
+
         return true;
     }
 
@@ -194,7 +197,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public void tryTakePicture() {
-        focusArea(true);
+        if (focusBeforeCapture) {
+            focusArea(true);
+        } else {
+            takePicture();
+        }
     }
 
     private void takePicture() {

@@ -21,4 +21,12 @@ public class Config {
     public void setLongTapEnabled(boolean enabled) {
         prefs.edit().putBoolean(Constants.LONG_TAP, enabled).apply();
     }
+
+    public boolean getFocusBeforeCaptureEnabled() {
+        return prefs.getBoolean(Constants.FOCUS_BEFORE_CAPTURE, false);
+    }
+
+    public void setFocusBeforeCaptureEnabled(boolean enabled) {
+        prefs.edit().putBoolean(Constants.FOCUS_BEFORE_CAPTURE, enabled).apply();
+    }
 }
