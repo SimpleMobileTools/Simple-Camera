@@ -47,7 +47,7 @@
 
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/about"/>
+            android:label="@string/settings"/>
 
         <receiver
             android:name=".HardwareShutterReceiver"

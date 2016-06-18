@@ -12,6 +12,9 @@
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need the audio permission for recording videos</string>
 
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+
     <!-- About -->
     <string name="about">About</string>
     <string name="website">For more simple apps or source codes please visit:\nhttp://simplemobiletools.com</string>

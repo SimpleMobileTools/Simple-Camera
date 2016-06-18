@@ -53,7 +53,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static int lastClickX;
     private static int lastClickY;
     private static int initVideoRotation;
-    private static int navBarHeight;
     private static Point screenSize;
     private static Uri targetUri;
 
@@ -79,7 +78,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         isSurfaceCreated = false;
         setupPreviewAfterMeasure = false;
         curVideoPath = "";
-        navBarHeight = Utils.getNavBarHeight(getResources());
         screenSize = Utils.getScreenSize(activity);
     }
 

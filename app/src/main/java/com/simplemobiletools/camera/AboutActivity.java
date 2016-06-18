@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -32,6 +35,25 @@ public class AboutActivity extends AppCompatActivity {
         setupCopyright();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void setupEmail() {
         final String email = res.getString(R.string.email);
         final String appName = res.getString(R.string.app_name);
@@ -51,7 +73,6 @@ public class AboutActivity extends AppCompatActivity {
         final String copyrightText = String.format(res.getString(R.string.copyright), year);
         copyright.setText(copyrightText);
     }
-
 
     @OnClick(R.id.about_license)
     public void licenseClicked() {
