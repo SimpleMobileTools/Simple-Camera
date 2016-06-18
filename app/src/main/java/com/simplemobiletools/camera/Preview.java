@@ -1,6 +1,7 @@
 package com.simplemobiletools.camera;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
@@ -47,10 +48,13 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean isSurfaceCreated;
     private static boolean switchToVideoAsap;
     private static boolean isVideoCaptureIntent;
+    private boolean setupPreviewAfterMeasure;
     private static String curVideoPath;
     private static int lastClickX;
     private static int lastClickY;
     private static int initVideoRotation;
+    private static int navBarHeight;
+    private static Point screenSize;
     private static Uri targetUri;
 
     public Preview(Context context) {
@@ -73,7 +77,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         isFlashEnabled = false;
         isVideoMode = false;
         isSurfaceCreated = false;
+        setupPreviewAfterMeasure = false;
         curVideoPath = "";
+        navBarHeight = Utils.getNavBarHeight(getResources());
+        screenSize = Utils.getScreenSize(activity);
     }
 
     public void trySwitchToVideo() {
@@ -111,6 +118,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             parameters = camera.getParameters();
             supportedPreviewSizes = parameters.getSupportedPreviewSizes();
             requestLayout();
+            invalidate();
+            setupPreviewAfterMeasure = true;
 
             final List<String> focusModes = parameters.getSupportedFocusModes();
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
@@ -127,7 +136,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                     Log.e(TAG, "setCamera setPreviewDisplay " + e.getMessage());
                     return false;
                 }
-                setupPreview();
             }
 
             callback.setFlashAvailable(Utils.hasFlash(camera));
@@ -359,22 +367,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         isSurfaceCreated = true;
-        setupPreview();
 
         if (isVideoMode) {
             initRecorder();
-        }
-    }
-
-    private void setupPreview() {
-        canTakePicture = true;
-        if (camera != null && previewSize != null) {
-            parameters.setPreviewSize(previewSize.width, previewSize.height);
-
-            requestLayout();
-
-            camera.setParameters(parameters);
-            camera.startPreview();
         }
     }
 
@@ -386,6 +381,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         }
 
         cleanupRecorder();
+    }
+
+    private void setupPreview() {
+        canTakePicture = true;
+        if (camera != null && previewSize != null) {
+            parameters.setPreviewSize(previewSize.width, previewSize.height);
+            camera.setParameters(parameters);
+            camera.startPreview();
+        }
     }
 
     private void cleanupRecorder() {
@@ -438,12 +442,25 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        final int width = resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec);
-        final int height = resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec);
-        setMeasuredDimension(width, height);
+        setMeasuredDimension(screenSize.x, screenSize.y);
 
         if (supportedPreviewSizes != null) {
-            previewSize = getOptimalPreviewSize(supportedPreviewSizes, width, height);
+            previewSize = getOptimalPreviewSize(supportedPreviewSizes, screenSize.x, screenSize.y);
+            final LayoutParams lp = surfaceView.getLayoutParams();
+
+            if (screenSize.x > previewSize.height) {
+                final float ratio = (float) screenSize.x / previewSize.height;
+                lp.width = (int) (previewSize.height * ratio);
+                lp.height = (int) (previewSize.width * ratio);
+            } else {
+                lp.width = previewSize.height;
+                lp.height = previewSize.width;
+            }
+
+            if (setupPreviewAfterMeasure) {
+                setupPreviewAfterMeasure = false;
+                setupPreview();
+            }
         }
     }
 

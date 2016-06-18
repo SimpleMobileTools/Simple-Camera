@@ -1,13 +1,16 @@
 package com.simplemobiletools.camera;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.hardware.Camera;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.view.Display;
 import android.widget.Toast;
 
 import java.io.File;
@@ -95,6 +98,28 @@ public class Utils {
         sb.append(":").append(String.format(Locale.getDefault(), "%02d", seconds));
 
         return sb.toString();
+    }
+
+    public static Point getScreenSize(Activity activity) {
+        final Display display = activity.getWindowManager().getDefaultDisplay();
+        final Point size = new Point();
+        display.getSize(size);
+        size.y += getNavBarHeight(activity.getResources());
+        return size;
+    }
+
+    public static int getNavBarHeight(Resources res) {
+        int id = res.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (id > 0 && hasNavBar(res)) {
+            return res.getDimensionPixelSize(id);
+        }
+
+        return 0;
+    }
+
+    public static boolean hasNavBar(Resources res) {
+        int id = res.getIdentifier("config_showNavigationBar", "bool", "android");
+        return id > 0 && res.getBoolean(id);
     }
 
     public static boolean hasCameraPermission(Context cxt) {
