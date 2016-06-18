@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.7 *(2016-06-18)*
+----------------------------
+
+ * Always set the correct aspect ratio to the preview
+ * Add an option to disable Tap to Capture
+ * Add an optional function to Focus Before Capture, disabled by default
+
 Version 1.6 *(2016-06-18)*
 ----------------------------
 
