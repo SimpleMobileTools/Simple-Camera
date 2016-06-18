@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 
+import com.simplemobiletools.camera.activities.MainActivity;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,133 +33,134 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
     private static final float RATIO_TOLERANCE = 0.1f;
 
-    private static SurfaceHolder surfaceHolder;
-    private static Camera camera;
-    private static List<Camera.Size> supportedPreviewSizes;
-    private static SurfaceView surfaceView;
-    private static Camera.Size previewSize;
-    private static boolean canTakePicture;
-    private static MainActivity activity;
-    private static int currCameraId;
-    private static boolean isFlashEnabled;
-    private static Camera.Parameters parameters;
-    private static PreviewListener callback;
-    private static MediaRecorder recorder;
-    private static boolean isRecording;
-    private static boolean isVideoMode;
-    private static boolean isSurfaceCreated;
-    private static boolean switchToVideoAsap;
-    private static boolean isVideoCaptureIntent;
-    private static boolean focusBeforeCapture;
-    private boolean setupPreviewAfterMeasure;
-    private static String curVideoPath;
-    private static int lastClickX;
-    private static int lastClickY;
-    private static int initVideoRotation;
-    private static Point screenSize;
-    private static Uri targetUri;
+    private static SurfaceHolder mSurfaceHolder;
+    private static Camera mCamera;
+    private static List<Camera.Size> mSupportedPreviewSizes;
+    private static SurfaceView mSurfaceView;
+    private static Camera.Size mPreviewSize;
+    private static MainActivity mActivity;
+    private static Camera.Parameters mParameters;
+    private static PreviewListener mCallback;
+    private static MediaRecorder mRecorder;
+    private static String mCurVideoPath;
+    private static Point mScreenSize;
+    private static Uri mTargetUri;
+
+    private static boolean mCanTakePicture;
+    private static boolean mIsFlashEnabled;
+    private static boolean mIsRecording;
+    private static boolean mIsVideoMode;
+    private static boolean mIsSurfaceCreated;
+    private static boolean mSwitchToVideoAsap;
+    private static boolean mIsVideoCaptureIntent;
+    private static boolean mFocusBeforeCapture;
+    private static boolean mSetupPreviewAfterMeasure;
+    private static int mLastClickX;
+    private static int mLastClickY;
+    private static int mInitVideoRotation;
+    private static int mCurrCameraId;
 
     public Preview(Context context) {
         super(context);
     }
 
-    public Preview(MainActivity act, SurfaceView sv, PreviewListener cb) {
-        super(act);
+    public Preview(MainActivity activity, SurfaceView surfaceView, PreviewListener previewListener) {
+        super(activity);
 
-        activity = act;
-        callback = cb;
-        surfaceView = sv;
-        surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.addCallback(this);
-        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        canTakePicture = false;
-        surfaceView.setOnTouchListener(this);
-        surfaceView.setOnClickListener(this);
-        isFlashEnabled = false;
-        isVideoMode = false;
-        isSurfaceCreated = false;
-        setupPreviewAfterMeasure = false;
-        curVideoPath = "";
-        screenSize = Utils.getScreenSize(activity);
+        mActivity = activity;
+        mCallback = previewListener;
+        mSurfaceView = surfaceView;
+        mSurfaceHolder = mSurfaceView.getHolder();
+        mSurfaceHolder.addCallback(this);
+        mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        mCanTakePicture = false;
+        mSurfaceView.setOnTouchListener(this);
+        mSurfaceView.setOnClickListener(this);
+        mIsFlashEnabled = false;
+        mIsVideoMode = false;
+        mIsSurfaceCreated = false;
+        mSetupPreviewAfterMeasure = false;
+        mCurVideoPath = "";
+        mScreenSize = Utils.getScreenSize(mActivity);
     }
 
     public void trySwitchToVideo() {
-        if (isSurfaceCreated) {
+        if (mIsSurfaceCreated) {
             initRecorder();
         } else {
-            switchToVideoAsap = true;
+            mSwitchToVideoAsap = true;
         }
     }
 
     public void setIsVideoCaptureIntent() {
-        isVideoCaptureIntent = true;
+        mIsVideoCaptureIntent = true;
     }
 
     public boolean setCamera(int cameraId) {
-        currCameraId = cameraId;
+        mCurrCameraId = cameraId;
         Camera newCamera;
         try {
             newCamera = Camera.open(cameraId);
-            callback.setIsCameraAvailable(true);
+            mCallback.setIsCameraAvailable(true);
         } catch (Exception e) {
             Utils.showToast(getContext(), R.string.camera_open_error);
             Log.e(TAG, "setCamera open " + e.getMessage());
-            callback.setIsCameraAvailable(false);
+            mCallback.setIsCameraAvailable(false);
             return false;
         }
 
-        if (camera == newCamera) {
+        if (mCamera == newCamera) {
             return false;
         }
 
         releaseCamera();
-        camera = newCamera;
-        if (camera != null) {
-            parameters = camera.getParameters();
-            supportedPreviewSizes = parameters.getSupportedPreviewSizes();
+        mCamera = newCamera;
+        if (mCamera != null) {
+            mParameters = mCamera.getParameters();
+            mSupportedPreviewSizes = mParameters.getSupportedPreviewSizes();
             requestLayout();
             invalidate();
-            setupPreviewAfterMeasure = true;
+            mSetupPreviewAfterMeasure = true;
 
-            final List<String> focusModes = parameters.getSupportedFocusModes();
+            final List<String> focusModes = mParameters.getSupportedFocusModes();
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
-                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                mParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
             final int rotation = getPreviewRotation(cameraId);
-            camera.setDisplayOrientation(rotation);
-            camera.setParameters(parameters);
+            mCamera.setDisplayOrientation(rotation);
+            mCamera.setParameters(mParameters);
 
-            if (canTakePicture) {
+            if (mCanTakePicture) {
                 try {
-                    camera.setPreviewDisplay(surfaceHolder);
+                    mCamera.setPreviewDisplay(mSurfaceHolder);
                 } catch (IOException e) {
                     Log.e(TAG, "setCamera setPreviewDisplay " + e.getMessage());
                     return false;
                 }
             }
 
-            callback.setFlashAvailable(Utils.hasFlash(camera));
+            mCallback.setFlashAvailable(Utils.hasFlash(mCamera));
         }
 
-        if (isVideoMode) {
+        if (mIsVideoMode) {
             initRecorder();
         }
 
         final boolean isLongTapEnabled = Config.newInstance(getContext()).getLongTapEnabled();
-        surfaceView.setOnLongClickListener(isLongTapEnabled ? this : null);
+        mSurfaceView.setOnLongClickListener(isLongTapEnabled ? this : null);
 
-        focusBeforeCapture = Config.newInstance(getContext()).getFocusBeforeCaptureEnabled();
+        mFocusBeforeCapture = Config.newInstance(getContext()).getFocusBeforeCaptureEnabled();
 
         return true;
     }
 
     public void setTargetUri(Uri uri) {
-        targetUri = uri;
+        mTargetUri = uri;
     }
 
     private static int getPreviewRotation(int cameraId) {
         final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
-        int degrees = getRotationDegrees();
+        final int degrees = getRotationDegrees();
 
         int result;
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
@@ -171,7 +174,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private static int getMediaRotation(int cameraId) {
-        int degrees = getRotationDegrees();
+        final int degrees = getRotationDegrees();
         final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             return (360 + info.orientation + degrees) % 360;
@@ -181,7 +184,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private static int getRotationDegrees() {
-        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
         switch (rotation) {
             case Surface.ROTATION_0:
                 return 0;
@@ -197,7 +200,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public void tryTakePicture() {
-        if (focusBeforeCapture) {
+        if (mFocusBeforeCapture) {
             focusArea(true);
         } else {
             takePicture();
@@ -205,28 +208,28 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private void takePicture() {
-        if (canTakePicture) {
-            if (isFlashEnabled) {
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        if (mCanTakePicture) {
+            if (mIsFlashEnabled) {
+                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             } else {
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
 
-            int rotation = getMediaRotation(currCameraId);
+            int rotation = getMediaRotation(mCurrCameraId);
             rotation += compensateDeviceRotation();
 
             final Camera.Size maxSize = getOptimalPictureSize();
-            parameters.setPictureSize(maxSize.width, maxSize.height);
-            parameters.setRotation(rotation % 360);
+            mParameters.setPictureSize(maxSize.width, maxSize.height);
+            mParameters.setRotation(rotation % 360);
 
             MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                camera.enableShutterSound(false);
+                mCamera.enableShutterSound(false);
             }
-            camera.setParameters(parameters);
-            camera.takePicture(null, null, takePictureCallback);
+            mCamera.setParameters(mParameters);
+            mCamera.takePicture(null, null, takePictureCallback);
         }
-        canTakePicture = false;
+        mCanTakePicture = false;
     }
 
     private Camera.PictureCallback takePictureCallback = new Camera.PictureCallback() {
@@ -235,24 +238,24 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (camera != null) {
-                        camera.startPreview();
+                    if (mCamera != null) {
+                        mCamera.startPreview();
                     }
 
-                    canTakePicture = true;
+                    mCanTakePicture = true;
                 }
             }, PHOTO_PREVIEW_LENGTH);
 
-            new PhotoProcessor(activity, targetUri).execute(data);
-            if (isFlashEnabled) {
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                camera.setParameters(parameters);
+            new PhotoProcessor(mActivity, mTargetUri).execute(data);
+            if (mIsFlashEnabled) {
+                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                mCamera.setParameters(mParameters);
             }
         }
     };
 
     private Camera.Size getOptimalPictureSize() {
-        final List<Camera.Size> sizes = parameters.getSupportedPictureSizes();
+        final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
             final boolean isEightMegapixelsMax = isEightMegapixelsMax(size);
@@ -277,7 +280,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private Camera.Size getOptimalVideoSize() {
-        final List<Camera.Size> sizes = parameters.getSupportedVideoSizes();
+        final List<Camera.Size> sizes = mParameters.getSupportedVideoSizes();
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
             final boolean isSixteenToNine = isSixteenToNine(size);
@@ -291,8 +294,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     private int compensateDeviceRotation() {
         int degrees = 0;
-        boolean isFrontCamera = (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
-        int deviceOrientation = callback.getCurrentOrientation();
+        boolean isFrontCamera = (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
+        int deviceOrientation = mCallback.getCurrentOrientation();
         if (deviceOrientation == Constants.ORIENT_LANDSCAPE_LEFT) {
             degrees += isFrontCamera ? 90 : 270;
         } else if (deviceOrientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
@@ -302,33 +305,33 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private int getFinalRotation() {
-        int rotation = getMediaRotation(currCameraId);
+        int rotation = getMediaRotation(mCurrCameraId);
         rotation += compensateDeviceRotation();
         return rotation % 360;
     }
 
     private void focusArea(final boolean takePictureAfter) {
-        if (camera == null)
+        if (mCamera == null)
             return;
 
-        camera.cancelAutoFocus();
-        final Rect focusRect = calculateFocusArea(lastClickX, lastClickY);
-        if (parameters.getMaxNumFocusAreas() > 0) {
+        mCamera.cancelAutoFocus();
+        final Rect focusRect = calculateFocusArea(mLastClickX, mLastClickY);
+        if (mParameters.getMaxNumFocusAreas() > 0) {
             final List<Camera.Area> focusAreas = new ArrayList<>(1);
             focusAreas.add(new Camera.Area(focusRect, 1000));
-            parameters.setFocusAreas(focusAreas);
+            mParameters.setFocusAreas(focusAreas);
         }
 
-        camera.setParameters(parameters);
-        camera.autoFocus(new Camera.AutoFocusCallback() {
+        mCamera.setParameters(mParameters);
+        mCamera.autoFocus(new Camera.AutoFocusCallback() {
             @Override
             public void onAutoFocus(boolean success, Camera camera) {
                 camera.cancelAutoFocus();
-                final List<String> focusModes = parameters.getSupportedFocusModes();
+                final List<String> focusModes = mParameters.getSupportedFocusModes();
                 if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
-                    parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+                    mParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
-                camera.setParameters(parameters);
+                camera.setParameters(mParameters);
                 if (takePictureAfter) {
                     takePicture();
                 }
@@ -337,8 +340,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private Rect calculateFocusArea(float x, float y) {
-        int left = Float.valueOf((x / surfaceView.getWidth()) * 2000 - 1000).intValue();
-        int top = Float.valueOf((y / surfaceView.getHeight()) * 2000 - 1000).intValue();
+        int left = Float.valueOf((x / mSurfaceView.getWidth()) * 2000 - 1000).intValue();
+        int top = Float.valueOf((y / mSurfaceView.getHeight()) * 2000 - 1000).intValue();
 
         int tmp = left;
         left = top;
@@ -354,10 +357,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     public void releaseCamera() {
         stopRecording();
 
-        if (camera != null) {
-            camera.stopPreview();
-            camera.release();
-            camera = null;
+        if (mCamera != null) {
+            mCamera.stopPreview();
+            mCamera.release();
+            mCamera = null;
         }
 
         cleanupRecorder();
@@ -365,13 +368,13 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        isSurfaceCreated = true;
+        mIsSurfaceCreated = true;
         try {
-            if (camera != null) {
-                camera.setPreviewDisplay(surfaceHolder);
+            if (mCamera != null) {
+                mCamera.setPreviewDisplay(mSurfaceHolder);
             }
 
-            if (switchToVideoAsap)
+            if (mSwitchToVideoAsap)
                 initRecorder();
         } catch (IOException e) {
             Log.e(TAG, "surfaceCreated IOException " + e.getMessage());
@@ -380,40 +383,40 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        isSurfaceCreated = true;
+        mIsSurfaceCreated = true;
 
-        if (isVideoMode) {
+        if (mIsVideoMode) {
             initRecorder();
         }
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        isSurfaceCreated = false;
-        if (camera != null) {
-            camera.stopPreview();
+        mIsSurfaceCreated = false;
+        if (mCamera != null) {
+            mCamera.stopPreview();
         }
 
         cleanupRecorder();
     }
 
     private void setupPreview() {
-        canTakePicture = true;
-        if (camera != null && previewSize != null) {
-            parameters.setPreviewSize(previewSize.width, previewSize.height);
-            camera.setParameters(parameters);
-            camera.startPreview();
+        mCanTakePicture = true;
+        if (mCamera != null && mPreviewSize != null) {
+            mParameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+            mCamera.setParameters(mParameters);
+            mCamera.startPreview();
         }
     }
 
     private void cleanupRecorder() {
-        if (recorder != null) {
-            if (isRecording) {
+        if (mRecorder != null) {
+            if (mIsRecording) {
                 stopRecording();
             }
 
-            recorder.release();
-            recorder = null;
+            mRecorder.release();
+            mRecorder = null;
         }
     }
 
@@ -456,23 +459,23 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(screenSize.x, screenSize.y);
+        setMeasuredDimension(mScreenSize.x, mScreenSize.y);
 
-        if (supportedPreviewSizes != null) {
-            previewSize = getOptimalPreviewSize(supportedPreviewSizes, screenSize.x, screenSize.y);
-            final LayoutParams lp = surfaceView.getLayoutParams();
+        if (mSupportedPreviewSizes != null) {
+            mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, mScreenSize.x, mScreenSize.y);
+            final LayoutParams lp = mSurfaceView.getLayoutParams();
 
-            if (screenSize.x > previewSize.height) {
-                final float ratio = (float) screenSize.x / previewSize.height;
-                lp.width = (int) (previewSize.height * ratio);
-                lp.height = (int) (previewSize.width * ratio);
+            if (mScreenSize.x > mPreviewSize.height) {
+                final float ratio = (float) mScreenSize.x / mPreviewSize.height;
+                lp.width = (int) (mPreviewSize.height * ratio);
+                lp.height = (int) (mPreviewSize.width * ratio);
             } else {
-                lp.width = previewSize.height;
-                lp.height = previewSize.width;
+                lp.width = mPreviewSize.height;
+                lp.height = mPreviewSize.width;
             }
 
-            if (setupPreviewAfterMeasure) {
-                setupPreviewAfterMeasure = false;
+            if (mSetupPreviewAfterMeasure) {
+                mSetupPreviewAfterMeasure = false;
                 setupPreview();
             }
         }
@@ -480,55 +483,55 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        lastClickX = (int) event.getX();
-        lastClickY = (int) event.getY();
+        mLastClickX = (int) event.getX();
+        mLastClickY = (int) event.getY();
         return false;
     }
 
     public void enableFlash() {
-        if (isVideoMode) {
-            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            camera.setParameters(parameters);
+        if (mIsVideoMode) {
+            mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            mCamera.setParameters(mParameters);
         }
 
-        isFlashEnabled = true;
+        mIsFlashEnabled = true;
     }
 
     public void disableFlash() {
-        isFlashEnabled = false;
-        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-        camera.setParameters(parameters);
+        mIsFlashEnabled = false;
+        mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        mCamera.setParameters(mParameters);
     }
 
     public void initPhotoMode() {
-        isRecording = false;
-        isVideoMode = false;
+        mIsRecording = false;
+        mIsVideoMode = false;
         stopRecording();
         cleanupRecorder();
     }
 
     // VIDEO RECORDING
     public boolean initRecorder() {
-        if (camera == null || recorder != null || !isSurfaceCreated)
+        if (mCamera == null || mRecorder != null || !mIsSurfaceCreated)
             return false;
 
-        switchToVideoAsap = false;
-        final Camera.Size preferred = parameters.getPreferredPreviewSizeForVideo();
+        mSwitchToVideoAsap = false;
+        final Camera.Size preferred = mParameters.getPreferredPreviewSizeForVideo();
         if (preferred == null)
             return false;
 
-        parameters.setPreviewSize(preferred.width, preferred.height);
-        camera.setParameters(parameters);
+        mParameters.setPreviewSize(preferred.width, preferred.height);
+        mCamera.setParameters(mParameters);
 
-        isRecording = false;
-        isVideoMode = true;
-        recorder = new MediaRecorder();
-        recorder.setCamera(camera);
-        recorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
-        recorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+        mIsRecording = false;
+        mIsVideoMode = true;
+        mRecorder = new MediaRecorder();
+        mRecorder.setCamera(mCamera);
+        mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
-        curVideoPath = Utils.getOutputMediaFile(getContext(), false);
-        if (curVideoPath.isEmpty()) {
+        mCurVideoPath = Utils.getOutputMediaFile(getContext(), false);
+        if (mCurVideoPath.isEmpty()) {
             Utils.showToast(getContext(), R.string.video_creating_error);
             return false;
         }
@@ -537,16 +540,16 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         final CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         cpHigh.videoFrameWidth = videoSize.width;
         cpHigh.videoFrameHeight = videoSize.height;
-        recorder.setProfile(cpHigh);
-        recorder.setOutputFile(curVideoPath);
-        recorder.setPreviewDisplay(surfaceHolder.getSurface());
+        mRecorder.setProfile(cpHigh);
+        mRecorder.setOutputFile(mCurVideoPath);
+        mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
 
         int rotation = getFinalRotation();
-        initVideoRotation = rotation;
-        recorder.setOrientationHint(rotation);
+        mInitVideoRotation = rotation;
+        mRecorder.setOrientationHint(rotation);
 
         try {
-            recorder.prepare();
+            mRecorder.prepare();
         } catch (Exception e) {
             Utils.showToast(getContext(), R.string.video_setup_error);
             Log.e(TAG, "initRecorder " + e.getMessage());
@@ -557,25 +560,25 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     public boolean toggleRecording() {
-        if (isRecording) {
+        if (mIsRecording) {
             stopRecording();
             initRecorder();
         } else {
             startRecording();
         }
-        return isRecording;
+        return mIsRecording;
     }
 
     private void startRecording() {
-        if (initVideoRotation != getFinalRotation()) {
+        if (mInitVideoRotation != getFinalRotation()) {
             cleanupRecorder();
             initRecorder();
         }
 
         try {
-            camera.unlock();
-            recorder.start();
-            isRecording = true;
+            mCamera.unlock();
+            mRecorder.start();
+            mIsRecording = true;
         } catch (Exception e) {
             Utils.showToast(getContext(), R.string.video_setup_error);
             Log.e(TAG, "toggleRecording " + e.getMessage());
@@ -584,23 +587,23 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private void stopRecording() {
-        if (recorder != null && isRecording) {
+        if (mRecorder != null && mIsRecording) {
             try {
-                recorder.stop();
-                final String[] paths = {curVideoPath};
-                MediaScannerConnection.scanFile(getContext(), paths, null, isVideoCaptureIntent ? this : null);
+                mRecorder.stop();
+                final String[] paths = {mCurVideoPath};
+                MediaScannerConnection.scanFile(getContext(), paths, null, mIsVideoCaptureIntent ? this : null);
             } catch (RuntimeException e) {
-                new File(curVideoPath).delete();
+                new File(mCurVideoPath).delete();
                 Utils.showToast(getContext(), R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
                 releaseCamera();
             } finally {
-                recorder = null;
-                isRecording = false;
+                mRecorder = null;
+                mIsRecording = false;
             }
         }
 
-        final File file = new File(curVideoPath);
+        final File file = new File(mCurVideoPath);
         if (file.exists() && file.length() == 0) {
             file.delete();
         }
@@ -608,7 +611,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public boolean onLongClick(View v) {
-        callback.activateShutter();
+        mCallback.activateShutter();
         return true;
     }
 
@@ -619,7 +622,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     @Override
     public void onScanCompleted(String path, Uri uri) {
-        callback.videoSaved(uri);
+        mCallback.videoSaved(uri);
     }
 
     public interface PreviewListener {

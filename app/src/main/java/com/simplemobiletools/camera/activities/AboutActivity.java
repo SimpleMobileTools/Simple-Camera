@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera;
+package com.simplemobiletools.camera.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.simplemobiletools.camera.BuildConfig;
+import com.simplemobiletools.camera.R;
 
 import java.util.Calendar;
 
@@ -18,17 +20,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AboutActivity extends AppCompatActivity {
-    @BindView(R.id.about_copyright) TextView copyright;
-    @BindView(R.id.about_version) TextView version;
-    @BindView(R.id.about_email) TextView emailTV;
-    private Resources res;
+    @BindView(R.id.about_copyright) TextView mCopyright;
+    @BindView(R.id.about_version) TextView mVersion;
+    @BindView(R.id.about_email) TextView mEmailTV;
+
+    private Resources mRes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        res = getResources();
+        mRes = getResources();
 
         setupEmail();
         setupVersion();
@@ -37,8 +40,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -55,23 +57,23 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setupEmail() {
-        final String email = res.getString(R.string.email);
-        final String appName = res.getString(R.string.app_name);
+        final String email = mRes.getString(R.string.email);
+        final String appName = mRes.getString(R.string.app_name);
         final String href = "<a href=\"mailto:" + email + "?subject=" + appName + "\">" + email + "</a>";
-        emailTV.setText(Html.fromHtml(href));
-        emailTV.setMovementMethod(LinkMovementMethod.getInstance());
+        mEmailTV.setText(Html.fromHtml(href));
+        mEmailTV.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setupVersion() {
         final String versionName = BuildConfig.VERSION_NAME;
-        final String versionText = String.format(res.getString(R.string.version), versionName);
-        version.setText(versionText);
+        final String versionText = String.format(mRes.getString(R.string.version), versionName);
+        mVersion.setText(versionText);
     }
 
     private void setupCopyright() {
         final int year = Calendar.getInstance().get(Calendar.YEAR);
-        final String copyrightText = String.format(res.getString(R.string.copyright), year);
-        copyright.setText(copyrightText);
+        final String copyrightText = String.format(mRes.getString(R.string.copyright), year);
+        mCopyright.setText(copyrightText);
     }
 
     @OnClick(R.id.about_license)

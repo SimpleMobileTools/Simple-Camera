@@ -1,16 +1,19 @@
-package com.simplemobiletools.camera;
+package com.simplemobiletools.camera.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
+
+import com.simplemobiletools.camera.Config;
+import com.simplemobiletools.camera.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SettingsActivity extends AppCompatActivity {
-    @BindView(R.id.settings_long_tap) SwitchCompat longTapSwitch;
-    @BindView(R.id.settings_focus_before_capture) SwitchCompat focusBeforeCaptureSwitch;
+    @BindView(R.id.settings_long_tap) SwitchCompat mLongTapSwitch;
+    @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
 
     private static Config mConfig;
 
@@ -26,22 +29,22 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setupLongTap() {
-        longTapSwitch.setChecked(mConfig.getLongTapEnabled());
+        mLongTapSwitch.setChecked(mConfig.getLongTapEnabled());
     }
 
     private void setupFocusBeforeCapture() {
-        focusBeforeCaptureSwitch.setChecked(mConfig.getFocusBeforeCaptureEnabled());
+        mFocusBeforeCaptureSwitch.setChecked(mConfig.getFocusBeforeCaptureEnabled());
     }
 
     @OnClick(R.id.settings_long_tap_holder)
     public void handleLongTapToTrigger() {
-        longTapSwitch.setChecked(!longTapSwitch.isChecked());
-        mConfig.setLongTapEnabled(longTapSwitch.isChecked());
+        mLongTapSwitch.setChecked(!mLongTapSwitch.isChecked());
+        mConfig.setLongTapEnabled(mLongTapSwitch.isChecked());
     }
 
     @OnClick(R.id.settings_focus_before_capture_holder)
     public void handleFocusBeforeCapture() {
-        focusBeforeCaptureSwitch.setChecked(!focusBeforeCaptureSwitch.isChecked());
-        mConfig.setFocusBeforeCaptureEnabled(focusBeforeCaptureSwitch.isChecked());
+        mFocusBeforeCaptureSwitch.setChecked(!mFocusBeforeCaptureSwitch.isChecked());
+        mConfig.setFocusBeforeCaptureEnabled(mFocusBeforeCaptureSwitch.isChecked());
     }
 }

@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera;
+package com.simplemobiletools.camera.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -26,7 +26,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simplemobiletools.camera.Constants;
+import com.simplemobiletools.camera.PhotoProcessor;
+import com.simplemobiletools.camera.Preview;
 import com.simplemobiletools.camera.Preview.PreviewListener;
+import com.simplemobiletools.camera.R;
+import com.simplemobiletools.camera.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,29 +41,31 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener {
-    @BindView(R.id.viewHolder) RelativeLayout viewHolder;
-    @BindView(R.id.toggle_camera) ImageView toggleCameraBtn;
-    @BindView(R.id.toggle_flash) ImageView toggleFlashBtn;
-    @BindView(R.id.toggle_photo_video) ImageView togglePhotoVideoBtn;
-    @BindView(R.id.shutter) ImageView shutterBtn;
-    @BindView(R.id.video_rec_curr_timer) TextView recCurrTimer;
-    @BindView(R.id.about) View aboutBtn;
+    @BindView(R.id.viewHolder) RelativeLayout mViewHolder;
+    @BindView(R.id.toggle_camera) ImageView mToggleCameraBtn;
+    @BindView(R.id.toggle_flash) ImageView mToggleFlashBtn;
+    @BindView(R.id.toggle_photo_video) ImageView mTogglePhotoVideoBtn;
+    @BindView(R.id.shutter) ImageView mShutterBtn;
+    @BindView(R.id.video_rec_curr_timer) TextView mRecCurrTimer;
+    @BindView(R.id.about) View mAboutBtn;
 
     private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static final int AUDIO_PERMISSION = 2;
-    private static SensorManager sensorManager;
-    private Preview preview;
-    private boolean isFlashEnabled;
-    private boolean isInPhotoMode;
-    private boolean isAskingPermissions;
-    private boolean isCameraAvailable;
-    private boolean isImageCaptureIntent;
-    private boolean isVideoCaptureIntent;
-    private boolean isHardwareShutterHandled;
-    private int currVideoRecTimer;
-    private int orientation;
-    private int currCamera;
-    private Handler timerHandler;
+
+    private static SensorManager mSensorManager;
+    private static Preview mPreview;
+    private static Handler mTimerHandler;
+
+    private static boolean mIsFlashEnabled;
+    private static boolean mIsInPhotoMode;
+    private static boolean mIsAskingPermissions;
+    private static boolean mIsCameraAvailable;
+    private static boolean mIsImageCaptureIntent;
+    private static boolean mIsVideoCaptureIntent;
+    private static boolean mIsHardwareShutterHandled;
+    private static int mCurrVideoRecTimer;
+    private static int mOrientation;
+    private static int mCurrCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_CAMERA && !isHardwareShutterHandled) {
-            isHardwareShutterHandled = true;
+        if (keyCode == KeyEvent.KEYCODE_CAMERA && !mIsHardwareShutterHandled) {
+            mIsHardwareShutterHandled = true;
             shutterPressed();
             return true;
         } else {
@@ -86,17 +93,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_CAMERA) {
-            isHardwareShutterHandled = false;
+            mIsHardwareShutterHandled = false;
         }
         return super.onKeyUp(keyCode, event);
     }
 
     private void hideToggleModeAbout() {
-        if (togglePhotoVideoBtn != null)
-            togglePhotoVideoBtn.setVisibility(View.GONE);
+        if (mTogglePhotoVideoBtn != null)
+            mTogglePhotoVideoBtn.setVisibility(View.GONE);
 
-        if (aboutBtn != null)
-            aboutBtn.setVisibility(View.GONE);
+        if (mAboutBtn != null)
+            mAboutBtn.setVisibility(View.GONE);
     }
 
     private void tryInitCamera() {
@@ -119,17 +126,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         final Intent intent = getIntent();
         if (intent != null && intent.getAction() != null) {
             if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
-                isImageCaptureIntent = true;
+                mIsImageCaptureIntent = true;
                 hideToggleModeAbout();
                 final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
                 if (output != null && output instanceof Uri) {
-                    preview.setTargetUri((Uri) output);
+                    mPreview.setTargetUri((Uri) output);
                 }
             } else if (intent.getAction().equals(MediaStore.ACTION_VIDEO_CAPTURE)) {
-                isVideoCaptureIntent = true;
+                mIsVideoCaptureIntent = true;
                 hideToggleModeAbout();
-                preview.setIsVideoCaptureIntent();
-                shutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
+                mPreview.setIsVideoCaptureIntent();
+                mShutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
             }
         }
     }
@@ -138,13 +145,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
-        preview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView), this);
-        preview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        viewHolder.addView(preview);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        isInPhotoMode = true;
-        timerHandler = new Handler();
+        mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+        mPreview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView), this);
+        mPreview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mViewHolder.addView(mPreview);
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mIsInPhotoMode = true;
+        mTimerHandler = new Handler();
     }
 
     private boolean hasCameraAndStoragePermission() {
@@ -154,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        isAskingPermissions = false;
+        mIsAskingPermissions = false;
 
         if (requestCode == CAMERA_STORAGE_PERMISSION) {
             if (hasCameraAndStoragePermission()) {
@@ -169,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 toggleVideo();
             } else {
                 Utils.showToast(getApplicationContext(), R.string.no_audio_permissions);
-                if (isVideoCaptureIntent)
+                if (mIsVideoCaptureIntent)
                     finish();
             }
         }
@@ -181,19 +188,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
-        if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
-            currCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
+        if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            mCurrCamera = Camera.CameraInfo.CAMERA_FACING_FRONT;
         } else {
-            currCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+            mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
         }
 
         int newIconId = R.mipmap.camera_front;
-        preview.releaseCamera();
-        if (preview.setCamera(currCamera)) {
-            if (currCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
+        mPreview.releaseCamera();
+        if (mPreview.setCamera(mCurrCamera)) {
+            if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
                 newIconId = R.mipmap.camera_rear;
             }
-            toggleCameraBtn.setImageResource(newIconId);
+            mToggleCameraBtn.setImageResource(newIconId);
             disableFlash();
             hideTimer();
         } else {
@@ -207,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
-        if (isFlashEnabled) {
+        if (mIsFlashEnabled) {
             disableFlash();
         } else {
             enableFlash();
@@ -215,15 +222,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void disableFlash() {
-        preview.disableFlash();
-        isFlashEnabled = false;
-        toggleFlashBtn.setImageResource(R.mipmap.flash_off);
+        mPreview.disableFlash();
+        mIsFlashEnabled = false;
+        mToggleFlashBtn.setImageResource(R.mipmap.flash_off);
     }
 
     private void enableFlash() {
-        preview.enableFlash();
-        isFlashEnabled = true;
-        toggleFlashBtn.setImageResource(R.mipmap.flash_on);
+        mPreview.enableFlash();
+        mIsFlashEnabled = true;
+        mToggleFlashBtn.setImageResource(R.mipmap.flash_on);
     }
 
     @OnClick(R.id.shutter)
@@ -240,18 +247,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void handleShutter() {
-        if (isInPhotoMode) {
-            preview.tryTakePicture();
+        if (mIsInPhotoMode) {
+            mPreview.tryTakePicture();
         } else {
             final Resources res = getResources();
-            final boolean isRecording = preview.toggleRecording();
+            final boolean isRecording = mPreview.toggleRecording();
             if (isRecording) {
-                shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_stop));
-                toggleCameraBtn.setVisibility(View.INVISIBLE);
+                mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_stop));
+                mToggleCameraBtn.setVisibility(View.INVISIBLE);
                 showTimer();
             } else {
-                shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
-                toggleCameraBtn.setVisibility(View.VISIBLE);
+                mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+                mToggleCameraBtn.setVisibility(View.VISIBLE);
                 hideTimer();
             }
         }
@@ -276,21 +283,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if (!Utils.hasAudioPermission(getApplicationContext())) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, AUDIO_PERMISSION);
-            isAskingPermissions = true;
+            mIsAskingPermissions = true;
             return;
         }
 
-        if (isVideoCaptureIntent)
-            preview.trySwitchToVideo();
+        if (mIsVideoCaptureIntent)
+            mPreview.trySwitchToVideo();
 
         disableFlash();
         hideTimer();
-        isInPhotoMode = !isInPhotoMode;
-        toggleCameraBtn.setVisibility(View.VISIBLE);
+        mIsInPhotoMode = !mIsInPhotoMode;
+        mToggleCameraBtn.setVisibility(View.VISIBLE);
     }
 
     private void checkButtons() {
-        if (isInPhotoMode) {
+        if (mIsInPhotoMode) {
             initPhotoButtons();
         } else {
             initVideoButtons(true);
@@ -299,19 +306,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void initPhotoButtons() {
         final Resources res = getResources();
-        togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
-        shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
-        preview.initPhotoMode();
+        mTogglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
+        mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
+        mPreview.initPhotoMode();
     }
 
     private void initVideoButtons(boolean warnOnError) {
-        if (preview.initRecorder()) {
+        if (mPreview.initRecorder()) {
             final Resources res = getResources();
-            togglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
-            shutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
-            toggleCameraBtn.setVisibility(View.VISIBLE);
+            mTogglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
+            mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
+            mToggleCameraBtn.setVisibility(View.VISIBLE);
         } else {
-            if (!isVideoCaptureIntent && warnOnError) {
+            if (!mIsVideoCaptureIntent && warnOnError) {
                 Utils.showToast(getApplicationContext(), R.string.video_mode_error);
             }
         }
@@ -322,14 +329,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void hideTimer() {
-        recCurrTimer.setText(Utils.formatSeconds(0));
-        recCurrTimer.setVisibility(View.GONE);
-        currVideoRecTimer = 0;
-        timerHandler.removeCallbacksAndMessages(null);
+        mRecCurrTimer.setText(Utils.formatSeconds(0));
+        mRecCurrTimer.setVisibility(View.GONE);
+        mCurrVideoRecTimer = 0;
+        mTimerHandler.removeCallbacksAndMessages(null);
     }
 
     private void showTimer() {
-        recCurrTimer.setVisibility(View.VISIBLE);
+        mRecCurrTimer.setVisibility(View.VISIBLE);
         setupTimer();
     }
 
@@ -337,8 +344,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                recCurrTimer.setText(Utils.formatSeconds(currVideoRecTimer++));
-                timerHandler.postDelayed(this, 1000);
+                mRecCurrTimer.setText(Utils.formatSeconds(mCurrVideoRecTimer++));
+                mTimerHandler.postDelayed(this, 1000);
             }
         });
     }
@@ -349,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (hasCameraAndStoragePermission()) {
             resumeCameraItems();
 
-            if (isVideoCaptureIntent && isInPhotoMode) {
+            if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 toggleVideo();
                 checkButtons();
             }
@@ -359,18 +366,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void resumeCameraItems() {
         final int cnt = Camera.getNumberOfCameras();
         if (cnt == 1) {
-            toggleCameraBtn.setVisibility(View.INVISIBLE);
+            mToggleCameraBtn.setVisibility(View.INVISIBLE);
         }
 
-        if (preview.setCamera(currCamera)) {
+        if (mPreview.setCamera(mCurrCamera)) {
             hideNavigationBarIcons();
 
-            if (sensorManager != null) {
-                final Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+            if (mSensorManager != null) {
+                final Sensor accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
             }
 
-            if (!isInPhotoMode) {
+            if (!mIsInPhotoMode) {
                 initVideoButtons(false);
             }
         } else {
@@ -381,27 +388,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onPause() {
         super.onPause();
-        if (!hasCameraAndStoragePermission() || isAskingPermissions)
+        if (!hasCameraAndStoragePermission() || mIsAskingPermissions)
             return;
 
         hideTimer();
-        if (preview != null) {
-            preview.releaseCamera();
+        if (mPreview != null) {
+            mPreview.releaseCamera();
         }
 
-        if (sensorManager != null)
-            sensorManager.unregisterListener(this);
+        if (mSensorManager != null)
+            mSensorManager.unregisterListener(this);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.values[0] < 6.5 && event.values[0] > -6.5) {
-            orientation = Constants.ORIENT_PORTRAIT;
+            mOrientation = Constants.ORIENT_PORTRAIT;
         } else {
             if (event.values[0] > 0) {
-                orientation = Constants.ORIENT_LANDSCAPE_LEFT;
+                mOrientation = Constants.ORIENT_LANDSCAPE_LEFT;
             } else {
-                orientation = Constants.ORIENT_LANDSCAPE_RIGHT;
+                mOrientation = Constants.ORIENT_LANDSCAPE_RIGHT;
             }
         }
     }
@@ -412,25 +419,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private boolean checkCameraAvailable() {
-        if (!isCameraAvailable) {
+        if (!mIsCameraAvailable) {
             Utils.showToast(getApplicationContext(), R.string.camera_unavailable);
         }
-        return isCameraAvailable;
+        return mIsCameraAvailable;
     }
 
     @Override
     public void setFlashAvailable(boolean available) {
         if (available) {
-            toggleFlashBtn.setVisibility(View.VISIBLE);
+            mToggleFlashBtn.setVisibility(View.VISIBLE);
         } else {
-            toggleFlashBtn.setVisibility(View.INVISIBLE);
+            mToggleFlashBtn.setVisibility(View.INVISIBLE);
             disableFlash();
         }
     }
 
     @Override
     public void setIsCameraAvailable(boolean available) {
-        isCameraAvailable = available;
+        mIsCameraAvailable = available;
     }
 
     @Override
@@ -440,12 +447,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public int getCurrentOrientation() {
-        return orientation;
+        return mOrientation;
     }
 
     @Override
     public void videoSaved(Uri uri) {
-        if (isVideoCaptureIntent) {
+        if (mIsVideoCaptureIntent) {
             final Intent intent = new Intent();
             intent.setData(uri);
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -456,7 +463,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void mediaSaved() {
-        if (isImageCaptureIntent) {
+        if (mIsImageCaptureIntent) {
             setResult(RESULT_OK);
             finish();
         }
@@ -465,7 +472,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (preview != null)
-            preview.releaseCamera();
+        if (mPreview != null)
+            mPreview.releaseCamera();
     }
 }

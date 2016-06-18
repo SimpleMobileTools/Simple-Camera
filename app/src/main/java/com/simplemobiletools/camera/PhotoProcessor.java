@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.simplemobiletools.camera.activities.MainActivity;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -61,7 +63,7 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        MediaSavedListener listener = mActivity.get();
+        final MediaSavedListener listener = mActivity.get();
         if (listener != null) {
             listener.mediaSaved();
         }

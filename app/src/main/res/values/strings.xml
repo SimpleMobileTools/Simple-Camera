@@ -15,7 +15,7 @@
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="long_tap_capture">Long tap to capture</string>
-    <string name="focus_before_capture">Focus before capture</string>
+    <string name="focus_before_capture">Refocus before capture</string>
 
     <!-- About -->
     <string name="about">About</string>
