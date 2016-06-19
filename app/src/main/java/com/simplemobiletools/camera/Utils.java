@@ -69,14 +69,20 @@ public class Utils {
 
     private static File getFolderName(Context context, boolean isPhoto) {
         final Resources res = context.getResources();
-        final String appName = res.getString(R.string.app_name);
-        final String sharedPath = new File(Environment.getExternalStorageDirectory(), appName).getAbsolutePath();
         String typeDirectory = res.getString(R.string.photo_directory);
         if (!isPhoto) {
             typeDirectory = res.getString(R.string.video_directory);
         }
 
-        return new File(sharedPath, typeDirectory);
+        return new File(getMainDirectory(isPhoto), typeDirectory);
+    }
+
+    private static File getMainDirectory(boolean isPhoto) {
+        String type = Environment.DIRECTORY_MOVIES;
+        if (isPhoto) {
+            type = Environment.DIRECTORY_PICTURES;
+        }
+        return Environment.getExternalStoragePublicDirectory(type);
     }
 
     public static void scanFile(String path, Context context) {
