@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+Version 1.8 *(2016-06---)*
+----------------------------
+
+ * Use the Pictures and Movies folders for saving photos and videos
+
 Version 1.7 *(2016-06-18)*
 ----------------------------
 
