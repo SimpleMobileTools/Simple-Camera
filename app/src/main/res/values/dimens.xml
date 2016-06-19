@@ -4,4 +4,6 @@
     <dimen name="side_icon_padding">12dp</dimen>
     <dimen name="icon_size">56dp</dimen>
     <dimen name="settings_padding">8dp</dimen>
+    <dimen name="social_padding">8dp</dimen>
+    <dimen name="social_logo">40dp</dimen>
 </resources>
