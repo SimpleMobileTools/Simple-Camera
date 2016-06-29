@@ -29,4 +29,12 @@ public class Config {
     public void setFocusBeforeCaptureEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(Constants.FOCUS_BEFORE_CAPTURE, enabled).apply();
     }
+
+    public boolean getForceRatioEnabled() {
+        return mPrefs.getBoolean(Constants.FORCE_RATIO, true);
+    }
+
+    public void setForceRatioEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(Constants.FORCE_RATIO, enabled).apply();
+    }
 }
