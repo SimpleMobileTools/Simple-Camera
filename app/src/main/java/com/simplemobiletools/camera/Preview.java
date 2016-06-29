@@ -53,8 +53,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean mIsSurfaceCreated;
     private static boolean mSwitchToVideoAsap;
     private static boolean mIsVideoCaptureIntent;
-    private static boolean mFocusBeforeCapture;
     private static boolean mSetupPreviewAfterMeasure;
+    private static boolean mFocusBeforeCapture;
+    private static boolean mForceAspectRatio;
     private static int mLastClickX;
     private static int mLastClickY;
     private static int mInitVideoRotation;
@@ -149,7 +150,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         final boolean isLongTapEnabled = Config.newInstance(getContext()).getLongTapEnabled();
         mSurfaceView.setOnLongClickListener(isLongTapEnabled ? this : null);
 
-        mFocusBeforeCapture = Config.newInstance(getContext()).getFocusBeforeCaptureEnabled();
+        final Config config = Config.newInstance(getContext());
+        mFocusBeforeCapture = config.getFocusBeforeCaptureEnabled();
+        mForceAspectRatio = config.getForceRatioEnabled();
 
         return true;
     }
@@ -259,8 +262,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
             final boolean isEightMegapixelsMax = isEightMegapixelsMax(size);
-            final boolean isSixteenToNine = isSixteenToNine(size);
-            if (isEightMegapixelsMax && isSixteenToNine) {
+            final boolean isProperRatio = isProperRatio(size);
+            if (isEightMegapixelsMax && isProperRatio) {
                 maxSize = size;
                 break;
             }
@@ -272,9 +275,11 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return size.width * size.height < 9000000;
     }
 
-    private boolean isSixteenToNine(Camera.Size size) {
+    private boolean isProperRatio(Camera.Size size) {
         final float currRatio = (float) size.height / size.width;
-        final float wantedRatio = (float) 9 / 16;
+        float wantedRatio = (float) 3 / 4;
+        if (mForceAspectRatio)
+            wantedRatio = (float) 9 / 16;
         final float diff = Math.abs(currRatio - wantedRatio);
         return diff < RATIO_TOLERANCE;
     }
@@ -283,7 +288,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         final List<Camera.Size> sizes = mParameters.getSupportedVideoSizes();
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
-            final boolean isSixteenToNine = isSixteenToNine(size);
+            final boolean isSixteenToNine = isProperRatio(size);
             if (isSixteenToNine) {
                 maxSize = size;
                 break;
@@ -426,35 +431,23 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int width, int height) {
-        final double ASPECT_TOLERANCE = 0.1;
-        double targetRatio = (double) height / width;
-
-        if (sizes == null)
-            return null;
-
-        Camera.Size optimalSize = null;
-        double minDiff = Double.MAX_VALUE;
-
+        Camera.Size result = null;
         for (Camera.Size size : sizes) {
-            double ratio = (double) size.width / size.height;
-            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
-                continue;
-            if (Math.abs(size.height - height) < minDiff) {
-                optimalSize = size;
-                minDiff = Math.abs(size.height - height);
-            }
-        }
+            if (size.width <= width && size.height <= height) {
+                if (result == null) {
+                    result = size;
+                } else {
+                    int resultArea = result.width * result.height;
+                    int newArea = size.width * size.height;
 
-        if (optimalSize == null) {
-            minDiff = Double.MAX_VALUE;
-            for (Camera.Size size : sizes) {
-                if (Math.abs(size.height - height) < minDiff) {
-                    optimalSize = size;
-                    minDiff = Math.abs(size.height - height);
+                    if (newArea > resultArea) {
+                        result = size;
+                    }
                 }
             }
         }
-        return optimalSize;
+
+        return result;
     }
 
     @Override
@@ -462,13 +455,24 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         setMeasuredDimension(mScreenSize.x, mScreenSize.y);
 
         if (mSupportedPreviewSizes != null) {
-            mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, mScreenSize.x, mScreenSize.y);
+            // for simplicity lets assume that most displays are 16:9 and the remaining ones are 4:3
+            if (mForceAspectRatio) {
+                mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, mScreenSize.y, mScreenSize.x);
+            } else {
+                final int newRatioHeight = (int) (mScreenSize.x * ((double) 4 / 3));
+                setMeasuredDimension(mScreenSize.x, newRatioHeight);
+                mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, newRatioHeight, mScreenSize.x);
+            }
             final LayoutParams lp = mSurfaceView.getLayoutParams();
 
             if (mScreenSize.x > mPreviewSize.height) {
                 final float ratio = (float) mScreenSize.x / mPreviewSize.height;
                 lp.width = (int) (mPreviewSize.height * ratio);
-                lp.height = (int) (mPreviewSize.width * ratio);
+                if (mForceAspectRatio) {
+                    lp.height = mScreenSize.y;
+                } else {
+                    lp.height = (int) (mPreviewSize.width * ratio);
+                }
             } else {
                 lp.width = mPreviewSize.height;
                 lp.height = mPreviewSize.width;
