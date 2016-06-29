@@ -464,6 +464,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             }
             final LayoutParams lp = mSurfaceView.getLayoutParams();
 
+            // make sure to occupy whole width in every case
             if (mScreenSize.x > mPreviewSize.height) {
                 final float ratio = (float) mScreenSize.x / mPreviewSize.height;
                 lp.width = (int) (mPreviewSize.height * ratio);
