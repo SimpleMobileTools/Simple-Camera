@@ -147,12 +147,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             initRecorder();
         }
 
-        final boolean isLongTapEnabled = Config.newInstance(getContext()).getLongTapEnabled();
-        mSurfaceView.setOnLongClickListener(isLongTapEnabled ? this : null);
-
         final Config config = Config.newInstance(getContext());
         mFocusBeforeCapture = config.getFocusBeforeCaptureEnabled();
         mForceAspectRatio = config.getForceRatioEnabled();
+        mSurfaceView.setOnLongClickListener(config.getLongTapEnabled() ? this : null);
 
         return true;
     }
@@ -278,7 +276,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private boolean isProperRatio(Camera.Size size) {
         final float currRatio = (float) size.height / size.width;
         float wantedRatio = (float) 3 / 4;
-        if (mForceAspectRatio)
+        if (mForceAspectRatio || mIsVideoMode)
             wantedRatio = (float) 9 / 16;
         final float diff = Math.abs(currRatio - wantedRatio);
         return diff < RATIO_TOLERANCE;
@@ -456,7 +454,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
         if (mSupportedPreviewSizes != null) {
             // for simplicity lets assume that most displays are 16:9 and the remaining ones are 4:3
-            if (mForceAspectRatio) {
+            // always set 16:9 for videos as many devices support 4:3 only in low quality
+            if (mForceAspectRatio || mIsVideoMode) {
                 mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, mScreenSize.y, mScreenSize.x);
             } else {
                 final int newRatioHeight = (int) (mScreenSize.x * ((double) 4 / 3));
@@ -468,7 +467,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             if (mScreenSize.x > mPreviewSize.height) {
                 final float ratio = (float) mScreenSize.x / mPreviewSize.height;
                 lp.width = (int) (mPreviewSize.height * ratio);
-                if (mForceAspectRatio) {
+                if (mForceAspectRatio || mIsVideoMode) {
                     lp.height = mScreenSize.y;
                 } else {
                     lp.height = (int) (mPreviewSize.width * ratio);
@@ -480,6 +479,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
             if (mSetupPreviewAfterMeasure) {
                 mSetupPreviewAfterMeasure = false;
+                mCamera.stopPreview();
                 setupPreview();
             }
         }
@@ -512,6 +512,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         cleanupRecorder();
         mIsRecording = false;
         mIsVideoMode = false;
+        recheckAspectRatio();
+    }
+
+    private void recheckAspectRatio() {
+        if (!mForceAspectRatio) {
+            mSetupPreviewAfterMeasure = true;
+            invalidate();
+            requestLayout();
+        }
     }
 
     // VIDEO RECORDING
@@ -529,6 +538,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
         mIsRecording = false;
         mIsVideoMode = true;
+        recheckAspectRatio();
         mRecorder = new MediaRecorder();
         mRecorder.setCamera(mCamera);
         mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
@@ -600,12 +610,14 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                 new File(mCurVideoPath).delete();
                 Utils.showToast(getContext(), R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
-                releaseCamera();
-            } finally {
                 mRecorder = null;
                 mIsRecording = false;
+                releaseCamera();
             }
         }
+
+        mRecorder = null;
+        mIsRecording = false;
 
         final File file = new File(mCurVideoPath);
         if (file.exists() && file.length() == 0) {
