@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.1 *(2016-06-30)*
+----------------------------
+
+ * Allow setting the aspect ratio and max resolution
+
 Version 1.9 *(2016-06-27)*
 ----------------------------
 
