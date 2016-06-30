@@ -7,6 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+        <item name="spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
     </style>
 
     <style name="FullScreenTheme" parent="AppTheme.Base"/>
@@ -20,4 +23,12 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">20sp</item>
     </style>
+
+    <style name="SpinnerItem" parent="@android:style/Widget.TextView"/>
+
+    <style name="SpinnerItem.DropDownItem" parent="@android:style/Widget.TextView">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:padding">@dimen/activity_margin</item>
+    </style>
+
 </resources>
