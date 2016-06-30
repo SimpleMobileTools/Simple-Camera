@@ -4,4 +4,5 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="SpinnerItem" parent="@android:style/Widget.TextView"/>
 </resources>

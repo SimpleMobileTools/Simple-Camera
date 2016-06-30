@@ -89,8 +89,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/settings_padding"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="@dimen/activity_margin">
+        android:paddingBottom="@dimen/activity_margin"
+        android:paddingLeft="@dimen/activity_margin"
+        android:paddingRight="@dimen/settings_padding"
+        android:paddingTop="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/settings_max_resolution_label"
