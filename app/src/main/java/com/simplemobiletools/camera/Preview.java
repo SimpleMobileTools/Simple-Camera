@@ -256,12 +256,13 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     };
 
     private Camera.Size getOptimalPictureSize() {
+        final int maxResolution = getMaxResolution();
         final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
-            final boolean isEightMegapixelsMax = isEightMegapixelsMax(size);
             final boolean isProperRatio = isProperRatio(size);
-            if (isEightMegapixelsMax && isProperRatio) {
+            final boolean isProperResolution = isProperResolution(size, maxResolution);
+            if (isProperResolution && isProperRatio) {
                 maxSize = size;
                 break;
             }
@@ -269,8 +270,20 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return maxSize;
     }
 
-    private boolean isEightMegapixelsMax(Camera.Size size) {
-        return size.width * size.height < 9000000;
+    private int getMaxResolution() {
+        final int maxRes = Config.newInstance(getContext()).getMaxResolution();
+        switch (maxRes) {
+            case 0:
+                return 6000000;
+            case 1:
+                return 9000000;
+            default:
+                return 0;
+        }
+    }
+
+    private boolean isProperResolution(Camera.Size size, int maxRes) {
+        return maxRes == 0 || size.width * size.height < maxRes;
     }
 
     private boolean isProperRatio(Camera.Size size) {

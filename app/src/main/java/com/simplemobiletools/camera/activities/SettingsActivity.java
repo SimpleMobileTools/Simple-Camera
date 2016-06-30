@@ -2,6 +2,7 @@ package com.simplemobiletools.camera.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.SwitchCompat;
 
 import com.simplemobiletools.camera.Config;
@@ -10,11 +11,13 @@ import com.simplemobiletools.camera.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.settings_long_tap) SwitchCompat mLongTapSwitch;
     @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
     @BindView(R.id.settings_force_ratio) SwitchCompat mForceRatioSwitch;
+    @BindView(R.id.settings_max_resolution) AppCompatSpinner mMaxResolutionSpinner;
 
     private static Config mConfig;
 
@@ -28,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
         setupLongTap();
         setupFocusBeforeCapture();
         setupForceRatio();
+        setupMaxResolution();
     }
 
     private void setupLongTap() {
@@ -40,6 +44,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setupForceRatio() {
         mForceRatioSwitch.setChecked(mConfig.getForceRatioEnabled());
+    }
+
+    private void setupMaxResolution() {
+        mMaxResolutionSpinner.setSelection(mConfig.getMaxResolution());
     }
 
     @OnClick(R.id.settings_long_tap_holder)
@@ -58,5 +66,10 @@ public class SettingsActivity extends AppCompatActivity {
     public void handleForceRatio() {
         mForceRatioSwitch.setChecked(!mForceRatioSwitch.isChecked());
         mConfig.setForceRatioEnabled(mForceRatioSwitch.isChecked());
+    }
+
+    @OnItemSelected(R.id.settings_max_resolution)
+    public void handleMaxResolution() {
+        mConfig.setMaxResolution(mMaxResolutionSpinner.getSelectedItemPosition());
     }
 }

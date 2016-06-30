@@ -37,4 +37,12 @@ public class Config {
     public void setForceRatioEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(Constants.FORCE_RATIO, enabled).apply();
     }
+
+    public int getMaxResolution() {
+        return mPrefs.getInt(Constants.MAX_RESOLUTION, 1);
+    }
+
+    public void setMaxResolution(int maxRes) {
+        mPrefs.edit().putInt(Constants.MAX_RESOLUTION, maxRes).apply();
+    }
 }

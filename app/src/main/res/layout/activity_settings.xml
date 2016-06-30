@@ -85,7 +85,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/settings_max_size_holder"
+        android:id="@+id/settings_max_resolution_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/settings_padding"
@@ -93,7 +93,7 @@
         android:padding="@dimen/activity_margin">
 
         <TextView
-            android:id="@+id/settings_max_size_label"
+            android:id="@+id/settings_max_resolution_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -101,11 +101,11 @@
             android:text="@string/max_size"/>
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/settings_max_size"
+            android:id="@+id/settings_max_resolution"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:entries="@array/max_sizes"/>
+            android:entries="@array/max_resolutions"/>
 
     </RelativeLayout>
 </LinearLayout>
