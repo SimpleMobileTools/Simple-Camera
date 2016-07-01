@@ -1,7 +1,13 @@
 Changelog
 ==========
 
-Version 1.1 *(2016-06-30)*
+Version 1.11 *(2016-07-01)*
+----------------------------
+
+ * Adjust everything properly if used on a tablet
+ * Show a Rate us button to returning users
+
+Version 1.10 *(2016-06-30)*
 ----------------------------
 
  * Allow setting the aspect ratio and max resolution
