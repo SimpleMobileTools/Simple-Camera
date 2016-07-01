@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simplemobiletools.camera.Config;
 import com.simplemobiletools.camera.Constants;
 import com.simplemobiletools.camera.PhotoProcessor;
 import com.simplemobiletools.camera.Preview;
@@ -480,6 +481,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Config.newInstance(getApplicationContext()).setIsFirstRun(false);
         if (mPreview != null)
             mPreview.releaseCamera();
     }
