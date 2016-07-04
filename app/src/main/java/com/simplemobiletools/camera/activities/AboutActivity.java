@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ public class AboutActivity extends AppCompatActivity {
     @BindView(R.id.about_version) TextView mVersion;
     @BindView(R.id.about_email) TextView mEmailTV;
     @BindView(R.id.about_rate_us) View mRateUs;
+
     private static Resources mRes;
 
     @Override
@@ -39,6 +42,24 @@ public class AboutActivity extends AppCompatActivity {
         setupVersion();
         setupCopyright();
         setupRateUs();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setupEmail() {
