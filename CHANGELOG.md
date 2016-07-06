@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.12 *(2016-07-04)*
+----------------------------
+
+ * Add back the removed Settings section
+ * Use the new Google Plus logo
+
 Version 1.11 *(2016-07-01)*
 ----------------------------
 
