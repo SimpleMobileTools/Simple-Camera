@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         } else if (requestCode == AUDIO_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                toggleVideo();
+                togglePhotoVideo();
             } else {
                 Utils.showToast(getApplicationContext(), R.string.no_audio_permissions);
                 if (mIsVideoCaptureIntent)
@@ -275,12 +275,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @OnClick(R.id.toggle_photo_video)
-    public void handleToggleVideo() {
-        toggleVideo();
+    public void handleTogglePhotoVideo() {
+        togglePhotoVideo();
         checkButtons();
     }
 
-    private void toggleVideo() {
+    private void togglePhotoVideo() {
         if (!checkCameraAvailable()) {
             return;
         }
@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             resumeCameraItems();
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
-                toggleVideo();
+                togglePhotoVideo();
                 checkButtons();
             }
         }
