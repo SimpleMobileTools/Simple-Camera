@@ -19,6 +19,7 @@
     <string name="force_ratio">Force 16:9 ratio</string>
     <string name="max_size">Photo resolution limit</string>
     <string name="no_limit">none</string>
+    <string name="shutter_sound">Shutter sound</string>
 
     <!-- About -->
     <string name="about">About</string>

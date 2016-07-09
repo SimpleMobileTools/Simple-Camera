@@ -16,6 +16,7 @@ import butterknife.OnItemSelected;
 public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.settings_long_tap) SwitchCompat mLongTapSwitch;
     @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
+    @BindView(R.id.settings_sound) SwitchCompat mSoundSwitch;
     @BindView(R.id.settings_force_ratio) SwitchCompat mForceRatioSwitch;
     @BindView(R.id.settings_max_resolution) AppCompatSpinner mMaxResolutionSpinner;
 
@@ -30,6 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         setupLongTap();
         setupFocusBeforeCapture();
+        setupSound();
         setupForceRatio();
         setupMaxResolution();
     }
@@ -40,6 +42,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setupFocusBeforeCapture() {
         mFocusBeforeCaptureSwitch.setChecked(mConfig.getFocusBeforeCaptureEnabled());
+    }
+
+    private void setupSound() {
+        mSoundSwitch.setChecked(mConfig.getIsSoundEnabled());
     }
 
     private void setupForceRatio() {
@@ -60,6 +66,12 @@ public class SettingsActivity extends AppCompatActivity {
     public void handleFocusBeforeCapture() {
         mFocusBeforeCaptureSwitch.setChecked(!mFocusBeforeCaptureSwitch.isChecked());
         mConfig.setFocusBeforeCaptureEnabled(mFocusBeforeCaptureSwitch.isChecked());
+    }
+
+    @OnClick(R.id.settings_sound_holder)
+    public void handleSound() {
+        mSoundSwitch.setChecked(!mSoundSwitch.isChecked());
+        mConfig.setIsSoundEnabled(mSoundSwitch.isChecked());
     }
 
     @OnClick(R.id.settings_force_ratio_holder)

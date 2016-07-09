@@ -53,4 +53,12 @@ public class Config {
     public void setMaxResolution(int maxRes) {
         mPrefs.edit().putInt(Constants.MAX_RESOLUTION, maxRes).apply();
     }
+
+    public boolean getIsSoundEnabled() {
+        return mPrefs.getBoolean(Constants.SOUND, true);
+    }
+
+    public void setIsSoundEnabled(boolean enabled) {
+        mPrefs.edit().putBoolean(Constants.SOUND, enabled).apply();
+    }
 }
