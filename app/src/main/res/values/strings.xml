@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="camera_unavailable">Camera unavailable</string>
-    <string name="camera_open_error">An error occurred at accessing the camera</string>
-    <string name="video_creating_error">An error occurred at creating the video file</string>
-    <string name="video_saving_error">An error occurred at saving the video file</string>
-    <string name="video_setup_error">An error occurred at setting up the recorder</string>
+    <string name="camera_open_error">An error occurred accessing the camera</string>
+    <string name="video_creating_error">An error occurred creating the video file</string>
+    <string name="video_saving_error">An error occurred saving the video file</string>
+    <string name="video_setup_error">An error occurred setting up the recorder</string>
     <string name="video_mode_error">Switching to video mode failed</string>
     <string name="video_directory">Simple Videos</string>
     <string name="photo_directory">Simple Photos</string>
@@ -25,11 +25,11 @@
     <!-- About -->
     <string name="about">About</string>
     <string name="website">More simple apps and source code at:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Send your feedback or suggestions at:</string>
+    <string name="email_label">Send your feedback or suggestions to:</string>
     <string name="email">hello@simplemobiletools.com</string>
     <string name="third_party_licences_underlined"><u>Third party licences</u></string>
     <string name="rate_us_underlined"><u>Rate us in the Play Store</u></string>
-    <string name="follow_us">Follow us at:</string>
+    <string name="follow_us">Follow us:</string>
     <string name="version">v %1$s</string>
     <string name="copyright">Copyright © Simple Mobile Tools %1$d</string>
 
