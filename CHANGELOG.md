@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.14 *(2016-07-10)*
+----------------------------
+
+ * Add an option to disable shutter sound
+ * Add a preview image of the last taken photo/video
+
 Version 1.12 *(2016-07-04)*
 ----------------------------
 
