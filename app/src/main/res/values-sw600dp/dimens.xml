@@ -1,5 +1,4 @@
 <resources>
-    <dimen name="side_icon_padding">12dp</dimen>
     <dimen name="icon_size">64dp</dimen>
     <dimen name="settings_padding">12dp</dimen>
     <dimen name="social_padding">12dp</dimen>

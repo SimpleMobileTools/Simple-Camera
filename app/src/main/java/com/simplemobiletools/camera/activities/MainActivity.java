@@ -1,14 +1,20 @@
 package com.simplemobiletools.camera.activities;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,7 +47,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener {
+public class MainActivity extends AppCompatActivity
+        implements SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener, MediaScannerConnection.OnScanCompletedListener {
     @BindView(R.id.viewHolder) RelativeLayout mViewHolder;
     @BindView(R.id.toggle_camera) ImageView mToggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView mToggleFlashBtn;
@@ -49,13 +56,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @BindView(R.id.shutter) ImageView mShutterBtn;
     @BindView(R.id.video_rec_curr_timer) TextView mRecCurrTimer;
     @BindView(R.id.about) View mAboutBtn;
+    @BindView(R.id.last_photo_video_preview) ImageView mLastPhotoVideoPreview;
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static final int AUDIO_PERMISSION = 2;
 
     private static SensorManager mSensorManager;
     private static Preview mPreview;
     private static Handler mTimerHandler;
+    private static Uri mPreviewUri;
 
     private static boolean mIsFlashEnabled;
     private static boolean mIsInPhotoMode;
@@ -153,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mIsInPhotoMode = true;
         mTimerHandler = new Handler();
+        setupPreviewImage(true);
     }
 
     private boolean hasCameraAndStoragePermission() {
@@ -206,6 +217,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             hideTimer();
         } else {
             Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
+        }
+    }
+
+    @OnClick(R.id.last_photo_video_preview)
+    public void showLastMediaPreview() {
+        if (mPreviewUri == null)
+            return;
+
+        try {
+            final String REVIEW_ACTION = "com.android.camera.action.REVIEW";
+            Intent intent = new Intent(REVIEW_ACTION, mPreviewUri);
+            this.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, mPreviewUri);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Utils.showToast(getApplicationContext(), R.string.no_gallery_app_available);
+            }
         }
     }
 
@@ -304,7 +334,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (mIsInPhotoMode) {
             initPhotoButtons();
         } else {
-            initVideoButtons();
+            tryInitVideoButtons();
         }
     }
 
@@ -313,11 +343,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mTogglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.videocam));
         mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.camera));
         mPreview.initPhotoMode();
+        setupPreviewImage(true);
     }
 
-    private void initVideoButtons() {
+    private void tryInitVideoButtons() {
         if (mPreview.initRecorder()) {
-            setupVideoIcons();
+            initVideoButtons();
         } else {
             if (!mIsVideoCaptureIntent) {
                 Utils.showToast(getApplicationContext(), R.string.video_mode_error);
@@ -325,12 +356,88 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    private void setupVideoIcons() {
+    private void initVideoButtons() {
         final Resources res = getResources();
         mTogglePhotoVideoBtn.setImageDrawable(res.getDrawable(R.mipmap.photo));
         mToggleCameraBtn.setVisibility(View.VISIBLE);
         mShutterBtn.setImageDrawable(res.getDrawable(R.mipmap.video_rec));
         checkFlash();
+        setupPreviewImage(false);
+    }
+
+    private void setupPreviewImage(boolean isPhoto) {
+        final Uri uri = (isPhoto) ? MediaStore.Images.Media.EXTERNAL_CONTENT_URI : MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        final long lastMediaId = getLastMediaId(uri);
+        if (lastMediaId == 0) {
+            return;
+        }
+        final ContentResolver cr = getContentResolver();
+        mPreviewUri = Uri.withAppendedPath(uri, String.valueOf(lastMediaId));
+        Bitmap tmb;
+
+        if (isPhoto) {
+            tmb = MediaStore.Images.Thumbnails.getThumbnail(cr, lastMediaId, MediaStore.Images.Thumbnails.MICRO_KIND, null);
+            final int rotationDegrees = getImageRotation();
+            tmb = rotateThumbnail(tmb, rotationDegrees);
+        } else {
+            tmb = MediaStore.Video.Thumbnails.getThumbnail(cr, lastMediaId, MediaStore.Video.Thumbnails.MICRO_KIND, null);
+        }
+
+        setPreviewImage(tmb);
+    }
+
+    private int getImageRotation() {
+        final String[] projection = {MediaStore.Images.ImageColumns.ORIENTATION};
+        Cursor cursor = null;
+        try {
+            cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int orientationIndex = cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION);
+                return cursor.getInt(orientationIndex);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return 0;
+    }
+
+    private Bitmap rotateThumbnail(Bitmap tmb, int degrees) {
+        if (degrees == 0)
+            return tmb;
+
+        final Matrix matrix = new Matrix();
+        matrix.setRotate(degrees, tmb.getWidth() / 2, tmb.getHeight() / 2);
+        return Bitmap.createBitmap(tmb, 0, 0, tmb.getWidth(), tmb.getHeight(), matrix, true);
+    }
+
+    private void setPreviewImage(final Bitmap bmp) {
+        if (bmp != null) {
+            mLastPhotoVideoPreview.post(new Runnable() {
+                @Override
+                public void run() {
+                    mLastPhotoVideoPreview.setImageBitmap(bmp);
+                }
+            });
+        }
+    }
+
+    private long getLastMediaId(Uri uri) {
+        final String[] projection = {MediaStore.Images.ImageColumns._ID};
+        Cursor cursor = null;
+        try {
+            cursor = getContentResolver().query(uri, projection, null, null, MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC");
+            if (cursor != null && cursor.moveToFirst()) {
+                final int idIndex = cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID);
+                return cursor.getLong(idIndex);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return 0;
     }
 
     private void hideNavigationBarIcons() {
@@ -364,6 +471,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         if (hasCameraAndStoragePermission()) {
             resumeCameraItems();
+            setupPreviewImage(mIsInPhotoMode);
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 togglePhotoVideo();
@@ -387,7 +495,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
 
             if (!mIsInPhotoMode) {
-                setupVideoIcons();
+                initVideoButtons();
             }
         } else {
             Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
@@ -461,6 +569,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void videoSaved(Uri uri) {
+        setupPreviewImage(mIsInPhotoMode);
         if (mIsVideoCaptureIntent) {
             final Intent intent = new Intent();
             intent.setData(uri);
@@ -471,7 +580,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public void mediaSaved() {
+    public void mediaSaved(String path) {
+        final String[] paths = {path};
+        MediaScannerConnection.scanFile(getApplicationContext(), paths, null, this);
+
         if (mIsImageCaptureIntent) {
             setResult(RESULT_OK);
             finish();
@@ -484,5 +596,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Config.newInstance(getApplicationContext()).setIsFirstRun(false);
         if (mPreview != null)
             mPreview.releaseCamera();
+    }
+
+    @Override
+    public void onScanCompleted(String path, Uri uri) {
+        setupPreviewImage(mIsInPhotoMode);
     }
 }

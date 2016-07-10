@@ -11,6 +11,7 @@
     <string name="camera_switch_error">Switching camera failed</string>
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need the audio permission for recording videos</string>
+    <string name="no_gallery_app_available">No gallery app available</string>
 
     <!-- Settings -->
     <string name="settings">Settings</string>

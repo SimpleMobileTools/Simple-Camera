@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.view.Display;
@@ -83,11 +82,6 @@ public class Utils {
             type = Environment.DIRECTORY_PICTURES;
         }
         return Environment.getExternalStoragePublicDirectory(type);
-    }
-
-    public static void scanFile(String path, Context context) {
-        final String[] paths = {path};
-        MediaScannerConnection.scanFile(context, paths, null, null);
     }
 
     public static String formatSeconds(int duration) {

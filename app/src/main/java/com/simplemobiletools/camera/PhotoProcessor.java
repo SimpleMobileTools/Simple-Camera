@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
+public class PhotoProcessor extends AsyncTask<byte[], Void, String> {
     private static final String TAG = PhotoProcessor.class.getSimpleName();
     private static WeakReference<MainActivity> mActivity;
     private static Uri mUri;
@@ -23,7 +23,7 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(byte[]... params) {
+    protected String doInBackground(byte[]... params) {
         FileOutputStream fos = null;
         String path;
         try {
@@ -34,7 +34,7 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             }
 
             if (path.isEmpty()) {
-                return null;
+                return "";
             }
 
             final File photoFile = new File(path);
@@ -42,7 +42,7 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             fos = new FileOutputStream(photoFile);
             fos.write(data);
             fos.close();
-            Utils.scanFile(path, mActivity.get().getApplicationContext());
+            return photoFile.getAbsolutePath();
         } catch (FileNotFoundException e) {
             Log.e(TAG, "PhotoProcessor file not found: " + e.getMessage());
         } catch (IOException e) {
@@ -57,19 +57,19 @@ public class PhotoProcessor extends AsyncTask<byte[], Void, Void> {
             }
         }
 
-        return null;
+        return "";
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(String path) {
+        super.onPostExecute(path);
         final MediaSavedListener listener = mActivity.get();
         if (listener != null) {
-            listener.mediaSaved();
+            listener.mediaSaved(path);
         }
     }
 
     public interface MediaSavedListener {
-        void mediaSaved();
+        void mediaSaved(String path);
     }
 }

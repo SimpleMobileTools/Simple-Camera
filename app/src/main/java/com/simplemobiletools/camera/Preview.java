@@ -621,7 +621,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             try {
                 mRecorder.stop();
                 final String[] paths = {mCurVideoPath};
-                MediaScannerConnection.scanFile(getContext(), paths, null, mIsVideoCaptureIntent ? this : null);
+                MediaScannerConnection.scanFile(getContext(), paths, null, this);
             } catch (RuntimeException e) {
                 new File(mCurVideoPath).delete();
                 Utils.showToast(getContext(), R.string.video_saving_error);

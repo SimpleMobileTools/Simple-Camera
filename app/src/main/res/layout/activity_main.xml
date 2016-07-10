@@ -16,7 +16,8 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/side_icon_padding"
+        android:layout_marginRight="@dimen/side_icon_padding"
+        android:layout_marginTop="@dimen/side_icon_padding"
         android:padding="@dimen/side_icon_padding"
         android:src="@mipmap/about"/>
 
@@ -29,6 +30,15 @@
         android:layout_marginRight="@dimen/side_icon_padding"
         android:padding="@dimen/side_icon_padding"
         android:src="@mipmap/videocam"/>
+
+    <ImageView
+        android:id="@+id/last_photo_video_preview"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/toggle_photo_video"
+        android:layout_marginRight="@dimen/side_icon_padding"
+        android:padding="@dimen/side_preview_padding"/>
 
     <LinearLayout
         android:id="@+id/btn_holder"
