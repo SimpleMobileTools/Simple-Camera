@@ -5,7 +5,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
-import android.media.MediaPlayer;
+import android.media.MediaActionSound;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -223,12 +223,14 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             mParameters.setPictureSize(maxSize.width, maxSize.height);
             mParameters.setRotation(rotation % 360);
 
-            if (Config.newInstance(getContext()).getIsSoundEnabled())
-                MediaPlayer.create(getContext(), R.raw.camera_shutter).start();
+            if (Config.newInstance(getContext()).getIsSoundEnabled()) {
+                new MediaActionSound().play(MediaActionSound.SHUTTER_CLICK);
+            }
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 mCamera.enableShutterSound(false);
             }
+
             mCamera.setParameters(mParameters);
             mCamera.takePicture(null, null, takePictureCallback);
         }
