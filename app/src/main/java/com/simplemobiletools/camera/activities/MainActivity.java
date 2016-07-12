@@ -49,7 +49,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
         implements SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener, MediaScannerConnection.OnScanCompletedListener {
-    @BindView(R.id.viewHolder) RelativeLayout mViewHolder;
+    @BindView(R.id.view_holder) RelativeLayout mViewHolder;
     @BindView(R.id.toggle_camera) ImageView mToggleCameraBtn;
     @BindView(R.id.toggle_flash) ImageView mToggleFlashBtn;
     @BindView(R.id.toggle_photo_video) ImageView mTogglePhotoVideoBtn;
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
-        mPreview = new Preview(this, (SurfaceView) findViewById(R.id.surfaceView), this);
+        mPreview = new Preview(this, (SurfaceView) findViewById(R.id.camera_view), this);
         mPreview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mViewHolder.addView(mPreview);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
