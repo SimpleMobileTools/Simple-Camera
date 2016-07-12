@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 1.15 *(2016-07-12)*
+----------------------------
+
+ * Use the default shutter sound
+ * Display a rectangle on the focused area for a while
+ * Correct the resolution choice at some devices at both photos and videos
+ * Add Japanese translation
+
 Version 1.14 *(2016-07-10)*
 ----------------------------
 
