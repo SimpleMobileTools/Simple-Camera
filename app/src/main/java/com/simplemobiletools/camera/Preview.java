@@ -300,17 +300,25 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private Camera.Size getOptimalVideoSize() {
-        final List<Camera.Size> sizes = mParameters.getSupportedVideoSizes();
+        final List<Camera.Size> sizes = getSupportedVideoSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
-            final boolean isSixteenToNine = isProperRatio(size);
-            if (isSixteenToNine) {
+            final boolean isProperRatio = isProperRatio(size);
+            if (isProperRatio) {
                 maxSize = size;
                 break;
             }
         }
         return maxSize;
+    }
+
+    public List<Camera.Size> getSupportedVideoSizes() {
+        if (mParameters.getSupportedVideoSizes() != null) {
+            return mParameters.getSupportedVideoSizes();
+        } else {
+            return mParameters.getSupportedPreviewSizes();
+        }
     }
 
     private int compensateDeviceRotation() {
@@ -549,9 +557,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             return false;
 
         mSwitchToVideoAsap = false;
-        final Camera.Size preferred = mParameters.getPreferredPreviewSizeForVideo();
-        if (preferred == null)
-            return false;
+        Camera.Size preferred = mParameters.getPreferredPreviewSizeForVideo();
+        if (preferred == null) {
+            final List<Camera.Size> previewSizes = mParameters.getSupportedPreviewSizes();
+            Collections.sort(previewSizes, new SizesComparator());
+            preferred = previewSizes.get(0);
+        }
 
         mParameters.setPreviewSize(preferred.width, preferred.height);
         mCamera.setParameters(mParameters);
