@@ -23,7 +23,10 @@ import com.simplemobiletools.camera.activities.MainActivity;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener,
@@ -114,6 +117,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (mCamera != null) {
             mParameters = mCamera.getParameters();
             mSupportedPreviewSizes = mParameters.getSupportedPreviewSizes();
+            Collections.sort(mSupportedPreviewSizes, new SizesComparator());
             requestLayout();
             invalidate();
             mSetupPreviewAfterMeasure = true;
@@ -257,6 +261,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private Camera.Size getOptimalPictureSize() {
         final int maxResolution = getMaxResolution();
         final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
+        Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
             final boolean isProperRatio = isProperRatio(size);
@@ -296,6 +301,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
     private Camera.Size getOptimalVideoSize() {
         final List<Camera.Size> sizes = mParameters.getSupportedVideoSizes();
+        Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
             final boolean isSixteenToNine = isProperRatio(size);
@@ -653,6 +659,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     @Override
     public void onScanCompleted(String path, Uri uri) {
         mCallback.videoSaved(uri);
+    }
+
+    private static class SizesComparator implements Comparator<Camera.Size>, Serializable {
+        private static final long serialVersionUID = 5431278455314658485L;
+
+        @Override
+        public int compare(final Camera.Size a, final Camera.Size b) {
+            return b.width * b.height - a.width * a.height;
+        }
     }
 
     public interface PreviewListener {
