@@ -136,7 +136,8 @@ public class MainActivity extends AppCompatActivity
     private void handleIntent() {
         final Intent intent = getIntent();
         if (intent != null && intent.getAction() != null) {
-            if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE)) {
+            if (intent.getExtras() != null && intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE) ||
+                    intent.getAction().equals(MediaStore.ACTION_IMAGE_CAPTURE_SECURE)) {
                 mIsImageCaptureIntent = true;
                 hideToggleModeAbout();
                 final Object output = intent.getExtras().get(MediaStore.EXTRA_OUTPUT);
