@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.simplemobiletools.camera.Config;
 import com.simplemobiletools.camera.Constants;
+import com.simplemobiletools.camera.FocusRectView;
 import com.simplemobiletools.camera.PhotoProcessor;
 import com.simplemobiletools.camera.Preview;
 import com.simplemobiletools.camera.Preview.PreviewListener;
@@ -58,12 +59,12 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.about) View mAboutBtn;
     @BindView(R.id.last_photo_video_preview) ImageView mLastPhotoVideoPreview;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static final int AUDIO_PERMISSION = 2;
 
     private static SensorManager mSensorManager;
     private static Preview mPreview;
+    private static FocusRectView mFocusRectView;
     private static Handler mTimerHandler;
     private static Uri mPreviewUri;
 
@@ -160,6 +161,10 @@ public class MainActivity extends AppCompatActivity
         mPreview = new Preview(this, (SurfaceView) findViewById(R.id.camera_view), this);
         mPreview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mViewHolder.addView(mPreview);
+
+        mFocusRectView = new FocusRectView(getApplicationContext());
+        mViewHolder.addView(mFocusRectView);
+
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mIsInPhotoMode = true;
         mTimerHandler = new Handler();
@@ -576,6 +581,13 @@ public class MainActivity extends AppCompatActivity
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             setResult(RESULT_OK, intent);
             finish();
+        }
+    }
+
+    @Override
+    public void drawFocusRect(int x, int y) {
+        if (mFocusRectView != null) {
+            mFocusRectView.drawFocusRect(x, y);
         }
     }
 

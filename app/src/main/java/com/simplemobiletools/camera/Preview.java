@@ -29,7 +29,7 @@ import java.util.List;
 public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener,
         MediaScannerConnection.OnScanCompletedListener {
     private static final String TAG = Preview.class.getSimpleName();
-    private static final int FOCUS_AREA_SIZE = 200;
+    private static final int FOCUS_AREA_SIZE = 100;
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
     private static final float RATIO_TOLERANCE = 0.1f;
 
@@ -335,6 +335,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             final List<Camera.Area> focusAreas = new ArrayList<>(1);
             focusAreas.add(new Camera.Area(focusRect, 1000));
             mParameters.setFocusAreas(focusAreas);
+            mCallback.drawFocusRect(mLastClickX, mLastClickY);
         }
 
         mCamera.setParameters(mParameters);
@@ -664,5 +665,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         int getCurrentOrientation();
 
         void videoSaved(Uri uri);
+
+        void drawFocusRect(int x, int y);
     }
 }
