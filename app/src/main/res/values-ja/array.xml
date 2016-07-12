@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="max_resolutions">
+        <item>5 MP</item>
+        <item>8 MP</item>
+        <item>@string/no_limit</item>
+    </string-array>
+</resources>
