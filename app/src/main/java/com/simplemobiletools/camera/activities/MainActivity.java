@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity
             } else if (intent.getAction().equals(MediaStore.ACTION_VIDEO_CAPTURE)) {
                 mIsVideoCaptureIntent = true;
                 hideToggleModeAbout();
-                mPreview.setIsVideoCaptureIntent();
                 mShutterBtn.setImageDrawable(getResources().getDrawable(R.mipmap.video_rec));
             }
         }

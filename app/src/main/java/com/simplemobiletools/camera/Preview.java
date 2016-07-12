@@ -52,7 +52,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static boolean mIsVideoMode;
     private static boolean mIsSurfaceCreated;
     private static boolean mSwitchToVideoAsap;
-    private static boolean mIsVideoCaptureIntent;
     private static boolean mSetupPreviewAfterMeasure;
     private static boolean mFocusBeforeCapture;
     private static boolean mForceAspectRatio;
@@ -91,10 +90,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         } else {
             mSwitchToVideoAsap = true;
         }
-    }
-
-    public void setIsVideoCaptureIntent() {
-        mIsVideoCaptureIntent = true;
     }
 
     public boolean setCamera(int cameraId) {
