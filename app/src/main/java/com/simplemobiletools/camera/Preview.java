@@ -247,14 +247,15 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
                     }
 
                     mCanTakePicture = true;
+
+                    if (mIsFlashEnabled) {
+                        mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                        mCamera.setParameters(mParameters);
+                    }
                 }
             }, PHOTO_PREVIEW_LENGTH);
 
             new PhotoProcessor(mActivity, mTargetUri).execute(data);
-            if (mIsFlashEnabled) {
-                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                mCamera.setParameters(mParameters);
-            }
         }
     };
 
