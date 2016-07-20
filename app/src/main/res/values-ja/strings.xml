@@ -15,6 +15,7 @@
 
     <!-- Settings -->
     <string name="settings">設定</string>
+    <string name="dark_theme">ダークテーマ</string>
     <string name="long_tap_capture">長押ししてキャプチャする</string>
     <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
     <string name="force_ratio">強制的に 16:9 レシオにする</string>

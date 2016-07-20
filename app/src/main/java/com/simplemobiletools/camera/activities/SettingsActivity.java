@@ -1,7 +1,7 @@
 package com.simplemobiletools.camera.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.SwitchCompat;
 
@@ -13,7 +13,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends SimpleActivity {
+    @BindView(R.id.settings_dark_theme) SwitchCompat mDarkThemeSwitch;
     @BindView(R.id.settings_long_tap) SwitchCompat mLongTapSwitch;
     @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
     @BindView(R.id.settings_sound) SwitchCompat mSoundSwitch;
@@ -29,11 +30,16 @@ public class SettingsActivity extends AppCompatActivity {
         mConfig = Config.newInstance(getApplicationContext());
         ButterKnife.bind(this);
 
+        setupDarkTheme();
         setupLongTap();
         setupFocusBeforeCapture();
         setupSound();
         setupForceRatio();
         setupMaxResolution();
+    }
+
+    private void setupDarkTheme() {
+        mDarkThemeSwitch.setChecked(mConfig.getIsDarkTheme());
     }
 
     private void setupLongTap() {
@@ -54,6 +60,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void setupMaxResolution() {
         mMaxResolutionSpinner.setSelection(mConfig.getMaxResolution());
+    }
+
+    @OnClick(R.id.settings_dark_theme_holder)
+    public void handleDarkTheme() {
+        mDarkThemeSwitch.setChecked(!mDarkThemeSwitch.isChecked());
+        mConfig.setIsDarkTheme(mDarkThemeSwitch.isChecked());
+        restartActivity();
     }
 
     @OnClick(R.id.settings_long_tap_holder)
@@ -83,5 +96,9 @@ public class SettingsActivity extends AppCompatActivity {
     @OnItemSelected(R.id.settings_max_resolution)
     public void handleMaxResolution() {
         mConfig.setMaxResolution(mMaxResolutionSpinner.getSelectedItemPosition());
+    }
+
+    private void restartActivity() {
+        TaskStackBuilder.create(getApplicationContext()).addNextIntentWithParentStack(getIntent()).startActivities();
     }
 }

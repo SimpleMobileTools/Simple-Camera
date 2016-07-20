@@ -15,6 +15,7 @@
 
     <!-- Settings -->
     <string name="settings">Inställningar</string>
+    <string name="dark_theme">Mörkt tema</string>
     <string name="long_tap_capture">Långtryck för bildtagning</string>
     <string name="focus_before_capture">Fokusera om innan bildtagning</string>
     <string name="force_ratio">Tvinga 16:9-förhållande</string>
