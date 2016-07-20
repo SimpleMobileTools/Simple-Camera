@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 1.16 *(2016-07-20)*
+----------------------------
+
+ * Added a Dark theme
+ * Rotate the icons together with the device orientation
+ * Delay turning flash off at taking photos
+ * Added Russian, Italian, Swedish translation
+
 Version 1.15 *(2016-07-12)*
 ----------------------------
 
