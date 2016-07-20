@@ -77,6 +77,7 @@ public class MainActivity extends SimpleActivity
     private static int mCurrVideoRecTimer;
     private static int mOrientation;
     private static int mCurrCamera;
+    private static int mLastHandledOrientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -532,6 +533,33 @@ public class MainActivity extends SimpleActivity
                 mOrientation = Constants.ORIENT_LANDSCAPE_RIGHT;
             }
         }
+        if (mOrientation != mLastHandledOrientation) {
+            int degrees = 0;
+            switch (mOrientation) {
+                case Constants.ORIENT_LANDSCAPE_LEFT:
+                    degrees = 90;
+                    break;
+                case Constants.ORIENT_LANDSCAPE_RIGHT:
+                    degrees = -90;
+                    break;
+                default:
+                    break;
+            }
+
+            animateViews(degrees);
+            mLastHandledOrientation = mOrientation;
+        }
+    }
+
+    private void animateViews(int degrees) {
+        View[] views = {mToggleCameraBtn, mToggleFlashBtn, mTogglePhotoVideoBtn, mShutterBtn, mAboutBtn, mLastPhotoVideoPreview};
+        for (View view : views) {
+            rotate(view, degrees);
+        }
+    }
+
+    private void rotate(View view, int degrees) {
+        view.animate().rotation(degrees).start();
     }
 
     @Override
