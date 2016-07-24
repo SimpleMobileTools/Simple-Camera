@@ -214,7 +214,7 @@ public class MainActivity extends SimpleActivity
         int newIconId = R.mipmap.camera_front;
         mPreview.releaseCamera();
         if (mPreview.setCamera(mCurrCamera)) {
-            if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 newIconId = R.mipmap.camera_rear;
             }
             mToggleCameraBtn.setImageResource(newIconId);
