@@ -22,6 +22,7 @@
         <item name="spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
         <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
         <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 
     <style name="FullScreenTheme" parent="AppTheme.Base"/>
