@@ -17,21 +17,21 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
-        android:id="@+id/about"
+        android:id="@+id/settings"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/side_icon_padding"
         android:layout_marginTop="@dimen/side_icon_padding"
         android:padding="@dimen/side_icon_padding"
-        android:src="@mipmap/about"/>
+        android:src="@mipmap/settings"/>
 
     <ImageView
         android:id="@+id/toggle_photo_video"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/about"
+        android:layout_below="@+id/settings"
         android:layout_marginRight="@dimen/side_icon_padding"
         android:padding="@dimen/side_icon_padding"
         android:src="@mipmap/videocam"/>

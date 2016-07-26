@@ -69,12 +69,12 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.SettingsActivity"/>
 
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/settings"
-            android:parentActivityName=".activities.AboutActivity"/>
+            android:parentActivityName=".activities.MainActivity"/>
 
         <receiver
             android:name=".HardwareShutterReceiver">

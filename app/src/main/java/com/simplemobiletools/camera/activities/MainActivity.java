@@ -55,7 +55,7 @@ public class MainActivity extends SimpleActivity
     @BindView(R.id.toggle_photo_video) ImageView mTogglePhotoVideoBtn;
     @BindView(R.id.shutter) ImageView mShutterBtn;
     @BindView(R.id.video_rec_curr_timer) TextView mRecCurrTimer;
-    @BindView(R.id.about) View mAboutBtn;
+    @BindView(R.id.settings) View mAboutBtn;
     @BindView(R.id.last_photo_video_preview) ImageView mLastPhotoVideoPreview;
 
     private static final int CAMERA_STORAGE_PERMISSION = 1;
@@ -303,9 +303,9 @@ public class MainActivity extends SimpleActivity
         }
     }
 
-    @OnClick(R.id.about)
-    public void launchAbout() {
-        final Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+    @OnClick(R.id.settings)
+    public void launchSettings() {
+        final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
     }
 

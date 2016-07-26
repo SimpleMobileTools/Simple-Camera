@@ -1,9 +1,12 @@
 package com.simplemobiletools.camera.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.SwitchCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.simplemobiletools.camera.Config;
 import com.simplemobiletools.camera.R;
@@ -38,6 +41,24 @@ public class SettingsActivity extends SimpleActivity {
         setupForceRatio();
         setupMaxPhotoResolution();
         setupMaxVideoResolution();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about:
+                final Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setupDarkTheme() {
