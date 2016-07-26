@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.17 *(2016-07-26)*
+----------------------------
+
+ * Allow setting max video resolution
+
 Version 1.16 *(2016-07-20)*
 ----------------------------
 
