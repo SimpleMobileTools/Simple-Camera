@@ -14,4 +14,5 @@ public class Constants {
     public static final String SOUND = "sound";
     public static final String FORCE_RATIO = "force_ratio";
     public static final String MAX_RESOLUTION = "max_resolution";
+    public static final String MAX_VIDEO_RESOLUTION = "max_video_resolution";
 }

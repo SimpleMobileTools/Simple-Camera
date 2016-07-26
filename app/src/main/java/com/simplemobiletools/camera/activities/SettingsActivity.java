@@ -19,7 +19,8 @@ public class SettingsActivity extends SimpleActivity {
     @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
     @BindView(R.id.settings_sound) SwitchCompat mSoundSwitch;
     @BindView(R.id.settings_force_ratio) SwitchCompat mForceRatioSwitch;
-    @BindView(R.id.settings_max_resolution) AppCompatSpinner mMaxResolutionSpinner;
+    @BindView(R.id.settings_max_photo_resolution) AppCompatSpinner mMaxPhotoResolutionSpinner;
+    @BindView(R.id.settings_max_video_resolution) AppCompatSpinner mMaxVideoResolutionSpinner;
 
     private static Config mConfig;
 
@@ -35,7 +36,8 @@ public class SettingsActivity extends SimpleActivity {
         setupFocusBeforeCapture();
         setupSound();
         setupForceRatio();
-        setupMaxResolution();
+        setupMaxPhotoResolution();
+        setupMaxVideoResolution();
     }
 
     private void setupDarkTheme() {
@@ -58,8 +60,12 @@ public class SettingsActivity extends SimpleActivity {
         mForceRatioSwitch.setChecked(mConfig.getForceRatioEnabled());
     }
 
-    private void setupMaxResolution() {
-        mMaxResolutionSpinner.setSelection(mConfig.getMaxResolution());
+    private void setupMaxPhotoResolution() {
+        mMaxPhotoResolutionSpinner.setSelection(mConfig.getMaxPhotoResolution());
+    }
+
+    private void setupMaxVideoResolution() {
+        mMaxVideoResolutionSpinner.setSelection(mConfig.getMaxVideoResolution());
     }
 
     @OnClick(R.id.settings_dark_theme_holder)
@@ -93,9 +99,14 @@ public class SettingsActivity extends SimpleActivity {
         mConfig.setForceRatioEnabled(mForceRatioSwitch.isChecked());
     }
 
-    @OnItemSelected(R.id.settings_max_resolution)
-    public void handleMaxResolution() {
-        mConfig.setMaxResolution(mMaxResolutionSpinner.getSelectedItemPosition());
+    @OnItemSelected(R.id.settings_max_photo_resolution)
+    public void handleMaxPhotoResolution() {
+        mConfig.setMaxPhotoResolution(mMaxPhotoResolutionSpinner.getSelectedItemPosition());
+    }
+
+    @OnItemSelected(R.id.settings_max_video_resolution)
+    public void handleMaxVideoResolution() {
+        mConfig.setMaxVideoResolution(mMaxVideoResolutionSpinner.getSelectedItemPosition());
     }
 
     private void restartActivity() {

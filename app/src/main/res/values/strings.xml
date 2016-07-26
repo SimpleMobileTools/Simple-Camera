@@ -12,6 +12,7 @@
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need the audio permission for recording videos</string>
     <string name="no_gallery_app_available">No gallery app available</string>
+    <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
 
     <!-- Settings -->
     <string name="settings">Settings</string>
@@ -19,7 +20,8 @@
     <string name="long_tap_capture">Long tap to capture</string>
     <string name="focus_before_capture">Refocus before capture</string>
     <string name="force_ratio">Force 16:9 ratio</string>
-    <string name="max_size">Photo resolution limit</string>
+    <string name="max_photo_size">Photo resolution limit</string>
+    <string name="max_video_size">Video resolution limit</string>
     <string name="no_limit">none</string>
     <string name="shutter_sound">Shutter sound</string>
 

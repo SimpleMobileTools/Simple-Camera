@@ -54,12 +54,20 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.FORCE_RATIO, enabled).apply();
     }
 
-    public int getMaxResolution() {
+    public int getMaxPhotoResolution() {
         return mPrefs.getInt(Constants.MAX_RESOLUTION, 1);
     }
 
-    public void setMaxResolution(int maxRes) {
+    public void setMaxPhotoResolution(int maxRes) {
         mPrefs.edit().putInt(Constants.MAX_RESOLUTION, maxRes).apply();
+    }
+
+    public int getMaxVideoResolution() {
+        return mPrefs.getInt(Constants.MAX_VIDEO_RESOLUTION, 1);
+    }
+
+    public void setMaxVideoResolution(int maxRes) {
+        mPrefs.edit().putInt(Constants.MAX_VIDEO_RESOLUTION, maxRes).apply();
     }
 
     public boolean getIsSoundEnabled() {

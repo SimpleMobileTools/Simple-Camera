@@ -260,12 +260,12 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     };
 
     private Camera.Size getOptimalPictureSize() {
-        final int maxResolution = getMaxResolution();
+        final int maxResolution = getMaxPhotoResolution();
         final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
-            final boolean isProperRatio = isProperRatio(size);
+            final boolean isProperRatio = !mForceAspectRatio || isProperRatio(size);
             final boolean isProperResolution = isProperResolution(size, maxResolution);
             if (isProperResolution && isProperRatio) {
                 maxSize = size;
@@ -275,8 +275,8 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return maxSize;
     }
 
-    private int getMaxResolution() {
-        final int maxRes = Config.newInstance(getContext()).getMaxResolution();
+    private int getMaxPhotoResolution() {
+        final int maxRes = Config.newInstance(getContext()).getMaxPhotoResolution();
         switch (maxRes) {
             case 0:
                 return 6000000;
@@ -291,6 +291,20 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         return maxRes == 0 || size.width * size.height < maxRes;
     }
 
+    private int getMaxVideoResolution() {
+        final int maxRes = Config.newInstance(getContext()).getMaxVideoResolution();
+        switch (maxRes) {
+            case 0:
+                return 400000;
+            case 1:
+                return 1000000;
+            case 2:
+                return 2100000;
+            default:
+                return 0;
+        }
+    }
+
     private boolean isProperRatio(Camera.Size size) {
         final float currRatio = (float) size.height / size.width;
         float wantedRatio = (float) 3 / 4;
@@ -301,14 +315,22 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private Camera.Size getOptimalVideoSize() {
+        final int maxResolution = getMaxVideoResolution();
         final List<Camera.Size> sizes = getSupportedVideoSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
-        for (Camera.Size size : sizes) {
-            final boolean isProperRatio = isProperRatio(size);
-            if (isProperRatio) {
+        final int cnt = sizes.size();
+        for (int i = 0; i < cnt; i++) {
+            Camera.Size size = sizes.get(i);
+            final boolean isProperRatio = !mForceAspectRatio || isProperRatio(size);
+            final boolean isProperResolution = isProperResolution(size, maxResolution);
+            if (isProperResolution && isProperRatio) {
                 maxSize = size;
                 break;
+            }
+
+            if (i == cnt - 1) {
+                Utils.showToast(getContext(), R.string.no_valid_resolution_found);
             }
         }
         return maxSize;
@@ -508,7 +530,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
             if (mSetupPreviewAfterMeasure) {
                 mSetupPreviewAfterMeasure = false;
-                mCamera.stopPreview();
+                if (mCamera != null)
+                    mCamera.stopPreview();
+
                 setupPreview();
             }
         }
@@ -559,6 +583,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
 
         mSwitchToVideoAsap = false;
         Camera.Size preferred = mParameters.getPreferredPreviewSizeForVideo();
+
         if (preferred == null) {
             final List<Camera.Size> previewSizes = mParameters.getSupportedPreviewSizes();
             Collections.sort(previewSizes, new SizesComparator());
