@@ -30,6 +30,9 @@
     <string name="website">Больше простых приложений и исходные коды на:\nhttp://simplemobiletools.com</string>
     <string name="email_label">Отзывы и предложения отправляйте на:</string>
     <string name="third_party_licences_underlined"><u>Сторонние лицензии</u></string>
+    <string name="invite_friends_underlined"><u>Invite friends</u></string>
+    <string name="share_text">Hey, come check out %1$s at %2$s</string>
+    <string name="invite_via">Invite via</string>
     <string name="rate_us_underlined"><u>Оцените нас в Play Store</u></string>
     <string name="follow_us">Подписывайтесь на нас:</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
