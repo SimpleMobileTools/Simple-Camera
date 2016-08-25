@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Простая камера</string>
+    <string name="app_launcher_name">Camera</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Произошла ошибка доступа к камере</string>
     <string name="video_creating_error">Произошла ошибка создании видео файла</string>

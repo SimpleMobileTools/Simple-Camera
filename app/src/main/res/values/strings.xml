@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Camera</string>
     <string name="camera_unavailable">Camera unavailable</string>
     <string name="camera_open_error">An error occurred accessing the camera</string>
     <string name="video_creating_error">An error occurred creating the video file</string>
