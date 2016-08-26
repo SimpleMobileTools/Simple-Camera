@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -48,6 +49,7 @@ public class Preview extends ViewGroup
     private static Point mScreenSize;
     private static Uri mTargetUri;
     private static Context mContext;
+    private static ScaleGestureDetector mScaleGestureDetector;
 
     private static boolean mCanTakePicture;
     private static boolean mIsFlashEnabled;
@@ -86,6 +88,7 @@ public class Preview extends ViewGroup
         mCurVideoPath = "";
         mScreenSize = Utils.getScreenSize(mActivity);
         mContext = getContext();
+        initGestureDetector();
     }
 
     public void trySwitchToVideo() {
@@ -156,6 +159,16 @@ public class Preview extends ViewGroup
 
     public void setTargetUri(Uri uri) {
         mTargetUri = uri;
+    }
+
+    private void initGestureDetector() {
+        mScaleGestureDetector = new ScaleGestureDetector(mContext, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            @Override
+            public boolean onScale(ScaleGestureDetector detector) {
+                final float factor = detector.getScaleFactor();
+                return super.onScale(detector);
+            }
+        });
     }
 
     private static int getPreviewRotation(int cameraId) {
@@ -542,6 +555,7 @@ public class Preview extends ViewGroup
     public boolean onTouch(View v, MotionEvent event) {
         mLastClickX = (int) event.getX();
         mLastClickY = (int) event.getY();
+        mScaleGestureDetector.onTouchEvent(event);
         return false;
     }
 
