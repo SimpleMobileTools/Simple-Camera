@@ -16,7 +16,6 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 
 import com.simplemobiletools.camera.activities.MainActivity;
@@ -29,8 +28,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.OnTouchListener, OnLongClickListener, View.OnClickListener,
-        MediaScannerConnection.OnScanCompletedListener {
+public class Preview extends ViewGroup
+        implements SurfaceHolder.Callback, View.OnTouchListener, View.OnClickListener, MediaScannerConnection.OnScanCompletedListener {
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 100;
     private static final int PHOTO_PREVIEW_LENGTH = 1000;
@@ -48,6 +47,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     private static String mCurVideoPath;
     private static Point mScreenSize;
     private static Uri mTargetUri;
+    private static Context mContext;
 
     private static boolean mCanTakePicture;
     private static boolean mIsFlashEnabled;
@@ -85,6 +85,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         mSetupPreviewAfterMeasure = false;
         mCurVideoPath = "";
         mScreenSize = Utils.getScreenSize(mActivity);
+        mContext = getContext();
     }
 
     public void trySwitchToVideo() {
@@ -102,7 +103,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             newCamera = Camera.open(cameraId);
             mCallback.setIsCameraAvailable(true);
         } catch (Exception e) {
-            Utils.showToast(getContext(), R.string.camera_open_error);
+            Utils.showToast(mContext, R.string.camera_open_error);
             Log.e(TAG, "setCamera open " + e.getMessage());
             mCallback.setIsCameraAvailable(false);
             return false;
@@ -146,10 +147,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             initRecorder();
         }
 
-        final Config config = Config.newInstance(getContext());
+        final Config config = Config.newInstance(mContext);
         mFocusBeforeCapture = config.getFocusBeforeCaptureEnabled();
         mForceAspectRatio = config.getForceRatioEnabled();
-        mSurfaceView.setOnLongClickListener(config.getLongTapEnabled() ? this : null);
 
         return true;
     }
@@ -222,7 +222,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             mParameters.setPictureSize(maxSize.width, maxSize.height);
             mParameters.setRotation(rotation % 360);
 
-            if (Config.newInstance(getContext()).getIsSoundEnabled()) {
+            if (Config.newInstance(mContext).getIsSoundEnabled()) {
                 new MediaActionSound().play(MediaActionSound.SHUTTER_CLICK);
             }
 
@@ -276,7 +276,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private int getMaxPhotoResolution() {
-        final int maxRes = Config.newInstance(getContext()).getMaxPhotoResolution();
+        final int maxRes = Config.newInstance(mContext).getMaxPhotoResolution();
         switch (maxRes) {
             case 0:
                 return 6000000;
@@ -292,7 +292,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
     }
 
     private int getMaxVideoResolution() {
-        final int maxRes = Config.newInstance(getContext()).getMaxVideoResolution();
+        final int maxRes = Config.newInstance(mContext).getMaxVideoResolution();
         switch (maxRes) {
             case 0:
                 return 400000;
@@ -330,7 +330,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             }
 
             if (i == cnt - 1) {
-                Utils.showToast(getContext(), R.string.no_valid_resolution_found);
+                Utils.showToast(mContext, R.string.no_valid_resolution_found);
             }
         }
         return maxSize;
@@ -601,9 +601,9 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
         mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
-        mCurVideoPath = Utils.getOutputMediaFile(getContext(), false);
+        mCurVideoPath = Utils.getOutputMediaFile(mContext, false);
         if (mCurVideoPath.isEmpty()) {
-            Utils.showToast(getContext(), R.string.video_creating_error);
+            Utils.showToast(mContext, R.string.video_creating_error);
             return false;
         }
 
@@ -622,7 +622,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         try {
             mRecorder.prepare();
         } catch (Exception e) {
-            Utils.showToast(getContext(), R.string.video_setup_error);
+            Utils.showToast(mContext, R.string.video_setup_error);
             Log.e(TAG, "initRecorder " + e.getMessage());
             releaseCamera();
             return false;
@@ -651,7 +651,7 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             mRecorder.start();
             mIsRecording = true;
         } catch (Exception e) {
-            Utils.showToast(getContext(), R.string.video_setup_error);
+            Utils.showToast(mContext, R.string.video_setup_error);
             Log.e(TAG, "toggleRecording " + e.getMessage());
             releaseCamera();
         }
@@ -662,10 +662,10 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
             try {
                 mRecorder.stop();
                 final String[] paths = {mCurVideoPath};
-                MediaScannerConnection.scanFile(getContext(), paths, null, this);
+                MediaScannerConnection.scanFile(mContext, paths, null, this);
             } catch (RuntimeException e) {
                 new File(mCurVideoPath).delete();
-                Utils.showToast(getContext(), R.string.video_saving_error);
+                Utils.showToast(mContext, R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
                 mRecorder = null;
                 mIsRecording = false;
@@ -680,12 +680,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         if (file.exists() && file.length() == 0) {
             file.delete();
         }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        mCallback.activateShutter();
-        return true;
     }
 
     @Override
@@ -711,8 +705,6 @@ public class Preview extends ViewGroup implements SurfaceHolder.Callback, View.O
         void setFlashAvailable(boolean available);
 
         void setIsCameraAvailable(boolean available);
-
-        void activateShutter();
 
         int getCurrentOrientation();
 

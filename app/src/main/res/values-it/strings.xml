@@ -18,7 +18,6 @@
     <!-- Settings -->
     <string name="settings">Impostazioni</string>
     <string name="dark_theme">Tema scuro</string>
-    <string name="long_tap_capture">Tocco prolungato per la cattura</string>
     <string name="focus_before_capture">Messa a fuoco prima della cattura</string>
     <string name="force_ratio">Forza proporzione 16:9</string>
     <string name="max_photo_size">Limite risoluzione foto</string>

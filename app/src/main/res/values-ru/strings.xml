@@ -18,7 +18,6 @@
     <!-- Settings -->
     <string name="settings">Настройки</string>
     <string name="dark_theme">темная тема</string>
-    <string name="long_tap_capture">Длинное нажатие для захвата</string>
     <string name="focus_before_capture">Перефокусировка перед захватом</string>
     <string name="force_ratio">Принудительное соотношение сторон 16:9</string>
     <string name="max_photo_size">Лимит разрешения фото</string>

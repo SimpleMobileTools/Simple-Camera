@@ -591,11 +591,6 @@ public class MainActivity extends SimpleActivity
     }
 
     @Override
-    public void activateShutter() {
-        handleShutter();
-    }
-
-    @Override
     public int getCurrentOrientation() {
         return mOrientation;
     }

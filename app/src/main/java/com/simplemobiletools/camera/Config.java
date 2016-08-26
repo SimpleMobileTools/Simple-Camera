@@ -30,14 +30,6 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.IS_DARK_THEME, isDarkTheme).apply();
     }
 
-    public boolean getLongTapEnabled() {
-        return mPrefs.getBoolean(Constants.LONG_TAP, true);
-    }
-
-    public void setLongTapEnabled(boolean enabled) {
-        mPrefs.edit().putBoolean(Constants.LONG_TAP, enabled).apply();
-    }
-
     public boolean getFocusBeforeCaptureEnabled() {
         return mPrefs.getBoolean(Constants.FOCUS_BEFORE_CAPTURE, false);
     }
