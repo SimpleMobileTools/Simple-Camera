@@ -50,6 +50,7 @@ public class Preview extends ViewGroup
     private static Uri mTargetUri;
     private static Context mContext;
     private static ScaleGestureDetector mScaleGestureDetector;
+    private static List<Integer> mZoomRatios;
 
     private static boolean mCanTakePicture;
     private static boolean mIsFlashEnabled;
@@ -64,6 +65,7 @@ public class Preview extends ViewGroup
     private static int mLastClickY;
     private static int mInitVideoRotation;
     private static int mCurrCameraId;
+    private static int mMaxZoom;
 
     public Preview(Context context) {
         super(context);
@@ -120,6 +122,8 @@ public class Preview extends ViewGroup
         mCamera = newCamera;
         if (mCamera != null) {
             mParameters = mCamera.getParameters();
+            mMaxZoom = mParameters.getMaxZoom();
+            mZoomRatios = mParameters.getZoomRatios();
             mSupportedPreviewSizes = mParameters.getSupportedPreviewSizes();
             Collections.sort(mSupportedPreviewSizes, new SizesComparator());
             requestLayout();
@@ -165,8 +169,41 @@ public class Preview extends ViewGroup
         mScaleGestureDetector = new ScaleGestureDetector(mContext, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
-                final float factor = detector.getScaleFactor();
-                return super.onScale(detector);
+                int zoomFactor = mParameters.getZoom();
+                float zoomRatio = mZoomRatios.get(zoomFactor) / 100.f;
+                zoomRatio *= detector.getScaleFactor();
+
+                int newZoomFactor = zoomFactor;
+                if (zoomRatio <= 1.f) {
+                    newZoomFactor = 0;
+                } else if (zoomRatio >= mZoomRatios.get(mMaxZoom) / 100.f) {
+                    newZoomFactor = mMaxZoom;
+                } else {
+                    if (detector.getScaleFactor() > 1.f) {
+                        for (int i = zoomFactor; i < mZoomRatios.size(); i++) {
+                            if (mZoomRatios.get(i) / 100.0f >= zoomRatio) {
+                                newZoomFactor = i;
+                                break;
+                            }
+                        }
+                    } else {
+                        for (int i = zoomFactor; i >= 0; i--) {
+                            if (mZoomRatios.get(i) / 100.0f <= zoomRatio) {
+                                newZoomFactor = i;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                newZoomFactor = Math.max(newZoomFactor, 0);
+                newZoomFactor = Math.min(mMaxZoom, newZoomFactor);
+
+                mParameters.setZoom(newZoomFactor);
+                if (mCamera != null)
+                    mCamera.setParameters(mParameters);
+
+                return true;
             }
         });
     }
@@ -555,7 +592,9 @@ public class Preview extends ViewGroup
     public boolean onTouch(View v, MotionEvent event) {
         mLastClickX = (int) event.getX();
         mLastClickY = (int) event.getY();
-        mScaleGestureDetector.onTouchEvent(event);
+
+        if (mMaxZoom > 0)
+            mScaleGestureDetector.onTouchEvent(event);
         return false;
     }
 
