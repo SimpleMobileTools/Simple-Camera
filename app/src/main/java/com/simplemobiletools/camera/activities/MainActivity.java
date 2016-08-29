@@ -60,12 +60,14 @@ public class MainActivity extends SimpleActivity
 
     private static final int CAMERA_STORAGE_PERMISSION = 1;
     private static final int AUDIO_PERMISSION = 2;
+    private static final int FADE_DELAY = 5000;
 
     private static SensorManager mSensorManager;
     private static Preview mPreview;
     private static FocusRectView mFocusRectView;
     private static Handler mTimerHandler;
     private static Uri mPreviewUri;
+    private static Handler mFadeHandler;
 
     private static boolean mIsFlashEnabled;
     private static boolean mIsInPhotoMode;
@@ -168,7 +170,9 @@ public class MainActivity extends SimpleActivity
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mIsInPhotoMode = true;
         mTimerHandler = new Handler();
+        mFadeHandler = new Handler();
         setupPreviewImage(true);
+        scheduleFadeOut();
     }
 
     private boolean hasCameraAndStoragePermission() {
@@ -306,8 +310,12 @@ public class MainActivity extends SimpleActivity
 
     @OnClick(R.id.settings)
     public void launchSettings() {
-        final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        startActivity(intent);
+        if (mSettingsBtn.getAlpha() == 1.f) {
+            final Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
+        } else {
+            fadeInButtons();
+        }
     }
 
     @OnClick(R.id.toggle_photo_video)
@@ -446,6 +454,32 @@ public class MainActivity extends SimpleActivity
         return 0;
     }
 
+    private void scheduleFadeOut() {
+        mFadeHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fadeOutButtons();
+            }
+        }, FADE_DELAY);
+    }
+
+    private void fadeOutButtons() {
+        fadeAnim(mSettingsBtn, .5f);
+        fadeAnim(mTogglePhotoVideoBtn, .0f);
+        fadeAnim(mLastPhotoVideoPreview, .0f);
+    }
+
+    private void fadeInButtons() {
+        fadeAnim(mSettingsBtn, 1.f);
+        fadeAnim(mTogglePhotoVideoBtn, 1.f);
+        fadeAnim(mLastPhotoVideoPreview, 1.f);
+        scheduleFadeOut();
+    }
+
+    private void fadeAnim(View view, float value) {
+        view.animate().alpha(value).start();
+    }
+
     private void hideNavigationBarIcons() {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
     }
@@ -513,6 +547,9 @@ public class MainActivity extends SimpleActivity
         super.onPause();
         if (!hasCameraAndStoragePermission() || mIsAskingPermissions)
             return;
+
+        if (mFadeHandler != null)
+            mFadeHandler.removeCallbacksAndMessages(null);
 
         hideTimer();
         if (mPreview != null) {
