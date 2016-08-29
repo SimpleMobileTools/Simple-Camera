@@ -204,9 +204,15 @@ public class Preview extends ViewGroup
                 if (mCamera != null)
                     mCamera.setParameters(mParameters);
 
+                return true;
+            }
+
+            @Override
+            public void onScaleEnd(ScaleGestureDetector detector) {
+                super.onScaleEnd(detector);
                 mWasZooming = true;
                 mSurfaceView.setSoundEffectsEnabled(false);
-                return true;
+                mParameters.setFocusAreas(null);
             }
         });
     }
