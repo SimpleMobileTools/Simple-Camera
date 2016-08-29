@@ -61,6 +61,7 @@ public class Preview extends ViewGroup
     private static boolean mSetupPreviewAfterMeasure;
     private static boolean mFocusBeforeCapture;
     private static boolean mForceAspectRatio;
+    private static boolean mWasZooming;
     private static int mLastClickX;
     private static int mLastClickY;
     private static int mInitVideoRotation;
@@ -203,6 +204,8 @@ public class Preview extends ViewGroup
                 if (mCamera != null)
                     mCamera.setParameters(mParameters);
 
+                mWasZooming = true;
+                mSurfaceView.setSoundEffectsEnabled(false);
                 return true;
             }
         });
@@ -737,7 +740,11 @@ public class Preview extends ViewGroup
 
     @Override
     public void onClick(View v) {
-        focusArea(false);
+        if (!mWasZooming)
+            focusArea(false);
+
+        mWasZooming = false;
+        mSurfaceView.setSoundEffectsEnabled(true);
     }
 
     @Override
