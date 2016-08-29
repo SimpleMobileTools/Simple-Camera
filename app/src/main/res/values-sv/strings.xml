@@ -18,6 +18,7 @@
     <!-- Settings -->
     <string name="settings">Inställningar</string>
     <string name="dark_theme">Mörkt tema</string>
+    <string name="use_dcim_folder">Store media in the default DCIM folder</string>
     <string name="focus_before_capture">Fokusera om innan bildtagning</string>
     <string name="force_ratio">Tvinga 16:9-förhållande</string>
     <string name="max_photo_size">Bildupplösningsgräns</string>

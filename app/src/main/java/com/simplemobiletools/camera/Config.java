@@ -30,6 +30,14 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.IS_DARK_THEME, isDarkTheme).apply();
     }
 
+    public boolean getUseDCIMFolder() {
+        return mPrefs.getBoolean(Constants.USE_DCIM, true);
+    }
+
+    public void setUseDCIMFolder(boolean useDCIM) {
+        mPrefs.edit().putBoolean(Constants.USE_DCIM, useDCIM).apply();
+    }
+
     public boolean getFocusBeforeCaptureEnabled() {
         return mPrefs.getBoolean(Constants.FOCUS_BEFORE_CAPTURE, false);
     }

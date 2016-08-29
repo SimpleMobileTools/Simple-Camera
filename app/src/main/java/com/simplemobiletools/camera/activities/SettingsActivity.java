@@ -18,6 +18,7 @@ import butterknife.OnItemSelected;
 
 public class SettingsActivity extends SimpleActivity {
     @BindView(R.id.settings_dark_theme) SwitchCompat mDarkThemeSwitch;
+    @BindView(R.id.settings_use_dcim) SwitchCompat mUseDCIMSwitch;
     @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
     @BindView(R.id.settings_sound) SwitchCompat mSoundSwitch;
     @BindView(R.id.settings_force_ratio) SwitchCompat mForceRatioSwitch;
@@ -34,6 +35,7 @@ public class SettingsActivity extends SimpleActivity {
         ButterKnife.bind(this);
 
         setupDarkTheme();
+        setupUseDCIM();
         setupFocusBeforeCapture();
         setupSound();
         setupForceRatio();
@@ -63,6 +65,10 @@ public class SettingsActivity extends SimpleActivity {
         mDarkThemeSwitch.setChecked(mConfig.getIsDarkTheme());
     }
 
+    private void setupUseDCIM() {
+        mUseDCIMSwitch.setChecked(mConfig.getUseDCIMFolder());
+    }
+
     private void setupFocusBeforeCapture() {
         mFocusBeforeCaptureSwitch.setChecked(mConfig.getFocusBeforeCaptureEnabled());
     }
@@ -88,6 +94,12 @@ public class SettingsActivity extends SimpleActivity {
         mDarkThemeSwitch.setChecked(!mDarkThemeSwitch.isChecked());
         mConfig.setIsDarkTheme(mDarkThemeSwitch.isChecked());
         restartActivity();
+    }
+
+    @OnClick(R.id.settings_use_dcim_holder)
+    public void handleUseDCIM() {
+        mUseDCIMSwitch.setChecked(!mUseDCIMSwitch.isChecked());
+        mConfig.setUseDCIMFolder(mUseDCIMSwitch.isChecked());
     }
 
     @OnClick(R.id.settings_focus_before_capture_holder)
