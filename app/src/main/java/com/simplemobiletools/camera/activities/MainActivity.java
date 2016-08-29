@@ -55,7 +55,7 @@ public class MainActivity extends SimpleActivity
     @BindView(R.id.toggle_photo_video) ImageView mTogglePhotoVideoBtn;
     @BindView(R.id.shutter) ImageView mShutterBtn;
     @BindView(R.id.video_rec_curr_timer) TextView mRecCurrTimer;
-    @BindView(R.id.settings) View mAboutBtn;
+    @BindView(R.id.settings) View mSettingsBtn;
     @BindView(R.id.last_photo_video_preview) ImageView mLastPhotoVideoPreview;
 
     private static final int CAMERA_STORAGE_PERMISSION = 1;
@@ -114,8 +114,8 @@ public class MainActivity extends SimpleActivity
         if (mTogglePhotoVideoBtn != null)
             mTogglePhotoVideoBtn.setVisibility(View.GONE);
 
-        if (mAboutBtn != null)
-            mAboutBtn.setVisibility(View.GONE);
+        if (mSettingsBtn != null)
+            mSettingsBtn.setVisibility(View.GONE);
     }
 
     private void tryInitCamera() {
@@ -553,7 +553,7 @@ public class MainActivity extends SimpleActivity
     }
 
     private void animateViews(int degrees) {
-        View[] views = {mToggleCameraBtn, mToggleFlashBtn, mTogglePhotoVideoBtn, mShutterBtn, mAboutBtn, mLastPhotoVideoPreview};
+        View[] views = {mToggleCameraBtn, mToggleFlashBtn, mTogglePhotoVideoBtn, mShutterBtn, mSettingsBtn, mLastPhotoVideoPreview};
         for (View view : views) {
             rotate(view, degrees);
         }
