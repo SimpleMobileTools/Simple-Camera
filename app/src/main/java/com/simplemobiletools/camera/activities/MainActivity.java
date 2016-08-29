@@ -172,7 +172,6 @@ public class MainActivity extends SimpleActivity
         mTimerHandler = new Handler();
         mFadeHandler = new Handler();
         setupPreviewImage(true);
-        scheduleFadeOut();
     }
 
     private boolean hasCameraAndStoragePermission() {
@@ -478,6 +477,11 @@ public class MainActivity extends SimpleActivity
 
     private void fadeAnim(View view, float value) {
         view.animate().alpha(value).start();
+        if (value == .0f) {
+            view.setClickable(false);
+        } else {
+            view.setClickable(true);
+        }
     }
 
     private void hideNavigationBarIcons() {
@@ -512,6 +516,7 @@ public class MainActivity extends SimpleActivity
         if (hasCameraAndStoragePermission()) {
             resumeCameraItems();
             setupPreviewImage(mIsInPhotoMode);
+            scheduleFadeOut();
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 togglePhotoVideo();
