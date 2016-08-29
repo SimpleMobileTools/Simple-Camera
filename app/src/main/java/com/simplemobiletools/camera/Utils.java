@@ -67,6 +67,10 @@ public class Utils {
     }
 
     private static File getFolderName(Context context, boolean isPhoto) {
+        if (Config.newInstance(context).getUseDCIMFolder()) {
+            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        }
+
         final Resources res = context.getResources();
         String typeDirectory = res.getString(R.string.photo_directory);
         if (!isPhoto) {
