@@ -6,6 +6,7 @@ Version 1.19 *(2016-08-29)*
 
  * Add an Invite friends button
  * Change the app launcher name to Camera
+ * Update the app launcher icon
  * Remove the "Long tap to capture" feature
  * Implement Pinch to zoom
  * Save the media in DCIM folder by default
