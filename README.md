@@ -1,11 +1,13 @@
 # Simple Camera
 <img alt="Logo" src="app/src/main/res/mipmap-xxxhdpi/launcher.png" width="80">
 
-A front/rear camera with flash.
+A front/rear camera with flash and zoom.
 
-This is a camera useable for simple photo taking and video recording. It can switch between front and rear camera, and the flash can be turned on and off. While recording a video, the flash can be used as a flashlight. Does not require any unnecessary permissions needed by many other cameras. You can activate the shutter by long pressing the preview for easier selfies.
+The camera is useable for both photo taking and video recording. You can switch between front and rear camera, the flash can be turned on and off, pinch to zoom in. While recording a video, the flash can be used as a flashlight. It allows you to limit the photo and video resolution.
 
 If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+
+This app contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
 
 <a href='https://play.google.com/store/apps/details?id=com.simplemobiletools.camera'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=60/></a>
 <a href="https://f-droid.org/app/com.simplemobiletools.camera"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60"></a>
