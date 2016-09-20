@@ -19,7 +19,6 @@
     <string name="settings">Einstellungen</string>
     <string name="dark_theme">Dunkles Thema</string>
     <string name="use_dcim_folder">Speichere Dateien im vorgegebenen DCIM Ordner</string>
-    <string name="focus_before_capture">Vor der Aufnahme fokussieren</string>
     <string name="force_ratio">Erzwinge 16:9 Format</string>
     <string name="max_photo_size">Maximale Fotoauflösung</string>
     <string name="max_video_size">Maximale Videoauflösung</string>

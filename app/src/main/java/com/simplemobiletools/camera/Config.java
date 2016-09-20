@@ -38,14 +38,6 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.USE_DCIM, useDCIM).apply();
     }
 
-    public boolean getFocusBeforeCaptureEnabled() {
-        return mPrefs.getBoolean(Constants.FOCUS_BEFORE_CAPTURE, false);
-    }
-
-    public void setFocusBeforeCaptureEnabled(boolean enabled) {
-        mPrefs.edit().putBoolean(Constants.FOCUS_BEFORE_CAPTURE, enabled).apply();
-    }
-
     public boolean getForceRatioEnabled() {
         return mPrefs.getBoolean(Constants.FORCE_RATIO, true);
     }

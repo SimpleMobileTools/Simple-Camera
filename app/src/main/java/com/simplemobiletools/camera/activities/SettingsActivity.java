@@ -19,7 +19,6 @@ import butterknife.OnItemSelected;
 public class SettingsActivity extends SimpleActivity {
     @BindView(R.id.settings_dark_theme) SwitchCompat mDarkThemeSwitch;
     @BindView(R.id.settings_use_dcim) SwitchCompat mUseDCIMSwitch;
-    @BindView(R.id.settings_focus_before_capture) SwitchCompat mFocusBeforeCaptureSwitch;
     @BindView(R.id.settings_sound) SwitchCompat mSoundSwitch;
     @BindView(R.id.settings_force_ratio) SwitchCompat mForceRatioSwitch;
     @BindView(R.id.settings_max_photo_resolution) AppCompatSpinner mMaxPhotoResolutionSpinner;
@@ -36,7 +35,6 @@ public class SettingsActivity extends SimpleActivity {
 
         setupDarkTheme();
         setupUseDCIM();
-        setupFocusBeforeCapture();
         setupSound();
         setupForceRatio();
         setupMaxPhotoResolution();
@@ -69,10 +67,6 @@ public class SettingsActivity extends SimpleActivity {
         mUseDCIMSwitch.setChecked(mConfig.getUseDCIMFolder());
     }
 
-    private void setupFocusBeforeCapture() {
-        mFocusBeforeCaptureSwitch.setChecked(mConfig.getFocusBeforeCaptureEnabled());
-    }
-
     private void setupSound() {
         mSoundSwitch.setChecked(mConfig.getIsSoundEnabled());
     }
@@ -100,12 +94,6 @@ public class SettingsActivity extends SimpleActivity {
     public void handleUseDCIM() {
         mUseDCIMSwitch.setChecked(!mUseDCIMSwitch.isChecked());
         mConfig.setUseDCIMFolder(mUseDCIMSwitch.isChecked());
-    }
-
-    @OnClick(R.id.settings_focus_before_capture_holder)
-    public void handleFocusBeforeCapture() {
-        mFocusBeforeCaptureSwitch.setChecked(!mFocusBeforeCaptureSwitch.isChecked());
-        mConfig.setFocusBeforeCaptureEnabled(mFocusBeforeCaptureSwitch.isChecked());
     }
 
     @OnClick(R.id.settings_sound_holder)

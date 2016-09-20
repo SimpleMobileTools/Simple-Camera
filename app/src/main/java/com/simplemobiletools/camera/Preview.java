@@ -59,7 +59,6 @@ public class Preview extends ViewGroup
     private static boolean mIsSurfaceCreated;
     private static boolean mSwitchToVideoAsap;
     private static boolean mSetupPreviewAfterMeasure;
-    private static boolean mFocusBeforeCapture;
     private static boolean mForceAspectRatio;
     private static boolean mWasZooming;
     private static int mLastClickX;
@@ -156,7 +155,6 @@ public class Preview extends ViewGroup
         }
 
         final Config config = Config.newInstance(mContext);
-        mFocusBeforeCapture = config.getFocusBeforeCaptureEnabled();
         mForceAspectRatio = config.getForceRatioEnabled();
 
         return true;
@@ -258,15 +256,7 @@ public class Preview extends ViewGroup
         }
     }
 
-    public void tryTakePicture() {
-        if (mFocusBeforeCapture) {
-            focusArea(true);
-        } else {
-            takePicture();
-        }
-    }
-
-    private void takePicture() {
+    public void takePicture() {
         if (mCanTakePicture) {
             if (mIsFlashEnabled) {
                 mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);

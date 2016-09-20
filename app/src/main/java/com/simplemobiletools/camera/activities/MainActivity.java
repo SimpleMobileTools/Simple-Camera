@@ -291,7 +291,7 @@ public class MainActivity extends SimpleActivity
     private void handleShutter() {
         if (mIsInPhotoMode) {
             mShutterBtn.animate().rotationBy(90).start();
-            mPreview.tryTakePicture();
+            mPreview.takePicture();
         } else {
             final Resources res = getResources();
             final boolean isRecording = mPreview.toggleRecording();

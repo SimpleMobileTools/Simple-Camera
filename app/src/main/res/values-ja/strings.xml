@@ -19,7 +19,6 @@
     <string name="settings">設定</string>
     <string name="dark_theme">ダークテーマ</string>
     <string name="use_dcim_folder">Store media in the default DCIM folder</string>
-    <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
     <string name="force_ratio">強制的に 16:9 レシオにする</string>
     <string name="max_photo_size">写真解像度の限度</string>
     <string name="max_video_size">Video resolution limit</string>

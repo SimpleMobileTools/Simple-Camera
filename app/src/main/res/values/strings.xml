@@ -19,7 +19,6 @@
     <string name="settings">Settings</string>
     <string name="dark_theme">Dark theme</string>
     <string name="use_dcim_folder">Store media in the default DCIM folder</string>
-    <string name="focus_before_capture">Refocus before capture</string>
     <string name="force_ratio">Use 16:9 ratio</string>
     <string name="max_photo_size">Photo resolution limit</string>
     <string name="max_video_size">Video resolution limit</string>
