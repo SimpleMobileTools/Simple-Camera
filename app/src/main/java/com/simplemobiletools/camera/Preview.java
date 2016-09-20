@@ -324,7 +324,7 @@ public class Preview extends ViewGroup
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
         for (Camera.Size size : sizes) {
-            final boolean isProperRatio = !mForceAspectRatio || isProperRatio(size);
+            final boolean isProperRatio = isProperRatio(size);
             final boolean isProperResolution = isProperResolution(size, maxResolution);
             if (isProperResolution && isProperRatio) {
                 maxSize = size;
@@ -369,6 +369,7 @@ public class Preview extends ViewGroup
         float wantedRatio = (float) 3 / 4;
         if (mForceAspectRatio || mIsVideoMode)
             wantedRatio = (float) 9 / 16;
+
         final float diff = Math.abs(currRatio - wantedRatio);
         return diff < RATIO_TOLERANCE;
     }
