@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 1.21 *(2016-09-20)*
+----------------------------
+
+ * Save the images in 4:3 format if 16:9 is not forced
+ * Apply the shutter sound to video recording too
+ * Hide the bottom controls for a second at successfull photo capture
+ * Remove the "Focus before capture" feature
+
 Version 1.20 *(2016-09-07)*
 ----------------------------
 
