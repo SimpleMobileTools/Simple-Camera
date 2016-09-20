@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.media.AudioManager;
 import android.media.CamcorderProfile;
 import android.media.MediaActionSound;
 import android.media.MediaRecorder;
@@ -701,7 +702,9 @@ public class Preview extends ViewGroup
 
         try {
             mCamera.unlock();
+            toggleShutterSound(true);
             mRecorder.start();
+            toggleShutterSound(false);
             mIsRecording = true;
         } catch (Exception e) {
             Utils.showToast(mContext, R.string.video_setup_error);
@@ -713,10 +716,12 @@ public class Preview extends ViewGroup
     private void stopRecording() {
         if (mRecorder != null && mIsRecording) {
             try {
+                toggleShutterSound(true);
                 mRecorder.stop();
                 final String[] paths = {mCurVideoPath};
                 MediaScannerConnection.scanFile(mContext, paths, null, this);
             } catch (RuntimeException e) {
+                toggleShutterSound(false);
                 new File(mCurVideoPath).delete();
                 Utils.showToast(mContext, R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
@@ -733,6 +738,12 @@ public class Preview extends ViewGroup
         if (file.exists() && file.length() == 0) {
             file.delete();
         }
+}
+
+    private void toggleShutterSound(Boolean mute) {
+        if (!Config.newInstance(mContext).getIsSoundEnabled()) {
+            ((AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_SYSTEM, mute);
+        }
     }
 
     @Override
@@ -747,6 +758,7 @@ public class Preview extends ViewGroup
     @Override
     public void onScanCompleted(String path, Uri uri) {
         mCallback.videoSaved(uri);
+        toggleShutterSound(false);
     }
 
     private static class SizesComparator implements Comparator<Camera.Size>, Serializable {
