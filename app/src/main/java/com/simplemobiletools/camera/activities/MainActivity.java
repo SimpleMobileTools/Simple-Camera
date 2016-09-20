@@ -290,8 +290,14 @@ public class MainActivity extends SimpleActivity
 
     private void handleShutter() {
         if (mIsInPhotoMode) {
-            mShutterBtn.animate().rotationBy(90).start();
+            toggleBottomButtons(true);
             mPreview.takePicture();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    toggleBottomButtons(false);
+                }
+            }, Preview.PHOTO_PREVIEW_LENGTH);
         } else {
             final Resources res = getResources();
             final boolean isRecording = mPreview.toggleRecording();
@@ -305,6 +311,12 @@ public class MainActivity extends SimpleActivity
                 hideTimer();
             }
         }
+    }
+
+    private void toggleBottomButtons(Boolean hide) {
+        mShutterBtn.animate().alpha(hide ? 0 : 1).start();
+        mToggleCameraBtn.animate().alpha(hide ? 0 : 1).start();
+        mToggleFlashBtn.animate().alpha(hide ? 0 : 1).start();
     }
 
     @OnClick(R.id.settings)

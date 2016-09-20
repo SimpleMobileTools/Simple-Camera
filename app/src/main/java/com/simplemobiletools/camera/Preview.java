@@ -31,9 +31,9 @@ import java.util.List;
 
 public class Preview extends ViewGroup
         implements SurfaceHolder.Callback, View.OnTouchListener, View.OnClickListener, MediaScannerConnection.OnScanCompletedListener {
+    public static final int PHOTO_PREVIEW_LENGTH = 1000;
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 100;
-    private static final int PHOTO_PREVIEW_LENGTH = 1000;
     private static final float RATIO_TOLERANCE = 0.1f;
 
     private static SurfaceHolder mSurfaceHolder;
