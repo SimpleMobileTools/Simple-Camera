@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Câmara</string>
+    <string name="camera_unavailable">Câmara indisponível</string>
+    <string name="camera_open_error">Ocorreu um erro ao aceder à câmara</string>
+    <string name="video_creating_error">Ocorreu um erro ao criar o ficheiro de vídeo</string>
+    <string name="video_saving_error">Ocorreu um erro ao guardar o ficheiro de vídeo</string>
+    <string name="video_setup_error">Ocorreu um erro ao configurar a gravação</string>
+    <string name="video_mode_error">Falha ao mudar para o modo vídeo</string>
+    <string name="video_directory">Vídeos simples</string>
+    <string name="photo_directory">Fotografias simples</string>
+    <string name="camera_switch_error">Falha ao mudar de câmara</string>
+    <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
+    <string name="no_audio_permissions">A permissão de áudio é necessária para a gravação de vídeos</string>
+    <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
+    <string name="no_valid_resolution_found">Nenhuma resolução encontrada que seja compatível com o rácio de aspeto selecionado, a utilizar a resolução máxima</string>
+
+    <!-- Settings -->
+    <string name="settings">Definições</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="use_dcim_folder">Armazenar multimédia na pasta pré-definida \"DCIM\"</string>
+    <string name="force_ratio">Usar rácio 16:9</string>
+    <string name="max_photo_size">Resolução máxima das fotografias</string>
+    <string name="max_video_size">Resolução máxima dos vídeos</string>
+    <string name="no_limit">nenhum</string>
+    <string name="shutter_sound">Som do obturador</string>
+
+    <!-- About -->
+    <string name="about">Sobre</string>
+    <string name="website">Mais aplicações simples e código de fonte em:\nhttp://simplemobiletools.com</string>
+    <string name="email_label">Envie os seus comentários ou sugestões para:</string>
+    <string name="third_party_licences_underlined"><u>Licenças de terceiros</u></string>
+    <string name="invite_friends_underlined"><u>Convidar amigos</u></string>
+    <string name="share_text">Olá, experimente %1$s em %2$s</string>
+    <string name="invite_via">Convidar via</string>
+    <string name="rate_us_underlined"><u>Classifique-nos na Play Store</u></string>
+    <string name="follow_us">Siga-nos:</string>
+    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
+
+    <!--License-->
+    <string name="notice">Esta aplicação usa as seguintes bibliotecas de terceiros para facilitar a minha vida. Obrigado.</string>
+    <string name="third_party_licences">Licenças de terceiros</string>
+    <string name="butterknife_title"><u>Butter Knife (injetor de \"views\")</u></string>
+</resources>
