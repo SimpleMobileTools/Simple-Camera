@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.22 *(2016-10-10)*
+----------------------------
+
+ * Remember the last selected camera and flashlight state
+
 Version 1.21 *(2016-09-20)*
 ----------------------------
 
