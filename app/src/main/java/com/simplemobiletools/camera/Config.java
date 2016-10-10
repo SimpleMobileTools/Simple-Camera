@@ -78,4 +78,12 @@ public class Config {
     public void setLastUsedCamera(int cameraId) {
         mPrefs.edit().putInt(Constants.LAST_USED_CAMERA, cameraId).apply();
     }
+
+    public boolean getLastFlashlightState() {
+        return mPrefs.getBoolean(Constants.LAST_FLASHLIGHT_STATE, false);
+    }
+
+    public void setLastFlashlightState(boolean enabled) {
+        mPrefs.edit().putBoolean(Constants.LAST_FLASHLIGHT_STATE, enabled).apply();
+    }
 }

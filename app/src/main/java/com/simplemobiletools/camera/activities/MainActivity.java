@@ -172,6 +172,7 @@ public class MainActivity extends SimpleActivity
         mIsInPhotoMode = true;
         mTimerHandler = new Handler();
         mFadeHandler = new Handler();
+        mIsFlashEnabled = mConfig.getLastFlashlightState();
         setupPreviewImage(true);
     }
 
@@ -270,11 +271,15 @@ public class MainActivity extends SimpleActivity
     private void disableFlash() {
         mPreview.disableFlash();
         mToggleFlashBtn.setImageResource(R.mipmap.flash_off);
+        mIsFlashEnabled = false;
+        mConfig.setLastFlashlightState(mIsFlashEnabled);
     }
 
     private void enableFlash() {
         mPreview.enableFlash();
         mToggleFlashBtn.setImageResource(R.mipmap.flash_on);
+        mIsFlashEnabled = true;
+        mConfig.setLastFlashlightState(mIsFlashEnabled);
     }
 
     @OnClick(R.id.shutter)
@@ -547,6 +552,7 @@ public class MainActivity extends SimpleActivity
 
         if (mPreview.setCamera(mCurrCamera)) {
             hideNavigationBarIcons();
+            checkFlash();
 
             if (mSensorManager != null) {
                 final Sensor accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

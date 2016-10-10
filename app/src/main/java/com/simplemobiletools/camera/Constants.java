@@ -15,4 +15,5 @@ public class Constants {
     public static final String MAX_RESOLUTION = "max_resolution";
     public static final String MAX_VIDEO_RESOLUTION = "max_video_resolution";
     public static final String LAST_USED_CAMERA = "last_used_camera";
+    public static final String LAST_FLASHLIGHT_STATE = "last_flashlight_state";
 }
