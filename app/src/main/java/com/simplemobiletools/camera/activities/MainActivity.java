@@ -159,10 +159,11 @@ public class MainActivity extends SimpleActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
+        mCurrCamera = mConfig.getLastUsedCamera();
         mPreview = new Preview(this, (SurfaceView) findViewById(R.id.camera_view), this);
         mPreview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mViewHolder.addView(mPreview);
+        mToggleCameraBtn.setImageResource(mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK ? R.mipmap.camera_front : R.mipmap.camera_back);
 
         mFocusRectView = new FocusRectView(getApplicationContext());
         mViewHolder.addView(mFocusRectView);
@@ -214,11 +215,12 @@ public class MainActivity extends SimpleActivity
             mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
         }
 
+        mConfig.setLastUsedCamera(mCurrCamera);
         int newIconId = R.mipmap.camera_front;
         mPreview.releaseCamera();
         if (mPreview.setCamera(mCurrCamera)) {
             if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                newIconId = R.mipmap.camera_rear;
+                newIconId = R.mipmap.camera_back;
             }
             mToggleCameraBtn.setImageResource(newIconId);
             disableFlash();

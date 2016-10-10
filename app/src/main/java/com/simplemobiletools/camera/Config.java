@@ -2,6 +2,7 @@ package com.simplemobiletools.camera;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.hardware.Camera;
 
 public class Config {
     private SharedPreferences mPrefs;
@@ -68,5 +69,13 @@ public class Config {
 
     public void setIsSoundEnabled(boolean enabled) {
         mPrefs.edit().putBoolean(Constants.SOUND, enabled).apply();
+    }
+
+    public int getLastUsedCamera() {
+        return mPrefs.getInt(Constants.LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK);
+    }
+
+    public void setLastUsedCamera(int cameraId) {
+        mPrefs.edit().putInt(Constants.LAST_USED_CAMERA, cameraId).apply();
     }
 }
