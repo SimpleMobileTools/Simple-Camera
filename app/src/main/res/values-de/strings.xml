@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Camera</string>
+    <string name="app_name">Schlichte Kamera</string>
+    <string name="app_launcher_name">Kamera</string>
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
     <string name="camera_open_error">Beim Zugriff auf die Kamera ist ein Fehler aufgetreten</string>
-    <string name="video_creating_error">Beim erstellen der Videodatei ist ein Fehler aufgetreten</string>
+    <string name="video_creating_error">Beim Erstellen der Videodatei ist ein Fehler aufgetreten</string>
     <string name="video_saving_error">Beim Speichern des Videos ist ein Fehler aufgetreten</string>
     <string name="video_setup_error">Beim Starten der Aufnahme ist ein Fehler aufgetreten</string>
     <string name="video_mode_error">Beim Umschalten zum Videomodus ist ein Fehler aufgetreten</string>
@@ -17,12 +17,12 @@
 
     <!-- Settings -->
     <string name="settings">Einstellungen</string>
-    <string name="dark_theme">Dunkles Thema</string>
+    <string name="dark_theme">Dunkles Design</string>
     <string name="use_dcim_folder">Speichere Dateien im vorgegebenen DCIM Ordner</string>
     <string name="force_ratio">Erzwinge 16:9 Format</string>
     <string name="max_photo_size">Maximale Fotoauflösung</string>
     <string name="max_video_size">Maximale Videoauflösung</string>
-    <string name="no_limit">kein Limit</string>
+    <string name="no_limit">Kein Limit</string>
     <string name="shutter_sound">Auslösegeräusch</string>
 
     <!-- About -->
@@ -40,5 +40,5 @@
     <!--License-->
     <string name="notice">Diese App nutzt die folgenden Drittanbieterbibliotheken, die mein Leben einfacher machen. Danke.</string>
     <string name="third_party_licences">Drittanbieterlizenzen</string>
-    <string name="butterknife_title"><u>Butter Knife (view injector)</u></string>
+    <string name="butterknife_title"><u>Butter Knife (View Injector)</u></string>
 </resources>
