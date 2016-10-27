@@ -6,7 +6,7 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.CamcorderProfile;
-import android.media.MediaActionSound;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -273,7 +273,13 @@ public class Preview extends ViewGroup
             mParameters.setRotation(rotation % 360);
 
             if (Config.newInstance(mContext).getIsSoundEnabled()) {
-                new MediaActionSound().play(MediaActionSound.SHUTTER_CLICK);
+                final AudioManager audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
+                final int volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+                if (volume != 0) {
+                    final MediaPlayer mp = MediaPlayer.create(getContext(), Uri.parse("file:///system/media/audio/ui/camera_click.ogg"));
+                    if (mp != null)
+                        mp.start();
+                }
             }
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
