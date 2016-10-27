@@ -1,7 +1,7 @@
 # Simple Camera
 <img alt="Logo" src="app/src/main/res/mipmap-xxxhdpi/launcher.png" width="80">
 
-A front/rear camera with flash and zoom.
+A camera with flash and zoom.
 
 The camera is useable for both photo taking and video recording. You can switch between front and rear camera, the flash can be turned on and off, pinch to zoom in. While recording a video, the flash can be used as a flashlight. It allows you to limit the photo and video resolution.
 
