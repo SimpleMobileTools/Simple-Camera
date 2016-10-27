@@ -159,6 +159,12 @@ public class MainActivity extends SimpleActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        if (Utils.hasNavBar(getResources())) {
+            final View btnLayout = findViewById(R.id.btn_holder);
+            final int bottomMargin = (int) getResources().getDimension(R.dimen.preview_btn_margin);
+            ((RelativeLayout.LayoutParams) btnLayout.getLayoutParams()).setMargins(0, 0, 0, bottomMargin);
+        }
+
         mCurrCamera = mConfig.getLastUsedCamera();
         mPreview = new Preview(this, (SurfaceView) findViewById(R.id.camera_view), this);
         mPreview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
