@@ -16,6 +16,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -159,10 +160,10 @@ public class MainActivity extends SimpleActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (Utils.hasNavBar(getResources())) {
+        if (Utils.hasNavBar(getResources()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             final View btnLayout = findViewById(R.id.btn_holder);
-            final int bottomMargin = (int) getResources().getDimension(R.dimen.preview_btn_margin);
-            ((RelativeLayout.LayoutParams) btnLayout.getLayoutParams()).setMargins(0, 0, 0, bottomMargin);
+            final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnLayout.getLayoutParams();
+            lp.setMargins(0, 0, 0, lp.bottomMargin + Utils.getNavBarHeight(getResources()));
         }
 
         mCurrCamera = mConfig.getLastUsedCamera();
