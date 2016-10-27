@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.23 *(2016-10-27)*
+----------------------------
+
+ * Couple bugfixes related to bottom button padding
+ * Use the System audio stream for playing the shutter sound
+
 Version 1.22 *(2016-10-10)*
 ----------------------------
 
