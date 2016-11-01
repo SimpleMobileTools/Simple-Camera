@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import com.simplemobiletools.camera.R
+import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : SimpleActivity() {
@@ -48,9 +49,19 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupUseDCIM() {
-        settings_save_photos.text = mConfig.savePhotosFolder.substring(mConfig.savePhotosFolder.lastIndexOf("/") + 1)
+        var currPath = mConfig.savePhotosFolder
+        settings_save_photos.text = currPath.substring(currPath.lastIndexOf("/") + 1)
         settings_save_photos_holder.setOnClickListener {
+            FilePickerDialog(this, currPath, false, false, true, object: FilePickerDialog.OnFilePickerListener {
+                override fun onFail(error: FilePickerDialog.FilePickerResult) {
+                }
 
+                override fun onSuccess(pickedPath: String) {
+                    currPath = pickedPath
+                    mConfig.savePhotosFolder = pickedPath
+                    settings_save_photos.text = pickedPath.substring(pickedPath.lastIndexOf("/") + 1)
+                }
+            })
         }
     }
 
