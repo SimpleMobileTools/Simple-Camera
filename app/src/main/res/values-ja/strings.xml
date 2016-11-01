@@ -7,8 +7,6 @@
     <string name="video_saving_error">ビデオファイルの保存時にエラーが発生しました</string>
     <string name="video_setup_error">レコーダーのセットアップ時にエラーが発生しました</string>
     <string name="video_mode_error">ビデオモードへの切り替えに失敗しました</string>
-    <string name="video_directory">シンプル ビデオ</string>
-    <string name="photo_directory">シンプル フォト</string>
     <string name="camera_switch_error">カメラの切り替えに失敗しました</string>
     <string name="no_permissions">お使いのカメラやストレージにアクセスしないと、ほとんど行うことはありません</string>
     <string name="no_audio_permissions">ビデオを記録するためにオーディオのアクセス許可が必要です</string>
@@ -18,7 +16,7 @@
     <!-- Settings -->
     <string name="settings">設定</string>
     <string name="dark_theme">ダークテーマ</string>
-    <string name="use_dcim_folder">Store media in the default DCIM folder</string>
+    <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">強制的に 16:9 レシオにする</string>
     <string name="max_photo_size">写真解像度の限度</string>
     <string name="max_video_size">Video resolution limit</string>

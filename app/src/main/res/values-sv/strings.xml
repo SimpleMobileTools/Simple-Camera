@@ -7,8 +7,6 @@
     <string name="video_saving_error">Ett fel uppstod när videofilen skulle sparas</string>
     <string name="video_setup_error">Ett fel uppstod när inspelningen skulle starta</string>
     <string name="video_mode_error">Byte till videoläge misslyckades</string>
-    <string name="video_directory">Simple videos</string>
-    <string name="photo_directory">Simple bilder</string>
     <string name="camera_switch_error">Byte av kamera misslyckades</string>
     <string name="no_permissions">Inte mycket att göra utan tillgång till din kamera och lagring</string>
     <string name="no_audio_permissions">För att spela in video krävs ljudrättigheter</string>
@@ -18,7 +16,7 @@
     <!-- Settings -->
     <string name="settings">Inställningar</string>
     <string name="dark_theme">Mörkt tema</string>
-    <string name="use_dcim_folder">Store media in the default DCIM folder</string>
+    <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Tvinga 16:9-förhållande</string>
     <string name="max_photo_size">Bildupplösningsgräns</string>
     <string name="max_video_size">Video resolution limit</string>

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.view.Display;
 import android.widget.Toast;
@@ -50,7 +49,7 @@ public class Utils {
     }
 
     public static String getOutputMediaFile(Context context, boolean isPhoto) {
-        final File mediaStorageDir = getFolderName(context, isPhoto);
+        final File mediaStorageDir = new File(Config.newInstance(context).getSavePhotosFolder());
 
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
@@ -64,28 +63,6 @@ public class Utils {
         } else {
             return mediaStorageDir.getPath() + File.separator + "VID_" + timestamp + ".mp4";
         }
-    }
-
-    private static File getFolderName(Context context, boolean isPhoto) {
-        if (Config.newInstance(context).getUseDCIMFolder()) {
-            return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        }
-
-        final Resources res = context.getResources();
-        String typeDirectory = res.getString(R.string.photo_directory);
-        if (!isPhoto) {
-            typeDirectory = res.getString(R.string.video_directory);
-        }
-
-        return new File(getMainDirectory(isPhoto), typeDirectory);
-    }
-
-    private static File getMainDirectory(boolean isPhoto) {
-        String type = Environment.DIRECTORY_MOVIES;
-        if (isPhoto) {
-            type = Environment.DIRECTORY_PICTURES;
-        }
-        return Environment.getExternalStoragePublicDirectory(type);
     }
 
     public static String formatSeconds(int duration) {

@@ -7,8 +7,6 @@
     <string name="video_saving_error">Ocorreu um erro ao guardar o ficheiro de vídeo</string>
     <string name="video_setup_error">Ocorreu um erro ao configurar a gravação</string>
     <string name="video_mode_error">Falha ao mudar para o modo vídeo</string>
-    <string name="video_directory">Vídeos simples</string>
-    <string name="photo_directory">Fotografias simples</string>
     <string name="camera_switch_error">Falha ao mudar de câmara</string>
     <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
     <string name="no_audio_permissions">A permissão de áudio é necessária para a gravação de vídeos</string>
@@ -18,7 +16,7 @@
     <!-- Settings -->
     <string name="settings">Definições</string>
     <string name="dark_theme">Tema escuro</string>
-    <string name="use_dcim_folder">Armazenar multimédia na pasta pré-definida \"DCIM\"</string>
+    <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Usar rácio 16:9</string>
     <string name="max_photo_size">Resolução máxima das fotografias</string>
     <string name="max_video_size">Resolução máxima dos vídeos</string>

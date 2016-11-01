@@ -7,8 +7,6 @@
     <string name="video_saving_error">Произошла ошибка записи видео файла</string>
     <string name="video_setup_error">Произошла ошибка настройки рекордера</string>
     <string name="video_mode_error">Переключение в режим видео не удалось</string>
-    <string name="video_directory">Просто Видео</string>
-    <string name="photo_directory">Просто Фото</string>
     <string name="camera_switch_error">Переключение камеры не удалось</string>
     <string name="no_permissions">Не так много можно сделать без доступа к камере и хранилищу</string>
     <string name="no_audio_permissions">Нам нужно аудио разрешение для записи видео</string>
@@ -18,7 +16,7 @@
     <!-- Settings -->
     <string name="settings">Настройки</string>
     <string name="dark_theme">темная тема</string>
-    <string name="use_dcim_folder">Store media in the default DCIM folder</string>
+    <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Принудительное соотношение сторон 16:9</string>
     <string name="max_photo_size">Лимит разрешения фото</string>
     <string name="max_video_size">Video resolution limit</string>

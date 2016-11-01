@@ -7,8 +7,6 @@
     <string name="video_saving_error">Beim Speichern des Videos ist ein Fehler aufgetreten</string>
     <string name="video_setup_error">Beim Starten der Aufnahme ist ein Fehler aufgetreten</string>
     <string name="video_mode_error">Beim Umschalten zum Videomodus ist ein Fehler aufgetreten</string>
-    <string name="video_directory">Simple Videos</string>
-    <string name="photo_directory">Simple Photos</string>
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
     <string name="no_permissions">Ohne Zugriff auf Kamera und Speicher ist hier nicht viel zu tun</string>
     <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mirkofon um Videos aufnehmen zu können</string>
@@ -18,7 +16,7 @@
     <!-- Settings -->
     <string name="settings">Einstellungen</string>
     <string name="dark_theme">Dunkles Design</string>
-    <string name="use_dcim_folder">Speichere Dateien im vorgegebenen DCIM Ordner</string>
+    <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Erzwinge 16:9 Format</string>
     <string name="max_photo_size">Maximale Fotoauflösung</string>
     <string name="max_video_size">Maximale Videoauflösung</string>

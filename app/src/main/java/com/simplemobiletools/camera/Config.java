@@ -3,6 +3,7 @@ package com.simplemobiletools.camera;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
+import android.os.Environment;
 
 public class Config {
     private SharedPreferences mPrefs;
@@ -31,12 +32,12 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.IS_DARK_THEME, isDarkTheme).apply();
     }
 
-    public boolean getUseDCIMFolder() {
-        return mPrefs.getBoolean(Constants.USE_DCIM, true);
+    public String getSavePhotosFolder() {
+        return mPrefs.getString(Constants.SAVE_PHOTOS, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString());
     }
 
-    public void setUseDCIMFolder(boolean useDCIM) {
-        mPrefs.edit().putBoolean(Constants.USE_DCIM, useDCIM).apply();
+    public void setSavePhotosFolder(String path) {
+        mPrefs.edit().putString(Constants.SAVE_PHOTOS, path).apply();
     }
 
     public boolean getForceRatioEnabled() {

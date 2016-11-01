@@ -39,7 +39,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/settings_use_dcim_holder"
+            android:id="@+id/settings_save_photos_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/settings_padding"
@@ -47,15 +47,15 @@
             android:padding="@dimen/activity_margin">
 
             <TextView
-                android:id="@+id/settings_use_dcim_label"
+                android:id="@+id/settings_save_photos_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/settings_padding"
-                android:text="@string/use_dcim_folder"/>
+                android:text="@string/save_photos"/>
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/settings_use_dcim"
+            <TextView
+                android:id="@+id/settings_save_photos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

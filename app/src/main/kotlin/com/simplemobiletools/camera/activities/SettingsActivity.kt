@@ -48,10 +48,9 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupUseDCIM() {
-        settings_use_dcim.isChecked = mConfig.useDCIMFolder
-        settings_use_dcim_holder.setOnClickListener {
-            settings_use_dcim.toggle()
-            mConfig.useDCIMFolder = settings_use_dcim.isChecked
+        settings_save_photos.text = mConfig.savePhotosFolder.substring(mConfig.savePhotosFolder.lastIndexOf("/") + 1)
+        settings_save_photos_holder.setOnClickListener {
+
         }
     }
 
