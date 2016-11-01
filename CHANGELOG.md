@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.24 *(2016-11-01)*
+----------------------------
+
+ * Allow picking a custom folder for saving the photos and videos
+
 Version 1.23 *(2016-10-27)*
 ----------------------------
 
