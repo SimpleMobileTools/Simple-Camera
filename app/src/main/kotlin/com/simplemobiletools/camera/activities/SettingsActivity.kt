@@ -17,7 +17,7 @@ class SettingsActivity : SimpleActivity() {
         setContentView(R.layout.activity_settings)
 
         setupDarkTheme()
-        setupUseDCIM()
+        setupSavePhotosFolder()
         setupSound()
         setupForceRatio()
         setupMaxPhotoResolution()
@@ -48,7 +48,7 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupUseDCIM() {
+    private fun setupSavePhotosFolder() {
         var currPath = mConfig.savePhotosFolder
         settings_save_photos.text = currPath.substring(currPath.lastIndexOf("/") + 1)
         settings_save_photos_holder.setOnClickListener {
@@ -57,9 +57,9 @@ class SettingsActivity : SimpleActivity() {
                 }
 
                 override fun onSuccess(pickedPath: String) {
-                    currPath = pickedPath
-                    mConfig.savePhotosFolder = pickedPath
-                    settings_save_photos.text = pickedPath.substring(pickedPath.lastIndexOf("/") + 1)
+                    currPath = pickedPath.trimEnd('/')
+                    mConfig.savePhotosFolder = currPath
+                    settings_save_photos.text = currPath.substring(currPath.lastIndexOf("/") + 1)
                 }
             })
         }
