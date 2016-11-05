@@ -52,7 +52,7 @@ class SettingsActivity : SimpleActivity() {
         var currPath = mConfig.savePhotosFolder
         settings_save_photos.text = currPath.substring(currPath.lastIndexOf("/") + 1)
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, currPath, false, false, true, object: FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(this, currPath, false, false, false, object: FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
