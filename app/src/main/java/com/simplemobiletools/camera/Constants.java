@@ -5,6 +5,8 @@ public class Constants {
     public static final int ORIENT_LANDSCAPE_LEFT = 1;
     public static final int ORIENT_LANDSCAPE_RIGHT = 2;
 
+    public static final String TREE_URI = "tree_uri";
+
     // shared preferences
     public static final String PREFS_KEY = "Camera";
     public static final String IS_FIRST_RUN = "is_first_run";

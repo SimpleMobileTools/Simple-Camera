@@ -1,6 +1,9 @@
 package com.simplemobiletools.camera.activities
 
+import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.TaskStackBuilder
 import android.view.Menu
@@ -8,10 +11,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.dialogs.WritePermissionDialog
+import com.simplemobiletools.camera.extensions.isKitkat
+import com.simplemobiletools.camera.extensions.isPathOnSD
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.io.File
 
 class SettingsActivity : SimpleActivity() {
+    val OPEN_DOCUMENT_TREE = 1
+    var mCurrPath: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -49,20 +59,56 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupSavePhotosFolder() {
-        var currPath = mConfig.savePhotosFolder
-        settings_save_photos.text = currPath.substring(currPath.lastIndexOf("/") + 1)
+        mCurrPath = mConfig.savePhotosFolder
+        settings_save_photos.text = mCurrPath.substring(mCurrPath.lastIndexOf("/") + 1)
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, currPath, false, false, false, object: FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(this, mCurrPath, false, false, false, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
                 override fun onSuccess(pickedPath: String) {
-                    currPath = pickedPath.trimEnd('/')
-                    mConfig.savePhotosFolder = currPath
-                    settings_save_photos.text = currPath.substring(currPath.lastIndexOf("/") + 1)
+                    mCurrPath = pickedPath.trimEnd('/')
+                    if (!File(pickedPath).canWrite() && isPathOnSD(pickedPath) && isKitkat() && mConfig.treeUri.isEmpty()) {
+                        WritePermissionDialog(this@SettingsActivity, object : WritePermissionDialog.OnWritePermissionListener {
+                            override fun onCancelled() {
+                                mCurrPath = mConfig.savePhotosFolder
+                            }
+
+                            override fun onConfirmed() {
+                                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                                startActivityForResult(intent, OPEN_DOCUMENT_TREE)
+                            }
+                        })
+                    } else {
+                        mConfig.savePhotosFolder = mCurrPath
+                        settings_save_photos.text = mCurrPath.substring(mCurrPath.lastIndexOf("/") + 1)
+                    }
                 }
             })
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == OPEN_DOCUMENT_TREE) {
+            if (resultCode == Activity.RESULT_OK && resultData != null) {
+                mConfig.savePhotosFolder = mCurrPath
+                settings_save_photos.text = mCurrPath.substring(mCurrPath.lastIndexOf("/") + 1)
+                saveTreeUri(resultData)
+            } else {
+                mCurrPath = mConfig.savePhotosFolder
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private fun saveTreeUri(resultData: Intent) {
+        val treeUri = resultData.data
+        mConfig.treeUri = resultData.data.toString()
+
+        val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        contentResolver.takePersistableUriPermission(treeUri, takeFlags)
     }
 
     private fun setupSound() {

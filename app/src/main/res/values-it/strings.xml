@@ -12,6 +12,9 @@
     <string name="no_audio_permissions">È necessario l\'accesso al microfono per registrare i video</string>
     <string name="no_gallery_app_available">Nessuna app galleria disponibile</string>
     <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
+    <string name="ok">OK</string>
+    <string name="confirm_storage_access_title">Confirm external storage access</string>
+    <string name="confirm_storage_access_text">Please choose the root folder of the SD card to grant write access on the next screen</string>
 
     <!-- Settings -->
     <string name="settings">Impostazioni</string>
