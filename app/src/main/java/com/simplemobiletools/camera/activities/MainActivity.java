@@ -127,10 +127,10 @@ public class MainActivity extends SimpleActivity
             handleIntent();
         } else {
             final List<String> permissions = new ArrayList<>(2);
-            if (!Utils.hasCameraPermission(getApplicationContext())) {
+            if (!Utils.Companion.hasCameraPermission(getApplicationContext())) {
                 permissions.add(Manifest.permission.CAMERA);
             }
-            if (!Utils.hasStoragePermission(getApplicationContext())) {
+            if (!Utils.Companion.hasStoragePermission(getApplicationContext())) {
                 permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
             ActivityCompat.requestPermissions(this, permissions.toArray(new String[permissions.size()]), CAMERA_STORAGE_PERMISSION);
@@ -160,10 +160,10 @@ public class MainActivity extends SimpleActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (Utils.hasNavBar(getResources()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Utils.Companion.hasNavBar(getResources()) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             final View btnLayout = findViewById(R.id.btn_holder);
             final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnLayout.getLayoutParams();
-            lp.setMargins(0, 0, 0, lp.bottomMargin + Utils.getNavBarHeight(getResources()));
+            lp.setMargins(0, 0, 0, lp.bottomMargin + Utils.Companion.getNavBarHeight(getResources()));
         }
 
         mCurrCamera = mConfig.getLastUsedCamera();
@@ -184,7 +184,7 @@ public class MainActivity extends SimpleActivity
     }
 
     private boolean hasCameraAndStoragePermission() {
-        return Utils.hasCameraPermission(getApplicationContext()) && Utils.hasStoragePermission(getApplicationContext());
+        return Utils.Companion.hasCameraPermission(getApplicationContext()) && Utils.Companion.hasStoragePermission(getApplicationContext());
     }
 
     @Override
@@ -197,14 +197,14 @@ public class MainActivity extends SimpleActivity
                 initializeCamera();
                 handleIntent();
             } else {
-                Utils.showToast(getApplicationContext(), R.string.no_permissions);
+                Utils.Companion.showToast(getApplicationContext(), R.string.no_permissions);
                 finish();
             }
         } else if (requestCode == AUDIO_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 togglePhotoVideo();
             } else {
-                Utils.showToast(getApplicationContext(), R.string.no_audio_permissions);
+                Utils.Companion.showToast(getApplicationContext(), R.string.no_audio_permissions);
                 if (mIsVideoCaptureIntent)
                     finish();
             }
@@ -234,7 +234,7 @@ public class MainActivity extends SimpleActivity
             disableFlash();
             hideTimer();
         } else {
-            Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
+            Utils.Companion.showToast(getApplicationContext(), R.string.camera_switch_error);
         }
     }
 
@@ -252,7 +252,7 @@ public class MainActivity extends SimpleActivity
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             } else {
-                Utils.showToast(getApplicationContext(), R.string.no_gallery_app_available);
+                Utils.Companion.showToast(getApplicationContext(), R.string.no_gallery_app_available);
             }
         }
     }
@@ -354,7 +354,7 @@ public class MainActivity extends SimpleActivity
             return;
         }
 
-        if (!Utils.hasAudioPermission(getApplicationContext())) {
+        if (!Utils.Companion.hasAudioPermission(getApplicationContext())) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, AUDIO_PERMISSION);
             mIsAskingPermissions = true;
             return;
@@ -390,7 +390,7 @@ public class MainActivity extends SimpleActivity
             initVideoButtons();
         } else {
             if (!mIsVideoCaptureIntent) {
-                Utils.showToast(getApplicationContext(), R.string.video_mode_error);
+                Utils.Companion.showToast(getApplicationContext(), R.string.video_mode_error);
             }
         }
     }
@@ -515,7 +515,7 @@ public class MainActivity extends SimpleActivity
     }
 
     private void hideTimer() {
-        mRecCurrTimer.setText(Utils.formatSeconds(0));
+        mRecCurrTimer.setText(Utils.Companion.formatSeconds(0));
         mRecCurrTimer.setVisibility(View.GONE);
         mCurrVideoRecTimer = 0;
         mTimerHandler.removeCallbacksAndMessages(null);
@@ -530,7 +530,7 @@ public class MainActivity extends SimpleActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mRecCurrTimer.setText(Utils.formatSeconds(mCurrVideoRecTimer++));
+                mRecCurrTimer.setText(Utils.Companion.formatSeconds(mCurrVideoRecTimer++));
                 mTimerHandler.postDelayed(this, 1000);
             }
         });
@@ -570,7 +570,7 @@ public class MainActivity extends SimpleActivity
                 initVideoButtons();
             }
         } else {
-            Utils.showToast(getApplicationContext(), R.string.camera_switch_error);
+            Utils.Companion.showToast(getApplicationContext(), R.string.camera_switch_error);
         }
     }
 
@@ -639,7 +639,7 @@ public class MainActivity extends SimpleActivity
 
     private boolean checkCameraAvailable() {
         if (!mIsCameraAvailable) {
-            Utils.showToast(getApplicationContext(), R.string.camera_unavailable);
+            Utils.Companion.showToast(getApplicationContext(), R.string.camera_unavailable);
         }
         return mIsCameraAvailable;
     }

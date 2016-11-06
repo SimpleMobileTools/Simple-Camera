@@ -89,7 +89,7 @@ public class Preview extends ViewGroup
         mIsSurfaceCreated = false;
         mSetupPreviewAfterMeasure = false;
         mCurVideoPath = "";
-        mScreenSize = Utils.getScreenSize(mActivity);
+        mScreenSize = Utils.Companion.getScreenSize(mActivity);
         mContext = getContext();
         initGestureDetector();
     }
@@ -109,7 +109,7 @@ public class Preview extends ViewGroup
             newCamera = Camera.open(cameraId);
             mCallback.setIsCameraAvailable(true);
         } catch (Exception e) {
-            Utils.showToast(mContext, R.string.camera_open_error);
+            Utils.Companion.showToast(mContext, R.string.camera_open_error);
             Log.e(TAG, "setCamera open " + e.getMessage());
             mCallback.setIsCameraAvailable(false);
             return false;
@@ -148,7 +148,7 @@ public class Preview extends ViewGroup
                 }
             }
 
-            mCallback.setFlashAvailable(Utils.hasFlash(mCamera));
+            mCallback.setFlashAvailable(Utils.Companion.hasFlash(mCamera));
         }
 
         if (mIsVideoMode) {
@@ -217,7 +217,7 @@ public class Preview extends ViewGroup
     }
 
     private static int getPreviewRotation(int cameraId) {
-        final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
+        final Camera.CameraInfo info = Utils.Companion.getCameraInfo(cameraId);
         final int degrees = getRotationDegrees();
 
         int result;
@@ -233,7 +233,7 @@ public class Preview extends ViewGroup
 
     private static int getMediaRotation(int cameraId) {
         final int degrees = getRotationDegrees();
-        final Camera.CameraInfo info = Utils.getCameraInfo(cameraId);
+        final Camera.CameraInfo info = Utils.Companion.getCameraInfo(cameraId);
         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
             return (360 + info.orientation + degrees) % 360;
         }
@@ -387,7 +387,7 @@ public class Preview extends ViewGroup
             }
 
             if (i == cnt - 1) {
-                Utils.showToast(mContext, R.string.no_valid_resolution_found);
+                Utils.Companion.showToast(mContext, R.string.no_valid_resolution_found);
             }
         }
         return maxSize;
@@ -661,9 +661,9 @@ public class Preview extends ViewGroup
         mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
         mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
-        mCurVideoPath = Utils.getOutputMediaFile(mContext, false);
+        mCurVideoPath = Utils.Companion.getOutputMediaFile(mContext, false);
         if (mCurVideoPath.isEmpty()) {
-            Utils.showToast(mContext, R.string.video_creating_error);
+            Utils.Companion.showToast(mContext, R.string.video_creating_error);
             return false;
         }
 
@@ -682,7 +682,7 @@ public class Preview extends ViewGroup
         try {
             mRecorder.prepare();
         } catch (Exception e) {
-            Utils.showToast(mContext, R.string.video_setup_error);
+            Utils.Companion.showToast(mContext, R.string.video_setup_error);
             Log.e(TAG, "initRecorder " + e.getMessage());
             releaseCamera();
             return false;
@@ -713,7 +713,7 @@ public class Preview extends ViewGroup
             toggleShutterSound(false);
             mIsRecording = true;
         } catch (Exception e) {
-            Utils.showToast(mContext, R.string.video_setup_error);
+            Utils.Companion.showToast(mContext, R.string.video_setup_error);
             Log.e(TAG, "toggleRecording " + e.getMessage());
             releaseCamera();
         }
@@ -729,7 +729,7 @@ public class Preview extends ViewGroup
             } catch (RuntimeException e) {
                 toggleShutterSound(false);
                 new File(mCurVideoPath).delete();
-                Utils.showToast(mContext, R.string.video_saving_error);
+                Utils.Companion.showToast(mContext, R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
                 mRecorder = null;
                 mIsRecording = false;

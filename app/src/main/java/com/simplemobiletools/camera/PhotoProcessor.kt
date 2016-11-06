@@ -26,7 +26,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
             if (uri != null) {
                 path = uri.path
             } else {
-                path = Utils.getOutputMediaFile(mActivity?.get(), true)
+                path = Utils.getOutputMediaFile(activity, true)
             }
 
             if (path.isEmpty()) {
