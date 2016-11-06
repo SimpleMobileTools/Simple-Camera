@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.26 *(2016-11-06)*
+----------------------------
+
+ * Couple crashfixes related to SD card saving
+
 Version 1.25 *(2016-11-06)*
 ----------------------------
 
