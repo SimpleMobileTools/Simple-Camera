@@ -15,6 +15,8 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.dialogs.WritePermissionDialog
 import com.simplemobiletools.camera.extensions.needsStupidWritePermissions
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
+import com.simplemobiletools.filepicker.extensions.getBasePath
+import com.simplemobiletools.filepicker.extensions.getHumanReadablePath
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.File
 
@@ -60,14 +62,14 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupSavePhotosFolder() {
         mCurrPath = mConfig.savePhotosFolder
-        settings_save_photos.text = mCurrPath.substring(mCurrPath.lastIndexOf("/") + 1)
+        settings_save_photos.text = getHumanPath()
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, mCurrPath, false, false, false, object : FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(this, mCurrPath, false, false,  object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
                 override fun onSuccess(pickedPath: String) {
-                    mCurrPath = pickedPath.trimEnd('/')
+                    mCurrPath = if (pickedPath.length == 1) pickedPath else pickedPath.trimEnd('/')
                     if (!File(pickedPath).canWrite() && needsStupidWritePermissions(pickedPath) && mConfig.treeUri.isEmpty()) {
                         WritePermissionDialog(this@SettingsActivity, object : WritePermissionDialog.OnWritePermissionListener {
                             override fun onCancelled() {
@@ -81,11 +83,25 @@ class SettingsActivity : SimpleActivity() {
                         })
                     } else {
                         mConfig.savePhotosFolder = mCurrPath
-                        settings_save_photos.text = mCurrPath.substring(mCurrPath.lastIndexOf("/") + 1)
+                        settings_save_photos.text = getHumanPath()
                     }
                 }
             })
         }
+    }
+
+    private fun getHumanPath(): String {
+        val basePath = mCurrPath.getBasePath(applicationContext)
+        val path = mCurrPath.replaceFirst(basePath, getStorageName(basePath)).trimEnd('/')
+
+        return if (path.contains('/'))
+            path.substring(path.lastIndexOf("/") + 1)
+        else
+            path
+    }
+
+    private fun getStorageName(basePath: String): String {
+        return getHumanReadablePath(basePath) + "/"
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -94,7 +110,7 @@ class SettingsActivity : SimpleActivity() {
         if (requestCode == OPEN_DOCUMENT_TREE) {
             if (resultCode == Activity.RESULT_OK && resultData != null) {
                 mConfig.savePhotosFolder = mCurrPath
-                settings_save_photos.text = mCurrPath.substring(mCurrPath.lastIndexOf("/") + 1)
+                settings_save_photos.text = getHumanPath()
                 saveTreeUri(resultData)
             } else {
                 mCurrPath = mConfig.savePhotosFolder
