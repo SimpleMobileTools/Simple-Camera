@@ -9,6 +9,9 @@ import android.graphics.Point
 import android.hardware.Camera
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import com.simplemobiletools.camera.extensions.getFileDocument
+import com.simplemobiletools.camera.extensions.isKitkat
+import com.simplemobiletools.camera.extensions.isPathOnSD
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -111,5 +114,9 @@ class Utils {
         fun hasAudioPermission(cxt: Context): Boolean {
             return ContextCompat.checkSelfPermission(cxt, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
         }
+
+        fun needsStupidWritePermissions(context: Context, path: String) = context.isPathOnSD(path) && context.isKitkat()
+
+        fun getFileDocument(context: Context, path: String) = context.getFileDocument(path)
     }
 }

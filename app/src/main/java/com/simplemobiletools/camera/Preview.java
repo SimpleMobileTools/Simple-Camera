@@ -11,6 +11,8 @@ import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.ParcelFileDescriptor;
+import android.support.v4.provider.DocumentFile;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -46,7 +48,7 @@ public class Preview extends ViewGroup
     private static Camera.Parameters mParameters;
     private static PreviewListener mCallback;
     private static MediaRecorder mRecorder;
-    private static String mCurVideoPath;
+    private static String mCurrVideoPath;
     private static Point mScreenSize;
     private static Uri mTargetUri;
     private static Context mContext;
@@ -88,7 +90,7 @@ public class Preview extends ViewGroup
         mIsVideoMode = false;
         mIsSurfaceCreated = false;
         mSetupPreviewAfterMeasure = false;
-        mCurVideoPath = "";
+        mCurrVideoPath = "";
         mScreenSize = Utils.Companion.getScreenSize(mActivity);
         mContext = getContext();
         initGestureDetector();
@@ -661,8 +663,8 @@ public class Preview extends ViewGroup
         mRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
         mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
 
-        mCurVideoPath = Utils.Companion.getOutputMediaFile(mContext, false);
-        if (mCurVideoPath.isEmpty()) {
+        mCurrVideoPath = Utils.Companion.getOutputMediaFile(mContext, false);
+        if (mCurrVideoPath.isEmpty()) {
             Utils.Companion.showToast(mContext, R.string.video_creating_error);
             return false;
         }
@@ -672,7 +674,20 @@ public class Preview extends ViewGroup
         cpHigh.videoFrameWidth = videoSize.width;
         cpHigh.videoFrameHeight = videoSize.height;
         mRecorder.setProfile(cpHigh);
-        mRecorder.setOutputFile(mCurVideoPath);
+
+        if (Utils.Companion.needsStupidWritePermissions(getContext(), mCurrVideoPath)) {
+            try {
+                DocumentFile document = Utils.Companion.getFileDocument(getContext(), mCurrVideoPath);
+                document = document.createFile("", mCurrVideoPath.substring(mCurrVideoPath.lastIndexOf('/') + 1));
+                final Uri uri = document.getUri();
+                final ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(uri, "rw");
+                mRecorder.setOutputFile(fileDescriptor.getFileDescriptor());
+            } catch (Exception e) {
+                setupFailed(e);
+            }
+        } else {
+            mRecorder.setOutputFile(mCurrVideoPath);
+        }
         mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
 
         int rotation = getFinalRotation();
@@ -682,12 +697,16 @@ public class Preview extends ViewGroup
         try {
             mRecorder.prepare();
         } catch (Exception e) {
-            Utils.Companion.showToast(mContext, R.string.video_setup_error);
-            Log.e(TAG, "initRecorder " + e.getMessage());
-            releaseCamera();
+            setupFailed(e);
             return false;
         }
         return true;
+    }
+
+    private void setupFailed(Exception e) {
+        Utils.Companion.showToast(mContext, R.string.video_setup_error);
+        Log.e(TAG, "initRecorder " + e.getMessage());
+        releaseCamera();
     }
 
     public boolean toggleRecording() {
@@ -724,11 +743,11 @@ public class Preview extends ViewGroup
             try {
                 toggleShutterSound(true);
                 mRecorder.stop();
-                final String[] paths = {mCurVideoPath};
+                final String[] paths = {mCurrVideoPath};
                 MediaScannerConnection.scanFile(mContext, paths, null, this);
             } catch (RuntimeException e) {
                 toggleShutterSound(false);
-                new File(mCurVideoPath).delete();
+                new File(mCurrVideoPath).delete();
                 Utils.Companion.showToast(mContext, R.string.video_saving_error);
                 Log.e(TAG, "stopRecording " + e.getMessage());
                 mRecorder = null;
@@ -740,7 +759,7 @@ public class Preview extends ViewGroup
         mRecorder = null;
         mIsRecording = false;
 
-        final File file = new File(mCurVideoPath);
+        final File file = new File(mCurrVideoPath);
         if (file.exists() && file.length() == 0) {
             file.delete();
         }
