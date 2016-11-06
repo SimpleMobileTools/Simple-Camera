@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.25 *(2016-11-06)*
+----------------------------
+
+ * Fix saving photos and videos on SD card
+ * Add a new max photo limit of 2 MP
+
 Version 1.24 *(2016-11-01)*
 ----------------------------
 
