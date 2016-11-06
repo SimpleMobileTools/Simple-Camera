@@ -7,6 +7,7 @@
     <string name="video_saving_error">Errore nel salvataggio del file video</string>
     <string name="video_setup_error">Errore nella preparazione del registratore video</string>
     <string name="video_mode_error">Passaggio alla modalità video fallita</string>
+    <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
     <string name="camera_switch_error">Cambio fotocamera fallito</string>
     <string name="no_permissions">Non c\'è molto da fare senza l\'accesso alla fotocamera e all\'archiviazione</string>
     <string name="no_audio_permissions">È necessario l\'accesso al microfono per registrare i video</string>

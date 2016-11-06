@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.support.v4.provider.DocumentFile;
@@ -664,6 +665,13 @@ public class Preview extends ViewGroup
         mRecorder.setProfile(cpHigh);
 
         if (Utils.Companion.needsStupidWritePermissions(getContext(), mCurrVideoPath)) {
+            final Config config = Config.newInstance(getContext());
+            if (config.getTreeUri().isEmpty()) {
+                Utils.Companion.showToast(mContext, R.string.save_error_internal_storage);
+                config.setSavePhotosFolder(Environment.getExternalStorageDirectory().toString());
+                releaseCamera();
+                return false;
+            }
             try {
                 DocumentFile document = Utils.Companion.getFileDocument(getContext(), mCurrVideoPath);
                 document = document.createFile("", mCurrVideoPath.substring(mCurrVideoPath.lastIndexOf('/') + 1));

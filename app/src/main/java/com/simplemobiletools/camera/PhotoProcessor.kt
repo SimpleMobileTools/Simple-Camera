@@ -2,6 +2,7 @@ package com.simplemobiletools.camera
 
 import android.net.Uri
 import android.os.AsyncTask
+import android.os.Environment
 import android.util.Log
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.getFileDocument
@@ -35,6 +36,14 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
 
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
+                val config = Config.newInstance(activity)
+                if (config.treeUri.isEmpty()) {
+                    activity.runOnUiThread {
+                        Utils.showToast(activity, R.string.save_error_internal_storage)
+                    }
+                    config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
+                    return ""
+                }
                 var document = activity.getFileDocument(path)
                 document = document.createFile("", path.substring(path.lastIndexOf('/') + 1))
                 fos = activity.contentResolver.openOutputStream(document.uri)

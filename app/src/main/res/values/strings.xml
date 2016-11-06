@@ -7,6 +7,7 @@
     <string name="video_saving_error">An error occurred saving the video file</string>
     <string name="video_setup_error">An error occurred setting up the recorder</string>
     <string name="video_mode_error">Switching to video mode failed</string>
+    <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
     <string name="camera_switch_error">Switching camera failed</string>
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need the audio permission for recording videos</string>
