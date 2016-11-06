@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import com.simplemobiletools.camera.Constants
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.dialogs.WritePermissionDialog
 import com.simplemobiletools.camera.extensions.needsStupidWritePermissions
@@ -141,18 +142,18 @@ class SettingsActivity : SimpleActivity() {
     private fun getMaxPhotoSelection(): Int {
         val maxRes = mConfig.maxPhotoResolution
         return when (maxRes) {
-            3000000 -> 0
-            6000000 -> 1
-            9000000 -> 2
+            Constants.TWO_MPX -> 0
+            Constants.FIVE_MPX -> 1
+            Constants.EIGHT_MPX -> 2
             else -> 3
         }
     }
 
     private fun getMaxPhotoPx(index: Int): Int {
         return when (index) {
-            0 -> 3000000
-            1 -> 6000000
-            2 -> 9000000
+            0 -> Constants.TWO_MPX
+            1 -> Constants.FIVE_MPX
+            2 -> Constants.EIGHT_MPX
             else -> 0
         }
     }

@@ -64,9 +64,9 @@ public class Config {
     private int getOldDefaultResolution() {
         final int index = getMaxResolution();
         switch (index) {
-            case 1: return 9000000;
+            case 1: return Constants.EIGHT_MPX;
             case 2: return 0;
-            default: return 6000000;
+            default: return Constants.FIVE_MPX;
         }
     }
 

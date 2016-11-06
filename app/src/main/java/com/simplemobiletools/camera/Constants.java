@@ -7,6 +7,10 @@ public class Constants {
 
     public static final String TREE_URI = "tree_uri";
 
+    public static final int TWO_MPX = 3000000;
+    public static final int FIVE_MPX = 6000000;
+    public static final int EIGHT_MPX = 9000000;
+
     // shared preferences
     public static final String PREFS_KEY = "Camera";
     public static final String IS_FIRST_RUN = "is_first_run";
