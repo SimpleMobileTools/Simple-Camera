@@ -15,7 +15,7 @@ class WritePermissionDialog(val context: Context, val listener: OnWritePermissio
                 .setTitle(context.resources.getString(R.string.confirm_storage_access_title))
                 .setView(view)
                 .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
-                .setOnCancelListener { listener?.onCancelled() }
+                .setOnCancelListener { listener.onCancelled() }
                 .create()
 
         dialog?.show()

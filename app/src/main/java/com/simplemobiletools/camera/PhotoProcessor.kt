@@ -3,16 +3,13 @@ package com.simplemobiletools.camera
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
-
 import com.simplemobiletools.camera.activities.MainActivity
-
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
+import com.simplemobiletools.camera.extensions.getFileDocument
+import com.simplemobiletools.camera.extensions.needsStupidWritePermissions
+import java.io.*
 import java.lang.ref.WeakReference
 
-class PhotoProcessor(activity: MainActivity, val uri: Uri?) : AsyncTask<ByteArray, Void, String>() {
+class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<ByteArray, Void, String>() {
     companion object {
         private val TAG = PhotoProcessor::class.java.simpleName
         private var mActivity: WeakReference<MainActivity>? = null
@@ -23,7 +20,7 @@ class PhotoProcessor(activity: MainActivity, val uri: Uri?) : AsyncTask<ByteArra
     }
 
     override fun doInBackground(vararg params: ByteArray): String {
-        var fos: FileOutputStream? = null
+        var fos: OutputStream? = null
         val path: String
         try {
             if (uri != null) {
@@ -37,10 +34,17 @@ class PhotoProcessor(activity: MainActivity, val uri: Uri?) : AsyncTask<ByteArra
             }
 
             val photoFile = File(path)
+            if (activity.needsStupidWritePermissions(path)) {
+                var document = activity.getFileDocument(path)
+                document = document.createFile("", path.substring(path.lastIndexOf('/') + 1))
+                fos = activity.contentResolver.openOutputStream(document.uri)
+            } else {
+                fos = FileOutputStream(photoFile)
+            }
+
             val data = params[0]
-            fos = FileOutputStream(photoFile)
-            fos.write(data)
-            fos.close()
+            fos?.write(data)
+            fos?.close()
             return photoFile.absolutePath
         } catch (e: FileNotFoundException) {
             Log.e(TAG, "PhotoProcessor file not found: " + e.message)

@@ -12,8 +12,7 @@ import android.view.View
 import android.widget.AdapterView
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.dialogs.WritePermissionDialog
-import com.simplemobiletools.camera.extensions.isKitkat
-import com.simplemobiletools.camera.extensions.isPathOnSD
+import com.simplemobiletools.camera.extensions.needsStupidWritePermissions
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.File
@@ -68,7 +67,7 @@ class SettingsActivity : SimpleActivity() {
 
                 override fun onSuccess(pickedPath: String) {
                     mCurrPath = pickedPath.trimEnd('/')
-                    if (!File(pickedPath).canWrite() && isPathOnSD(pickedPath) && isKitkat() && mConfig.treeUri.isEmpty()) {
+                    if (!File(pickedPath).canWrite() && needsStupidWritePermissions(pickedPath) && mConfig.treeUri.isEmpty()) {
                         WritePermissionDialog(this@SettingsActivity, object : WritePermissionDialog.OnWritePermissionListener {
                             override fun onCancelled() {
                                 mCurrPath = mConfig.savePhotosFolder
