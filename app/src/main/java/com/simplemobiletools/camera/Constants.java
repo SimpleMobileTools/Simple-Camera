@@ -14,8 +14,9 @@ public class Constants {
     public static final String SAVE_PHOTOS = "save_photos";
     public static final String SOUND = "sound";
     public static final String FORCE_RATIO = "force_ratio";
-    public static final String MAX_RESOLUTION = "max_resolution";
+    public static final String MAX_PHOTO_RESOLUTION = "max_photo_resolution";
     public static final String MAX_VIDEO_RESOLUTION = "max_video_resolution";
+    public static final String MAX_RESOLUTION = "max_resolution";
     public static final String LAST_USED_CAMERA = "last_used_camera";
     public static final String LAST_FLASHLIGHT_STATE = "last_flashlight_state";
 }

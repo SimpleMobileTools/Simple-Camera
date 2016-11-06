@@ -48,12 +48,26 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.FORCE_RATIO, enabled).apply();
     }
 
+    // todo: delete this
+    public int getMaxResolution() {
+        return mPrefs.getInt(Constants.MAX_RESOLUTION, -1);
+    }
+
     public int getMaxPhotoResolution() {
-        return mPrefs.getInt(Constants.MAX_RESOLUTION, 1);
+        return mPrefs.getInt(Constants.MAX_PHOTO_RESOLUTION, getOldDefaultResolution());
     }
 
     public void setMaxPhotoResolution(int maxRes) {
-        mPrefs.edit().putInt(Constants.MAX_RESOLUTION, maxRes).apply();
+        mPrefs.edit().putInt(Constants.MAX_PHOTO_RESOLUTION, maxRes).apply();
+    }
+
+    private int getOldDefaultResolution() {
+        final int index = getMaxResolution();
+        switch (index) {
+            case 1: return 9000000;
+            case 2: return 0;
+            default: return 6000000;
+        }
     }
 
     public int getMaxVideoResolution() {

@@ -127,14 +127,33 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupMaxPhotoResolution() {
-        settings_max_photo_resolution.setSelection(mConfig.maxPhotoResolution)
+        settings_max_photo_resolution.setSelection(getMaxPhotoSelection())
         settings_max_photo_resolution.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mConfig.maxPhotoResolution = settings_max_photo_resolution.selectedItemPosition
+                mConfig.maxPhotoResolution = getMaxPhotoPx(settings_max_photo_resolution.selectedItemPosition)
             }
+        }
+    }
+
+    private fun getMaxPhotoSelection(): Int {
+        val maxRes = mConfig.maxPhotoResolution
+        return when (maxRes) {
+            3000000 -> 0
+            6000000 -> 1
+            9000000 -> 2
+            else -> 3
+        }
+    }
+
+    private fun getMaxPhotoPx(index: Int): Int {
+        return when (index) {
+            0 -> 3000000
+            1 -> 6000000
+            2 -> 9000000
+            else -> 0
         }
     }
 

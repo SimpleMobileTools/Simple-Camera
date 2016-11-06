@@ -318,7 +318,7 @@ public class Preview extends ViewGroup
     };
 
     private Camera.Size getOptimalPictureSize() {
-        final int maxResolution = getMaxPhotoResolution();
+        final int maxResolution = Config.newInstance(mContext).getMaxPhotoResolution();
         final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
@@ -331,18 +331,6 @@ public class Preview extends ViewGroup
             }
         }
         return maxSize;
-    }
-
-    private int getMaxPhotoResolution() {
-        final int maxRes = Config.newInstance(mContext).getMaxPhotoResolution();
-        switch (maxRes) {
-            case 0:
-                return 6000000;
-            case 1:
-                return 9000000;
-            default:
-                return 0;
-        }
     }
 
     private boolean isProperResolution(Camera.Size size, int maxRes) {

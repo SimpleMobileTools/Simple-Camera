@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="max_photo_resolutions" translatable="false">
+        <item>2 MP</item>
         <item>5 MP</item>
         <item>8 MP</item>
         <item>@string/no_limit</item>
