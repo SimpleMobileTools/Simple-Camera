@@ -64,14 +64,29 @@ public class Config {
     private int getOldDefaultResolution() {
         final int index = getMaxResolution();
         switch (index) {
-            case 1: return Constants.EIGHT_MPX;
-            case 2: return 0;
-            default: return Constants.FIVE_MPX;
+            case 1:
+                return Constants.EIGHT_MPX;
+            case 2:
+                return 0;
+            default:
+                return Constants.FIVE_MPX;
         }
     }
 
     public int getMaxVideoResolution() {
-        return mPrefs.getInt(Constants.MAX_VIDEO_RESOLUTION, 1);
+        int maxRes = mPrefs.getInt(Constants.MAX_VIDEO_RESOLUTION, Constants.P720);
+        switch (maxRes) {
+            case 0:
+                maxRes = Constants.P480;
+                break;
+            case 1:
+                maxRes = Constants.P720;
+                break;
+            case 2:
+                maxRes = Constants.P1080;
+                break;
+        }
+        return maxRes;
     }
 
     public void setMaxVideoResolution(int maxRes) {

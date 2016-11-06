@@ -154,19 +154,38 @@ class SettingsActivity : SimpleActivity() {
             0 -> Constants.TWO_MPX
             1 -> Constants.FIVE_MPX
             2 -> Constants.EIGHT_MPX
-            else -> 0
+            else -> -1
         }
     }
 
     private fun setupMaxVideoResolution() {
-        settings_max_video_resolution.setSelection(mConfig.maxVideoResolution)
+        settings_max_video_resolution.setSelection(getMaxVideoSelection())
         settings_max_video_resolution.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                mConfig.maxVideoResolution = settings_max_video_resolution.selectedItemPosition
+                mConfig.maxVideoResolution = getMaxVideoPx(settings_max_video_resolution.selectedItemPosition)
             }
+        }
+    }
+
+    private fun getMaxVideoSelection(): Int {
+        val maxRes = mConfig.maxVideoResolution
+        return when (maxRes) {
+            Constants.P480 -> 0
+            Constants.P720 -> 1
+            Constants.P1080 -> 2
+            else -> 3
+        }
+    }
+
+    private fun getMaxVideoPx(index: Int): Int {
+        return when (index) {
+            0 -> Constants.P480
+            1 -> Constants.P720
+            2 -> Constants.P1080
+            else -> -1
         }
     }
 
