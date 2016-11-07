@@ -7,7 +7,7 @@ import android.support.v4.provider.DocumentFile
 import com.simplemobiletools.camera.Config
 import com.simplemobiletools.filepicker.extensions.getSDCardPath
 
-fun Context.needsStupidWritePermissions(path: String) = isPathOnSD(path) && isKitkat()
+fun Context.needsStupidWritePermissions(path: String) = isPathOnSD(path) && isKitkat() && !getSDCardPath().isEmpty()
 
 fun Context.isPathOnSD(path: String) = path.startsWith(getSDCardPath())
 
