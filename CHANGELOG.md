@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.27 *(2016-11-07)*
+----------------------------
+
+ * Fix saving for devices without SD cards
+
 Version 1.26 *(2016-11-06)*
 ----------------------------
 
