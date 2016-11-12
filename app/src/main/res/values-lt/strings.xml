@@ -7,9 +7,9 @@
     <string name="video_saving_error">Įvyko klaida bandant išsaugoti vaizdo bylą</string>
     <string name="video_setup_error">Įvyko klaida nustatant įrašymo priemonę</string>
     <string name="video_mode_error">Perjungimas į vaizdo rėžimą nepavyko</string>
-    <string name="save_error_internal_storage">Įvyko klaida, saugojimo aplankas pakeistas į vidinę atmintį/string>
+    <string name="save_error_internal_storage">Įvyko klaida, saugojimo aplankas pakeistas į vidinę atmintį</string>
     <string name="camera_switch_error">Kameros perjungimas nepavyko</string>
-    <string name="no_permissions">Nėra ką daryti kai kamera ir saugykla neprieinama/string>
+    <string name="no_permissions">Nėra ką daryti kai kamera ir saugykla neprieinama</string>
     <string name="no_audio_permissions">Mums reikia audio leidimo, kad įrašyti vaizdo bylas</string>
     <string name="no_gallery_app_available">Nėra galerijos programėlės</string>
     <string name="no_valid_resolution_found">Nerasta tinkamos raiškos su with pasirinktu kraštinių santykiu, naudojant maksimalią raišką</string>
@@ -31,7 +31,6 @@
     <string name="about">Apie</string>
     <string name="website">Daugiau paprastų programėlių ir atviras kodas čia:\nhttp://simplemobiletools.com</string>
     <string name="email_label">Siųsti savo grįžtamąjį ryšį arba pasiūlymus čia:</string>
-    <string name="email" translatable="false">hello@simplemobiletools.com</string>
     <string name="third_party_licences_underlined"><u>Trečiųjų šalių licenzijos</u></string>
     <string name="invite_friends_underlined"><u>Pakvieskite draugus</u></string>
     <string name="share_text">Ei, ateikite čia ir patikrinkite %1$s čia %2$s</string>
@@ -44,6 +43,4 @@
     <string name="notice">Ši programėlė naudoja sekančias trečiųjų šyalių bibliotekas, kad palengvinti man gyvenimą. Ačiū.</string>
     <string name="third_party_licences">Trečiųjų šalių licenzijos</string>
     <string name="butterknife_title"><u>Sviesto Peilis (peržiūrėti injektorių)</u></string>
-    <string name="butterknife_text" translatable="false">Visos teisės saugomos 2013 Jake Wharton\n\nLicenzijuota pagal Apche licenziją, Versija 2.0 ("Licenzija"); jūs negalite naudoti šio failo išskyrus su šia programėle.You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions and limitations under the License.</string>
-    <string name="butterknife_url" translatable="false">https://github.com/JakeWharton/butterknife</string>
 </resources>
