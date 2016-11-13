@@ -6,7 +6,7 @@
     <string name="video_creating_error">Ocorreu um erro ao criar o ficheiro de vídeo</string>
     <string name="video_saving_error">Ocorreu um erro ao guardar o ficheiro de vídeo</string>
     <string name="video_setup_error">Ocorreu um erro ao configurar a gravação</string>
-    <string name="video_mode_error">Falha ao mudar para o modo vídeo</string>
+    <string name="video_mode_error">Falha ao mudar para o modo de vídeo</string>
     <string name="save_error_internal_storage">Erro, a pasta para guardar ficheiros foi alterada para o armazenamento interno</string>
     <string name="camera_switch_error">Falha ao mudar de câmara</string>
     <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
@@ -15,13 +15,13 @@
     <string name="no_valid_resolution_found">Nenhuma resolução encontrada que seja compatível com o rácio selecionado, a utilizar a resolução máxima</string>
     <string name="ok">OK</string>
     <string name="confirm_storage_access_title">Confirmação de acesso ao armazenamento externo</string>
-    <string name="confirm_storage_access_text">Pro favor escolha a pasta raiz do cartão SD para conceder o acesso de escrita no próximo ecrã</string>
+    <string name="confirm_storage_access_text">Por favor escolha a pasta raiz do cartão SD para conceder o acesso de escrita no próximo ecrã</string>
 
     <!-- Settings -->
     <string name="settings">Definições</string>
     <string name="dark_theme">Tema escuro</string>
     <string name="save_photos">Guardar fotos e vídeos em</string>
-    <string name="force_ratio">Usar rácio 16:9</string>
+    <string name="force_ratio">Utilizar rácio 16:9</string>
     <string name="max_photo_size">Resolução máxima das fotos</string>
     <string name="max_video_size">Resolução máxima dos vídeos</string>
     <string name="no_limit">sem limite</string>
@@ -32,7 +32,6 @@
     <string name="website">Mais aplicações Simple e código fonte em:\nhttp://simplemobiletools.com</string>
     <string name="email_label">Envie os seus comentários ou sugestões para:</string>
     <string name="third_party_licences_underlined"><u>Licenças de terceiros</u></string>
-	<string name="email" translatable="false">hello@simplemobiletools.com</string>
     <string name="invite_friends_underlined"><u>Convidar amigos</u></string>
     <string name="share_text">Olá, experimenta %1$s em %2$s</string>
     <string name="invite_via">Convidar via</string>
@@ -43,7 +42,5 @@
     <!--License-->
     <string name="notice">Esta aplicação usa as seguintes bibliotecas de terceiros para facilitar a minha vida. Obrigado.</string>
     <string name="third_party_licences">Licenças de terceiros</string>
-    <string name="butterknife_title"><u>Butter Knife (injetor de vistas</u></string>
-    <string name="butterknife_text" translatable="false">Copyright 2013 Jake Wharton\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions and limitations under the License.</string>
-    <string name="butterknife_url" translatable="false">https://github.com/JakeWharton/butterknife</string>
+    <string name="butterknife_title"><u>Butter Knife (injetor de vistas)</u></string>
 </resources>
