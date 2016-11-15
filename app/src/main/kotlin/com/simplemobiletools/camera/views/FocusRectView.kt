@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera
+package com.simplemobiletools.camera.views
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Handler
 import android.view.ViewGroup
+import com.simplemobiletools.camera.R
 
 class FocusRectView(context: Context) : ViewGroup(context) {
     companion object {

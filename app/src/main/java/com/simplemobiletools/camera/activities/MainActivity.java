@@ -34,7 +34,7 @@ import android.widget.TextView;
 
 import com.simplemobiletools.camera.Config;
 import com.simplemobiletools.camera.Constants;
-import com.simplemobiletools.camera.FocusRectView;
+import com.simplemobiletools.camera.views.FocusRectView;
 import com.simplemobiletools.camera.PhotoProcessor;
 import com.simplemobiletools.camera.Preview;
 import com.simplemobiletools.camera.Preview.PreviewListener;
