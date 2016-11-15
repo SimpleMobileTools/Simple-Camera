@@ -40,4 +40,5 @@
     <!-- License -->
     <string name="notice">このアプリは、私の人生を容易にするために、次のサードパーティのライブラリーを使用しています。 ありがとうございます。</string>
     <string name="third_party_licences">サードパーティー ライセンス</string>
+    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 </resources>

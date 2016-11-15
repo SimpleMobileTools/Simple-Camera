@@ -40,4 +40,5 @@
     <!-- License -->
     <string name="notice">Ši programėlė naudoja sekančias trečiųjų šyalių bibliotekas, kad palengvinti man gyvenimą. Ačiū.</string>
     <string name="third_party_licences">Trečiųjų šalių licenzijos</string>
+    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 </resources>
