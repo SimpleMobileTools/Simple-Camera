@@ -166,7 +166,7 @@ public class MainActivity extends SimpleActivity
             lp.setMargins(0, 0, 0, lp.bottomMargin + Utils.Companion.getNavBarHeight(getResources()));
         }
 
-        mCurrCamera = mConfig.getLastUsedCamera();
+        mCurrCamera = getConfig().getLastUsedCamera();
         mPreview = new Preview(this, (SurfaceView) findViewById(R.id.camera_view), this);
         mPreview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mViewHolder.addView(mPreview);
@@ -179,7 +179,7 @@ public class MainActivity extends SimpleActivity
         mIsInPhotoMode = true;
         mTimerHandler = new Handler();
         mFadeHandler = new Handler();
-        mIsFlashEnabled = mConfig.getLastFlashlightState();
+        mIsFlashEnabled = getConfig().getLastFlashlightState();
         setupPreviewImage(true);
     }
 
@@ -223,7 +223,7 @@ public class MainActivity extends SimpleActivity
             mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK;
         }
 
-        mConfig.setLastUsedCamera(mCurrCamera);
+        getConfig().setLastUsedCamera(mCurrCamera);
         int newIconId = R.mipmap.camera_front;
         mPreview.releaseCamera();
         if (mPreview.setCamera(mCurrCamera)) {
@@ -279,14 +279,14 @@ public class MainActivity extends SimpleActivity
         mPreview.disableFlash();
         mToggleFlashBtn.setImageResource(R.mipmap.flash_off);
         mIsFlashEnabled = false;
-        mConfig.setLastFlashlightState(mIsFlashEnabled);
+        getConfig().setLastFlashlightState(mIsFlashEnabled);
     }
 
     private void enableFlash() {
         mPreview.enableFlash();
         mToggleFlashBtn.setImageResource(R.mipmap.flash_on);
         mIsFlashEnabled = true;
-        mConfig.setLastFlashlightState(mIsFlashEnabled);
+        getConfig().setLastFlashlightState(mIsFlashEnabled);
     }
 
     @OnClick(R.id.shutter)
