@@ -158,7 +158,7 @@ public class Preview extends ViewGroup
             initRecorder();
         }
 
-        final Config config = Config.newInstance(mContext);
+        final Config config = Config.Companion.newInstance(mContext);
         mForceAspectRatio = config.getForceRatioEnabled();
 
         return true;
@@ -275,7 +275,7 @@ public class Preview extends ViewGroup
             mParameters.setPictureSize(maxSize.width, maxSize.height);
             mParameters.setRotation(rotation % 360);
 
-            if (Config.newInstance(mContext).getIsSoundEnabled()) {
+            if (Config.Companion.newInstance(mContext).isSoundEnabled()) {
                 final AudioManager audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
                 final int volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
                 if (volume != 0) {
@@ -319,7 +319,7 @@ public class Preview extends ViewGroup
     };
 
     private Camera.Size getOptimalPictureSize() {
-        final int maxResolution = Config.newInstance(mContext).getMaxPhotoResolution();
+        final int maxResolution = Config.Companion.newInstance(mContext).getMaxPhotoResolution();
         final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
@@ -339,7 +339,7 @@ public class Preview extends ViewGroup
     }
 
     private int getMaxVideoResolution() {
-        final int maxRes = Config.newInstance(mContext).getMaxVideoResolution();
+        final int maxRes = Config.Companion.newInstance(mContext).getMaxVideoResolution();
         switch (maxRes) {
             case 0:
                 return 400000;
@@ -665,7 +665,7 @@ public class Preview extends ViewGroup
         mRecorder.setProfile(cpHigh);
 
         if (Utils.Companion.needsStupidWritePermissions(getContext(), mCurrVideoPath)) {
-            final Config config = Config.newInstance(getContext());
+            final Config config = Config.Companion.newInstance(getContext());
             if (config.getTreeUri().isEmpty()) {
                 Utils.Companion.showToast(mContext, R.string.save_error_internal_storage);
                 config.setSavePhotosFolder(Environment.getExternalStorageDirectory().toString());
@@ -762,7 +762,7 @@ public class Preview extends ViewGroup
 }
 
     private void toggleShutterSound(Boolean mute) {
-        if (!Config.newInstance(mContext).getIsSoundEnabled()) {
+        if (!Config.Companion.newInstance(mContext).isSoundEnabled()) {
             ((AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_SYSTEM, mute);
         }
     }

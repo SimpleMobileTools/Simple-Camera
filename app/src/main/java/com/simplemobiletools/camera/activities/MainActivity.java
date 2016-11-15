@@ -699,7 +699,7 @@ public class MainActivity extends SimpleActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Config.newInstance(getApplicationContext()).setIsFirstRun(false);
+        Config.Companion.newInstance(getApplicationContext()).setFirstRun(false);
         if (mPreview != null)
             mPreview.releaseCamera();
     }
