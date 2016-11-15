@@ -14,8 +14,6 @@
     <string name="no_gallery_app_available">Keine Galerie App verfügbar</string>
     <string name="no_valid_resolution_found">Keine gültige Auflösung mit gewähltem Seitenverhältnis gefunden, nutze maximale Auflösung</string>
     <string name="ok">OK</string>
-    <string name="confirm_storage_access_title">Confirm external storage access</string>
-    <string name="confirm_storage_access_text">Please choose the root folder of the SD card to grant write access on the next screen</string>
 
     <!-- Settings -->
     <string name="settings">Einstellungen</string>

@@ -14,8 +14,6 @@
     <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
     <string name="no_valid_resolution_found">Nenhuma resolução encontrada que seja compatível com o rácio selecionado, a utilizar a resolução máxima</string>
     <string name="ok">OK</string>
-    <string name="confirm_storage_access_title">Confirmação de acesso ao armazenamento externo</string>
-    <string name="confirm_storage_access_text">Por favor escolha a pasta raiz do cartão SD para conceder o acesso de escrita no próximo ecrã</string>
 
     <!-- Settings -->
     <string name="settings">Definições</string>

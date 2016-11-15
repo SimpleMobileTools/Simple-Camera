@@ -14,8 +14,6 @@
     <string name="no_gallery_app_available">Nėra galerijos programėlės</string>
     <string name="no_valid_resolution_found">Nerasta tinkamos raiškos su with pasirinktu kraštinių santykiu, naudojant maksimalią raišką</string>
     <string name="ok">Gerai</string>
-    <string name="confirm_storage_access_title">Patvirtinti išorinės saugyklos prieigą</string>
-    <string name="confirm_storage_access_text">Pasirinkite šakninį sd kortelės aplankalą, kad patvirtintumėte įrašymo leidimą kitame aplankale</string>
 
     <!-- Settings -->
     <string name="settings">Nustatymai</string>
