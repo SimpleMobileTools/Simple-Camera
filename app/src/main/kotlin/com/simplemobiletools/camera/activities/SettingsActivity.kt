@@ -64,7 +64,7 @@ class SettingsActivity : SimpleActivity() {
         mCurrPath = mConfig.savePhotosFolder
         settings_save_photos.text = getHumanPath()
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, mCurrPath, false, false,  object : FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(this, mCurrPath, false, false, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
@@ -146,11 +146,11 @@ class SettingsActivity : SimpleActivity() {
     private fun setupMaxPhotoResolution() {
         settings_max_photo_resolution.setSelection(getMaxPhotoSelection())
         settings_max_photo_resolution.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 mConfig.maxPhotoResolution = getMaxPhotoPx(settings_max_photo_resolution.selectedItemPosition)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
     }
