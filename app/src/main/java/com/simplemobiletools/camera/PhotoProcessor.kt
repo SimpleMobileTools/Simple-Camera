@@ -7,6 +7,7 @@ import android.util.Log
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.filepicker.extensions.getFileDocument
 import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.toast
 import java.io.*
 import java.lang.ref.WeakReference
 
@@ -39,7 +40,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
                 val config = Config.newInstance(activity)
                 if (config.treeUri.isEmpty()) {
                     activity.runOnUiThread {
-                        Utils.showToast(activity, R.string.save_error_internal_storage)
+                        activity.toast(R.string.save_error_internal_storage)
                     }
                     config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""

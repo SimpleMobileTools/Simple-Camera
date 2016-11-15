@@ -9,7 +9,6 @@ import android.graphics.Point
 import android.hardware.Camera
 import android.support.v4.content.ContextCompat
 import com.simplemobiletools.filepicker.extensions.getFileDocument
-import com.simplemobiletools.filepicker.extensions.hasStoragePermission
 import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
 import com.simplemobiletools.filepicker.extensions.toast
 import java.io.File
@@ -101,8 +100,6 @@ class Utils {
         }
 
         fun hasCameraPermission(context: Context) = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-
-        fun hasStoragePermission(context: Context) = context.hasStoragePermission()
 
         fun hasAudioPermission(cxt: Context) = ContextCompat.checkSelfPermission(cxt, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
