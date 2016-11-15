@@ -10,8 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import com.simplemobiletools.camera.Constants
-import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.*
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import com.simplemobiletools.filepicker.extensions.getBasePath
 import com.simplemobiletools.filepicker.extensions.getHumanReadablePath
@@ -90,7 +89,7 @@ class SettingsActivity : SimpleActivity() {
             path
     }
 
-    private fun getStorageName(basePath: String) = getHumanReadablePath(basePath) + "/"
+    private fun getStorageName(basePath: String) = "${getHumanReadablePath(basePath)}/"
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -148,18 +147,18 @@ class SettingsActivity : SimpleActivity() {
     private fun getMaxPhotoSelection(): Int {
         val maxRes = config.maxPhotoResolution
         return when (maxRes) {
-            Constants.TWO_MPX -> 0
-            Constants.FIVE_MPX -> 1
-            Constants.EIGHT_MPX -> 2
+            TWO_MPX -> 0
+            FIVE_MPX -> 1
+            EIGHT_MPX -> 2
             else -> 3
         }
     }
 
     private fun getMaxPhotoPx(index: Int): Int {
         return when (index) {
-            0 -> Constants.TWO_MPX
-            1 -> Constants.FIVE_MPX
-            2 -> Constants.EIGHT_MPX
+            0 -> TWO_MPX
+            1 -> FIVE_MPX
+            2 -> EIGHT_MPX
             else -> -1
         }
     }
@@ -179,18 +178,18 @@ class SettingsActivity : SimpleActivity() {
     private fun getMaxVideoSelection(): Int {
         val maxRes = config.maxVideoResolution
         return when (maxRes) {
-            Constants.P480 -> 0
-            Constants.P720 -> 1
-            Constants.P1080 -> 2
+            P480 -> 0
+            P720 -> 1
+            P1080 -> 2
             else -> 3
         }
     }
 
     private fun getMaxVideoPx(index: Int): Int {
         return when (index) {
-            0 -> Constants.P480
-            1 -> Constants.P720
-            2 -> Constants.P1080
+            0 -> P480
+            1 -> P720
+            2 -> P1080
             else -> -1
         }
     }

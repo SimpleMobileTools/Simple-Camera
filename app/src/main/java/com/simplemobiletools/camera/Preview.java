@@ -396,9 +396,9 @@ public class Preview extends ViewGroup
         int degrees = 0;
         boolean isFrontCamera = (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
         int deviceOrientation = mCallback.getCurrentOrientation();
-        if (deviceOrientation == Constants.ORIENT_LANDSCAPE_LEFT) {
+        if (deviceOrientation == Constants.INSTANCE.getORIENT_LANDSCAPE_LEFT()) {
             degrees += isFrontCamera ? 90 : 270;
-        } else if (deviceOrientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
+        } else if (deviceOrientation == Constants.INSTANCE.getORIENT_LANDSCAPE_RIGHT()) {
             degrees += isFrontCamera ? 270 : 90;
         }
         return degrees;

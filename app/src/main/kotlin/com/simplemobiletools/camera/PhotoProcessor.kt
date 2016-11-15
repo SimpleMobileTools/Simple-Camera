@@ -57,14 +57,14 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
             fos?.close()
             return photoFile.absolutePath
         } catch (e: FileNotFoundException) {
-            Log.e(TAG, "PhotoProcessor file not found: " + e.message)
+            Log.e(TAG, "PhotoProcessor file not found: $e")
         } catch (e: IOException) {
-            Log.e(TAG, "PhotoProcessor ioexception " + e.message)
+            Log.e(TAG, "PhotoProcessor ioexception $e")
         } finally {
             try {
                 fos?.close()
             } catch (e: IOException) {
-                Log.e(TAG, "PhotoProcessor close ioexception " + e.message)
+                Log.e(TAG, "PhotoProcessor close ioexception $e")
             }
         }
 
