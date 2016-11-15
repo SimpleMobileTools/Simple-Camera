@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.28 *(2016-11-16)*
+----------------------------
+
+ * Make sure the device never falls asleep while on the main screen
+ * Misc smaller improvements
+
 Version 1.27 *(2016-11-07)*
 ----------------------------
 
