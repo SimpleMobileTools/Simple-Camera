@@ -549,6 +549,7 @@ public class MainActivity extends SimpleActivity
                 checkButtons();
             }
         }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     private void resumeCameraItems() {
@@ -577,6 +578,7 @@ public class MainActivity extends SimpleActivity
     @Override
     protected void onPause() {
         super.onPause();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (!hasCameraAndStoragePermission() || mIsAskingPermissions)
             return;
 
