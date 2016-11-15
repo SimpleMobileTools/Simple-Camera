@@ -37,8 +37,7 @@
     <string name="follow_us">Sekti mus:</string>
     <string name="copyright">v %1$s\nVisos teisės saugomos © Simple Mobile Tools %2$d</string>
 
-    <!--License-->
+    <!-- License -->
     <string name="notice">Ši programėlė naudoja sekančias trečiųjų šyalių bibliotekas, kad palengvinti man gyvenimą. Ačiū.</string>
     <string name="third_party_licences">Trečiųjų šalių licenzijos</string>
-    <string name="butterknife_title"><u>Sviesto Peilis (peržiūrėti injektorių)</u></string>
 </resources>
