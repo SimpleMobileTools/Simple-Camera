@@ -30,13 +30,11 @@ class Utils {
                 return false
             }
 
-            val parameters = camera.parameters
-
-            if (parameters.flashMode == null) {
+            if (camera.parameters.flashMode == null) {
                 return false
             }
 
-            val supportedFlashModes = parameters.supportedFlashModes
+            val supportedFlashModes = camera.parameters.supportedFlashModes
             if (supportedFlashModes == null || supportedFlashModes.isEmpty() ||
                     supportedFlashModes.size == 1 && supportedFlashModes[0] == Camera.Parameters.FLASH_MODE_OFF) {
                 return false
@@ -56,9 +54,9 @@ class Utils {
 
             val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
             return if (isPhoto) {
-                mediaStorageDir.path + File.separator + "IMG_" + timestamp + ".jpg"
+                "${mediaStorageDir.path}${File.separator}IMG_$timestamp.jpg"
             } else {
-                mediaStorageDir.path + File.separator + "VID_" + timestamp + ".mp4"
+                "${mediaStorageDir.path}${File.separator}VID_$timestamp.mp4"
             }
         }
 
