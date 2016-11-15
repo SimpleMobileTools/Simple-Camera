@@ -5,8 +5,8 @@ import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.camera.extensions.getFileDocument
-import com.simplemobiletools.camera.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.getFileDocument
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
 import java.io.*
 import java.lang.ref.WeakReference
 
@@ -44,7 +44,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
                     config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
                 }
-                var document = activity.getFileDocument(path)
+                var document = activity.getFileDocument(path, config.treeUri)
                 document = document.createFile("", path.substring(path.lastIndexOf('/') + 1))
                 fos = activity.contentResolver.openOutputStream(document.uri)
             } else {

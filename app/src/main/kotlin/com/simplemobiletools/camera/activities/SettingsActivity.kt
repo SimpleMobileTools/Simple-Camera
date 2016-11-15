@@ -13,10 +13,10 @@ import android.widget.AdapterView
 import com.simplemobiletools.camera.Constants
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.dialogs.WritePermissionDialog
-import com.simplemobiletools.camera.extensions.needsStupidWritePermissions
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import com.simplemobiletools.filepicker.extensions.getBasePath
 import com.simplemobiletools.filepicker.extensions.getHumanReadablePath
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.File
 
@@ -100,9 +100,7 @@ class SettingsActivity : SimpleActivity() {
             path
     }
 
-    private fun getStorageName(basePath: String): String {
-        return getHumanReadablePath(basePath) + "/"
-    }
+    private fun getStorageName(basePath: String) = getHumanReadablePath(basePath) + "/"
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {

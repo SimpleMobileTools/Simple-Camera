@@ -8,10 +8,10 @@ import android.content.res.Resources
 import android.graphics.Point
 import android.hardware.Camera
 import android.support.v4.content.ContextCompat
-import android.widget.Toast
-import com.simplemobiletools.camera.extensions.getFileDocument
-import com.simplemobiletools.camera.extensions.isKitkat
-import com.simplemobiletools.camera.extensions.isPathOnSD
+import com.simplemobiletools.filepicker.extensions.getFileDocument
+import com.simplemobiletools.filepicker.extensions.hasStoragePermission
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.toast
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,9 +24,7 @@ class Utils {
             return info
         }
 
-        fun showToast(context: Context, resId: Int) {
-            Toast.makeText(context, context.resources.getString(resId), Toast.LENGTH_SHORT).show()
-        }
+        fun showToast(context: Context, resId: Int) = context.toast(resId)
 
         fun hasFlash(camera: Camera?): Boolean {
             if (camera == null) {
@@ -58,10 +56,10 @@ class Utils {
             }
 
             val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-            if (isPhoto) {
-                return mediaStorageDir.path + File.separator + "IMG_" + timestamp + ".jpg"
+            return if (isPhoto) {
+                mediaStorageDir.path + File.separator + "IMG_" + timestamp + ".jpg"
             } else {
-                return mediaStorageDir.path + File.separator + "VID_" + timestamp + ".mp4"
+                mediaStorageDir.path + File.separator + "VID_" + timestamp + ".mp4"
             }
         }
 
@@ -91,11 +89,10 @@ class Utils {
 
         fun getNavBarHeight(res: Resources): Int {
             val id = res.getIdentifier("navigation_bar_height", "dimen", "android")
-            if (id > 0 && hasNavBar(res)) {
-                return res.getDimensionPixelSize(id)
-            }
-
-            return 0
+            return if (id > 0 && hasNavBar(res)) {
+                res.getDimensionPixelSize(id)
+            } else
+                0
         }
 
         fun hasNavBar(res: Resources): Boolean {
@@ -103,20 +100,14 @@ class Utils {
             return id > 0 && res.getBoolean(id)
         }
 
-        fun hasCameraPermission(cxt: Context): Boolean {
-            return ContextCompat.checkSelfPermission(cxt, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-        }
+        fun hasCameraPermission(context: Context) = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
-        fun hasStoragePermission(cxt: Context): Boolean {
-            return ContextCompat.checkSelfPermission(cxt, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-        }
+        fun hasStoragePermission(context: Context) = context.hasStoragePermission()
 
-        fun hasAudioPermission(cxt: Context): Boolean {
-            return ContextCompat.checkSelfPermission(cxt, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
-        }
+        fun hasAudioPermission(cxt: Context) = ContextCompat.checkSelfPermission(cxt, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
-        fun needsStupidWritePermissions(context: Context, path: String) = context.isPathOnSD(path) && context.isKitkat()
+        fun needsStupidWritePermissions(context: Context, path: String) = context.needsStupidWritePermissions(path)
 
-        fun getFileDocument(context: Context, path: String) = context.getFileDocument(path)
+        fun getFileDocument(context: Context, path: String, treeUri: String) = context.getFileDocument(path, treeUri)
     }
 }

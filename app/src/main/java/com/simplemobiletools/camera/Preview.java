@@ -673,7 +673,7 @@ public class Preview extends ViewGroup
                 return false;
             }
             try {
-                DocumentFile document = Utils.Companion.getFileDocument(getContext(), mCurrVideoPath);
+                DocumentFile document = Utils.Companion.getFileDocument(getContext(), mCurrVideoPath, config.getTreeUri());
                 document = document.createFile("", mCurrVideoPath.substring(mCurrVideoPath.lastIndexOf('/') + 1));
                 final Uri uri = document.getUri();
                 final ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(uri, "rw");
