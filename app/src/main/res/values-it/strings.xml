@@ -41,5 +41,6 @@
     <string name="notice">Questa app usa le seguenti librerie di terze parti per semplificarmi la vita. Grazie.</string>
     <string name="third_party_licences">Licenze di terze parti</string>
     <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
+    <string name="glide_title"><u>Glide (image loading and caching)</u></string>
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 </resources>

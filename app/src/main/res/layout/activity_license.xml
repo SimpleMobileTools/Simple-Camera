@@ -33,6 +33,20 @@
             android:text="@string/kotlin_text"/>
 
         <TextView
+            android:id="@+id/license_glide_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/activity_margin"
+            android:text="@string/glide_title"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/license_glide_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/glide_text"/>
+
+        <TextView
             android:id="@+id/license_filepicker_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
