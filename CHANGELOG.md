@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.30 *(2016-11-20)*
+----------------------------
+
+ * Fixed setting max video resolution
+
 Version 1.29 *(2016-11-20)*
 ----------------------------
 
