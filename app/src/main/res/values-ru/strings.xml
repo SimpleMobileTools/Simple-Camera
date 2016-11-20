@@ -40,5 +40,6 @@
     <!-- License -->
     <string name="notice">Это приложение использует следующие сторонние библиотеки, что бы сделать мою жизнь проще. Спасибо.</string>
     <string name="third_party_licences">Сторонние лицензии</string>
+    <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 </resources>
