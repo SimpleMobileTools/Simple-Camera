@@ -32,32 +32,12 @@ class Config(context: Context) {
         get() = mPrefs.getBoolean(FORCE_RATIO, true)
         set(enabled) = mPrefs.edit().putBoolean(FORCE_RATIO, enabled).apply()
 
-    // todo: delete this
-    val maxResolution: Int
-        get() = mPrefs.getInt(MAX_RESOLUTION, -1)
-
     var maxPhotoResolution: Int
-        get() = mPrefs.getInt(MAX_PHOTO_RESOLUTION, oldDefaultResolution)
+        get() = mPrefs.getInt(MAX_PHOTO_RESOLUTION, FIVE_MPX)
         set(maxRes) = mPrefs.edit().putInt(MAX_PHOTO_RESOLUTION, maxRes).apply()
 
-    private val oldDefaultResolution: Int
-        get() {
-            return when (maxResolution) {
-                1 -> EIGHT_MPX
-                2 -> 0
-                else -> FIVE_MPX
-            }
-        }
-
     var maxVideoResolution: Int
-        get() {
-            val maxRes = mPrefs.getInt(MAX_VIDEO_RESOLUTION, P720)
-            return when (maxRes) {
-                0 -> P480
-                2 -> P1080
-                else -> P720
-            }
-        }
+        get() = mPrefs.getInt(MAX_VIDEO_RESOLUTION, P720)
         set(maxRes) = mPrefs.edit().putInt(MAX_VIDEO_RESOLUTION, maxRes).apply()
 
     var isSoundEnabled: Boolean

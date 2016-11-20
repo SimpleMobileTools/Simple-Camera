@@ -176,8 +176,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun getMaxVideoSelection(): Int {
-        val maxRes = config.maxVideoResolution
-        return when (maxRes) {
+        return when (config.maxVideoResolution) {
             P480 -> 0
             P720 -> 1
             P1080 -> 2
