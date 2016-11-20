@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 1.29 *(2016-11-20)*
+----------------------------
+
+ * Fixed some startup crashes
+ * Fix the last image preview's rotation
+ * Some translation and license corrections
+
 Version 1.28 *(2016-11-16)*
 ----------------------------
 
