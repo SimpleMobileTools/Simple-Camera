@@ -39,9 +39,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         lateinit var mFocusRectView: FocusRectView
         lateinit var mTimerHandler: Handler
         lateinit var mFadeHandler: Handler
-        lateinit var mPreview: Preview
         lateinit var mRes: Resources
 
+        private var mPreview: Preview? = null
         private var mPreviewUri: Uri? = null
         private var mIsFlashEnabled = false
         private var mIsInPhotoMode = false
@@ -64,13 +64,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         tryInitCamera()
 
         supportActionBar?.hide()
-
-        toggle_camera.setOnClickListener { toggleCamera() }
-        last_photo_video_preview.setOnClickListener { showLastMediaPreview() }
-        toggle_flash.setOnClickListener { toggleFlash() }
-        shutter.setOnClickListener { shutterPressed() }
-        settings.setOnClickListener { launchSettings() }
-        toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -118,7 +111,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
                 hideToggleModeAbout()
                 val output = intent.extras.get(MediaStore.EXTRA_OUTPUT)
                 if (output != null && output is Uri) {
-                    mPreview.setTargetUri(output)
+                    mPreview?.setTargetUri(output)
                 }
             } else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE) {
                 mIsVideoCaptureIntent = true
@@ -130,6 +123,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
+        initButtons()
 
         if (Utils.hasNavBar(mRes) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             val lp = btn_holder.layoutParams as RelativeLayout.LayoutParams
@@ -138,7 +132,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
         mCurrCamera = config.lastUsedCamera
         mPreview = Preview(this, camera_view, this)
-        mPreview.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
         toggle_camera.setImageResource(if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) R.mipmap.camera_front else R.mipmap.camera_back)
 
@@ -151,6 +145,15 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mFadeHandler = Handler()
         mIsFlashEnabled = config.lastFlashlightState
         setupPreviewImage(true)
+    }
+
+    private fun initButtons() {
+        toggle_camera.setOnClickListener { toggleCamera() }
+        last_photo_video_preview.setOnClickListener { showLastMediaPreview() }
+        toggle_flash.setOnClickListener { toggleFlash() }
+        shutter.setOnClickListener { shutterPressed() }
+        settings.setOnClickListener { launchSettings() }
+        toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
     }
 
     private fun hasCameraAndStoragePermission() = Utils.hasCameraPermission(applicationContext) && hasStoragePermission()
@@ -191,8 +194,8 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
         config.lastUsedCamera = mCurrCamera
         var newIconId = R.mipmap.camera_front
-        mPreview.releaseCamera()
-        if (mPreview.setCamera(mCurrCamera)) {
+        mPreview?.releaseCamera()
+        if (mPreview?.setCamera(mCurrCamera) == true) {
             if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 newIconId = R.mipmap.camera_back
             }
@@ -240,14 +243,14 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun disableFlash() {
-        mPreview.disableFlash()
+        mPreview?.disableFlash()
         toggle_flash.setImageResource(R.mipmap.flash_off)
         mIsFlashEnabled = false
         config.lastFlashlightState = mIsFlashEnabled
     }
 
     private fun enableFlash() {
-        mPreview.enableFlash()
+        mPreview?.enableFlash()
         toggle_flash.setImageResource(R.mipmap.flash_on)
         mIsFlashEnabled = true
         config.lastFlashlightState = mIsFlashEnabled
@@ -262,11 +265,10 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun handleShutter() {
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
-            mPreview.takePicture()
+            mPreview?.takePicture()
             Handler().postDelayed({ toggleBottomButtons(false) }, Preview.PHOTO_PREVIEW_LENGTH.toLong())
         } else {
-            val isRecording = mPreview.toggleRecording()
-            if (isRecording) {
+            if (mPreview?.toggleRecording() == true) {
                 shutter.setImageDrawable(mRes.getDrawable(R.mipmap.video_stop))
                 toggle_camera.visibility = View.INVISIBLE
                 showTimer()
@@ -311,7 +313,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
 
         if (mIsVideoCaptureIntent)
-            mPreview.trySwitchToVideo()
+            mPreview?.trySwitchToVideo()
 
         disableFlash()
         hideTimer()
@@ -330,12 +332,12 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun initPhotoButtons() {
         toggle_photo_video.setImageDrawable(mRes.getDrawable(R.mipmap.videocam))
         shutter.setImageDrawable(mRes.getDrawable(R.mipmap.camera))
-        mPreview.initPhotoMode()
+        mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
 
     private fun tryInitVideoButtons() {
-        if (mPreview.initRecorder()) {
+        if (mPreview?.initRecorder() == true) {
             initVideoButtons()
         } else {
             if (!mIsVideoCaptureIntent) {
@@ -446,7 +448,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             toggle_camera.visibility = View.INVISIBLE
         }
 
-        if (mPreview.setCamera(mCurrCamera)) {
+        if (mPreview?.setCamera(mCurrCamera) == true) {
             hideNavigationBarIcons()
             checkFlash()
 
@@ -470,7 +472,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mFadeHandler.removeCallbacksAndMessages(null)
 
         hideTimer()
-        mPreview.releaseCamera()
+        mPreview?.releaseCamera()
         mSensorManager.unregisterListener(this)
     }
 
@@ -558,7 +560,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     override fun onDestroy() {
         super.onDestroy()
         config.isFirstRun = false
-        mPreview.releaseCamera()
+        mPreview?.releaseCamera()
     }
 
     override fun onScanCompleted(path: String, uri: Uri) = setupPreviewImage(mIsInPhotoMode)
