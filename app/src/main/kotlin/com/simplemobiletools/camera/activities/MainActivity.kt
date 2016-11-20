@@ -8,8 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.Matrix
 import android.hardware.*
 import android.media.MediaScannerConnection
 import android.net.Uri
@@ -20,6 +18,8 @@ import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.view.*
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
 import com.simplemobiletools.camera.views.FocusRectView
@@ -358,48 +358,10 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         if (lastMediaId == 0L) {
             return
         }
-        val cr = contentResolver
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
-        var tmb: Bitmap
 
-        if (isPhoto) {
-            tmb = MediaStore.Images.Thumbnails.getThumbnail(cr, lastMediaId, MediaStore.Images.Thumbnails.MICRO_KIND, null)
-            val rotationDegrees = getImageRotation()
-            tmb = rotateThumbnail(tmb, rotationDegrees)
-        } else {
-            tmb = MediaStore.Video.Thumbnails.getThumbnail(cr, lastMediaId, MediaStore.Video.Thumbnails.MICRO_KIND, null)
-        }
-
-        setPreviewImage(tmb)
-    }
-
-    private fun getImageRotation(): Int {
-        val projection = arrayOf(MediaStore.Images.ImageColumns.ORIENTATION)
-        var cursor: Cursor? = null
-        try {
-            cursor = contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null)
-            if (cursor != null && cursor.moveToFirst()) {
-                val orientationIndex = cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION)
-                return cursor.getInt(orientationIndex)
-            }
-        } finally {
-            cursor?.close()
-        }
-        return 0
-    }
-
-    private fun rotateThumbnail(tmb: Bitmap, degrees: Int): Bitmap {
-        if (degrees == 0)
-            return tmb
-
-        val matrix = Matrix()
-        matrix.setRotate(degrees.toFloat(), (tmb.width / 2).toFloat(), (tmb.height / 2).toFloat())
-        return Bitmap.createBitmap(tmb, 0, 0, tmb.width, tmb.height, matrix, true)
-    }
-
-    private fun setPreviewImage(bmp: Bitmap?) {
-        if (bmp != null) {
-            last_photo_video_preview.post { last_photo_video_preview.setImageBitmap(bmp) }
+        runOnUiThread {
+            Glide.with(this).load(mPreviewUri).centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(last_photo_video_preview)
         }
     }
 
