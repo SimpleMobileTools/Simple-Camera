@@ -305,20 +305,6 @@ public class Preview extends ViewGroup
         return maxRes == 0 || size.width * size.height < maxRes;
     }
 
-    private int getMaxVideoResolution() {
-        final int maxRes = mConfig.getMaxVideoResolution();
-        switch (maxRes) {
-            case 0:
-                return 400000;
-            case 1:
-                return 1000000;
-            case 2:
-                return 2100000;
-            default:
-                return 0;
-        }
-    }
-
     private boolean isProperRatio(Camera.Size size) {
         final float currRatio = (float) size.height / size.width;
         float wantedRatio = (float) 3 / 4;
@@ -330,7 +316,7 @@ public class Preview extends ViewGroup
     }
 
     private Camera.Size getOptimalVideoSize() {
-        final int maxResolution = getMaxVideoResolution();
+        final int maxResolution = Utils.Companion.getMaxVideoResolution(mConfig);
         final List<Camera.Size> sizes = getSupportedVideoSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
@@ -357,12 +343,6 @@ public class Preview extends ViewGroup
         } else {
             return mParameters.getSupportedPreviewSizes();
         }
-    }
-
-    private int getFinalRotation() {
-        int rotation = Utils.Companion.getMediaRotation(mActivity, mCurrCameraId);
-        rotation += Utils.Companion.compensateDeviceRotation(mCurrCameraId, mCallback.getCurrentOrientation());
-        return rotation % 360;
     }
 
     private void focusArea(final boolean takePictureAfter) {
@@ -616,15 +596,14 @@ public class Preview extends ViewGroup
         mRecorder.setProfile(cpHigh);
 
         if (Utils.Companion.needsStupidWritePermissions(getContext(), mCurrVideoPath)) {
-            final Config config = Config.Companion.newInstance(getContext());
-            if (config.getTreeUri().isEmpty()) {
+            if (mConfig.getTreeUri().isEmpty()) {
                 Utils.Companion.showToast(mContext, R.string.save_error_internal_storage);
-                config.setSavePhotosFolder(Environment.getExternalStorageDirectory().toString());
+                mConfig.setSavePhotosFolder(Environment.getExternalStorageDirectory().toString());
                 releaseCamera();
                 return false;
             }
             try {
-                DocumentFile document = Utils.Companion.getFileDocument(getContext(), mCurrVideoPath, config.getTreeUri());
+                DocumentFile document = Utils.Companion.getFileDocument(getContext(), mCurrVideoPath, mConfig.getTreeUri());
                 document = document.createFile("", mCurrVideoPath.substring(mCurrVideoPath.lastIndexOf('/') + 1));
                 final Uri uri = document.getUri();
                 final ParcelFileDescriptor fileDescriptor = getContext().getContentResolver().openFileDescriptor(uri, "rw");
@@ -637,7 +616,7 @@ public class Preview extends ViewGroup
         }
         mRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
 
-        int rotation = getFinalRotation();
+        int rotation = Utils.Companion.getFinalRotation(mActivity, mCurrCameraId, mCallback.getCurrentOrientation());
         mInitVideoRotation = rotation;
         mRecorder.setOrientationHint(rotation);
 
@@ -667,7 +646,7 @@ public class Preview extends ViewGroup
     }
 
     private void startRecording() {
-        if (mInitVideoRotation != getFinalRotation()) {
+        if (mInitVideoRotation != Utils.Companion.getFinalRotation(mActivity, mCurrCameraId, mCallback.getCurrentOrientation())) {
             cleanupRecorder();
             initRecorder();
         }
