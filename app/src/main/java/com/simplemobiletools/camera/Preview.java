@@ -299,12 +299,16 @@ public class Preview extends ViewGroup
     private Camera.PictureCallback takePictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera cam) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    resumePreview();
-                }
-            }, PHOTO_PREVIEW_LENGTH);
+            if (mConfig.isShowPreviewEnabled()) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        resumePreview();
+                    }
+                }, PHOTO_PREVIEW_LENGTH);
+            } else {
+                resumePreview();
+            }
 
             new PhotoProcessor(mActivity, mTargetUri).execute(data);
         }
