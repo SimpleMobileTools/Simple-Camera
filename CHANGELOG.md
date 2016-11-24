@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.31 *(2016-11-24)*
+----------------------------
+
+ * Fixed video resolution for some devices
+ * Disable photo preview after capture by default
+
 Version 1.30 *(2016-11-20)*
 ----------------------------
 
