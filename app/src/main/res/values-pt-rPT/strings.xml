@@ -44,4 +44,17 @@
     <string name="kotlin_title"><u>Kotlin (linguagem de programação)</u></string>
     <string name="glide_title"><u>Glide (carregamento e cache de imagens)</u></string>
     <string name="filepicker_title"><u>Simple File Picker (diálogo de seleção de ficheiros)</u></string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_long_description">
+        The camera is useable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, pinch to zoom in. While recording a video, the flash can be used as a flashlight.
+
+
+        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+    </string>
 </resources>
