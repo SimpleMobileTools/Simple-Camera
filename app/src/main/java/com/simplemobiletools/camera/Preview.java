@@ -17,7 +17,6 @@ import android.support.v4.provider.DocumentFile;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -139,7 +138,7 @@ public class Preview extends ViewGroup
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
                 mParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 
-            final int rotation = getPreviewRotation(cameraId);
+            final int rotation = Utils.Companion.getPreviewRotation(mActivity, cameraId);
             mCamera.setDisplayOrientation(rotation);
             mCamera.setParameters(mParameters);
 
@@ -220,47 +219,6 @@ public class Preview extends ViewGroup
         });
     }
 
-    private static int getPreviewRotation(int cameraId) {
-        final Camera.CameraInfo info = Utils.Companion.getCameraInfo(cameraId);
-        final int degrees = getRotationDegrees();
-
-        int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            result = (info.orientation + degrees) % 360;
-            result = 360 - result;
-        } else {
-            result = info.orientation - degrees + 360;
-        }
-
-        return result % 360;
-    }
-
-    private static int getMediaRotation(int cameraId) {
-        final int degrees = getRotationDegrees();
-        final Camera.CameraInfo info = Utils.Companion.getCameraInfo(cameraId);
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            return (360 + info.orientation + degrees) % 360;
-        }
-
-        return (360 + info.orientation - degrees) % 360;
-    }
-
-    private static int getRotationDegrees() {
-        int rotation = mActivity.getWindowManager().getDefaultDisplay().getRotation();
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                return 0;
-            case Surface.ROTATION_90:
-                return 90;
-            case Surface.ROTATION_180:
-                return 180;
-            case Surface.ROTATION_270:
-                return 270;
-            default:
-                return 0;
-        }
-    }
-
     public void takePicture() {
         if (mCanTakePicture) {
             if (mIsFlashEnabled) {
@@ -269,8 +227,8 @@ public class Preview extends ViewGroup
                 mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             }
 
-            int rotation = getMediaRotation(mCurrCameraId);
-            rotation += compensateDeviceRotation();
+            int rotation = Utils.Companion.getMediaRotation(mActivity, mCurrCameraId);
+            rotation += Utils.Companion.compensateDeviceRotation(mCurrCameraId, mCallback.getCurrentOrientation());
 
             final Camera.Size maxSize = getOptimalPictureSize();
             mParameters.setPictureSize(maxSize.width, maxSize.height);
@@ -401,21 +359,9 @@ public class Preview extends ViewGroup
         }
     }
 
-    private int compensateDeviceRotation() {
-        int degrees = 0;
-        boolean isFrontCamera = (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT);
-        int deviceOrientation = mCallback.getCurrentOrientation();
-        if (deviceOrientation == Constants.INSTANCE.getORIENT_LANDSCAPE_LEFT()) {
-            degrees += isFrontCamera ? 90 : 270;
-        } else if (deviceOrientation == Constants.INSTANCE.getORIENT_LANDSCAPE_RIGHT()) {
-            degrees += isFrontCamera ? 270 : 90;
-        }
-        return degrees;
-    }
-
     private int getFinalRotation() {
-        int rotation = getMediaRotation(mCurrCameraId);
-        rotation += compensateDeviceRotation();
+        int rotation = Utils.Companion.getMediaRotation(mActivity, mCurrCameraId);
+        rotation += Utils.Companion.compensateDeviceRotation(mCurrCameraId, mCallback.getCurrentOrientation());
         return rotation % 360;
     }
 

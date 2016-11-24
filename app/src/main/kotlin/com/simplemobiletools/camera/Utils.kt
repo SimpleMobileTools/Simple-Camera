@@ -8,6 +8,7 @@ import android.content.res.Resources
 import android.graphics.Point
 import android.hardware.Camera
 import android.support.v4.content.ContextCompat
+import android.view.Surface
 import com.simplemobiletools.filepicker.extensions.getFileDocument
 import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
 import com.simplemobiletools.filepicker.extensions.toast
@@ -104,5 +105,50 @@ class Utils {
         fun needsStupidWritePermissions(context: Context, path: String) = context.needsStupidWritePermissions(path)
 
         fun getFileDocument(context: Context, path: String, treeUri: String) = context.getFileDocument(path, treeUri)
+
+        fun getRotationDegrees(activity: Activity): Int {
+            return when (activity.windowManager.defaultDisplay.rotation) {
+                Surface.ROTATION_0 -> 0
+                Surface.ROTATION_90 -> 90
+                Surface.ROTATION_180 -> 180
+                Surface.ROTATION_270 -> 270
+                else -> 0
+            }
+        }
+
+        fun getPreviewRotation(activity: Activity, cameraId: Int): Int {
+            val info = Utils.getCameraInfo(cameraId)
+            val degrees = Utils.getRotationDegrees(activity)
+
+            var result: Int
+            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                result = (info.orientation + degrees) % 360
+                result = 360 - result
+            } else {
+                result = info.orientation - degrees + 360
+            }
+
+            return result % 360
+        }
+
+        fun getMediaRotation(activity: Activity, cameraId: Int): Int {
+            val degrees = Utils.getRotationDegrees(activity)
+            val info = Utils.getCameraInfo(cameraId)
+            return if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                (360 + info.orientation + degrees) % 360
+            } else
+                (360 + info.orientation - degrees) % 360
+        }
+
+        fun compensateDeviceRotation(currCameraId: Int, deviceOrientation: Int): Int {
+            var degrees = 0
+            val isFrontCamera = currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT
+            if (deviceOrientation == Constants.ORIENT_LANDSCAPE_LEFT) {
+                degrees += if (isFrontCamera) 90 else 270
+            } else if (deviceOrientation == Constants.ORIENT_LANDSCAPE_RIGHT) {
+                degrees += if (isFrontCamera) 270 else 90
+            }
+            return degrees
+        }
     }
 }
