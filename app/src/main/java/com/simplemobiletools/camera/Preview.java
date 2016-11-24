@@ -55,6 +55,7 @@ public class Preview extends ViewGroup
     private static Context mContext;
     private static ScaleGestureDetector mScaleGestureDetector;
     private static List<Integer> mZoomRatios;
+    private static Config mConfig;
 
     private static boolean mCanTakePicture;
     private static boolean mIsFlashEnabled;
@@ -158,8 +159,8 @@ public class Preview extends ViewGroup
             initRecorder();
         }
 
-        final Config config = Config.Companion.newInstance(mContext);
-        mForceAspectRatio = config.getForceRatioEnabled();
+        mConfig = Config.Companion.newInstance(mContext);
+        mForceAspectRatio = mConfig.getForceRatioEnabled();
 
         return true;
     }
@@ -275,7 +276,7 @@ public class Preview extends ViewGroup
             mParameters.setPictureSize(maxSize.width, maxSize.height);
             mParameters.setRotation(rotation % 360);
 
-            if (Config.Companion.newInstance(mContext).isSoundEnabled()) {
+            if (mConfig.isSoundEnabled()) {
                 final AudioManager audioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
                 final int volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
                 if (volume != 0) {
@@ -323,7 +324,7 @@ public class Preview extends ViewGroup
     }
 
     private Camera.Size getOptimalPictureSize() {
-        final int maxResolution = Config.Companion.newInstance(mContext).getMaxPhotoResolution();
+        final int maxResolution = mConfig.getMaxPhotoResolution();
         final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
         Collections.sort(sizes, new SizesComparator());
         Camera.Size maxSize = sizes.get(0);
@@ -343,7 +344,7 @@ public class Preview extends ViewGroup
     }
 
     private int getMaxVideoResolution() {
-        final int maxRes = Config.Companion.newInstance(mContext).getMaxVideoResolution();
+        final int maxRes = mConfig.getMaxVideoResolution();
         switch (maxRes) {
             case 0:
                 return 400000;
@@ -762,7 +763,7 @@ public class Preview extends ViewGroup
     }
 
     private void toggleShutterSound(Boolean mute) {
-        if (!Config.Companion.newInstance(mContext).isSoundEnabled()) {
+        if (!mConfig.isSoundEnabled()) {
             ((AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE)).setStreamMute(AudioManager.STREAM_SYSTEM, mute);
         }
     }
