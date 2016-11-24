@@ -20,6 +20,7 @@
     <string name="dark_theme">Tema escuro</string>
     <string name="save_photos">Guardar fotos e vídeos em</string>
     <string name="force_ratio">Utilizar rácio 16:9</string>
+    <string name="show_preview">Show a photo preview after capturing</string>
     <string name="max_photo_size">Resolução máxima das fotos</string>
     <string name="max_video_size">Resolução máxima dos vídeos</string>
     <string name="no_limit">sem limite</string>

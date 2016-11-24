@@ -20,6 +20,7 @@
     <string name="dark_theme">ダークテーマ</string>
     <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">強制的に 16:9 レシオにする</string>
+    <string name="show_preview">Show a photo preview after capturing</string>
     <string name="max_photo_size">写真解像度の限度</string>
     <string name="max_video_size">Video resolution limit</string>
     <string name="no_limit">なし</string>

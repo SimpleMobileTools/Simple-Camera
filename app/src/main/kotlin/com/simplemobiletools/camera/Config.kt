@@ -28,6 +28,10 @@ class Config(context: Context) {
         get() = mPrefs.getString(SAVE_PHOTOS, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString())
         set(path) = mPrefs.edit().putString(SAVE_PHOTOS, path).apply()
 
+    var isShowPreviewEnabled: Boolean
+        get() = mPrefs.getBoolean(SHOW_PREVIEW, false)
+        set(enabled) = mPrefs.edit().putBoolean(SHOW_PREVIEW, enabled).apply()
+
     var forceRatioEnabled: Boolean
         get() = mPrefs.getBoolean(FORCE_RATIO, true)
         set(enabled) = mPrefs.edit().putBoolean(FORCE_RATIO, enabled).apply()

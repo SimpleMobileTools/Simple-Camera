@@ -29,6 +29,7 @@ class SettingsActivity : SimpleActivity() {
 
         setupDarkTheme()
         setupSavePhotosFolder()
+        setupShowPreview()
         setupSound()
         setupForceRatio()
         setupMaxPhotoResolution()
@@ -114,6 +115,14 @@ class SettingsActivity : SimpleActivity() {
 
         val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
         contentResolver.takePersistableUriPermission(treeUri, takeFlags)
+    }
+
+    private fun setupShowPreview() {
+        settings_show_preview.isChecked = config.isShowPreviewEnabled
+        settings_show_preview_holder.setOnClickListener {
+            settings_show_preview.toggle()
+            config.isShowPreviewEnabled = settings_show_preview.isChecked
+        }
     }
 
     private fun setupSound() {

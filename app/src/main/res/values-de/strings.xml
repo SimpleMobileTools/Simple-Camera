@@ -20,6 +20,7 @@
     <string name="dark_theme">Dunkles Design</string>
     <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Erzwinge 16:9 Format</string>
+    <string name="show_preview">Show a photo preview after capturing</string>
     <string name="max_photo_size">Maximale Fotoauflösung</string>
     <string name="max_video_size">Maximale Videoauflösung</string>
     <string name="no_limit">Kein Limit</string>
