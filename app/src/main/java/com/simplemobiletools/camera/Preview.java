@@ -633,13 +633,9 @@ public class Preview extends ViewGroup
             return false;
 
         mSwitchToVideoAsap = false;
-        Camera.Size preferred = mParameters.getPreferredPreviewSizeForVideo();
-
-        if (preferred == null) {
-            final List<Camera.Size> previewSizes = mParameters.getSupportedPreviewSizes();
-            Collections.sort(previewSizes, new SizesComparator());
-            preferred = previewSizes.get(0);
-        }
+        final List<Camera.Size> previewSizes = mParameters.getSupportedPreviewSizes();
+        Collections.sort(previewSizes, new SizesComparator());
+        Camera.Size preferred = previewSizes.get(0);
 
         mParameters.setPreviewSize(preferred.width, preferred.height);
         mCamera.setParameters(mParameters);
@@ -759,7 +755,7 @@ public class Preview extends ViewGroup
         if (file.exists() && file.length() == 0) {
             file.delete();
         }
-}
+    }
 
     private void toggleShutterSound(Boolean mute) {
         if (!Config.Companion.newInstance(mContext).isSoundEnabled()) {
