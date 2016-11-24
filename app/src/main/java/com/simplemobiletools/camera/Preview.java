@@ -301,22 +301,26 @@ public class Preview extends ViewGroup
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (mCamera != null) {
-                        mCamera.startPreview();
-                    }
-
-                    mCanTakePicture = true;
-
-                    if (mIsFlashEnabled) {
-                        mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                        mCamera.setParameters(mParameters);
-                    }
+                    resumePreview();
                 }
             }, PHOTO_PREVIEW_LENGTH);
 
             new PhotoProcessor(mActivity, mTargetUri).execute(data);
         }
     };
+
+    private void resumePreview() {
+        if (mCamera != null) {
+            mCamera.startPreview();
+        }
+
+        mCanTakePicture = true;
+
+        if (mIsFlashEnabled) {
+            mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            mCamera.setParameters(mParameters);
+        }
+    }
 
     private Camera.Size getOptimalPictureSize() {
         final int maxResolution = Config.Companion.newInstance(mContext).getMaxPhotoResolution();
