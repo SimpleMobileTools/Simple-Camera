@@ -18,6 +18,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/launcher"
         android:label="@string/app_launcher_name"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
