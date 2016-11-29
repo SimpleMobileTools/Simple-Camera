@@ -46,15 +46,15 @@
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_short_description">Una cámara con flash, zoom y sin anuncios.</string>
     <string name="app_long_description">
-        The camera is useable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, pinch to zoom in. While recording a video, the flash can be used as a flashlight.
+        La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede conmutar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom... Mientras se graba un vídeo el flash puede ser usado como una linterna.
 
 
-        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Si usted quiere lanzar esta aplicación presionando el botón físico de cámara, puede que tenga que deshabilitar la aplicación nativa de cámara (Ajustes -> Aplicaciones -> Cámara -> Deshabilitar).
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en http://www.simplemobiletools.com
     </string>
 </resources>
