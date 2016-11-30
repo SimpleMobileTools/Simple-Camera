@@ -1,28 +1,28 @@
-<resources>
+﻿<resources>
     <string name="app_name">シンプル カメラ</string>
-    <string name="app_launcher_name">Camera</string>
+    <string name="app_launcher_name">カメラ</string>
     <string name="camera_unavailable">カメラは利用できません</string>
     <string name="camera_open_error">カメラへのアクセス時にエラーが発生しました</string>
     <string name="video_creating_error">ビデオファイルの作成時にエラーが発生しました</string>
     <string name="video_saving_error">ビデオファイルの保存時にエラーが発生しました</string>
     <string name="video_setup_error">レコーダーのセットアップ時にエラーが発生しました</string>
     <string name="video_mode_error">ビデオモードへの切り替えに失敗しました</string>
-    <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
+    <string name="save_error_internal_storage">エラーが発生しました。保存フォルダーは内部ストレージに変更されました</string>
     <string name="camera_switch_error">カメラの切り替えに失敗しました</string>
     <string name="no_permissions">お使いのカメラやストレージにアクセスしないと、ほとんど行うことはありません</string>
     <string name="no_audio_permissions">ビデオを記録するためにオーディオのアクセス許可が必要です</string>
     <string name="no_gallery_app_available">利用可能なギャラリーアプリがありません</string>
-    <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
+    <string name="no_valid_resolution_found">選択したアスペクト比で有効な解像度が見つかりません。最大解像度を使用しています</string>
     <string name="ok">OK</string>
 
     <!-- Settings -->
     <string name="settings">設定</string>
     <string name="dark_theme">ダークテーマ</string>
-    <string name="save_photos">Save photos and videos to</string>
+    <string name="save_photos">写真とビデオの保存先</string>
     <string name="force_ratio">強制的に 16:9 レシオにする</string>
-    <string name="show_preview">Show a photo preview after capturing</string>
+    <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
     <string name="max_photo_size">写真解像度の限度</string>
-    <string name="max_video_size">Video resolution limit</string>
+    <string name="max_video_size">ビデオ解像度の限度</string>
     <string name="no_limit">なし</string>
     <string name="shutter_sound">シャッター音</string>
 
@@ -31,30 +31,30 @@
     <string name="website">もっとシンプルなアプリとソースコードは:\nhttp://simplemobiletools.com</string>
     <string name="email_label">ご意見やご提案を送信してください:</string>
     <string name="third_party_licences_underlined"><u>サードパーティー ライセンス</u></string>
-    <string name="invite_friends_underlined"><u>Invite friends</u></string>
-    <string name="share_text">Hey, come check out %1$s at %2$s</string>
-    <string name="invite_via">Invite via</string>
+    <string name="invite_friends_underlined"><u>友達を招待</u></string>
+    <string name="share_text">%2$s で %1$s を確認してください</string>
+    <string name="invite_via">招待...</string>
     <string name="rate_us_underlined"><u>Play ストアで評価してください</u></string>
     <string name="follow_us">フォローしてください:</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
 
     <!-- License -->
-    <string name="notice">このアプリは、私の人生を容易にするために、次のサードパーティのライブラリーを使用しています。 ありがとうございます。</string>
+    <string name="notice">このアプリは、私の暮らしにゆとりを持たせるために、次のサードパーティのライブラリーを使用しています。 ありがとうございます。</string>
     <string name="third_party_licences">サードパーティー ライセンス</string>
-    <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
+    <string name="kotlin_title"><u>Kotlin (プログラミング言語)</u></string>
     <string name="glide_title"><u>Glide (イメージ ローディングとキャッシング)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
+    <string name="filepicker_title"><u>Simple File Picker (ファイルピッカー ダイアログ)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_short_description">フラッシュ、ズーム付きのカメラ。広告はありません。</string>
     <string name="app_long_description">
-        The camera is useable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, pinch to zoom in. While recording a video, the flash can be used as a flashlight.
+        カメラは、写真撮影とビデオ撮影の両方に使用できます。 前面カメラと背面カメラを切り替えたり、保存パスを変更したり、解像度を制限することができます。 フラッシュをオン/オフしたり、ピンチでズームインしたりすることができます。 ビデオの撮影中は、フラッシュを懐中電灯として使用できます。
 
 
-        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        ハードウェアのカメラボタンを押してこのアプリを起動したい場合は、設定 -> アプリ -> カメラ -> 無効、で付属のカメラアプリを無効にする必要があります。
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        広告や不要なアクセス許可は含まれていません。 完全にオープンソースで、ダークテーマも提供しています。
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        このアプリは、大きな一連のアプリの一つです。 他のアプリは http://www.simplemobiletools.com で見つけることができます
     </string>
 </resources>
