@@ -46,6 +46,7 @@
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">A camera with flash, zoom and no ads.</string>
     <string name="app_long_description">
         The camera is useable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, pinch to zoom in. While recording a video, the flash can be used as a flashlight.
@@ -57,4 +58,11 @@
 
         This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
     </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
+    -->
 </resources>
