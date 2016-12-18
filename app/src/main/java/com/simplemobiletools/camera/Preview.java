@@ -221,12 +221,6 @@ public class Preview extends ViewGroup
 
     public void takePicture() {
         if (mCanTakePicture) {
-            if (mIsFlashEnabled) {
-                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            } else {
-                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            }
-
             int rotation = Utils.Companion.getMediaRotation(mActivity, mCurrCameraId);
             rotation += Utils.Companion.compensateDeviceRotation(mCurrCameraId, mCallback.getCurrentOrientation());
 
@@ -278,11 +272,6 @@ public class Preview extends ViewGroup
         }
 
         mCanTakePicture = true;
-
-        if (mIsFlashEnabled) {
-            mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            mCamera.setParameters(mParameters);
-        }
     }
 
     private Camera.Size getOptimalPictureSize() {
@@ -532,11 +521,8 @@ public class Preview extends ViewGroup
     }
 
     public void enableFlash() {
-        if (mIsVideoMode) {
-            mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            mCamera.setParameters(mParameters);
-        }
-
+        mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        mCamera.setParameters(mParameters);
         mIsFlashEnabled = true;
     }
 
