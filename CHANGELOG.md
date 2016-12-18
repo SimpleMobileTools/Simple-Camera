@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.32 *(2016-12-18)*
+----------------------------
+
+ * Turn the flashlight on permanently even in photo mode
+
 Version 1.31 *(2016-11-24)*
 ----------------------------
 
