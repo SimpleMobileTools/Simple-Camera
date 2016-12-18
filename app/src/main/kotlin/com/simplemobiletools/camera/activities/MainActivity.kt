@@ -363,7 +363,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
         runOnUiThread {
-            Glide.with(this).load(mPreviewUri).centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(last_photo_video_preview)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && !isDestroyed) {
+                Glide.with(this).load(mPreviewUri).centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(last_photo_video_preview)
+            }
         }
     }
 
