@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">Simple Caméra</string>
+    <string name="app_launcher_name">Caméra</string>
+    <string name="camera_unavailable">Caméra indisponible</string>
+    <string name="camera_open_error">Une erreur est survenue lors de l\'accès à la caméra</string>
+    <string name="video_creating_error">Une erreur est survenue lors de la création du fichier vidéo</string>
+    <string name="video_saving_error">Une erreur est survenue lors de la sauvegarde du fichier vidéo</string>
+    <string name="video_setup_error">Une erreur est survenue lors de la mise en place de l\'enregistreur</string>
+    <string name="video_mode_error">Échec lors de la permutation vers le mode vidéo</string>
+    <string name="save_error_internal_storage">Une erreur est survenue, le dossier de sauvegarde a été changer vers la mémoire interne</string>
+    <string name="camera_switch_error">la permutation de caméra a échoué</string>
+    <string name="no_permissions">Peu de choses à faire sans accès à ni la caméra ni la mémoire</string>
+    <string name="no_audio_permissions">Nous avons besoin de l\'autorisation sur l\'audio pour enregistrer des vidéos</string>
+    <string name="no_gallery_app_available">Pas d\'application album disponible</string>
+    <string name="no_valid_resolution_found">Pas de résolution valide trouvé avec le ratio sélectionné; utilisation de la résolution maximale</string>
+    <string name="ok">OK</string>
+
+    <!-- Settings -->
+    <string name="settings">Paramètres</string>
+    <string name="dark_theme">Thème sombre</string>
+    <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
+    <string name="force_ratio">Ratio 16:9</string>
+    <string name="show_preview">Apercevoir la photo après la prise</string>
+    <string name="max_photo_size">Limite max de résolution des photos</string>
+    <string name="max_video_size">Limite max de résolution de vidéo</string>
+    <string name="no_limit">aucun</string>
+    <string name="shutter_sound">Son de l\'obturateur</string>
+
+    <!-- About -->
+    <string name="about">À propos</string>
+    <string name="website">Plus d\'application simple et code source sur :\nhttp://simplemobiletools.com</string>
+    <string name="email_label">Envoyer votre retour ou suggestions à :</string>
+    <string name="third_party_licences_underlined">&lt;u &gt; Licence des parties tièrces&lt;/u&gt;</string>
+    <string name="invite_friends_underlined">&lt;u &gt;Inviter des amis&lt;/u&gt;</string>
+    <string name="share_text">Hey, regardes ça %1$s sur %2$s</string>
+    <string name="invite_via">Inviter via</string>
+    <string name="rate_us_underlined">&lt;u &gt;Notez-nous sur le Play Store&lt;/u&gt;</string>
+    <string name="follow_us">Suivez nous :</string>
+    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
+
+    <!-- License -->
+    <string name="notice">Cette application utilise les librairies tierces suivantes pour me simplifier la vie. Merci.</string>
+    <string name="third_party_licences">Licence des parties tièrces</string>
+    <string name="kotlin_title"><u>Kotlin (langage de programmation)</u></string>
+    <string name="glide_title"><u>Glide (chargement et mise en cache d\'image)</u></string>
+    <string name="filepicker_title"><u>Sélecteur simple de fichier (dialogue filepicker)</u></string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Un appareil photo avec flash, zoom et pas de publicité.</string>
+    <string name="app_long_description">
+        La caméra est utilisable pour prendre des photos et aussi aussi des vidéos. Vous pouvez choisir entre la caméra avant et la caméra arrière, modifier le dossier d\'enregistrement et limiter la résolution. Le flash peut être allumé et éteint ainsi qu\'utilisé comme lampe de poche. Vous pouvez pincer pour zoomer.
+
+
+        Si vous souhaitez démarrer cette application au lieu de l\'application d\'origine, vous devriez désactivez l\'application d\'origine dans : Paramètres -> Applications -> appareil photo -> désactiver.
+
+        Ne contient ni publicité ni autorisation inutile. L\'application est intégralement OpenSource et est fournie aussi avec un thème sombre.
+
+        Cette application est juste une application d\'une grande série d\'applications. Vous pouvez trouvez les autres sur http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
+    -->
+</resources>
