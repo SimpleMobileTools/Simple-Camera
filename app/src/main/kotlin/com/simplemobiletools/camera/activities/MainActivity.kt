@@ -24,8 +24,10 @@ import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.views.FocusRectView
+import com.simplemobiletools.commons.extensions.checkWhatsNew
 import com.simplemobiletools.commons.extensions.hasWriteStoragePermission
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -63,8 +65,8 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         mRes = resources
         tryInitCamera()
-
         supportActionBar?.hide()
+        checkWhatsNewDialog()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -567,4 +569,11 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     override fun onScanCompleted(path: String, uri: Uri) = setupPreviewImage(mIsInPhotoMode)
+
+    private fun checkWhatsNewDialog() {
+        arrayListOf<Release>().apply {
+            add(Release(33, R.string.release_33))
+            checkWhatsNew(this, BuildConfig.VERSION_CODE)
+        }
+    }
 }

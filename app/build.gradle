@@ -10,7 +10,7 @@ android {
         applicationId "com.simplemobiletools.camera"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 32
+        versionCode 33
         versionName "1.32"
     }
 
