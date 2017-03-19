@@ -4,23 +4,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.*
+import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.extensions.getBasePath
+import com.simplemobiletools.commons.extensions.getHumanReadablePath
+import com.simplemobiletools.commons.extensions.updateTextColors
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : SimpleActivity() {
-    val OPEN_DOCUMENT_TREE = 1
     var mCurrPath = ""
     var mWantedPath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+    }
 
-        /*setupSavePhotosFolder()
+    override fun onResume() {
+        super.onResume()
+
+        setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
         setupForceRatio()
         setupMaxPhotoResolution()
-        setupMaxVideoResolution()*/
+        setupMaxVideoResolution()
+        updateTextColors(settings_holder)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -38,17 +48,17 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    /*private fun setupSavePhotosFolder() {
+    private fun setupSavePhotosFolder() {
         mCurrPath = config.savePhotosFolder
         settings_save_photos.text = getHumanPath()
         settings_save_photos_holder.setOnClickListener {
             FilePickerDialog(this, mCurrPath, false) {
-                mWantedPath = pickedPath
+                /*mWantedPath = pickedPath
                 if (!isShowingWritePermissions(File(pickedPath), config.treeUri, OPEN_DOCUMENT_TREE)) {
                     mCurrPath = if (pickedPath.length == 1) pickedPath else pickedPath.trimEnd('/')
                     config.savePhotosFolder = mCurrPath
                     settings_save_photos.text = getHumanPath()
-                }
+                }*/
             }
         }
     }
@@ -64,31 +74,6 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun getStorageName(basePath: String) = "${getHumanReadablePath(basePath)}/"
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        if (requestCode == OPEN_DOCUMENT_TREE) {
-            if (resultCode == Activity.RESULT_OK && resultData != null) {
-                mCurrPath = mWantedPath
-                config.savePhotosFolder = mCurrPath
-                settings_save_photos.text = getHumanPath()
-                saveTreeUri(resultData)
-            } else {
-                mCurrPath = config.savePhotosFolder
-                settings_save_photos.text = getHumanPath()
-            }
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    private fun saveTreeUri(resultData: Intent) {
-        val treeUri = resultData.data
-        config.treeUri = treeUri.toString()
-
-        val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        contentResolver.takePersistableUriPermission(treeUri, takeFlags)
-    }
 
     private fun setupShowPreview() {
         settings_show_preview.isChecked = config.isShowPreviewEnabled
@@ -115,7 +100,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupMaxPhotoResolution() {
-        settings_max_photo_resolution.setSelection(getMaxPhotoSelection())
+        /*settings_max_photo_resolution.setSelection(getMaxPhotoSelection())
         settings_max_photo_resolution.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 config.maxPhotoResolution = getMaxPhotoPx(settings_max_photo_resolution.selectedItemPosition)
@@ -123,7 +108,7 @@ class SettingsActivity : SimpleActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
-        }
+        }*/
     }
 
     private fun getMaxPhotoSelection(): Int {
@@ -146,7 +131,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupMaxVideoResolution() {
-        settings_max_video_resolution.setSelection(getMaxVideoSelection())
+        /*settings_max_video_resolution.setSelection(getMaxVideoSelection())
         settings_max_video_resolution.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -154,7 +139,7 @@ class SettingsActivity : SimpleActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 config.maxVideoResolution = getMaxVideoPx(settings_max_video_resolution.selectedItemPosition)
             }
-        }
+        }*/
     }
 
     private fun getMaxVideoSelection(): Int {
@@ -173,5 +158,5 @@ class SettingsActivity : SimpleActivity() {
             2 -> P1080
             else -> -1
         }
-    }*/
+    }
 }

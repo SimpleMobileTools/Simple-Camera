@@ -6,37 +6,60 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/settings_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/settings_save_photos_holder"
+            android:id="@+id/settings_customize_colors_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_padding"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/activity_margin">
 
-            <TextView
-                android:id="@+id/settings_save_photos_label"
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_customize_colors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/settings_padding"
-                android:paddingStart="@dimen/settings_padding"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/customize_colors"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_save_photos_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingBottom="@dimen/bigger_margin"
+            android:paddingLeft="@dimen/activity_margin"
+            android:paddingRight="@dimen/activity_margin"
+            android:paddingTop="@dimen/bigger_margin">
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/settings_save_photos_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/settings_save_photos"
+                android:layout_toStartOf="@+id/settings_save_photos"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingRight="@dimen/medium_margin"
                 android:text="@string/save_photos"/>
 
-            <TextView
+            <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_save_photos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="@dimen/tiny_margin"
-                android:layout_marginRight="@dimen/tiny_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
                 android:background="@null"
                 android:clickable="false"/>
 
@@ -46,27 +69,19 @@
             android:id="@+id/settings_show_preview_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_padding"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/activity_margin">
 
-            <TextView
-                android:id="@+id/settings_show_preview_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/settings_padding"
-                android:paddingStart="@dimen/settings_padding"
-                android:text="@string/show_preview"/>
-
-            <android.support.v7.widget.SwitchCompat
+            <com.simplemobiletools.commons.views.MySwitchCompat
                 android:id="@+id/settings_show_preview"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:background="@null"
-                android:clickable="false"/>
+                android:clickable="false"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/show_preview"/>
 
         </RelativeLayout>
 
@@ -74,27 +89,19 @@
             android:id="@+id/settings_sound_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_padding"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/activity_margin">
 
-            <TextView
-                android:id="@+id/settings_sound_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/settings_padding"
-                android:paddingStart="@dimen/settings_padding"
-                android:text="@string/shutter_sound"/>
-
-            <android.support.v7.widget.SwitchCompat
+            <com.simplemobiletools.commons.views.MySwitchCompat
                 android:id="@+id/settings_sound"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:background="@null"
-                android:clickable="false"/>
+                android:clickable="false"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/shutter_sound"/>
 
         </RelativeLayout>
 
@@ -102,27 +109,19 @@
             android:id="@+id/settings_force_ratio_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_padding"
+            android:layout_marginTop="@dimen/medium_margin"
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/activity_margin">
 
-            <TextView
-                android:id="@+id/settings_force_ratio_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/settings_padding"
-                android:paddingStart="@dimen/settings_padding"
-                android:text="@string/force_ratio"/>
-
-            <android.support.v7.widget.SwitchCompat
+            <com.simplemobiletools.commons.views.MySwitchCompat
                 android:id="@+id/settings_force_ratio"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:background="@null"
-                android:clickable="false"/>
+                android:clickable="false"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/force_ratio"/>
 
         </RelativeLayout>
 
@@ -130,57 +129,70 @@
             android:id="@+id/settings_max_photo_resolution_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_padding"
-            android:paddingBottom="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingBottom="@dimen/bigger_margin"
             android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/settings_padding"
-            android:paddingTop="@dimen/activity_margin">
+            android:paddingRight="@dimen/activity_margin"
+            android:paddingTop="@dimen/bigger_margin">
 
-            <TextView
+            <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_max_photo_resolution_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/settings_padding"
-                android:paddingStart="@dimen/settings_padding"
+                android:layout_toLeftOf="@+id/settings_max_photo_resolution"
+                android:layout_toStartOf="@+id/settings_max_photo_resolution"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingRight="@dimen/medium_margin"
                 android:text="@string/max_photo_size"/>
 
-            <android.support.v7.widget.AppCompatSpinner
+            <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_max_photo_resolution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:entries="@array/max_photo_resolutions"/>
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:background="@null"
+                android:clickable="false"/>
 
         </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/settings_max_video_resolution_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_padding"
-            android:paddingBottom="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:paddingBottom="@dimen/bigger_margin"
             android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/settings_padding"
-            android:paddingTop="@dimen/activity_margin">
+            android:paddingRight="@dimen/activity_margin"
+            android:paddingTop="@dimen/bigger_margin">
 
-            <TextView
+            <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_max_video_resolution_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/settings_padding"
-                android:paddingStart="@dimen/settings_padding"
+                android:layout_toLeftOf="@+id/settings_max_video_resolution"
+                android:layout_toStartOf="@+id/settings_max_video_resolution"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingRight="@dimen/medium_margin"
                 android:text="@string/max_video_size"/>
 
-            <android.support.v7.widget.AppCompatSpinner
+            <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_max_video_resolution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:entries="@array/max_video_resolutions"/>
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:background="@null"
+                android:clickable="false"/>
 
         </RelativeLayout>
     </LinearLayout>
