@@ -121,7 +121,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             } else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE) {
                 mIsVideoCaptureIntent = true
                 hideToggleModeAbout()
-                shutter.setImageDrawable(mRes.getDrawable(R.mipmap.video_rec))
+                shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
             }
         }
     }
@@ -139,7 +139,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mPreview = Preview(this, camera_view, this)
         mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
-        toggle_camera.setImageResource(if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) R.mipmap.camera_front else R.mipmap.camera_back)
+        toggle_camera.setImageResource(if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_back)
 
         mFocusRectView = FocusRectView(applicationContext)
         view_holder.addView(mFocusRectView)
@@ -198,11 +198,11 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
 
         config.lastUsedCamera = mCurrCamera
-        var newIconId = R.mipmap.camera_front
+        var newIconId = R.drawable.ic_camera_front
         mPreview?.releaseCamera()
         if (mPreview?.setCamera(mCurrCamera) == true) {
             if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                newIconId = R.mipmap.camera_back
+                newIconId = R.drawable.ic_camera_back
             }
             toggle_camera.setImageResource(newIconId)
             disableFlash()
@@ -249,14 +249,14 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     private fun disableFlash() {
         mPreview?.disableFlash()
-        toggle_flash.setImageResource(R.mipmap.flash_off)
+        toggle_flash.setImageResource(R.drawable.ic_flash_off)
         mIsFlashEnabled = false
         config.lastFlashlightState = mIsFlashEnabled
     }
 
     private fun enableFlash() {
         mPreview?.enableFlash()
-        toggle_flash.setImageResource(R.mipmap.flash_on)
+        toggle_flash.setImageResource(R.drawable.ic_flash_on)
         mIsFlashEnabled = true
         config.lastFlashlightState = mIsFlashEnabled
     }
@@ -274,11 +274,11 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             Handler().postDelayed({ toggleBottomButtons(false) }, Preview.PHOTO_PREVIEW_LENGTH.toLong())
         } else {
             if (mPreview?.toggleRecording() == true) {
-                shutter.setImageDrawable(mRes.getDrawable(R.mipmap.video_stop))
+                shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_stop))
                 toggle_camera.visibility = View.INVISIBLE
                 showTimer()
             } else {
-                shutter.setImageDrawable(mRes.getDrawable(R.mipmap.video_rec))
+                shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
                 toggle_camera.visibility = View.VISIBLE
                 hideTimer()
             }
@@ -335,8 +335,8 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun initPhotoButtons() {
-        toggle_photo_video.setImageDrawable(mRes.getDrawable(R.mipmap.videocam))
-        shutter.setImageDrawable(mRes.getDrawable(R.mipmap.camera))
+        toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_video))
+        shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_shutter))
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
@@ -352,9 +352,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun initVideoButtons() {
-        toggle_photo_video.setImageDrawable(mRes.getDrawable(R.mipmap.photo))
+        toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_camera))
         toggle_camera.visibility = View.VISIBLE
-        shutter.setImageDrawable(mRes.getDrawable(R.mipmap.video_rec))
+        shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
         checkFlash()
         setupPreviewImage(false)
     }
