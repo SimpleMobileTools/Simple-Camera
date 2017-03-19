@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Cámara</string>
+    <string name="camera_unavailable">Cámara no disponible</string>
+    <string name="camera_open_error">Ha ocurrido un error al acceder a la cámara</string>
+    <string name="video_creating_error">Ha ocurrido un error creando el archivo de vídeo</string>
+    <string name="video_saving_error">Ha ocurrido un error guardando el archivo de vídeo</string>
+    <string name="video_setup_error">Ha ocurrido un error al configurar la grabación</string>
+    <string name="video_mode_error">Ha fallado el cambio a modo de vídeo</string>
+    <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta destino al almacenamiento interno</string>
+    <string name="camera_switch_error">Ha fallado el cambio de cámara</string>
+    <string name="no_permissions">No hay mucho que hacer sin los permisos para acceder a la cámara y al almacenamiento</string>
+    <string name="no_audio_permissions">Se necesita el permiso de micrófono para grabar vídeos</string>
+    <string name="no_gallery_app_available">No hay disponible una aplicación de galería</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Guardar fotografías y vídeos en</string>
+    <string name="show_preview">Show a photo preview after capturing</string>
+    <string name="shutter_sound">Sonido del obturador</string>
+    <string name="back_camera_photo_resolution">Back camera photo resolution</string>
+    <string name="front_camera_photo_resolution">Front camera photo resolution</string>
+    <string name="back_camera_video_resolution">Back camera video resolution</string>
+    <string name="front_camera_video_resolution">Front camera video resolution</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Una cámara con flash, zoom y sin anuncios.</string>
+    <string name="app_long_description">
+        La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede conmutar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom&#8230; Mientras se graba un vídeo el flash puede ser usado como una linterna.
+
+
+        Si usted quiere lanzar esta aplicación presionando el botón físico de cámara, puede que tenga que deshabilitar la aplicación nativa de cámara (Ajustes -> Aplicaciones -> Cámara -> Deshabilitar).
+
+        No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
+
+        Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+    -->
+</resources>

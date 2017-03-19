@@ -17,6 +17,10 @@
     <string name="save_photos">Сохранять фото и видео в</string>
     <string name="show_preview">Показывать сделанное фото</string>
     <string name="shutter_sound">Звук затвора</string>
+    <string name="back_camera_photo_resolution">Back camera photo resolution</string>
+    <string name="front_camera_photo_resolution">Front camera photo resolution</string>
+    <string name="back_camera_video_resolution">Back camera video resolution</string>
+    <string name="front_camera_video_resolution">Front camera video resolution</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

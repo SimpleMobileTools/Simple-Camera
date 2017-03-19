@@ -17,6 +17,10 @@
     <string name="save_photos">写真とビデオの保存先</string>
     <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
     <string name="shutter_sound">シャッター音</string>
+    <string name="back_camera_photo_resolution">Back camera photo resolution</string>
+    <string name="front_camera_photo_resolution">Front camera photo resolution</string>
+    <string name="back_camera_video_resolution">Back camera video resolution</string>
+    <string name="front_camera_video_resolution">Front camera video resolution</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

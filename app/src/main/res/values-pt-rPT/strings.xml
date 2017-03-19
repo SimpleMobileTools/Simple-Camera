@@ -17,6 +17,10 @@
     <string name="save_photos">Guardar fotos e vídeos em</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>
     <string name="shutter_sound">Som do obturador</string>
+    <string name="back_camera_photo_resolution">Back camera photo resolution</string>
+    <string name="front_camera_photo_resolution">Front camera photo resolution</string>
+    <string name="back_camera_video_resolution">Back camera video resolution</string>
+    <string name="front_camera_video_resolution">Front camera video resolution</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
