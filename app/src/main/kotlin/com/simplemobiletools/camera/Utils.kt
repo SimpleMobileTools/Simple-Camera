@@ -9,8 +9,6 @@ import android.graphics.Point
 import android.hardware.Camera
 import android.support.v4.content.ContextCompat
 import android.view.Surface
-import com.simplemobiletools.commons.extensions.getFileDocument
-import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
 import com.simplemobiletools.commons.extensions.toast
 import java.io.File
 import java.text.SimpleDateFormat
@@ -101,10 +99,6 @@ class Utils {
         fun hasCameraPermission(context: Context) = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
         fun hasAudioPermission(cxt: Context) = ContextCompat.checkSelfPermission(cxt, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
-
-        fun needsStupidWritePermissions(context: Context, path: String) = context.needsStupidWritePermissions(path)
-
-        fun getFileDocument(context: Context, path: String, treeUri: String) = context.getFileDocument(path, treeUri)
 
         fun getRotationDegrees(activity: Activity): Int {
             return when (activity.windowManager.defaultDisplay.rotation) {

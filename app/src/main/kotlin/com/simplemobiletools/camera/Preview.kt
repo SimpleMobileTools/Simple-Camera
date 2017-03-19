@@ -12,16 +12,21 @@ import android.net.Uri
 import android.os.Environment
 import android.os.Handler
 import android.util.Log
-import android.view.*
+import android.view.ScaleGestureDetector
+import android.view.SurfaceHolder
+import android.view.SurfaceView
+import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.commons.extensions.scanPaths
+import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
+import com.simplemobiletools.commons.extensions.scanPath
 import com.simplemobiletools.commons.extensions.toast
 import java.io.File
 import java.io.IOException
 import java.io.Serializable
 import java.util.*
 
-class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.OnClickListener, MediaScannerConnection.OnScanCompletedListener {
+class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
     companion object {
         val PHOTO_PREVIEW_LENGTH = 1000
         private val TAG = Preview::class.java.simpleName
@@ -32,31 +37,31 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
         lateinit var mActivity: MainActivity
         lateinit var mCallback: PreviewListener
         lateinit var mScreenSize: Point
+        lateinit var config: Config
         private var mCamera: Camera? = null
         private var mSupportedPreviewSizes: List<Camera.Size>? = null
         private var mPreviewSize: Camera.Size? = null
         private var mParameters: Camera.Parameters? = null
         private var mRecorder: MediaRecorder? = null
-        private var mCurrVideoPath: String? = null
         private var mTargetUri: Uri? = null
         private var mScaleGestureDetector: ScaleGestureDetector? = null
         private var mZoomRatios: List<Int>? = null
-        private var mConfig: Config? = null
 
-        private var mCanTakePicture: Boolean = false
-        private var mIsFlashEnabled: Boolean = false
-        private var mIsRecording: Boolean = false
-        private var mIsVideoMode: Boolean = false
-        private var mIsSurfaceCreated: Boolean = false
-        private var mSwitchToVideoAsap: Boolean = false
-        private var mSetupPreviewAfterMeasure: Boolean = false
-        private val mForceAspectRatio: Boolean = false
-        private var mWasZooming: Boolean = false
-        private var mLastClickX: Int = 0
-        private var mLastClickY: Int = 0
-        private var mInitVideoRotation: Int = 0
-        private var mCurrCameraId: Int = 0
-        private var mMaxZoom: Int = 0
+        private var mCurrVideoPath = ""
+        private var mCanTakePicture = false
+        private var mIsFlashEnabled = false
+        private var mIsRecording = false
+        private var mIsVideoMode = false
+        private var mIsSurfaceCreated = false
+        private var mSwitchToVideoAsap = false
+        private var mSetupPreviewAfterMeasure = false
+        private val mForceAspectRatio = false
+        private var mWasZooming = false
+        private var mLastClickX = 0
+        private var mLastClickY = 0
+        private var mInitVideoRotation = 0
+        private var mCurrCameraId = 0
+        private var mMaxZoom = 0
     }
 
     constructor(context: Context) : super(context)
@@ -69,15 +74,31 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
         mSurfaceHolder.addCallback(this)
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
         mCanTakePicture = false
-        mSurfaceView.setOnTouchListener(this)
-        mSurfaceView.setOnClickListener(this)
         mIsFlashEnabled = false
         mIsVideoMode = false
         mIsSurfaceCreated = false
         mSetupPreviewAfterMeasure = false
         mCurrVideoPath = ""
-        mScreenSize = Utils.getScreenSize(mActivity)
+        config = activity.config
+        mScreenSize = Utils.getScreenSize(activity)
         initGestureDetector()
+
+        mSurfaceView.setOnTouchListener { view, event ->
+            mLastClickX = event.x.toInt()
+            mLastClickY = event.y.toInt()
+
+            if (mMaxZoom > 0)
+                mScaleGestureDetector!!.onTouchEvent(event)
+            false
+        }
+
+        mSurfaceView.setOnClickListener {
+            if (!mWasZooming)
+                focusArea(false)
+
+            mWasZooming = false
+            mSurfaceView.isSoundEffectsEnabled = true
+        }
     }
 
     fun trySwitchToVideo() {
@@ -95,7 +116,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
             newCamera = Camera.open(cameraId)
             mCallback.setIsCameraAvailable(true)
         } catch (e: Exception) {
-            Utils.showToast(mActivity, R.string.camera_open_error)
+            mActivity.toast(R.string.camera_open_error)
             Log.e(TAG, "setCamera open " + e.message)
             mCallback.setIsCameraAvailable(false)
             return false
@@ -132,7 +153,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
                     Log.e(TAG, "setCamera setPreviewDisplay " + e.message)
                     return false
                 }
-
             }
 
             mCallback.setFlashAvailable(Utils.hasFlash(mCamera))
@@ -207,7 +227,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
             mParameters.setPictureSize(maxSize.width, maxSize.height);*/
             mParameters!!.setRotation(rotation % 360)
 
-            if (mConfig!!.isSoundEnabled) {
+            if (config.isSoundEnabled) {
                 val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
                 val volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM)
                 if (volume != 0) {
@@ -227,7 +247,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
     }
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
-        if (mConfig!!.isShowPreviewEnabled) {
+        if (config.isShowPreviewEnabled) {
             Handler().postDelayed({ resumePreview() }, PHOTO_PREVIEW_LENGTH.toLong())
         } else {
             resumePreview()
@@ -237,21 +257,17 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
     }
 
     private fun resumePreview() {
-        if (mCamera != null) {
-            mCamera!!.startPreview()
-        }
-
+        mCamera?.startPreview()
         mCanTakePicture = true
     }
 
-    val supportedVideoSizes: List<Camera.Size>
-        get() {
-            if (mParameters!!.supportedVideoSizes != null) {
-                return mParameters!!.supportedVideoSizes
-            } else {
-                return mParameters!!.supportedPreviewSizes
-            }
+    fun getSupportedVideoSizes(): List<Camera.Size> {
+        return if (mParameters!!.supportedVideoSizes != null) {
+            mParameters!!.supportedVideoSizes
+        } else {
+            mParameters!!.supportedPreviewSizes
         }
+    }
 
     private fun focusArea(takePictureAfter: Boolean) {
         if (mCamera == null)
@@ -297,22 +313,16 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
 
     fun releaseCamera() {
         stopRecording()
-
-        if (mCamera != null) {
-            mCamera!!.stopPreview()
-            mCamera!!.release()
-            mCamera = null
-        }
-
+        mCamera?.stopPreview()
+        mCamera?.release()
+        mCamera = null
         cleanupRecorder()
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
         mIsSurfaceCreated = true
         try {
-            if (mCamera != null) {
-                mCamera!!.setPreviewDisplay(mSurfaceHolder)
-            }
+            mCamera?.setPreviewDisplay(mSurfaceHolder)
 
             if (mSwitchToVideoAsap)
                 initRecorder()
@@ -332,10 +342,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         mIsSurfaceCreated = false
-        if (mCamera != null) {
-            mCamera!!.stopPreview()
-        }
-
+        mCamera?.stopPreview()
         cleanupRecorder()
     }
 
@@ -414,21 +421,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
 
             if (mSetupPreviewAfterMeasure) {
                 mSetupPreviewAfterMeasure = false
-                if (mCamera != null)
-                    mCamera!!.stopPreview()
-
+                mCamera?.stopPreview()
                 setupPreview()
             }
         }
-    }
-
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-        mLastClickX = event.x.toInt()
-        mLastClickY = event.y.toInt()
-
-        if (mMaxZoom > 0)
-            mScaleGestureDetector!!.onTouchEvent(event)
-        return false
     }
 
     fun enableFlash() {
@@ -481,7 +477,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
         mRecorder!!.setAudioSource(MediaRecorder.AudioSource.DEFAULT)
 
         mCurrVideoPath = Utils.getOutputMediaFile(mActivity, false)
-        if (mCurrVideoPath!!.isEmpty()) {
+        if (mCurrVideoPath.isEmpty()) {
             mActivity.toast(R.string.video_creating_error)
             return false
         }
@@ -492,10 +488,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
         cpHigh.videoFrameHeight = videoSize.height;
         mRecorder.setProfile(cpHigh);*/
 
-        if (Utils.needsStupidWritePermissions(context, mCurrVideoPath!!)) {
-            if (mConfig!!.treeUri.isEmpty()) {
+        if (mActivity.needsStupidWritePermissions(mCurrVideoPath)) {
+            if (config.treeUri.isEmpty()) {
                 mActivity.toast(R.string.save_error_internal_storage)
-                mConfig!!.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
+                config.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
                 releaseCamera()
                 return false
             }
@@ -569,11 +565,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
             try {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
-                val paths = arrayListOf<String>(mCurrVideoPath!!)
-                mActivity.scanPaths(paths) {}
+                mActivity.scanPath(mCurrVideoPath) {}
             } catch (e: RuntimeException) {
                 toggleShutterSound(false)
-                File(mCurrVideoPath!!).delete()
+                File(mCurrVideoPath).delete()
                 mActivity.toast(R.string.video_saving_error)
                 Log.e(TAG, "stopRecording " + e.message)
                 mRecorder = null
@@ -586,24 +581,16 @@ class Preview : ViewGroup, SurfaceHolder.Callback, View.OnTouchListener, View.On
         mRecorder = null
         mIsRecording = false
 
-        val file = File(mCurrVideoPath!!)
+        val file = File(mCurrVideoPath)
         if (file.exists() && file.length() == 0L) {
             file.delete()
         }
     }
 
     private fun toggleShutterSound(mute: Boolean?) {
-        if (!mConfig!!.isSoundEnabled) {
+        if (!config.isSoundEnabled) {
             (mActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager).setStreamMute(AudioManager.STREAM_SYSTEM, mute!!)
         }
-    }
-
-    override fun onClick(v: View) {
-        if (!mWasZooming)
-            focusArea(false)
-
-        mWasZooming = false
-        mSurfaceView.isSoundEffectsEnabled = true
     }
 
     override fun onScanCompleted(path: String, uri: Uri) {
