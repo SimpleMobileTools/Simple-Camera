@@ -1,12 +1,10 @@
 package com.simplemobiletools.camera.activities
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.view.View
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import kotlinx.android.synthetic.main.activity_about.*
@@ -43,7 +41,7 @@ class AboutActivity : SimpleActivity() {
     }
 
     private fun setupRateUs() {
-        if (config.isFirstRun) {
+        /*if (config.isFirstRun) {
             about_rate_us.visibility = View.GONE
         } else {
             about_rate_us.setOnClickListener {
@@ -54,7 +52,7 @@ class AboutActivity : SimpleActivity() {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getStoreUrl())))
                 }
             }
-        }
+        }*/
     }
 
     fun setupInvite() {

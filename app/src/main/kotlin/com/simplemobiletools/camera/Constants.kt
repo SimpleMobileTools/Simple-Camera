@@ -15,9 +15,6 @@ val P720 = 1000000
 val P1080 = 2100000
 
 // shared preferences
-val PREFS_KEY = "Camera"
-val IS_FIRST_RUN = "is_first_run"
-val IS_DARK_THEME = "is_dark_theme"
 val SAVE_PHOTOS = "save_photos"
 val SHOW_PREVIEW = "show_preview"
 val SOUND = "sound"
@@ -26,4 +23,3 @@ val MAX_PHOTO_RESOLUTION = "max_photo_resolution"
 val MAX_VIDEO_RESOLUTION = "max_video_resolution"
 val LAST_USED_CAMERA = "last_used_camera"
 val LAST_FLASHLIGHT_STATE = "last_flashlight_state"
-val TREE_URI = "tree_uri"

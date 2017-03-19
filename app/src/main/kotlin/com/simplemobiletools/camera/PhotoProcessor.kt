@@ -5,9 +5,9 @@ import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.filepicker.extensions.getFileDocument
-import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
-import com.simplemobiletools.filepicker.extensions.toast
+import com.simplemobiletools.commons.extensions.getFileDocument
+import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
+import com.simplemobiletools.commons.extensions.toast
 import java.io.*
 import java.lang.ref.WeakReference
 
@@ -46,8 +46,8 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
                     return ""
                 }
                 var document = activity.getFileDocument(path, config.treeUri)
-                document = document.createFile("", path.substring(path.lastIndexOf('/') + 1))
-                fos = activity.contentResolver.openOutputStream(document.uri)
+                document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1))
+                fos = activity.contentResolver.openOutputStream(document?.uri)
             } else {
                 fos = FileOutputStream(photoFile)
             }

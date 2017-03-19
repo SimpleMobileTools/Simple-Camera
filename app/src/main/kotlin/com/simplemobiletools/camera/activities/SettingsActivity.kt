@@ -1,22 +1,10 @@
 package com.simplemobiletools.camera.activities
 
-import android.annotation.TargetApi
-import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.TaskStackBuilder
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import com.simplemobiletools.camera.*
-import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
-import com.simplemobiletools.filepicker.extensions.getBasePath
-import com.simplemobiletools.filepicker.extensions.getHumanReadablePath
-import com.simplemobiletools.filepicker.extensions.isShowingWritePermissions
-import kotlinx.android.synthetic.main.activity_settings.*
-import java.io.File
+import com.simplemobiletools.camera.R
 
 class SettingsActivity : SimpleActivity() {
     val OPEN_DOCUMENT_TREE = 1
@@ -27,13 +15,12 @@ class SettingsActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        setupDarkTheme()
-        setupSavePhotosFolder()
+        /*setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
         setupForceRatio()
         setupMaxPhotoResolution()
-        setupMaxVideoResolution()
+        setupMaxVideoResolution()*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,37 +38,23 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupDarkTheme() {
-        settings_dark_theme.isChecked = config.isDarkTheme
-        settings_dark_theme_holder.setOnClickListener {
-            settings_dark_theme.toggle()
-            config.isDarkTheme = settings_dark_theme.isChecked
-            restartActivity()
-        }
-    }
-
-    private fun setupSavePhotosFolder() {
+    /*private fun setupSavePhotosFolder() {
         mCurrPath = config.savePhotosFolder
         settings_save_photos.text = getHumanPath()
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, mCurrPath, false, false, object : FilePickerDialog.OnFilePickerListener {
-                override fun onFail(error: FilePickerDialog.FilePickerResult) {
+            FilePickerDialog(this, mCurrPath, false) {
+                mWantedPath = pickedPath
+                if (!isShowingWritePermissions(File(pickedPath), config.treeUri, OPEN_DOCUMENT_TREE)) {
+                    mCurrPath = if (pickedPath.length == 1) pickedPath else pickedPath.trimEnd('/')
+                    config.savePhotosFolder = mCurrPath
+                    settings_save_photos.text = getHumanPath()
                 }
-
-                override fun onSuccess(pickedPath: String) {
-                    mWantedPath = pickedPath
-                    if (!isShowingWritePermissions(File(pickedPath), config.treeUri, OPEN_DOCUMENT_TREE)) {
-                        mCurrPath = if (pickedPath.length == 1) pickedPath else pickedPath.trimEnd('/')
-                        config.savePhotosFolder = mCurrPath
-                        settings_save_photos.text = getHumanPath()
-                    }
-                }
-            })
+            }
         }
     }
 
     private fun getHumanPath(): String {
-        val basePath = mCurrPath.getBasePath(applicationContext)
+        val basePath = mCurrPath.getBasePath(this)
         val path = mCurrPath.replaceFirst(basePath, getStorageName(basePath)).trimEnd('/')
 
         return if (path.contains('/'))
@@ -200,9 +173,5 @@ class SettingsActivity : SimpleActivity() {
             2 -> P1080
             else -> -1
         }
-    }
-
-    private fun restartActivity() {
-        TaskStackBuilder.create(applicationContext).addNextIntentWithParentStack(intent).startActivities()
-    }
+    }*/
 }

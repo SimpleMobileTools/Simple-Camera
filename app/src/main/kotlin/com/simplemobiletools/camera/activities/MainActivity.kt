@@ -22,9 +22,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
+import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.views.FocusRectView
-import com.simplemobiletools.filepicker.extensions.hasStoragePermission
-import com.simplemobiletools.filepicker.extensions.toast
+import com.simplemobiletools.commons.extensions.hasWriteStoragePermission
+import com.simplemobiletools.commons.extensions.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -97,7 +98,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             if (!Utils.hasCameraPermission(applicationContext)) {
                 permissions.add(Manifest.permission.CAMERA)
             }
-            if (!hasStoragePermission()) {
+            if (!hasWriteStoragePermission()) {
                 permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
             ActivityCompat.requestPermissions(this, permissions.toTypedArray(), CAMERA_STORAGE_PERMISSION)
@@ -156,7 +157,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
     }
 
-    private fun hasCameraAndStoragePermission() = Utils.hasCameraPermission(applicationContext) && hasStoragePermission()
+    private fun hasCameraAndStoragePermission() = Utils.hasCameraPermission(applicationContext) && hasWriteStoragePermission()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

@@ -9,9 +9,9 @@ import android.graphics.Point
 import android.hardware.Camera
 import android.support.v4.content.ContextCompat
 import android.view.Surface
-import com.simplemobiletools.filepicker.extensions.getFileDocument
-import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
-import com.simplemobiletools.filepicker.extensions.toast
+import com.simplemobiletools.commons.extensions.getFileDocument
+import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
+import com.simplemobiletools.commons.extensions.toast
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
