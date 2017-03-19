@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +9,8 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.getBasePath
 import com.simplemobiletools.commons.extensions.getHumanReadablePath
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
+import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : SimpleActivity() {
@@ -39,13 +40,11 @@ class SettingsActivity : SimpleActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.about -> {
-                startActivity(Intent(applicationContext, AboutActivity::class.java))
-                true
-            }
+        when (item.itemId) {
+            R.id.about -> startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_GLIDE, BuildConfig.VERSION_NAME)
             else -> super.onOptionsItemSelected(item)
         }
+        return true
     }
 
     private fun setupSavePhotosFolder() {

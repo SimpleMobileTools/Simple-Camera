@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">Mums reikia audio leidimo, kad įrašyti vaizdo bylas</string>
     <string name="no_gallery_app_available">Nėra galerijos programėlės</string>
     <string name="no_valid_resolution_found">Nerasta tinkamos raiškos su with pasirinktu kraštinių santykiu, naudojant maksimalią raišką</string>
-    <string name="ok">Gerai</string>
 
     <!-- Settings -->
-    <string name="settings">Nustatymai</string>
-    <string name="dark_theme">Tamsi tema</string>
     <string name="save_photos">Išsaugoti nuotraukas ir vaizdo įrašus į</string>
     <string name="force_ratio">Naudoti 16:9 santykį</string>
     <string name="show_preview">Show a photo preview after capturing</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">Maksimalios vaizdo įrašo raiškos limitas</string>
     <string name="no_limit">nieko</string>
     <string name="shutter_sound">Užrakto garsas</string>
-
-    <!-- About -->
-    <string name="about">Apie</string>
-    <string name="website">Daugiau paprastų programėlių ir atviras kodas čia:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Siųsti savo grįžtamąjį ryšį arba pasiūlymus čia:</string>
-    <string name="third_party_licences_underlined"><u>Trečiųjų šalių licenzijos</u></string>
-    <string name="invite_friends_underlined"><u>Pakvieskite draugus</u></string>
-    <string name="share_text">Ei, ateikite čia ir patikrinkite %1$s čia %2$s</string>
-    <string name="invite_via">Pakviesti per</string>
-    <string name="rate_us_underlined"><u>Įvertinti mus google play parduotuvėje</u></string>
-    <string name="follow_us">Sekti mus:</string>
-    <string name="copyright">v %1$s\nVisos teisės saugomos © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Ši programėlė naudoja sekančias trečiųjų šyalių bibliotekas, kad palengvinti man gyvenimą. Ačiū.</string>
-    <string name="third_party_licences">Trečiųjų šalių licenzijos</string>
-    <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
-    <string name="glide_title"><u>Glide (image loading and caching)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

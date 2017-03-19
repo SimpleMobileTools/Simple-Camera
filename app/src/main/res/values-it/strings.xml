@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">È necessario l\'accesso al microfono per registrare i video</string>
     <string name="no_gallery_app_available">Nessuna app galleria disponibile</string>
     <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
-    <string name="ok">OK</string>
 
     <!-- Settings -->
-    <string name="settings">Impostazioni</string>
-    <string name="dark_theme">Tema scuro</string>
     <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Forza proporzione 16:9</string>
     <string name="show_preview">Show a photo preview after capturing</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">Video resolution limit</string>
     <string name="no_limit">nessuno</string>
     <string name="shutter_sound">Suono otturatore</string>
-
-    <!-- About -->
-    <string name="about">Informazioni</string>
-    <string name="website">Altre semplici app e codici sorgenti in:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Invia la tua opinione o i tuoi suggerimenti a:</string>
-    <string name="third_party_licences_underlined"><u>Licenze di terze parti</u></string>
-    <string name="invite_friends_underlined"><u>Invite friends</u></string>
-    <string name="share_text">Hey, come check out %1$s at %2$s</string>
-    <string name="invite_via">Invite via</string>
-    <string name="rate_us_underlined"><u>Dacci un voto sul Play Store</u></string>
-    <string name="follow_us">Seguici:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Questa app usa le seguenti librerie di terze parti per semplificarmi la vita. Grazie.</string>
-    <string name="third_party_licences">Licenze di terze parti</string>
-    <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
-    <string name="glide_title"><u>Glide (image loading and caching)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

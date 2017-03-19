@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">ビデオを記録するためにオーディオのアクセス許可が必要です</string>
     <string name="no_gallery_app_available">利用可能なギャラリーアプリがありません</string>
     <string name="no_valid_resolution_found">選択したアスペクト比で有効な解像度が見つかりません。最大解像度を使用しています</string>
-    <string name="ok">OK</string>
 
     <!-- Settings -->
-    <string name="settings">設定</string>
-    <string name="dark_theme">ダークテーマ</string>
     <string name="save_photos">写真とビデオの保存先</string>
     <string name="force_ratio">強制的に 16:9 レシオにする</string>
     <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">ビデオ解像度の限度</string>
     <string name="no_limit">なし</string>
     <string name="shutter_sound">シャッター音</string>
-
-    <!-- About -->
-    <string name="about">アプリについて</string>
-    <string name="website">もっとシンプルなアプリとソースコードは:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">ご意見やご提案を送信してください:</string>
-    <string name="third_party_licences_underlined"><u>サードパーティー ライセンス</u></string>
-    <string name="invite_friends_underlined"><u>友達を招待</u></string>
-    <string name="share_text">%2$s で %1$s を確認してください</string>
-    <string name="invite_via">招待...</string>
-    <string name="rate_us_underlined"><u>Play ストアで評価してください</u></string>
-    <string name="follow_us">フォローしてください:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">このアプリは、私の暮らしにゆとりを持たせるために、次のサードパーティのライブラリーを使用しています。 ありがとうございます。</string>
-    <string name="third_party_licences">サードパーティー ライセンス</string>
-    <string name="kotlin_title"><u>Kotlin (プログラミング言語)</u></string>
-    <string name="glide_title"><u>Glide (イメージ ローディングとキャッシング)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (ファイルピッカー ダイアログ)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

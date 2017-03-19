@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">Necessitamos da permissão de áudio para gravar os vídeos</string>
     <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
     <string name="no_valid_resolution_found">Nenhuma resolução encontrada que seja compatível com o rácio selecionado, a utilizar a resolução máxima</string>
-    <string name="ok">OK</string>
 
     <!-- Settings -->
-    <string name="settings">Definições</string>
-    <string name="dark_theme">Tema escuro</string>
     <string name="save_photos">Guardar fotos e vídeos em</string>
     <string name="force_ratio">Utilizar rácio 16:9</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">Resolução máxima dos vídeos</string>
     <string name="no_limit">sem limite</string>
     <string name="shutter_sound">Som do obturador</string>
-
-    <!-- About -->
-    <string name="about">Acerca</string>
-    <string name="website">Mais aplicações Simple e código fonte em:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Envie os seus comentários ou sugestões para:</string>
-    <string name="third_party_licences_underlined"><u>Licenças de terceiros</u></string>
-    <string name="invite_friends_underlined"><u>Convidar amigos</u></string>
-    <string name="share_text">Olá, experimenta %1$s em %2$s</string>
-    <string name="invite_via">Convidar via</string>
-    <string name="rate_us_underlined"><u>Avalie-nos na Play Store</u></string>
-    <string name="follow_us">Siga-nos:</string>
-    <string name="copyright">V %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Esta aplicação usa as seguintes bibliotecas de terceiros para facilitar a minha vida. Obrigado.</string>
-    <string name="third_party_licences">Licenças de terceiros</string>
-    <string name="kotlin_title"><u>Kotlin (linguagem de programação)</u></string>
-    <string name="glide_title"><u>Glide (carregamento e cache de imagens)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (diálogo de seleção de ficheiros)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mirkofon um Videos aufnehmen zu können</string>
     <string name="no_gallery_app_available">Keine Galerie App verfügbar</string>
     <string name="no_valid_resolution_found">Keine gültige Auflösung mit gewähltem Seitenverhältnis gefunden, nutze maximale Auflösung</string>
-    <string name="ok">OK</string>
 
     <!-- Settings -->
-    <string name="settings">Einstellungen</string>
-    <string name="dark_theme">Dunkles Design</string>
     <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Erzwinge 16:9 Format</string>
     <string name="show_preview">Zeige eine Vorschau des Photos nach der Aufnahme</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">Maximale Videoauflösung</string>
     <string name="no_limit">Kein Limit</string>
     <string name="shutter_sound">Auslösegeräusch</string>
-
-    <!-- About -->
-    <string name="about">Über</string>
-    <string name="website">Weitere einfache Apps und Quellcode findest du auf:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Sende Vorschläge und Feedback an:</string>
-    <string name="third_party_licences_underlined"><u>Drittanbieterlizenzen</u></string>
-    <string name="invite_friends_underlined"><u>Lade Freunde ein</u></string>
-    <string name="share_text">Hey, wirf mal einen Blick auf %1$s: %2$s</string>
-    <string name="invite_via">Einladen via</string>
-    <string name="rate_us_underlined"><u>Bewerte uns im Play Store</u></string>
-    <string name="follow_us">Folge uns:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Diese App nutzt die folgenden Drittanbieterbibliotheken, die mein Leben einfacher machen. Danke.</string>
-    <string name="third_party_licences">Drittanbieterlizenzen</string>
-    <string name="kotlin_title"><u>Kotlin (Programmiersprache)</u></string>
-    <string name="glide_title"><u>Glide (Bilder laden und zwischenspeichern)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

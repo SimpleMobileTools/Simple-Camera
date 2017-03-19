@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">Se necesita el permiso de micrófono para grabar vídeos</string>
     <string name="no_gallery_app_available">No hay disponible una aplicación de galería</string>
     <string name="no_valid_resolution_found">Resolución no válida con la proporción de aspecto seleccionada, usando máxima resolución</string>
-    <string name="ok">Ok</string>
 
     <!-- Settings -->
-    <string name="settings">Opciones</string>
-    <string name="dark_theme">Tema oscuro</string>
     <string name="save_photos">Guardar fotografías y vídeos en</string>
     <string name="force_ratio">Usar proporción de aspecto 16:9</string>
     <string name="show_preview">Show a photo preview after capturing</string>
@@ -26,30 +23,11 @@
     <string name="no_limit">Sin límite</string>
     <string name="shutter_sound">Sonido del obturador</string>
 
-    <!-- About -->
-    <string name="about">Acerca de Simple Camera</string>
-    <string name="website">Más aplicaciones simples y su código fuente en:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Envíe sus comentarios y sugerencias a:</string>
-    <string name="third_party_licences_underlined"><u>Licencias de terceros</u></string>
-    <string name="invite_friends_underlined"><u>Invitar a amigos</u></string>
-    <string name="share_text">Hola, venga y échele un vistazo a %1$s en %2$s</string>
-    <string name="invite_via">Invitar vía</string>
-    <string name="rate_us_underlined"><u>Evalúenos en Google Play Store</u></string>
-    <string name="follow_us">Síganos:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Esta aplicación usa las siguientes librerías de terceros para hacerme la vida más fácil. Gracias.</string>
-    <string name="third_party_licences">Licencias de terceros</string>
-    <string name="kotlin_title"><u>Kotlin (Lenguaje de programación)</u></string>
-    <string name="glide_title"><u>Glide (image loading and caching)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Una cámara con flash, zoom y sin anuncios.</string>
     <string name="app_long_description">
-        La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede conmutar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom... Mientras se graba un vídeo el flash puede ser usado como una linterna.
+        La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede conmutar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom&#8230; Mientras se graba un vídeo el flash puede ser usado como una linterna.
 
 
         Si usted quiere lanzar esta aplicación presionando el botón físico de cámara, puede que tenga que deshabilitar la aplicación nativa de cámara (Ajustes -> Aplicaciones -> Cámara -> Deshabilitar).

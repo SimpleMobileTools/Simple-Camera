@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">Нам нужно аудио разрешение для записи видео</string>
     <string name="no_gallery_app_available">Нет доступного приложения-галереи</string>
     <string name="no_valid_resolution_found">Для выбранного соотношения сторон не существует подходящего разрешения. Будет использовано максимально возможное</string>
-    <string name="ok">OK</string>
 
     <!-- Settings -->
-    <string name="settings">Настройки</string>
-    <string name="dark_theme">Темная тема</string>
     <string name="save_photos">Сохранять фото и видео в</string>
     <string name="force_ratio">Принудительное соотношение сторон 16:9</string>
     <string name="show_preview">Показывать сделанное фото</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">Лимит разрешения видео</string>
     <string name="no_limit">нет</string>
     <string name="shutter_sound">Звук затвора</string>
-
-    <!-- About -->
-    <string name="about">О приложении</string>
-    <string name="website">Больше простых приложений и исходные коды на:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Отправить отзывы или предложения</string>
-    <string name="third_party_licences_underlined"><u>Лицензии третьих сторон</u></string>
-    <string name="invite_friends_underlined"><u>Предложить другу</u></string>
-    <string name="share_text">Попробуй %1$s по ссылке %2$s</string>
-    <string name="invite_via">Предложить с помощью</string>
-    <string name="rate_us_underlined"><u>Оценить нас в Google Play</u></string>
-    <string name="follow_us">Подписаться на нас:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Это приложение использует следующие библиотеки сторонних разработчиков, чтобы облегчить мой труд. Спасибо.</string>
-    <string name="third_party_licences">Лицензии третьих сторон</string>
-    <string name="kotlin_title">Kotlin (язык программирования)</string>
-    <string name="glide_title">Glide (загрузка изображения и кэширование)</string>
-    <string name="filepicker_title"><u>Simple File Picker (диалог выбора файла)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

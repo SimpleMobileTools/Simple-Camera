@@ -13,11 +13,8 @@
     <string name="no_audio_permissions">För att spela in video krävs ljudrättigheter</string>
     <string name="no_gallery_app_available">Ingen galleri-app finns tillgänglig</string>
     <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
-    <string name="ok">OK</string>
 
     <!-- Settings -->
-    <string name="settings">Inställningar</string>
-    <string name="dark_theme">Mörkt tema</string>
     <string name="save_photos">Save photos and videos to</string>
     <string name="force_ratio">Tvinga 16:9-förhållande</string>
     <string name="show_preview">Show a photo preview after capturing</string>
@@ -25,25 +22,6 @@
     <string name="max_video_size">Video resolution limit</string>
     <string name="no_limit">inga</string>
     <string name="shutter_sound">Slutarljud</string>
-
-    <!-- About -->
-    <string name="about">Om</string>
-    <string name="website">Fler enkla appar och källkod här:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Skicka feedback och förslag till:</string>
-    <string name="third_party_licences_underlined"><u>Tredjepartslicenser</u></string>
-    <string name="invite_friends_underlined"><u>Invite friends</u></string>
-    <string name="share_text">Hey, come check out %1$s at %2$s</string>
-    <string name="invite_via">Invite via</string>
-    <string name="rate_us_underlined"><u>Betygsätt oss i Play Butiken</u></string>
-    <string name="follow_us">Följ oss:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
-    <!-- License -->
-    <string name="notice">Denna app använder följande tredjepartsbibliotek för att göra mitt liv enklare. Tack.</string>
-    <string name="third_party_licences">Tredjepartslicenser</string>
-    <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
-    <string name="glide_title"><u>Glide (image loading and caching)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
