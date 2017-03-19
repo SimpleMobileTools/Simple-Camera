@@ -4,6 +4,7 @@ import android.content.Context
 import android.hardware.Camera
 import android.os.Environment
 import com.simplemobiletools.commons.helpers.BaseConfig
+import java.io.File
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
@@ -11,7 +12,14 @@ class Config(context: Context) : BaseConfig(context) {
     }
 
     var savePhotosFolder: String
-        get() = prefs.getString(SAVE_PHOTOS, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString())
+        get(): String {
+            var path = prefs.getString(SAVE_PHOTOS, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString())
+            if (!File(path).exists() || !File(path).isDirectory) {
+                path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
+                savePhotosFolder = path
+            }
+            return path
+        }
         set(path) = prefs.edit().putString(SAVE_PHOTOS, path).apply()
 
     var isShowPreviewEnabled: Boolean
