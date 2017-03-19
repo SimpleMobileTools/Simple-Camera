@@ -26,6 +26,7 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.commons.extensions.checkWhatsNew
 import com.simplemobiletools.commons.extensions.hasWriteStoragePermission
+import com.simplemobiletools.commons.extensions.storeStoragePaths
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
@@ -66,6 +67,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mRes = resources
         tryInitCamera()
         supportActionBar?.hide()
+        storeStoragePaths()
         checkWhatsNewDialog()
     }
 

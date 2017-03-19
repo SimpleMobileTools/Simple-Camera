@@ -6,17 +6,14 @@ import android.view.MenuItem
 import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.extensions.getBasePath
-import com.simplemobiletools.commons.extensions.getHumanReadablePath
+import com.simplemobiletools.commons.extensions.humanizePath
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.io.File
 
 class SettingsActivity : SimpleActivity() {
-    var mCurrPath = ""
-    var mWantedPath = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -48,31 +45,21 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupSavePhotosFolder() {
-        mCurrPath = config.savePhotosFolder
-        settings_save_photos.text = getHumanPath()
+        settings_save_photos.text = getLastPart(config.savePhotosFolder)
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, mCurrPath, false) {
-                /*mWantedPath = pickedPath
-                if (!isShowingWritePermissions(File(pickedPath), config.treeUri, OPEN_DOCUMENT_TREE)) {
-                    mCurrPath = if (pickedPath.length == 1) pickedPath else pickedPath.trimEnd('/')
-                    config.savePhotosFolder = mCurrPath
-                    settings_save_photos.text = getHumanPath()
-                }*/
+            FilePickerDialog(this, config.savePhotosFolder, false) {
+                handleSAFDialog(File(it)) {
+                    config.savePhotosFolder = it
+                    settings_save_photos.text = getLastPart(config.savePhotosFolder)
+                }
             }
         }
     }
 
-    private fun getHumanPath(): String {
-        val basePath = mCurrPath.getBasePath(this)
-        val path = mCurrPath.replaceFirst(basePath, getStorageName(basePath)).trimEnd('/')
-
-        return if (path.contains('/'))
-            path.substring(path.lastIndexOf("/") + 1)
-        else
-            path
+    private fun getLastPart(path: String): String {
+        val humanized = humanizePath(path)
+        return humanized.substringAfterLast("/", humanized)
     }
-
-    private fun getStorageName(basePath: String) = "${getHumanReadablePath(basePath)}/"
 
     private fun setupShowPreview() {
         settings_show_preview.isChecked = config.isShowPreviewEnabled
