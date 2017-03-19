@@ -29,7 +29,7 @@ import java.util.*
 
 class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
     companion object {
-        val PHOTO_PREVIEW_LENGTH = 1000
+        val PHOTO_PREVIEW_LENGTH = 1000L
         private val TAG = Preview::class.java.simpleName
         private val FOCUS_AREA_SIZE = 100
 
@@ -203,9 +203,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 newZoomFactor = Math.min(mMaxZoom, newZoomFactor)
 
                 mParameters!!.zoom = newZoomFactor
-                if (mCamera != null)
-                    mCamera!!.parameters = mParameters
-
+                mCamera?.parameters = mParameters
                 return true
             }
 
@@ -248,7 +246,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
         if (config.isShowPreviewEnabled) {
-            Handler().postDelayed({ resumePreview() }, PHOTO_PREVIEW_LENGTH.toLong())
+            Handler().postDelayed({
+                resumePreview()
+            }, PHOTO_PREVIEW_LENGTH)
         } else {
             resumePreview()
         }
@@ -261,13 +261,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mCanTakePicture = true
     }
 
-    fun getSupportedVideoSizes(): List<Camera.Size> {
-        return if (mParameters!!.supportedVideoSizes != null) {
-            mParameters!!.supportedVideoSizes
-        } else {
-            mParameters!!.supportedPreviewSizes
-        }
-    }
+    fun getSupportedVideoSizes(): List<Camera.Size> = mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
 
     private fun focusArea(takePictureAfter: Boolean) {
         if (mCamera == null)

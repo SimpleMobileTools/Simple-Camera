@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.database.Cursor
 import android.hardware.*
-import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -29,11 +28,11 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener, MediaScannerConnection.OnScanCompletedListener {
+class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener {
     companion object {
 
         private val CAMERA_STORAGE_PERMISSION = 1
-        private val AUDIO_PERMISSION = 2
+        private val RECORD_AUDIO_PERMISSION = 2
         private val FADE_DELAY = 5000
 
         lateinit var mSensorManager: SensorManager
@@ -107,19 +106,17 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun handleIntent() {
-        if (intent?.action != null) {
-            if (intent.action == MediaStore.ACTION_IMAGE_CAPTURE || intent.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE) {
-                mIsImageCaptureIntent = true
-                hideToggleModeAbout()
-                val output = intent.extras.get(MediaStore.EXTRA_OUTPUT)
-                if (output != null && output is Uri) {
-                    mPreview?.setTargetUri(output)
-                }
-            } else if (intent.action == MediaStore.ACTION_VIDEO_CAPTURE) {
-                mIsVideoCaptureIntent = true
-                hideToggleModeAbout()
-                shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
+        if (intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE) {
+            mIsImageCaptureIntent = true
+            hideToggleModeAbout()
+            val output = intent.extras.get(MediaStore.EXTRA_OUTPUT)
+            if (output != null && output is Uri) {
+                mPreview?.setTargetUri(output)
             }
+        } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
+            mIsVideoCaptureIntent = true
+            hideToggleModeAbout()
+            shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
         }
     }
 
@@ -172,7 +169,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
                 toast(R.string.no_permissions)
                 finish()
             }
-        } else if (requestCode == AUDIO_PERMISSION) {
+        } else if (requestCode == RECORD_AUDIO_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 togglePhotoVideo()
             } else {
@@ -268,15 +265,17 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
             mPreview?.takePicture()
-            Handler().postDelayed({ toggleBottomButtons(false) }, Preview.PHOTO_PREVIEW_LENGTH.toLong())
+            Handler().postDelayed({
+                toggleBottomButtons(false)
+            }, Preview.PHOTO_PREVIEW_LENGTH)
         } else {
             if (mPreview?.toggleRecording() == true) {
                 shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_stop))
-                toggle_camera.visibility = View.INVISIBLE
+                toggle_camera.beInvisible()
                 showTimer()
             } else {
                 shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
-                toggle_camera.visibility = View.VISIBLE
+                toggle_camera.beVisible()
                 hideTimer()
             }
         }
@@ -309,7 +308,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
 
         if (!hasRecordAudioPermission()) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), AUDIO_PERMISSION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_PERMISSION)
             mIsAskingPermissions = true
             return
         }
@@ -320,7 +319,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         disableFlash()
         hideTimer()
         mIsInPhotoMode = !mIsInPhotoMode
-        toggle_camera.visibility = View.VISIBLE
+        toggle_camera.beVisible()
     }
 
     private fun checkButtons() {
@@ -350,7 +349,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     private fun initVideoButtons() {
         toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_camera))
-        toggle_camera.visibility = View.VISIBLE
+        toggle_camera.beVisible()
         shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
         checkFlash()
         setupPreviewImage(false)
@@ -365,7 +364,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
         runOnUiThread {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !isDestroyed) {
+            if (!isDestroyed || Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 Glide.with(this).load(mPreviewUri).centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(last_photo_video_preview)
             }
         }
@@ -376,9 +375,8 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         var cursor: Cursor? = null
         try {
             cursor = contentResolver.query(uri, projection, null, null, "${MediaStore.Images.ImageColumns.DATE_TAKEN} DESC")
-            if (cursor != null && cursor.moveToFirst()) {
-                val idIndex = cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID)
-                return cursor.getLong(idIndex)
+            if (cursor?.moveToFirst() == true) {
+                return cursor.getLongValue(MediaStore.Images.ImageColumns._ID)
             }
         } finally {
             cursor?.close()
@@ -412,13 +410,13 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     private fun hideTimer() {
         video_rec_curr_timer.text = 0.getFormattedDuration()
-        video_rec_curr_timer.visibility = View.GONE
+        video_rec_curr_timer.beGone()
         mCurrVideoRecTimer = 0
         mTimerHandler.removeCallbacksAndMessages(null)
     }
 
     private fun showTimer() {
-        video_rec_curr_timer.visibility = View.VISIBLE
+        video_rec_curr_timer.beVisible()
         setupTimer()
     }
 
@@ -449,7 +447,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun resumeCameraItems() {
         val cnt = Camera.getNumberOfCameras()
         if (cnt == 1) {
-            toggle_camera.visibility = View.INVISIBLE
+            toggle_camera.beInvisible()
         }
 
         if (mPreview?.setCamera(mCurrCamera) == true) {
@@ -482,19 +480,19 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     override fun onSensorChanged(event: SensorEvent) {
         if (event.values[0] < 6.5 && event.values[0] > -6.5) {
-            mOrientation = Constants.ORIENT_PORTRAIT
+            mOrientation = ORIENT_PORTRAIT
         } else {
             if (event.values[0] > 0) {
-                mOrientation = Constants.ORIENT_LANDSCAPE_LEFT
+                mOrientation = ORIENT_LANDSCAPE_LEFT
             } else {
-                mOrientation = Constants.ORIENT_LANDSCAPE_RIGHT
+                mOrientation = ORIENT_LANDSCAPE_RIGHT
             }
         }
 
         if (mOrientation != mLastHandledOrientation) {
             val degrees = when (mOrientation) {
-                Constants.ORIENT_LANDSCAPE_LEFT -> 90
-                Constants.ORIENT_LANDSCAPE_RIGHT -> -90
+                ORIENT_LANDSCAPE_LEFT -> 90
+                ORIENT_LANDSCAPE_RIGHT -> -90
                 else -> 0
             }
 
@@ -524,9 +522,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     override fun setFlashAvailable(available: Boolean) {
         if (available) {
-            toggle_flash.visibility = View.VISIBLE
+            toggle_flash.beVisible()
         } else {
-            toggle_flash.visibility = View.INVISIBLE
+            toggle_flash.beInvisible()
             disableFlash()
         }
     }
@@ -552,8 +550,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     override fun drawFocusRect(x: Int, y: Int) = mFocusRectView.drawFocusRect(x, y)
 
     override fun mediaSaved(path: String) {
-        val paths = arrayOf(path)
-        MediaScannerConnection.scanFile(applicationContext, paths, null, this)
+        scanPath(path) {
+            setupPreviewImage(mIsInPhotoMode)
+        }
 
         if (mIsImageCaptureIntent) {
             setResult(Activity.RESULT_OK)
@@ -566,8 +565,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         config.isFirstRun = false
         mPreview?.releaseCamera()
     }
-
-    override fun onScanCompleted(path: String, uri: Uri) = setupPreviewImage(mIsInPhotoMode)
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

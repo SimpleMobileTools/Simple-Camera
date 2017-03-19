@@ -4,12 +4,16 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
+import com.simplemobiletools.camera.Preview.Companion.config
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.commons.extensions.getFileDocument
 import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
 import com.simplemobiletools.commons.extensions.toast
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 import java.lang.ref.WeakReference
 
 class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<ByteArray, Void, String>() {
@@ -38,7 +42,6 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
 
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
-                val config = Config.newInstance(activity)
                 if (config.treeUri.isEmpty()) {
                     activity.runOnUiThread {
                         activity.toast(R.string.save_error_internal_storage)
@@ -57,10 +60,8 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
             fos?.write(data)
             fos?.close()
             return photoFile.absolutePath
-        } catch (e: FileNotFoundException) {
+        } catch (e: Exception) {
             Log.e(TAG, "PhotoProcessor file not found: $e")
-        } catch (e: IOException) {
-            Log.e(TAG, "PhotoProcessor ioexception $e")
         } finally {
             try {
                 fos?.close()
@@ -74,8 +75,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
 
     override fun onPostExecute(path: String) {
         super.onPostExecute(path)
-        val listener = mActivity?.get()
-        listener?.mediaSaved(path)
+        mActivity?.get()?.mediaSaved(path)
     }
 
     interface MediaSavedListener {
