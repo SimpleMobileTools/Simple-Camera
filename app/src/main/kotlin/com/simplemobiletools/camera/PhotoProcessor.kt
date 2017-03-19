@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
 import com.simplemobiletools.camera.activities.MainActivity
+import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.commons.extensions.getFileDocument
 import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
 import com.simplemobiletools.commons.extensions.toast
@@ -28,7 +29,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
             if (uri != null) {
                 path = uri.path
             } else {
-                path = Utils.getOutputMediaFile(activity, true)
+                path = activity.getOutputMediaFile(true)
             }
 
             if (path.isEmpty()) {

@@ -17,7 +17,8 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.*
+import com.simplemobiletools.commons.extensions.getNavBarHeight
 import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
 import com.simplemobiletools.commons.extensions.scanPath
 import com.simplemobiletools.commons.extensions.toast
@@ -80,7 +81,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mSetupPreviewAfterMeasure = false
         mCurrVideoPath = ""
         config = activity.config
-        mScreenSize = Utils.getScreenSize(activity)
+        mScreenSize = getScreenSize()
         initGestureDetector()
 
         mSurfaceView.setOnTouchListener { view, event ->
@@ -142,8 +143,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
                 mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
 
-            val rotation = Utils.getPreviewRotation(mActivity, cameraId)
-            mCamera!!.setDisplayOrientation(rotation)
+            mCamera!!.setDisplayOrientation(mActivity.getPreviewRotation(cameraId))
             mCamera!!.parameters = mParameters
 
             if (mCanTakePicture) {
@@ -155,7 +155,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 }
             }
 
-            mCallback.setFlashAvailable(Utils.hasFlash(mCamera))
+            mCallback.setFlashAvailable(hasFlash(mCamera))
         }
 
         if (mIsVideoMode) {
@@ -220,8 +220,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     fun takePicture() {
         if (mCanTakePicture) {
-            var rotation = Utils.getMediaRotation(mActivity, mCurrCameraId)
-            rotation += Utils.compensateDeviceRotation(mCurrCameraId, mCallback.getCurrentOrientation())
+            var rotation = mActivity.getMediaRotation(mCurrCameraId)
+            rotation += mCallback.getCurrentOrientation().compensateDeviceRotation(mCurrCameraId)
 
             /*final Camera.Size maxSize = getOptimalPictureSize();
             mParameters.setPictureSize(maxSize.width, maxSize.height);*/
@@ -476,7 +476,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mRecorder!!.setVideoSource(MediaRecorder.VideoSource.DEFAULT)
         mRecorder!!.setAudioSource(MediaRecorder.AudioSource.DEFAULT)
 
-        mCurrVideoPath = Utils.getOutputMediaFile(mActivity, false)
+        mCurrVideoPath = mActivity.getOutputMediaFile(false)
         if (mCurrVideoPath.isEmpty()) {
             mActivity.toast(R.string.video_creating_error)
             return false
@@ -510,7 +510,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
         mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
 
-        val rotation = Utils.getFinalRotation(mActivity, mCurrCameraId, mCallback.getCurrentOrientation())
+        val rotation = mActivity.getFinalRotation(mCurrCameraId, mCallback.getCurrentOrientation())
         mInitVideoRotation = rotation
         mRecorder!!.setOrientationHint(rotation)
 
@@ -541,7 +541,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun startRecording() {
-        if (mInitVideoRotation != Utils.getFinalRotation(mActivity, mCurrCameraId, mCallback.getCurrentOrientation())) {
+        if (mInitVideoRotation != mActivity.getFinalRotation(mCurrCameraId, mCallback.getCurrentOrientation())) {
             cleanupRecorder()
             initRecorder()
         }
@@ -596,6 +596,32 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     override fun onScanCompleted(path: String, uri: Uri) {
         mCallback.videoSaved(uri)
         toggleShutterSound(false)
+    }
+
+    private fun hasFlash(camera: Camera?): Boolean {
+        if (camera == null) {
+            return false
+        }
+
+        if (camera.parameters.flashMode == null) {
+            return false
+        }
+
+        val supportedFlashModes = camera.parameters.supportedFlashModes
+        if (supportedFlashModes == null || supportedFlashModes.isEmpty() ||
+                supportedFlashModes.size == 1 && supportedFlashModes[0] == Camera.Parameters.FLASH_MODE_OFF) {
+            return false
+        }
+
+        return true
+    }
+
+    private fun getScreenSize(): Point {
+        val display = mActivity.windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        size.y += mActivity.resources.getNavBarHeight()
+        return size
     }
 
     private class SizesComparator : Comparator<Camera.Size>, Serializable {

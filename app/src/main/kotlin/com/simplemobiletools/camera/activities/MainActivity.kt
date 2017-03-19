@@ -24,10 +24,7 @@ import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.views.FocusRectView
-import com.simplemobiletools.commons.extensions.checkWhatsNew
-import com.simplemobiletools.commons.extensions.hasWriteStoragePermission
-import com.simplemobiletools.commons.extensions.storeStoragePaths
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -99,7 +96,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             handleIntent()
         } else {
             val permissions = ArrayList<String>(2)
-            if (!Utils.hasCameraPermission(applicationContext)) {
+            if (!hasCameraPermission()) {
                 permissions.add(Manifest.permission.CAMERA)
             }
             if (!hasWriteStoragePermission()) {
@@ -110,8 +107,8 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun handleIntent() {
-        if (intent != null && intent.action != null) {
-            if (intent.extras != null && intent.action == MediaStore.ACTION_IMAGE_CAPTURE || intent.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE) {
+        if (intent?.action != null) {
+            if (intent.action == MediaStore.ACTION_IMAGE_CAPTURE || intent.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE) {
                 mIsImageCaptureIntent = true
                 hideToggleModeAbout()
                 val output = intent.extras.get(MediaStore.EXTRA_OUTPUT)
@@ -130,9 +127,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         setContentView(R.layout.activity_main)
         initButtons()
 
-        if (Utils.hasNavBar(mRes) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (mRes.hasNavBar() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             val lp = btn_holder.layoutParams as RelativeLayout.LayoutParams
-            lp.setMargins(0, 0, 0, lp.bottomMargin + Utils.getNavBarHeight(mRes))
+            lp.setMargins(0, 0, 0, lp.bottomMargin + mRes.getNavBarHeight())
         }
 
         mCurrCamera = config.lastUsedCamera
@@ -161,7 +158,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
     }
 
-    private fun hasCameraAndStoragePermission() = Utils.hasCameraPermission(applicationContext) && hasWriteStoragePermission()
+    private fun hasCameraAndStoragePermission() = hasCameraPermission() && hasWriteStoragePermission()
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -176,7 +173,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
                 finish()
             }
         } else if (requestCode == AUDIO_PERMISSION) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 togglePhotoVideo()
             } else {
                 toast(R.string.no_audio_permissions)
@@ -311,7 +308,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             return
         }
 
-        if (!Utils.hasAudioPermission(applicationContext)) {
+        if (!hasRecordAudioPermission()) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), AUDIO_PERMISSION)
             mIsAskingPermissions = true
             return
@@ -414,7 +411,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun hideTimer() {
-        video_rec_curr_timer.text = Utils.formatSeconds(0)
+        video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.visibility = View.GONE
         mCurrVideoRecTimer = 0
         mTimerHandler.removeCallbacksAndMessages(null)
@@ -428,7 +425,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun setupTimer() {
         runOnUiThread(object : Runnable {
             override fun run() {
-                video_rec_curr_timer.text = Utils.formatSeconds(mCurrVideoRecTimer++)
+                video_rec_curr_timer.text = mCurrVideoRecTimer++.getFormattedDuration()
                 mTimerHandler.postDelayed(this, 1000)
             }
         })
