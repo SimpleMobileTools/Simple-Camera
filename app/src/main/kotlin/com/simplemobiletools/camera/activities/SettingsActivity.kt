@@ -27,8 +27,10 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
-        setupMaxPhotoResolution()
-        setupMaxVideoResolution()
+        setupBackPhotoResolution()
+        setupFrontPhotoResolution()
+        setupBackVideoResolution()
+        setupFrontVideoResolution()
         updateTextColors(settings_holder)
     }
 
@@ -84,16 +86,26 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupMaxPhotoResolution() {
-        settings_max_photo_resolution.text = ""
-        settings_max_photo_resolution_holder.setOnClickListener {
+    private fun setupBackPhotoResolution() {
+        settings_back_photo_resolution_holder.setOnClickListener {
 
         }
     }
 
-    private fun setupMaxVideoResolution() {
-        settings_max_photo_resolution.text = ""
-        settings_max_photo_resolution_holder.setOnClickListener {
+    private fun setupFrontPhotoResolution() {
+        settings_front_photo_resolution_holder.setOnClickListener {
+
+        }
+    }
+
+    private fun setupBackVideoResolution() {
+        settings_back_video_resolution_holder.setOnClickListener {
+
+        }
+    }
+
+    private fun setupFrontVideoResolution() {
+        settings_front_video_resolution_holder.setOnClickListener {
 
         }
     }
