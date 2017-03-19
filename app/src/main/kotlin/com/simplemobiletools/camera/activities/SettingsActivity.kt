@@ -23,6 +23,7 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
+        setupCustomizeColors()
         setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
@@ -42,6 +43,12 @@ class SettingsActivity : SimpleActivity() {
             else -> super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setupCustomizeColors() {
+        settings_customize_colors_holder.setOnClickListener {
+            startCustomizationActivity()
+        }
     }
 
     private fun setupSavePhotosFolder() {
