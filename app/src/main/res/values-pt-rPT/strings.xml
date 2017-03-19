@@ -12,15 +12,10 @@
     <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
     <string name="no_audio_permissions">Necessitamos da permissão de áudio para gravar os vídeos</string>
     <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
-    <string name="no_valid_resolution_found">Nenhuma resolução encontrada que seja compatível com o rácio selecionado, a utilizar a resolução máxima</string>
 
     <!-- Settings -->
     <string name="save_photos">Guardar fotos e vídeos em</string>
-    <string name="force_ratio">Utilizar rácio 16:9</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>
-    <string name="max_photo_size">Resolução máxima das fotos</string>
-    <string name="max_video_size">Resolução máxima dos vídeos</string>
-    <string name="no_limit">sem limite</string>
     <string name="shutter_sound">Som do obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

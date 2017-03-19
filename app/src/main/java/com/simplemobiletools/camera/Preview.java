@@ -5,7 +5,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.AudioManager;
-import android.media.CamcorderProfile;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.media.MediaScannerConnection;
@@ -37,7 +36,6 @@ public class Preview extends ViewGroup
     public static final int PHOTO_PREVIEW_LENGTH = 1000;
     private static final String TAG = Preview.class.getSimpleName();
     private static final int FOCUS_AREA_SIZE = 100;
-    private static final float RATIO_TOLERANCE = 0.1f;
 
     private static SurfaceHolder mSurfaceHolder;
     private static Camera mCamera;
@@ -159,7 +157,6 @@ public class Preview extends ViewGroup
         }
 
         mConfig = Config.Companion.newInstance(mContext);
-        mForceAspectRatio = mConfig.getForceRatioEnabled();
 
         return true;
     }
@@ -224,8 +221,8 @@ public class Preview extends ViewGroup
             int rotation = Utils.Companion.getMediaRotation(mActivity, mCurrCameraId);
             rotation += Utils.Companion.compensateDeviceRotation(mCurrCameraId, mCallback.getCurrentOrientation());
 
-            final Camera.Size maxSize = getOptimalPictureSize();
-            mParameters.setPictureSize(maxSize.width, maxSize.height);
+            /*final Camera.Size maxSize = getOptimalPictureSize();
+            mParameters.setPictureSize(maxSize.width, maxSize.height);*/
             mParameters.setRotation(rotation % 360);
 
             if (mConfig.isSoundEnabled()) {
@@ -272,58 +269,6 @@ public class Preview extends ViewGroup
         }
 
         mCanTakePicture = true;
-    }
-
-    private Camera.Size getOptimalPictureSize() {
-        final int maxResolution = mConfig.getMaxPhotoResolution();
-        final List<Camera.Size> sizes = mParameters.getSupportedPictureSizes();
-        Collections.sort(sizes, new SizesComparator());
-        Camera.Size maxSize = sizes.get(0);
-        for (Camera.Size size : sizes) {
-            final boolean isProperRatio = isProperRatio(size);
-            final boolean isProperResolution = isProperResolution(size, maxResolution);
-            if (isProperResolution && isProperRatio) {
-                maxSize = size;
-                break;
-            }
-        }
-        return maxSize;
-    }
-
-    private boolean isProperResolution(Camera.Size size, int maxRes) {
-        return maxRes == 0 || size.width * size.height < maxRes;
-    }
-
-    private boolean isProperRatio(Camera.Size size) {
-        final float currRatio = (float) size.height / size.width;
-        float wantedRatio = (float) 3 / 4;
-        if (mForceAspectRatio || mIsVideoMode)
-            wantedRatio = (float) 9 / 16;
-
-        final float diff = Math.abs(currRatio - wantedRatio);
-        return diff < RATIO_TOLERANCE;
-    }
-
-    private Camera.Size getOptimalVideoSize() {
-        final int maxResolution = Utils.Companion.getMaxVideoResolution(mConfig);
-        final List<Camera.Size> sizes = getSupportedVideoSizes();
-        Collections.sort(sizes, new SizesComparator());
-        Camera.Size maxSize = sizes.get(0);
-        final int cnt = sizes.size();
-        for (int i = 0; i < cnt; i++) {
-            Camera.Size size = sizes.get(i);
-            final boolean isProperRatio = !mForceAspectRatio || isProperRatio(size);
-            final boolean isProperResolution = isProperResolution(size, maxResolution);
-            if (isProperResolution && isProperRatio) {
-                maxSize = size;
-                break;
-            }
-
-            if (i == cnt - 1) {
-                Utils.Companion.showToast(mContext, R.string.no_valid_resolution_found);
-            }
-        }
-        return maxSize;
     }
 
     public List<Camera.Size> getSupportedVideoSizes() {
@@ -575,11 +520,11 @@ public class Preview extends ViewGroup
             return false;
         }
 
-        final Camera.Size videoSize = getOptimalVideoSize();
+        /*final Camera.Size videoSize = getOptimalVideoSize();
         final CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
         cpHigh.videoFrameWidth = videoSize.width;
         cpHigh.videoFrameHeight = videoSize.height;
-        mRecorder.setProfile(cpHigh);
+        mRecorder.setProfile(cpHigh);*/
 
         if (Utils.Companion.needsStupidWritePermissions(getContext(), mCurrVideoPath)) {
             if (mConfig.getTreeUri().isEmpty()) {

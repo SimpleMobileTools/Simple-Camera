@@ -12,15 +12,10 @@
     <string name="no_permissions">Nėra ką daryti kai kamera ir saugykla neprieinama</string>
     <string name="no_audio_permissions">Mums reikia audio leidimo, kad įrašyti vaizdo bylas</string>
     <string name="no_gallery_app_available">Nėra galerijos programėlės</string>
-    <string name="no_valid_resolution_found">Nerasta tinkamos raiškos su with pasirinktu kraštinių santykiu, naudojant maksimalią raišką</string>
 
     <!-- Settings -->
     <string name="save_photos">Išsaugoti nuotraukas ir vaizdo įrašus į</string>
-    <string name="force_ratio">Naudoti 16:9 santykį</string>
     <string name="show_preview">Show a photo preview after capturing</string>
-    <string name="max_photo_size">Maksimalios nuotraukos raiškos limitas</string>
-    <string name="max_video_size">Maksimalios vaizdo įrašo raiškos limitas</string>
-    <string name="no_limit">nieko</string>
     <string name="shutter_sound">Užrakto garsas</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

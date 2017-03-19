@@ -12,15 +12,10 @@
     <string name="no_permissions">Inte mycket att göra utan tillgång till din kamera och lagring</string>
     <string name="no_audio_permissions">För att spela in video krävs ljudrättigheter</string>
     <string name="no_gallery_app_available">Ingen galleri-app finns tillgänglig</string>
-    <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
 
     <!-- Settings -->
     <string name="save_photos">Save photos and videos to</string>
-    <string name="force_ratio">Tvinga 16:9-förhållande</string>
     <string name="show_preview">Show a photo preview after capturing</string>
-    <string name="max_photo_size">Bildupplösningsgräns</string>
-    <string name="max_video_size">Video resolution limit</string>
-    <string name="no_limit">inga</string>
     <string name="shutter_sound">Slutarljud</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

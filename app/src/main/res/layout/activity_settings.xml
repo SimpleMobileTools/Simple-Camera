@@ -106,26 +106,6 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/settings_force_ratio_holder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="?attr/selectableItemBackground"
-            android:padding="@dimen/activity_margin">
-
-            <com.simplemobiletools.commons.views.MySwitchCompat
-                android:id="@+id/settings_force_ratio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:paddingLeft="@dimen/medium_margin"
-                android:paddingStart="@dimen/medium_margin"
-                android:text="@string/force_ratio"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/settings_max_photo_resolution_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,8 +124,7 @@
                 android:layout_toLeftOf="@+id/settings_max_photo_resolution"
                 android:layout_toStartOf="@+id/settings_max_photo_resolution"
                 android:paddingLeft="@dimen/medium_margin"
-                android:paddingRight="@dimen/medium_margin"
-                android:text="@string/max_photo_size"/>
+                android:paddingRight="@dimen/medium_margin"/>
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_max_photo_resolution"
@@ -180,8 +159,7 @@
                 android:layout_toLeftOf="@+id/settings_max_video_resolution"
                 android:layout_toStartOf="@+id/settings_max_video_resolution"
                 android:paddingLeft="@dimen/medium_margin"
-                android:paddingRight="@dimen/medium_margin"
-                android:text="@string/max_video_size"/>
+                android:paddingRight="@dimen/medium_margin"/>
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_max_video_resolution"

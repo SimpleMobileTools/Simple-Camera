@@ -12,15 +12,10 @@
     <string name="no_permissions">お使いのカメラやストレージにアクセスしないと、ほとんど行うことはありません</string>
     <string name="no_audio_permissions">ビデオを記録するためにオーディオのアクセス許可が必要です</string>
     <string name="no_gallery_app_available">利用可能なギャラリーアプリがありません</string>
-    <string name="no_valid_resolution_found">選択したアスペクト比で有効な解像度が見つかりません。最大解像度を使用しています</string>
 
     <!-- Settings -->
     <string name="save_photos">写真とビデオの保存先</string>
-    <string name="force_ratio">強制的に 16:9 レシオにする</string>
     <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
-    <string name="max_photo_size">写真解像度の限度</string>
-    <string name="max_video_size">ビデオ解像度の限度</string>
-    <string name="no_limit">なし</string>
     <string name="shutter_sound">シャッター音</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

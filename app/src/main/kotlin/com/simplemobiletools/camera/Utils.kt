@@ -156,15 +156,5 @@ class Utils {
             rotation += Utils.compensateDeviceRotation(currCameraId, deviceOrientation)
             return rotation % 360
         }
-
-
-        fun getMaxVideoResolution(config: Config): Int {
-            return when (config.maxVideoResolution) {
-                0 -> 400000
-                1 -> 1000000
-                2 -> 2100000
-                else -> 0
-            }
-        }
     }
 }

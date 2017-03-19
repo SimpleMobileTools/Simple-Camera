@@ -12,15 +12,10 @@
     <string name="no_permissions">Not much to do without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need the audio permission for recording videos</string>
     <string name="no_gallery_app_available">No gallery app available</string>
-    <string name="no_valid_resolution_found">No valid resolution with selected aspect ratio found, using max resolution</string>
 
     <!-- Settings -->
     <string name="save_photos">Save photos and videos to</string>
-    <string name="force_ratio">Use 16:9 ratio</string>
     <string name="show_preview">Show a photo preview after capturing</string>
-    <string name="max_photo_size">Max photo resolution limit</string>
-    <string name="max_video_size">Max video resolution limit</string>
-    <string name="no_limit">none</string>
     <string name="shutter_sound">Shutter sound</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

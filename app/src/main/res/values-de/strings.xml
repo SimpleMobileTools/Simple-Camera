@@ -12,15 +12,10 @@
     <string name="no_permissions">Ohne Zugriff auf Kamera und Speicher ist hier nicht viel zu tun</string>
     <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mirkofon um Videos aufnehmen zu können</string>
     <string name="no_gallery_app_available">Keine Galerie App verfügbar</string>
-    <string name="no_valid_resolution_found">Keine gültige Auflösung mit gewähltem Seitenverhältnis gefunden, nutze maximale Auflösung</string>
 
     <!-- Settings -->
     <string name="save_photos">Save photos and videos to</string>
-    <string name="force_ratio">Erzwinge 16:9 Format</string>
     <string name="show_preview">Zeige eine Vorschau des Photos nach der Aufnahme</string>
-    <string name="max_photo_size">Maximale Fotoauflösung</string>
-    <string name="max_video_size">Maximale Videoauflösung</string>
-    <string name="no_limit">Kein Limit</string>
     <string name="shutter_sound">Auslösegeräusch</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->

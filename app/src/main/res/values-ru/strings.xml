@@ -12,15 +12,10 @@
     <string name="no_permissions">Не так много можно сделать без доступа к камере и хранилищу</string>
     <string name="no_audio_permissions">Нам нужно аудио разрешение для записи видео</string>
     <string name="no_gallery_app_available">Нет доступного приложения-галереи</string>
-    <string name="no_valid_resolution_found">Для выбранного соотношения сторон не существует подходящего разрешения. Будет использовано максимально возможное</string>
 
     <!-- Settings -->
     <string name="save_photos">Сохранять фото и видео в</string>
-    <string name="force_ratio">Принудительное соотношение сторон 16:9</string>
     <string name="show_preview">Показывать сделанное фото</string>
-    <string name="max_photo_size">Лимит разрешения фото</string>
-    <string name="max_video_size">Лимит разрешения видео</string>
-    <string name="no_limit">нет</string>
     <string name="shutter_sound">Звук затвора</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
