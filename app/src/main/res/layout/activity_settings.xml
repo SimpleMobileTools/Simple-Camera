@@ -190,8 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/settings_max_photo_resolution"
-                android:layout_toStartOf="@+id/settings_max_photo_resolution"
+                android:layout_toLeftOf="@+id/settings_back_video_resolution"
+                android:layout_toStartOf="@+id/settings_back_video_resolution"
                 android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/back_camera_video_resolution"/>
 

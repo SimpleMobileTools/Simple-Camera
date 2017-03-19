@@ -24,7 +24,7 @@ class FocusRectView(context: Context) : ViewGroup(context) {
     init {
         setWillNotDraw(false)
         mHandler = Handler()
-        mPrimaryColor = resources.getColor(R.color.colorPrimary)
+        mPrimaryColor = resources.getColor(R.color.color_primary)
         setupPaint()
     }
 
