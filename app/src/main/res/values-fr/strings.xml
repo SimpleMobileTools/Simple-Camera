@@ -19,8 +19,8 @@
     <string name="shutter_sound">Son de l\'obturateur</string>
     <string name="back_camera">Back camera resolutions</string>
     <string name="front_camera">Front camera resolutions</string>
-    <string name="photo_resolution">Photo</string>
-    <string name="video_resolution">Video</string>
+    <string name="photo">Photo</string>
+    <string name="video">Video</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
