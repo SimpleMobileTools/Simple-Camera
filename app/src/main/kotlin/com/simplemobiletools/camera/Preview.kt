@@ -24,7 +24,6 @@ import com.simplemobiletools.commons.extensions.scanPath
 import com.simplemobiletools.commons.extensions.toast
 import java.io.File
 import java.io.IOException
-import java.io.Serializable
 import java.util.*
 
 class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
@@ -134,7 +133,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mMaxZoom = mParameters!!.maxZoom
             mZoomRatios = mParameters!!.zoomRatios
             mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes
-            Collections.sort<Camera.Size>(mSupportedPreviewSizes!!, SizesComparator())
+            storePreviewSizes()
             requestLayout()
             invalidate()
             mSetupPreviewAfterMeasure = true
@@ -163,6 +162,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         return true
+    }
+
+    private fun storePreviewSizes() {
+        mSupportedPreviewSizes = mSupportedPreviewSizes!!.sortedByDescending { it.width * it.height }
     }
 
     fun setTargetUri(uri: Uri) {
@@ -455,9 +458,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             return false
 
         mSwitchToVideoAsap = false
-        val previewSizes = mParameters!!.supportedPreviewSizes
-        Collections.sort<Camera.Size>(previewSizes, SizesComparator())
-        val preferred = previewSizes[0]
+        val preferred = mSupportedPreviewSizes!![0]
 
         mParameters!!.setPreviewSize(preferred.width, preferred.height)
         mCamera!!.parameters = mParameters
@@ -616,17 +617,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         display.getSize(size)
         size.y += mActivity.resources.getNavBarHeight()
         return size
-    }
-
-    private class SizesComparator : Comparator<Camera.Size>, Serializable {
-
-        override fun compare(a: Camera.Size, b: Camera.Size): Int {
-            return b.width * b.height - a.width * a.height
-        }
-
-        companion object {
-            private const val serialVersionUID = 5431278455314658485L
-        }
     }
 
     interface PreviewListener {
