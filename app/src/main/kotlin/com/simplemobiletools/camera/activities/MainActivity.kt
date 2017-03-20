@@ -153,6 +153,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         shutter.setOnClickListener { shutterPressed() }
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
+        change_resolution.setOnClickListener { handleChangeResolution() }
     }
 
     private fun hasCameraAndStoragePermission() = hasCameraPermission() && hasWriteStoragePermission()
@@ -180,7 +181,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
     }
 
-    fun toggleCamera() {
+    private fun toggleCamera() {
         if (!checkCameraAvailable()) {
             return
         }
@@ -206,7 +207,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
     }
 
-    fun showLastMediaPreview() {
+    private fun showLastMediaPreview() {
         if (mPreviewUri == null)
             return
 
@@ -224,7 +225,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
     }
 
-    fun toggleFlash() {
+    private fun toggleFlash() {
         if (!checkCameraAvailable()) {
             return
         }
@@ -288,7 +289,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         toggle_flash.animate().alpha(alpha).start()
     }
 
-    fun launchSettings() {
+    private fun launchSettings() {
         if (settings.alpha == 1f) {
             val intent = Intent(applicationContext, SettingsActivity::class.java)
             startActivity(intent)
@@ -297,9 +298,13 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         }
     }
 
-    fun handleTogglePhotoVideo() {
+    private fun handleTogglePhotoVideo() {
         togglePhotoVideo()
         checkButtons()
+    }
+
+    private fun handleChangeResolution() {
+
     }
 
     private fun togglePhotoVideo() {
@@ -389,12 +394,14 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun fadeOutButtons() {
         fadeAnim(settings, .5f)
         fadeAnim(toggle_photo_video, .0f)
+        fadeAnim(change_resolution, .0f)
         fadeAnim(last_photo_video_preview, .0f)
     }
 
     private fun fadeInButtons() {
         fadeAnim(settings, 1f)
         fadeAnim(toggle_photo_video, 1f)
+        fadeAnim(change_resolution, 1f)
         fadeAnim(last_photo_video_preview, 1f)
         scheduleFadeOut()
     }
@@ -502,7 +509,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun animateViews(degrees: Int) {
-        val views = arrayOf<View>(toggle_camera, toggle_flash, toggle_photo_video, shutter, settings, last_photo_video_preview)
+        val views = arrayOf<View>(toggle_camera, toggle_flash, toggle_photo_video, change_resolution, shutter, settings, last_photo_video_preview)
         for (view in views) {
             rotate(view, degrees)
         }

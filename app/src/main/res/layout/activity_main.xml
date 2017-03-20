@@ -37,11 +37,21 @@
         android:src="@drawable/ic_video"/>
 
     <ImageView
-        android:id="@+id/last_photo_video_preview"
+        android:id="@+id/change_resolution"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/toggle_photo_video"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:padding="@dimen/normal_margin"
+        android:src="@drawable/ic_resolution"/>
+
+    <ImageView
+        android:id="@+id/last_photo_video_preview"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/change_resolution"
         android:layout_marginRight="@dimen/normal_margin"
         android:padding="@dimen/medium_margin"/>
 
