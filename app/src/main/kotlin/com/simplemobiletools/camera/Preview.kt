@@ -132,8 +132,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mParameters = mCamera!!.parameters
             mMaxZoom = mParameters!!.maxZoom
             mZoomRatios = mParameters!!.zoomRatios
-            mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes
-            storePreviewSizes()
+            mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
             requestLayout()
             invalidate()
             mSetupPreviewAfterMeasure = true
@@ -162,10 +161,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         return true
-    }
-
-    private fun storePreviewSizes() {
-        mSupportedPreviewSizes = mSupportedPreviewSizes!!.sortedByDescending { it.width * it.height }
     }
 
     fun setTargetUri(uri: Uri) {

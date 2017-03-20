@@ -27,10 +27,6 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
-        setupBackPhotoResolution()
-        setupFrontPhotoResolution()
-        setupBackVideoResolution()
-        setupFrontVideoResolution()
         updateTextColors(settings_holder)
     }
 
@@ -83,30 +79,6 @@ class SettingsActivity : SimpleActivity() {
         settings_sound_holder.setOnClickListener {
             settings_sound.toggle()
             config.isSoundEnabled = settings_sound.isChecked
-        }
-    }
-
-    private fun setupBackPhotoResolution() {
-        settings_back_photo_resolution_holder.setOnClickListener {
-
-        }
-    }
-
-    private fun setupFrontPhotoResolution() {
-        settings_front_photo_resolution_holder.setOnClickListener {
-
-        }
-    }
-
-    private fun setupBackVideoResolution() {
-        settings_back_video_resolution_holder.setOnClickListener {
-
-        }
-    }
-
-    private fun setupFrontVideoResolution() {
-        settings_front_video_resolution_holder.setOnClickListener {
-
         }
     }
 }
