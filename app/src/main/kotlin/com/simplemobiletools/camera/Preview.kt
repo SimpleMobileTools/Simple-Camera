@@ -29,6 +29,7 @@ import java.util.*
 class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
     companion object {
         val PHOTO_PREVIEW_LENGTH = 1000L
+        var mCamera: Camera? = null
         private val TAG = Preview::class.java.simpleName
         private val FOCUS_AREA_SIZE = 100
 
@@ -38,7 +39,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         lateinit var mCallback: PreviewListener
         lateinit var mScreenSize: Point
         lateinit var config: Config
-        private var mCamera: Camera? = null
         private var mSupportedPreviewSizes: List<Camera.Size>? = null
         private var mPreviewSize: Camera.Size? = null
         private var mParameters: Camera.Parameters? = null

@@ -53,7 +53,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         private var mIsHardwareShutterHandled = false
         private var mCurrVideoRecTimer = 0
         private var mOrientation = 0
-        private var mCurrCamera = 0
+        private var mCurrCameraId = 0
         private var mLastHandledOrientation = 0
     }
 
@@ -130,11 +130,11 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             lp.setMargins(0, 0, 0, lp.bottomMargin + mRes.getNavBarHeight())
         }
 
-        mCurrCamera = config.lastUsedCamera
+        mCurrCameraId = config.lastUsedCamera
         mPreview = Preview(this, camera_view, this)
         mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
-        toggle_camera.setImageResource(if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_back)
+        toggle_camera.setImageResource(if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_back)
 
         mFocusRectView = FocusRectView(applicationContext)
         view_holder.addView(mFocusRectView)
@@ -187,17 +187,17 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             return
         }
 
-        if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_BACK) {
-            mCurrCamera = Camera.CameraInfo.CAMERA_FACING_FRONT
+        if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            mCurrCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT
         } else {
-            mCurrCamera = Camera.CameraInfo.CAMERA_FACING_BACK
+            mCurrCameraId = Camera.CameraInfo.CAMERA_FACING_BACK
         }
 
-        config.lastUsedCamera = mCurrCamera
+        config.lastUsedCamera = mCurrCameraId
         var newIconId = R.drawable.ic_camera_front
         mPreview?.releaseCamera()
-        if (mPreview?.setCamera(mCurrCamera) == true) {
-            if (mCurrCamera == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+        if (mPreview?.setCamera(mCurrCameraId) == true) {
+            if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                 newIconId = R.drawable.ic_camera_back
             }
             toggle_camera.setImageResource(newIconId)
@@ -305,8 +305,10 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun handleChangeResolution() {
-        ChangeResolutionDialog(this, true) {
+        if (Preview.mCamera != null) {
+            ChangeResolutionDialog(this, mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK, Preview.mCamera!!) {
 
+            }
         }
     }
 
@@ -460,7 +462,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             toggle_camera.beInvisible()
         }
 
-        if (mPreview?.setCamera(mCurrCamera) == true) {
+        if (mPreview?.setCamera(mCurrCameraId) == true) {
             hideNavigationBarIcons()
             checkFlash()
 

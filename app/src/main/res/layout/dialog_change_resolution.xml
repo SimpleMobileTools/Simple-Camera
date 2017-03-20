@@ -30,8 +30,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@null"
-            android:clickable="false"
-            android:text="qwe"/>
+            android:clickable="false"/>
 
     </RelativeLayout>
 
@@ -59,8 +58,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@null"
-            android:clickable="false"
-            android:text="qwe"/>
+            android:clickable="false"/>
 
     </RelativeLayout>
 </LinearLayout>
