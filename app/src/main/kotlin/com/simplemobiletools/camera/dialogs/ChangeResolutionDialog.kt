@@ -32,9 +32,12 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
 
         view.change_resolution_photo_holder.setOnClickListener {
             RadioGroupDialog(activity, items, selectionIndex) {
-                if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex = it as Int
                 selectionIndex = it as Int
                 view.change_resolution_photo.text = items[selectionIndex].title
+                if (isBackCamera)
+                    config.backPhotoResIndex = it
+                else
+                    config.frontPhotoResIndex = it
             }
         }
         view.change_resolution_photo.text = items[selectionIndex].title
@@ -46,9 +49,12 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
 
         view.change_resolution_video_holder.setOnClickListener {
             RadioGroupDialog(activity, items, selectionIndex) {
-                if (isBackCamera) config.backVideoResIndex else config.frontVideoResIndex = it as Int
                 selectionIndex = it as Int
                 view.change_resolution_video.text = items[selectionIndex].title
+                if (isBackCamera)
+                    config.backVideoResIndex = it
+                else
+                    config.frontVideoResIndex = it
             }
         }
         view.change_resolution_video.text = items[selectionIndex].title
