@@ -37,4 +37,20 @@ class Config(context: Context) : BaseConfig(context) {
     var lastFlashlightState: Boolean
         get() = prefs.getBoolean(LAST_FLASHLIGHT_STATE, false)
         set(enabled) = prefs.edit().putBoolean(LAST_FLASHLIGHT_STATE, enabled).apply()
+
+    var backPhotoResIndex: Int
+        get() = prefs.getInt(BACK_PHOTO_RESOLUTION_INDEX, 0)
+        set(backPhotoResIndex) = prefs.edit().putInt(BACK_PHOTO_RESOLUTION_INDEX, backPhotoResIndex).apply()
+
+    var backVideoResIndex: Int
+        get() = prefs.getInt(BACK_VIDEO_RESOLUTION_INDEX, 0)
+        set(backVideoResIndex) = prefs.edit().putInt(BACK_VIDEO_RESOLUTION_INDEX, backVideoResIndex).apply()
+
+    var frontPhotoResIndex: Int
+        get() = prefs.getInt(FRONT_PHOTO_RESOLUTION_INDEX, 0)
+        set(frontPhotoResIndex) = prefs.edit().putInt(FRONT_PHOTO_RESOLUTION_INDEX, frontPhotoResIndex).apply()
+
+    var frontVideoResIndex: Int
+        get() = prefs.getInt(FRONT_VIDEO_RESOLUTION_INDEX, 0)
+        set(frontVideoResIndex) = prefs.edit().putInt(FRONT_VIDEO_RESOLUTION_INDEX, frontVideoResIndex).apply()
 }
