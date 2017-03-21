@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mirkofon um Videos aufnehmen zu können</string>
     <string name="no_gallery_app_available">Keine Galerie App verfügbar</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Save photos and videos to</string>
     <string name="show_preview">Zeige eine Vorschau des Photos nach der Aufnahme</string>

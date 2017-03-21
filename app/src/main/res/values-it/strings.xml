@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">È necessario l\'accesso al microfono per registrare i video</string>
     <string name="no_gallery_app_available">Nessuna app galleria disponibile</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Save photos and videos to</string>
     <string name="show_preview">Show a photo preview after capturing</string>

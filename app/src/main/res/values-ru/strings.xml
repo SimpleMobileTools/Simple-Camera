@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">Нам нужно аудио разрешение для записи видео</string>
     <string name="no_gallery_app_available">Нет доступного приложения-галереи</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Сохранять фото и видео в</string>
     <string name="show_preview">Показывать сделанное фото</string>

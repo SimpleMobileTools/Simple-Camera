@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">Necessitamos da permissão de áudio para gravar os vídeos</string>
     <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Guardar fotos e vídeos em</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>

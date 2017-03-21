@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">Se necesita el permiso de micrófono para grabar vídeos</string>
     <string name="no_gallery_app_available">No hay disponible una aplicación de galería</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Guardar fotografías y vídeos en</string>
     <string name="show_preview">Show a photo preview after capturing</string>

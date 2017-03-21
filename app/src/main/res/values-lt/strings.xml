@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">Mums reikia audio leidimo, kad įrašyti vaizdo bylas</string>
     <string name="no_gallery_app_available">Nėra galerijos programėlės</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Išsaugoti nuotraukas ir vaizdo įrašus į</string>
     <string name="show_preview">Show a photo preview after capturing</string>

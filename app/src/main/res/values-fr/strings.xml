@@ -13,6 +13,9 @@
     <string name="no_audio_permissions">Nous avons besoin de l\'autorisation sur l\'audio pour enregistrer des vidéos</string>
     <string name="no_gallery_app_available">Pas d\'application album disponible</string>
 
+    <!-- other aspect ratio -->
+    <string name="other">other</string>
+
     <!-- Settings -->
     <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
     <string name="show_preview">Apercevoir la photo après la prise</string>

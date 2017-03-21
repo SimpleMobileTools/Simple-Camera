@@ -7,6 +7,7 @@ import android.view.View
 import com.simplemobiletools.camera.Preview.Companion.config
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.SimpleActivity
+import com.simplemobiletools.camera.extensions.getAspectRatio
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
@@ -70,7 +71,8 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
         val sorted = resolutions.sortedByDescending { it.width * it.height }
         sorted.forEachIndexed { index, size ->
             val megapixels = String.format("%.1f", (size.width * size.height.toFloat()) / 1000000)
-            items.add(RadioItem(index, "${size.width} x ${size.height}  ($megapixels MP)"))
+            val aspectRatio = size.getAspectRatio(activity)
+            items.add(RadioItem(index, "${size.width} x ${size.height}  ($megapixels MP,  $aspectRatio)"))
         }
         return items
     }
