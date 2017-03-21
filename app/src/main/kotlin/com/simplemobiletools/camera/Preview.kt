@@ -477,6 +477,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         cleanupRecorder()
         mIsRecording = false
         mIsVideoMode = false
+        refreshPreview()
     }
 
     // VIDEO RECORDING
@@ -484,11 +485,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (mCamera == null || mRecorder != null || !mIsSurfaceCreated)
             return false
 
+        refreshPreview()
         mSwitchToVideoAsap = false
-        val preferred = mSupportedPreviewSizes!![0]
-
-        mParameters!!.setPreviewSize(preferred.width, preferred.height)
-        mCamera!!.parameters = mParameters
 
         mIsRecording = false
         mIsVideoMode = true
