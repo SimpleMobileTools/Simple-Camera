@@ -22,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.Release
@@ -124,10 +125,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         setContentView(R.layout.activity_main)
         initButtons()
 
-        if (mRes.hasNavBar() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            val lp = btn_holder.layoutParams as RelativeLayout.LayoutParams
-            lp.setMargins(0, 0, 0, lp.bottomMargin + mRes.getNavBarHeight())
-        }
+        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, navBarHeight)
 
         mCurrCameraId = config.lastUsedCamera
         mPreview = Preview(this, camera_view, this)
