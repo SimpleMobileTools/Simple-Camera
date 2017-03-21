@@ -4,10 +4,7 @@ import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
 import android.hardware.Camera
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.media.MediaRecorder
-import android.media.MediaScannerConnection
+import android.media.*
 import android.net.Uri
 import android.os.Environment
 import android.os.Handler
@@ -249,8 +246,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             var rotation = mActivity.getMediaRotation(mCurrCameraId)
             rotation += mCallback.getCurrentOrientation().compensateDeviceRotation(mCurrCameraId)
 
-            /*final Camera.Size maxSize = getOptimalPictureSize();
-            mParameters.setPictureSize(maxSize.width, maxSize.height);*/
+            val selectedResolution = getSelectedResolution()
+            mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height);
             mParameters!!.setRotation(rotation % 360)
 
             if (config.isSoundEnabled) {
@@ -481,10 +478,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mIsRecording = false
         mIsVideoMode = true
-        mRecorder = MediaRecorder()
-        mRecorder!!.setCamera(mCamera)
-        mRecorder!!.setVideoSource(MediaRecorder.VideoSource.DEFAULT)
-        mRecorder!!.setAudioSource(MediaRecorder.AudioSource.DEFAULT)
+        mRecorder = MediaRecorder().apply {
+            setCamera(mCamera)
+            setVideoSource(MediaRecorder.VideoSource.DEFAULT)
+            setAudioSource(MediaRecorder.AudioSource.DEFAULT)
+        }
 
         mCurrVideoPath = mActivity.getOutputMediaFile(false)
         if (mCurrVideoPath.isEmpty()) {
@@ -492,11 +490,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             return false
         }
 
-        /*final Camera.Size videoSize = getOptimalVideoSize();
-        final CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
-        cpHigh.videoFrameWidth = videoSize.width;
-        cpHigh.videoFrameHeight = videoSize.height;
-        mRecorder.setProfile(cpHigh);*/
+        val resolution = getSelectedResolution()
+        val cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH)
+        cpHigh.videoFrameWidth = resolution.width
+        cpHigh.videoFrameHeight = resolution.height
+        mRecorder!!.setProfile(cpHigh)
 
         if (mActivity.needsStupidWritePermissions(mCurrVideoPath)) {
             if (config.treeUri.isEmpty()) {
