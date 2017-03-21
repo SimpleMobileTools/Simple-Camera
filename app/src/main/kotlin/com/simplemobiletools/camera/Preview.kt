@@ -14,6 +14,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
+import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.commons.extensions.getNavBarHeight
 import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
@@ -328,6 +329,14 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         val rectRight = Math.min(left + FOCUS_AREA_SIZE / 2, 1000)
         val rectBottom = Math.min(top + FOCUS_AREA_SIZE / 2, 1000)
         return Rect(rectLeft, rectTop, rectRight, rectBottom)
+    }
+
+    fun showChangeResolutionDialog() {
+        if (mCamera != null) {
+            ChangeResolutionDialog(mActivity, config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK, mCamera!!) {
+
+            }
+        }
     }
 
     fun releaseCamera() {

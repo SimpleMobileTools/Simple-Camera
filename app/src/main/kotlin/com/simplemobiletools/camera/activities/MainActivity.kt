@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
-import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.commons.extensions.*
@@ -154,7 +153,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         shutter.setOnClickListener { shutterPressed() }
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
-        change_resolution.setOnClickListener { handleChangeResolution() }
+        change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
     }
 
     private fun hasCameraAndStoragePermission() = hasCameraPermission() && hasWriteStoragePermission()
@@ -302,14 +301,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun handleTogglePhotoVideo() {
         togglePhotoVideo()
         checkButtons()
-    }
-
-    private fun handleChangeResolution() {
-        if (Preview.mCamera != null) {
-            ChangeResolutionDialog(this, mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK, Preview.mCamera!!) {
-
-            }
-        }
     }
 
     private fun togglePhotoVideo() {
