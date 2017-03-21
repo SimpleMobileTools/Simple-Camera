@@ -132,10 +132,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mMaxZoom = mParameters!!.maxZoom
             mZoomRatios = mParameters!!.zoomRatios
             mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
-            mIsSixteenToNine = isSixteenToNine()
-            requestLayout()
-            invalidate()
-            mSetupPreviewAfterMeasure = true
+            refreshPreview()
 
             val focusModes = mParameters!!.supportedFocusModes
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
@@ -161,6 +158,13 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         return true
+    }
+
+    private fun refreshPreview() {
+        mIsSixteenToNine = isSixteenToNine()
+        mSetupPreviewAfterMeasure = true
+        requestLayout()
+        invalidate()
     }
 
     private fun isSixteenToNine(): Boolean {
@@ -287,8 +291,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mCanTakePicture = true
     }
 
-    fun getSupportedVideoSizes(): List<Camera.Size> = mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
-
     private fun focusArea(takePictureAfter: Boolean) {
         if (mCamera == null)
             return
@@ -332,9 +334,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     fun showChangeResolutionDialog() {
+        val oldResolution = getSelectedResolution()
         if (mCamera != null) {
             ChangeResolutionDialog(mActivity, config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK, mCamera!!) {
-
+                if (oldResolution != getSelectedResolution()) {
+                    refreshPreview()
+                }
             }
         }
     }

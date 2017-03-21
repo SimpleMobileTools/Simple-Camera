@@ -21,6 +21,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
 
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, null)
+                .setOnDismissListener { callback() }
                 .create().apply {
             activity.setupDialogStuff(view, this, if (isBackCamera) R.string.back_camera else R.string.front_camera)
         }
