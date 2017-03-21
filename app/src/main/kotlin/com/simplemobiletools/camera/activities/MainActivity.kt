@@ -447,11 +447,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun resumeCameraItems() {
-        val cnt = Camera.getNumberOfCameras()
-        if (cnt == 1) {
-            toggle_camera.beInvisible()
-        }
-
+        toggle_camera.beVisibleIf(Camera.getNumberOfCameras() > 1)
         if (mPreview?.setCamera(mCurrCameraId) == true) {
             hideNavigationBarIcons()
             checkFlash()

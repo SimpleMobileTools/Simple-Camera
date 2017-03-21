@@ -65,7 +65,8 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
         val items = ArrayList<RadioItem>(resolutions.size)
         val sorted = resolutions.sortedByDescending { it.width * it.height }
         sorted.forEachIndexed { index, size ->
-            items.add(RadioItem(index, "${size.width} x ${size.height}"))
+            val megapixels = String.format("%.1f", (size.width * size.height.toFloat()) / 1000000)
+            items.add(RadioItem(index, "${size.width} x ${size.height}  ($megapixels MP)"))
         }
         return items
     }
