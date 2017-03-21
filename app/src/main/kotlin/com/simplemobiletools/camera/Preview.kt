@@ -316,17 +316,17 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun calculateFocusArea(x: Float, y: Float): Rect {
-        var left = java.lang.Float.valueOf(x / mSurfaceView.width * 2000 - 1000)!!.toInt()
-        var top = java.lang.Float.valueOf(y / mSurfaceView.height * 2000 - 1000)!!.toInt()
+        var left = x / mSurfaceView.width * 2000 - 1000
+        var top = y / mSurfaceView.height * 2000 - 1000
 
         val tmp = left
         left = top
         top = -tmp
 
-        val rectLeft = Math.max(left - FOCUS_AREA_SIZE / 2, -1000)
-        val rectTop = Math.max(top - FOCUS_AREA_SIZE / 2, -1000)
-        val rectRight = Math.min(left + FOCUS_AREA_SIZE / 2, 1000)
-        val rectBottom = Math.min(top + FOCUS_AREA_SIZE / 2, 1000)
+        val rectLeft = Math.max(left.toInt() - FOCUS_AREA_SIZE / 2, -1000)
+        val rectTop = Math.max(top.toInt() - FOCUS_AREA_SIZE / 2, -1000)
+        val rectRight = Math.min(left.toInt() + FOCUS_AREA_SIZE / 2, 1000)
+        val rectBottom = Math.min(top.toInt() + FOCUS_AREA_SIZE / 2, 1000)
         return Rect(rectLeft, rectTop, rectRight, rectBottom)
     }
 

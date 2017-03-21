@@ -436,6 +436,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
             scheduleFadeOut()
+            mFocusRectView.setStrokeColor(config.primaryColor)
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 togglePhotoVideo()

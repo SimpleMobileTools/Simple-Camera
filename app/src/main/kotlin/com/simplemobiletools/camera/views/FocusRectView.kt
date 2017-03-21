@@ -6,7 +6,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Handler
 import android.view.ViewGroup
-import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.extensions.config
 
 class FocusRectView(context: Context) : ViewGroup(context) {
     companion object {
@@ -14,7 +14,6 @@ class FocusRectView(context: Context) : ViewGroup(context) {
         private val RECT_DURATION = 500
 
         private var mDrawRect = false
-        private var mPrimaryColor = 0
 
         lateinit var mPaint: Paint
         lateinit var mHandler: Handler
@@ -24,16 +23,19 @@ class FocusRectView(context: Context) : ViewGroup(context) {
     init {
         setWillNotDraw(false)
         mHandler = Handler()
-        mPrimaryColor = resources.getColor(R.color.color_primary)
         setupPaint()
     }
 
     private fun setupPaint() {
         mPaint = Paint().apply {
             style = Paint.Style.STROKE
-            color = mPrimaryColor
+            color = context.config.primaryColor
             strokeWidth = 2f
         }
+    }
+
+    fun setStrokeColor(color: Int) {
+        mPaint.color = color
     }
 
     fun drawFocusRect(x: Int, y: Int) {
