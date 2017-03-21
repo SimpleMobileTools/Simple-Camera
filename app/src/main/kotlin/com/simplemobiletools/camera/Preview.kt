@@ -491,10 +491,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         val resolution = getSelectedResolution()
-        val cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH)
-        cpHigh.videoFrameWidth = resolution.width
-        cpHigh.videoFrameHeight = resolution.height
-        mRecorder!!.setProfile(cpHigh)
+        CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH).apply {
+            videoFrameWidth = resolution.width
+            videoFrameHeight = resolution.height
+            mRecorder!!.setProfile(this)
+        }
 
         if (mActivity.needsStupidWritePermissions(mCurrVideoPath)) {
             if (config.treeUri.isEmpty()) {
