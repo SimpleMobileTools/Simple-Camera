@@ -16,10 +16,7 @@ import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
-import com.simplemobiletools.commons.extensions.getNavBarHeight
-import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
-import com.simplemobiletools.commons.extensions.scanPath
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -516,12 +513,17 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 releaseCamera()
                 return false
             }
+
             try {
-                /*var document: DocumentFile = Utils.getFileDocument(context, mCurrVideoPath!!, mConfig!!.treeUri)
-                document = document.createFile("", mCurrVideoPath!!.substring(mCurrVideoPath!!.lastIndexOf('/') + 1))
-                val uri = document.uri
-                val fileDescriptor = context.contentResolver.openFileDescriptor(uri, "rw")
-                mRecorder!!.setOutputFile(fileDescriptor!!.fileDescriptor)*/
+                var document = mActivity.getFileDocument(mCurrVideoPath, config.treeUri)
+                if (document == null) {
+                    mActivity.toast(R.string.unknown_error_occurred)
+                    return false
+                }
+
+                document = document.createFile("video/mp4", mCurrVideoPath.substring(mCurrVideoPath.lastIndexOf('/') + 1))
+                val fileDescriptor = context.contentResolver.openFileDescriptor(document.uri, "rw")
+                mRecorder!!.setOutputFile(fileDescriptor!!.fileDescriptor)
             } catch (e: Exception) {
                 setupFailed(e)
             }
