@@ -32,6 +32,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         var mCamera: Camera? = null
         private val TAG = Preview::class.java.simpleName
         private val FOCUS_AREA_SIZE = 100
+        private val RATIO_TOLERANCE = 0.2f
 
         lateinit var mSurfaceHolder: SurfaceHolder
         lateinit var mSurfaceView: SurfaceView
@@ -55,7 +56,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         private var mIsSurfaceCreated = false
         private var mSwitchToVideoAsap = false
         private var mSetupPreviewAfterMeasure = false
-        private val mForceAspectRatio = false
+        private var mIsSixteenToNine = false
         private var mWasZooming = false
         private var mLastClickX = 0
         private var mLastClickY = 0
@@ -133,6 +134,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mMaxZoom = mParameters!!.maxZoom
             mZoomRatios = mParameters!!.zoomRatios
             mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
+            mIsSixteenToNine = isSixteenToNine()
             requestLayout()
             invalidate()
             mSetupPreviewAfterMeasure = true
@@ -161,6 +163,34 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         return true
+    }
+
+    private fun isSixteenToNine(): Boolean {
+        val selectedSize = getSelectedResolution()
+        val selectedRatio = Math.abs(selectedSize.width / selectedSize.height.toFloat())
+        val checkedRatio = 16 / 9.toFloat()
+        val diff = Math.abs(selectedRatio - checkedRatio)
+        return diff < RATIO_TOLERANCE
+    }
+
+    private fun getSelectedResolution(): Camera.Size {
+        val index = getResolutionIndex()
+        val resolutions = if (mIsVideoMode) {
+            mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
+        } else {
+            mParameters!!.supportedPictureSizes
+        }.sortedByDescending { it.width * it.height }
+
+        return resolutions[index]
+    }
+
+    private fun getResolutionIndex(): Int {
+        val isBackCamera = config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
+        return if (mIsVideoMode) {
+            if (isBackCamera) config.backVideoResIndex else config.frontVideoResIndex
+        } else {
+            if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
+        }
     }
 
     fun setTargetUri(uri: Uri) {
@@ -388,7 +418,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (mSupportedPreviewSizes != null) {
             // for simplicity lets assume that most displays are 16:9 and the remaining ones are 4:3
             // always set 16:9 for videos as many devices support 4:3 only in low quality
-            if (mForceAspectRatio || mIsVideoMode) {
+            if (mIsSixteenToNine || mIsVideoMode) {
                 mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes!!, mScreenSize.y, mScreenSize.x)
             } else {
                 val newRatioHeight = (mScreenSize.x * (4.toDouble() / 3)).toInt()
@@ -401,7 +431,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mScreenSize.x > mPreviewSize!!.height) {
                 val ratio = mScreenSize.x.toFloat() / mPreviewSize!!.height
                 lp.width = (mPreviewSize!!.height * ratio).toInt()
-                if (mForceAspectRatio || mIsVideoMode) {
+                if (mIsSixteenToNine || mIsVideoMode) {
                     lp.height = mScreenSize.y
                 } else {
                     lp.height = (mPreviewSize!!.width * ratio).toInt()
@@ -436,15 +466,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         cleanupRecorder()
         mIsRecording = false
         mIsVideoMode = false
-        recheckAspectRatio()
-    }
-
-    private fun recheckAspectRatio() {
-        if (!mForceAspectRatio) {
-            mSetupPreviewAfterMeasure = true
-            invalidate()
-            requestLayout()
-        }
     }
 
     // VIDEO RECORDING
@@ -460,7 +481,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mIsRecording = false
         mIsVideoMode = true
-        recheckAspectRatio()
         mRecorder = MediaRecorder()
         mRecorder!!.setCamera(mCamera)
         mRecorder!!.setVideoSource(MediaRecorder.VideoSource.DEFAULT)
