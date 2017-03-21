@@ -27,7 +27,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         var mCamera: Camera? = null
         private val TAG = Preview::class.java.simpleName
         private val FOCUS_AREA_SIZE = 100
-        private val RATIO_TOLERANCE = 0.2f
 
         lateinit var mSurfaceHolder: SurfaceHolder
         lateinit var mSurfaceView: SurfaceView
@@ -158,18 +157,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun refreshPreview() {
-        mIsSixteenToNine = isSixteenToNine()
+        mIsSixteenToNine = getSelectedResolution().isSixteenToNine()
         mSetupPreviewAfterMeasure = true
         requestLayout()
         invalidate()
-    }
-
-    private fun isSixteenToNine(): Boolean {
-        val selectedSize = getSelectedResolution()
-        val selectedRatio = Math.abs(selectedSize.width / selectedSize.height.toFloat())
-        val checkedRatio = 16 / 9.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
     }
 
     private fun getSelectedResolution(): Camera.Size {
