@@ -4,7 +4,7 @@ import android.content.Context
 import android.hardware.Camera
 import com.simplemobiletools.camera.R
 
-private val RATIO_TOLERANCE = 0.1f
+val RATIO_TOLERANCE = 0.1f
 
 fun Camera.Size.isSixteenToNine(): Boolean {
     val selectedRatio = Math.abs(width / height.toFloat())

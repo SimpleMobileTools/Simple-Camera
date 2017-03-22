@@ -39,7 +39,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(enabled) = prefs.edit().putBoolean(LAST_FLASHLIGHT_STATE, enabled).apply()
 
     var backPhotoResIndex: Int
-        get() = prefs.getInt(BACK_PHOTO_RESOLUTION_INDEX, 0)
+        get() = prefs.getInt(BACK_PHOTO_RESOLUTION_INDEX, -1)
         set(backPhotoResIndex) = prefs.edit().putInt(BACK_PHOTO_RESOLUTION_INDEX, backPhotoResIndex).apply()
 
     var backVideoResIndex: Int

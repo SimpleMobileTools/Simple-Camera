@@ -164,12 +164,16 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getSelectedResolution(): Camera.Size {
-        val index = getResolutionIndex()
+        var index = getResolutionIndex()
         val resolutions = if (mIsVideoMode) {
             mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
         } else {
             mParameters!!.supportedPictureSizes
         }.sortedByDescending { it.width * it.height }
+
+        if (index == -1) {
+            index = getDefaultFullscreenResolution(resolutions) ?: 0
+        }
 
         return resolutions[index]
     }
@@ -181,6 +185,18 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         } else {
             if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
         }
+    }
+
+    private fun getDefaultFullscreenResolution(resolutions: List<Camera.Size>): Int? {
+        val screenAspectRatio = mActivity.realScreenSize.y / mActivity.realScreenSize.x.toFloat()
+        resolutions.forEachIndexed { index, size ->
+            val diff = screenAspectRatio - (size.width / size.height.toFloat())
+            if (Math.abs(diff) < RATIO_TOLERANCE) {
+                config.backPhotoResIndex = index
+                return index
+            }
+        }
+        return null
     }
 
     fun setTargetUri(uri: Uri) {
