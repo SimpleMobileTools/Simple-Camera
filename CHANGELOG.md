@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.0.0 *(2017-03-22)*
+----------------------------
+
+ * Added more color customization options
+ * Your settings have been cleared, please reset them
+ * Moved the resolution picker onto the main screen
+
 Version 1.32 *(2016-12-18)*
 ----------------------------
 
