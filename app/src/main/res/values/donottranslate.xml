@@ -4,7 +4,8 @@
     <!-- Release notes -->
     <string name="release_33">
         Added more color customization options\n
-        Your settings have been cleared, please reset them
+        Your settings have been cleared, please reset them\n
+        Moved the resolution picker onto the main screen
     </string>
 
 </resources>
