@@ -125,7 +125,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, navBarHeight)
+        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + mRes.getDimension(R.dimen.activity_margin)).toInt())
 
         mCurrCameraId = config.lastUsedCamera
         mPreview = Preview(this, camera_view, this)
