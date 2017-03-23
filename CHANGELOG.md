@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.0.1 *(2017-03-23)*
+----------------------------
+
+ * Fixed some Android 4.1 specific crashing
+
 Version 2.0.0 *(2017-03-22)*
 ----------------------------
 
