@@ -464,7 +464,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun showToggleCameraIfNeeded() {
-        toggle_camera.beInvisibleIf(Camera.getNumberOfCameras() > 1)
+        toggle_camera.beInvisibleIf(Camera.getNumberOfCameras() <= 1)
     }
 
     override fun onPause() {
