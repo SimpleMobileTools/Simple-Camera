@@ -52,9 +52,9 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         private var mIsVideoCaptureIntent = false
         private var mIsHardwareShutterHandled = false
         private var mCurrVideoRecTimer = 0
-        private var mOrientation = 0
         private var mCurrCameraId = 0
         private var mLastHandledOrientation = 0
+        var mOrientation = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -530,8 +530,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     override fun setIsCameraAvailable(available: Boolean) {
         mIsCameraAvailable = available
     }
-
-    override fun getCurrentOrientation() = mOrientation
 
     override fun videoSaved(uri: Uri) {
         setupPreviewImage(mIsInPhotoMode)

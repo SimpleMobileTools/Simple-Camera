@@ -1,12 +1,18 @@
 package com.simplemobiletools.camera
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
 import com.simplemobiletools.camera.Preview.Companion.config
 import com.simplemobiletools.camera.activities.MainActivity
+import com.simplemobiletools.camera.extensions.compensateDeviceRotation
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
+import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.getFileDocument
 import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
 import com.simplemobiletools.commons.extensions.toast
@@ -16,7 +22,7 @@ import java.io.IOException
 import java.io.OutputStream
 import java.lang.ref.WeakReference
 
-class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<ByteArray, Void, String>() {
+class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int) : AsyncTask<ByteArray, Void, String>() {
     companion object {
         private val TAG = PhotoProcessor::class.java.simpleName
         private var mActivity: WeakReference<MainActivity>? = null
@@ -40,6 +46,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
                 return ""
             }
 
+            val data = params[0]
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
                 if (config.treeUri.isEmpty()) {
@@ -56,8 +63,20 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
                 fos = FileOutputStream(photoFile)
             }
 
-            val data = params[0]
-            fos?.write(data)
+            var image = BitmapFactory.decodeByteArray(data, 0, data.size)
+            val exif = ExifInterface(photoFile.toString())
+
+            val deviceRot = MainActivity.mOrientation.compensateDeviceRotation(currCameraId)
+            val previewRot = activity.getPreviewRotation(currCameraId)
+            val imageRot = when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> 90
+                ExifInterface.ORIENTATION_ROTATE_180 -> 180
+                ExifInterface.ORIENTATION_ROTATE_270 -> 270
+                else -> 0
+            }
+
+            image = rotate(image, imageRot + deviceRot + previewRot)
+            image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
             fos?.close()
             return photoFile.absolutePath
         } catch (e: Exception) {
@@ -73,8 +92,18 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?) : AsyncTask<Byte
         return ""
     }
 
+    fun rotate(bitmap: Bitmap, degree: Int): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+
+        val matrix = Matrix()
+        matrix.setRotate(degree.toFloat())
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+    }
+
     override fun onPostExecute(path: String) {
         super.onPostExecute(path)
+
         mActivity?.get()?.mediaSaved(path)
     }
 

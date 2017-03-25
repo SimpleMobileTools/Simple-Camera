@@ -252,12 +252,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     fun takePicture() {
         if (mCanTakePicture) {
-            var rotation = mActivity.getMediaRotation(mCurrCameraId)
-            rotation += mCallback.getCurrentOrientation().compensateDeviceRotation(mCurrCameraId)
-
             val selectedResolution = getSelectedResolution()
             mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height);
-            mParameters!!.setRotation(rotation % 360)
 
             if (config.isSoundEnabled) {
                 val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -287,7 +283,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             resumePreview()
         }
 
-        PhotoProcessor(mActivity, mTargetUri).execute(data)
+        PhotoProcessor(mActivity, mTargetUri, mCurrCameraId).execute(data)
     }
 
     private fun resumePreview() {
@@ -534,13 +530,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             } catch (e: Exception) {
                 setupFailed(e)
             }
-
         } else {
             mRecorder!!.setOutputFile(mCurrVideoPath)
         }
         mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
 
-        val rotation = mActivity.getFinalRotation(mCurrCameraId, mCallback.getCurrentOrientation())
+        val rotation = mActivity.getMediaRotation(mCurrCameraId)
         mInitVideoRotation = rotation
         mRecorder!!.setOrientationHint(rotation)
 
@@ -571,7 +566,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun startRecording() {
-        if (mInitVideoRotation != mActivity.getFinalRotation(mCurrCameraId, mCallback.getCurrentOrientation())) {
+        if (mInitVideoRotation != mActivity.getFinalRotation(mCurrCameraId, MainActivity.mOrientation)) {
             cleanupRecorder()
             initRecorder()
         }
@@ -658,8 +653,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         fun setFlashAvailable(available: Boolean)
 
         fun setIsCameraAvailable(available: Boolean)
-
-        fun getCurrentOrientation(): Int
 
         fun videoSaved(uri: Uri)
 
