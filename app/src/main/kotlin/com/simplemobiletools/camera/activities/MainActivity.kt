@@ -274,7 +274,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
                 showTimer()
             } else {
                 shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
-                toggle_camera.beVisible()
+                showToggleCameraIfNeeded()
                 hideTimer()
             }
         }
@@ -318,7 +318,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         disableFlash()
         hideTimer()
         mIsInPhotoMode = !mIsInPhotoMode
-        toggle_camera.beVisible()
+        showToggleCameraIfNeeded()
     }
 
     private fun checkButtons() {
@@ -348,7 +348,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     private fun initVideoButtons() {
         toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_camera))
-        toggle_camera.beVisible()
+        showToggleCameraIfNeeded()
         shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
         checkFlash()
         setupPreviewImage(false)
@@ -447,7 +447,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun resumeCameraItems() {
-        toggle_camera.beVisibleIf(Camera.getNumberOfCameras() > 1)
+        showToggleCameraIfNeeded()
         if (mPreview?.setCamera(mCurrCameraId) == true) {
             hideNavigationBarIcons()
             checkFlash()
@@ -461,6 +461,10 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         } else {
             toast(R.string.camera_switch_error)
         }
+    }
+
+    private fun showToggleCameraIfNeeded() {
+        toggle_camera.beInvisibleIf(Camera.getNumberOfCameras() > 1)
     }
 
     override fun onPause() {

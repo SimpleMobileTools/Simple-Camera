@@ -92,7 +92,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         return ""
     }
 
-    fun rotate(bitmap: Bitmap, degree: Int): Bitmap {
+    private fun rotate(bitmap: Bitmap, degree: Int): Bitmap {
         val width = bitmap.width
         val height = bitmap.height
 
