@@ -14,7 +14,7 @@
     <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
 
     <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">outra</string>
 
     <!-- Settings -->
     <string name="save_photos">Guardar fotos e vídeos em</string>
