@@ -518,7 +518,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         val rotation = getVideoRotation()
         mInitVideoRotation = rotation
-        mRecorder!!.setOrientationHint(90)
+        mRecorder!!.setOrientationHint(rotation)
 
         try {
             mRecorder!!.prepare()
