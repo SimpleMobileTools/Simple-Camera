@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.1.0 *(2017-03-26)*
+----------------------------
+
+ * Added an automatic flash mode
+ * Fixed photo rotation saving
+ * Fixed some issues with saving videos
+
 Version 2.0.1 *(2017-03-23)*
 ----------------------------
 
