@@ -228,7 +228,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             return
         }
 
-        mFlashlightState = ++mFlashlightState % 3
+        mFlashlightState = ++mFlashlightState % if (mIsInPhotoMode) 3 else 2
         checkFlash()
     }
 
