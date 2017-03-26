@@ -19,20 +19,6 @@ fun Activity.getPreviewRotation(cameraId: Int): Int {
     return result % 360
 }
 
-fun Activity.getMediaRotation(cameraId: Int): Int {
-    val degrees = getDeviceRotationDegrees()
-    val info = getCameraInfo(cameraId)
-    return if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-        (360 + info.orientation + degrees) % 360
-    } else
-        (360 + info.orientation - degrees) % 360
-}
-
-fun Activity.getFinalRotation(currCameraId: Int, deviceOrientation: Int): Int {
-    var rotation = getMediaRotation(currCameraId)
-    return rotation % 360
-}
-
 fun Activity.getDeviceRotationDegrees() = when (windowManager.defaultDisplay.rotation) {
     Surface.ROTATION_90 -> 90
     Surface.ROTATION_180 -> 180

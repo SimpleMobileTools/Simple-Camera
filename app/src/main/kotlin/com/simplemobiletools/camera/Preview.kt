@@ -535,7 +535,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
         mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
 
-        val rotation = mActivity.getMediaRotation(mCurrCameraId)
+        val rotation = getVideoRotation()
         mInitVideoRotation = rotation
         mRecorder!!.setOrientationHint(rotation)
 
@@ -565,10 +565,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         return mIsRecording
     }
 
+    private fun getVideoRotation(): Int {
+        val deviceRot = MainActivity.mOrientation.compensateDeviceRotation(mCurrCameraId)
+        val previewRot = mActivity.getPreviewRotation(mCurrCameraId)
+        return (deviceRot + previewRot) % 360
+    }
+
     private fun startRecording() {
-        if (mInitVideoRotation != mActivity.getFinalRotation(mCurrCameraId, MainActivity.mOrientation)) {
-            cleanupRecorder()
-            initRecorder()
+        if (mInitVideoRotation != getVideoRotation()) {
+
         }
 
         try {
