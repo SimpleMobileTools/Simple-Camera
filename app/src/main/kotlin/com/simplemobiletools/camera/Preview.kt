@@ -123,36 +123,40 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         releaseCamera()
         mCamera = newCamera
-        if (mCamera != null) {
-            mParameters = mCamera!!.parameters
-            mMaxZoom = mParameters!!.maxZoom
-            mZoomRatios = mParameters!!.zoomRatios
-            mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
-            refreshPreview()
-
-            val focusModes = mParameters!!.supportedFocusModes
-            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
-                mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
-
-            mCamera!!.setDisplayOrientation(mActivity.getPreviewRotation(cameraId))
-            mCamera!!.parameters = mParameters
-
-            if (mCanTakePicture) {
-                try {
-                    mCamera!!.setPreviewDisplay(mSurfaceHolder)
-                } catch (e: IOException) {
-                    Log.e(TAG, "setCamera setPreviewDisplay " + e.message)
-                    return false
-                }
-            }
-
-            mCallback.setFlashAvailable(hasFlash(mCamera))
-        }
-
-        if (mIsVideoMode) {
+        if (initCamera() && mIsVideoMode) {
             initRecorder()
         }
 
+        return true
+    }
+
+    private fun initCamera(): Boolean {
+        if (mCamera == null)
+            return false
+
+        mParameters = mCamera!!.parameters
+        mMaxZoom = mParameters!!.maxZoom
+        mZoomRatios = mParameters!!.zoomRatios
+        mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
+        refreshPreview()
+
+        val focusModes = mParameters!!.supportedFocusModes
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+            mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
+
+        mCamera!!.setDisplayOrientation(mActivity.getPreviewRotation(mCurrCameraId))
+        mCamera!!.parameters = mParameters
+
+        if (mCanTakePicture) {
+            try {
+                mCamera!!.setPreviewDisplay(mSurfaceHolder)
+            } catch (e: IOException) {
+                Log.e(TAG, "setCamera setPreviewDisplay " + e.message)
+                return false
+            }
+        }
+
+        mCallback.setFlashAvailable(hasFlash(mCamera))
         return true
     }
 
