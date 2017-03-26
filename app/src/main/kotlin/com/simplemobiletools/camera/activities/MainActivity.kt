@@ -131,7 +131,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mPreview = Preview(this, camera_view, this)
         mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
-        toggle_camera.setImageResource(if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_back)
+        toggle_camera.setImageResource(if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
 
         mFocusRectView = FocusRectView(applicationContext)
         view_holder.addView(mFocusRectView)
@@ -195,7 +195,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mPreview?.releaseCamera()
         if (mPreview?.setCamera(mCurrCameraId) == true) {
             if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                newIconId = R.drawable.ic_camera_back
+                newIconId = R.drawable.ic_camera_rear
             }
             toggle_camera.setImageResource(newIconId)
             disableFlash()
