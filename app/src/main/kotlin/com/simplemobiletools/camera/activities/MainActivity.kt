@@ -323,20 +323,20 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
     private fun checkButtons() {
         if (mIsInPhotoMode) {
-            initPhotoButtons()
+            initPhotoMode()
         } else {
-            tryInitVideoButtons()
+            tryInitVideoMode()
         }
     }
 
-    private fun initPhotoButtons() {
+    private fun initPhotoMode() {
         toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_video))
         shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_shutter))
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
 
-    private fun tryInitVideoButtons() {
+    private fun tryInitVideoMode() {
         if (mPreview?.initRecorder() == true) {
             initVideoButtons()
         } else {
