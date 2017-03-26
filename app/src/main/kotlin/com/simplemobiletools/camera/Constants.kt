@@ -9,8 +9,12 @@ val SAVE_PHOTOS = "save_photos"
 val SHOW_PREVIEW = "show_preview"
 val SOUND = "sound"
 val LAST_USED_CAMERA = "last_used_camera"
-val LAST_FLASHLIGHT_STATE = "last_flashlight_state"
+val FLASHLIGHT_STATE = "flashlight_state"
 val BACK_PHOTO_RESOLUTION_INDEX = "back_photo_resolution_index"
 val BACK_VIDEO_RESOLUTION_INDEX = "back_video_resolution_index"
 val FRONT_PHOTO_RESOLUTION_INDEX = "front_photo_resolution_index"
 val FRONT_VIDEO_RESOLUTION_INDEX = "front_video_resolution_index"
+
+val FLASH_OFF = 0
+val FLASH_ON = 1
+val FLASH_AUTO = 2

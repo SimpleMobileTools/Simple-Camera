@@ -34,9 +34,9 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getInt(LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK)
         set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()
 
-    var lastFlashlightState: Boolean
-        get() = prefs.getBoolean(LAST_FLASHLIGHT_STATE, false)
-        set(enabled) = prefs.edit().putBoolean(LAST_FLASHLIGHT_STATE, enabled).apply()
+    var flashlightState: Int
+        get() = prefs.getInt(FLASHLIGHT_STATE, FLASH_OFF)
+        set(state) = prefs.edit().putInt(FLASHLIGHT_STATE, state).apply()
 
     var backPhotoResIndex: Int
         get() = prefs.getInt(BACK_PHOTO_RESOLUTION_INDEX, -1)

@@ -44,7 +44,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
         private var mPreview: Preview? = null
         private var mPreviewUri: Uri? = null
-        private var mIsFlashEnabled = false
+        private var mFlashlightState = FLASH_OFF
         private var mIsInPhotoMode = false
         private var mIsAskingPermissions = false
         private var mIsCameraAvailable = false
@@ -140,7 +140,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mIsInPhotoMode = true
         mTimerHandler = Handler()
         mFadeHandler = Handler()
-        mIsFlashEnabled = config.lastFlashlightState
+        mFlashlightState = config.flashlightState
         setupPreviewImage(true)
     }
 
@@ -228,30 +228,37 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             return
         }
 
-        mIsFlashEnabled = !mIsFlashEnabled
+        mFlashlightState = ++mFlashlightState % 3
         checkFlash()
     }
 
     private fun checkFlash() {
-        if (mIsFlashEnabled) {
-            enableFlash()
-        } else {
-            disableFlash()
+        when (mFlashlightState) {
+            FLASH_ON -> enableFlash()
+            FLASH_AUTO -> autoFlash()
+            else -> disableFlash()
         }
     }
 
     private fun disableFlash() {
         mPreview?.disableFlash()
         toggle_flash.setImageResource(R.drawable.ic_flash_off)
-        mIsFlashEnabled = false
-        config.lastFlashlightState = mIsFlashEnabled
+        mFlashlightState = FLASH_OFF
+        config.flashlightState = FLASH_OFF
     }
 
     private fun enableFlash() {
         mPreview?.enableFlash()
         toggle_flash.setImageResource(R.drawable.ic_flash_on)
-        mIsFlashEnabled = true
-        config.lastFlashlightState = mIsFlashEnabled
+        mFlashlightState = FLASH_ON
+        config.flashlightState = FLASH_ON
+    }
+
+    private fun autoFlash() {
+        mPreview?.autoFlash()
+        toggle_flash.setImageResource(R.drawable.ic_flash_auto)
+        mFlashlightState = FLASH_AUTO
+        config.flashlightState = FLASH_AUTO
     }
 
     private fun shutterPressed() {

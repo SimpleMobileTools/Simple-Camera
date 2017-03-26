@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.hardware.Camera
 import android.media.*
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.os.Handler
 import android.util.Log
@@ -44,7 +45,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         private var mCurrVideoPath = ""
         private var mCanTakePicture = false
-        private var mIsFlashEnabled = false
         private var mIsRecording = false
         private var mIsVideoMode = false
         private var mIsSurfaceCreated = false
@@ -68,7 +68,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mSurfaceHolder.addCallback(this)
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
         mCanTakePicture = false
-        mIsFlashEnabled = false
         mIsVideoMode = false
         mIsSurfaceCreated = false
         mSetupPreviewAfterMeasure = false
@@ -267,7 +266,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 }
             }
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 mCamera!!.enableShutterSound(false)
             }
 
@@ -465,12 +464,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     fun enableFlash() {
         mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
         mCamera!!.parameters = mParameters
-        mIsFlashEnabled = true
     }
 
     fun disableFlash() {
-        mIsFlashEnabled = false
         mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+        mCamera!!.parameters = mParameters
+    }
+
+    fun autoFlash() {
+        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_AUTO
         mCamera!!.parameters = mParameters
     }
 
