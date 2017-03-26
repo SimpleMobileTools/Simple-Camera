@@ -498,6 +498,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
                 else -> 0
             }
 
+            mPreview!!.deviceOrientationChanged()
             animateViews(degrees)
             mLastHandledOrientation = mOrientation
         }

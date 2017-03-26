@@ -54,7 +54,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         private var mWasZooming = false
         private var mLastClickX = 0
         private var mLastClickY = 0
-        private var mInitVideoRotation = 0
         private var mCurrCameraId = 0
         private var mMaxZoom = 0
     }
@@ -366,7 +365,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         } catch (e: IOException) {
             Log.e(TAG, "surfaceCreated IOException " + e.message)
         }
-
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -517,7 +515,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
 
         val rotation = getVideoRotation()
-        mInitVideoRotation = rotation
         mRecorder!!.setOrientationHint(rotation)
 
         try {
@@ -580,11 +577,14 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         return (deviceRot + previewRot) % 360
     }
 
-    private fun startRecording() {
-        if (mInitVideoRotation != getVideoRotation()) {
-
+    fun deviceOrientationChanged() {
+        if (mIsVideoMode && !mIsRecording) {
+            mRecorder = null
+            initRecorder()
         }
+    }
 
+    private fun startRecording() {
         try {
             mCamera!!.unlock()
             toggleShutterSound(true)
@@ -596,7 +596,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             Log.e(TAG, "toggleRecording " + e.message)
             releaseCamera()
         }
-
     }
 
     private fun stopRecording() {
