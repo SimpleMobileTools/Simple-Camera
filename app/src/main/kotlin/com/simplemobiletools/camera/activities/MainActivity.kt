@@ -577,6 +577,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
             add(Release(33, R.string.release_33))
+            add(Release(35, R.string.release_35))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
