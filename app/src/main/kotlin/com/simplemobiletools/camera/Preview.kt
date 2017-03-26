@@ -513,6 +513,24 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mRecorder!!.setProfile(this)
         }
 
+        checkPermissions()
+        mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
+
+        val rotation = getVideoRotation()
+        mInitVideoRotation = rotation
+        mRecorder!!.setOrientationHint(90)
+
+        try {
+            mRecorder!!.prepare()
+        } catch (e: Exception) {
+            setupFailed(e)
+            return false
+        }
+
+        return true
+    }
+
+    private fun checkPermissions(): Boolean {
         if (mActivity.needsStupidWritePermissions(mCurrVideoPath)) {
             if (config.treeUri.isEmpty()) {
                 mActivity.toast(R.string.save_error_internal_storage)
@@ -537,19 +555,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         } else {
             mRecorder!!.setOutputFile(mCurrVideoPath)
         }
-        mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
-
-        val rotation = getVideoRotation()
-        mInitVideoRotation = rotation
-        mRecorder!!.setOrientationHint(rotation)
-
-        try {
-            mRecorder!!.prepare()
-        } catch (e: Exception) {
-            setupFailed(e)
-            return false
-        }
-
         return true
     }
 
