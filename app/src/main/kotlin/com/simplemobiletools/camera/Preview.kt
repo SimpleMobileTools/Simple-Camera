@@ -472,8 +472,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     fun autoFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_AUTO
+        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
         mCamera!!.parameters = mParameters
+
+        Handler().postDelayed({
+            mActivity.runOnUiThread {
+                mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_AUTO
+                mCamera!!.parameters = mParameters
+            }
+        }, 1000)
     }
 
     fun initPhotoMode() {
