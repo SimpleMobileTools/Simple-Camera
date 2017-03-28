@@ -1,40 +1,40 @@
 <resources>
     <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Câmara</string>
-    <string name="camera_unavailable">Câmara indisponível</string>
-    <string name="camera_open_error">Ocorreu um erro ao aceder à câmara</string>
-    <string name="video_creating_error">Ocorreu um erro ao criar o ficheiro de vídeo</string>
-    <string name="video_saving_error">Ocorreu um erro ao guardar o ficheiro de vídeo</string>
+    <string name="app_launcher_name">Câmera</string>
+    <string name="camera_unavailable">Câmera indisponível</string>
+    <string name="camera_open_error">Ocorreu um erro ao acessar a câmera</string>
+    <string name="video_creating_error">Ocorreu um erro ao criar o arquivo de vídeo</string>
+    <string name="video_saving_error">Ocorreu um erro ao salvar o arquivo de vídeo</string>
     <string name="video_setup_error">Ocorreu um erro ao configurar a gravação</string>
     <string name="video_mode_error">Falha ao mudar para o modo de vídeo</string>
-    <string name="save_error_internal_storage">Erro, a pasta para guardar ficheiros foi alterada para o armazenamento interno</string>
-    <string name="camera_switch_error">Falha ao mudar de câmara</string>
-    <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
+    <string name="save_error_internal_storage">Erro, a pasta para guardar arquivos foi alterada para o armazenamento interno</string>
+    <string name="camera_switch_error">Falha ao mudar de câmera</string>
+    <string name="no_permissions">É necessária a permissão para acessar a câmera e o armazenamento</string>
     <string name="no_audio_permissions">Necessitamos da permissão de áudio para gravar os vídeos</string>
-    <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
+    <string name="no_gallery_app_available">Nenhum aplicativo de galeria disponível</string>
 
     <!-- other aspect ratio -->
     <string name="other">outra</string>
 
     <!-- Settings -->
-    <string name="save_photos">Guardar fotos e vídeos em</string>
+    <string name="save_photos">Salvar fotos e vídeos em</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>
     <string name="shutter_sound">Som do obturador</string>
-    <string name="back_camera">Resoluções da câmara traseira</string>
-    <string name="front_camera">Resoluções da câmara frontal</string>
+    <string name="back_camera">Resoluções da câmera traseira</string>
+    <string name="front_camera">Resoluções da câmera frontal</string>
     <string name="photo">Foto</string>
     <string name="video">Vídeo</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Uma câmara com flash, zoom e sem anúncios.</string>
+    <string name="app_short_description">Uma câmera com flash, zoom e sem anúncios.</string>
     <string name="app_long_description">
-        Pode utilizar esta aplicação para tirar fotografias ou gravar vídeos. Pode alternar entre a câmara frontal e a traseira, alterar o caminho para guardar os ficheiros e ajustar a resolução. Pode ativar o flash e apertar o ecrã para ampliar. Se estiver a gravar vídeos, pode utilizar o flash como lanterna.
+        Pode-se utilizar este aplicativo para tirar fotos ou gravar vídeos, alternar entre a câmera frontal e a traseira, alterar o caminho para guardar os arquivos e ajustar a resolução. Pode-se ativar o flash e apertar na tela para dar zoom. Se estiver gravando vídeos, pode-se utilizar o flash como lanterna.
 
 
-        Se quiser iniciar esta aplicação ao tocar no botão de câmara do seu dispositivo, deve desativar a aplicação nativa em Definições -> Aplicações -> Câmara -> Desativar.
+        Se quiser iniciar este aplicativo ao tocar no botão de câmera do seu dispositivo, deve desativar o aplicativo padrão em Configurações -> Aplicativos -> Câmera -> Desativar.
 
-        Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
+        Não contém anúncios, nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
 
         Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com
     </string>
