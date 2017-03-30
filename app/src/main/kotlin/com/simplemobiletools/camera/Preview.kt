@@ -386,6 +386,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private fun setupPreview() {
         mCanTakePicture = true
         if (mCamera != null && mPreviewSize != null) {
+            if (mParameters == null)
+                mParameters = mCamera!!.parameters
+
             mParameters!!.setPreviewSize(mPreviewSize!!.width, mPreviewSize!!.height)
             mCamera!!.parameters = mParameters
             mCamera!!.startPreview()
