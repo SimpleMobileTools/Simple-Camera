@@ -166,6 +166,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getSelectedResolution(): Camera.Size {
+        if (mParameters == null)
+            mParameters = mCamera!!.parameters
+
         var index = getResolutionIndex()
         val resolutions = if (mIsVideoMode) {
             mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
