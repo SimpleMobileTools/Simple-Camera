@@ -33,6 +33,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
     private fun setupPhotoResolutionPicker(view: View) {
         val items = getFormattedResolutions(camera.parameters.supportedPictureSizes)
         var selectionIndex = if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
+        selectionIndex = Math.max(selectionIndex, 0)
 
         view.change_resolution_photo_holder.setOnClickListener {
             RadioGroupDialog(activity, items, selectionIndex) {
