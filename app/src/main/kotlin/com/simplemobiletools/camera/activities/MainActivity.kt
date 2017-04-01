@@ -460,7 +460,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             checkFlash()
 
             val accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-            mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
+            mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
 
             if (!mIsInPhotoMode) {
                 initVideoButtons()
