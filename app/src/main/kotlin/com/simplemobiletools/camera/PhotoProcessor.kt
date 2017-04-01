@@ -66,7 +66,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val exif = ExifInterface(photoFile.toString())
 
-            val deviceRot = MainActivity.mOrientation.compensateDeviceRotation(currCameraId)
+            val deviceRot = MainActivity.mLastHandledOrientation.compensateDeviceRotation(currCameraId)
             val previewRot = activity.getPreviewRotation(currCameraId)
             val imageRot = when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
                 ExifInterface.ORIENTATION_ROTATE_90 -> 90

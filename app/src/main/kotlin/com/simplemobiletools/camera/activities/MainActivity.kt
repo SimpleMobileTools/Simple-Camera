@@ -31,7 +31,6 @@ import java.util.*
 
 class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener {
     companion object {
-
         private val CAMERA_STORAGE_PERMISSION = 1
         private val RECORD_AUDIO_PERMISSION = 2
         private val FADE_DELAY = 5000
@@ -53,8 +52,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         private var mIsHardwareShutterHandled = false
         private var mCurrVideoRecTimer = 0
         private var mCurrCameraId = 0
-        private var mLastHandledOrientation = 0
-        var mOrientation = 0
+        var mLastHandledOrientation = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -488,18 +486,18 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     override fun onSensorChanged(event: SensorEvent) {
-        if (event.values[0] < 6.5 && event.values[0] > -6.5) {
-            mOrientation = ORIENT_PORTRAIT
+        val orientation = if (event.values[0] < 6.5 && event.values[0] > -6.5) {
+            ORIENT_PORTRAIT
         } else {
             if (event.values[0] > 0) {
-                mOrientation = ORIENT_LANDSCAPE_LEFT
+                ORIENT_LANDSCAPE_LEFT
             } else {
-                mOrientation = ORIENT_LANDSCAPE_RIGHT
+                ORIENT_LANDSCAPE_RIGHT
             }
         }
 
-        if (mOrientation != mLastHandledOrientation) {
-            val degrees = when (mOrientation) {
+        if (orientation != mLastHandledOrientation) {
+            val degrees = when (orientation) {
                 ORIENT_LANDSCAPE_LEFT -> 90
                 ORIENT_LANDSCAPE_RIGHT -> -90
                 else -> 0
@@ -507,7 +505,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
             mPreview!!.deviceOrientationChanged()
             animateViews(degrees)
-            mLastHandledOrientation = mOrientation
+            mLastHandledOrientation = orientation
         }
     }
 
