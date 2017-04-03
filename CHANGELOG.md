@@ -1,7 +1,7 @@
 Changelog
 ==========
 
-Version 2.1.0 *(2017-03-30)*
+Version 2.1.1 *(2017-03-30)*
 ----------------------------
 
  * Adding a couple crashfixes
