@@ -3,12 +3,12 @@ package com.simplemobiletools.camera.activities
 import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.database.Cursor
-import android.hardware.*
+import android.hardware.Camera
+import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -29,13 +29,12 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, PhotoProcessor.MediaSavedListener {
+class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
     companion object {
         private val CAMERA_STORAGE_PERMISSION = 1
         private val RECORD_AUDIO_PERMISSION = 2
         private val FADE_DELAY = 5000
 
-        lateinit var mSensorManager: SensorManager
         lateinit var mFocusRectView: FocusRectView
         lateinit var mTimerHandler: Handler
         lateinit var mFadeHandler: Handler
@@ -55,6 +54,8 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         var mLastHandledOrientation = 0
     }
 
+    lateinit var mOrientationEventListener: OrientationEventListener
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -64,6 +65,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         supportActionBar?.hide()
         storeStoragePaths()
         checkWhatsNewDialog()
+        setupOrientationEventListener()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -134,7 +136,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         mFocusRectView = FocusRectView(applicationContext)
         view_holder.addView(mFocusRectView)
 
-        mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         mIsInPhotoMode = true
         mTimerHandler = Handler()
         mFadeHandler = Handler()
@@ -449,6 +450,7 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
             }
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        mOrientationEventListener.enable()
     }
 
     private fun resumeCameraItems() {
@@ -456,9 +458,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
         if (mPreview?.setCamera(mCurrCameraId) == true) {
             hideNavigationBarIcons()
             checkFlash()
-
-            val accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-            mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
 
             if (!mIsInPhotoMode) {
                 initVideoButtons()
@@ -482,30 +481,32 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
 
         hideTimer()
         mPreview?.releaseCamera()
-        mSensorManager.unregisterListener(this)
+        mOrientationEventListener.disable()
     }
 
-    override fun onSensorChanged(event: SensorEvent) {
-        val orientation = if (event.values[0] < 6.5 && event.values[0] > -6.5) {
-            ORIENT_PORTRAIT
-        } else {
-            if (event.values[0] > 0) {
-                ORIENT_LANDSCAPE_LEFT
-            } else {
-                ORIENT_LANDSCAPE_RIGHT
-            }
-        }
+    private fun setupOrientationEventListener() {
+        mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
+            override fun onOrientationChanged(orientation: Int) {
+                val currOrient = if (orientation in 45..134) {
+                    ORIENT_LANDSCAPE_RIGHT
+                } else if (orientation in 225..314) {
+                    ORIENT_LANDSCAPE_LEFT
+                } else {
+                    ORIENT_PORTRAIT
+                }
 
-        if (orientation != mLastHandledOrientation) {
-            val degrees = when (orientation) {
-                ORIENT_LANDSCAPE_LEFT -> 90
-                ORIENT_LANDSCAPE_RIGHT -> -90
-                else -> 0
-            }
+                if (currOrient != mLastHandledOrientation) {
+                    val degrees = when (currOrient) {
+                        ORIENT_LANDSCAPE_LEFT -> 90
+                        ORIENT_LANDSCAPE_RIGHT -> -90
+                        else -> 0
+                    }
 
-            mPreview!!.deviceOrientationChanged()
-            animateViews(degrees)
-            mLastHandledOrientation = orientation
+                    mPreview!!.deviceOrientationChanged()
+                    animateViews(degrees)
+                    mLastHandledOrientation = currOrient
+                }
+            }
         }
     }
 
@@ -517,9 +518,6 @@ class MainActivity : SimpleActivity(), SensorEventListener, PreviewListener, Pho
     }
 
     private fun rotate(view: View, degrees: Int) = view.animate().rotation(degrees.toFloat()).start()
-
-    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-    }
 
     private fun checkCameraAvailable(): Boolean {
         if (!mIsCameraAvailable) {
