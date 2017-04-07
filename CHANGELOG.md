@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.2.0 *(2017-04-07)*
+----------------------------
+
+ * Make sure the captured photo is rotated properly
+ * Added color themes
+
 Version 2.1.1 *(2017-03-30)*
 ----------------------------
 
