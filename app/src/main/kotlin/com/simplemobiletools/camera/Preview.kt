@@ -56,6 +56,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         private var mLastClickY = 0
         private var mCurrCameraId = 0
         private var mMaxZoom = 0
+        private var mRotationAtCapture = 0
     }
 
     constructor(context: Context) : super(context)
@@ -273,6 +274,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mCamera!!.enableShutterSound(false)
             }
 
+            mRotationAtCapture = MainActivity.mLastHandledOrientation
             mCamera!!.parameters = mParameters
             mCamera!!.takePicture(null, null, takePictureCallback)
         }
@@ -288,7 +290,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             resumePreview()
         }
 
-        PhotoProcessor(mActivity, mTargetUri, mCurrCameraId).execute(data)
+        PhotoProcessor(mActivity, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
     }
 
     private fun resumePreview() {
