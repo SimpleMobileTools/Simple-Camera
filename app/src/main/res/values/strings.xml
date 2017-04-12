@@ -9,8 +9,8 @@
     <string name="video_mode_error">Switching to video mode failed</string>
     <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
     <string name="camera_switch_error">Switching camera failed</string>
-    <string name="no_permissions">Not much to do without accessing your camera and storage</string>
-    <string name="no_audio_permissions">We need the audio permission for recording videos</string>
+    <string name="no_permissions">We can\'t do much without accessing your camera and storage</string>
+    <string name="no_audio_permissions">We need audio permission for recording videos</string>
     <string name="no_gallery_app_available">No gallery app available</string>
 
     <!-- other aspect ratio -->
@@ -29,12 +29,12 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">A camera with flash, zoom and no ads.</string>
     <string name="app_long_description">
-        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
+        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path and limit the resolution. The flash can be turned on and off or used as a flashlight. You can pinch to zoom in and out.
 
 
         If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        Contains no ads or unnecessary permissions. It is fully open source, providing a Dark theme too.
 
         This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
     </string>
