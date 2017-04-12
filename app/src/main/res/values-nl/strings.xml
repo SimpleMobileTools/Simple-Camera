@@ -32,4 +32,5 @@
     <string name="video_mode_error">Schakelen naar de videomodus is mislukt</string>
     <string name="video_saving_error">Er is een fout opgetreden het opslaan van het videobestand</string>
     <string name="video_setup_error">Er is een fout opgetreden het configureren van de videorecorder</string>
+    <string name="app_short_description">Een camera met flits, zoom en geen advertenties.</string>
 </resources>
