@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eenvoudig Camera</string>
+    <string name="app_launcher_name">Camera</string>
+    <string name="app_long_description">
+        De camera is geschikt voor zowel foto\’s en video-opname. U kunt schakelen tussen de camera\’s, verander de opslaglocatie en de resolutie te beperken. Flash kan worden gebruikt. U kunt knijpen en zoom.
+
+        Als standaard te gebruiken, Verwijder de standaard camera in Instellingen -> Apps.
+
+        De applicatie heeft geen advertenties of onnodige machtigingen bevatten. Het is volledig open source, biedt een Dark thema.
+
+        U kunt meer Simple apps bij http://www.simplemobiletools.com vinden.
+    </string>
+    <string name="back_camera">Terug camera resoluties</string>
+    <string name="camera_open_error">Een fout opgetreden met de camera</string>
+    <string name="camera_switch_error">Schakelen camera is mislukt</string>
+    <string name="camera_unavailable">Camera niet beschikbaar</string>
+    <string name="front_camera">Camera aan de voorkant resoluties</string>
+    <string name="no_audio_permissions">Toestemming voor audio nodig is voor het opnemen van video\'s</string>
+    <string name="no_gallery_app_available">Geen gallery app beschikbaar</string>
+    <string name="no_permissions">Kan niets doen zonder toegang tot uw camera en opslag</string>
+    <string name="other">Ander</string>
+    <string name="photo">Foto</string>
+    <string name="release_33">Toegevoegd meer kleuren aanpassingsopties. Uw instellingen zijn gewist, kunt u ze opnieuw in te stellen. Verplaatst de resolutie picker op het hoofdscherm.</string>
+    <string name="release_35">Toegevoegd een automatische flitsen</string>
+    <string name="save_error_internal_storage">Er is een fout opgetreden, de map opslaan is gewijzigd in interne opslag</string>
+    <string name="save_photos">Opslaan foto\'s en video\'s naar</string>
+    <string name="show_preview">Bekijk een voorbeeld na het nemen van een foto</string>
+    <string name="shutter_sound">Sluiter geluid</string>
+    <string name="video">Video</string>
+    <string name="video_creating_error">Een fout opgetreden maken van het videobestand</string>
+    <string name="video_mode_error">Schakelen naar de videomodus is mislukt</string>
+    <string name="video_saving_error">Er is een fout opgetreden het opslaan van het videobestand</string>
+    <string name="video_setup_error">Er is een fout opgetreden het configureren van de videorecorder</string>
+</resources>
