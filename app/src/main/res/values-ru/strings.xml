@@ -14,16 +14,16 @@
     <string name="no_gallery_app_available">Нет доступного приложения-галереи</string>
 
     <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">другое</string>
 
     <!-- Settings -->
     <string name="save_photos">Сохранять фото и видео в</string>
     <string name="show_preview">Показывать сделанное фото</string>
     <string name="shutter_sound">Звук затвора</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
-    <string name="video">Video</string>
+    <string name="back_camera">Разрешения основной камеры</string>
+    <string name="front_camera">Разрешения фронтальной камеры</string>
+    <string name="photo">Фото</string>
+    <string name="video">Видео</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
