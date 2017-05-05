@@ -304,17 +304,16 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private fun handleTogglePhotoVideo() {
         togglePhotoVideo()
-        checkButtons()
     }
 
     private fun togglePhotoVideo() {
-        if (!checkCameraAvailable()) {
-            return
-        }
-
         if (!hasRecordAudioPermission()) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_PERMISSION)
             mIsAskingPermissions = true
+            return
+        }
+
+        if (!checkCameraAvailable()) {
             return
         }
 
@@ -325,6 +324,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         hideTimer()
         mIsInPhotoMode = !mIsInPhotoMode
         showToggleCameraIfNeeded()
+        checkButtons()
     }
 
     private fun checkButtons() {
