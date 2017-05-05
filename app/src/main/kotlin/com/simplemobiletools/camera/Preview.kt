@@ -462,9 +462,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             }
 
             if (mSetupPreviewAfterMeasure) {
-                mSetupPreviewAfterMeasure = false
-                mCamera?.stopPreview()
-                setupPreview()
+                if (mCamera != null) {
+                    mSetupPreviewAfterMeasure = false
+                    mCamera!!.stopPreview()
+                    setupPreview()
+                }
             }
         }
     }
