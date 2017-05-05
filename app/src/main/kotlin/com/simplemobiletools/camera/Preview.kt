@@ -487,8 +487,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         Handler().postDelayed({
             mActivity.runOnUiThread {
-                mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_AUTO
-                mCamera!!.parameters = mParameters
+                mParameters?.flashMode = Camera.Parameters.FLASH_MODE_AUTO
+                mCamera?.parameters = mParameters
             }
         }, 1000)
     }
