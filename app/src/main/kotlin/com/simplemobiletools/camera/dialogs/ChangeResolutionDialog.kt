@@ -4,17 +4,19 @@ import android.hardware.Camera
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
+import com.simplemobiletools.camera.Config
+import com.simplemobiletools.camera.Preview
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.SimpleActivity
-import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getAspectRatio
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
 
-class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boolean, val camera: Camera, val callback: () -> Unit) {
+class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, val camera: Camera, val callback: () -> Unit) {
     var dialog: AlertDialog
+    val isBackCamera = Preview.config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
 
     init {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_resolution, null).apply {
@@ -32,7 +34,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
 
     private fun setupPhotoResolutionPicker(view: View) {
         val items = getFormattedResolutions(camera.parameters.supportedPictureSizes)
-        var selectionIndex = if (isBackCamera) activity.config.backPhotoResIndex else activity.config.frontPhotoResIndex
+        var selectionIndex = if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
         selectionIndex = Math.max(selectionIndex, 0)
 
         view.change_resolution_photo_holder.setOnClickListener {
@@ -40,9 +42,9 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
                 selectionIndex = it as Int
                 view.change_resolution_photo.text = items[selectionIndex].title
                 if (isBackCamera)
-                    activity.config.backPhotoResIndex = it
+                    config.backPhotoResIndex = it
                 else
-                    activity.config.frontPhotoResIndex = it
+                    config.frontPhotoResIndex = it
                 dialog.dismiss()
             }
         }
@@ -51,16 +53,16 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isBackCamera: Boo
 
     private fun setupVideoResolutionPicker(view: View) {
         val items = getFormattedResolutions(camera.parameters.supportedVideoSizes ?: camera.parameters.supportedPreviewSizes)
-        var selectionIndex = if (isBackCamera) activity.config.backVideoResIndex else activity.config.frontVideoResIndex
+        var selectionIndex = if (isBackCamera) config.backVideoResIndex else config.frontVideoResIndex
 
         view.change_resolution_video_holder.setOnClickListener {
             RadioGroupDialog(activity, items, selectionIndex) {
                 selectionIndex = it as Int
                 view.change_resolution_video.text = items[selectionIndex].title
                 if (isBackCamera)
-                    activity.config.backVideoResIndex = it
+                    config.backVideoResIndex = it
                 else
-                    activity.config.frontVideoResIndex = it
+                    config.frontVideoResIndex = it
                 dialog.dismiss()
             }
         }
