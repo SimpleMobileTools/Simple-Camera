@@ -52,7 +52,7 @@ class SettingsActivity : SimpleActivity() {
     private fun setupSavePhotosFolder() {
         settings_save_photos.text = getLastPart(config.savePhotosFolder)
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, config.savePhotosFolder, false) {
+            FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
                 handleSAFDialog(File(it)) {
                     config.savePhotosFolder = it
                     settings_save_photos.text = getLastPart(config.savePhotosFolder)
