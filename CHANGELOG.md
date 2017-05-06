@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.2.1 *(2017-05-05)*
+----------------------------
+
+ * Allow creating new folders at selecting the save folder
+ * Misc crashfixes
+
 Version 2.2.0 *(2017-04-07)*
 ----------------------------
 
