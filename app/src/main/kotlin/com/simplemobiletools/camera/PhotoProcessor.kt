@@ -56,7 +56,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                     config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
                 }
-                var document = activity.getFileDocument(path, config.treeUri)
+                var document = activity.getFileDocument(path)
                 document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1))
                 fos = activity.contentResolver.openOutputStream(document?.uri)
             } else {

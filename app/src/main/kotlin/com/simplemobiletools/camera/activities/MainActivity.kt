@@ -566,7 +566,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     override fun onDestroy() {
         super.onDestroy()
-        config.isFirstRun = false
         mPreview?.releaseCamera()
     }
 
