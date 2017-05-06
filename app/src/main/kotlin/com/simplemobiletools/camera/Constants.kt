@@ -8,6 +8,7 @@ val ORIENT_LANDSCAPE_RIGHT = 2
 val SAVE_PHOTOS = "save_photos"
 val SHOW_PREVIEW = "show_preview"
 val SOUND = "sound"
+val FOCUS_BEFORE_CAPTURE = "focus_before_capture"
 val LAST_USED_CAMERA = "last_used_camera"
 val FLASHLIGHT_STATE = "flashlight_state"
 val BACK_PHOTO_RESOLUTION_INDEX = "back_photo_resolution_index"

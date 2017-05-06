@@ -27,6 +27,7 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
+        setupFocusBeforeCapture()
         updateTextColors(settings_holder)
     }
 
@@ -79,6 +80,14 @@ class SettingsActivity : SimpleActivity() {
         settings_sound_holder.setOnClickListener {
             settings_sound.toggle()
             config.isSoundEnabled = settings_sound.isChecked
+        }
+    }
+
+    private fun setupFocusBeforeCapture() {
+        settings_focus_before_capture.isChecked = config.focusBeforeCapture
+        settings_focus_before_capture_holder.setOnClickListener {
+            settings_focus_before_capture.toggle()
+            config.focusBeforeCapture = settings_focus_before_capture.isChecked
         }
     }
 }

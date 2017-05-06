@@ -25,6 +25,7 @@
     <string name="front_camera">Camera aan de voorkant resoluties</string>
     <string name="photo">Foto</string>
     <string name="video">Video</string>
+    <string name="focus_before_capture">Focus before capture</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

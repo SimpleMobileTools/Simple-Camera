@@ -104,5 +104,25 @@
                 android:text="@string/shutter_sound"/>
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_focus_before_capture_holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin">
+
+            <com.simplemobiletools.commons.views.MySwitchCompat
+                android:id="@+id/settings_focus_before_capture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:clickable="false"
+                android:paddingLeft="@dimen/medium_margin"
+                android:paddingStart="@dimen/medium_margin"
+                android:text="@string/focus_before_capture"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

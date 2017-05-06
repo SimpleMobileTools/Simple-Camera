@@ -30,6 +30,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(SOUND, true)
         set(enabled) = prefs.edit().putBoolean(SOUND, enabled).apply()
 
+    var focusBeforeCapture: Boolean
+        get() = prefs.getBoolean(FOCUS_BEFORE_CAPTURE, true)
+        set(focus) = prefs.edit().putBoolean(FOCUS_BEFORE_CAPTURE, focus).apply()
+
     var lastUsedCamera: Int
         get() = prefs.getInt(LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK)
         set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()
