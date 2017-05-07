@@ -21,8 +21,6 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/normal_margin"
-        android:layout_marginTop="@dimen/normal_margin"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_settings_cog"/>
 
@@ -32,7 +30,6 @@
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/settings"
-        android:layout_marginRight="@dimen/normal_margin"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_video"/>
 
@@ -42,7 +39,6 @@
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/toggle_photo_video"
-        android:layout_marginRight="@dimen/normal_margin"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_resolution"/>
 
@@ -52,7 +48,6 @@
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/change_resolution"
-        android:layout_marginRight="@dimen/normal_margin"
         android:padding="@dimen/medium_margin"/>
 
     <LinearLayout
