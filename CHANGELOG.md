@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 2.3.0 *(2017-05-07)*
+----------------------------
+
+ * Add an option to focus the photo before capture
+ * Add an option to use the volume buttons as shutter
+ * Fix wrong video rotation in some cases
+ * Misc other smaller improvements
+
 Version 2.2.1 *(2017-05-05)*
 ----------------------------
 
