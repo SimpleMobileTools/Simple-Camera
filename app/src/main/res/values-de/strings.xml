@@ -24,7 +24,7 @@
     <string name="front_camera">Front camera resolutions</string>
     <string name="photo">Photo</string>
     <string name="video">Video</string>
-    <string name="focus_before_capture">Focus before capture</string>
+    <string name="focus_before_capture">Vor der Aufnahme fokussieren</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

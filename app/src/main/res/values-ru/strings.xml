@@ -24,7 +24,7 @@
     <string name="front_camera">Разрешения фронтальной камеры</string>
     <string name="photo">Фото</string>
     <string name="video">Видео</string>
-    <string name="focus_before_capture">Focus before capture</string>
+    <string name="focus_before_capture">Перефокусировка перед захватом</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
