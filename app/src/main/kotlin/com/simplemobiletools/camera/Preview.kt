@@ -306,7 +306,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mCanTakePicture = true
     }
 
-    private fun focusArea(takePictureAfter: Boolean) {
+    private fun focusArea(takePictureAfter: Boolean, showFocusRect: Boolean = true) {
         if (mCamera == null)
             return
 
@@ -316,7 +316,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             val focusAreas = ArrayList<Camera.Area>(1)
             focusAreas.add(Camera.Area(focusRect, 1000))
             mParameters!!.focusAreas = focusAreas
-            mCallback.drawFocusRect(mLastClickX, mLastClickY)
+
+            if (showFocusRect)
+                mCallback.drawFocusRect(mLastClickX, mLastClickY)
         }
 
         mCamera!!.parameters = mParameters
@@ -329,6 +331,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             camera.parameters = mParameters
             if (takePictureAfter) {
                 takePicture()
+            } else {
+                Handler().postDelayed({
+                    focusArea(false, false)
+                }, 3000)
             }
         }
     }
