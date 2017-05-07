@@ -346,7 +346,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             camera.parameters = mParameters
             if (takePictureAfter) {
                 takePicture()
-            } else {
+            } else if (!mIsVideoMode || !mIsRecording) {
                 Handler().postDelayed({
                     focusArea(false, false)
                 }, 3000)
