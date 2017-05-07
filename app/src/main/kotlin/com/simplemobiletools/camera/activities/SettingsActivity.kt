@@ -28,6 +28,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowPreview()
         setupSound()
         setupFocusBeforeCapture()
+        setupVolumeButtonsAsShutter()
         updateTextColors(settings_holder)
     }
 
@@ -88,6 +89,14 @@ class SettingsActivity : SimpleActivity() {
         settings_focus_before_capture_holder.setOnClickListener {
             settings_focus_before_capture.toggle()
             config.focusBeforeCapture = settings_focus_before_capture.isChecked
+        }
+    }
+
+    private fun setupVolumeButtonsAsShutter() {
+        settings_volume_buttons_as_shutter.isChecked = config.volumeButtonsAsShutter
+        settings_volume_buttons_as_shutter_holder.setOnClickListener {
+            settings_volume_buttons_as_shutter.toggle()
+            config.volumeButtonsAsShutter = settings_volume_buttons_as_shutter.isChecked
         }
     }
 }

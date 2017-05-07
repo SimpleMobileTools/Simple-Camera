@@ -25,6 +25,7 @@
     <string name="photo">Photo</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Fokusera om innan bildtagning</string>
+    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
