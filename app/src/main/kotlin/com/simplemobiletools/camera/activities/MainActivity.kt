@@ -60,12 +60,25 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        mRes = resources
+        initVariables()
         tryInitCamera()
         supportActionBar?.hide()
         storeStoragePaths()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+    }
+
+    private fun initVariables() {
+        mRes = resources
+        mIsInPhotoMode = false
+        mIsAskingPermissions = false
+        mIsCameraAvailable = false
+        mIsImageCaptureIntent = false
+        mIsVideoCaptureIntent = false
+        mIsHardwareShutterHandled = false
+        mCurrVideoRecTimer = 0
+        mCurrCameraId = 0
+        mLastHandledOrientation = 0
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
