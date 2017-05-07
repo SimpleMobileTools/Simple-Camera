@@ -322,8 +322,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             return
 
         mCamera!!.cancelAutoFocus()
-        val focusRect = calculateFocusArea(mLastClickX.toFloat(), mLastClickY.toFloat())
         if (mParameters!!.maxNumFocusAreas > 0) {
+            if (mLastClickX == 0 && mLastClickY == 0) {
+                mLastClickX = width / 2
+                mLastClickY = height / 2
+            }
+            val focusRect = calculateFocusArea(mLastClickX.toFloat(), mLastClickY.toFloat())
             val focusAreas = ArrayList<Camera.Area>(1)
             focusAreas.add(Camera.Area(focusRect, 1000))
             mParameters!!.focusAreas = focusAreas
