@@ -338,6 +338,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mIsInPhotoMode = !mIsInPhotoMode
         showToggleCameraIfNeeded()
         checkButtons()
+        toggleBottomButtons(false)
     }
 
     private fun checkButtons() {
@@ -464,6 +465,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         mOrientationEventListener.enable()
+        toggleBottomButtons(false)
     }
 
     private fun resumeCameraItems() {
