@@ -2,6 +2,10 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_39">
+        Add an option to focus the photo before capture\n
+        Add an option to use the volume buttons as shutter
+    </string>
     <string name="release_35">Added an automatic flash mode</string>
     <string name="release_33">
         Added more color customization options\n

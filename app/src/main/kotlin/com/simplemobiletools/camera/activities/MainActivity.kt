@@ -592,6 +592,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         arrayListOf<Release>().apply {
             add(Release(33, R.string.release_33))
             add(Release(35, R.string.release_35))
+            add(Release(39, R.string.release_39))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
