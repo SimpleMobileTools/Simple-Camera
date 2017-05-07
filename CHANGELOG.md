@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.3.1 *(2017-05-07)*
+----------------------------
+
+ * Keep autofocusing every 3 secs only we are in photo mode, or not recording
+
 Version 2.3.0 *(2017-05-07)*
 ----------------------------
 
