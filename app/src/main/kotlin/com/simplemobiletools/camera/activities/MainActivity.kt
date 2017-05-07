@@ -269,7 +269,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private fun handleShutter() {
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
-            mPreview?.takePicture()
+            mPreview?.tryTakePicture()
             Handler().postDelayed({
                 toggleBottomButtons(false)
             }, Preview.PHOTO_PREVIEW_LENGTH)

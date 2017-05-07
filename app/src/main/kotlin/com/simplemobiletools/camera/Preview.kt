@@ -256,7 +256,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         })
     }
 
-    fun takePicture() {
+    fun tryTakePicture() {
+        if (config.focusBeforeCapture) {
+            focusArea(true)
+        } else {
+            takePicture()
+        }
+    }
+
+    private fun takePicture() {
         if (mCanTakePicture) {
             val selectedResolution = getSelectedResolution()
             mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height);
