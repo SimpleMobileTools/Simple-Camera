@@ -73,6 +73,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             mIsHardwareShutterHandled = true
             shutterPressed()
             true
+        } else if (config.volumeButtonsAsShutter && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+            shutterPressed()
+            true
         } else {
             super.onKeyDown(keyCode, event)
         }
