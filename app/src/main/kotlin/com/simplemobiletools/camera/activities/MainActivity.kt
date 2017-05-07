@@ -466,10 +466,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                 togglePhotoVideo()
                 checkButtons()
             }
+            toggleBottomButtons(false)
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         mOrientationEventListener.enable()
-        toggleBottomButtons(false)
     }
 
     private fun resumeCameraItems() {
