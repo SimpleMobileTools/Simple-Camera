@@ -502,9 +502,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                         else -> 0
                     }
 
-                    mPreview?.deviceOrientationChanged()
                     animateViews(degrees)
                     mLastHandledOrientation = currOrient
+                    mPreview?.deviceOrientationChanged()
                 }
             }
         }
