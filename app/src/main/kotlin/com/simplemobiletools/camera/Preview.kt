@@ -297,6 +297,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
         if (config.isShowPreviewEnabled) {
             mIsPreviewShown = true
+            if (!config.wasPhotoPreviewHintShown) {
+                context.toast(R.string.click_to_resume_preview)
+                config.wasPhotoPreviewHintShown = true
+            }
         } else {
             Handler().postDelayed({
                 resumePreview()

@@ -16,6 +16,7 @@ val BACK_PHOTO_RESOLUTION_INDEX = "back_photo_resolution_index"
 val BACK_VIDEO_RESOLUTION_INDEX = "back_video_resolution_index"
 val FRONT_PHOTO_RESOLUTION_INDEX = "front_photo_resolution_index"
 val FRONT_VIDEO_RESOLUTION_INDEX = "front_video_resolution_index"
+val PHOTO_PREVIEW_HINT_SHOWN = "photo_preview_hint_shown"
 
 val FLASH_OFF = 0
 val FLASH_ON = 1

@@ -61,4 +61,8 @@ class Config(context: Context) : BaseConfig(context) {
     var frontVideoResIndex: Int
         get() = prefs.getInt(FRONT_VIDEO_RESOLUTION_INDEX, 0)
         set(frontVideoResIndex) = prefs.edit().putInt(FRONT_VIDEO_RESOLUTION_INDEX, frontVideoResIndex).apply()
+
+    var wasPhotoPreviewHintShown: Boolean
+        get() = prefs.getBoolean(PHOTO_PREVIEW_HINT_SHOWN, false)
+        set(wasPhotoPreviewHintShown) = prefs.edit().putBoolean(PHOTO_PREVIEW_HINT_SHOWN, wasPhotoPreviewHintShown).apply()
 }

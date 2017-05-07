@@ -12,6 +12,7 @@
     <string name="no_permissions">Inte mycket att göra utan tillgång till din kamera och lagring</string>
     <string name="no_audio_permissions">För att spela in video krävs ljudrättigheter</string>
     <string name="no_gallery_app_available">Ingen galleri-app finns tillgänglig</string>
+    <string name="click_to_resume_preview">Click on the image to resume preview</string>
 
     <!-- other aspect ratio -->
     <string name="other">other</string>

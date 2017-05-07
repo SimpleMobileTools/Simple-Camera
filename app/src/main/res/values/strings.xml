@@ -12,6 +12,7 @@
     <string name="no_permissions">We can\'t do much without accessing your camera and storage</string>
     <string name="no_audio_permissions">We need audio permission for recording videos</string>
     <string name="no_gallery_app_available">No gallery app available</string>
+    <string name="click_to_resume_preview">Click on the image to resume preview</string>
 
     <!-- other aspect ratio -->
     <string name="other">other</string>
