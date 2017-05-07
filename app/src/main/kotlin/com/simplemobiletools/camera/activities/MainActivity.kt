@@ -304,6 +304,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         shutter.animate().alpha(alpha).start()
         toggle_camera.animate().alpha(alpha).start()
         toggle_flash.animate().alpha(alpha).start()
+
+        shutter.isClickable = !hide
+        toggle_camera.isClickable = !hide
+        toggle_flash.isClickable = !hide
     }
 
     private fun launchSettings() {
