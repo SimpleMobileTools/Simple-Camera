@@ -24,10 +24,10 @@ import java.util.*
 
 class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
     companion object {
-        val PHOTO_PREVIEW_LENGTH = 1000L
         var mCamera: Camera? = null
         private val TAG = Preview::class.java.simpleName
         private val FOCUS_AREA_SIZE = 100
+        private val PHOTO_PREVIEW_LENGTH = 500L
 
         lateinit var mSurfaceHolder: SurfaceHolder
         lateinit var mSurfaceView: SurfaceView
@@ -52,6 +52,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         private var mSetupPreviewAfterMeasure = false
         private var mIsSixteenToNine = false
         private var mWasZooming = false
+        private var mIsPreviewShown = false
         private var mLastClickX = 0
         private var mLastClickY = 0
         private var mCurrCameraId = 0
@@ -87,11 +88,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         mSurfaceView.setOnClickListener {
-            if (!mWasZooming)
-                focusArea(false)
+            if (mIsPreviewShown) {
+                resumePreview()
+            } else {
+                if (!mWasZooming)
+                    focusArea(false)
 
-            mWasZooming = false
-            mSurfaceView.isSoundEffectsEnabled = true
+                mWasZooming = false
+                mSurfaceView.isSoundEffectsEnabled = true
+            }
         }
     }
 
@@ -291,17 +296,19 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
         if (config.isShowPreviewEnabled) {
+            mIsPreviewShown = true
+        } else {
             Handler().postDelayed({
                 resumePreview()
             }, PHOTO_PREVIEW_LENGTH)
-        } else {
-            resumePreview()
         }
 
         PhotoProcessor(mActivity, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
     }
 
     private fun resumePreview() {
+        mIsPreviewShown = false
+        mActivity.toggleBottomButtons(false)
         mCamera?.startPreview()
         mCanTakePicture = true
     }

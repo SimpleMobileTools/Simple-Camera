@@ -273,9 +273,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
             mPreview?.tryTakePicture()
-            Handler().postDelayed({
-                toggleBottomButtons(false)
-            }, Preview.PHOTO_PREVIEW_LENGTH)
         } else {
             if (mPreview?.toggleRecording() == true) {
                 shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_stop))
@@ -289,7 +286,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    private fun toggleBottomButtons(hide: Boolean) {
+    fun toggleBottomButtons(hide: Boolean) {
         val alpha = if (hide) 0f else 1f
         shutter.animate().alpha(alpha).start()
         toggle_camera.animate().alpha(alpha).start()
