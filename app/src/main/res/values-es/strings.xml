@@ -1,32 +1,32 @@
 <resources>
     <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Cámara</string>
+    <string name="app_launcher_name">Simple Camera</string>
     <string name="camera_unavailable">Cámara no disponible</string>
     <string name="camera_open_error">Ha ocurrido un error al acceder a la cámara</string>
     <string name="video_creating_error">Ha ocurrido un error creando el archivo de vídeo</string>
     <string name="video_saving_error">Ha ocurrido un error guardando el archivo de vídeo</string>
     <string name="video_setup_error">Ha ocurrido un error al configurar la grabación</string>
     <string name="video_mode_error">Ha fallado el cambio a modo de vídeo</string>
-    <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta destino al almacenamiento interno</string>
+    <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta de destino al almacenamiento interno</string>
     <string name="camera_switch_error">Ha fallado el cambio de cámara</string>
     <string name="no_permissions">No hay mucho que hacer sin los permisos para acceder a la cámara y al almacenamiento</string>
     <string name="no_audio_permissions">Se necesita el permiso de micrófono para grabar vídeos</string>
     <string name="no_gallery_app_available">No hay disponible una aplicación de galería</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
+    <string name="click_to_resume_preview">Haga clic en la imagen para reanudar la vista previa</string>
 
     <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">otro</string>
 
     <!-- Settings -->
     <string name="save_photos">Guardar fotografías y vídeos en</string>
-    <string name="show_preview">Show a photo preview after capturing</string>
+    <string name="show_preview">Mostrar una vista previa de la foto después de capturar</string>
     <string name="shutter_sound">Sonido del obturador</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
-    <string name="video">Video</string>
-    <string name="focus_before_capture">Focus before capture</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
+    <string name="back_camera">Resolución de la cámara trasera</string>
+    <string name="front_camera">Resolución de la cámara frontal</string>
+    <string name="photo">Foto</string>
+    <string name="video">Vídeo</string>
+    <string name="focus_before_capture">Enfocar antes de la captura</string>
+    <string name="volume_buttons_as_shutter">Utilizar los botones de volumen como obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
