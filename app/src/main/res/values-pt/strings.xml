@@ -12,7 +12,7 @@
     <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
     <string name="no_audio_permissions">Necessitamos da permissão de áudio para gravar os vídeos</string>
     <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
+    <string name="click_to_resume_preview">Clique na imagem para continuar com a pré-visualização</string>
 
     <!-- other aspect ratio -->
     <string name="other">outra</string>
@@ -25,8 +25,8 @@
     <string name="front_camera">Resoluções da câmara frontal</string>
     <string name="photo">Foto</string>
     <string name="video">Vídeo</string>
-    <string name="focus_before_capture">Focus before capture</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
+    <string name="focus_before_capture">Focar antes de capturar</string>
+    <string name="volume_buttons_as_shutter">Usar botões de volume como obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
