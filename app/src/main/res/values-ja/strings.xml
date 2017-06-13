@@ -27,6 +27,7 @@
     <string name="video">Video</string>
     <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
     <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
+    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

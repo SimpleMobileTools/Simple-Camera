@@ -29,6 +29,7 @@ class SettingsActivity : SimpleActivity() {
         setupSound()
         setupFocusBeforeCapture()
         setupVolumeButtonsAsShutter()
+        setupTurnFlashOffAtStartup()
         updateTextColors(settings_holder)
     }
 
@@ -97,6 +98,14 @@ class SettingsActivity : SimpleActivity() {
         settings_volume_buttons_as_shutter_holder.setOnClickListener {
             settings_volume_buttons_as_shutter.toggle()
             config.volumeButtonsAsShutter = settings_volume_buttons_as_shutter.isChecked
+        }
+    }
+
+    private fun setupTurnFlashOffAtStartup() {
+        settings_turn_flash_off_at_startup.isChecked = config.turnFlashOffAtStartup
+        settings_turn_flash_off_at_startup_holder.setOnClickListener {
+            settings_turn_flash_off_at_startup.toggle()
+            config.turnFlashOffAtStartup = settings_turn_flash_off_at_startup.isChecked
         }
     }
 }
