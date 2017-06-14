@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.3.2 *(2017-06-14)*
+----------------------------
+
+ * Add an option to always disable flash at startup (by trubitsyn)
+ * Couple translation fixes
+
 Version 2.3.1 *(2017-05-07)*
 ----------------------------
 
