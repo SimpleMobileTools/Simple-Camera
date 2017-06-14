@@ -298,7 +298,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (config.isShowPreviewEnabled) {
             mIsPreviewShown = true
             if (!config.wasPhotoPreviewHintShown) {
-                context.toast(R.string.click_to_resume_preview)
+                mActivity.toast(R.string.click_to_resume_preview)
                 config.wasPhotoPreviewHintShown = true
             }
         } else {
