@@ -38,6 +38,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(VOLUME_BUTTONS_AS_SHUTTER, false)
         set(volumeButtonsAsShutter) = prefs.edit().putBoolean(VOLUME_BUTTONS_AS_SHUTTER, volumeButtonsAsShutter).apply()
 
+    var turnFlashOffAtStartup: Boolean
+        get() = prefs.getBoolean(TURN_FLASH_OFF_AT_STARTUP, false)
+        set(turnFlashOffAtStartup) = prefs.edit().putBoolean(TURN_FLASH_OFF_AT_STARTUP, turnFlashOffAtStartup).apply()
+
     var lastUsedCamera: Int
         get() = prefs.getInt(LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK)
         set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()

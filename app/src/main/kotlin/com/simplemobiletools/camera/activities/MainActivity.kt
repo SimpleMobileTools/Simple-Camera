@@ -155,7 +155,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mIsInPhotoMode = true
         mTimerHandler = Handler()
         mFadeHandler = Handler()
-        mFlashlightState = config.flashlightState
+        mFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
         setupPreviewImage(true)
     }
 

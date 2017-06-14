@@ -27,6 +27,7 @@
     <string name="video">Vídeo</string>
     <string name="focus_before_capture">Focar antes de capturar</string>
     <string name="volume_buttons_as_shutter">Usar botões de volume como obturador</string>
+    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
