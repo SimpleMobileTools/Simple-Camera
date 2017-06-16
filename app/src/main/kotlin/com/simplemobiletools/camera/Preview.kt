@@ -23,42 +23,43 @@ import java.io.IOException
 import java.util.*
 
 class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
-    companion object {
-        var mCamera: Camera? = null
-        private val TAG = Preview::class.java.simpleName
-        private val FOCUS_AREA_SIZE = 100
-        private val PHOTO_PREVIEW_LENGTH = 500L
+    var mCamera: Camera? = null
+    private val TAG = Preview::class.java.simpleName
+    private val FOCUS_AREA_SIZE = 100
+    private val PHOTO_PREVIEW_LENGTH = 500L
+    private val REFOCUS_PERIOD = 3000L
 
-        lateinit var mSurfaceHolder: SurfaceHolder
-        lateinit var mSurfaceView: SurfaceView
-        lateinit var mActivity: MainActivity
-        lateinit var mCallback: PreviewListener
-        lateinit var mScreenSize: Point
-        lateinit var config: Config
-        private var mSupportedPreviewSizes: List<Camera.Size>? = null
-        private var mPreviewSize: Camera.Size? = null
-        private var mParameters: Camera.Parameters? = null
-        private var mRecorder: MediaRecorder? = null
-        private var mTargetUri: Uri? = null
-        private var mScaleGestureDetector: ScaleGestureDetector? = null
-        private var mZoomRatios: List<Int>? = null
+    lateinit var mSurfaceHolder: SurfaceHolder
+    lateinit var mSurfaceView: SurfaceView
+    lateinit var mActivity: MainActivity
+    lateinit var mCallback: PreviewListener
+    lateinit var mScreenSize: Point
+    lateinit var config: Config
+    private var mSupportedPreviewSizes: List<Camera.Size>? = null
+    private var mPreviewSize: Camera.Size? = null
+    private var mParameters: Camera.Parameters? = null
+    private var mRecorder: MediaRecorder? = null
+    private var mTargetUri: Uri? = null
+    private var mScaleGestureDetector: ScaleGestureDetector? = null
+    private var mZoomRatios: List<Int>? = null
 
-        private var mCurrVideoPath = ""
-        private var mCanTakePicture = false
-        private var mIsRecording = false
-        private var mIsVideoMode = false
-        private var mIsSurfaceCreated = false
-        private var mSwitchToVideoAsap = false
-        private var mSetupPreviewAfterMeasure = false
-        private var mIsSixteenToNine = false
-        private var mWasZooming = false
-        private var mIsPreviewShown = false
-        private var mLastClickX = 0
-        private var mLastClickY = 0
-        private var mCurrCameraId = 0
-        private var mMaxZoom = 0
-        private var mRotationAtCapture = 0
-    }
+    private var mCurrVideoPath = ""
+    private var mCanTakePicture = false
+    private var mIsRecording = false
+    private var mIsVideoMode = false
+    private var mIsSurfaceCreated = false
+    private var mSwitchToVideoAsap = false
+    private var mSetupPreviewAfterMeasure = false
+    private var mIsSixteenToNine = false
+    private var mWasZooming = false
+    private var mIsPreviewShown = false
+    private var mLastClickX = 0
+    private var mLastClickY = 0
+    private var mCurrCameraId = 0
+    private var mMaxZoom = 0
+    private var mRotationAtCapture = 0
+    private var mIsFocusing = false
+    private var autoFocusHandler = Handler()
 
     constructor(context: Context) : super(context)
 
@@ -292,6 +293,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mCamera!!.takePicture(null, null, takePictureCallback)
         }
         mCanTakePicture = false
+        mIsFocusing = false
     }
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
@@ -315,11 +317,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mActivity.toggleBottomButtons(false)
         mCamera?.startPreview()
         mCanTakePicture = true
+        focusArea(false, false)
     }
 
     private fun focusArea(takePictureAfter: Boolean, showFocusRect: Boolean = true) {
-        if (mCamera == null)
+        if (mCamera == null || (mIsFocusing && !takePictureAfter))
             return
+
+        if (takePictureAfter)
+            mIsFocusing = true
 
         mCamera!!.cancelAutoFocus()
         if (mParameters!!.maxNumFocusAreas > 0) {
@@ -344,12 +350,14 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
 
             camera.parameters = mParameters
+
             if (takePictureAfter) {
                 takePicture()
             } else if (!mIsVideoMode || !mIsRecording) {
-                Handler().postDelayed({
+                autoFocusHandler.removeCallbacksAndMessages(null)
+                autoFocusHandler.postDelayed({
                     focusArea(false, false)
-                }, 3000)
+                }, REFOCUS_PERIOD)
             }
         }
     }

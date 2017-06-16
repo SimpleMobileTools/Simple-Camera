@@ -8,9 +8,9 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import android.util.Log
-import com.simplemobiletools.camera.Preview.Companion.config
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.compensateDeviceRotation
+import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.getFileDocument
@@ -49,11 +49,11 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             val data = params[0]
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
-                if (config.treeUri.isEmpty()) {
+                if (activity.config.treeUri.isEmpty()) {
                     activity.runOnUiThread {
                         activity.toast(R.string.save_error_internal_storage)
                     }
-                    config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
+                    activity.config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
                 }
                 var document = activity.getFileDocument(path)

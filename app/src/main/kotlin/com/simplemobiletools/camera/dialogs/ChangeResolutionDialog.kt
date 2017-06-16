@@ -5,9 +5,9 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import com.simplemobiletools.camera.Config
-import com.simplemobiletools.camera.Preview
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.SimpleActivity
+import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getAspectRatio
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
 
 class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, val camera: Camera, val callback: () -> Unit) {
     var dialog: AlertDialog
-    val isBackCamera = Preview.config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
+    val isBackCamera = activity.config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
 
     init {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_resolution, null).apply {
