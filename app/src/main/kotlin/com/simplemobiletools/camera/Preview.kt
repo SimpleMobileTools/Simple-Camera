@@ -378,8 +378,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     fun showChangeResolutionDialog() {
-        val oldResolution = getSelectedResolution()
         if (mCamera != null) {
+            val oldResolution = getSelectedResolution()
             ChangeResolutionDialog(mActivity, config, mCamera!!) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
