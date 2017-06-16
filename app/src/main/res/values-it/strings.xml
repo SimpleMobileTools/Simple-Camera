@@ -13,6 +13,7 @@
     <string name="no_audio_permissions">È necessario l\'accesso al microfono per registrare i video</string>
     <string name="no_gallery_app_available">Nessuna app galleria disponibile</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
+    <string name="photo_not_saved">The photo could not be saved</string>
 
     <!-- other aspect ratio -->
     <string name="other">other</string>

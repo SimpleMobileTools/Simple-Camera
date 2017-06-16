@@ -14,6 +14,7 @@
     <string name="no_audio_permissions">Toestemming voor audio nodig is voor het opnemen van video\'s</string>
     <string name="no_gallery_app_available">Geen gallery app beschikbaar</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
+    <string name="photo_not_saved">The photo could not be saved</string>
 
     <!-- other aspect ratio -->
     <string name="other">Ander</string>

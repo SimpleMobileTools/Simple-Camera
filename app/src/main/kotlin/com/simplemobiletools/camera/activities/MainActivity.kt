@@ -501,6 +501,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         hideTimer()
         mPreview?.releaseCamera()
         mOrientationEventListener.disable()
+
+        if (mPreview?.isWaitingForTakePictureCallback == true) {
+            toast(R.string.photo_not_saved)
+        }
     }
 
     private fun setupOrientationEventListener() {

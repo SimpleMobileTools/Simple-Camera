@@ -13,6 +13,7 @@
     <string name="no_audio_permissions">We need audio permission for recording videos</string>
     <string name="no_gallery_app_available">No gallery app available</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
+    <string name="photo_not_saved">The photo could not be saved</string>
 
     <!-- other aspect ratio -->
     <string name="other">other</string>

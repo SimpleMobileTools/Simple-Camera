@@ -61,6 +61,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mIsFocusing = false
     private var autoFocusHandler = Handler()
 
+    var isWaitingForTakePictureCallback = false
+
     constructor(context: Context) : super(context)
 
     constructor(activity: MainActivity, surfaceView: SurfaceView, previewListener: PreviewListener) : super(activity) {
@@ -275,6 +277,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             val selectedResolution = getSelectedResolution()
             mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height);
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                mCamera!!.enableShutterSound(false)
+            }
+
+            mRotationAtCapture = MainActivity.mLastHandledOrientation
+            mCamera!!.parameters = mParameters
+            isWaitingForTakePictureCallback = true
+            mCamera!!.takePicture(null, null, takePictureCallback)
+
             if (config.isSoundEnabled) {
                 val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
                 val volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM)
@@ -283,20 +294,13 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                     mp?.start()
                 }
             }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                mCamera!!.enableShutterSound(false)
-            }
-
-            mRotationAtCapture = MainActivity.mLastHandledOrientation
-            mCamera!!.parameters = mParameters
-            mCamera!!.takePicture(null, null, takePictureCallback)
         }
         mCanTakePicture = false
         mIsFocusing = false
     }
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
+        isWaitingForTakePictureCallback = false
         if (config.isShowPreviewEnabled) {
             mIsPreviewShown = true
             if (!config.wasPhotoPreviewHintShown) {
