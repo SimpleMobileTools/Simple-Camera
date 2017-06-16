@@ -275,7 +275,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private fun takePicture() {
         if (mCanTakePicture) {
             val selectedResolution = getSelectedResolution()
-            mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height);
+            mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 mCamera!!.enableShutterSound(false)
