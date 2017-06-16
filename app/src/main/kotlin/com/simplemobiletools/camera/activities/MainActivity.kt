@@ -506,6 +506,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private fun setupOrientationEventListener() {
         mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
             override fun onOrientationChanged(orientation: Int) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && isDestroyed) {
+                    mOrientationEventListener.disable()
+                    return
+                }
+
                 val currOrient = if (orientation in 45..134) {
                     ORIENT_LANDSCAPE_RIGHT
                 } else if (orientation in 225..314) {
