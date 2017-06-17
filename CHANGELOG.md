@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.3.3 *(2017-06-16)*
+----------------------------
+
+ * Fix occasional stucking at focusing at taking photo
+
 Version 2.3.2 *(2017-06-14)*
 ----------------------------
 
