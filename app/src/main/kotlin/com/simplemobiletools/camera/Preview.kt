@@ -58,7 +58,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mCurrCameraId = 0
     private var mMaxZoom = 0
     private var mRotationAtCapture = 0
-    private var mIsFocusing = false
+    private var mIsFocusingBeforeCapture = false
     private var autoFocusHandler = Handler()
 
     var isWaitingForTakePictureCallback = false
@@ -296,7 +296,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             }
         }
         mCanTakePicture = false
-        mIsFocusing = false
+        mIsFocusingBeforeCapture = false
     }
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
@@ -325,11 +325,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun focusArea(takePictureAfter: Boolean, showFocusRect: Boolean = true) {
-        if (mCamera == null || (mIsFocusing && !takePictureAfter))
+        if (mCamera == null || (mIsFocusingBeforeCapture && !takePictureAfter))
             return
 
         if (takePictureAfter)
-            mIsFocusing = true
+            mIsFocusingBeforeCapture = true
 
         mCamera!!.cancelAutoFocus()
         if (mParameters!!.maxNumFocusAreas > 0) {
@@ -347,22 +347,26 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         mCamera!!.parameters = mParameters
-        mCamera!!.autoFocus { success, camera ->
-            camera.cancelAutoFocus()
-            val focusModes = mParameters!!.supportedFocusModes
-            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
-                mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
+        try {
+            mCamera!!.autoFocus { success, camera ->
+                camera.cancelAutoFocus()
+                val focusModes = mParameters!!.supportedFocusModes
+                if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+                    mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
 
-            camera.parameters = mParameters
+                camera.parameters = mParameters
 
-            if (takePictureAfter) {
-                takePicture()
-            } else if (!mIsVideoMode || !mIsRecording) {
-                autoFocusHandler.removeCallbacksAndMessages(null)
-                autoFocusHandler.postDelayed({
-                    focusArea(false, false)
-                }, REFOCUS_PERIOD)
+                if (takePictureAfter) {
+                    takePicture()
+                } else if (!mIsVideoMode || !mIsRecording) {
+                    autoFocusHandler.removeCallbacksAndMessages(null)
+                    autoFocusHandler.postDelayed({
+                        focusArea(false, false)
+                    }, REFOCUS_PERIOD)
+                }
             }
+        } catch (ignored: RuntimeException) {
+
         }
     }
 
