@@ -172,6 +172,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mSetupPreviewAfterMeasure = true
         requestLayout()
         invalidate()
+        rescheduleAutofocus()
     }
 
     private fun getSelectedResolution(): Camera.Size {
@@ -358,11 +359,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
                 if (takePictureAfter) {
                     takePicture()
-                } else if (!mIsVideoMode || !mIsRecording) {
-                    autoFocusHandler.removeCallbacksAndMessages(null)
-                    autoFocusHandler.postDelayed({
-                        focusArea(false, false)
-                    }, REFOCUS_PERIOD)
+                } else {
+                    rescheduleAutofocus()
                 }
             }
         } catch (ignored: RuntimeException) {
@@ -383,6 +381,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         val rectRight = Math.min(left.toInt() + FOCUS_AREA_SIZE / 2, 1000)
         val rectBottom = Math.min(top.toInt() + FOCUS_AREA_SIZE / 2, 1000)
         return Rect(rectLeft, rectTop, rectRight, rectBottom)
+    }
+
+    private fun rescheduleAutofocus() {
+        autoFocusHandler.removeCallbacksAndMessages(null)
+        autoFocusHandler.postDelayed({
+            if (!mIsVideoMode || !mIsRecording) {
+                focusArea(false, false)
+            }
+        }, REFOCUS_PERIOD)
     }
 
     fun showChangeResolutionDialog() {
