@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.3.4 *(2017-06-22)*
+----------------------------
+
+ * Added rounded launcher icons for Android 7
+ * Couple crashfixes
+
 Version 2.3.3 *(2017-06-16)*
 ----------------------------
 
