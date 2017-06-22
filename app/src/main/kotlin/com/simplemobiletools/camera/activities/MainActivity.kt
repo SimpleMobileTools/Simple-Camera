@@ -469,7 +469,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             toggleBottomButtons(false)
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        mOrientationEventListener.enable()
+        if (hasCameraAndStoragePermission()) {
+            mOrientationEventListener.enable()
+        }
     }
 
     private fun resumeCameraItems() {
@@ -541,11 +543,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private fun animateViews(degrees: Int) {
         val views = arrayOf<View>(toggle_camera, toggle_flash, toggle_photo_video, change_resolution, shutter, settings, last_photo_video_preview)
         for (view in views) {
-            try {
-                rotate(view, degrees)
-            } catch (ignored: IllegalStateException) {
-
-            }
+            rotate(view, degrees)
         }
     }
 
