@@ -75,7 +75,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 else -> 0
             }
 
-            image = rotate(image, imageRot + deviceRot + previewRot)
+            image = rotate(image, imageRot + deviceRot + previewRot) ?: return ""
             image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
             fos?.close()
             return photoFile.absolutePath
@@ -92,13 +92,21 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         return ""
     }
 
-    private fun rotate(bitmap: Bitmap, degree: Int): Bitmap {
+    private fun rotate(bitmap: Bitmap, degree: Int): Bitmap? {
         val width = bitmap.width
         val height = bitmap.height
 
         val matrix = Matrix()
         matrix.setRotate((degree % 360).toFloat())
-        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+        try {
+            return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+        } catch (e: OutOfMemoryError) {
+            Log.e(TAG, "PhotoProcessor rotate OutOfMemoryError $e")
+            activity.runOnUiThread {
+                activity.toast(R.string.photo_not_saved)
+            }
+        }
+        return null
     }
 
     override fun onPostExecute(path: String) {
