@@ -445,7 +445,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
             mParameters!!.setPreviewSize(mPreviewSize!!.width, mPreviewSize!!.height)
             mCamera!!.parameters = mParameters
-            mCamera!!.startPreview()
+            try {
+                mCamera!!.startPreview()
+            } catch (ignored: RuntimeException) {
+            }
         }
     }
 
