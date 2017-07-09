@@ -1,47 +1,47 @@
 <resources>
     <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Camera</string>
+    <string name="app_launcher_name">Kamera</string>
     <string name="camera_unavailable">Kameran inte tillgänglig</string>
     <string name="camera_open_error">Ett fel uppstod vid åtkomst till kameran</string>
     <string name="video_creating_error">Ett fel uppstod när videofilen skulle skapas</string>
     <string name="video_saving_error">Ett fel uppstod när videofilen skulle sparas</string>
     <string name="video_setup_error">Ett fel uppstod när inspelningen skulle starta</string>
     <string name="video_mode_error">Byte till videoläge misslyckades</string>
-    <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
+    <string name="save_error_internal_storage">Ett fel uppstod, sparmappen ändrades till det interna lagringsutrymmet</string>
     <string name="camera_switch_error">Byte av kamera misslyckades</string>
     <string name="no_permissions">Inte mycket att göra utan tillgång till din kamera och lagring</string>
     <string name="no_audio_permissions">För att spela in video krävs ljudrättigheter</string>
     <string name="no_gallery_app_available">Ingen galleri-app finns tillgänglig</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="click_to_resume_preview">Klicka på bilden för att återuppta förhandsgranskningen</string>
+    <string name="photo_not_saved">Fotot kunde inte sparas</string>
 
     <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">annat</string>
 
     <!-- Settings -->
-    <string name="save_photos">Save photos and videos to</string>
-    <string name="show_preview">Show a photo preview after capturing</string>
+    <string name="save_photos">Spara foton och videor i</string>
+    <string name="show_preview">Förhandsgranska foton efter att de har tagits</string>
     <string name="shutter_sound">Slutarljud</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
+    <string name="back_camera">Bakre kamerans upplösningar</string>
+    <string name="front_camera">Främre kamerans upplösningar</string>
+    <string name="photo">Foto</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Fokusera om innan bildtagning</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
+    <string name="volume_buttons_as_shutter">Använd volymknapparna som slutare</string>
+    <string name="turn_flash_off_at_startup">Stäng av blixten vid start</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_short_description">En kamera med blixt, zoom och ingen reklam.</string>
     <string name="app_long_description">
-        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
+        Kameran är användbar för både bildtagning och videoinspelning. Du kan växla mellan främre och bakre kamera, ändra sparsökvägen och begränsa upplösningen. Blixten kan slås på, stängas av och användas som en ficklampa. Du kan nypa för att zooma in.
 
 
-        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Om du vill starta denna app genom att trycka på den fysiska kameraknappen måste du kanske inaktivera den inbyggda Kamera-appen i Inställningar -> Appar -> Kamera -> Inaktivera.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och har även ett Mörkt tema.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Denna app är bara en del av en större serie appar. Du hittar resten av dem på http://www.simplemobiletools.com
     </string>
 
     <!--
