@@ -7,32 +7,32 @@
     <string name="video_saving_error">Beim Speichern des Videos ist ein Fehler aufgetreten</string>
     <string name="video_setup_error">Beim Starten der Aufnahme ist ein Fehler aufgetreten</string>
     <string name="video_mode_error">Beim Umschalten zum Videomodus ist ein Fehler aufgetreten</string>
-    <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
+    <string name="save_error_internal_storage">Ein Fehler ist aufgetreten. Speicherordner wurde auf den internen Speicher gesetzt</string>
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
     <string name="no_permissions">Ohne Zugriff auf Kamera und Speicher ist hier nicht viel zu tun</string>
-    <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mirkofon um Videos aufnehmen zu können</string>
-    <string name="no_gallery_app_available">Keine Galerie App verfügbar</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mikrofon um Videos aufnehmen zu können</string>
+    <string name="no_gallery_app_available">Keine Galerie Applikation verfügbar</string>
+    <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
+    <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
 
     <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">andere</string>
 
     <!-- Settings -->
-    <string name="save_photos">Save photos and videos to</string>
-    <string name="show_preview">Zeige eine Vorschau des Photos nach der Aufnahme</string>
+    <string name="save_photos">Fotos und Videos speichern nach</string>
+    <string name="show_preview">Zeige eine Vorschau des Fotos nach der Aufnahme</string>
     <string name="shutter_sound">Auslösegeräusch</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
+    <string name="back_camera">Rückkamera Auflösung</string>
+    <string name="front_camera">Frontkamera Auflösung</string>
+    <string name="photo">Foto</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Vor der Aufnahme fokussieren</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
+    <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Shutter</string>
+    <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_short_description">Eine Kamera mit Blitzlicht, Zoom und keine Werbung.</string>
     <string name="app_long_description">
         The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
 
