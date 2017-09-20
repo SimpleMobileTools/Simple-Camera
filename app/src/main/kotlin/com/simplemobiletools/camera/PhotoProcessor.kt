@@ -36,10 +36,10 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         var fos: OutputStream? = null
         val path: String
         try {
-            if (uri != null) {
-                path = uri.path
+            path = if (uri != null) {
+                uri.path
             } else {
-                path = activity.getOutputMediaFile(true)
+                activity.getOutputMediaFile(true)
             }
 
             if (path.isEmpty()) {
@@ -114,7 +114,6 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
     override fun onPostExecute(path: String) {
         super.onPostExecute(path)
-
         mActivity?.get()?.mediaSaved(path)
     }
 

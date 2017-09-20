@@ -201,10 +201,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             return
         }
 
-        if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
-            mCurrCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT
+        mCurrCameraId = if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
+            Camera.CameraInfo.CAMERA_FACING_FRONT
         } else {
-            mCurrCameraId = Camera.CameraInfo.CAMERA_FACING_BACK
+            Camera.CameraInfo.CAMERA_FACING_BACK
         }
 
         config.lastUsedCamera = mCurrCameraId

@@ -34,16 +34,10 @@ fun Camera.Size.isSixToFive(): Boolean {
     return diff < RATIO_TOLERANCE
 }
 
-fun Camera.Size.getAspectRatio(context: Context): String {
-    return if (isSixteenToNine()) {
-        "16:9"
-    } else if (isFourToThree()) {
-        "4:3"
-    } else if (isThreeToTwo()) {
-        "3:2"
-    } else if (isSixToFive()) {
-        "6:5"
-    } else {
-        context.resources.getString(R.string.other)
-    }
+fun Camera.Size.getAspectRatio(context: Context) = when {
+    isSixteenToNine() -> "16:9"
+    isFourToThree() -> "4:3"
+    isThreeToTwo() -> "3:2"
+    isSixToFive() -> "6:5"
+    else -> context.resources.getString(R.string.other)
 }

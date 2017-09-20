@@ -43,7 +43,9 @@ class FocusRectView(context: Context) : ViewGroup(context) {
         toggleRect(true)
 
         mHandler.removeCallbacksAndMessages(null)
-        mHandler.postDelayed({ toggleRect(false) }, RECT_DURATION.toLong())
+        mHandler.postDelayed({
+            toggleRect(false)
+        }, RECT_DURATION.toLong())
     }
 
     private fun toggleRect(show: Boolean) {
