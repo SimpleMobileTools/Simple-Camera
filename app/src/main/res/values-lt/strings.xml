@@ -4,8 +4,6 @@
     <string name="camera_unavailable">Kamera negalima</string>
     <string name="camera_open_error">Įvyko klaida bandant įjungti kamerą</string>
     <string name="video_creating_error">Įvyko klaida bandant sukurti vaizdo bylą</string>
-    <string name="video_saving_error">Įvyko klaida bandant išsaugoti vaizdo bylą</string>
-    <string name="video_setup_error">Įvyko klaida nustatant įrašymo priemonę</string>
     <string name="video_mode_error">Perjungimas į vaizdo rėžimą nepavyko</string>
     <string name="save_error_internal_storage">Įvyko klaida, saugojimo aplankas pakeistas į vidinę atmintį</string>
     <string name="camera_switch_error">Kameros perjungimas nepavyko</string>
@@ -36,10 +34,9 @@
     <string name="app_long_description">
         The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
 
-
         If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
         This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
     </string>

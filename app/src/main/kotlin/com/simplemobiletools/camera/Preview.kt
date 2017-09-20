@@ -633,7 +633,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun setupFailed(e: Exception) {
-        mActivity.toast(R.string.video_setup_error)
+        mActivity.showErrorToast(e)
         Log.e(TAG, "initRecorder " + e.message)
         releaseCamera()
     }
@@ -669,7 +669,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             toggleShutterSound(false)
             mIsRecording = true
         } catch (e: Exception) {
-            mActivity.toast(R.string.video_setup_error)
+            mActivity.showErrorToast(e)
             Log.e(TAG, "toggleRecording " + e.message)
             releaseCamera()
         }
@@ -684,7 +684,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             } catch (e: RuntimeException) {
                 toggleShutterSound(false)
                 File(mCurrVideoPath).delete()
-                mActivity.toast(R.string.video_saving_error)
+                mActivity.showErrorToast(e)
                 Log.e(TAG, "stopRecording " + e.message)
                 mRecorder = null
                 mIsRecording = false

@@ -4,8 +4,6 @@
     <string name="camera_unavailable">Câmara indisponível</string>
     <string name="camera_open_error">Ocorreu um erro ao aceder à câmara</string>
     <string name="video_creating_error">Ocorreu um erro ao criar o ficheiro de vídeo</string>
-    <string name="video_saving_error">Ocorreu um erro ao guardar o ficheiro de vídeo</string>
-    <string name="video_setup_error">Ocorreu um erro ao configurar a gravação</string>
     <string name="video_mode_error">Falha ao mudar para o modo de vídeo</string>
     <string name="save_error_internal_storage">Erro, a pasta para guardar ficheiros foi alterada para o armazenamento interno</string>
     <string name="camera_switch_error">Falha ao mudar de câmara</string>
@@ -35,7 +33,6 @@
     <string name="app_short_description">Uma câmara com flash, zoom e sem anúncios.</string>
     <string name="app_long_description">
         Pode utilizar esta aplicação para tirar fotografias ou gravar vídeos. Pode alternar entre a câmara frontal e a traseira, alterar o caminho para guardar os ficheiros e ajustar a resolução. Pode ativar o flash e apertar o ecrã para ampliar. Se estiver a gravar vídeos, pode utilizar o flash como lanterna.
-
 
         Se quiser iniciar esta aplicação ao tocar no botão de câmara do seu dispositivo, deve desativar a aplicação nativa em Definições -> Aplicações -> Câmara -> Desativar.
 

@@ -4,8 +4,6 @@
     <string name="camera_unavailable">Kameran inte tillgänglig</string>
     <string name="camera_open_error">Ett fel uppstod vid åtkomst till kameran</string>
     <string name="video_creating_error">Ett fel uppstod när videofilen skulle skapas</string>
-    <string name="video_saving_error">Ett fel uppstod när videofilen skulle sparas</string>
-    <string name="video_setup_error">Ett fel uppstod när inspelningen skulle starta</string>
     <string name="video_mode_error">Byte till videoläge misslyckades</string>
     <string name="save_error_internal_storage">Ett fel uppstod, sparmappen ändrades till det interna lagringsutrymmet</string>
     <string name="camera_switch_error">Byte av kamera misslyckades</string>
@@ -38,7 +36,7 @@
 
         Om du vill starta denna app genom att trycka på den fysiska kameraknappen måste du kanske inaktivera den inbyggda Kamera-appen i Inställningar -> Appar -> Kamera -> Inaktivera.
 
-        Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och har även ett Mörkt tema.
+        Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, innehåller anpassningsbara färger.
 
         Denna app är bara en del av en större serie appar. Du hittar resten av dem på http://www.simplemobiletools.com
     </string>

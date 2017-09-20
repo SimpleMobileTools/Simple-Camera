@@ -4,8 +4,6 @@
     <string name="camera_unavailable">Camera unavailable</string>
     <string name="camera_open_error">An error occurred accessing the camera</string>
     <string name="video_creating_error">An error occurred creating the video file</string>
-    <string name="video_saving_error">An error occurred saving the video file</string>
-    <string name="video_setup_error">An error occurred setting up the recorder</string>
     <string name="video_mode_error">Switching to video mode failed</string>
     <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
     <string name="camera_switch_error">Switching camera failed</string>
@@ -38,7 +36,7 @@
 
         If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
 
-        Contains no ads or unnecessary permissions. It is fully open source, providing a Dark theme too.
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
         This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
     </string>

@@ -15,6 +15,7 @@ import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.getFileDocument
 import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
+import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import java.io.File
 import java.io.FileOutputStream
@@ -50,9 +51,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
                 if (activity.config.treeUri.isEmpty()) {
-                    activity.runOnUiThread {
-                        activity.toast(R.string.save_error_internal_storage)
-                    }
+                    activity.toast(R.string.save_error_internal_storage)
                     activity.config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
                 }
@@ -104,10 +103,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         try {
             return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
         } catch (e: OutOfMemoryError) {
-            Log.e(TAG, "PhotoProcessor rotate OutOfMemoryError $e")
-            activity.runOnUiThread {
-                activity.toast(R.string.photo_not_saved)
-            }
+            activity.showErrorToast(e.toString())
         }
         return null
     }

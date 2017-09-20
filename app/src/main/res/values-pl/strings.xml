@@ -4,8 +4,6 @@
     <string name="camera_unavailable">Kamera niedostępna</string>
     <string name="camera_open_error">Wystąpił błąd podczas uzyskiwania dostępu do kamery</string>
     <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku filmowego</string>
-    <string name="video_saving_error">Wystąpił błąd podczas zapisywania pliku filmowego</string>
-    <string name="video_setup_error">Wystąpił błąd podczas konfiguracji nagrywania</string>
     <string name="video_mode_error">Przejście do trybu nagrywania filmów nie powidodło się</string>
     <string name="save_error_internal_storage">Wystąpił błąd, zmieniłem folder roboczy na pamięć wewnętrzną</string>
     <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
@@ -38,7 +36,7 @@
 
         Aby móc uruchamiać aplikację sprzętowym przyciskiem, wyłącz (lub usuń) domsyślną aplkację kamery (Ustawienia -> Aplikacje -> (aplikacja kamery) -> Wyłącz).
 
-        Aplikacja nie zawiera żadnych żadnych reklam i nie potrzebuje masy uprawnień. Jest w pełni otwartoźródłowa. Posiada ciemny motyw dla osób z wrażliwymi oczami.
+        Aplikacja nie zawiera żadnych reklam ani niepotrzebnych uprawnień. Jest też w pełni otawrtoźrodłowa.
 
         Niniejsza aplikacja jest tylko częścią naszej kolekcji prostych narzędzi. Ta, jak i pozostałe, dostępne są na stronie http://www.simplemobiletools.com
     </string>

@@ -4,8 +4,6 @@
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
     <string name="camera_open_error">Beim Zugriff auf die Kamera ist ein Fehler aufgetreten</string>
     <string name="video_creating_error">Beim Erstellen der Videodatei ist ein Fehler aufgetreten</string>
-    <string name="video_saving_error">Beim Speichern des Videos ist ein Fehler aufgetreten</string>
-    <string name="video_setup_error">Beim Starten der Aufnahme ist ein Fehler aufgetreten</string>
     <string name="video_mode_error">Beim Umschalten zum Videomodus ist ein Fehler aufgetreten</string>
     <string name="save_error_internal_storage">Ein Fehler ist aufgetreten. Speicherordner wurde auf den internen Speicher gesetzt</string>
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
@@ -36,10 +34,9 @@
     <string name="app_long_description">
         The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
 
-
         If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
         This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
     </string>
