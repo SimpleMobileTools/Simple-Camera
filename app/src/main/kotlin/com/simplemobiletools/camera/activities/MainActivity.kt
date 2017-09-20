@@ -19,6 +19,8 @@ import android.view.*
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.*
 import com.simplemobiletools.camera.Preview.PreviewListener
 import com.simplemobiletools.camera.extensions.config
@@ -388,16 +390,25 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         runOnUiThread {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !isDestroyed) {
-                Glide.with(this).load(mPreviewUri).centerCrop().diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(last_photo_video_preview)
+                val options = RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+
+                Glide.with(this)
+                        .load(mPreviewUri)
+                        .apply(options)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(last_photo_video_preview)
             }
         }
     }
 
     private fun getLastMediaId(uri: Uri): Long {
         val projection = arrayOf(MediaStore.Images.ImageColumns._ID)
+        val sortOrder = "${MediaStore.Images.ImageColumns.DATE_TAKEN} DESC"
         var cursor: Cursor? = null
         try {
-            cursor = contentResolver.query(uri, projection, null, null, "${MediaStore.Images.ImageColumns.DATE_TAKEN} DESC")
+            cursor = contentResolver.query(uri, projection, null, null, sortOrder)
             if (cursor?.moveToFirst() == true) {
                 return cursor.getLongValue(MediaStore.Images.ImageColumns._ID)
             }
