@@ -39,7 +39,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mPreviewSize: Camera.Size? = null
     private var mParameters: Camera.Parameters? = null
     private var mRecorder: MediaRecorder? = null
-    private var mTargetUri: Uri? = null
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mZoomRatios: List<Int>? = null
 
@@ -62,6 +61,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var autoFocusHandler = Handler()
 
     var isWaitingForTakePictureCallback = false
+    var mTargetUri: Uri? = null
+    var isImageCaptureIntent = false
 
     constructor(context: Context) : super(context)
 
@@ -94,7 +95,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mIsPreviewShown) {
                 resumePreview()
             } else {
-                if (!mWasZooming)
+                if (!mWasZooming && !mIsPreviewShown)
                     focusArea(false)
 
                 mWasZooming = false
@@ -214,10 +215,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         return null
     }
 
-    fun setTargetUri(uri: Uri) {
-        mTargetUri = uri
-    }
-
     private fun initGestureDetector() {
         mScaleGestureDetector = ScaleGestureDetector(mActivity, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -285,6 +282,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mRotationAtCapture = MainActivity.mLastHandledOrientation
             mCamera!!.parameters = mParameters
             isWaitingForTakePictureCallback = true
+            mIsPreviewShown = true
             mCamera!!.takePicture(null, null, takePictureCallback)
 
             if (config.isSoundEnabled) {
@@ -302,19 +300,37 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
         isWaitingForTakePictureCallback = false
+        if (!isImageCaptureIntent) {
+            handlePreview()
+        }
+
+        if (isImageCaptureIntent) {
+            if (mTargetUri != null) {
+                storePhoto(data)
+            } else {
+                mActivity.finishActivity()
+            }
+        } else {
+            storePhoto(data)
+        }
+    }
+
+    private fun storePhoto(data: ByteArray) {
+        PhotoProcessor(mActivity, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
+    }
+
+    private fun handlePreview() {
         if (config.isShowPreviewEnabled) {
-            mIsPreviewShown = true
             if (!config.wasPhotoPreviewHintShown) {
                 mActivity.toast(R.string.click_to_resume_preview)
                 config.wasPhotoPreviewHintShown = true
             }
         } else {
             Handler().postDelayed({
+                mIsPreviewShown = false
                 resumePreview()
             }, PHOTO_PREVIEW_LENGTH)
         }
-
-        PhotoProcessor(mActivity, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
     }
 
     private fun resumePreview() {

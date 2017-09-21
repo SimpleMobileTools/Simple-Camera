@@ -48,7 +48,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         private var mIsInPhotoMode = false
         private var mIsAskingPermissions = false
         private var mIsCameraAvailable = false
-        private var mIsImageCaptureIntent = false
         private var mIsVideoCaptureIntent = false
         private var mIsHardwareShutterHandled = false
         private var mCurrVideoRecTimer = 0
@@ -75,7 +74,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mIsInPhotoMode = false
         mIsAskingPermissions = false
         mIsCameraAvailable = false
-        mIsImageCaptureIntent = false
         mIsVideoCaptureIntent = false
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
@@ -125,19 +123,21 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun handleIntent() {
-        if (intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE) {
-            mIsImageCaptureIntent = true
+        if (isImageCaptureIntent()) {
             hideToggleModeAbout()
-            val output = intent.extras.get(MediaStore.EXTRA_OUTPUT)
+            val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
-                mPreview?.setTargetUri(output)
+                mPreview?.mTargetUri = output
             }
         } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
             hideToggleModeAbout()
             shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
         }
+        mPreview?.isImageCaptureIntent = isImageCaptureIntent()
     }
+
+    private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
 
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
@@ -567,6 +567,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         return mIsCameraAvailable
     }
 
+    fun finishActivity() {
+        setResult(Activity.RESULT_OK)
+        finish()
+    }
+
     override fun setFlashAvailable(available: Boolean) {
         if (available) {
             toggle_flash.beVisible()
@@ -599,9 +604,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             setupPreviewImage(mIsInPhotoMode)
         }
 
-        if (mIsImageCaptureIntent) {
-            setResult(Activity.RESULT_OK)
-            finish()
+        if (isImageCaptureIntent()) {
+            finishActivity()
         }
     }
 
