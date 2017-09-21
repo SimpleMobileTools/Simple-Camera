@@ -27,6 +27,7 @@
     <string name="focus_before_capture">Messa a fuoco prima della cattura</string>
     <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
+    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

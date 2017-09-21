@@ -30,6 +30,7 @@ class SettingsActivity : SimpleActivity() {
         setupFocusBeforeCapture()
         setupVolumeButtonsAsShutter()
         setupTurnFlashOffAtStartup()
+        setupFlipPhotos()
         updateTextColors(settings_holder)
     }
 
@@ -106,6 +107,14 @@ class SettingsActivity : SimpleActivity() {
         settings_turn_flash_off_at_startup_holder.setOnClickListener {
             settings_turn_flash_off_at_startup.toggle()
             config.turnFlashOffAtStartup = settings_turn_flash_off_at_startup.isChecked
+        }
+    }
+
+    private fun setupFlipPhotos() {
+        settings_flip_photos.isChecked = config.flipPhotos
+        settings_flip_photos_holder.setOnClickListener {
+            settings_flip_photos.toggle()
+            config.flipPhotos = settings_flip_photos.isChecked
         }
     }
 }

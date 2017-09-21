@@ -27,6 +27,7 @@
     <string name="focus_before_capture">Focar antes de capturar</string>
     <string name="volume_buttons_as_shutter">Usar botões de volume como obturador</string>
     <string name="turn_flash_off_at_startup">Desligar flash ao iniciar</string>
+    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

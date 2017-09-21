@@ -3,6 +3,7 @@ package com.simplemobiletools.camera
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.hardware.Camera
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.AsyncTask
@@ -71,6 +72,16 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 exifOrientation = getExifOrientation(totalRotation)
             } else {
                 image = rotate(image, totalRotation)
+            }
+
+            if (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT && !activity.config.flipPhotos) {
+                val matrix = Matrix()
+                if (path.startsWith(activity.internalStoragePath)) {
+                    matrix.preScale(1f, -1f)
+                } else {
+                    matrix.preScale(-1f, 1f)
+                }
+                image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
             }
 
             if (image != null) {

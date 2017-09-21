@@ -42,6 +42,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(TURN_FLASH_OFF_AT_STARTUP, false)
         set(turnFlashOffAtStartup) = prefs.edit().putBoolean(TURN_FLASH_OFF_AT_STARTUP, turnFlashOffAtStartup).apply()
 
+    var flipPhotos: Boolean
+        get() = prefs.getBoolean(FLIP_PHOTOS, false)
+        set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
+
     var lastUsedCamera: Int
         get() = prefs.getInt(LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK)
         set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()
