@@ -619,6 +619,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             add(Release(33, R.string.release_33))
             add(Release(35, R.string.release_35))
             add(Release(39, R.string.release_39))
+            add(Release(44, R.string.release_44))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
