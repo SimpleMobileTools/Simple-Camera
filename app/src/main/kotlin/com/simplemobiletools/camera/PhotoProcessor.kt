@@ -7,7 +7,6 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
-import android.util.Log
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.compensateDeviceRotation
 import com.simplemobiletools.camera.extensions.config
@@ -19,19 +18,9 @@ import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStream
-import java.lang.ref.WeakReference
 
 class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int) : AsyncTask<ByteArray, Void, String>() {
-    companion object {
-        private val TAG = PhotoProcessor::class.java.simpleName
-        private var mActivity: WeakReference<MainActivity>? = null
-    }
-
-    init {
-        mActivity = WeakReference(activity)
-    }
 
     override fun doInBackground(vararg params: ByteArray): String {
         var fos: OutputStream? = null
@@ -59,7 +48,11 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1))
                 fos = activity.contentResolver.openOutputStream(document?.uri)
             } else {
-                fos = FileOutputStream(photoFile)
+                fos = if (uri == null) {
+                    FileOutputStream(photoFile)
+                } else {
+                    activity.contentResolver.openOutputStream(uri)
+                }
             }
 
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
@@ -79,13 +72,9 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             fos?.close()
             return photoFile.absolutePath
         } catch (e: Exception) {
-            Log.e(TAG, "PhotoProcessor file not found: $e")
+            activity.showErrorToast(e)
         } finally {
-            try {
-                fos?.close()
-            } catch (e: IOException) {
-                Log.e(TAG, "PhotoProcessor close ioexception $e")
-            }
+            fos?.close()
         }
 
         return ""
@@ -100,6 +89,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
         val matrix = Matrix()
         matrix.setRotate(degree.toFloat())
+
         try {
             return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
         } catch (e: OutOfMemoryError) {
@@ -110,7 +100,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
     override fun onPostExecute(path: String) {
         super.onPostExecute(path)
-        mActivity?.get()?.mediaSaved(path)
+        activity.mediaSaved(path)
     }
 
     interface MediaSavedListener {
