@@ -12,10 +12,7 @@ import com.simplemobiletools.camera.extensions.compensateDeviceRotation
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
-import com.simplemobiletools.commons.extensions.getFileDocument
-import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -67,9 +64,22 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 else -> 0
             }
 
-            image = rotate(image, (imageRot + deviceRot + previewRot) % 360) ?: return ""
-            image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
-            fos?.close()
+            val totalRotation = (imageRot + deviceRot + previewRot) % 360
+            val fileExif = ExifInterface(path)
+            var exifOrientation = ExifInterface.ORIENTATION_NORMAL.toString()
+            if (path.startsWith(activity.internalStoragePath)) {
+                exifOrientation = getExifOrientation(totalRotation)
+            } else {
+                image = rotate(image, totalRotation)
+            }
+
+            if (image != null) {
+                image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
+                fos?.close()
+            }
+
+            fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
+            fileExif.saveAttributes()
             return photoFile.absolutePath
         } catch (e: Exception) {
             activity.showErrorToast(e)
@@ -78,6 +88,15 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         }
 
         return ""
+    }
+
+    private fun getExifOrientation(degrees: Int): String {
+        return when (degrees) {
+            90 -> ExifInterface.ORIENTATION_ROTATE_90
+            180 -> ExifInterface.ORIENTATION_ROTATE_180
+            270 -> ExifInterface.ORIENTATION_ROTATE_270
+            else -> ExifInterface.ORIENTATION_NORMAL
+        }.toString()
     }
 
     private fun rotate(bitmap: Bitmap, degree: Int): Bitmap? {
