@@ -336,7 +336,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private fun resumePreview() {
         mIsPreviewShown = false
         mActivity.toggleBottomButtons(false)
-        mCamera?.startPreview()
+        try {
+            mCamera?.startPreview()
+        } catch (e: Exception) {
+        }
         mCanTakePicture = true
         focusArea(false, false)
     }
