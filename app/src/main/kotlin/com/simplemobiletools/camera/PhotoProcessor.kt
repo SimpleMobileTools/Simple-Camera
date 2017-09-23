@@ -66,11 +66,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             }
 
             val totalRotation = (imageRot + deviceRot + previewRot) % 360
-            val fileExif = ExifInterface(path)
-            var exifOrientation = ExifInterface.ORIENTATION_NORMAL.toString()
-            if (path.startsWith(activity.internalStoragePath)) {
-                exifOrientation = getExifOrientation(totalRotation)
-            } else {
+            if (!path.startsWith(activity.internalStoragePath)) {
                 image = rotate(image, totalRotation)
             }
 
@@ -84,11 +80,13 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
             }
 
-            if (image != null) {
-                image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
-                fos?.close()
-            }
+            image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
 
+            val fileExif = ExifInterface(path)
+            var exifOrientation = ExifInterface.ORIENTATION_NORMAL.toString()
+            if (path.startsWith(activity.internalStoragePath)) {
+                exifOrientation = getExifOrientation(totalRotation)
+            }
             fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
             fileExif.saveAttributes()
             return photoFile.absolutePath
