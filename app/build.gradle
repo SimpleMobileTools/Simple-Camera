@@ -10,8 +10,8 @@ android {
         applicationId "com.simplemobiletools.camera"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 44
-        versionName "2.3.5"
+        versionCode 45
+        versionName "2.3.6"
     }
 
     signingConfigs {
