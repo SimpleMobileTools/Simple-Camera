@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.3.6 *(2017-09-23)*
+----------------------------
+
+ * Fixed some photo orientation issues
+
 Version 2.3.5 *(2017-09-21)*
 ----------------------------
 
