@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.database.Cursor
 import android.hardware.Camera
 import android.hardware.SensorManager
 import android.net.Uri
@@ -382,7 +381,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private fun setupPreviewImage(isPhoto: Boolean) {
         val uri = if (isPhoto) MediaStore.Images.Media.EXTERNAL_CONTENT_URI else MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-        val lastMediaId = getLastMediaId(uri)
+        val lastMediaId = getLatestMediaId(uri)
         if (lastMediaId == 0L) {
             return
         }
@@ -401,21 +400,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                         .into(last_photo_video_preview)
             }
         }
-    }
-
-    private fun getLastMediaId(uri: Uri): Long {
-        val projection = arrayOf(MediaStore.Images.ImageColumns._ID)
-        val sortOrder = "${MediaStore.Images.ImageColumns.DATE_TAKEN} DESC"
-        var cursor: Cursor? = null
-        try {
-            cursor = contentResolver.query(uri, projection, null, null, sortOrder)
-            if (cursor?.moveToFirst() == true) {
-                return cursor.getLongValue(MediaStore.Images.ImageColumns._ID)
-            }
-        } finally {
-            cursor?.close()
-        }
-        return 0
     }
 
     private fun scheduleFadeOut() = mFadeHandler.postDelayed({ fadeOutButtons() }, FADE_DELAY.toLong())
