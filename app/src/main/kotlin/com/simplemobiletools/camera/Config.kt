@@ -73,4 +73,8 @@ class Config(context: Context) : BaseConfig(context) {
     var wasPhotoPreviewHintShown: Boolean
         get() = prefs.getBoolean(PHOTO_PREVIEW_HINT_SHOWN, false)
         set(wasPhotoPreviewHintShown) = prefs.edit().putBoolean(PHOTO_PREVIEW_HINT_SHOWN, wasPhotoPreviewHintShown).apply()
+
+    var keepSettingsVisible: Boolean
+        get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)
+        set(keepSettingsVisible) = prefs.edit().putBoolean(KEEP_SETTINGS_VISIBLE, keepSettingsVisible).apply()
 }

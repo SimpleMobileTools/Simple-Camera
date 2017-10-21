@@ -378,7 +378,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    private fun scheduleFadeOut() = mFadeHandler.postDelayed({ fadeOutButtons() }, FADE_DELAY.toLong())
+    private fun scheduleFadeOut() {
+        if (!config.keepSettingsVisible)
+            mFadeHandler.postDelayed({ fadeOutButtons() }, FADE_DELAY.toLong())
+    }
 
     private fun fadeOutButtons() {
         fadeAnim(settings, .5f)

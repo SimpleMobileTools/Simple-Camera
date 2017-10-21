@@ -31,6 +31,7 @@ class SettingsActivity : SimpleActivity() {
         setupVolumeButtonsAsShutter()
         setupTurnFlashOffAtStartup()
         setupFlipPhotos()
+        setupKeepSettingsVisible()
         updateTextColors(settings_holder)
     }
 
@@ -115,6 +116,14 @@ class SettingsActivity : SimpleActivity() {
         settings_flip_photos_holder.setOnClickListener {
             settings_flip_photos.toggle()
             config.flipPhotos = settings_flip_photos.isChecked
+        }
+    }
+
+    private fun setupKeepSettingsVisible() {
+        settings_keep_settings_visible.isChecked = config.keepSettingsVisible
+        settings_keep_settings_visible_holder.setOnClickListener {
+            settings_keep_settings_visible.toggle()
+            config.keepSettingsVisible = settings_keep_settings_visible.isChecked
         }
     }
 }
