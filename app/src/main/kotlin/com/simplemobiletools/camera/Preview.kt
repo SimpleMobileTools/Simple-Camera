@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.Handler
-import android.util.Log
 import android.view.ScaleGestureDetector
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -24,7 +23,6 @@ import java.util.*
 
 class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
     var mCamera: Camera? = null
-    private val TAG = Preview::class.java.simpleName
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L
     private val REFOCUS_PERIOD = 3000L
@@ -40,7 +38,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mParameters: Camera.Parameters? = null
     private var mRecorder: MediaRecorder? = null
     private var mScaleGestureDetector: ScaleGestureDetector? = null
-    private var mZoomRatios: List<Int>? = null
+    private var mZoomRatios = ArrayList<Int>()
 
     private var mCurrVideoPath = ""
     private var mCanTakePicture = false
@@ -119,8 +117,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             newCamera = Camera.open(cameraId)
             mCallback.setIsCameraAvailable(true)
         } catch (e: Exception) {
-            mActivity.toast(R.string.camera_open_error)
-            Log.e(TAG, "setCamera open " + e.message)
+            mActivity.showErrorToast(e)
             mCallback.setIsCameraAvailable(false)
             return false
         }
@@ -144,7 +141,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mParameters = mCamera!!.parameters
         mMaxZoom = mParameters!!.maxZoom
-        mZoomRatios = mParameters!!.zoomRatios
+        mZoomRatios = mParameters!!.zoomRatios as ArrayList<Int>
         mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
         refreshPreview()
 
@@ -159,7 +156,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             try {
                 mCamera!!.setPreviewDisplay(mSurfaceHolder)
             } catch (e: IOException) {
-                Log.e(TAG, "setCamera setPreviewDisplay " + e.message)
+                mActivity.showErrorToast(e)
                 return false
             }
         }
@@ -339,6 +336,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         try {
             mCamera?.startPreview()
         } catch (e: Exception) {
+            mActivity.showErrorToast(e)
         }
         mCanTakePicture = true
         focusArea(false, false)
@@ -385,8 +383,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                     rescheduleAutofocus()
                 }
             }
-        } catch (ignored: RuntimeException) {
-
+        } catch (e: RuntimeException) {
+            mActivity.showErrorToast(e)
         }
     }
 
@@ -441,7 +439,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mSwitchToVideoAsap)
                 initRecorder()
         } catch (e: IOException) {
-            Log.e(TAG, "surfaceCreated IOException " + e.message)
+            mActivity.showErrorToast(e)
         }
     }
 
@@ -469,7 +467,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mCamera!!.parameters = mParameters
             try {
                 mCamera!!.startPreview()
-            } catch (ignored: RuntimeException) {
+            } catch (e: RuntimeException) {
+                mActivity.showErrorToast(e)
             }
         }
     }
@@ -485,9 +484,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
     }
 
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-
-    }
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {}
 
     private fun getOptimalPreviewSize(sizes: List<Camera.Size>, width: Int, height: Int): Camera.Size {
         var result: Camera.Size? = null
@@ -515,12 +512,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (mSupportedPreviewSizes != null) {
             // for simplicity lets assume that most displays are 16:9 and the remaining ones are 4:3
             // always set 16:9 for videos as many devices support 4:3 only in low quality
-            if (mIsSixteenToNine || mIsVideoMode) {
-                mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes!!, mScreenSize.y, mScreenSize.x)
+            mPreviewSize = if (mIsSixteenToNine || mIsVideoMode) {
+                getOptimalPreviewSize(mSupportedPreviewSizes!!, mScreenSize.y, mScreenSize.x)
             } else {
                 val newRatioHeight = (mScreenSize.x * (4.toDouble() / 3)).toInt()
                 setMeasuredDimension(mScreenSize.x, newRatioHeight)
-                mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes!!, newRatioHeight, mScreenSize.x)
+                getOptimalPreviewSize(mSupportedPreviewSizes!!, newRatioHeight, mScreenSize.x)
             }
             val lp = mSurfaceView.layoutParams
 
@@ -653,7 +650,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private fun setupFailed(e: Exception) {
         mActivity.showErrorToast(e)
-        Log.e(TAG, "initRecorder " + e.message)
         releaseCamera()
     }
 
@@ -689,7 +685,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mIsRecording = true
         } catch (e: Exception) {
             mActivity.showErrorToast(e)
-            Log.e(TAG, "toggleRecording " + e.message)
             releaseCamera()
         }
     }
@@ -701,10 +696,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mRecorder!!.stop()
                 mActivity.scanPath(mCurrVideoPath) {}
             } catch (e: RuntimeException) {
+                mActivity.showErrorToast(e)
                 toggleShutterSound(false)
                 File(mCurrVideoPath).delete()
-                mActivity.showErrorToast(e)
-                Log.e(TAG, "stopRecording " + e.message)
                 mRecorder = null
                 mIsRecording = false
                 releaseCamera()
