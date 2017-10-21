@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_46">Added optional exif metadata saving, enabled by default</string>
     <string name="release_44">Added a toggle for flipping front camera photos horizontally</string>
     <string name="release_39">
         Add an option to focus the photo before capture\n
