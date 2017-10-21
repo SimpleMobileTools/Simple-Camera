@@ -56,6 +56,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        if (config.alwaysOpenBackCamera)
+            config.lastUsedCamera = Camera.CameraInfo.CAMERA_FACING_BACK
+
         initVariables()
         tryInitCamera()
         supportActionBar?.hide()

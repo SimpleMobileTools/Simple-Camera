@@ -20,6 +20,7 @@ val FRONT_PHOTO_RESOLUTION_INDEX = "front_photo_resolution_index"
 val FRONT_VIDEO_RESOLUTION_INDEX = "front_video_resolution_index"
 val PHOTO_PREVIEW_HINT_SHOWN = "photo_preview_hint_shown"
 val KEEP_SETTINGS_VISIBLE = "keep_settings_visible"
+val ALWAYS_OPEN_BACK_CAMERA = "always_open_back_camera"
 
 val FLASH_OFF = 0
 val FLASH_ON = 1

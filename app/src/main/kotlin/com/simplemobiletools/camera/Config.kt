@@ -77,4 +77,8 @@ class Config(context: Context) : BaseConfig(context) {
     var keepSettingsVisible: Boolean
         get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)
         set(keepSettingsVisible) = prefs.edit().putBoolean(KEEP_SETTINGS_VISIBLE, keepSettingsVisible).apply()
+
+    var alwaysOpenBackCamera: Boolean
+        get() = prefs.getBoolean(ALWAYS_OPEN_BACK_CAMERA, false)
+        set(alwaysOpenBackCamera) = prefs.edit().putBoolean(ALWAYS_OPEN_BACK_CAMERA, alwaysOpenBackCamera).apply()
 }

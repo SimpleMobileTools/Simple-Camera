@@ -32,6 +32,7 @@ class SettingsActivity : SimpleActivity() {
         setupTurnFlashOffAtStartup()
         setupFlipPhotos()
         setupKeepSettingsVisible()
+        setupAlwaysOpenBackCamera()
         updateTextColors(settings_holder)
     }
 
@@ -124,6 +125,14 @@ class SettingsActivity : SimpleActivity() {
         settings_keep_settings_visible_holder.setOnClickListener {
             settings_keep_settings_visible.toggle()
             config.keepSettingsVisible = settings_keep_settings_visible.isChecked
+        }
+    }
+
+    private fun setupAlwaysOpenBackCamera() {
+        settings_always_open_back_camera.isChecked = config.alwaysOpenBackCamera
+        settings_always_open_back_camera_holder.setOnClickListener {
+            settings_always_open_back_camera.toggle()
+            config.alwaysOpenBackCamera = settings_always_open_back_camera.isChecked
         }
     }
 }
