@@ -35,6 +35,13 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             }
 
             val data = params[0]
+            val tempFile = File.createTempFile("simple_temp_exif", "")
+            val tempFOS = FileOutputStream(tempFile)
+            tempFOS.use {
+                tempFOS.write(data)
+            }
+            val tempExif = ExifInterface(tempFile.absolutePath)
+
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
                 if (activity.config.treeUri.isEmpty()) {
@@ -87,7 +94,9 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             if (path.startsWith(activity.internalStoragePath)) {
                 exifOrientation = getExifOrientation(totalRotation)
             }
+            tempExif.copyTo(fileExif)
             fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
+
             fileExif.saveAttributes()
             return photoFile.absolutePath
         } catch (e: Exception) {

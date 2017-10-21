@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    compile 'com.simplemobiletools:commons:2.30.7'
+    compile 'com.simplemobiletools:commons:2.30.9'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
