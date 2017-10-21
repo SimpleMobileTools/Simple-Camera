@@ -1,10 +1,8 @@
 package com.simplemobiletools.camera.activities
 
-import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.hardware.Camera
 import android.hardware.SensorManager
@@ -13,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
-import android.support.v4.app.ActivityCompat
 import android.view.*
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
@@ -26,14 +23,14 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
+import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
     companion object {
-        private val CAMERA_STORAGE_PERMISSION = 1
-        private val RECORD_AUDIO_PERMISSION = 2
         private val FADE_DELAY = 5000
 
         lateinit var mFocusRectView: FocusRectView
@@ -45,7 +42,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         private var mPreviewUri: Uri? = null
         private var mFlashlightState = FLASH_OFF
         private var mIsInPhotoMode = false
-        private var mIsAskingPermissions = false
         private var mIsCameraAvailable = false
         private var mIsVideoCaptureIntent = false
         private var mIsHardwareShutterHandled = false
@@ -71,7 +67,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private fun initVariables() {
         mRes = resources
         mIsInPhotoMode = false
-        mIsAskingPermissions = false
         mIsCameraAvailable = false
         mIsVideoCaptureIntent = false
         mIsHardwareShutterHandled = false
@@ -106,18 +101,21 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun tryInitCamera() {
-        if (hasCameraAndStoragePermission()) {
-            initializeCamera()
-            handleIntent()
-        } else {
-            val permissions = ArrayList<String>(2)
-            if (!hasCameraPermission()) {
-                permissions.add(Manifest.permission.CAMERA)
+        handlePermission(PERMISSION_CAMERA) {
+            if (it) {
+                handlePermission(PERMISSION_WRITE_STORAGE) {
+                    if (it) {
+                        initializeCamera()
+                        handleIntent()
+                    } else {
+                        toast(R.string.no_permissions)
+                        finish()
+                    }
+                }
+            } else {
+                toast(R.string.no_permissions)
+                finish()
             }
-            if (!hasWriteStoragePermission()) {
-                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), CAMERA_STORAGE_PERMISSION)
         }
     }
 
@@ -168,31 +166,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         settings.setOnClickListener { launchSettings() }
         toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
-    }
-
-    private fun hasCameraAndStoragePermission() = hasCameraPermission() && hasWriteStoragePermission()
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        mIsAskingPermissions = false
-
-        if (requestCode == CAMERA_STORAGE_PERMISSION) {
-            if (hasCameraAndStoragePermission()) {
-                initializeCamera()
-                handleIntent()
-            } else {
-                toast(R.string.no_permissions)
-                finish()
-            }
-        } else if (requestCode == RECORD_AUDIO_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                togglePhotoVideo()
-            } else {
-                toast(R.string.no_audio_permissions)
-                if (mIsVideoCaptureIntent)
-                    finish()
-            }
-        }
     }
 
     private fun toggleCamera() {
@@ -321,16 +294,19 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun handleTogglePhotoVideo() {
-        togglePhotoVideo()
+        handlePermission(PERMISSION_RECORD_AUDIO) {
+            if (it) {
+                togglePhotoVideo()
+            } else {
+                toast(R.string.no_audio_permissions)
+                if (mIsVideoCaptureIntent) {
+                    finish()
+                }
+            }
+        }
     }
 
     private fun togglePhotoVideo() {
-        if (!hasRecordAudioPermission()) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), RECORD_AUDIO_PERMISSION)
-            mIsAskingPermissions = true
-            return
-        }
-
         if (!checkCameraAvailable()) {
             return
         }
@@ -451,20 +427,20 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     override fun onResume() {
         super.onResume()
-        if (hasCameraAndStoragePermission()) {
+        if (hasStorageAndCameraPermissions()) {
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
             scheduleFadeOut()
             mFocusRectView.setStrokeColor(config.primaryColor)
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
-                togglePhotoVideo()
+                handleTogglePhotoVideo()
                 checkButtons()
             }
             toggleBottomButtons(false)
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (hasCameraAndStoragePermission()) {
+        if (hasStorageAndCameraPermissions()) {
             mOrientationEventListener.enable()
         }
     }
@@ -490,8 +466,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun onPause() {
         super.onPause()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (!hasCameraAndStoragePermission() || mIsAskingPermissions)
+        if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
             return
+        }
 
         mFadeHandler.removeCallbacksAndMessages(null)
 
@@ -503,6 +480,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             toast(R.string.photo_not_saved)
         }
     }
+
+    private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
 
     private fun setupOrientationEventListener() {
         mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
