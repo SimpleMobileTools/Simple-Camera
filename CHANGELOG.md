@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.4.0 *(2017-10-21)*
+----------------------------
+
+ * Added optional exif metadata saving, enabled by default
+ * Added a toggle for opening back camera at startup
+ * Added a toggle for keeping setting buttons always visible
+
 Version 2.3.6 *(2017-09-23)*
 ----------------------------
 
