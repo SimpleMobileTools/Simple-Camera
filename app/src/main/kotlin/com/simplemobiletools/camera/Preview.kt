@@ -364,12 +364,13 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mCallback.drawFocusRect(mLastClickX, mLastClickY)
         }
 
-        mCamera!!.parameters = mParameters
         try {
+            mCamera!!.parameters = mParameters
             mCamera!!.autoFocus { success, camera ->
                 if (camera == null || mCamera == null) {
                     return@autoFocus
                 }
+
                 camera.cancelAutoFocus()
                 val focusModes = mParameters!!.supportedFocusModes
                 if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
@@ -383,7 +384,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                     rescheduleAutofocus()
                 }
             }
-        } catch (e: RuntimeException) {
+        } catch (e: Exception) {
             mActivity.showErrorToast(e)
         }
     }
