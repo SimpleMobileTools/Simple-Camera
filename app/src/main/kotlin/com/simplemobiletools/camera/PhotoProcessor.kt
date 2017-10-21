@@ -94,7 +94,9 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             if (path.startsWith(activity.internalStoragePath)) {
                 exifOrientation = getExifOrientation(totalRotation)
             }
-            tempExif.copyTo(fileExif)
+            if (activity.config.savePhotoMetadata)
+                tempExif.copyTo(fileExif)
+
             fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
 
             fileExif.saveAttributes()

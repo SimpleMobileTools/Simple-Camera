@@ -33,6 +33,7 @@ class SettingsActivity : SimpleActivity() {
         setupFlipPhotos()
         setupKeepSettingsVisible()
         setupAlwaysOpenBackCamera()
+        setupSavePhotoMetadata()
         updateTextColors(settings_holder)
     }
 
@@ -133,6 +134,14 @@ class SettingsActivity : SimpleActivity() {
         settings_always_open_back_camera_holder.setOnClickListener {
             settings_always_open_back_camera.toggle()
             config.alwaysOpenBackCamera = settings_always_open_back_camera.isChecked
+        }
+    }
+
+    private fun setupSavePhotoMetadata() {
+        settings_save_photo_metadata.isChecked = config.savePhotoMetadata
+        settings_save_photo_metadata_holder.setOnClickListener {
+            settings_save_photo_metadata.toggle()
+            config.savePhotoMetadata = settings_save_photo_metadata.isChecked
         }
     }
 }

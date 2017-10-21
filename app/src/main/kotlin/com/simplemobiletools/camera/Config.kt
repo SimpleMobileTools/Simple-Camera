@@ -81,4 +81,8 @@ class Config(context: Context) : BaseConfig(context) {
     var alwaysOpenBackCamera: Boolean
         get() = prefs.getBoolean(ALWAYS_OPEN_BACK_CAMERA, false)
         set(alwaysOpenBackCamera) = prefs.edit().putBoolean(ALWAYS_OPEN_BACK_CAMERA, alwaysOpenBackCamera).apply()
+
+    var savePhotoMetadata: Boolean
+        get() = prefs.getBoolean(SAVE_PHOTO_METADATA, true)
+        set(savePhotoMetadata) = prefs.edit().putBoolean(SAVE_PHOTO_METADATA, savePhotoMetadata).apply()
 }

@@ -30,6 +30,7 @@
     <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
     <string name="keep_settings_visible">Keep setting buttons visible</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
+    <string name="save_photo_metadata">Save photo exif metadata</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
