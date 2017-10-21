@@ -28,6 +28,8 @@
     <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Shutter</string>
     <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
     <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
+    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="always_open_back_camera">Always open the app with the Back camera</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

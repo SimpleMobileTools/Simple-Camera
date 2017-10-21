@@ -28,6 +28,8 @@
     <string name="volume_buttons_as_shutter">Použiť tlačidlá na ovládanie hlasitosti ako spúšťač</string>
     <string name="turn_flash_off_at_startup">Vypnúť blesk pri spustení</string>
     <string name="flip_front_camera_photos_horizontally">Preklopiť fotky z prednej kamera vodorovne</string>
+    <string name="keep_settings_visible">Neskrývať tlačidlá nastavení</string>
+    <string name="always_open_back_camera">Stále otvárať aplikáciu s aktívnou zadnou kamerou</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
