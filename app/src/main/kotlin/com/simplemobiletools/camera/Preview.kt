@@ -141,7 +141,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mParameters = mCamera!!.parameters
         mMaxZoom = mParameters!!.maxZoom
-        mZoomRatios = mParameters!!.zoomRatios as ArrayList<Int>
+
+        if (mParameters!!.isZoomSupported)
+            mZoomRatios = mParameters!!.zoomRatios as ArrayList<Int>
+
         mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
         refreshPreview()
 
