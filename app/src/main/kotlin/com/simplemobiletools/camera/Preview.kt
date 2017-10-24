@@ -682,9 +682,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private fun startRecording() {
         try {
-            mCamera!!.unlock()
+            mCamera?.unlock()
             toggleShutterSound(true)
-            mRecorder!!.start()
+            mRecorder?.start()
             toggleShutterSound(false)
             mIsRecording = true
         } catch (e: Exception) {
@@ -697,15 +697,16 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (mRecorder != null && mIsRecording) {
             try {
                 toggleShutterSound(true)
-                mRecorder!!.stop()
+                mRecorder?.stop()
                 mActivity.scanPath(mCurrVideoPath) {}
             } catch (e: RuntimeException) {
-                mActivity.showErrorToast(e)
+                //mActivity.showErrorToast(e)
+                mActivity.showErrorToast("The video could not be saved")
                 toggleShutterSound(false)
                 File(mCurrVideoPath).delete()
                 mRecorder = null
                 mIsRecording = false
-                releaseCamera()
+                // releaseCamera()
             }
 
         }
