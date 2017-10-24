@@ -7,33 +7,33 @@
     <string name="video_creating_error">Une erreur est survenue lors de la création du fichier vidéo</string>
     <string name="video_mode_error">Échec lors de la permutation vers le mode vidéo</string>
     <string name="save_error_internal_storage">Une erreur est survenue, le dossier de sauvegarde a été changer vers la mémoire interne</string>
-    <string name="camera_switch_error">la permutation de caméra a échoué</string>
-    <string name="no_permissions">Peu de choses à faire sans accès à ni la caméra ni la mémoire</string>
+    <string name="camera_switch_error">La permutation de caméra a échouée</string>
+    <string name="no_permissions">Peu de choses à faire sans accès à la caméra et à la mémoire</string>
     <string name="no_audio_permissions">Nous avons besoin de l\'autorisation sur l\'audio pour enregistrer des vidéos</string>
-    <string name="no_gallery_app_available">Pas d\'application album disponible</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="no_gallery_app_available">Pas d\'application galerie disponible</string>
+    <string name="click_to_resume_preview">Cliquer sur l\'image pour resume preview</string>
+    <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
 
     <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">autre</string>
 
     <!-- Settings -->
     <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
     <string name="show_preview">Apercevoir la photo après la prise</string>
     <string name="shutter_sound">Son de l\'obturateur</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
+    <string name="back_camera">Résolutions de la caméra arrière</string>
+    <string name="front_camera">Résolutions de la caméra avant</string>
     <string name="photo">Photo</string>
-    <string name="video">Video</string>
-    <string name="focus_before_capture">Focus before capture</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="video">Vidéo</string>
+    <string name="focus_before_capture">Mise au point avant la prise</string>
+    <string name="volume_buttons_as_shutter">Utiliser les boutons de volume comme shutter</string>
+    <string name="turn_flash_off_at_startup">Désactiver le flash au démarrage</string>
+    <string name="flip_front_camera_photos_horizontally">Inverser horizontalement les images de la caméra avant</string>
+    <string name="keep_settings_visible">Garder visible les boutons de réglage</string>
+    <string name="always_open_back_camera">Toujours ouvrir l\'application avec la caméra arrière</string>
+    <string name="save_photo_metadata">Sauvegarder les méta-données exif de la photo</string>
 
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un appareil photo avec flash, zoom et pas de publicité.</string>
     <string name="app_long_description">
