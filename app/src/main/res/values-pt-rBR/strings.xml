@@ -27,7 +27,7 @@
     <string name="video">Vídeo</string>
     <string name="focus_before_capture">Focar antes da captura</string>
     <string name="volume_buttons_as_shutter">Usar botões de volume para tirar fotos</string>
-    <string name="turn_flash_off_at_startup">Desligar o flash no início</string>
+    <string name="turn_flash_off_at_startup">Desligar o flash ao iniciar</string>
     <string name="flip_front_camera_photos_horizontally">Girar as fotos da camera frontal horizontalmente</string>
     <string name="keep_settings_visible">Manter o botão de configurações visível</string>
     <string name="always_open_back_camera">Sempre abrir o app com a câmera traseira</string>
