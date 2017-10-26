@@ -29,9 +29,9 @@
     <string name="volume_buttons_as_shutter">Usar botões de volume como obturador</string>
     <string name="turn_flash_off_at_startup">Desligar flash ao iniciar</string>
     <string name="flip_front_camera_photos_horizontally">Inverter na horizontal as fotos da câmara frontal</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="keep_settings_visible">Botão de definições sempre visível</string>
+    <string name="always_open_back_camera">Abrir a aplicação sempre com a câmara traseira</string>
+    <string name="save_photo_metadata">Guardar dados exif das fotos</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
