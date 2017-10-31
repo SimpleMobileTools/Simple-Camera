@@ -10,7 +10,7 @@
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
     <string name="no_permissions">Ohne Zugriff auf Kamera und Speicher ist hier nicht viel zu tun</string>
     <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mikrofon um Videos aufnehmen zu können</string>
-    <string name="no_gallery_app_available">Keine Galerie Applikation verfügbar</string>
+    <string name="no_gallery_app_available">Keine Galerie-App verfügbar</string>
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
 
@@ -20,7 +20,7 @@
     <!-- Settings -->
     <string name="save_photos">Fotos und Videos speichern nach</string>
     <string name="show_preview">Zeige eine Vorschau des Fotos nach der Aufnahme</string>
-    <string name="shutter_sound">Auslösegeräusch</string>
+    <string name="shutter_sound">Auslöseton</string>
     <string name="back_camera">Rückkamera Auflösung</string>
     <string name="front_camera">Frontkamera Auflösung</string>
     <string name="photo">Foto</string>
@@ -29,21 +29,21 @@
     <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Shutter</string>
     <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
     <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="keep_settings_visible">Button für Einstellungen immer sichtbar</string>
+    <string name="always_open_back_camera">Starte App immer mit der Rückkamera</string>
+    <string name="save_photo_metadata">Exif-Metadaten speichern</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Eine Kamera mit Blitzlicht, Zoom und keine Werbung.</string>
+    <string name="app_short_description">Eine schlichte Kamera mit Blitzlicht, Zoom und ohne Werbung.</string>
     <string name="app_long_description">
-        Die Kamera kann sowohl zum Schießen von Fotos, als auch zum Aufnehmen von Videos genutzt werden. Wechsle zwischen Front- und Rückkamera, verändere den Pfad, in dem die Bilder gespeichert werden, verändere die Bild-Auflösung. Der Blitz kann an- und ausgeschaltet werden, und als Taschenlampe benutzt werden. Mit den Fingern kann gezoomt werden.
+        Die Kamera kann sowohl zum Schießen von Fotos, als auch zum Aufnehmen von Videos genutzt werden. Wechsle zwischen Front- und Rückkamera, verändere den Pfad, in dem die Bilder gespeichert werden oder verändere die Bild-Auflösung. Der Blitz kann an- und ausgeschaltet werden, und als Taschenlampe benutzt werden. Mit den Fingern kann gezoomt werden.
 
         Falls du diese App durch einen Hardware-Kameraknopf starten möchtest, kann es sein, dass du die vorinstallierte Kamera-App erst deaktivieren musst unter Einstellungen -> Apps -> Kamera -> deaktivieren.
 
         Beinhaltet weder Werbung, noch unnötige Berechtigungen. Sie ist komplett Open Source und beinhaltet anpassbare Farben.
 
-        Diese App ist Teil einer grösseren Serie von Apps. Diese findet man unter http://www.simplemobiletools.com
+        Diese App ist Teil einer größeren Serie von Apps. Diese findet man unter http://www.simplemobiletools.com
     </string>
 
     <!--
