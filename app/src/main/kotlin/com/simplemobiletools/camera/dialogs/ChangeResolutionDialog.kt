@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
 
 class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, val camera: Camera, val callback: () -> Unit) {
     var dialog: AlertDialog
-    val isBackCamera = activity.config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
+    private val isBackCamera = activity.config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
 
     init {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_resolution, null).apply {
@@ -59,10 +59,11 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
             RadioGroupDialog(activity, items, selectionIndex) {
                 selectionIndex = it as Int
                 view.change_resolution_video.text = items[selectionIndex].title
-                if (isBackCamera)
+                if (isBackCamera) {
                     config.backVideoResIndex = it
-                else
+                } else {
                     config.frontVideoResIndex = it
+                }
                 dialog.dismiss()
             }
         }

@@ -5,8 +5,6 @@
     <string name="camera_unavailable">Camera niet beschikbaar</string>
     <string name="camera_open_error">Een fout opgetreden met de camera</string>
     <string name="video_creating_error">Een fout opgetreden maken van het videobestand</string>
-    <string name="video_saving_error">Er is een fout opgetreden het opslaan van het videobestand</string>
-    <string name="video_setup_error">Er is een fout opgetreden het configureren van de videorecorder</string>
     <string name="video_mode_error">Schakelen naar de videomodus is mislukt</string>
     <string name="save_error_internal_storage">Er is een fout opgetreden, de map opslaan is gewijzigd in interne opslag</string>
     <string name="camera_switch_error">Schakelen camera is mislukt</string>
@@ -30,6 +28,10 @@
     <string name="focus_before_capture">Focus before capture</string>
     <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
+    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
+    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="always_open_back_camera">Always open the app with the Back camera</string>
+    <string name="save_photo_metadata">Save photo exif metadata</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -46,6 +48,6 @@
 
     <!--
         Haven't found some strings? There's more at
-        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
 </resources>

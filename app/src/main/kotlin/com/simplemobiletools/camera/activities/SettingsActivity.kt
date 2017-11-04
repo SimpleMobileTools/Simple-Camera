@@ -30,6 +30,10 @@ class SettingsActivity : SimpleActivity() {
         setupFocusBeforeCapture()
         setupVolumeButtonsAsShutter()
         setupTurnFlashOffAtStartup()
+        setupFlipPhotos()
+        setupKeepSettingsVisible()
+        setupAlwaysOpenBackCamera()
+        setupSavePhotoMetadata()
         updateTextColors(settings_holder)
     }
 
@@ -106,6 +110,38 @@ class SettingsActivity : SimpleActivity() {
         settings_turn_flash_off_at_startup_holder.setOnClickListener {
             settings_turn_flash_off_at_startup.toggle()
             config.turnFlashOffAtStartup = settings_turn_flash_off_at_startup.isChecked
+        }
+    }
+
+    private fun setupFlipPhotos() {
+        settings_flip_photos.isChecked = config.flipPhotos
+        settings_flip_photos_holder.setOnClickListener {
+            settings_flip_photos.toggle()
+            config.flipPhotos = settings_flip_photos.isChecked
+        }
+    }
+
+    private fun setupKeepSettingsVisible() {
+        settings_keep_settings_visible.isChecked = config.keepSettingsVisible
+        settings_keep_settings_visible_holder.setOnClickListener {
+            settings_keep_settings_visible.toggle()
+            config.keepSettingsVisible = settings_keep_settings_visible.isChecked
+        }
+    }
+
+    private fun setupAlwaysOpenBackCamera() {
+        settings_always_open_back_camera.isChecked = config.alwaysOpenBackCamera
+        settings_always_open_back_camera_holder.setOnClickListener {
+            settings_always_open_back_camera.toggle()
+            config.alwaysOpenBackCamera = settings_always_open_back_camera.isChecked
+        }
+    }
+
+    private fun setupSavePhotoMetadata() {
+        settings_save_photo_metadata.isChecked = config.savePhotoMetadata
+        settings_save_photo_metadata_holder.setOnClickListener {
+            settings_save_photo_metadata.toggle()
+            config.savePhotoMetadata = settings_save_photo_metadata.isChecked
         }
     }
 }

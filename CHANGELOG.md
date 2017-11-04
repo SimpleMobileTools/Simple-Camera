@@ -1,6 +1,30 @@
 Changelog
 ==========
 
+Version 2.4.1 *(2017-10-22)*
+----------------------------
+
+ * Added a crashfix related to zooming
+
+Version 2.4.0 *(2017-10-21)*
+----------------------------
+
+ * Added optional exif metadata saving, enabled by default
+ * Added a toggle for opening back camera at startup
+ * Added a toggle for keeping setting buttons always visible
+
+Version 2.3.6 *(2017-09-23)*
+----------------------------
+
+ * Fixed some photo orientation issues
+
+Version 2.3.5 *(2017-09-21)*
+----------------------------
+
+ * Added a toggle for flipping front camera photos horizontally
+ * Improved third party intent handling
+ * Rotate photos stored on the Internal storage by exif
+
 Version 2.3.4 *(2017-06-22)*
 ----------------------------
 

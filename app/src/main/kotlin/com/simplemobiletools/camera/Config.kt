@@ -42,6 +42,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(TURN_FLASH_OFF_AT_STARTUP, false)
         set(turnFlashOffAtStartup) = prefs.edit().putBoolean(TURN_FLASH_OFF_AT_STARTUP, turnFlashOffAtStartup).apply()
 
+    var flipPhotos: Boolean
+        get() = prefs.getBoolean(FLIP_PHOTOS, false)
+        set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
+
     var lastUsedCamera: Int
         get() = prefs.getInt(LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK)
         set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()
@@ -69,4 +73,16 @@ class Config(context: Context) : BaseConfig(context) {
     var wasPhotoPreviewHintShown: Boolean
         get() = prefs.getBoolean(PHOTO_PREVIEW_HINT_SHOWN, false)
         set(wasPhotoPreviewHintShown) = prefs.edit().putBoolean(PHOTO_PREVIEW_HINT_SHOWN, wasPhotoPreviewHintShown).apply()
+
+    var keepSettingsVisible: Boolean
+        get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)
+        set(keepSettingsVisible) = prefs.edit().putBoolean(KEEP_SETTINGS_VISIBLE, keepSettingsVisible).apply()
+
+    var alwaysOpenBackCamera: Boolean
+        get() = prefs.getBoolean(ALWAYS_OPEN_BACK_CAMERA, false)
+        set(alwaysOpenBackCamera) = prefs.edit().putBoolean(ALWAYS_OPEN_BACK_CAMERA, alwaysOpenBackCamera).apply()
+
+    var savePhotoMetadata: Boolean
+        get() = prefs.getBoolean(SAVE_PHOTO_METADATA, true)
+        set(savePhotoMetadata) = prefs.edit().putBoolean(SAVE_PHOTO_METADATA, savePhotoMetadata).apply()
 }

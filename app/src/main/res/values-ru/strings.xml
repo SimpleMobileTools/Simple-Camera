@@ -1,19 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Камера</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Произошла ошибка доступа к камере</string>
-    <string name="video_creating_error">Произошла ошибка при создании видео файла</string>
-    <string name="video_saving_error">Произошла ошибка записи видео файла</string>
-    <string name="video_setup_error">Произошла ошибка настройки рекордера</string>
-    <string name="video_mode_error">Переключение в режим видео не удалось</string>
+    <string name="video_creating_error">Произошла ошибка при создании видеофайла</string>
+    <string name="video_mode_error">Не удалось переключиться в режим видео</string>
     <string name="save_error_internal_storage">Произошла ошибка, место для сохранения изменено на внутренюю память</string>
-    <string name="camera_switch_error">Переключение камеры не удалось</string>
+    <string name="camera_switch_error">Не удалось переключить камеру</string>
     <string name="no_permissions">Не так много можно сделать без доступа к камере и хранилищу</string>
-    <string name="no_audio_permissions">Нам нужно аудио разрешение для записи видео</string>
+    <string name="no_audio_permissions">Нам нужно разрешение на запись аудио для записи видео</string>
     <string name="no_gallery_app_available">Нет доступного приложения-галереи</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="click_to_resume_preview">Чтобы возобновить предпросмотр, нажмите на изображение</string>
+    <string name="photo_not_saved">Не удалось сохранить фото</string>
 
     <!-- other aspect ratio -->
     <string name="other">другое</string>
@@ -22,13 +21,17 @@
     <string name="save_photos">Сохранять фото и видео в</string>
     <string name="show_preview">Показывать сделанное фото</string>
     <string name="shutter_sound">Звук затвора</string>
-    <string name="back_camera">Разрешения основной камеры</string>
+    <string name="back_camera">Разрешения задней камеры</string>
     <string name="front_camera">Разрешения фронтальной камеры</string>
     <string name="photo">Фото</string>
     <string name="video">Видео</string>
     <string name="focus_before_capture">Перефокусировка перед захватом</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
+    <string name="volume_buttons_as_shutter">Спускать затвор нажатием кнопок громкости</string>
     <string name="turn_flash_off_at_startup">Выключать вспышку при запуске</string>
+    <string name="flip_front_camera_photos_horizontally">Отразить фотографии с фронтальной камеры по горизонтали</string>
+    <string name="keep_settings_visible">Всегда показывать панель настроек</string>
+    <string name="always_open_back_camera">Всегда включать заднюю камеру при запуске</string>
+    <string name="save_photo_metadata">Сохранять данные EXIF</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -36,16 +39,15 @@
     <string name="app_long_description">
         Камерой можно пользоваться для фото- и видеосъёмки. Можно переключаться между фронтальной и задней камерами, ограничивать разрешение съёмки и выбирать путь сохранения. Вспышка может быть включена или выключена как фонарик. С помощью жестов можно изменять масштаб.
 
-
         Если вы хотите, чтобы это приложение запускалось при нажатии физической кнопки камеры, вам придётся отключить стандартное приложение камеры в настройках смартфона (Приложения -> Камера -> Отключить).
 
-        Это приложение не будет показывать рекламу или запрашивать ненужные разрешения. У него полностью открытый исходный код и есть тёмная тема оформления.
+        Это приложение не будет показывать рекламу или запрашивать ненужные разрешения. У него полностью открытый исходный код и настраиваемые цвета оформления.
 
         Simple Camera - это приложение из серии Simple Mobile Tools. Остальные приложения из этой серии можно найти здесь: http://www.simplemobiletools.com
     </string>
 
     <!--
         Haven't found some strings? There's more at
-        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
 </resources>

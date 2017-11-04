@@ -1,11 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Simple Camera</string>
     <string name="camera_unavailable">Cámara no disponible</string>
     <string name="camera_open_error">Ha ocurrido un error al acceder a la cámara</string>
     <string name="video_creating_error">Ha ocurrido un error creando el archivo de vídeo</string>
-    <string name="video_saving_error">Ha ocurrido un error guardando el archivo de vídeo</string>
-    <string name="video_setup_error">Ha ocurrido un error al configurar la grabación</string>
     <string name="video_mode_error">Ha fallado el cambio a modo de vídeo</string>
     <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta de destino al almacenamiento interno</string>
     <string name="camera_switch_error">Ha fallado el cambio de cámara</string>
@@ -29,6 +28,10 @@
     <string name="focus_before_capture">Enfocar antes de la captura</string>
     <string name="volume_buttons_as_shutter">Utilizar los botones de volumen como obturador</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
+    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
+    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="always_open_back_camera">Always open the app with the Back camera</string>
+    <string name="save_photo_metadata">Save photo exif metadata</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -36,16 +39,15 @@
     <string name="app_long_description">
         La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede conmutar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom&#8230; Mientras se graba un vídeo el flash puede ser usado como una linterna.
 
-
         Si usted quiere lanzar esta aplicación presionando el botón físico de cámara, puede que tenga que deshabilitar la aplicación nativa de cámara (Ajustes -> Aplicaciones -> Cámara -> Deshabilitar).
 
-        No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
+        No contiene publicidad ni permisos innecesarios. Es totalmente libre, proporciona colores personalizables.
 
         Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en http://www.simplemobiletools.com
     </string>
 
     <!--
         Haven't found some strings? There's more at
-        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
 </resources>

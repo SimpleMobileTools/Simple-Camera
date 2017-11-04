@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jednoduchý fotoaparát</string>
+    <string name="app_launcher_name">Fotoaparát</string>
+    <string name="camera_unavailable">Fotoaparát nedostupný</string>
+    <string name="camera_open_error">Počas prístupu ku fotoaparátu došlo k chybe</string>
+    <string name="video_creating_error">Došlo k chybe počas vytvárania video súboru</string>
+    <string name="video_mode_error">Prepínanie na video mód zlyhalo</string>
+    <string name="save_error_internal_storage">Došlo k chybe, miesto uloženia bolo zmenené na internú pamäť</string>
+    <string name="camera_switch_error">Prepnutie fotoaparátu zlyhalo</string>
+    <string name="no_permissions">Bez prístupu ku kamere a úložiska nevieme urobiť nič</string>
+    <string name="no_audio_permissions">Na tvorbu videí potrebujeme prístup k nahrávaniu zvuku</string>
+    <string name="no_gallery_app_available">Nebola nájdená žiadna aplikácia galérie</string>
+    <string name="click_to_resume_preview">Pre pokračovanie prehliadania kliknite na obrázok</string>
+    <string name="photo_not_saved">Fotografiu sa nepodarilo uložiť</string>
+
+    <!-- other aspect ratio -->
+    <string name="other">iný</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Ukladať fotky a videá do</string>
+    <string name="show_preview">Zobraziť náhľad fotky po vytvorení</string>
+    <string name="shutter_sound">Zvučka klapky</string>
+    <string name="back_camera">Rozlíšenia zadného fotoaparátu</string>
+    <string name="front_camera">Rozlíšenia predného fotoaparátu</string>
+    <string name="photo">Fotky</string>
+    <string name="video">Videá</string>
+    <string name="focus_before_capture">Zaostriť pred fotením</string>
+    <string name="volume_buttons_as_shutter">Použiť tlačidlá na ovládanie hlasitosti ako spúšťač</string>
+    <string name="turn_flash_off_at_startup">Vypnúť blesk pri spustení</string>
+    <string name="flip_front_camera_photos_horizontally">Preklopiť fotky z prednej kamera vodorovne</string>
+    <string name="keep_settings_visible">Neskrývať tlačidlá nastavení</string>
+    <string name="always_open_back_camera">Stále otvárať aplikáciu s aktívnou zadnou kamerou</string>
+    <string name="save_photo_metadata">Ukladať exif metadáta fotografií</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Fotoaparát s bleskom, priblížením a bez reklám.</string>
+    <string name="app_long_description">
+        Fotoaparát je použiteľný na tvorbu fotiek, ako aj nahrávanie videí. Viete sa prepínať medzi prednou a zadnou kamerou, upravovať miesto ukladania a meniŤ rozlíšenia. Blesk môže použitý aj ako trvalé svetlo. Gestami viete približovať aj odďaľovať.
+
+        Na spúšťanie apky s hardvérovým tlačidlom kamery pravdepodobne musíte deaktivovať predvolený fotoaparár zariadenia v Nastavenia -> Aplikácie -> Fotoaparát -> Deaktivovať,
+
+        Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+
+        Táto aplikácia je iba jednou zo skupiny aplikácií. Ostatné viete nájsť na http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
