@@ -15,6 +15,7 @@ import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.*
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
 
@@ -101,6 +102,8 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
             fileExif.saveAttributes()
             return photoFile.absolutePath
+        } catch (e: FileNotFoundException) {
+
         } catch (e: Exception) {
             activity.showErrorToast(e)
         } finally {
