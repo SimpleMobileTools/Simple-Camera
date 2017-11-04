@@ -6,13 +6,13 @@
     <string name="camera_open_error">Une erreur est survenue lors de l\'accès à la caméra</string>
     <string name="video_creating_error">Une erreur est survenue lors de la création du fichier vidéo</string>
     <string name="video_mode_error">Échec lors de la permutation vers le mode vidéo</string>
-    <string name="save_error_internal_storage">Une erreur est survenue, le dossier de sauvegarde a été changer vers la mémoire interne</string>
-    <string name="camera_switch_error">La permutation de caméra a échouée</string>
-    <string name="no_permissions">Peu de choses à faire sans accès à la caméra et à la mémoire</string>
-    <string name="no_audio_permissions">Nous avons besoin de l\'autorisation sur l\'audio pour enregistrer des vidéos</string>
-    <string name="no_gallery_app_available">Pas d\'application galerie disponible</string>
-    <string name="click_to_resume_preview">Cliquer sur l\'image pour resume preview</string>
-    <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
+    <string name="save_error_internal_storage">Une erreur est survenue, le dossier de sauvegarde a été changé vers la mémoire interne</string>
+    <string name="camera_switch_error">La permutation de caméra a échoué</string>
+    <string name="no_permissions">Sans autoristation à la caméra et à l\'espace de stockage, nous ne pouvons rien faire.</string>
+    <string name="no_audio_permissions">Pour enregistrer des vidéos, l\'accès au microphone est nécessaire.</string>
+    <string name="no_gallery_app_available">Il ne semble pas y avoir de gestionnaire de photos disponible sur cet appareil.</string>
+    <string name="click_to_resume_preview">Cliquez sur l\'image pour reprendre la prévisualisation.</string>
+    <string name="photo_not_saved">La photo n'a pas pu être enregistrée.</string>
 
     <!-- other aspect ratio -->
     <string name="other">autre</string>
@@ -21,12 +21,12 @@
     <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
     <string name="show_preview">Apercevoir la photo après la prise</string>
     <string name="shutter_sound">Son de l\'obturateur</string>
-    <string name="back_camera">Résolutions de la caméra arrière</string>
-    <string name="front_camera">Résolutions de la caméra avant</string>
+    <string name="back_camera">Résolution de la caméra arrière</string>
+    <string name="front_camera">Résolution de la caméra avant</string>
     <string name="photo">Photo</string>
     <string name="video">Vidéo</string>
     <string name="focus_before_capture">Mise au point avant la prise</string>
-    <string name="volume_buttons_as_shutter">Utiliser les boutons de volume comme shutter</string>
+    <string name="volume_buttons_as_shutter">Utiliser les boutons de volume comme obturateur</string>
     <string name="turn_flash_off_at_startup">Désactiver le flash au démarrage</string>
     <string name="flip_front_camera_photos_horizontally">Inverser horizontalement les images de la caméra avant</string>
     <string name="keep_settings_visible">Garder visible les boutons de réglage</string>
@@ -34,18 +34,16 @@
     <string name="save_photo_metadata">Sauvegarder les méta-données exif de la photo</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Un appareil photo avec flash, zoom et pas de publicité.</string>
+    <string name="app_short_description">Un appareil photo avec flash, zoom et sans publicité.</string>
     <string name="app_long_description">
-        La caméra est utilisable pour prendre des photos et aussi aussi des vidéos. Vous pouvez choisir entre la caméra avant et la caméra arrière, modifier le dossier d\'enregistrement et limiter la résolution. Le flash peut être allumé et éteint ainsi qu\'utilisé comme lampe de poche. Vous pouvez pincer pour zoomer.
+        La caméra est utilisable pour prendre des photos et aussi des vidéos. Vous pouvez choisir entre la caméra avant et la caméra arrière, modifier le dossier d\'enregistrement et limiter la résolution. Le flash peut être allumé et éteint ou utilisé comme lampe de poche. Vous pouvez pincer pour zoomer.
 
-        Si vous souhaitez démarrer cette application au lieu de l\'application d\'origine, vous devriez désactivez l\'application d\'origine dans : Paramètres -> Applications -> appareil photo -> désactiver.
+        Si vous souhaitez démarrer cette application au lieu de l\'application d\'origine, vous devez désactiver l\'application d\'origine dans : Paramètres -> Applications -> Appareil photo -> Désactiver.
 
-        L\'application ne contient ni de publicité ni d\'autorisation inutile. Elle est totalement OpenSource et est aussi fournie avec un thème sombre.
+        L\'application ne contient pas de publicité ni d\'autorisation inutile. Elle est totalement OpenSource et est aussi fournie avec un thème sombre.
 
         Cette application est juste une application d\'une grande série d\'applications. Vous pouvez trouvez les autres sur http://www.simplemobiletools.com
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
