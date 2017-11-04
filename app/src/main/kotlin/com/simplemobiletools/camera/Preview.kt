@@ -338,8 +338,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mActivity.toggleBottomButtons(false)
         try {
             mCamera?.startPreview()
-        } catch (e: Exception) {
-            mActivity.showErrorToast(e)
+        } catch (ignored: Exception) {
         }
         mCanTakePicture = true
         focusArea(false, false)
