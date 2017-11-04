@@ -219,25 +219,25 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mScaleGestureDetector = ScaleGestureDetector(mActivity, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScale(detector: ScaleGestureDetector): Boolean {
                 val zoomFactor = mParameters!!.zoom
-                var zoomRatio = mZoomRatios!![zoomFactor] / 100f
+                var zoomRatio = mZoomRatios[zoomFactor] / 100f
                 zoomRatio *= detector.scaleFactor
 
                 var newZoomFactor = zoomFactor
                 if (zoomRatio <= 1f) {
                     newZoomFactor = 0
-                } else if (zoomRatio >= mZoomRatios!![mMaxZoom] / 100f) {
+                } else if (zoomRatio >= mZoomRatios[mMaxZoom] / 100f) {
                     newZoomFactor = mMaxZoom
                 } else {
                     if (detector.scaleFactor > 1f) {
-                        for (i in zoomFactor..mZoomRatios!!.size - 1) {
-                            if (mZoomRatios!![i] / 100.0f >= zoomRatio) {
+                        for (i in zoomFactor until mZoomRatios.size) {
+                            if (mZoomRatios[i] / 100.0f >= zoomRatio) {
                                 newZoomFactor = i
                                 break
                             }
                         }
                     } else {
                         for (i in zoomFactor downTo 0) {
-                            if (mZoomRatios!![i] / 100.0f <= zoomRatio) {
+                            if (mZoomRatios[i] / 100.0f <= zoomRatio) {
                                 newZoomFactor = i
                                 break
                             }
@@ -348,8 +348,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun focusArea(takePictureAfter: Boolean, showFocusRect: Boolean = true) {
-        if (mCamera == null || (mIsFocusingBeforeCapture && !takePictureAfter))
+        if (mCamera == null || (mIsFocusingBeforeCapture && !takePictureAfter)) {
             return
+        }
 
         if (takePictureAfter)
             mIsFocusingBeforeCapture = true
@@ -389,8 +390,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                     rescheduleAutofocus()
                 }
             }
-        } catch (e: Exception) {
-            mActivity.showErrorToast(e)
+        } catch (ignored: Exception) {
         }
     }
 
