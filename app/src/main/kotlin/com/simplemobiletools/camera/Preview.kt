@@ -361,6 +361,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mLastClickX = width / 2
                 mLastClickY = height / 2
             }
+
             val focusRect = calculateFocusArea(mLastClickX.toFloat(), mLastClickY.toFloat())
             val focusAreas = ArrayList<Camera.Area>(1)
             focusAreas.add(Camera.Area(focusRect, 1000))
@@ -371,6 +372,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         try {
+            val focusModes = mParameters!!.supportedFocusModes
+            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
+                mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
+            }
+
             mCamera!!.parameters = mParameters
             mCamera!!.autoFocus { success, camera ->
                 if (camera == null || mCamera == null) {
@@ -378,7 +384,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 }
 
                 camera.cancelAutoFocus()
-                val focusModes = mParameters!!.supportedFocusModes
                 if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
                     mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
 
