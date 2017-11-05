@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.5.0 *(2017-11-05)*
+----------------------------
+
+ * Fixed focusing on some devices
+ * Removed some error message displaying
+ * Made switching in landscape mode less sensitive
+
 Version 2.4.1 *(2017-10-22)*
 ----------------------------
 
