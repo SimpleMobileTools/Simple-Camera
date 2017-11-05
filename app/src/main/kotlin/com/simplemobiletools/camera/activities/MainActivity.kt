@@ -497,12 +497,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                     return
                 }
 
-                val currOrient = if (orientation in 45..134) {
-                    ORIENT_LANDSCAPE_RIGHT
-                } else if (orientation in 225..314) {
-                    ORIENT_LANDSCAPE_LEFT
-                } else {
-                    ORIENT_PORTRAIT
+                val currOrient = when (orientation) {
+                    in 75..134 -> ORIENT_LANDSCAPE_RIGHT
+                    in 225..289 -> ORIENT_LANDSCAPE_LEFT
+                    else -> ORIENT_PORTRAIT
                 }
 
                 if (currOrient != mLastHandledOrientation) {
