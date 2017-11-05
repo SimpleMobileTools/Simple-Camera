@@ -11,7 +11,7 @@
     <string name="no_permissions">お使いのカメラやストレージにアクセスしないと、ほとんど行うことはありません</string>
     <string name="no_audio_permissions">ビデオを記録するためにオーディオのアクセス許可が必要です</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="photo_not_saved">この画像は保存されていません</string>
 
     <!-- other aspect ratio -->
     <string name="other">other</string>
@@ -20,12 +20,12 @@
     <string name="save_photos">写真とビデオの保存先</string>
     <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
     <string name="shutter_sound">シャッター音</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
-    <string name="video">Video</string>
+    <string name="back_camera">背面ｶﾒﾗ解像度</string>
+    <string name="front_camera">前面ｶﾒﾗ解像度</string>
+    <string name="photo">画像</string>
+    <string name="video">動画</string>
     <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
+    <string name="volume_buttons_as_shutter">音量ﾎﾞﾀﾝで撮影</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
     <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
     <string name="keep_settings_visible">Keep setting buttons visible</string>
