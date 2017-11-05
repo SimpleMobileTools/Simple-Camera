@@ -1,7 +1,6 @@
 package com.simplemobiletools.camera.activities
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.Resources
 import android.hardware.Camera
@@ -198,20 +197,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun showLastMediaPreview() {
-        if (mPreviewUri == null)
-            return
-
-        try {
-            val REVIEW_ACTION = "com.android.camera.action.REVIEW"
-            val intent = Intent(REVIEW_ACTION, mPreviewUri)
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            val intent = Intent(Intent.ACTION_VIEW, mPreviewUri)
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
-                toast(R.string.no_gallery_app_available)
-            }
+        if (mPreviewUri != null) {
+            openFile(mPreviewUri!!, false, BuildConfig.APPLICATION_ID)
         }
     }
 

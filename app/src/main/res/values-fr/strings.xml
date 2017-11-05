@@ -10,7 +10,6 @@
     <string name="camera_switch_error">La permutation de caméra a échouée</string>
     <string name="no_permissions">Peu de choses à faire sans accès à la caméra et à la mémoire</string>
     <string name="no_audio_permissions">Nous avons besoin de l\'autorisation sur l\'audio pour enregistrer des vidéos</string>
-    <string name="no_gallery_app_available">Pas d\'application galerie disponible</string>
     <string name="click_to_resume_preview">Cliquer sur l\'image pour resume preview</string>
     <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
 

@@ -10,7 +10,6 @@
     <string name="camera_switch_error">Falha ao mudar de câmara</string>
     <string name="no_permissions">É necessária a permissão para aceder à câmara e ao armazenamento</string>
     <string name="no_audio_permissions">Necessitamos da permissão de áudio para gravar os vídeos</string>
-    <string name="no_gallery_app_available">Nenhuma aplicação de galeria disponível</string>
     <string name="click_to_resume_preview">Clique na imagem para continuar com a pré-visualização</string>
     <string name="photo_not_saved">Não foi possível guardar a foto</string>
 

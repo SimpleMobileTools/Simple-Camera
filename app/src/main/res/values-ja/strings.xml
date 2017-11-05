@@ -10,7 +10,6 @@
     <string name="camera_switch_error">カメラの切り替えに失敗しました</string>
     <string name="no_permissions">お使いのカメラやストレージにアクセスしないと、ほとんど行うことはありません</string>
     <string name="no_audio_permissions">ビデオを記録するためにオーディオのアクセス許可が必要です</string>
-    <string name="no_gallery_app_available">利用可能なギャラリーアプリがありません</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
     <string name="photo_not_saved">The photo could not be saved</string>
 

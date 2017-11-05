@@ -10,7 +10,6 @@
     <string name="camera_switch_error">Byte av kamera misslyckades</string>
     <string name="no_permissions">Inte mycket att göra utan tillgång till din kamera och lagring</string>
     <string name="no_audio_permissions">För att spela in video krävs ljudrättigheter</string>
-    <string name="no_gallery_app_available">Ingen galleri-app finns tillgänglig</string>
     <string name="click_to_resume_preview">Klicka på bilden för att återuppta förhandsgranskningen</string>
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
 

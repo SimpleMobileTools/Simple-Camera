@@ -10,7 +10,6 @@
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
     <string name="no_permissions">Ohne Zugriff auf Kamera und Speicher ist hier nicht viel zu tun</string>
     <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mikrofon um Videos aufnehmen zu können</string>
-    <string name="no_gallery_app_available">Keine Galerie-App verfügbar</string>
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
 
