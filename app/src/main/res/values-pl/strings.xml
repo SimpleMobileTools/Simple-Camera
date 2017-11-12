@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Simple Camera</string>
-    <string name="camera_unavailable">Kamera niedostępna</string>
-    <string name="camera_open_error">Wystąpił błąd podczas uzyskiwania dostępu do kamery</string>
+    <string name="app_name">Prosty Aparat</string>
+    <string name="app_launcher_name">Prosty Aparat</string>
+    <string name="camera_unavailable">Aparat niedostępny</string>
+    <string name="camera_open_error">Wystąpił błąd podczas uzyskiwania dostępu do aparatu</string>
     <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku filmowego</string>
     <string name="video_mode_error">Przejście do trybu nagrywania filmów nie powidodło się</string>
     <string name="save_error_internal_storage">Wystąpił błąd, zmieniłem folder roboczy na pamięć wewnętrzną</string>
     <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
-    <string name="no_permissions">Za wiele nie zrobię, gdy nie będę mieć dostępu do kamery i pamięci.</string>
+    <string name="no_permissions">Za wiele nie zrobię, gdy nie będę mieć dostępu do aparatu i pamięci.</string>
     <string name="no_audio_permissions">Potrzebuję ustawienia \"Mikrofon\", aby móc nagrywać filmy</string>
     <string name="click_to_resume_preview">Kliknij obraz, aby wznowić podgląd</string>
     <string name="photo_not_saved">Zdjęcie nie mogło zostać zapisane</string>
@@ -27,10 +27,10 @@
     <string name="focus_before_capture">Złap ostrość przed zrobieniem zdjęcia</string>
     <string name="volume_buttons_as_shutter">Używaj przycisków głośności jako spustu migawki</string>
     <string name="turn_flash_off_at_startup">Wyłącz lampę błyskową podczas uruchamiania</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="flip_front_camera_photos_horizontally">Odbij poziomo zdjęcia z przedniej kamery</string>
+    <string name="keep_settings_visible">Pozostawiaj widoczne przyciski ustawień</string>
+    <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączoną tylnią kamerą</string>
+    <string name="save_photo_metadata">Zapisuj metadane exif zdjęcia</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
