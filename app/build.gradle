@@ -12,7 +12,7 @@ android {
         targetSdkVersion 27
         versionCode 48
         versionName "2.5.0"
-        setProperty("archivesBaseName", "draw")
+        setProperty("archivesBaseName", "camera")
     }
 
     signingConfigs {

@@ -28,7 +28,6 @@ class SettingsActivity : SimpleActivity() {
 
         setupCustomizeColors()
         setupUseEnglish()
-        setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
         setupFocusBeforeCapture()
@@ -38,6 +37,7 @@ class SettingsActivity : SimpleActivity() {
         setupKeepSettingsVisible()
         setupAlwaysOpenBackCamera()
         setupSavePhotoMetadata()
+        setupSavePhotosFolder()
         updateTextColors(settings_holder)
     }
 
@@ -67,18 +67,6 @@ class SettingsActivity : SimpleActivity() {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
             useEnglishToggled()
-        }
-    }
-
-    private fun setupSavePhotosFolder() {
-        settings_save_photos.text = getLastPart(config.savePhotosFolder)
-        settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
-                handleSAFDialog(File(it)) {
-                    config.savePhotosFolder = it
-                    settings_save_photos.text = getLastPart(config.savePhotosFolder)
-                }
-            }
         }
     }
 
@@ -156,6 +144,18 @@ class SettingsActivity : SimpleActivity() {
         settings_save_photo_metadata_holder.setOnClickListener {
             settings_save_photo_metadata.toggle()
             config.savePhotoMetadata = settings_save_photo_metadata.isChecked
+        }
+    }
+
+    private fun setupSavePhotosFolder() {
+        settings_save_photos.text = getLastPart(config.savePhotosFolder)
+        settings_save_photos_holder.setOnClickListener {
+            FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
+                handleSAFDialog(File(it)) {
+                    config.savePhotosFolder = it
+                    settings_save_photos.text = getLastPart(config.savePhotosFolder)
+                }
+            }
         }
     }
 }
