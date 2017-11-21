@@ -609,7 +609,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         val resolution = getSelectedResolution()
-        CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH).apply {
+        val profile = if (CamcorderProfile.hasProfile(CamcorderProfile.QUALITY_HIGH)) {
+            CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH)
+        } else {
+            CamcorderProfile.get(CamcorderProfile.QUALITY_LOW)
+        }
+        profile.apply {
             videoFrameWidth = resolution.width
             videoFrameHeight = resolution.height
             mRecorder!!.setProfile(this)
