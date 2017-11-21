@@ -10,8 +10,8 @@ android {
         applicationId "com.simplemobiletools.camera"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 48
-        versionName "2.5.0"
+        versionCode 49
+        versionName "2.6.0"
         setProperty("archivesBaseName", "camera")
     }
 
