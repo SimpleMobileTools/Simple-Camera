@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.6.0 *(2017-11-21)*
+----------------------------
+
+ * Added adaptive icons
+ * Couple crashfixes and misc improvements
+
 Version 2.5.0 *(2017-11-05)*
 ----------------------------
 
