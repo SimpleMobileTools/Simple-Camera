@@ -141,8 +141,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun hideToggleModeAbout() {
-        toggle_photo_video.visibility = View.GONE
-        settings.visibility = View.GONE
+        toggle_photo_video.beGone()
+        settings.beGone()
     }
 
     private fun tryInitCamera() {
