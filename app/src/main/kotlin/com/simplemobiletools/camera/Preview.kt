@@ -248,7 +248,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 newZoomFactor = Math.max(newZoomFactor, 0)
                 newZoomFactor = Math.min(mMaxZoom, newZoomFactor)
 
-                mParameters!!.zoom = newZoomFactor
+                try {
+                    mParameters!!.zoom = newZoomFactor
+                } catch (ignored: Exception) {
+                }
                 mCamera?.parameters = mParameters
                 return true
             }
