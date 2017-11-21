@@ -50,6 +50,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mIsSixteenToNine = false
     private var mWasZooming = false
     private var mIsPreviewShown = false
+    private var mWasCameraPreviewSet = false
     private var mLastClickX = 0
     private var mLastClickY = 0
     private var mCurrCameraId = 0
@@ -132,6 +133,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             initRecorder()
         }
 
+        if (!mWasCameraPreviewSet && mIsSurfaceCreated) {
+            mCamera!!.setPreviewDisplay(mSurfaceHolder)
+            mWasCameraPreviewSet = true
+        }
         return true
     }
 
@@ -448,6 +453,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     override fun surfaceCreated(holder: SurfaceHolder) {
         mIsSurfaceCreated = true
         try {
+            mWasCameraPreviewSet = mCamera != null
             mCamera?.setPreviewDisplay(mSurfaceHolder)
 
             if (mSwitchToVideoAsap)
