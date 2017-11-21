@@ -7,12 +7,15 @@ import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.humanizePath
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.useEnglishToggled
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.File
+import java.util.*
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +27,7 @@ class SettingsActivity : SimpleActivity() {
         super.onResume()
 
         setupCustomizeColors()
+        setupUseEnglish()
         setupSavePhotosFolder()
         setupShowPreview()
         setupSound()
@@ -53,6 +57,16 @@ class SettingsActivity : SimpleActivity() {
     private fun setupCustomizeColors() {
         settings_customize_colors_holder.setOnClickListener {
             startCustomizationActivity()
+        }
+    }
+
+    private fun setupUseEnglish() {
+        settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
+        settings_use_english.isChecked = config.useEnglish
+        settings_use_english_holder.setOnClickListener {
+            settings_use_english.toggle()
+            config.useEnglish = settings_use_english.isChecked
+            useEnglishToggled()
         }
     }
 

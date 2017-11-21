@@ -66,6 +66,49 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         setupOrientationEventListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (hasStorageAndCameraPermissions()) {
+            resumeCameraItems()
+            setupPreviewImage(mIsInPhotoMode)
+            scheduleFadeOut()
+            mFocusRectView.setStrokeColor(config.primaryColor)
+
+            if (mIsVideoCaptureIntent && mIsInPhotoMode) {
+                handleTogglePhotoVideo()
+                checkButtons()
+            }
+            toggleBottomButtons(false)
+        }
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        if (hasStorageAndCameraPermissions()) {
+            mOrientationEventListener.enable()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
+            return
+        }
+
+        mFadeHandler.removeCallbacksAndMessages(null)
+
+        hideTimer()
+        mPreview?.releaseCamera()
+        mOrientationEventListener.disable()
+
+        if (mPreview?.isWaitingForTakePictureCallback == true) {
+            toast(R.string.photo_not_saved)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPreview?.releaseCamera()
+    }
+
     private fun initVariables() {
         mRes = resources
         mIsInPhotoMode = false
@@ -418,26 +461,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         })
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (hasStorageAndCameraPermissions()) {
-            resumeCameraItems()
-            setupPreviewImage(mIsInPhotoMode)
-            scheduleFadeOut()
-            mFocusRectView.setStrokeColor(config.primaryColor)
-
-            if (mIsVideoCaptureIntent && mIsInPhotoMode) {
-                handleTogglePhotoVideo()
-                checkButtons()
-            }
-            toggleBottomButtons(false)
-        }
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (hasStorageAndCameraPermissions()) {
-            mOrientationEventListener.enable()
-        }
-    }
-
     private fun resumeCameraItems() {
         showToggleCameraIfNeeded()
         if (mPreview?.setCamera(mCurrCameraId) == true) {
@@ -454,24 +477,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private fun showToggleCameraIfNeeded() {
         toggle_camera.beInvisibleIf(Camera.getNumberOfCameras() <= 1)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
-            return
-        }
-
-        mFadeHandler.removeCallbacksAndMessages(null)
-
-        hideTimer()
-        mPreview?.releaseCamera()
-        mOrientationEventListener.disable()
-
-        if (mPreview?.isWaitingForTakePictureCallback == true) {
-            toast(R.string.photo_not_saved)
-        }
     }
 
     private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
@@ -561,11 +566,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (isImageCaptureIntent()) {
             finishActivity()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mPreview?.releaseCamera()
     }
 
     private fun checkWhatsNewDialog() {
