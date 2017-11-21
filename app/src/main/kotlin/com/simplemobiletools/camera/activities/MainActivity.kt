@@ -153,12 +153,12 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                         initializeCamera()
                         handleIntent()
                     } else {
-                        toast(R.string.no_permissions)
+                        toast(R.string.no_storage_permissions)
                         finish()
                     }
                 }
             } else {
-                toast(R.string.no_permissions)
+                toast(R.string.no_camera_permissions)
                 finish()
             }
         }

@@ -8,8 +8,6 @@
     <string name="video_mode_error">Perjungimas į vaizdo rėžimą nepavyko</string>
     <string name="save_error_internal_storage">Įvyko klaida, saugojimo aplankas pakeistas į vidinę atmintį</string>
     <string name="camera_switch_error">Kameros perjungimas nepavyko</string>
-    <string name="no_permissions">Nėra ką daryti kai kamera ir saugykla neprieinama</string>
-    <string name="no_audio_permissions">Mums reikia audio leidimo, kad įrašyti vaizdo bylas</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
     <string name="photo_not_saved">The photo could not be saved</string>
 

@@ -8,8 +8,6 @@
     <string name="video_mode_error">Не удалось переключиться в режим видео</string>
     <string name="save_error_internal_storage">Произошла ошибка, место для сохранения изменено на внутренюю память</string>
     <string name="camera_switch_error">Не удалось переключить камеру</string>
-    <string name="no_permissions">Не так много можно сделать без доступа к камере и хранилищу</string>
-    <string name="no_audio_permissions">Нам нужно разрешение на запись аудио для записи видео</string>
     <string name="click_to_resume_preview">Чтобы возобновить предпросмотр, нажмите на изображение</string>
     <string name="photo_not_saved">Не удалось сохранить фото</string>
 

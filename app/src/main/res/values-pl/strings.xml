@@ -8,8 +8,6 @@
     <string name="video_mode_error">Przejście do trybu nagrywania filmów nie powidodło się</string>
     <string name="save_error_internal_storage">Wystąpił błąd, zmieniłem folder roboczy na pamięć wewnętrzną</string>
     <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
-    <string name="no_permissions">Za wiele nie zrobię, gdy nie będę mieć dostępu do aparatu i pamięci.</string>
-    <string name="no_audio_permissions">Potrzebuję ustawienia \"Mikrofon\", aby móc nagrywać filmy</string>
     <string name="click_to_resume_preview">Kliknij obraz, aby wznowić podgląd</string>
     <string name="photo_not_saved">Zdjęcie nie mogło zostać zapisane</string>
 

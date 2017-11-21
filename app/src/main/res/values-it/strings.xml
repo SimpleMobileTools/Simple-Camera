@@ -8,8 +8,6 @@
     <string name="video_mode_error">Passaggio alla modalità video fallita</string>
     <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
     <string name="camera_switch_error">Cambio fotocamera fallito</string>
-    <string name="no_permissions">Non c\'è molto da fare senza l\'accesso alla fotocamera e all\'archiviazione</string>
-    <string name="no_audio_permissions">È necessario l\'accesso al microfono per registrare i video</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
     <string name="photo_not_saved">The photo could not be saved</string>
 

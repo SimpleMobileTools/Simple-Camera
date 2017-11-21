@@ -8,8 +8,6 @@
     <string name="video_mode_error">Ha fallado el cambio a modo de vídeo</string>
     <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta de destino al almacenamiento interno</string>
     <string name="camera_switch_error">Ha fallado el cambio de cámara</string>
-    <string name="no_permissions">No hay mucho que hacer sin los permisos para acceder a la cámara y al almacenamiento</string>
-    <string name="no_audio_permissions">Se necesita el permiso de micrófono para grabar vídeos</string>
     <string name="click_to_resume_preview">Haga clic en la imagen para reanudar la vista previa</string>
     <string name="photo_not_saved">The photo could not be saved</string>
 

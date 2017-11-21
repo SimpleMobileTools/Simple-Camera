@@ -8,8 +8,6 @@
     <string name="video_mode_error">Schakelen naar de videomodus is mislukt</string>
     <string name="save_error_internal_storage">Er is een fout opgetreden, de map opslaan is gewijzigd in interne opslag</string>
     <string name="camera_switch_error">Schakelen camera is mislukt</string>
-    <string name="no_permissions">Kan niets doen zonder toegang tot uw camera en opslag</string>
-    <string name="no_audio_permissions">Toestemming voor audio nodig is voor het opnemen van video\'s</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
     <string name="photo_not_saved">The photo could not be saved</string>
 

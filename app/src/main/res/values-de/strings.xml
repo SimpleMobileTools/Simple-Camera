@@ -8,8 +8,6 @@
     <string name="video_mode_error">Beim Umschalten zum Videomodus ist ein Fehler aufgetreten</string>
     <string name="save_error_internal_storage">Ein Fehler ist aufgetreten. Speicherordner wurde auf den internen Speicher gesetzt</string>
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
-    <string name="no_permissions">Ohne Zugriff auf Kamera und Speicher ist hier nicht viel zu tun</string>
-    <string name="no_audio_permissions">Wir benötigen Zugriff auf das Mikrofon um Videos aufnehmen zu können</string>
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
 
