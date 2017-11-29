@@ -256,8 +256,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 try {
                     mParameters!!.zoom = newZoomFactor
                 } catch (ignored: Exception) {
+                    mCamera?.parameters = mParameters
                 }
-                mCamera?.parameters = mParameters
                 return true
             }
 

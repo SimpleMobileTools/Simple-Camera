@@ -53,6 +53,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.FullScreenTheme)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         if (config.alwaysOpenBackCamera)
@@ -68,6 +69,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     override fun onResume() {
         super.onResume()
+        setTheme(R.style.FullScreenTheme)
         if (hasStorageAndCameraPermissions()) {
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
