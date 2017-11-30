@@ -54,6 +54,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
+        appLaunched()
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         if (config.alwaysOpenBackCamera)
@@ -62,7 +63,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         initVariables()
         tryInitCamera()
         supportActionBar?.hide()
-        storeStoragePaths()
         checkWhatsNewDialog()
         setupOrientationEventListener()
     }

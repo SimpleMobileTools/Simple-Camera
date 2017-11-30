@@ -2,9 +2,8 @@ package com.simplemobiletools.camera
 
 import android.app.Application
 import com.simplemobiletools.camera.BuildConfig.USE_LEAK_CANARY
-import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.commons.extensions.checkUseEnglish
 import com.squareup.leakcanary.LeakCanary
-import java.util.*
 
 class App : Application() {
     override fun onCreate() {
@@ -16,10 +15,6 @@ class App : Application() {
             LeakCanary.install(this)
         }
 
-        if (config.useEnglish) {
-            val conf = resources.configuration
-            conf.locale = Locale.ENGLISH
-            resources.updateConfiguration(conf, resources.displayMetrics)
-        }
+        checkUseEnglish()
     }
 }

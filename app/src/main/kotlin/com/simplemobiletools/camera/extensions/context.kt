@@ -8,7 +8,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-val Context.config: Config get() = Config.newInstance(this)
+val Context.config: Config get() = Config.newInstance(applicationContext)
 
 internal val Context.windowManager: WindowManager get() = getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
