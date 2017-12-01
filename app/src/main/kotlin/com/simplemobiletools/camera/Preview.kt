@@ -29,7 +29,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     lateinit var mSurfaceHolder: SurfaceHolder
     lateinit var mSurfaceView: SurfaceView
-    lateinit var mActivity: MainActivity
     lateinit var mCallback: PreviewListener
     lateinit var mScreenSize: Point
     lateinit var config: Config
@@ -59,6 +58,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mIsFocusingBeforeCapture = false
     private var autoFocusHandler = Handler()
 
+    var mActivity: MainActivity? = null
     var isWaitingForTakePictureCallback = false
     var mTargetUri: Uri? = null
     var isImageCaptureIntent = false
@@ -118,7 +118,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             newCamera = Camera.open(cameraId)
             mCallback.setIsCameraAvailable(true)
         } catch (e: Exception) {
-            mActivity.showErrorToast(e)
+            mActivity!!.showErrorToast(e)
             mCallback.setIsCameraAvailable(false)
             return false
         }
@@ -157,14 +157,14 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
             mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
 
-        mCamera!!.setDisplayOrientation(mActivity.getPreviewRotation(mCurrCameraId))
+        mCamera!!.setDisplayOrientation(mActivity!!.getPreviewRotation(mCurrCameraId))
         mCamera!!.parameters = mParameters
 
         if (mCanTakePicture) {
             try {
                 mCamera!!.setPreviewDisplay(mSurfaceHolder)
             } catch (e: IOException) {
-                mActivity.showErrorToast(e)
+                mActivity!!.showErrorToast(e)
                 return false
             }
         }
@@ -209,7 +209,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getDefaultFullscreenResolution(resolutions: List<Camera.Size>): Int? {
-        val screenAspectRatio = mActivity.realScreenSize.y / mActivity.realScreenSize.x.toFloat()
+        val screenAspectRatio = mActivity!!.realScreenSize.y / mActivity!!.realScreenSize.x.toFloat()
         resolutions.forEachIndexed { index, size ->
             val diff = screenAspectRatio - (size.width / size.height.toFloat())
             if (Math.abs(diff) < RATIO_TOLERANCE) {
@@ -319,7 +319,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mTargetUri != null) {
                 storePhoto(data)
             } else {
-                mActivity.finishActivity()
+                mActivity!!.finishActivity()
             }
         } else {
             storePhoto(data)
@@ -327,13 +327,13 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun storePhoto(data: ByteArray) {
-        PhotoProcessor(mActivity, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
+        PhotoProcessor(mActivity!!, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
     }
 
     private fun handlePreview() {
         if (config.isShowPreviewEnabled) {
             if (!config.wasPhotoPreviewHintShown) {
-                mActivity.toast(R.string.click_to_resume_preview)
+                mActivity!!.toast(R.string.click_to_resume_preview)
                 config.wasPhotoPreviewHintShown = true
             }
         } else {
@@ -346,7 +346,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private fun resumePreview() {
         mIsPreviewShown = false
-        mActivity.toggleBottomButtons(false)
+        mActivity!!.toggleBottomButtons(false)
         try {
             mCamera?.startPreview()
         } catch (ignored: Exception) {
@@ -434,7 +434,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     fun showChangeResolutionDialog() {
         if (mCamera != null) {
             val oldResolution = getSelectedResolution()
-            ChangeResolutionDialog(mActivity, config, mCamera!!) {
+            ChangeResolutionDialog(mActivity!!, config, mCamera!!) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
                 }
@@ -459,7 +459,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mSwitchToVideoAsap)
                 initRecorder()
         } catch (e: IOException) {
-            mActivity.showErrorToast(e)
+            mActivity!!.showErrorToast(e)
         }
     }
 
@@ -488,7 +488,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             try {
                 mCamera!!.startPreview()
             } catch (e: RuntimeException) {
-                mActivity.showErrorToast(e)
+                mActivity!!.showErrorToast(e)
             }
         }
     }
@@ -580,7 +580,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mCamera!!.parameters = mParameters
 
         Handler().postDelayed({
-            mActivity.runOnUiThread {
+            mActivity!!.runOnUiThread {
                 mParameters?.flashMode = Camera.Parameters.FLASH_MODE_AUTO
                 mCamera?.parameters = mParameters
             }
@@ -611,9 +611,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             setAudioSource(MediaRecorder.AudioSource.DEFAULT)
         }
 
-        mCurrVideoPath = mActivity.getOutputMediaFile(false)
+        mCurrVideoPath = mActivity!!.getOutputMediaFile(false)
         if (mCurrVideoPath.isEmpty()) {
-            mActivity.toast(R.string.video_creating_error)
+            mActivity!!.toast(R.string.video_creating_error)
             return false
         }
 
@@ -646,18 +646,18 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun checkPermissions(): Boolean {
-        if (mActivity.needsStupidWritePermissions(mCurrVideoPath)) {
+        if (mActivity!!.needsStupidWritePermissions(mCurrVideoPath)) {
             if (config.treeUri.isEmpty()) {
-                mActivity.toast(R.string.save_error_internal_storage)
+                mActivity!!.toast(R.string.save_error_internal_storage)
                 config.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
                 releaseCamera()
                 return false
             }
 
             try {
-                var document = mActivity.getFileDocument(mCurrVideoPath)
+                var document = mActivity!!.getFileDocument(mCurrVideoPath)
                 if (document == null) {
-                    mActivity.toast(R.string.unknown_error_occurred)
+                    mActivity!!.toast(R.string.unknown_error_occurred)
                     return false
                 }
 
@@ -674,7 +674,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun setupFailed(e: Exception) {
-        mActivity.showErrorToast(e)
+        mActivity!!.showErrorToast(e)
         releaseCamera()
     }
 
@@ -690,7 +690,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private fun getVideoRotation(): Int {
         val deviceRot = MainActivity.mLastHandledOrientation.compensateDeviceRotation(mCurrCameraId)
-        val previewRot = mActivity.getPreviewRotation(mCurrCameraId)
+        val previewRot = mActivity!!.getPreviewRotation(mCurrCameraId)
         return (deviceRot + previewRot) % 360
     }
 
@@ -709,7 +709,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             toggleShutterSound(false)
             mIsRecording = true
         } catch (e: Exception) {
-            mActivity.showErrorToast(e)
+            mActivity!!.showErrorToast(e)
             releaseCamera()
         }
     }
@@ -719,9 +719,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             try {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
-                mActivity.scanPath(mCurrVideoPath) {}
+                mActivity!!.scanPath(mCurrVideoPath) {}
             } catch (e: RuntimeException) {
-                mActivity.showErrorToast(e)
+                mActivity!!.showErrorToast(e)
                 toggleShutterSound(false)
                 File(mCurrVideoPath).delete()
                 mRecorder = null
@@ -742,7 +742,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private fun toggleShutterSound(mute: Boolean?) {
         if (!config.isSoundEnabled) {
-            (mActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager).setStreamMute(AudioManager.STREAM_SYSTEM, mute!!)
+            (mActivity!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager).setStreamMute(AudioManager.STREAM_SYSTEM, mute!!)
         }
     }
 
@@ -770,10 +770,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getScreenSize(): Point {
-        val display = mActivity.windowManager.defaultDisplay
+        val display = mActivity!!.windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-        size.y += mActivity.resources.getNavBarHeight()
+        size.y += mActivity!!.resources.getNavBarHeight()
         return size
     }
 

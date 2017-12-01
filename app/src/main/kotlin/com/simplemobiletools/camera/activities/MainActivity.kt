@@ -108,6 +108,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun onDestroy() {
         super.onDestroy()
         mPreview?.releaseCamera()
+        mPreview?.mActivity = null
     }
 
     private fun initVariables() {
