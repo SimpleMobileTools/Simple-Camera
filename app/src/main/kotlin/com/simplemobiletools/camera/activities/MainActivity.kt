@@ -109,6 +109,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         super.onDestroy()
         mPreview?.releaseCamera()
         mPreview?.mActivity = null
+        mPreview = null
     }
 
     private fun initVariables() {
