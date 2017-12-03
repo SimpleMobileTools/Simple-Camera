@@ -9,16 +9,14 @@ import android.view.ViewGroup
 import com.simplemobiletools.camera.extensions.config
 
 class FocusRectView(context: Context) : ViewGroup(context) {
-    companion object {
-        private val RECT_SIZE = 50
-        private val RECT_DURATION = 500
+    private val RECT_SIZE = 50
+    private val RECT_DURATION = 500
 
-        private var mDrawRect = false
+    private var mDrawRect = false
+    private var mHandler: Handler
 
-        lateinit var mPaint: Paint
-        lateinit var mHandler: Handler
-        lateinit var mRect: Rect
-    }
+    lateinit var mPaint: Paint
+    lateinit var mRect: Rect
 
     init {
         setWillNotDraw(false)
@@ -53,9 +51,7 @@ class FocusRectView(context: Context) : ViewGroup(context) {
         invalidate()
     }
 
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-
-    }
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {}
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)

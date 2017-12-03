@@ -16,13 +16,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.simplemobiletools.camera.*
-import com.simplemobiletools.camera.views.Preview.PreviewListener
+import com.simplemobiletools.camera.BuildConfig
+import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.camera.views.Preview
+import com.simplemobiletools.camera.views.Preview.PreviewListener
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
 import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
@@ -31,25 +32,23 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
-    companion object {
-        private val FADE_DELAY = 5000
+    private val FADE_DELAY = 5000
 
-        lateinit var mFocusRectView: FocusRectView
-        lateinit var mTimerHandler: Handler
-        lateinit var mFadeHandler: Handler
-        lateinit var mRes: Resources
+    lateinit var mFocusRectView: FocusRectView
+    lateinit var mTimerHandler: Handler
+    lateinit var mFadeHandler: Handler
+    lateinit var mRes: Resources
 
-        private var mPreview: Preview? = null
-        private var mPreviewUri: Uri? = null
-        private var mFlashlightState = FLASH_OFF
-        private var mIsInPhotoMode = false
-        private var mIsCameraAvailable = false
-        private var mIsVideoCaptureIntent = false
-        private var mIsHardwareShutterHandled = false
-        private var mCurrVideoRecTimer = 0
-        private var mCurrCameraId = 0
-        var mLastHandledOrientation = 0
-    }
+    private var mPreview: Preview? = null
+    private var mPreviewUri: Uri? = null
+    private var mFlashlightState = FLASH_OFF
+    private var mIsInPhotoMode = false
+    private var mIsCameraAvailable = false
+    private var mIsVideoCaptureIntent = false
+    private var mIsHardwareShutterHandled = false
+    private var mCurrVideoRecTimer = 0
+    private var mCurrCameraId = 0
+    var mLastHandledOrientation = 0
 
     lateinit var mOrientationEventListener: OrientationEventListener
 

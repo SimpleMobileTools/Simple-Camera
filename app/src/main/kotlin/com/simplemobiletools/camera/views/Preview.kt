@@ -13,12 +13,12 @@ import android.view.ScaleGestureDetector
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
-import com.simplemobiletools.camera.helpers.PhotoProcessor
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.Config
+import com.simplemobiletools.camera.helpers.PhotoProcessor
 import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.IOException
@@ -290,7 +290,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mCamera!!.enableShutterSound(false)
             }
 
-            mRotationAtCapture = MainActivity.mLastHandledOrientation
+
+            mRotationAtCapture = mActivity!!.mLastHandledOrientation
             mCamera!!.parameters = mParameters
             isWaitingForTakePictureCallback = true
             mIsPreviewShown = true
@@ -692,7 +693,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getVideoRotation(): Int {
-        val deviceRot = MainActivity.mLastHandledOrientation.compensateDeviceRotation(mCurrCameraId)
+        val deviceRot = mActivity!!.mLastHandledOrientation.compensateDeviceRotation(mCurrCameraId)
         val previewRot = mActivity!!.getPreviewRotation(mCurrCameraId)
         return (deviceRot + previewRot) % 360
     }
