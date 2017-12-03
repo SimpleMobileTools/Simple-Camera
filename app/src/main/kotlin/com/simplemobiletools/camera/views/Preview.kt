@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera
+package com.simplemobiletools.camera.views
 
 import android.content.Context
 import android.graphics.Point
@@ -13,9 +13,12 @@ import android.view.ScaleGestureDetector
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.ViewGroup
+import com.simplemobiletools.camera.helpers.PhotoProcessor
+import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
+import com.simplemobiletools.camera.helpers.Config
 import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.IOException

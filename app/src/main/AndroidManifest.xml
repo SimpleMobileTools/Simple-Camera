@@ -94,7 +94,7 @@
             android:parentActivityName=".activities.MainActivity"/>
 
         <receiver
-            android:name=".HardwareShutterReceiver">
+            android:name=".receivers.HardwareShutterReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.CAMERA_BUTTON"/>
             </intent-filter>

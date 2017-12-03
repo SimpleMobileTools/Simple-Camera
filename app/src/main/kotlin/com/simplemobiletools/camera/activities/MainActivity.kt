@@ -17,10 +17,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.*
-import com.simplemobiletools.camera.Preview.PreviewListener
+import com.simplemobiletools.camera.views.Preview.PreviewListener
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.navBarHeight
+import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.views.FocusRectView
+import com.simplemobiletools.camera.views.Preview
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
 import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO

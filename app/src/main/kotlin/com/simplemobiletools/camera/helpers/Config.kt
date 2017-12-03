@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera
+package com.simplemobiletools.camera.helpers
 
 import android.content.Context
 import android.hardware.Camera

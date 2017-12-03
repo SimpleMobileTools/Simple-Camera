@@ -3,7 +3,7 @@ package com.simplemobiletools.camera.extensions
 import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
-import com.simplemobiletools.camera.Config
+import com.simplemobiletools.camera.helpers.Config
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

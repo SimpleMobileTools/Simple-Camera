@@ -1,4 +1,4 @@
-package com.simplemobiletools.camera
+package com.simplemobiletools.camera.helpers
 
 val ORIENT_PORTRAIT = 0
 val ORIENT_LANDSCAPE_LEFT = 1
