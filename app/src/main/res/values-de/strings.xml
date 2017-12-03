@@ -23,7 +23,7 @@
     <string name="photo">Foto</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Vor der Aufnahme fokussieren</string>
-    <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Shutter</string>
+    <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Auslöser</string>
     <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
     <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
     <string name="keep_settings_visible">Button für Einstellungen immer sichtbar</string>
