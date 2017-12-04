@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 3.0.0 *(2017-12-04)*
+----------------------------
+
+ * Improved primary color customization
+
 Version 2.6.0 *(2017-11-21)*
 ----------------------------
 
