@@ -401,7 +401,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
         runOnUiThread {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1 || !isDestroyed) {
+            if (!isActivityDestroyed()) {
                 val options = RequestOptions()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -488,7 +488,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private fun setupOrientationEventListener() {
         mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
             override fun onOrientationChanged(orientation: Int) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && isDestroyed) {
+                if (isActivityDestroyed()) {
                     mOrientationEventListener.disable()
                     return
                 }
