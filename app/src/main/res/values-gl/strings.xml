@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Cámara</string>
+    <string name="camera_unavailable">Cámara non dispoñible</string>
+    <string name="camera_open_error">Fallou o acceso a cámara</string>
+    <string name="video_creating_error">Fallou a creacin do ficheiro de vídeo</string>
+    <string name="video_mode_error">Non se puido mudar ao modo de vdeo</string>
+    <string name="save_error_internal_storage">Algo fallou, o cartafol para gardar fotos mudou ao almacenamento interno</string>
+    <string name="camera_switch_error">Fallou o cambio de cámara</string>
+    <string name="click_to_resume_preview">Pulse na imaxe para voltar a vista previa</string>
+    <string name="photo_not_saved">Non se puido gardar a fotografía</string>
+
+    <!-- other aspect ratio -->
+    <string name="other">outro</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Gardar fotos e videos en</string>
+    <string name="show_preview">Mostrar unha vistra previa da foto tras a captura</string>
+    <string name="shutter_sound">Son do disparador</string>
+    <string name="back_camera">Resolucións da cámara traseira</string>
+    <string name="front_camera">Resolucións da cámara frontal</string>
+    <string name="photo">Foto</string>
+    <string name="video">Vídeo</string>
+    <string name="focus_before_capture">Enfocar antes da captura</string>
+    <string name="volume_buttons_as_shutter">Utilizar botóns de volume como disparador</string>
+    <string name="turn_flash_off_at_startup">Flash apagado ao inicio</string>
+    <string name="flip_front_camera_photos_horizontally">Xirar horizontalmente as fotos da cámara frontal</string>
+    <string name="keep_settings_visible">Manter visibles os botóns de axustes</string>
+    <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
+    <string name="save_photo_metadata">Gardar metadatos exif da foto</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Unha cámara con flash, zoom e sen publi.</string>
+    <string name="app_long_description">
+        A cámara pódese usar para gardar fotos e gravar vídeos. Pode cambiar entre a cámara traseira e a dianteira, modificar o cartafol onde garda os ficheiros así como limitar a resolución. O flash pódese apagar ou acender ou utilizalo como destello. Pode facer zoom na escena.
+   
+       Se quere iniciar este aplicativo utilizando o botón de hardware, podería ter que deshabilitar o aplicativo Camara por omisión do sistema en Axustes -> Aplicativos -> Camara -> Deshabilitar.
+   
+       Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade, ten cores personalizados.
+   
+       Este aplicativo é só unha peza da colección de aplicativos. Pode atopar o resto en http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
