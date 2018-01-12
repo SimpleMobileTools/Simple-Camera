@@ -398,8 +398,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 }
 
                 camera.cancelAutoFocus()
-                if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+                if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
                     mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
+                }
 
                 camera.parameters = mParameters
 
@@ -586,7 +587,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mCamera!!.parameters = mParameters
 
         Handler().postDelayed({
-            mActivity!!.runOnUiThread {
+            mActivity?.runOnUiThread {
                 mParameters?.flashMode = Camera.Parameters.FLASH_MODE_AUTO
                 mCamera?.parameters = mParameters
             }
@@ -619,7 +620,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mCurrVideoPath = mActivity!!.getOutputMediaFile(false)
         if (mCurrVideoPath.isEmpty()) {
-            mActivity!!.toast(R.string.video_creating_error)
+            mActivity?.toast(R.string.video_creating_error)
+            return false
+        }
+
+        if (mRecorder == null) {
+            mActivity?.toast(R.string.unknown_error_occurred)
             return false
         }
 
@@ -629,6 +635,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         } else {
             CamcorderProfile.get(CamcorderProfile.QUALITY_LOW)
         }
+
         profile.apply {
             videoFrameWidth = resolution.width
             videoFrameHeight = resolution.height
