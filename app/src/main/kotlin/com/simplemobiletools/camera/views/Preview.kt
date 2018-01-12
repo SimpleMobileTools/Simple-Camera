@@ -296,16 +296,18 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             isWaitingForTakePictureCallback = true
             mIsPreviewShown = true
             try {
-                mCamera!!.takePicture(null, null, takePictureCallback)
+                Thread {
+                    mCamera!!.takePicture(null, null, takePictureCallback)
 
-                if (config.isSoundEnabled) {
-                    val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                    val volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM)
-                    if (volume != 0) {
-                        val mp = MediaPlayer.create(context, Uri.parse("file:///system/media/audio/ui/camera_click.ogg"))
-                        mp?.start()
+                    if (config.isSoundEnabled) {
+                        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                        val volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM)
+                        if (volume != 0) {
+                            val mp = MediaPlayer.create(context, Uri.parse("file:///system/media/audio/ui/camera_click.ogg"))
+                            mp?.start()
+                        }
                     }
-                }
+                }.start()
             } catch (ignored: Exception) {
             }
         }
