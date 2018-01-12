@@ -29,6 +29,7 @@
     <string name="keep_settings_visible">إبقاء أزرار الإعداد مرئيا</string>
     <string name="always_open_back_camera">دائما فتح التطبيق مع الكاميرا الخلفية</string>
     <string name="save_photo_metadata">حفظ بيانات الصورة الوصفية</string>
+    <string name="photo_compression_quality">Photo compression quality</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
