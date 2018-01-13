@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.1.0 *(2018-01-13)*
+----------------------------
+
+ * Allow changing the photo compression quality
+ * Make dark theme the default
+
 Version 3.0.1 *(2017-12-07)*
 ----------------------------
 
