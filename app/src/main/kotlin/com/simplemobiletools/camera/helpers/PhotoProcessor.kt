@@ -46,7 +46,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
-                if (activity.config.treeUri.isEmpty()) {
+                if (!activity.hasProperStoredTreeUri()) {
                     activity.toast(R.string.save_error_internal_storage)
                     activity.config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
