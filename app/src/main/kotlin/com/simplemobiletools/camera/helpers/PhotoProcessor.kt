@@ -89,7 +89,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
             }
 
-            image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
+            image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
 
             val fileExif = ExifInterface(path)
             var exifOrientation = ExifInterface.ORIENTATION_NORMAL.toString()

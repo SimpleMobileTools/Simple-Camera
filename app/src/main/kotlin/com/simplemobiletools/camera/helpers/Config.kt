@@ -85,4 +85,8 @@ class Config(context: Context) : BaseConfig(context) {
     var savePhotoMetadata: Boolean
         get() = prefs.getBoolean(SAVE_PHOTO_METADATA, true)
         set(savePhotoMetadata) = prefs.edit().putBoolean(SAVE_PHOTO_METADATA, savePhotoMetadata).apply()
+
+    var photoQuality: Int
+        get() = prefs.getInt(PHOTO_QUALITY, 80)
+        set(photoQuality) = prefs.edit().putInt(PHOTO_QUALITY, photoQuality).apply()
 }
