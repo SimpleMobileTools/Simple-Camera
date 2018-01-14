@@ -15,10 +15,7 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.*
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.*
 
 class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int) : AsyncTask<ByteArray, Void, String>() {
 
@@ -101,7 +98,10 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 tempExif.copyTo(fileExif)
 
             fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
-            fileExif.saveAttributes()
+            try {
+                fileExif.saveAttributes()
+            } catch (e: IOException) {
+            }
             return photoFile.absolutePath
         } catch (e: FileNotFoundException) {
         } finally {
