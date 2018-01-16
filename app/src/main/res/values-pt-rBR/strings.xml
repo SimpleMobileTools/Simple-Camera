@@ -29,6 +29,7 @@
     <string name="keep_settings_visible">Manter o botão de configurações visível</string>
     <string name="always_open_back_camera">Sempre abrir o app com a câmera traseira</string>
     <string name="save_photo_metadata">Salvar metadados exif com a foto</string>
+    <string name="photo_compression_quality">Photo compression quality</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

@@ -29,18 +29,19 @@
     <string name="keep_settings_visible">Button für Einstellungen immer sichtbar</string>
     <string name="always_open_back_camera">Starte App immer mit der Rückkamera</string>
     <string name="save_photo_metadata">Exif-Metadaten speichern</string>
+    <string name="photo_compression_quality">Foto-Komprimierungsqualität</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Eine schlichte Kamera mit Blitzlicht, Zoom und ohne Werbung.</string>
+    <string name="app_short_description">Eine schlichte Kamera mit Blitzlicht und Zoom, ganz ohne Werbung.</string>
     <string name="app_long_description">
-        Die Kamera kann sowohl zum Schießen von Fotos, als auch zum Aufnehmen von Videos genutzt werden. Wechsle zwischen Front- und Rückkamera, verändere den Pfad, in dem die Bilder gespeichert werden oder verändere die Bild-Auflösung. Der Blitz kann an- und ausgeschaltet werden, und als Taschenlampe benutzt werden. Mit den Fingern kann gezoomt werden.
+        Die Kamera kann sowohl zum Schießen von Fotos, als auch zum Aufnehmen von Videos genutzt werden. Wechsle zwischen Front- und Rückkamera, verändere den Pfad, in dem Bilder gespeichert werden, oder ändere die Bildauflösung. Der Blitz kann ein- und ausgeschaltet werden oder als Taschenlampe benutzt werden. Mit den Fingern kann gezoomt werden.
 
-        Falls du diese App durch einen Hardware-Kameraknopf starten möchtest, kann es sein, dass du die vorinstallierte Kamera-App erst deaktivieren musst unter Einstellungen -> Apps -> Kamera -> deaktivieren.
+        Falls du diese App durch einen Hardware-Kameraknopf starten möchtest, musst du vielleicht die vorinstallierte Kamera-App erst deaktivieren, unter Einstellungen -> Apps -> Kamera -> deaktivieren.
 
-        Beinhaltet weder Werbung, noch unnötige Berechtigungen. Sie ist komplett Open Source und beinhaltet anpassbare Farben.
+        Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
 
-        Diese App ist Teil einer größeren Serie von Apps. Diese findet man unter http://www.simplemobiletools.com
+        Diese App ist nur eine aus einer größeren Serie von schlichten Apps. Der Rest davon findet sich auf http://www.simplemobiletools.com
     </string>
 
     <!--

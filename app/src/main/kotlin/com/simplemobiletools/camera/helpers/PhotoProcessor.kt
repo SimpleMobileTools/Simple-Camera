@@ -15,10 +15,7 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.*
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.*
 
 class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int) : AsyncTask<ByteArray, Void, String>() {
 
@@ -46,7 +43,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
-                if (activity.config.treeUri.isEmpty()) {
+                if (!activity.hasProperStoredTreeUri()) {
                     activity.toast(R.string.save_error_internal_storage)
                     activity.config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
@@ -89,24 +86,24 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
             }
 
-            image.compress(Bitmap.CompressFormat.JPEG, 80, fos)
+            image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
 
             val fileExif = ExifInterface(path)
             var exifOrientation = ExifInterface.ORIENTATION_NORMAL.toString()
             if (path.startsWith(activity.internalStoragePath)) {
                 exifOrientation = getExifOrientation(totalRotation)
             }
+
             if (activity.config.savePhotoMetadata)
                 tempExif.copyTo(fileExif)
 
             fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
-
-            fileExif.saveAttributes()
+            try {
+                fileExif.saveAttributes()
+            } catch (e: IOException) {
+            }
             return photoFile.absolutePath
         } catch (e: FileNotFoundException) {
-
-        } catch (e: Exception) {
-            activity.showErrorToast(e)
         } finally {
             fos?.close()
         }

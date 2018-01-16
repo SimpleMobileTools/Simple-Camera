@@ -4,14 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.1"
 
     defaultConfig {
         applicationId "com.simplemobiletools.camera"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 51
-        versionName "3.0.1"
+        versionCode 53
+        versionName "3.1.1"
         setProperty("archivesBaseName", "camera")
     }
 
@@ -42,7 +41,7 @@ ext {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:3.2.3'
+    implementation 'com.simplemobiletools:commons:3.6.19'
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"

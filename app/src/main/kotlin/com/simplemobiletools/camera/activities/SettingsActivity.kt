@@ -7,6 +7,7 @@ import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.humanizePath
 import com.simplemobiletools.commons.extensions.updateTextColors
@@ -14,6 +15,7 @@ import com.simplemobiletools.commons.extensions.useEnglishToggled
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_LEAK_CANARY
+import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.File
 import java.util.*
@@ -39,6 +41,7 @@ class SettingsActivity : SimpleActivity() {
         setupAlwaysOpenBackCamera()
         setupSavePhotoMetadata()
         setupSavePhotosFolder()
+        setupPhotoQuality()
         updateTextColors(settings_holder)
     }
 
@@ -156,6 +159,29 @@ class SettingsActivity : SimpleActivity() {
                     config.savePhotosFolder = it
                     settings_save_photos.text = getLastPart(config.savePhotosFolder)
                 }
+            }
+        }
+    }
+
+    private fun setupPhotoQuality() {
+        settings_photo_quality.text = "${config.photoQuality}%"
+        settings_photo_quality_holder.setOnClickListener {
+            val items = arrayListOf(
+                    RadioItem(50, "50%"),
+                    RadioItem(55, "55%"),
+                    RadioItem(60, "60%"),
+                    RadioItem(65, "65%"),
+                    RadioItem(70, "70%"),
+                    RadioItem(75, "75%"),
+                    RadioItem(80, "80%"),
+                    RadioItem(85, "85%"),
+                    RadioItem(90, "90%"),
+                    RadioItem(95, "95%"),
+                    RadioItem(100, "100%"))
+
+            RadioGroupDialog(this@SettingsActivity, items, config.photoQuality) {
+                config.photoQuality = it as Int
+                settings_photo_quality.text = "${config.photoQuality}%"
             }
         }
     }

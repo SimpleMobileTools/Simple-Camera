@@ -29,6 +29,7 @@
     <string name="keep_settings_visible">Pozostawiaj widoczne przyciski ustawień</string>
     <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączoną tylnią kamerą</string>
     <string name="save_photo_metadata">Zapisuj metadane exif zdjęcia</string>
+    <string name="photo_compression_quality">Photo compression quality</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
