@@ -4,8 +4,8 @@
     <string name="app_launcher_name">Cámara</string>
     <string name="camera_unavailable">Cámara non dispoñible</string>
     <string name="camera_open_error">Fallou o acceso a cámara</string>
-    <string name="video_creating_error">Fallou a creacin do ficheiro de vídeo</string>
-    <string name="video_mode_error">Non se puido mudar ao modo de vdeo</string>
+    <string name="video_creating_error">Fallou a creación do ficheiro de vídeo</string>
+    <string name="video_mode_error">Non se puido mudar ao modo de vídeo</string>
     <string name="save_error_internal_storage">Algo fallou, o cartafol para gardar fotos mudou ao almacenamento interno</string>
     <string name="camera_switch_error">Fallou o cambio de cámara</string>
     <string name="click_to_resume_preview">Pulse na imaxe para voltar a vista previa</string>
@@ -16,7 +16,7 @@
 
     <!-- Settings -->
     <string name="save_photos">Gardar fotos e videos en</string>
-    <string name="show_preview">Mostrar unha vistra previa da foto tras a captura</string>
+    <string name="show_preview">Mostrar unha vista previa da foto tras a captura</string>
     <string name="shutter_sound">Son do disparador</string>
     <string name="back_camera">Resolucións da cámara traseira</string>
     <string name="front_camera">Resolucións da cámara frontal</string>
@@ -29,7 +29,7 @@
     <string name="keep_settings_visible">Manter visibles os botóns de axustes</string>
     <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
     <string name="save_photo_metadata">Gardar metadatos exif da foto</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="photo_compression_quality">Calidade da compresión da foto</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
