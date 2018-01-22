@@ -24,6 +24,7 @@ import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.camera.views.Preview
 import com.simplemobiletools.camera.views.Preview.PreviewListener
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.BROADCAST_REFRESH_MEDIA
 import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
 import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
@@ -564,6 +565,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun mediaSaved(path: String) {
         scanPath(path) {
             setupPreviewImage(mIsInPhotoMode)
+            Intent(BROADCAST_REFRESH_MEDIA).apply {
+                `package` = "com.simplemobiletools.gallery"
+                sendBroadcast(this)
+            }
         }
 
         if (isImageCaptureIntent()) {
