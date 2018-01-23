@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.1.2 *(2018-01-23)*
+----------------------------
+
+ * Fix a glitch at slow zooming
+ * Refresh Simple Gallery in the background after taking a photo/video
+
 Version 3.1.1 *(2018-01-14)*
 ----------------------------
 
