@@ -83,7 +83,11 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 } else {
                     matrix.preScale(-1f, 1f)
                 }
-                image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
+                try {
+                    image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
+                } catch (e: OutOfMemoryError) {
+                    activity.toast(R.string.out_of_memory_error)
+                }
             }
 
             image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
@@ -140,7 +144,9 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
     override fun onPostExecute(path: String) {
         super.onPostExecute(path)
-        activity.mediaSaved(path)
+        if (path.isNotEmpty()) {
+            activity.mediaSaved(path)
+        }
     }
 
     interface MediaSavedListener {
