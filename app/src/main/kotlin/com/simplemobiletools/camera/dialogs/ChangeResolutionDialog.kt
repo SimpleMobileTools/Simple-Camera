@@ -41,10 +41,11 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
             RadioGroupDialog(activity, items, selectionIndex) {
                 selectionIndex = it as Int
                 view.change_resolution_photo.text = items[selectionIndex].title
-                if (isBackCamera)
+                if (isBackCamera) {
                     config.backPhotoResIndex = it
-                else
+                } else {
                     config.frontPhotoResIndex = it
+                }
                 dialog.dismiss()
             }
         }

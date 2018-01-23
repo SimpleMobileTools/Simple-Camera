@@ -737,7 +737,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             try {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
-                mActivity!!.scanPath(mCurrVideoPath) {}
+                mActivity!!.applicationContext.scanPath(mCurrVideoPath) {}
             } catch (e: RuntimeException) {
                 mActivity!!.showErrorToast(e)
                 toggleShutterSound(false)
