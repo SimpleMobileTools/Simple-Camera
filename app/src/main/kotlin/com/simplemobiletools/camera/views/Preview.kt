@@ -636,6 +636,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             CamcorderProfile.get(CamcorderProfile.QUALITY_LOW)
         }
 
+        if (profile == null) {
+            mActivity?.toast(R.string.unknown_error_occurred)
+            return false
+        }
+
         profile.apply {
             videoFrameWidth = resolution.width
             videoFrameHeight = resolution.height
