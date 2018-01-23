@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
@@ -68,6 +69,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     constructor(context: Context) : super(context)
 
+    @SuppressLint("ClickableViewAccessibility")
     constructor(activity: MainActivity, surfaceView: SurfaceView, previewListener: PreviewListener) : super(activity) {
         mActivity = activity
         mCallback = previewListener
@@ -88,8 +90,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mLastClickX = event.x.toInt()
             mLastClickY = event.y.toInt()
 
-            if (mMaxZoom > 0)
+            if (mMaxZoom > 0 && mParameters?.isZoomSupported == true) {
                 mScaleGestureDetector!!.onTouchEvent(event)
+            }
             false
         }
 
