@@ -563,7 +563,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun drawFocusRect(x: Int, y: Int) = mFocusRectView.drawFocusRect(x, y)
 
     override fun mediaSaved(path: String) {
-        applicationContext.scanPath(path) {
+        scanPath(path) {
             setupPreviewImage(mIsInPhotoMode)
             Intent(BROADCAST_REFRESH_MEDIA).apply {
                 `package` = "com.simplemobiletools.gallery"
