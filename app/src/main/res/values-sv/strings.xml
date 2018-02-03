@@ -25,21 +25,21 @@
     <string name="focus_before_capture">Fokusera om innan bildtagning</string>
     <string name="volume_buttons_as_shutter">Använd volymknapparna som slutare</string>
     <string name="turn_flash_off_at_startup">Stäng av blixten vid start</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="flip_front_camera_photos_horizontally">Vänd främre kamerans foton horisontellt</string>
+    <string name="keep_settings_visible">Behåll inställningsknapparna synliga</string>
+    <string name="always_open_back_camera">Växla till den bakre kameran när appen öppnas</string>
+    <string name="save_photo_metadata">Spara fotonas Exif-metadata</string>
+    <string name="photo_compression_quality">Fotokomprimeringskvalitet</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">En kamera med blixt, zoom och ingen reklam.</string>
     <string name="app_long_description">
-        Kameran är användbar för både bildtagning och videoinspelning. Du kan växla mellan främre och bakre kamera, ändra sparsökvägen och begränsa upplösningen. Blixten kan slås på, stängas av och användas som en ficklampa. Du kan nypa för att zooma in.
+        Kameran kan användas för både fototagning och videoinspelning. Du kan växla mellan främre och bakre kamera, ändra sparsökvägen och begränsa upplösningen. Blixten kan slås på, stängas av och användas som en ficklampa. Du kan nypa ihop eller föra isär fingrarna för att zooma in och ut.
 
-        Om du vill starta denna app genom att trycka på den fysiska kameraknappen måste du kanske inaktivera den inbyggda Kamera-appen i Inställningar -> Appar -> Kamera -> Inaktivera.
+        Om du vill starta denna app genom att trycka på den fysiska kameraknappen, måste du kanske inaktivera den inbyggda Kamera-appen i Inställningar -> Appar -> Kamera -> Inaktivera.
 
-        Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, innehåller anpassningsbara färger.
+        Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
 
         Denna app är bara en del av en större serie appar. Du hittar resten av dem på http://www.simplemobiletools.com
     </string>
