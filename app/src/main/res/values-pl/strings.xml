@@ -35,7 +35,7 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Kamera z lampą błyskową, zoomem i bez reklam.</string>
     <string name="app_long_description">
-        Aplikacja zarówno robienia zdjęć, jak i kręcenia filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
+        Aplikacja zarówno do robienia zdjęć, jak i kręcenia filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
 
         Aby móc uruchamiać aplikację sprzętowym przyciskiem, wyłącz (lub usuń) domsyślną aplkację kamery (Ustawienia -> Aplikacje -> (aplikacja kamery) -> Wyłącz).
 
