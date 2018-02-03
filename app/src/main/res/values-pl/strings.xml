@@ -4,38 +4,38 @@
     <string name="app_launcher_name">Prosty Aparat</string>
     <string name="camera_unavailable">Aparat niedostępny</string>
     <string name="camera_open_error">Wystąpił błąd podczas uzyskiwania dostępu do aparatu</string>
-    <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku filmowego</string>
+    <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku wideo</string>
     <string name="video_mode_error">Przejście do trybu nagrywania filmów nie powidodło się</string>
     <string name="save_error_internal_storage">Wystąpił błąd, zmieniłem folder roboczy na pamięć wewnętrzną</string>
     <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
     <string name="click_to_resume_preview">Kliknij obraz, aby wznowić podgląd</string>
-    <string name="photo_not_saved">Zdjęcie nie mogło zostać zapisane</string>
+    <string name="photo_not_saved">Nie mogłem zapisać zdjęcia</string>
 
     <!-- other aspect ratio -->
     <string name="other">inne</string>
 
     <!-- Settings -->
     <string name="save_photos">Zapisuj zdjęcia i filmy w</string>
-    <string name="show_preview">Pokaż podgląd po zrobieniu zdjęcia</string>
+    <string name="show_preview">Pokazuj podgląd po zrobieniu zdjęcia</string>
     <string name="shutter_sound">Dźwięk migawki</string>
     <string name="back_camera">Rozdzielczość tylnej kamery</string>
     <string name="front_camera">Rozdzielczość przedniej kamery</string>
     <string name="photo">Zdjęcie</string>
     <string name="video">Film</string>
-    <string name="focus_before_capture">Złap ostrość przed zrobieniem zdjęcia</string>
+    <string name="focus_before_capture">Łap ostrość przed zrobieniem zdjęcia</string>
     <string name="volume_buttons_as_shutter">Używaj przycisków głośności jako spustu migawki</string>
     <string name="turn_flash_off_at_startup">Wyłącz lampę błyskową podczas uruchamiania</string>
-    <string name="flip_front_camera_photos_horizontally">Odbij poziomo zdjęcia z przedniej kamery</string>
+    <string name="flip_front_camera_photos_horizontally">Przewracaj poziomo zdjęcia z przedniej kamery</string>
     <string name="keep_settings_visible">Pozostawiaj widoczne przyciski ustawień</string>
-    <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączoną tylnią kamerą</string>
-    <string name="save_photo_metadata">Zapisuj metadane exif zdjęcia</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączoną tylną kamerą</string>
+    <string name="save_photo_metadata">Zapisuj dane EXIF zdjęcia</string>
+    <string name="photo_compression_quality">Poziom kompresji zdjęć</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Kamera z lampą błyskową, zoomem i bez reklam.</string>
     <string name="app_long_description">
-        Aplikacja zarówno robienia zdjęć jak i kręcenia filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
+        Aplikacja zarówno robienia zdjęć, jak i kręcenia filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
 
         Aby móc uruchamiać aplikację sprzętowym przyciskiem, wyłącz (lub usuń) domsyślną aplkację kamery (Ustawienia -> Aplikacje -> (aplikacja kamery) -> Wyłącz).
 
