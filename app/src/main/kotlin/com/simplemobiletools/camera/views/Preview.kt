@@ -159,7 +159,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
         refreshPreview()
 
-        if ("Nexus 4".equals(Build.MODEL)) {
+        // hackfix for slow photo preview, more info at https://github.com/SimpleMobileTools/Simple-Camera/issues/120
+        if (Build.MODEL == "Nexus 4") {
             mParameters!!.setRecordingHint(true)
         }
 
