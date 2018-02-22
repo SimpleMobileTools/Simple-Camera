@@ -159,6 +159,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mSupportedPreviewSizes = mParameters!!.supportedPreviewSizes.sortedByDescending { it.width * it.height }
         refreshPreview()
 
+        if ("Nexus 4".equals(Build.MODEL)) {
+            mParameters!!.setRecordingHint(true)
+        }
+
         val focusModes = mParameters!!.supportedFocusModes
         if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
             mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
