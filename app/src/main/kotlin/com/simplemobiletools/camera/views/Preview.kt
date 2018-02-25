@@ -169,7 +169,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
 
         mCamera!!.setDisplayOrientation(mActivity!!.getPreviewRotation(mCurrCameraId))
-        mCamera!!.parameters = mParameters
+        updateCameraParameters()
 
         if (mCanTakePicture) {
             try {
@@ -265,7 +265,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 newZoomFactor = Math.min(mMaxZoom, newZoomFactor)
 
                 mParameters!!.zoom = newZoomFactor
-                mCamera?.parameters = mParameters
+                updateCameraParameters()
                 return true
             }
 
@@ -297,7 +297,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
 
             mRotationAtCapture = mActivity!!.mLastHandledOrientation
-            mCamera!!.parameters = mParameters
+            updateCameraParameters()
             isWaitingForTakePictureCallback = true
             mIsPreviewShown = true
             try {
@@ -396,7 +396,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
             }
 
-            mCamera!!.parameters = mParameters
+            updateCameraParameters()
             mCamera!!.autoFocus { success, camera ->
                 if (camera == null || mCamera == null) {
                     return@autoFocus
@@ -496,7 +496,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mParameters = mCamera!!.parameters
 
             mParameters!!.setPreviewSize(mPreviewSize!!.width, mPreviewSize!!.height)
-            mCamera!!.parameters = mParameters
+            updateCameraParameters()
             try {
                 mCamera!!.startPreview()
             } catch (e: RuntimeException) {
@@ -579,22 +579,21 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     fun enableFlash() {
         mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
-        mCamera!!.parameters = mParameters
+        updateCameraParameters()
     }
 
     fun disableFlash() {
         mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
-        mCamera!!.parameters = mParameters
+        updateCameraParameters()
     }
 
     fun autoFlash() {
         mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
-        mCamera!!.parameters = mParameters
+        updateCameraParameters()
 
         Handler().postDelayed({
             mActivity?.runOnUiThread {
                 mParameters?.flashMode = Camera.Parameters.FLASH_MODE_AUTO
-                mCamera?.parameters = mParameters
             }
         }, 1000)
     }
@@ -653,6 +652,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         checkPermissions()
+        if (mRecorder == null) {
+            return false
+        }
         mRecorder!!.setPreviewDisplay(mSurfaceHolder.surface)
 
         val rotation = getVideoRotation()
@@ -699,6 +701,13 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private fun setupFailed(e: Exception) {
         mActivity!!.showErrorToast(e)
         releaseCamera()
+    }
+
+    private fun updateCameraParameters() {
+        try {
+            mCamera?.parameters = mParameters
+        } catch (e: RuntimeException) {
+        }
     }
 
     fun toggleRecording(): Boolean {
