@@ -205,7 +205,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }.sortedByDescending { it.width * it.height }
 
         if (index == -1) {
-            mActivity?.toast(R.string.setting_resolution_failed)
             index = getDefaultFullscreenResolution(resolutions) ?: 0
         }
 
@@ -292,11 +291,14 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (mCanTakePicture) {
             val selectedResolution = getSelectedResolution()
             mParameters!!.setPictureSize(selectedResolution.width, selectedResolution.height)
+            val pictureSize = mParameters!!.pictureSize
+            if (selectedResolution.width != pictureSize.width || selectedResolution.height != pictureSize.height) {
+                mActivity!!.toast(R.string.setting_resolution_failed)
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 mCamera!!.enableShutterSound(false)
             }
-
 
             mRotationAtCapture = mActivity!!.mLastHandledOrientation
             updateCameraParameters()

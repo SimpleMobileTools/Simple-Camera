@@ -84,6 +84,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 } else {
                     matrix.preScale(-1f, 1f)
                 }
+
                 try {
                     image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
                 } catch (e: OutOfMemoryError) {
