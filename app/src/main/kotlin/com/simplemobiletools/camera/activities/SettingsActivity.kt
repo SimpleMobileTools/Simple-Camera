@@ -15,6 +15,7 @@ import com.simplemobiletools.commons.extensions.useEnglishToggled
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_LEAK_CANARY
+import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.File
@@ -52,7 +53,7 @@ class SettingsActivity : SimpleActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.about -> startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_GLIDE or LICENSE_LEAK_CANARY, BuildConfig.VERSION_NAME)
+            R.id.about -> launchAbout()
             else -> super.onOptionsItemSelected(item)
         }
         return true
@@ -72,6 +73,14 @@ class SettingsActivity : SimpleActivity() {
             config.useEnglish = settings_use_english.isChecked
             useEnglishToggled()
         }
+    }
+
+    private fun launchAbout() {
+        val faqItems = arrayListOf(
+                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
+        )
+
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_GLIDE or LICENSE_LEAK_CANARY, BuildConfig.VERSION_NAME, faqItems)
     }
 
     private fun getLastPart(path: String): String {
