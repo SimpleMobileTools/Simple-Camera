@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 3.1.4 *(2018-02-26)*
+----------------------------
+
+ * Show an error if setting the proper resolution failed
+ * Fix slow photo preview on Nexus 4
+ * Couple stability improvements
+ * Added an initial FAQ section
+
 Version 3.1.3 *(2018-02-01)*
 ----------------------------
 
