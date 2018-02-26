@@ -10,6 +10,7 @@
     <string name="camera_switch_error">Не удалось переключить камеру</string>
     <string name="click_to_resume_preview">Чтобы возобновить предпросмотр, нажмите на изображение</string>
     <string name="photo_not_saved">Не удалось сохранить фото</string>
+    <string name="setting_resolution_failed">Setting proper resolution failed</string>
 
     <!-- other aspect ratio -->
     <string name="other">другое</string>

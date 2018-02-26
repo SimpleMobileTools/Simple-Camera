@@ -10,6 +10,7 @@
     <string name="camera_switch_error">Byte av kamera misslyckades</string>
     <string name="click_to_resume_preview">Klicka på bilden för att återuppta förhandsgranskningen</string>
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
+    <string name="setting_resolution_failed">Setting proper resolution failed</string>
 
     <!-- other aspect ratio -->
     <string name="other">annat</string>

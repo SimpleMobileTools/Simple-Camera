@@ -205,7 +205,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }.sortedByDescending { it.width * it.height }
 
         if (index == -1) {
-            mActivity?.toast(R.string.unknown_error_occurred)
+            mActivity?.toast(R.string.setting_resolution_failed)
             index = getDefaultFullscreenResolution(resolutions) ?: 0
         }
 

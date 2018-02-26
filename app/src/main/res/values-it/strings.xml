@@ -10,6 +10,7 @@
     <string name="camera_switch_error">Cambio fotocamera fallito</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
     <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="setting_resolution_failed">Setting proper resolution failed</string>
 
     <!-- other aspect ratio -->
     <string name="other">other</string>

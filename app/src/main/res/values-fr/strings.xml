@@ -10,6 +10,7 @@
     <string name="camera_switch_error">La permutation de caméra a échouée</string>
     <string name="click_to_resume_preview">Cliquer sur l\'image pour resume preview</string>
     <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
+    <string name="setting_resolution_failed">Setting proper resolution failed</string>
 
     <!-- other aspect ratio -->
     <string name="other">autre</string>

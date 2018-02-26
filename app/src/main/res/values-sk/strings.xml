@@ -10,6 +10,7 @@
     <string name="camera_switch_error">Prepnutie fotoaparátu zlyhalo</string>
     <string name="click_to_resume_preview">Pre pokračovanie prehliadania kliknite na obrázok</string>
     <string name="photo_not_saved">Fotografiu sa nepodarilo uložiť</string>
+    <string name="setting_resolution_failed">Nepodarilo sa nastaviť správne rozlíšenie</string>
 
     <!-- other aspect ratio -->
     <string name="other">iný</string>
