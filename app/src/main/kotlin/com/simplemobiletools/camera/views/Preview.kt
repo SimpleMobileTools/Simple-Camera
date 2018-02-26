@@ -193,8 +193,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getSelectedResolution(): Camera.Size {
-        if (mParameters == null)
+        if (mParameters == null) {
             mParameters = mCamera!!.parameters
+        }
 
         var index = getResolutionIndex()
         val resolutions = if (mIsVideoMode) {
@@ -204,6 +205,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }.sortedByDescending { it.width * it.height }
 
         if (index == -1) {
+            mActivity?.toast(R.string.unknown_error_occurred)
             index = getDefaultFullscreenResolution(resolutions) ?: 0
         }
 
