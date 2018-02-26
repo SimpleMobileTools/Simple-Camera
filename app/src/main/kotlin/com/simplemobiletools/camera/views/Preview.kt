@@ -323,6 +323,11 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private val takePictureCallback = Camera.PictureCallback { data, cam ->
+        if (data.isEmpty()) {
+            mActivity!!.toast(R.string.unknown_error_occurred)
+            return@PictureCallback
+        }
+
         isWaitingForTakePictureCallback = false
         if (!isImageCaptureIntent) {
             handlePreview()
