@@ -245,7 +245,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private fun showLastMediaPreview() {
         if (mPreviewUri != null) {
-            openFile(mPreviewUri!!, false, BuildConfig.APPLICATION_ID)
+            val path = applicationContext.getRealPathFromURI(mPreviewUri!!) ?: mPreviewUri!!.toString()
+            openPathIntent(path, false, BuildConfig.APPLICATION_ID)
         }
     }
 

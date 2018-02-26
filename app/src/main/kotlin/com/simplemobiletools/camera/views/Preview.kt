@@ -680,7 +680,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             }
 
             try {
-                var document = mActivity!!.getFileDocument(mCurrVideoPath)
+                var document = mActivity!!.getDocumentFile(mCurrVideoPath)
                 if (document == null) {
                     mActivity!!.toast(R.string.unknown_error_occurred)
                     return false
