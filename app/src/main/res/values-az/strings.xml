@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Kamera</string>
+    <string name="camera_unavailable">Kamera əlçatan deyil</string>
+    <string name="camera_open_error">Kameranı açarkən xəta baş verdi</string>
+    <string name="video_creating_error">Video faylını yaradarkən xəta baş verdi</string>
+    <string name="video_mode_error">Video moduna keçərkən xəta baş verdi</string>
+    <string name="save_error_internal_storage">Xəta baş verdi, saxlama qovluğu daxili yaddaşa keçdi</string>
+    <string name="camera_switch_error">Kameranı dəyişərkən xəta baş verdi</string>
+    <string name="click_to_resume_preview">Önbaxışa davam etmək üçün şəkilə toxun</string>
+    <string name="photo_not_saved">Şəkli yaddaşa salmaq olmur</string>
+    <string name="setting_resolution_failed">Uyğun görüntü imkanını seçmək olmur</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">digər</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Şəkli hansı keyfiyyətdə yaddaşa salmalıyam?</string>
+    <string name="faq_1_text">Ümumiyyətlə, özünüzdən asılıdır. Gündəlik istifadə üçün çoxları 75%-80%\'i tövsiyyə edir, hansı ki, bu parametrdə şəkil hələ də yaxşı görünür, amma fayl ölçüsü 100%'ə nəzərən kiçilmişdir.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Şəkil və videoları burda saxla</string>
+    <string name="show_preview">Çəkdikdən sonra şəklə önbaxış et</string>
+    <string name="shutter_sound">Çəkilmə səsi</string>
+    <string name="back_camera">Arxa kamera görüntü imkanı</string>
+    <string name="front_camera">Ön kamera görüntü imkanı</string>
+    <string name="photo">Şəkil</string>
+    <string name="video">Video</string>
+    <string name="focus_before_capture">Çəkməzdən əvvəl fokuslan</string>
+    <string name="volume_buttons_as_shutter">Səs düymələri ilə çək</string>
+    <string name="turn_flash_off_at_startup">Başlanğıcda fənəri söndür</string>
+    <string name="flip_front_camera_photos_horizontally">Ön kamera şəkillərini üfüqi döndür</string>
+    <string name="keep_settings_visible">Parametrlər düyməsini göstər</string>
+    <string name="always_open_back_camera">Tətbiqi həmişə Arxa kamerada başlat</string>
+    <string name="save_photo_metadata">Şəklin haqqında əlavələri saxla</string>
+    <string name="photo_compression_quality">Şəkil sıxışdırma keyfiyyəti</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Fənərli, yaxınlaşdırmalı və reklamsız Kamera.</string>
+    <string name="app_long_description">
+        Bu kamera həm şəkil çəkmək həm də video yazmaq üçün əlverişlidir. Ön və arxa kameralarda keçiş apara, fayl məkanını dəyişdirə və görüntü imkanını hüdudlandıra bilərsiniz. Fənər söndürülə yaxud da adi fənər işığı kimi istifadə oluna bilər. Çimdikləyərək yaxınlaşdıra ya da uzaqlaşdıra bilərsiniz.
+
+        Əgər tətbiqi cihazın kamera düyməsinə basaraq açmaq istəyirsinizsə, Parametrlər -> Tətbiqlər -> Kamera -> Qapat\'dan daxili Kamera tətbiqini qapatmalısınız.
+
+        Lazımsız reklam və ya icazə mövcud deyil. Tamamilə açıqlisanslıdır, rəng dəyişmə parametrləri var.
+
+        Bu, böyük bir tətbiq seriyasının yalnız bir hissəsidir. Digər tətbiqləri buradan əldə edə bilərsiniz http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
