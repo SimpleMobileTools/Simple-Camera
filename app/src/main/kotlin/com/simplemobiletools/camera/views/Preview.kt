@@ -608,8 +608,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     // VIDEO RECORDING
     fun initRecorder(): Boolean {
-        if (mCamera == null || mRecorder != null || !mIsSurfaceCreated)
+        if (mCamera == null || mRecorder != null || !mIsSurfaceCreated) {
             return false
+        }
 
         refreshPreview()
         mSwitchToVideoAsap = false
@@ -680,7 +681,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             }
 
             try {
-                var document = mActivity!!.getDocumentFile(mCurrVideoPath)
+                var document = mActivity!!.getDocumentFile(mCurrVideoPath.getParentPath())
                 if (document == null) {
                     mActivity!!.toast(R.string.unknown_error_occurred)
                     return false
