@@ -49,7 +49,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                     return ""
                 }
 
-                var document = activity.getDocumentFile(path)
+                var document = activity.getDocumentFile(path.getParentPath())
                 document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1))
                 fos = activity.contentResolver.openOutputStream(document?.uri)
             } else {
