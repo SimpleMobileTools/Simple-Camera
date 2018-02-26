@@ -86,6 +86,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun launchAbout() {
         val faqItems = arrayListOf(
+                FAQItem(R.string.faq_1_title, R.string.faq_1_text),
                 FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
         )
 

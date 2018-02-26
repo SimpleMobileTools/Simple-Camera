@@ -12,8 +12,12 @@
     <string name="photo_not_saved">Non se puido gardar a fotografía</string>
     <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
 
-    <!-- other aspect ratio -->
+    <!-- Other aspect ratio -->
     <string name="other">outro</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">What photo compression quality should I set?</string>
+    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Gardar fotos e videos en</string>
