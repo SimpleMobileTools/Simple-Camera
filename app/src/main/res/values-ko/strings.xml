@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">심플 카메라</string>
+    <string name="app_launcher_name">카메라</string>
+    <string name="camera_unavailable">카메라를 사용할 수 없습니다.</string>
+    <string name="camera_open_error">카메라에 액세스하는 중에 오류가 발생했습니다.</string>
+    <string name="video_creating_error">비디오 파일을 만드는 중 오류가 발생했습니다.</string>
+    <string name="video_mode_error">비디오 모드로 전환하지 못했습니다.</string>
+    <string name="save_error_internal_storage">오류가 발생하여 저장폴더를 내부 저장소로 변경하였습니다.</string>
+    <string name="camera_switch_error">카메라 전환에 실패했습니다.</string>
+    <string name="click_to_resume_preview">미리보기를 다시 시작하려면 이미지를 클릭하십시오.</string>
+    <string name="photo_not_saved">사진을 저장할 수 없습니다.</string>
+    <string name="setting_resolution_failed">해상도 설정에 실패했습니다.</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">other</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">사진 압축품질을 무엇으로 설정해야 하나요?</string>
+    <string name="faq_1_text">압축품질은 촬영용도에 따라 달라질 수 있지만, 일반적으로 75% -80%를 사용하도록 권고합니다. 75% -80%로 압축 품질을 설정하면 파일 크기는 100%에 비해 크게 줄어듭니다.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">사진 및 비디오 저장 위치</string>
+    <string name="show_preview">캡처 후 사진 미리보기 표시</string>
+    <string name="shutter_sound">셔터 소리</string>
+    <string name="back_camera">후면 카메라 해상도</string>
+    <string name="front_camera">전면 카메라 해상도</string>
+    <string name="photo">사진</string>
+    <string name="video">비디오</string>
+    <string name="focus_before_capture">캡처 전에 초점 맞추기</string>
+    <string name="volume_buttons_as_shutter">볼륨 버튼을 셔터로 사용</string>
+    <string name="turn_flash_off_at_startup">시작시 플래시 끄기</string>
+    <string name="flip_front_camera_photos_horizontally">전면 카메라 좌우 반전</string>
+    <string name="keep_settings_visible">설정 버튼 표시 유지</string>
+    <string name="always_open_back_camera">항상 후면카메라로 실행</string>
+    <string name="save_photo_metadata">사진 exif 메타 데이터 저장</string>
+    <string name="photo_compression_quality">사진 압축 품질</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">플래시 및 줌기능이 있으며 광고가 없는 카메라 애플리케이션입니다.</string>
+    <string name="app_long_description">
+        카메라는 사진 촬영과 비디오 촬영에 모두 사용할 수 있습니다. 전면 및 후면 카메라를 전환, 저장경로 변경, 해상도 조절등의 작업을 쉽게 할 수 있습니다. 플래시는 켜고 끌 수 있으며 손전등으로 사용할 수 있습니다. 핀치줌도 쉽게 할 수 있습니다. 
+
+        하드웨어 카메라 버튼을 눌렀을 때이 앱을 실행하려면 설정에서 내장 카메라 앱을 사용 중지해야 할 수 있습니다. (설정 -> 애플리케이션 -> 카메라 -> 사용 해제)
+
+        광고가 포함되어 있거나, 불필요한 권한을 요청하지 않습니다. 이 앱의 모든 소스는 오픈소스이며, 사용자가 직접 애플리케이션의 컬러를 설정 할 수 있습니다.
+
+        이 앱은 다양한 시리즈의 모바일앱 중 하나입니다. 나머지는 http://www.simplemobiletools.com 에서 찾아 보실 수 있습니다.
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
