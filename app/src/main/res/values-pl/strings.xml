@@ -10,14 +10,14 @@
     <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
     <string name="click_to_resume_preview">Kliknij obraz, aby wznowić podgląd</string>
     <string name="photo_not_saved">Nie mogłem zapisać zdjęcia</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="setting_resolution_failed">Nie mogłem ustawić poprawnej rozdzielczości</string>
 
     <!-- Other aspect ratio -->
     <string name="other">inne</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Jaki poziom kompresji ustawić?</string>
+    <string name="faq_1_text">Zależy to od rodzaju zdjęcia. Generalnie zalecany jest poziom 75-80% - stanowi on często dobry kompromis między jakością a rozmiarem zdjęcia.</string>
 
     <!-- Settings -->
     <string name="save_photos">Zapisuj zdjęcia i filmy w</string>
@@ -33,12 +33,12 @@
     <string name="flip_front_camera_photos_horizontally">Przewracaj poziomo zdjęcia z przedniej kamery</string>
     <string name="keep_settings_visible">Pozostawiaj widoczne przyciski ustawień</string>
     <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączoną tylną kamerą</string>
-    <string name="save_photo_metadata">Zapisuj dane EXIF zdjęcia</string>
+    <string name="save_photo_metadata">Zapisuj dane EXIF w zdjęciach</string>
     <string name="photo_compression_quality">Poziom kompresji zdjęć</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Kamera z lampą błyskową, zoomem i bez reklam.</string>
+    <string name="app_short_description">Prosta aplikacja aparatu z lampą błyskową, regulacją przybliżenia i bez reklam.</string>
     <string name="app_long_description">
         Aplikacja zarówno do robienia zdjęć, jak i kręcenia filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
 
