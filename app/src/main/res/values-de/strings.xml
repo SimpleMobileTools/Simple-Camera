@@ -10,14 +10,14 @@
     <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="setting_resolution_failed">Korrekte Auflösung konnte nicht eingestellt werden</string>
 
     <!-- Other aspect ratio -->
     <string name="other">andere</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Was für eine Fotokomprimierungsqualität soll ich einstellen?</string>
+    <string name="faq_1_text">Das hängt von deinem Ziel ab. Für allgemeine Zwecke empfehlen die meisten 75 - 80 %, wodurch die Qualität immer noch sehr gut bleibt, aber die Dateigrösse drastisch reduziert ist im Vergleich zu 100 %.</string>
 
     <!-- Settings -->
     <string name="save_photos">Fotos und Videos speichern nach</string>
@@ -31,10 +31,10 @@
     <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Auslöser</string>
     <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
     <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
-    <string name="keep_settings_visible">Button für Einstellungen immer sichtbar</string>
+    <string name="keep_settings_visible">Taste für Einstellungen immer sichtbar</string>
     <string name="always_open_back_camera">Starte App immer mit der Rückkamera</string>
     <string name="save_photo_metadata">Exif-Metadaten speichern</string>
-    <string name="photo_compression_quality">Foto-Komprimierungsqualität</string>
+    <string name="photo_compression_quality">Fotokomprimierungsqualität</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
