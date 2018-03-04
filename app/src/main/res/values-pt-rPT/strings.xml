@@ -10,7 +10,7 @@
     <string name="camera_switch_error">Falha ao mudar de câmara</string>
     <string name="click_to_resume_preview">Clique na imagem para continuar com a pré-visualização</string>
     <string name="photo_not_saved">Não foi possível guardar a foto</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="setting_resolution_failed">Falha ao definir a resolução ideal</string>
 
     <!-- Other aspect ratio -->
     <string name="other">outra</string>
