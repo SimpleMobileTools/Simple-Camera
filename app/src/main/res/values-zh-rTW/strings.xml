@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">簡易相機</string>
+    <string name="app_launcher_name">簡易相機</string>
+    <string name="camera_unavailable">相機無法使用</string>
+    <string name="camera_open_error">開啟相機發生錯誤</string>
+    <string name="video_creating_error">建立影片檔案發生錯誤</string>
+    <string name="video_mode_error">切換到錄影模式失敗</string>
+    <string name="save_error_internal_storage">發生錯誤，儲存資料夾改為內部儲存空間</string>
+    <string name="camera_switch_error">切換拍照模式失敗</string>
+    <string name="click_to_resume_preview">點擊圖片回到拍攝預覽</string>
+    <string name="photo_not_saved">相片無法儲存</string>
+    <string name="setting_resolution_failed">設定合適解析度失敗</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">其它</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">我應該設定什麼相片壓縮品質?</string>
+    <string name="faq_1_text">視你目標而定。對大多數一般人而言，建議使用75%-80%，圖片依然是相當高品質，但檔案大小比100%大幅減少很多。</string>
+
+    <!-- Settings -->
+    <string name="save_photos">相片和影片儲存位置</string>
+    <string name="show_preview">拍攝後顯示相片預覽</string>
+    <string name="shutter_sound">快門聲音</string>
+    <string name="back_camera">後鏡頭解析度</string>
+    <string name="front_camera">前鏡頭解析度</string>
+    <string name="photo">相片</string>
+    <string name="video">影片</string>
+    <string name="focus_before_capture">拍攝前對焦</string>
+    <string name="volume_buttons_as_shutter">使用音量鍵作為快門</string>
+    <string name="turn_flash_off_at_startup">啟動時關閉閃光燈</string>
+    <string name="flip_front_camera_photos_horizontally">水平翻轉前相機相片</string>
+    <string name="keep_settings_visible">設定按鈕不消失</string>
+    <string name="always_open_back_camera">開啟程式總是用後鏡頭</string>
+    <string name="save_photo_metadata">儲存相片EXIF資訊</string>
+    <string name="photo_compression_quality">相片壓縮品質</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">一個有閃光燈和變焦，且沒有廣告的相機。</string>
+    <string name="app_long_description">
+        這相機可用來相片拍攝和影片紀錄。你可以切換前後鏡頭、修改儲存路徑和限制解析度。閃光燈能被開關或當作手電筒。你可以捏抓來進行縮放。
+		
+        如果你想要按下實體相機鍵來啟動這應用程式，你可能必須禁用內建的相機程式(設定 -> 應用程式 -> 相機 -> 停用)。
+				
+        不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
+		
+        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
