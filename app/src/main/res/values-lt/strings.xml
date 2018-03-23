@@ -8,45 +8,45 @@
     <string name="video_mode_error">Perjungimas į vaizdo rėžimą nepavyko</string>
     <string name="save_error_internal_storage">Įvyko klaida, saugojimo aplankas pakeistas į vidinę atmintį</string>
     <string name="camera_switch_error">Kameros perjungimas nepavyko</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="click_to_resume_preview">Paspausti ant paveikslėlio peržiūros pratęsimui</string>
+    <string name="photo_not_saved">Nuotrauka negali būti išsaugota</string>
+    <string name="setting_resolution_failed">Nustatant tinkamą raišką įvyko klaida</string>
 
     <!-- Other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">Kita</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Kokią nuotraukos suspaudimo kokybę turėčiau nustatyti?</string>
+    <string name="faq_1_text">Tai priklauso nuo Jūsų tikslų. Įprastiems tikslams dauguma žmonių pataria naudoti 75%-80%, kai nuotrauka vistiek yra geros kokybės, bet bylos dydis sumažėja kardinaliai palyginus su 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Išsaugoti nuotraukas ir vaizdo įrašus į</string>
-    <string name="show_preview">Show a photo preview after capturing</string>
+    <string name="show_preview">Rodyti nuotraukos peržiūrą po nufotografavimo</string>
     <string name="shutter_sound">Užrakto garsas</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
-    <string name="video">Video</string>
-    <string name="focus_before_capture">Focus before capture</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="back_camera">Galinės kameros raiškos</string>
+    <string name="front_camera">Priekinės kameros raiškos</string>
+    <string name="photo">Nuotrauka</string>
+    <string name="video">Vaizdo įrašas</string>
+    <string name="focus_before_capture">Fokusuoti prieš fotografuojant</string>
+    <string name="volume_buttons_as_shutter">Naudoti garso mygtukus, kip kameros užraktą</string>
+    <string name="turn_flash_off_at_startup">Išsjungti žibintuvėlį pajungus fotoaparato programėlę</string>
+    <string name="flip_front_camera_photos_horizontally">Pasukti priekinės kameros nuotraukas horizontaliai</string>
+    <string name="keep_settings_visible">Padaryti nustatymų mygtukus matomus</string>
+    <string name="always_open_back_camera">Visada atidaryti programėlę su nustatyta galine kamera</string>
+    <string name="save_photo_metadata">Išsaugoti nuotraukos exif metaduomenis</string>
+    <string name="photo_compression_quality">Nuotraukos suspaudimo kokybė</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_short_description">Fotoaparatas su žibintuvėlių, pritraukimu ir be reklamų.</string>
     <string name="app_long_description">
-        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
+        Fotoaparatas naudojamas nuotraukoms ir vaizdo įrašams užfiksuoti. Galima persijungti tarp priekinės ir galinės kamerų, pakeisti išsaugojimo vietą, nustayti raišką. Žibintuvėlis gali būti įjungtas arba išjungtas, used as a flashlight. Galite spustelti, kad pritrauktumėte vaizdą.
 
-        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        IJei norite pajungti šią programėlę paspausdami specialiai tam skirtą kameros mygtuką, Jūs turite išjunti numatytąją kamerą nustatymuose Nustaytmai -> Programėlės -> Kamera -> Išjungti.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Ši programėle yra vienintelė iš keletos mūsų programėlių. Likusias Jūs galite rasti čia http://www.simplemobiletools.com
     </string>
 
     <!--
