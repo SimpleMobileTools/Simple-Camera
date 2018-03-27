@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jednostavna kamera</string>
+    <string name="app_launcher_name">Kamera</string>
+    <string name="camera_unavailable">Kamera nije dostupna</string>
+    <string name="camera_open_error">Došlo je do pogreške prilikom pristupa kameri</string>
+    <string name="video_creating_error">Došlo je do pogreške prilikom izrade video datoteke</string>
+    <string name="video_mode_error">Prebacivanje na način rada videozapisa nije uspjelo</string>
+    <string name="save_error_internal_storage">Došlo je do pogreške, mapa za spremanje promijenjena u internu pohranu</string>
+    <string name="camera_switch_error">Prebacivanje kamere nije uspjelo</string>
+    <string name="click_to_resume_preview">Kliknite sliku kako biste nastavili pregled</string>
+    <string name="photo_not_saved">Fotografiju nije moguće spremiti</string>
+    <string name="setting_resolution_failed">Postavljanje ispravne rezolucije nije uspjelo</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">ostalo</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Kakvu kvalitetu kompresije fotografija trebam postaviti?</string>
+    <string name="faq_1_text">Ovisi o Vašem cilju. Za generičke namjene, većina ljudi savjetuje korištenje 75%-80%, kada je slika još uvijek dobre kvaliteta, ali veličina datoteke drastično se smanjuje u usporedbi sa 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Spremanje fotografija i videozapisa u</string>
+    <string name="show_preview">Prikaži snimku fotografije nakon snimanja</string>
+    <string name="shutter_sound">Zvuk okidača kamere</string>
+    <string name="back_camera">Rezolucije stražnje kamere</string>
+    <string name="front_camera">Rezolucije prednje kamere</string>
+    <string name="photo">Foto</string>
+    <string name="video">Video</string>
+    <string name="focus_before_capture">Fokusiranje prije slikanja</string>
+    <string name="volume_buttons_as_shutter">Koristi gumbe za glasnoću kao okidač</string>
+    <string name="turn_flash_off_at_startup">Onemogući bljeskalicu prilikom pokretanja</string>
+    <string name="flip_front_camera_photos_horizontally">Preokrenite vodoravno slike s prednje kamere</string>
+    <string name="keep_settings_visible">Drži gumb za postavke vidljivim</string>
+    <string name="always_open_back_camera">Uvijek otvorite aplikaciju pomoću stražnje kamere</string>
+    <string name="save_photo_metadata">Spremite exif metapodatke fotografije</string>
+    <string name="photo_compression_quality">Kvaliteta kompresije fotografije</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Kamera s bljeskalicom, zumiranjem i bez oglasa.</string>
+    <string name="app_long_description">
+        Kamera se može koristiti za snimanje slika, ali i videozapisa. Možete birati između prednje i stražnje kamere, promijeniti mapu za spremanje i ograničiti razlučivost. Bljeskalica se može uključiti, isključiti ili koristiti kao svjetiljka. Možete povećati ili smanjiti zumiranje prstima.
+
+        Ako želite pokrenuti ovu aplikaciju pritiskom hardverskog gumba kamere, možda ćete morati onemogućiti ugrađenu aplikaciju Kamere u Postavkama -> Aplikacije -> Kamera -> Onemogući.
+
+        Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
+
+        Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
