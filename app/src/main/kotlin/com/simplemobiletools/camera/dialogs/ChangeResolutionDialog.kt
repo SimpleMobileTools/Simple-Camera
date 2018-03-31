@@ -28,8 +28,8 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
                 .setPositiveButton(R.string.ok, null)
                 .setOnDismissListener { callback() }
                 .create().apply {
-            activity.setupDialogStuff(view, this, if (isBackCamera) R.string.back_camera else R.string.front_camera)
-        }
+                    activity.setupDialogStuff(view, this, if (isBackCamera) R.string.back_camera else R.string.front_camera)
+                }
     }
 
     private fun setupPhotoResolutionPicker(view: View) {

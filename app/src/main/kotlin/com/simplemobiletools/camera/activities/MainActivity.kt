@@ -2,7 +2,6 @@ package com.simplemobiletools.camera.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.Resources
 import android.hardware.Camera
 import android.hardware.SensorManager
 import android.net.Uri
@@ -37,7 +36,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     lateinit var mFocusRectView: FocusRectView
     lateinit var mTimerHandler: Handler
     lateinit var mFadeHandler: Handler
-    lateinit var mRes: Resources
 
     private var mPreview: Preview? = null
     private var mPreviewUri: Uri? = null
@@ -114,7 +112,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initVariables() {
-        mRes = resources
         mIsInPhotoMode = false
         mIsCameraAvailable = false
         mIsVideoCaptureIntent = false
@@ -178,7 +175,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
             hideToggleModeAbout()
-            shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
+            shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
         }
         mPreview?.isImageCaptureIntent = isImageCaptureIntent()
     }
@@ -189,7 +186,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + mRes.getDimension(R.dimen.activity_margin)).toInt())
+        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         mCurrCameraId = config.lastUsedCamera
         mPreview = Preview(this, camera_view, this)
@@ -300,11 +297,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             mPreview?.tryTakePicture()
         } else {
             if (mPreview?.toggleRecording() == true) {
-                shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_stop))
+                shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_stop))
                 toggle_camera.beInvisible()
                 showTimer()
             } else {
-                shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
+                shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
                 showToggleCameraIfNeeded()
                 hideTimer()
             }
@@ -369,8 +366,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initPhotoMode() {
-        toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_video))
-        shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_shutter))
+        toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_video))
+        shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_shutter))
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
@@ -386,9 +383,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initVideoButtons() {
-        toggle_photo_video.setImageDrawable(mRes.getDrawable(R.drawable.ic_camera))
+        toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
         showToggleCameraIfNeeded()
-        shutter.setImageDrawable(mRes.getDrawable(R.drawable.ic_video_rec))
+        shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
         checkFlash()
         setupPreviewImage(false)
     }
@@ -399,6 +396,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (lastMediaId == 0L) {
             return
         }
+
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
         runOnUiThread {
@@ -481,7 +479,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun showToggleCameraIfNeeded() {
-        toggle_camera.beInvisibleIf(Camera.getNumberOfCameras() <= 1)
+        toggle_camera?.beInvisibleIf(Camera.getNumberOfCameras() <= 1)
     }
 
     private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)

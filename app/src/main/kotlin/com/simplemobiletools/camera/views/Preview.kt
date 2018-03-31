@@ -380,8 +380,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             return
         }
 
-        if (takePictureAfter)
+        if (takePictureAfter) {
             mIsFocusingBeforeCapture = true
+        }
 
         mCamera!!.cancelAutoFocus()
         if (mParameters!!.maxNumFocusAreas > 0) {
@@ -395,8 +396,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             focusAreas.add(Camera.Area(focusRect, 1000))
             mParameters!!.focusAreas = focusAreas
 
-            if (showFocusRect)
+            if (showFocusRect) {
                 mCallback.drawFocusRect(mLastClickX, mLastClickY)
+            }
         }
 
         try {
