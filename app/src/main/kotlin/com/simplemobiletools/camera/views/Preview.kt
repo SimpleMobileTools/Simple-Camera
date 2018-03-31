@@ -411,12 +411,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                     return@autoFocus
                 }
 
-                camera.cancelAutoFocus()
+                mCamera!!.cancelAutoFocus()
                 if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
                     mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
                 }
 
-                camera.parameters = mParameters
+                updateCameraParameters()
 
                 if (takePictureAfter) {
                     takePicture()
