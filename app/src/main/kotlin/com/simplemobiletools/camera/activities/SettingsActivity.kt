@@ -11,14 +11,11 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.humanizePath
 import com.simplemobiletools.commons.extensions.updateTextColors
-import com.simplemobiletools.commons.extensions.useEnglishToggled
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
-import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_LEAK_CANARY
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
-import java.io.File
 import java.util.*
 
 class SettingsActivity : SimpleActivity() {
@@ -72,7 +69,7 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
-            useEnglishToggled()
+            System.exit(0)
         }
     }
 
@@ -90,7 +87,7 @@ class SettingsActivity : SimpleActivity() {
                 FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
         )
 
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_GLIDE or LICENSE_LEAK_CANARY, BuildConfig.VERSION_NAME, faqItems)
+        startAboutActivity(R.string.app_name, LICENSE_GLIDE or LICENSE_LEAK_CANARY, BuildConfig.VERSION_NAME, faqItems)
     }
 
     private fun getLastPart(path: String): String {
