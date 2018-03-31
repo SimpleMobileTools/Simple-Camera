@@ -51,7 +51,12 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
                 var document = activity.getDocumentFile(path.getParentPath())
                 document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1))
-                fos = activity.contentResolver.openOutputStream(document?.uri)
+                if (document == null) {
+                    activity.toast(R.string.save_error_internal_storage)
+                    return ""
+                }
+
+                fos = activity.contentResolver.openOutputStream(document.uri)
             } else {
                 fos = if (uri == null) {
                     FileOutputStream(photoFile)
@@ -100,8 +105,9 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 exifOrientation = getExifOrientation(totalRotation)
             }
 
-            if (activity.config.savePhotoMetadata)
+            if (activity.config.savePhotoMetadata) {
                 tempExif.copyTo(fileExif)
+            }
 
             fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
             try {
