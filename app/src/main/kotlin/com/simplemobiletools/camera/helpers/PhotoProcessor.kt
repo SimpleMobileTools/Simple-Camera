@@ -78,7 +78,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             val imageRot = orient.degreesFromOrientation()
 
             val totalRotation = (imageRot + deviceRot + previewRot) % 360
-            if (!activity.isPathOnSD(path) && !isNougatPlus()) {
+            if (activity.isPathOnSD(path) && !isNougatPlus()) {
                 image = rotate(image, totalRotation)
             }
 
