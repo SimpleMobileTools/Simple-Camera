@@ -51,16 +51,15 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     lateinit var mOrientationEventListener: OrientationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
         appLaunched()
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         if (config.alwaysOpenBackCamera)
             config.lastUsedCamera = Camera.CameraInfo.CAMERA_FACING_BACK
 
