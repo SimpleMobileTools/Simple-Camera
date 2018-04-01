@@ -3,7 +3,6 @@ package com.simplemobiletools.camera.receivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-
 import com.simplemobiletools.camera.activities.MainActivity
 
 class HardwareShutterReceiver : BroadcastReceiver() {
