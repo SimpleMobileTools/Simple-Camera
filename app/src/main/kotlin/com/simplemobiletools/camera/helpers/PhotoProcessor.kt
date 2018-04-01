@@ -78,7 +78,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             val imageRot = orient.degreesFromOrientation()
 
             val totalRotation = (imageRot + deviceRot + previewRot) % 360
-            if (!path.startsWith(activity.internalStoragePath) && !isNougatPlus()) {
+            if (!activity.isPathOnSD(path) && !isNougatPlus()) {
                 image = rotate(image, totalRotation)
             }
 
@@ -100,16 +100,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             val fileExif = ExifInterface(path)
 
             image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
-            if (path.startsWith(activity.internalStoragePath)) {
-                saveExifRotation(ExifInterface(path), totalRotation)
-            } else if (isNougatPlus()) {
-                val documentFile = activity.getSomeDocumentFile(path)
-                if (documentFile != null) {
-                    val parcelFileDescriptor = activity.contentResolver.openFileDescriptor(documentFile.uri, "rw")
-                    val fileDescriptor = parcelFileDescriptor.fileDescriptor
-                    saveExifRotation(ExifInterface(fileDescriptor), totalRotation)
-                }
-            }
+            activity.saveImageRotation(path, totalRotation)
 
             if (activity.config.savePhotoMetadata) {
                 tempExif.copyTo(fileExif)
@@ -122,13 +113,6 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         }
 
         return ""
-    }
-
-    private fun saveExifRotation(exif: ExifInterface, degrees: Int) {
-        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-        val orientationDegrees = (orientation.degreesFromOrientation() + degrees) % 360
-        exif.setAttribute(ExifInterface.TAG_ORIENTATION, orientationDegrees.orientationFromDegrees())
-        exif.saveAttributes()
     }
 
     private fun rotate(bitmap: Bitmap, degree: Int): Bitmap? {
