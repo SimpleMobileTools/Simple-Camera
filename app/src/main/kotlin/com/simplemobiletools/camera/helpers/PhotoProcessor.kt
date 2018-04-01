@@ -15,7 +15,11 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.*
-import java.io.*
+import com.simplemobiletools.commons.helpers.isNougatPlus
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int) : AsyncTask<ByteArray, Void, String>() {
 
@@ -70,15 +74,11 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
             val deviceRot = deviceOrientation.compensateDeviceRotation(currCameraId)
             val previewRot = activity.getPreviewRotation(currCameraId)
-            val imageRot = when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
-                ExifInterface.ORIENTATION_ROTATE_90 -> 90
-                ExifInterface.ORIENTATION_ROTATE_180 -> 180
-                ExifInterface.ORIENTATION_ROTATE_270 -> 270
-                else -> 0
-            }
+            val orient = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+            val imageRot = orient.degreesFromOrientation()
 
             val totalRotation = (imageRot + deviceRot + previewRot) % 360
-            if (!path.startsWith(activity.internalStoragePath)) {
+            if (!path.startsWith(activity.internalStoragePath) && !isNougatPlus()) {
                 image = rotate(image, totalRotation)
             }
 
@@ -97,23 +97,24 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 }
             }
 
-            image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
-
             val fileExif = ExifInterface(path)
-            var exifOrientation = ExifInterface.ORIENTATION_NORMAL.toString()
+
+            image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
             if (path.startsWith(activity.internalStoragePath)) {
-                exifOrientation = getExifOrientation(totalRotation)
+                saveExifRotation(ExifInterface(path), totalRotation)
+            } else if (isNougatPlus()) {
+                val documentFile = activity.getSomeDocumentFile(path)
+                if (documentFile != null) {
+                    val parcelFileDescriptor = activity.contentResolver.openFileDescriptor(documentFile.uri, "rw")
+                    val fileDescriptor = parcelFileDescriptor.fileDescriptor
+                    saveExifRotation(ExifInterface(fileDescriptor), totalRotation)
+                }
             }
 
             if (activity.config.savePhotoMetadata) {
                 tempExif.copyTo(fileExif)
             }
 
-            fileExif.setAttribute(ExifInterface.TAG_ORIENTATION, exifOrientation)
-            try {
-                fileExif.saveAttributes()
-            } catch (e: IOException) {
-            }
             return photoFile.absolutePath
         } catch (e: FileNotFoundException) {
         } finally {
@@ -123,18 +124,17 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
         return ""
     }
 
-    private fun getExifOrientation(degrees: Int): String {
-        return when (degrees) {
-            90 -> ExifInterface.ORIENTATION_ROTATE_90
-            180 -> ExifInterface.ORIENTATION_ROTATE_180
-            270 -> ExifInterface.ORIENTATION_ROTATE_270
-            else -> ExifInterface.ORIENTATION_NORMAL
-        }.toString()
+    private fun saveExifRotation(exif: ExifInterface, degrees: Int) {
+        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        val orientationDegrees = (orientation.degreesFromOrientation() + degrees) % 360
+        exif.setAttribute(ExifInterface.TAG_ORIENTATION, orientationDegrees.orientationFromDegrees())
+        exif.saveAttributes()
     }
 
     private fun rotate(bitmap: Bitmap, degree: Int): Bitmap? {
-        if (degree == 0)
+        if (degree == 0) {
             return bitmap
+        }
 
         val width = bitmap.width
         val height = bitmap.height
