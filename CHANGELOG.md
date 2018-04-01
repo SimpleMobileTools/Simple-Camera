@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.2.0 *(2018-04-01)*
+----------------------------
+
+ * Rotate and store images more efficiently, if saved on SD cards
+ * Allow the app being ran above the lockscreen
+ * Couple stability improvements
+
 Version 3.1.4 *(2018-02-26)*
 ----------------------------
 
