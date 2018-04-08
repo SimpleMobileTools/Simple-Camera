@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 3.2.1 *(2018-04-08)*
+----------------------------
+
+ * Catch and show errors happening at saving images
+
 Version 3.2.0 *(2018-04-01)*
 ----------------------------
 
