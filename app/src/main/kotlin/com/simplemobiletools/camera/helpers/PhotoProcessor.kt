@@ -97,12 +97,16 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 }
             }
 
-            val fileExif = ExifInterface(path)
-
-            image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
-            activity.saveImageRotation(path, totalRotation)
+            try {
+                image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
+                activity.saveImageRotation(path, totalRotation)
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+                return ""
+            }
 
             if (activity.config.savePhotoMetadata) {
+                val fileExif = ExifInterface(path)
                 tempExif.copyTo(fileExif)
             }
 
