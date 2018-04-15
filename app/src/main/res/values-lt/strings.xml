@@ -28,7 +28,7 @@
     <string name="photo">Nuotrauka</string>
     <string name="video">Vaizdo įrašas</string>
     <string name="focus_before_capture">Fokusuoti prieš fotografuojant</string>
-    <string name="volume_buttons_as_shutter">Naudoti garso mygtukus, kip kameros užraktą</string>
+    <string name="volume_buttons_as_shutter">Naudoti garso mygtukus, kaip kameros užraktą</string>
     <string name="turn_flash_off_at_startup">Išsjungti žibintuvėlį pajungus fotoaparato programėlę</string>
     <string name="flip_front_camera_photos_horizontally">Pasukti priekinės kameros nuotraukas horizontaliai</string>
     <string name="keep_settings_visible">Padaryti nustatymų mygtukus matomus</string>
