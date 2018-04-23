@@ -23,10 +23,7 @@ import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.camera.views.Preview
 import com.simplemobiletools.camera.views.Preview.PreviewListener
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.BROADCAST_REFRESH_MEDIA
-import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
-import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -569,6 +566,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         scanPath(path) {
             setupPreviewImage(mIsInPhotoMode)
             Intent(BROADCAST_REFRESH_MEDIA).apply {
+                putExtra(REFRESH_PATH, path)
                 `package` = "com.simplemobiletools.gallery"
                 sendBroadcast(this)
             }
