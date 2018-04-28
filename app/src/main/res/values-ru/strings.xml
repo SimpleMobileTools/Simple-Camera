@@ -6,18 +6,18 @@
     <string name="camera_open_error">Произошла ошибка доступа к камере</string>
     <string name="video_creating_error">Произошла ошибка при создании видеофайла</string>
     <string name="video_mode_error">Не удалось переключиться в режим видео</string>
-    <string name="save_error_internal_storage">Произошла ошибка, место для сохранения изменено на внутренюю память</string>
+    <string name="save_error_internal_storage">Произошла ошибка, место для сохранения изменено на внутреннюю память</string>
     <string name="camera_switch_error">Не удалось переключить камеру</string>
     <string name="click_to_resume_preview">Чтобы возобновить предпросмотр, нажмите на изображение</string>
     <string name="photo_not_saved">Не удалось сохранить фото</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="setting_resolution_failed">Не удалось установить правильное разрешение</string>
 
     <!-- Other aspect ratio -->
     <string name="other">другое</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Какое качество сжатия фото нужно установить?</string>
+    <string name="faq_1_text">Это зависит от вашей цели. В общем случае большинство людей советуют использовать 75%-80%, тогда изображение всё ещё действительно хорошего качества, но размер файла резко уменьшается по сравнению со 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Сохранять фото и видео в</string>
