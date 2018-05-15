@@ -31,10 +31,13 @@
     <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
     <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="keep_settings_visible">Keep the setting buttons visible</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
     <string name="save_photo_metadata">Save photo exif metadata</string>
     <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="saving">Saving</string>
+    <string name="startup">Startup</string>
+    <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

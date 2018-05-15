@@ -35,6 +35,9 @@
     <string name="always_open_back_camera">Stále otvárať aplikáciu s aktívnou zadnou kamerou</string>
     <string name="save_photo_metadata">Ukladať exif metadáta fotografií</string>
     <string name="photo_compression_quality">Kvalita kompresie fotiek</string>
+    <string name="saving">Ukladanie</string>
+    <string name="startup">Po spustení</string>
+    <string name="shutter">Spúšť</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

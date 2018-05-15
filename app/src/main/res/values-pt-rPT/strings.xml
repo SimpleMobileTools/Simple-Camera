@@ -35,6 +35,9 @@
     <string name="always_open_back_camera">Abrir a aplicação sempre com a câmara traseira</string>
     <string name="save_photo_metadata">Guardar dados exif das fotos</string>
     <string name="photo_compression_quality">Qualidade da compressão</string>
+    <string name="saving">Saving</string>
+    <string name="startup">Startup</string>
+    <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
