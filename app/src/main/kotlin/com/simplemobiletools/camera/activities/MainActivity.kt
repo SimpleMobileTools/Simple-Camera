@@ -55,7 +55,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
-        appLaunched()
+        appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         if (config.alwaysOpenBackCamera)
             config.lastUsedCamera = Camera.CameraInfo.CAMERA_FACING_BACK
