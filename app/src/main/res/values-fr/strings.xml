@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">Toujours ouvrir l\'application avec la caméra arrière</string>
     <string name="save_photo_metadata">Sauvegarder les méta-données exif de la photo</string>
     <string name="photo_compression_quality">Qualité des photos</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
@@ -49,7 +47,7 @@
 
         L\'application ne contient ni publicités ni autorisations inutiles. Elle est totalement OpenSource et possède aussi un thème sombre.
 
-        Cette application fait partie d\'un ensemble plus grand d\'applications. Vous pouvez trouvez les autres sur http://www.simplemobiletools.com
+        Cette application fait partie d\'un ensemble plus grand d\'applications. Vous pouvez trouvez les autres sur https://www.simplemobiletools.com
     </string>
 
     <!--

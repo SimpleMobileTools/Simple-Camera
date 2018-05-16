@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">Tətbiqi həmişə Arxa kamerada başlat</string>
     <string name="save_photo_metadata">Şəklin haqqında əlavələri saxla</string>
     <string name="photo_compression_quality">Şəkil sıxışdırma keyfiyyəti</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -49,7 +47,7 @@
 
         Lazımsız reklam və ya icazə mövcud deyil. Tamamilə açıqlisanslıdır, rəng dəyişmə parametrləri var.
 
-        Bu, böyük bir tətbiq seriyasının yalnız bir hissəsidir. Digər tətbiqləri buradan əldə edə bilərsiniz http://www.simplemobiletools.com
+        Bu, böyük bir tətbiq seriyasının yalnız bir hissəsidir. Digər tətbiqləri buradan əldə edə bilərsiniz https://www.simplemobiletools.com
     </string>
 
     <!--

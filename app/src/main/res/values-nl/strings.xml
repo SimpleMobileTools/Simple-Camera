@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
     <string name="save_photo_metadata">Save photo exif metadata</string>
     <string name="photo_compression_quality">Photo compression quality</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -49,7 +47,7 @@
 
         De applicatie heeft geen advertenties of onnodige machtigingen bevatten. Het is volledig open source, biedt een Dark thema.
 
-        U kunt meer Simple apps bij http://www.simplemobiletools.com vinden.
+        U kunt meer Simple apps bij https://www.simplemobiletools.com vinden.
     </string>
 
     <!--

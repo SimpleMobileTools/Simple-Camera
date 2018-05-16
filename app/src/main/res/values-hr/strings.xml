@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">Uvijek otvorite aplikaciju pomoću stražnje kamere</string>
     <string name="save_photo_metadata">Spremite exif metapodatke fotografije</string>
     <string name="photo_compression_quality">Kvaliteta kompresije fotografije</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -49,7 +47,7 @@
 
         Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
 
-        Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na http://www.simplemobiletools.com
+        Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com
     </string>
 
     <!--

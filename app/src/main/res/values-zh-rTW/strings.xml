@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">開啟程式總是用後鏡頭</string>
     <string name="save_photo_metadata">儲存相片EXIF資訊</string>
     <string name="photo_compression_quality">相片壓縮品質</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -49,7 +47,7 @@
 				
         不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
 		
-        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 http://www.simplemobiletools.com
+        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 https://www.simplemobiletools.com
     </string>
 
     <!--

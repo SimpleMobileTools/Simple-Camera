@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
     <string name="save_photo_metadata">Gardar metadatos exif da foto</string>
     <string name="photo_compression_quality">Calidade da compresión da foto</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -49,7 +47,7 @@
    
         Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade, ten cores personalizados.
    
-        Este aplicativo é só unha peza da colección de aplicativos. Pode atopar o resto en http://www.simplemobiletools.com
+        Este aplicativo é só unha peza da colección de aplicativos. Pode atopar o resto en https://www.simplemobiletools.com
     </string>
 
     <!--

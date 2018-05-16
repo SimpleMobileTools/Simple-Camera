@@ -35,8 +35,6 @@
     <string name="always_open_back_camera">Visada atidaryti programėlę su nustatyta galine kamera</string>
     <string name="save_photo_metadata">Išsaugoti nuotraukos exif metaduomenis</string>
     <string name="photo_compression_quality">Nuotraukos suspaudimo kokybė</string>
-    <string name="saving">Saving</string>
-    <string name="startup">Startup</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -49,7 +47,7 @@
 
         Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
 
-        Ši programėle yra viena iš keletos mūsų programėlių. Likusias Jūs galite rasti čia http://www.simplemobiletools.com
+        Ši programėle yra viena iš keletos mūsų programėlių. Likusias Jūs galite rasti čia https://www.simplemobiletools.com
     </string>
 
     <!--
