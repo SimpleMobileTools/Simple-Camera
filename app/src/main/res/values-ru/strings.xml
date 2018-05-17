@@ -35,6 +35,7 @@
     <string name="always_open_back_camera">Всегда включать заднюю камеру при запуске</string>
     <string name="save_photo_metadata">Сохранять данные EXIF</string>
     <string name="photo_compression_quality">Качество фото после сжатия</string>
+    <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -46,7 +47,7 @@
 
         Это приложение не будет показывать рекламу или запрашивать ненужные разрешения. У него полностью открытый исходный код и настраиваемые цвета оформления.
 
-        Simple Camera - это приложение из серии Simple Mobile Tools. Остальные приложения из этой серии можно найти здесь: http://www.simplemobiletools.com
+        Simple Camera - это приложение из серии Simple Mobile Tools. Остальные приложения из этой серии можно найти здесь: https://www.simplemobiletools.com
     </string>
 
     <!--

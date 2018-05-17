@@ -165,10 +165,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
 
         val focusModes = mParameters!!.supportedFocusModes
-        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+        if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
+        }
 
         mCamera!!.setDisplayOrientation(mActivity!!.getPreviewRotation(mCurrCameraId))
+        mParameters!!.zoom = 0
         updateCameraParameters()
 
         if (mCanTakePicture) {

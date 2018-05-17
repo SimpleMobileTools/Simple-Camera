@@ -9,6 +9,7 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.humanizePath
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
@@ -42,6 +43,7 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupPhotoQuality()
         updateTextColors(settings_holder)
+        setupSectionColors()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,6 +57,13 @@ class SettingsActivity : SimpleActivity() {
             else -> super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setupSectionColors() {
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        arrayListOf(shutter_label, startup_label, saving_label).forEach {
+            it.setTextColor(adjustedPrimaryColor)
+        }
     }
 
     private fun setupCustomizeColors() {

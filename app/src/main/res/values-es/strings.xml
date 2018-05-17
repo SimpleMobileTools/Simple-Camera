@@ -31,10 +31,11 @@
     <string name="volume_buttons_as_shutter">Utilizar los botones de volumen como obturador</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
     <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="keep_settings_visible">Keep the setting buttons visible</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
     <string name="save_photo_metadata">Save photo exif metadata</string>
     <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -46,7 +47,7 @@
 
         No contiene publicidad ni permisos innecesarios. Es totalmente libre, proporciona colores personalizables.
 
-        Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en http://www.simplemobiletools.com
+        Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en https://www.simplemobiletools.com
     </string>
 
     <!--
