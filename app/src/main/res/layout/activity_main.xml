@@ -11,11 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <SurfaceView
-        android:id="@+id/focus_rect_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <ImageView
         android:id="@+id/settings"
         android:layout_width="@dimen/icon_size"
@@ -91,4 +86,5 @@
         android:text="00:00"
         android:textColor="@android:color/white"
         android:visibility="gone"/>
+
 </RelativeLayout>
