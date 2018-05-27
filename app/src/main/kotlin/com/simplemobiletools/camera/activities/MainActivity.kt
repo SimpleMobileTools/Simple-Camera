@@ -21,7 +21,7 @@ import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.MyCameraOneImpl
 import com.simplemobiletools.camera.implementations.MyCameraTwoImpl
 import com.simplemobiletools.camera.interfaces.MyCamera
-import com.simplemobiletools.camera.views.FocusRectView
+import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.camera.views.Preview
 import com.simplemobiletools.camera.views.Preview.PreviewListener
 import com.simplemobiletools.commons.extensions.*
@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
     private val FADE_DELAY = 5000
 
-    lateinit var mFocusRectView: FocusRectView
+    lateinit var mFocusCircleView: FocusCircleView
     lateinit var mTimerHandler: Handler
     lateinit var mFadeHandler: Handler
     lateinit var mCameraImpl: MyCamera
@@ -74,7 +74,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
             scheduleFadeOut()
-            mFocusRectView.setStrokeColor(config.primaryColor)
+            mFocusCircleView.setStrokeColor(config.primaryColor)
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 handleTogglePhotoVideo()
@@ -201,8 +201,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         view_holder.addView(mPreview)
         toggle_camera.setImageResource(if (mCurrCameraId == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
 
-        mFocusRectView = FocusRectView(applicationContext)
-        view_holder.addView(mFocusRectView)
+        mFocusCircleView = FocusCircleView(applicationContext)
+        view_holder.addView(mFocusCircleView)
 
         mIsInPhotoMode = true
         mTimerHandler = Handler()
@@ -566,7 +566,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    override fun drawFocusRect(x: Int, y: Int) = mFocusRectView.drawFocusRect(x, y)
+    override fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusRect(x, y)
 
     override fun mediaSaved(path: String) {
         rescanPaths(arrayListOf(path)) {

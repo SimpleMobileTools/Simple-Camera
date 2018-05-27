@@ -54,8 +54,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mWasZooming = false
     private var mIsPreviewShown = false
     private var mWasCameraPreviewSet = false
-    private var mLastClickX = 0
-    private var mLastClickY = 0
+    private var mLastClickX = 0f
+    private var mLastClickY = 0f
     private var mCurrCameraId = 0
     private var mMaxZoom = 0
     private var mRotationAtCapture = 0
@@ -87,8 +87,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         initGestureDetector()
 
         mSurfaceView.setOnTouchListener { view, event ->
-            mLastClickX = event.x.toInt()
-            mLastClickY = event.y.toInt()
+            mLastClickX = event.x
+            mLastClickY = event.y
 
             if (mMaxZoom > 0 && mParameters?.isZoomSupported == true) {
                 mScaleGestureDetector!!.onTouchEvent(event)
@@ -388,18 +388,18 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mCamera!!.cancelAutoFocus()
         if (mParameters!!.maxNumFocusAreas > 0) {
-            if (mLastClickX == 0 && mLastClickY == 0) {
-                mLastClickX = width / 2
-                mLastClickY = height / 2
+            if (mLastClickX == 0f && mLastClickY == 0f) {
+                mLastClickX = width / 2.toFloat()
+                mLastClickY = height / 2.toFloat()
             }
 
-            val focusRect = calculateFocusArea(mLastClickX.toFloat(), mLastClickY.toFloat())
+            val focusRect = calculateFocusArea(mLastClickX, mLastClickY)
             val focusAreas = ArrayList<Camera.Area>(1)
             focusAreas.add(Camera.Area(focusRect, 1000))
             mParameters!!.focusAreas = focusAreas
 
             if (showFocusRect) {
-                mCallback.drawFocusRect(mLastClickX, mLastClickY)
+                mCallback.drawFocusCircle(mLastClickX, mLastClickY)
             }
         }
 
@@ -829,6 +829,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         fun videoSaved(uri: Uri)
 
-        fun drawFocusRect(x: Int, y: Int)
+        fun drawFocusCircle(x: Float, y: Float)
     }
 }
