@@ -2,7 +2,6 @@ package com.simplemobiletools.camera.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.hardware.Camera
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +18,9 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
+import com.simplemobiletools.camera.implementations.MyCameraOneImpl
+import com.simplemobiletools.camera.implementations.MyCameraTwoImpl
+import com.simplemobiletools.camera.interfaces.MyCamera
 import com.simplemobiletools.camera.views.FocusRectView
 import com.simplemobiletools.camera.views.Preview
 import com.simplemobiletools.camera.views.Preview.PreviewListener
@@ -33,6 +35,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     lateinit var mFocusRectView: FocusRectView
     lateinit var mTimerHandler: Handler
     lateinit var mFadeHandler: Handler
+    lateinit var mCameraImpl: MyCamera
 
     private var mPreview: Preview? = null
     private var mPreviewUri: Uri? = null
@@ -57,8 +60,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        if (config.alwaysOpenBackCamera)
-            config.lastUsedCamera = Camera.CameraInfo.CAMERA_FACING_BACK
 
         initVariables()
         tryInitCamera()
@@ -120,6 +121,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mCurrVideoRecTimer = 0
         mCurrCameraId = 0
         mLastHandledOrientation = 0
+        mCameraImpl = if (isLollipopPlus()) MyCameraTwoImpl(applicationContext) else MyCameraOneImpl(applicationContext)
+
+        if (config.alwaysOpenBackCamera) {
+            config.lastUsedCamera = mCameraImpl.getBackCameraId()
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -193,7 +199,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mPreview = Preview(this, camera_view, this)
         mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
-        toggle_camera.setImageResource(if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
+        toggle_camera.setImageResource(if (mCurrCameraId == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
 
         mFocusRectView = FocusRectView(applicationContext)
         view_holder.addView(mFocusRectView)
@@ -220,17 +226,17 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             return
         }
 
-        mCurrCameraId = if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
-            Camera.CameraInfo.CAMERA_FACING_FRONT
+        mCurrCameraId = if (mCurrCameraId == mCameraImpl.getBackCameraId()) {
+            mCameraImpl.getFrontCameraId()
         } else {
-            Camera.CameraInfo.CAMERA_FACING_BACK
+            mCameraImpl.getBackCameraId()
         }
 
         config.lastUsedCamera = mCurrCameraId
         var newIconId = R.drawable.ic_camera_front
         mPreview?.releaseCamera()
         if (mPreview?.setCamera(mCurrCameraId) == true) {
-            if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            if (mCurrCameraId == mCameraImpl.getFrontCameraId()) {
                 newIconId = R.drawable.ic_camera_rear
             }
             toggle_camera.setImageResource(newIconId)
@@ -480,7 +486,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun showToggleCameraIfNeeded() {
-        toggle_camera?.beInvisibleIf(Camera.getNumberOfCameras() <= 1)
+        toggle_camera?.beInvisibleIf(mCameraImpl.getCountOfCameras() <= 1)
     }
 
     private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
