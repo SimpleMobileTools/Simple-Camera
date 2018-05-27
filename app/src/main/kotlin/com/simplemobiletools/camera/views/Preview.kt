@@ -765,7 +765,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             try {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
-                mActivity!!.scanPath(mCurrVideoPath) {}
+                mActivity!!.rescanPaths(arrayListOf(mCurrVideoPath))
             } catch (e: RuntimeException) {
                 mActivity!!.showErrorToast(e)
                 toggleShutterSound(false)
@@ -774,7 +774,6 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mIsRecording = false
                 releaseCamera()
             }
-
         }
 
         mRecorder = null
