@@ -476,7 +476,6 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         mCamera?.stopPreview()
         mCamera?.release()
         mCamera = null
-        mActivity = null
         cleanupRecorder()
     }
 
