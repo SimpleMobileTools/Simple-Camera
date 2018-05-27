@@ -3,17 +3,13 @@ package com.simplemobiletools.camera.helpers
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.hardware.Camera
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.camera.extensions.compensateDeviceRotation
-import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getOutputMediaFile
-import com.simplemobiletools.camera.extensions.getPreviewRotation
+import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import java.io.File
@@ -72,7 +68,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val exif = ExifInterface(photoFile.toString())
 
-            val deviceRot = deviceOrientation.compensateDeviceRotation(currCameraId)
+            val deviceRot = activity.compensateDeviceRotation(deviceOrientation, currCameraId)
             val previewRot = activity.getPreviewRotation(currCameraId)
             val orient = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
             val imageRot = orient.degreesFromOrientation()
@@ -82,7 +78,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 image = rotate(image, totalRotation)
             }
 
-            if (currCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT && !activity.config.flipPhotos) {
+            if (currCameraId == activity.getMyCamera().getFrontCameraId() && !activity.config.flipPhotos) {
                 val matrix = Matrix()
                 if (path.startsWith(activity.internalStoragePath)) {
                     matrix.preScale(1f, -1f)

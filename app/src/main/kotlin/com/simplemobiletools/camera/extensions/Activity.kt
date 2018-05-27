@@ -9,7 +9,7 @@ fun Activity.getPreviewRotation(cameraId: Int): Int {
     val degrees = getDeviceRotationDegrees()
 
     var result: Int
-    if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+    if (info.facing == getMyCamera().getFrontCameraId()) {
         result = (info.orientation + degrees) % 360
         result = 360 - result
     } else {

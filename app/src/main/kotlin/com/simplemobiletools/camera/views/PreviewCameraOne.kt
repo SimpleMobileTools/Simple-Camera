@@ -735,7 +735,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     }
 
     private fun getVideoRotation(): Int {
-        val deviceRot = mActivity!!.mLastHandledOrientation.compensateDeviceRotation(mCurrCameraId)
+        val deviceRot = mActivity!!.compensateDeviceRotation(mActivity!!.mLastHandledOrientation, mCurrCameraId)
         val previewRot = mActivity!!.getPreviewRotation(mCurrCameraId)
         return (deviceRot + previewRot) % 360
     }

@@ -16,10 +16,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
-import com.simplemobiletools.camera.implementations.MyCameraOneImpl
-import com.simplemobiletools.camera.implementations.MyCameraTwoImpl
 import com.simplemobiletools.camera.interfaces.MyCamera
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.camera.views.PreviewCameraOne
@@ -121,7 +120,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mCurrVideoRecTimer = 0
         mCurrCameraId = 0
         mLastHandledOrientation = 0
-        mCameraImpl = if (isLollipopPlus()) MyCameraTwoImpl(applicationContext) else MyCameraOneImpl(applicationContext)
+        mCameraImpl = getMyCamera()
 
         if (config.alwaysOpenBackCamera) {
             config.lastUsedCamera = mCameraImpl.getBackCameraId()

@@ -1,8 +1,8 @@
 package com.simplemobiletools.camera.helpers
 
 import android.content.Context
-import android.hardware.Camera
 import android.os.Environment
+import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
 
@@ -47,7 +47,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
 
     var lastUsedCamera: Int
-        get() = prefs.getInt(LAST_USED_CAMERA, Camera.CameraInfo.CAMERA_FACING_BACK)
+        get() = prefs.getInt(LAST_USED_CAMERA, context.getMyCamera().getBackCameraId())
         set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()
 
     var flashlightState: Int

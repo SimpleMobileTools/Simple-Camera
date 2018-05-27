@@ -4,6 +4,11 @@ import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
 import com.simplemobiletools.camera.helpers.Config
+import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_LEFT
+import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_RIGHT
+import com.simplemobiletools.camera.implementations.MyCameraOneImpl
+import com.simplemobiletools.camera.implementations.MyCameraTwoImpl
+import com.simplemobiletools.commons.helpers.isLollipopPlus
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,3 +49,12 @@ val Context.realScreenSize: Point
     }
 
 val Context.navBarHeight: Int get() = realScreenSize.y - usableScreenSize.y
+
+fun Context.getMyCamera() = if (isLollipopPlus()) MyCameraTwoImpl(applicationContext) else MyCameraOneImpl(applicationContext)
+
+fun Context.compensateDeviceRotation(orientation: Int, currCameraId: Int) = when {
+    orientation == ORIENT_LANDSCAPE_LEFT -> 270
+    orientation == ORIENT_LANDSCAPE_RIGHT -> 90
+    currCameraId == getMyCamera().getFrontCameraId() -> 180
+    else -> 0
+}
