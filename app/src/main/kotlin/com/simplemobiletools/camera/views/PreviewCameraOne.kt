@@ -25,7 +25,7 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 
-class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
+class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
     var mCamera: Camera? = null
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L

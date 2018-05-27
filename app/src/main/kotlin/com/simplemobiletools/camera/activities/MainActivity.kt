@@ -22,8 +22,8 @@ import com.simplemobiletools.camera.implementations.MyCameraOneImpl
 import com.simplemobiletools.camera.implementations.MyCameraTwoImpl
 import com.simplemobiletools.camera.interfaces.MyCamera
 import com.simplemobiletools.camera.views.FocusCircleView
-import com.simplemobiletools.camera.views.Preview
-import com.simplemobiletools.camera.views.Preview.PreviewListener
+import com.simplemobiletools.camera.views.PreviewCameraOne
+import com.simplemobiletools.camera.views.PreviewCameraOne.PreviewListener
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
@@ -37,7 +37,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     lateinit var mFadeHandler: Handler
     lateinit var mCameraImpl: MyCamera
 
-    private var mPreview: Preview? = null
+    private var mPreview: PreviewCameraOne? = null
     private var mPreviewUri: Uri? = null
     private var mFlashlightState = FLASH_OFF
     private var mIsInPhotoMode = false
@@ -193,10 +193,13 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         setContentView(R.layout.activity_main)
         initButtons()
 
+        camera_surface_view.beVisibleIf(!isLollipopPlus())
+        camera_texture_view.beVisibleIf(isLollipopPlus())
+
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         mCurrCameraId = config.lastUsedCamera
-        mPreview = Preview(this, camera_view, this)
+        mPreview = PreviewCameraOne(this, camera_surface_view, this)
         mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
         toggle_camera.setImageResource(if (mCurrCameraId == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
