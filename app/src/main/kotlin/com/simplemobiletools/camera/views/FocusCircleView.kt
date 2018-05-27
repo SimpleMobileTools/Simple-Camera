@@ -31,7 +31,7 @@ class FocusCircleView(context: Context) : ViewGroup(context) {
         mPaint.color = color
     }
 
-    fun drawFocusRect(x: Float, y: Float) {
+    fun drawFocusCircle(x: Float, y: Float) {
         mLastCenterX = x
         mLastCenterY = y
         toggleCircle(true)

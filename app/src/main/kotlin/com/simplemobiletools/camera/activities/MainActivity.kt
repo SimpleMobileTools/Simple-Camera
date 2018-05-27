@@ -29,12 +29,13 @@ import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
-    private val FADE_DELAY = 5000
+    private val FADE_DELAY = 5000L
 
-    lateinit var mFocusCircleView: FocusCircleView
     lateinit var mTimerHandler: Handler
-    lateinit var mFadeHandler: Handler
-    lateinit var mCameraImpl: MyCamera
+    private lateinit var mOrientationEventListener: OrientationEventListener
+    private lateinit var mFocusCircleView: FocusCircleView
+    private lateinit var mFadeHandler: Handler
+    private lateinit var mCameraImpl: MyCamera
 
     private var mPreview: PreviewCameraOne? = null
     private var mPreviewUri: Uri? = null
@@ -46,8 +47,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private var mCurrVideoRecTimer = 0
     private var mCurrCameraId = 0
     var mLastHandledOrientation = 0
-
-    lateinit var mOrientationEventListener: OrientationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
@@ -108,7 +107,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun onDestroy() {
         super.onDestroy()
         mPreview?.releaseCamera()
-        mPreview?.mActivity = null
         mPreview = null
     }
 
@@ -192,14 +190,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         setContentView(R.layout.activity_main)
         initButtons()
 
-        camera_surface_view.beVisibleIf(!isLollipopPlus())
-        camera_texture_view.beVisibleIf(isLollipopPlus())
-
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         mCurrCameraId = config.lastUsedCamera
         mPreview = PreviewCameraOne(this, camera_surface_view, this)
-        mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         view_holder.addView(mPreview)
         toggle_camera.setImageResource(if (mCurrCameraId == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
 
@@ -288,7 +282,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun autoFlash() {
-        mPreview?.autoFlash()
+        mPreview?.setAutoFlash()
         toggle_flash.setImageResource(R.drawable.ic_flash_auto)
         mFlashlightState = FLASH_AUTO
         config.flashlightState = FLASH_AUTO
@@ -424,8 +418,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun scheduleFadeOut() {
-        if (!config.keepSettingsVisible)
-            mFadeHandler.postDelayed({ fadeOutButtons() }, FADE_DELAY.toLong())
+        if (!config.keepSettingsVisible) {
+            mFadeHandler.postDelayed({
+                fadeOutButtons()
+            }, FADE_DELAY)
+        }
     }
 
     private fun fadeOutButtons() {
@@ -468,7 +465,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         runOnUiThread(object : Runnable {
             override fun run() {
                 video_rec_curr_timer.text = mCurrVideoRecTimer++.getFormattedDuration()
-                mTimerHandler.postDelayed(this, 1000)
+                mTimerHandler.postDelayed(this, 1000L)
             }
         })
     }
@@ -538,11 +535,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         return mIsCameraAvailable
     }
 
-    fun finishActivity() {
-        setResult(Activity.RESULT_OK)
-        finish()
-    }
-
     override fun setFlashAvailable(available: Boolean) {
         if (available) {
             toggle_flash.beVisible()
@@ -568,7 +560,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    override fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusRect(x, y)
+    override fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
         rescanPaths(arrayListOf(path)) {
@@ -581,7 +573,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
 
         if (isImageCaptureIntent()) {
-            finishActivity()
+            setResult(Activity.RESULT_OK)
+            finish()
         }
     }
 

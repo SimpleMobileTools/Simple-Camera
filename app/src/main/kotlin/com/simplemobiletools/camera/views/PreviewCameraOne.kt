@@ -1,6 +1,7 @@
 package com.simplemobiletools.camera.views
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
@@ -26,16 +27,16 @@ import java.io.IOException
 import java.util.*
 
 class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
-    var mCamera: Camera? = null
+    private var mCamera: Camera? = null
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L
     private val REFOCUS_PERIOD = 3000L
 
-    lateinit var mSurfaceHolder: SurfaceHolder
-    lateinit var mSurfaceView: SurfaceView
-    lateinit var mCallback: PreviewListener
-    lateinit var mScreenSize: Point
-    lateinit var config: Config
+    private lateinit var mSurfaceHolder: SurfaceHolder
+    private lateinit var mSurfaceView: SurfaceView
+    private lateinit var mCallback: PreviewListener
+    private lateinit var mScreenSize: Point
+    private lateinit var mConfig: Config
     private var mSupportedPreviewSizes: List<Camera.Size>? = null
     private var mPreviewSize: Camera.Size? = null
     private var mParameters: Camera.Parameters? = null
@@ -82,7 +83,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         mIsSurfaceCreated = false
         mSetupPreviewAfterMeasure = false
         mCurrVideoPath = ""
-        config = activity.config
+        mConfig = activity.config
         mScreenSize = getScreenSize()
         initGestureDetector()
 
@@ -214,11 +215,11 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     }
 
     private fun getResolutionIndex(): Int {
-        val isBackCamera = config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
+        val isBackCamera = mConfig.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
         return if (mIsVideoMode) {
-            if (isBackCamera) config.backVideoResIndex else config.frontVideoResIndex
+            if (isBackCamera) mConfig.backVideoResIndex else mConfig.frontVideoResIndex
         } else {
-            if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
+            if (isBackCamera) mConfig.backPhotoResIndex else mConfig.frontPhotoResIndex
         }
     }
 
@@ -227,7 +228,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         resolutions.forEachIndexed { index, size ->
             val diff = screenAspectRatio - (size.width / size.height.toFloat())
             if (Math.abs(diff) < RATIO_TOLERANCE) {
-                config.backPhotoResIndex = index
+                mConfig.backPhotoResIndex = index
                 return index
             }
         }
@@ -282,7 +283,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     }
 
     fun tryTakePicture() {
-        if (config.focusBeforeCapture) {
+        if (mConfig.focusBeforeCapture) {
             focusArea(true)
         } else {
             takePicture()
@@ -310,7 +311,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
                 Thread {
                     mCamera!!.takePicture(null, null, takePictureCallback)
 
-                    if (config.isSoundEnabled) {
+                    if (mConfig.isSoundEnabled) {
                         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
                         val volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM)
                         if (volume != 0) {
@@ -341,7 +342,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
             if (mTargetUri != null) {
                 storePhoto(data)
             } else {
-                mActivity!!.finishActivity()
+                mActivity!!.apply {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
             }
         } else {
             storePhoto(data)
@@ -353,10 +357,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     }
 
     private fun handlePreview() {
-        if (config.isShowPreviewEnabled) {
-            if (!config.wasPhotoPreviewHintShown) {
+        if (mConfig.isShowPreviewEnabled) {
+            if (!mConfig.wasPhotoPreviewHintShown) {
                 mActivity!!.toast(R.string.click_to_resume_preview)
-                config.wasPhotoPreviewHintShown = true
+                mConfig.wasPhotoPreviewHintShown = true
             }
         } else {
             Handler().postDelayed({
@@ -459,7 +463,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     fun showChangeResolutionDialog() {
         if (mCamera != null) {
             val oldResolution = getSelectedResolution()
-            ChangeResolutionDialog(mActivity!!, config, mCamera!!) {
+            ChangeResolutionDialog(mActivity!!, mConfig, mCamera!!) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
                 }
@@ -472,6 +476,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         mCamera?.stopPreview()
         mCamera?.release()
         mCamera = null
+        mActivity = null
         cleanupRecorder()
     }
 
@@ -600,7 +605,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         updateCameraParameters()
     }
 
-    fun autoFlash() {
+    fun setAutoFlash() {
         mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
         updateCameraParameters()
 
@@ -686,9 +691,9 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
 
     private fun checkPermissions(): Boolean {
         if (mActivity!!.needsStupidWritePermissions(mCurrVideoPath)) {
-            if (config.treeUri.isEmpty()) {
+            if (mConfig.treeUri.isEmpty()) {
                 mActivity!!.toast(R.string.save_error_internal_storage)
-                config.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
+                mConfig.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
                 releaseCamera()
                 return false
             }
@@ -786,7 +791,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     }
 
     private fun toggleShutterSound(mute: Boolean?) {
-        if (!config.isSoundEnabled) {
+        if (!mConfig.isSoundEnabled) {
             (mActivity!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager).setStreamMute(AudioManager.STREAM_SYSTEM, mute!!)
         }
     }
