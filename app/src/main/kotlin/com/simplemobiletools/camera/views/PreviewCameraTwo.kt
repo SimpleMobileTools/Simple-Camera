@@ -29,10 +29,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val MAX_PREVIEW_HEIGHT = 1080
 
     private val ORIENTATIONS = SparseIntArray().apply {
-        append(Surface.ROTATION_0, 90)
-        append(Surface.ROTATION_90, 0)
-        append(Surface.ROTATION_180, 270)
-        append(Surface.ROTATION_270, 180)
+        put(Surface.ROTATION_0, 90)
+        put(Surface.ROTATION_90, 0)
+        put(Surface.ROTATION_180, 270)
+        put(Surface.ROTATION_270, 180)
     }
 
     private lateinit var mActivity: MainActivity
@@ -113,7 +113,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 throw RuntimeException("Time out waiting to lock camera opening.")
             }
             manager.openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
-        } catch (e: Exception) {
+        } catch (e: InterruptedException) {
+        } catch (e: SecurityException) {
         }
     }
 
