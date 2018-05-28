@@ -171,14 +171,14 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             hideToggleModeAbout()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
-                mPreview?.mTargetUri = output
+                mPreview?.setTargetUri(output)
             }
         } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
             hideToggleModeAbout()
             shutter.setImageResource(R.drawable.ic_video_rec)
         }
-        mPreview?.isImageCaptureIntent = isImageCaptureIntent()
+        mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
     }
 
     private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE

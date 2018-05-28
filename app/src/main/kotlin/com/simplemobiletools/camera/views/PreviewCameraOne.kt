@@ -32,7 +32,6 @@ import java.io.IOException
 import java.util.*
 
 class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
-    private var mCamera: Camera? = null
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L
     private val REFOCUS_PERIOD = 3000L
@@ -49,7 +48,11 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mZoomRatios = ArrayList<Int>()
     private var mFlashlightState = FLASH_OFF
+    private var mCamera: Camera? = null
     private var mCameraImpl: MyCameraOneImpl? = null
+    private var mAutoFocusHandler = Handler()
+    private var mActivity: MainActivity? = null
+    private var mTargetUri: Uri? = null
     private var mCameraState = STATE_PREVIEW
 
     private var mCurrVideoPath = ""
@@ -63,17 +66,13 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     private var mWasZooming = false
     private var mIsPreviewShown = false
     private var mWasCameraPreviewSet = false
+    private var mIsImageCaptureIntent = false
+    private var mIsFocusingBeforeCapture = false
     private var mLastClickX = 0f
     private var mLastClickY = 0f
     private var mCurrCameraId = 0
     private var mMaxZoom = 0
     private var mRotationAtCapture = 0
-    private var mIsFocusingBeforeCapture = false
-    private var autoFocusHandler = Handler()
-    private var mActivity: MainActivity? = null
-
-    var mTargetUri: Uri? = null
-    var isImageCaptureIntent = false
 
     constructor(context: Context) : super(context)
 
@@ -86,11 +85,6 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         mSurfaceHolder.addCallback(this)
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
         mCameraImpl = MyCameraOneImpl(activity.applicationContext)
-        mCanTakePicture = false
-        mIsInVideoMode = false
-        mIsSurfaceCreated = false
-        mSetupPreviewAfterMeasure = false
-        mCurrVideoPath = ""
         mConfig = activity.config
         mScreenSize = getScreenSize()
         initGestureDetector()
@@ -363,11 +357,11 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }
 
         mCameraState = STATE_PREVIEW
-        if (!isImageCaptureIntent) {
+        if (!mIsImageCaptureIntent) {
             handlePreview()
         }
 
-        if (isImageCaptureIntent) {
+        if (mIsImageCaptureIntent) {
             if (mTargetUri != null) {
                 storePhoto(data)
             } else {
@@ -481,8 +475,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     }
 
     private fun rescheduleAutofocus() {
-        autoFocusHandler.removeCallbacksAndMessages(null)
-        autoFocusHandler.postDelayed({
+        mAutoFocusHandler.removeCallbacksAndMessages(null)
+        mAutoFocusHandler.postDelayed({
             if (!mIsInVideoMode || !mIsRecording) {
                 focusArea(false, false)
             }
@@ -777,6 +771,14 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
             mCamera?.parameters = mParameters
         } catch (e: RuntimeException) {
         }
+    }
+
+    fun setTargetUri(uri: Uri) {
+        mTargetUri = uri
+    }
+
+    fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) {
+        mIsImageCaptureIntent = isImageCaptureIntent
     }
 
     fun toggleRecording(): Boolean {
