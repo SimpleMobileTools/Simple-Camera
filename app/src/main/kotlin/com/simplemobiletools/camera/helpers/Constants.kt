@@ -27,3 +27,7 @@ const val PHOTO_QUALITY = "photo_quality"
 const val FLASH_OFF = 0
 const val FLASH_ON = 1
 const val FLASH_AUTO = 2
+
+// camera states
+const val STATE_PREVIEW = 0
+const val STATE_PICTURE_TAKEN = 1

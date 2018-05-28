@@ -97,7 +97,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mPreview?.releaseCamera()
         mOrientationEventListener.disable()
 
-        if (mPreview?.isWaitingForTakePictureCallback == true) {
+        if (mPreview?.getCameraState() == STATE_PICTURE_TAKEN) {
             toast(R.string.photo_not_saved)
         }
     }
@@ -219,7 +219,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private fun toggleCamera() {
         if (checkCameraAvailable()) {
-            mPreview!!.toggleCamera()
+            mPreview!!.toggleFrontBackCamera()
         }
     }
 

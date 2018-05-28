@@ -50,6 +50,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     private var mZoomRatios = ArrayList<Int>()
     private var mFlashlightState = FLASH_OFF
     private var mCameraImpl: MyCameraOneImpl? = null
+    private var mCameraState = STATE_PREVIEW
 
     private var mCurrVideoPath = ""
     private var mCanTakePicture = false
@@ -71,7 +72,6 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     private var autoFocusHandler = Handler()
     private var mActivity: MainActivity? = null
 
-    var isWaitingForTakePictureCallback = false
     var mTargetUri: Uri? = null
     var isImageCaptureIntent = false
 
@@ -195,7 +195,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         return true
     }
 
-    fun toggleCamera() {
+    fun toggleFrontBackCamera() {
         mCurrCameraId = if (mCurrCameraId == mCameraImpl!!.getBackCameraId()) {
             mCameraImpl!!.getFrontCameraId()
         } else {
@@ -212,6 +212,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
             mActivity?.toast(R.string.camera_switch_error)
         }
     }
+
+    fun getCameraState() = mCameraState
 
     private fun refreshPreview() {
         mIsSixteenToNine = getSelectedResolution().isSixteenToNine()
@@ -332,7 +334,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
 
             mRotationAtCapture = mActivity!!.mLastHandledOrientation
             updateCameraParameters()
-            isWaitingForTakePictureCallback = true
+            mCameraState = STATE_PICTURE_TAKEN
             mIsPreviewShown = true
             try {
                 Thread {
@@ -360,7 +362,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
             return@PictureCallback
         }
 
-        isWaitingForTakePictureCallback = false
+        mCameraState = STATE_PREVIEW
         if (!isImageCaptureIntent) {
             handlePreview()
         }
