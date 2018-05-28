@@ -31,3 +31,6 @@ const val FLASH_AUTO = 2
 // camera states
 const val STATE_PREVIEW = 0
 const val STATE_PICTURE_TAKEN = 1
+const val STATE_WAITING_LOCK = 2
+const val STATE_WAITING_PRECAPTURE = 3
+const val STATE_WAITING_NON_PRECAPTURE = 4

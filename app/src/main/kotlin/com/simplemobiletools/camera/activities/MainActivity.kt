@@ -84,6 +84,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (hasStorageAndCameraPermissions()) {
             mOrientationEventListener.enable()
         }
+        mPreview?.onResumed()
     }
 
     override fun onPause() {
@@ -102,6 +103,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (mPreview?.getCameraState() == STATE_PICTURE_TAKEN) {
             toast(R.string.photo_not_saved)
         }
+        mPreview?.onPaused()
     }
 
     override fun onDestroy() {
@@ -194,7 +196,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
-        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this) else PreviewCameraOne(this, camera_surface_view, this)
+        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view) else PreviewCameraOne(this, camera_surface_view, this)
         view_holder.addView(mPreview as ViewGroup)
 
         val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear

@@ -113,6 +113,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         }
     }
 
+    override fun onResumed() {}
+
+    override fun onPaused() {}
+
     override fun tryInitVideoMode() {
         if (mIsSurfaceCreated) {
             initVideoMode()

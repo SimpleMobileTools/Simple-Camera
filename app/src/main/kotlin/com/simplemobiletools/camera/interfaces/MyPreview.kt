@@ -3,6 +3,10 @@ package com.simplemobiletools.camera.interfaces
 import android.net.Uri
 
 interface MyPreview {
+    fun onResumed()
+
+    fun onPaused()
+
     fun setTargetUri(uri: Uri)
 
     fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean)
