@@ -189,6 +189,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         setContentView(R.layout.activity_main)
         initButtons()
 
+        camera_surface_view.beVisibleIf(!isLollipopPlus())
+        camera_texture_view.beVisibleIf(isLollipopPlus())
+
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         mPreview = if (isLollipopPlus()) PreviewCameraTwo(this) else PreviewCameraOne(this, camera_surface_view, this)
