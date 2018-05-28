@@ -25,13 +25,14 @@ import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.MyCameraOneImpl
+import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
 import java.io.IOException
 import java.util.*
 
-class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
+class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L
     private val REFOCUS_PERIOD = 3000L
@@ -112,15 +113,17 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }
     }
 
-    fun trySwitchToVideo() {
+    override fun tryInitVideoMode() {
         if (mIsSurfaceCreated) {
-            initRecorder()
+            initVideoMode()
         } else {
             mSwitchToVideoAsap = true
         }
     }
 
-    fun setCamera(cameraId: Int = mCurrCameraId): Boolean {
+    override fun resumeCamera() = setCamera(mCurrCameraId)
+
+    override fun setCamera(cameraId: Int): Boolean {
         mCurrCameraId = cameraId
         val newCamera: Camera
         try {
@@ -139,7 +142,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         releaseCamera()
         mCamera = newCamera
         if (initCamera() && mIsInVideoMode) {
-            initRecorder()
+            initVideoMode()
         }
 
         if (!mWasCameraPreviewSet && mIsSurfaceCreated) {
@@ -189,7 +192,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         return true
     }
 
-    fun toggleFrontBackCamera() {
+    override fun toggleFrontBackCamera() {
         mCurrCameraId = if (mCurrCameraId == mCameraImpl!!.getBackCameraId()) {
             mCameraImpl!!.getFrontCameraId()
         } else {
@@ -207,7 +210,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }
     }
 
-    fun getCameraState() = mCameraState
+    override fun getCameraState() = mCameraState
 
     private fun refreshPreview() {
         mIsSixteenToNine = getSelectedResolution().isSixteenToNine()
@@ -304,7 +307,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         })
     }
 
-    fun tryTakePicture() {
+    override fun tryTakePicture() {
         if (mConfig.focusBeforeCapture) {
             focusArea(true)
         } else {
@@ -483,7 +486,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }, REFOCUS_PERIOD)
     }
 
-    fun showChangeResolutionDialog() {
+    override fun showChangeResolutionDialog() {
         if (mCamera != null) {
             val oldResolution = getSelectedResolution()
             ChangeResolutionDialog(mActivity!!, mConfig, mCamera!!) {
@@ -494,7 +497,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }
     }
 
-    fun releaseCamera() {
+    override fun releaseCamera() {
         stopRecording()
         mCamera?.stopPreview()
         mCamera?.release()
@@ -509,7 +512,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
             mCamera?.setPreviewDisplay(mSurfaceHolder)
 
             if (mSwitchToVideoAsap)
-                initRecorder()
+                initVideoMode()
         } catch (e: IOException) {
             mActivity!!.showErrorToast(e)
         }
@@ -519,7 +522,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         mIsSurfaceCreated = true
 
         if (mIsInVideoMode) {
-            initRecorder()
+            initVideoMode()
         }
     }
 
@@ -617,17 +620,17 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }
     }
 
-    fun setFlashlightState(state: Int) {
+    override fun setFlashlightState(state: Int) {
         mFlashlightState = state
         checkFlashlight()
     }
 
-    fun toggleFlashlight() {
+    override fun toggleFlashlight() {
         val newState = ++mFlashlightState % if (!mIsInVideoMode) 3 else 2
         setFlashlightState(newState)
     }
 
-    fun checkFlashlight() {
+    override fun checkFlashlight() {
         when (mFlashlightState) {
             FLASH_OFF -> disableFlash()
             FLASH_ON -> enableFlash()
@@ -660,7 +663,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }, 1000)
     }
 
-    fun initPhotoMode() {
+    override fun initPhotoMode() {
         stopRecording()
         cleanupRecorder()
         mIsRecording = false
@@ -669,7 +672,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     }
 
     // VIDEO RECORDING
-    fun initRecorder(): Boolean {
+    override fun initVideoMode(): Boolean {
         if (mCamera == null || mRecorder != null || !mIsSurfaceCreated) {
             return false
         }
@@ -773,18 +776,18 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         }
     }
 
-    fun setTargetUri(uri: Uri) {
+    override fun setTargetUri(uri: Uri) {
         mTargetUri = uri
     }
 
-    fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) {
+    override fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) {
         mIsImageCaptureIntent = isImageCaptureIntent
     }
 
-    fun toggleRecording(): Boolean {
+    override fun toggleRecording(): Boolean {
         if (mIsRecording) {
             stopRecording()
-            initRecorder()
+            initVideoMode()
         } else {
             startRecording()
         }
@@ -797,10 +800,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
         return (deviceRot + previewRot) % 360
     }
 
-    fun deviceOrientationChanged() {
+    override fun deviceOrientationChanged() {
         if (mIsInVideoMode && !mIsRecording) {
             mRecorder = null
-            initRecorder()
+            initVideoMode()
         }
     }
 

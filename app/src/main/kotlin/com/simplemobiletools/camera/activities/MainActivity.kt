@@ -20,6 +20,7 @@ import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyCamera
+import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.camera.views.PreviewCameraOne
 import com.simplemobiletools.camera.views.PreviewCameraOne.PreviewListener
@@ -37,7 +38,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCamera
 
-    private var mPreview: PreviewCameraOne? = null
+    private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
     private var mIsInPhotoMode = false
     private var mIsCameraAvailable = false
@@ -190,7 +191,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         mPreview = PreviewCameraOne(this, camera_surface_view, this)
-        view_holder.addView(mPreview)
+        view_holder.addView(mPreview as ViewGroup)
 
         val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
         toggle_camera.setImageResource(imageDrawable)
@@ -312,7 +313,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
 
         if (mIsVideoCaptureIntent) {
-            mPreview?.trySwitchToVideo()
+            mPreview?.tryInitVideoMode()
         }
 
         mPreview?.setFlashlightState(FLASH_OFF)
@@ -339,7 +340,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun tryInitVideoMode() {
-        if (mPreview?.initRecorder() == true) {
+        if (mPreview?.initVideoMode() == true) {
             initVideoButtons()
         } else {
             if (!mIsVideoCaptureIntent) {
@@ -443,7 +444,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private fun resumeCameraItems() {
         showToggleCameraIfNeeded()
-        if (mPreview?.setCamera() == true) {
+        if (mPreview?.resumeCamera() == true) {
             hideNavigationBarIcons()
             mPreview?.checkFlashlight()
 
