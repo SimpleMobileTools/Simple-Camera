@@ -1,6 +1,7 @@
 package com.simplemobiletools.camera.views
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
@@ -20,7 +21,9 @@ import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
+import com.simplemobiletools.camera.implementations.MyCameraOneImpl
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -43,6 +46,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mZoomRatios = ArrayList<Int>()
     private var mFlashlightState = FLASH_OFF
+    private var mCameraImpl: MyCameraOneImpl? = null
 
     private var mCurrVideoPath = ""
     private var mCanTakePicture = false
@@ -62,8 +66,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     private var mRotationAtCapture = 0
     private var mIsFocusingBeforeCapture = false
     private var autoFocusHandler = Handler()
+    private var mActivity: MainActivity? = null
 
-    var mActivity: MainActivity? = null
     var isWaitingForTakePictureCallback = false
     var mTargetUri: Uri? = null
     var isImageCaptureIntent = false
@@ -78,6 +82,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         mSurfaceHolder = mSurfaceView.holder
         mSurfaceHolder.addCallback(this)
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
+        mCameraImpl = MyCameraOneImpl(activity.applicationContext)
         mCanTakePicture = false
         mIsInVideoMode = false
         mIsSurfaceCreated = false
@@ -118,7 +123,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         }
     }
 
-    fun setCamera(cameraId: Int): Boolean {
+    fun setCamera(cameraId: Int = mCurrCameraId): Boolean {
         mCurrCameraId = cameraId
         val newCamera: Camera
         try {
@@ -185,6 +190,24 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
 
         mCallback.setFlashAvailable(hasFlash(mCamera))
         return true
+    }
+
+    fun toggleCamera() {
+        mCurrCameraId = if (mCurrCameraId == mCameraImpl!!.getBackCameraId()) {
+            mCameraImpl!!.getFrontCameraId()
+        } else {
+            mCameraImpl!!.getBackCameraId()
+        }
+
+        mConfig.lastUsedCamera = mCurrCameraId
+        releaseCamera()
+        if (setCamera(mCurrCameraId)) {
+            setFlashlightState(FLASH_OFF)
+            mActivity?.updateCameraIcon(mCurrCameraId == mCameraImpl!!.getFrontCameraId())
+            mActivity?.hideTimer()
+        } else {
+            mActivity?.toast(R.string.camera_switch_error)
+        }
     }
 
     private fun refreshPreview() {
@@ -290,6 +313,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun takePicture() {
         if (mCanTakePicture) {
             val selectedResolution = getSelectedResolution()
@@ -299,7 +323,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
                 mActivity!!.toast(R.string.setting_resolution_failed)
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (isJellyBean1Plus()) {
                 mCamera!!.enableShutterSound(false)
             }
 
