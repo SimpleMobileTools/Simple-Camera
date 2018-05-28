@@ -70,7 +70,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
             scheduleFadeOut()
-            mFocusCircleView.setStrokeColor(config.primaryColor)
+            mFocusCircleView.setStrokeColor(getAdjustedPrimaryColor())
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 handleTogglePhotoVideo()
