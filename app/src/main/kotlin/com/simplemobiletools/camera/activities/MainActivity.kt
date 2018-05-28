@@ -176,7 +176,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
             hideToggleModeAbout()
-            shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
+            shutter.setImageResource(R.drawable.ic_video_rec)
         }
         mPreview?.isImageCaptureIntent = isImageCaptureIntent()
     }
@@ -191,7 +191,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         mPreview = PreviewCameraOne(this, camera_surface_view, this)
         view_holder.addView(mPreview)
-        toggle_camera.setImageResource(if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
+
+        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
+        toggle_camera.setImageResource(imageDrawable)
 
         mFocusCircleView = FocusCircleView(applicationContext)
         view_holder.addView(mFocusCircleView)
@@ -260,11 +262,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             mPreview?.tryTakePicture()
         } else {
             if (mPreview?.toggleRecording() == true) {
-                shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_stop))
+                shutter.setImageResource(R.drawable.ic_video_stop)
                 toggle_camera.beInvisible()
                 showTimer()
             } else {
-                shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
+                shutter.setImageResource(R.drawable.ic_video_rec)
                 showToggleCameraIfNeeded()
                 hideTimer()
             }
@@ -330,8 +332,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initPhotoMode() {
-        toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_video))
-        shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_shutter))
+        toggle_photo_video.setImageResource(R.drawable.ic_video)
+        shutter.setImageResource(R.drawable.ic_shutter)
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
@@ -347,9 +349,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initVideoButtons() {
-        toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
+        toggle_photo_video.setImageResource(R.drawable.ic_camera)
         showToggleCameraIfNeeded()
-        shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
+        shutter.setImageResource(R.drawable.ic_video_rec)
         setupPreviewImage(false)
         mPreview?.checkFlashlight()
     }
