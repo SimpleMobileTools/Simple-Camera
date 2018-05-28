@@ -204,7 +204,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         if (setCamera(mCurrCameraId)) {
             setFlashlightState(FLASH_OFF)
             mActivity?.updateCameraIcon(mCurrCameraId == mCameraImpl!!.getFrontCameraId())
-            mActivity?.hideTimer()
+            mActivity?.toggleTimer(false)
         } else {
             mActivity?.toast(R.string.camera_switch_error)
         }

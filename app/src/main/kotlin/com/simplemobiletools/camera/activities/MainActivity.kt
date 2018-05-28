@@ -411,16 +411,24 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
     }
 
-    fun hideTimer() {
-        video_rec_curr_timer.text = 0.getFormattedDuration()
-        video_rec_curr_timer.beGone()
-        mCurrVideoRecTimer = 0
-        mTimerHandler.removeCallbacksAndMessages(null)
+    fun toggleTimer(show: Boolean) {
+        if (show) {
+            showTimer()
+        } else {
+            hideTimer()
+        }
     }
 
     private fun showTimer() {
         video_rec_curr_timer.beVisible()
         setupTimer()
+    }
+
+    private fun hideTimer() {
+        video_rec_curr_timer.text = 0.getFormattedDuration()
+        video_rec_curr_timer.beGone()
+        mCurrVideoRecTimer = 0
+        mTimerHandler.removeCallbacksAndMessages(null)
     }
 
     private fun setupTimer() {
