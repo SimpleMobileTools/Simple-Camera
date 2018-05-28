@@ -239,18 +239,21 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mCameraOpenCloseLock.release()
             mCameraDevice = cameraDevice
             createCameraPreviewSession()
+            mActivity.setIsCameraAvailable(true)
         }
 
         override fun onDisconnected(cameraDevice: CameraDevice) {
             mCameraOpenCloseLock.release()
             cameraDevice.close()
             mCameraDevice = null
+            mActivity.setIsCameraAvailable(false)
         }
 
         override fun onError(cameraDevice: CameraDevice, error: Int) {
             mCameraOpenCloseLock.release()
             cameraDevice.close()
             mCameraDevice = null
+            mActivity.setIsCameraAvailable(false)
         }
     }
 
@@ -456,9 +459,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     override fun deviceOrientationChanged() {
     }
 
-    override fun resumeCamera(): Boolean {
-        return false
-    }
+    override fun resumeCamera() = true
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {}
 }
