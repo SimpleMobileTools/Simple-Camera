@@ -630,7 +630,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     }
 
     override fun toggleFlashlight() {
-        val newState = ++mFlashlightState % if (!mIsInVideoMode) 3 else 2
+        val newState = ++mFlashlightState % if (mIsInVideoMode) 2 else 3
         setFlashlightState(newState)
     }
 
