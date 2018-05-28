@@ -189,25 +189,29 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupPhotoQuality() {
-        settings_photo_quality.text = "${config.photoQuality}%"
+        updatePhotoQuality(config.photoQuality)
         settings_photo_quality_holder.setOnClickListener {
             val items = arrayListOf(
-                    RadioItem(50, "50%"),
-                    RadioItem(55, "55%"),
-                    RadioItem(60, "60%"),
-                    RadioItem(65, "65%"),
-                    RadioItem(70, "70%"),
-                    RadioItem(75, "75%"),
-                    RadioItem(80, "80%"),
-                    RadioItem(85, "85%"),
-                    RadioItem(90, "90%"),
+                    RadioItem(100, "100%"),
                     RadioItem(95, "95%"),
-                    RadioItem(100, "100%"))
+                    RadioItem(90, "90%"),
+                    RadioItem(85, "85%"),
+                    RadioItem(80, "80%"),
+                    RadioItem(75, "75%"),
+                    RadioItem(70, "70%"),
+                    RadioItem(65, "65%"),
+                    RadioItem(60, "60%"),
+                    RadioItem(55, "55%"),
+                    RadioItem(50, "50%"))
 
             RadioGroupDialog(this@SettingsActivity, items, config.photoQuality) {
                 config.photoQuality = it as Int
-                settings_photo_quality.text = "${config.photoQuality}%"
+                updatePhotoQuality(it)
             }
         }
+    }
+
+    private fun updatePhotoQuality(quality: Int) {
+        settings_photo_quality.text = "$quality%"
     }
 }
