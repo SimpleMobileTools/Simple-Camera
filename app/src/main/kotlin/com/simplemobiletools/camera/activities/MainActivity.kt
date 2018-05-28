@@ -24,6 +24,7 @@ import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.camera.views.PreviewCameraOne
 import com.simplemobiletools.camera.views.PreviewCameraOne.PreviewListener
+import com.simplemobiletools.camera.views.PreviewCameraTwo
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
@@ -190,7 +191,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
-        mPreview = PreviewCameraOne(this, camera_surface_view, this)
+        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this) else PreviewCameraOne(this, camera_surface_view, this)
         view_holder.addView(mPreview as ViewGroup)
 
         val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
