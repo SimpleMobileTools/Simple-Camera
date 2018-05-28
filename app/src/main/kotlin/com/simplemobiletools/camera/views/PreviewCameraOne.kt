@@ -19,8 +19,7 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.*
-import com.simplemobiletools.camera.helpers.Config
-import com.simplemobiletools.camera.helpers.PhotoProcessor
+import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.IOException
@@ -43,11 +42,12 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     private var mRecorder: MediaRecorder? = null
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mZoomRatios = ArrayList<Int>()
+    private var mFlashlightState = FLASH_OFF
 
     private var mCurrVideoPath = ""
     private var mCanTakePicture = false
     private var mIsRecording = false
-    private var mIsVideoMode = false
+    private var mIsInVideoMode = false
     private var mIsSurfaceCreated = false
     private var mSwitchToVideoAsap = false
     private var mSetupPreviewAfterMeasure = false
@@ -79,7 +79,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         mSurfaceHolder.addCallback(this)
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
         mCanTakePicture = false
-        mIsVideoMode = false
+        mIsInVideoMode = false
         mIsSurfaceCreated = false
         mSetupPreviewAfterMeasure = false
         mCurrVideoPath = ""
@@ -136,7 +136,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
 
         releaseCamera()
         mCamera = newCamera
-        if (initCamera() && mIsVideoMode) {
+        if (initCamera() && mIsInVideoMode) {
             initRecorder()
         }
 
@@ -201,7 +201,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         }
 
         var index = getResolutionIndex()
-        val resolutions = if (mIsVideoMode) {
+        val resolutions = if (mIsInVideoMode) {
             mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
         } else {
             mParameters!!.supportedPictureSizes
@@ -216,7 +216,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
 
     private fun getResolutionIndex(): Int {
         val isBackCamera = mConfig.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
-        return if (mIsVideoMode) {
+        return if (mIsInVideoMode) {
             if (isBackCamera) mConfig.backVideoResIndex else mConfig.frontVideoResIndex
         } else {
             if (isBackCamera) mConfig.backPhotoResIndex else mConfig.frontPhotoResIndex
@@ -454,7 +454,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     private fun rescheduleAutofocus() {
         autoFocusHandler.removeCallbacksAndMessages(null)
         autoFocusHandler.postDelayed({
-            if (!mIsVideoMode || !mIsRecording) {
+            if (!mIsInVideoMode || !mIsRecording) {
                 focusArea(false, false)
             }
         }, REFOCUS_PERIOD)
@@ -495,7 +495,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         mIsSurfaceCreated = true
 
-        if (mIsVideoMode) {
+        if (mIsInVideoMode) {
             initRecorder()
         }
     }
@@ -561,7 +561,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         if (mSupportedPreviewSizes != null) {
             // for simplicity lets assume that most displays are 16:9 and the remaining ones are 4:3
             // always set 16:9 for videos as many devices support 4:3 only in low quality
-            mPreviewSize = if (mIsSixteenToNine || mIsVideoMode) {
+            mPreviewSize = if (mIsSixteenToNine || mIsInVideoMode) {
                 getOptimalPreviewSize(mSupportedPreviewSizes!!, mScreenSize.y, mScreenSize.x)
             } else {
                 val newRatioHeight = (mScreenSize.x * (4.toDouble() / 3)).toInt()
@@ -574,7 +574,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
             if (mScreenSize.x > mPreviewSize!!.height) {
                 val ratio = mScreenSize.x.toFloat() / mPreviewSize!!.height
                 lp.width = (mPreviewSize!!.height * ratio).toInt()
-                if (mIsSixteenToNine || mIsVideoMode) {
+                if (mIsSixteenToNine || mIsInVideoMode) {
                     lp.height = mScreenSize.y
                 } else {
                     lp.height = (mPreviewSize!!.width * ratio).toInt()
@@ -594,18 +594,40 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         }
     }
 
-    fun enableFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
+    fun setFlashlightState(state: Int) {
+        mFlashlightState = state
+        checkFlashlight()
+    }
+
+    fun toggleFlashlight() {
+        val newState = ++mFlashlightState % if (!mIsInVideoMode) 3 else 2
+        setFlashlightState(newState)
+    }
+
+    fun checkFlashlight() {
+        when (mFlashlightState) {
+            FLASH_OFF -> disableFlash()
+            FLASH_ON -> enableFlash()
+            FLASH_AUTO -> setAutoFlash()
+        }
+        mActivity?.updateFlashlightState(mFlashlightState)
+    }
+
+    private fun disableFlash() {
+        mFlashlightState = FLASH_OFF
+        mParameters?.flashMode = Camera.Parameters.FLASH_MODE_OFF
         updateCameraParameters()
     }
 
-    fun disableFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+    private fun enableFlash() {
+        mFlashlightState = FLASH_ON
+        mParameters?.flashMode = Camera.Parameters.FLASH_MODE_TORCH
         updateCameraParameters()
     }
 
-    fun setAutoFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+    private fun setAutoFlash() {
+        mFlashlightState = FLASH_AUTO
+        mParameters?.flashMode = Camera.Parameters.FLASH_MODE_OFF
         updateCameraParameters()
 
         Handler().postDelayed({
@@ -619,7 +641,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         stopRecording()
         cleanupRecorder()
         mIsRecording = false
-        mIsVideoMode = false
+        mIsInVideoMode = false
         refreshPreview()
     }
 
@@ -633,7 +655,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         mSwitchToVideoAsap = false
 
         mIsRecording = false
-        mIsVideoMode = true
+        mIsInVideoMode = true
         mRecorder = MediaRecorder().apply {
             setCamera(mCamera)
             setVideoSource(MediaRecorder.VideoSource.DEFAULT)
@@ -745,7 +767,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
     }
 
     fun deviceOrientationChanged() {
-        if (mIsVideoMode && !mIsRecording) {
+        if (mIsInVideoMode && !mIsRecording) {
             mRecorder = null
             initRecorder()
         }

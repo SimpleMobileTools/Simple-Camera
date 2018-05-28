@@ -39,7 +39,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     private var mPreview: PreviewCameraOne? = null
     private var mPreviewUri: Uri? = null
-    private var mFlashlightState = FLASH_OFF
     private var mIsInPhotoMode = false
     private var mIsCameraAvailable = false
     private var mIsVideoCaptureIntent = false
@@ -203,7 +202,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mIsInPhotoMode = true
         mTimerHandler = Handler()
         mFadeHandler = Handler()
-        mFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
+        mPreview!!.setFlashlightState(if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState)
         setupPreviewImage(true)
     }
 
@@ -236,7 +235,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                 newIconId = R.drawable.ic_camera_rear
             }
             toggle_camera.setImageResource(newIconId)
-            disableFlash()
+            mPreview?.setFlashlightState(FLASH_OFF)
             hideTimer()
         } else {
             toast(R.string.camera_switch_error)
@@ -255,37 +254,17 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             return
         }
 
-        mFlashlightState = ++mFlashlightState % if (mIsInPhotoMode) 3 else 2
-        checkFlash()
+        mPreview?.toggleFlashlight()
     }
 
-    private fun checkFlash() {
-        when (mFlashlightState) {
-            FLASH_ON -> enableFlash()
-            FLASH_AUTO -> autoFlash()
-            else -> disableFlash()
+    fun updateFlashlightState(state: Int) {
+        config.flashlightState = state
+        val flashDrawable =  when (state) {
+            FLASH_OFF -> R.drawable.ic_flash_off
+            FLASH_ON -> R.drawable.ic_flash_on
+            else -> R.drawable.ic_flash_auto
         }
-    }
-
-    private fun disableFlash() {
-        mPreview?.disableFlash()
-        toggle_flash.setImageResource(R.drawable.ic_flash_off)
-        mFlashlightState = FLASH_OFF
-        config.flashlightState = FLASH_OFF
-    }
-
-    private fun enableFlash() {
-        mPreview?.enableFlash()
-        toggle_flash.setImageResource(R.drawable.ic_flash_on)
-        mFlashlightState = FLASH_ON
-        config.flashlightState = FLASH_ON
-    }
-
-    private fun autoFlash() {
-        mPreview?.setAutoFlash()
-        toggle_flash.setImageResource(R.drawable.ic_flash_auto)
-        mFlashlightState = FLASH_AUTO
-        config.flashlightState = FLASH_AUTO
+        toggle_flash.setImageResource(flashDrawable)
     }
 
     private fun shutterPressed() {
@@ -352,7 +331,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (mIsVideoCaptureIntent)
             mPreview?.trySwitchToVideo()
 
-        disableFlash()
+        mPreview?.setFlashlightState(FLASH_OFF)
         hideTimer()
         mIsInPhotoMode = !mIsInPhotoMode
         showToggleCameraIfNeeded()
@@ -389,8 +368,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
         showToggleCameraIfNeeded()
         shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
-        checkFlash()
         setupPreviewImage(false)
+        mPreview?.checkFlashlight()
     }
 
     private fun setupPreviewImage(isPhoto: Boolean) {
@@ -474,7 +453,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         showToggleCameraIfNeeded()
         if (mPreview?.setCamera(mCurrCameraId) == true) {
             hideNavigationBarIcons()
-            checkFlash()
+            mPreview?.checkFlashlight()
 
             if (!mIsInPhotoMode) {
                 initVideoButtons()
@@ -540,7 +519,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             toggle_flash.beVisible()
         } else {
             toggle_flash.beInvisible()
-            disableFlash()
+            mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
 
