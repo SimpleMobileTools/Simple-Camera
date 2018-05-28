@@ -7,7 +7,10 @@ import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
 import android.hardware.Camera
-import android.media.*
+import android.media.AudioManager
+import android.media.CamcorderProfile
+import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -28,7 +31,7 @@ import java.io.File
 import java.io.IOException
 import java.util.*
 
-class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
+class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback {
     private var mCamera: Camera? = null
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L
@@ -815,7 +818,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
             try {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
-                mActivity!!.rescanPaths(arrayListOf(mCurrVideoPath))
+                mActivity!!.rescanPaths(arrayListOf(mCurrVideoPath)) {
+                    mCallback.videoSaved(Uri.fromFile(File(mCurrVideoPath)))
+                    toggleShutterSound(false)
+                }
             } catch (e: RuntimeException) {
                 mActivity!!.showErrorToast(e)
                 toggleShutterSound(false)
@@ -839,11 +845,6 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MediaScannerConnecti
         if (!mConfig.isSoundEnabled) {
             (mActivity!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager).setStreamMute(AudioManager.STREAM_SYSTEM, mute!!)
         }
-    }
-
-    override fun onScanCompleted(path: String, uri: Uri) {
-        mCallback.videoSaved(uri)
-        toggleShutterSound(false)
     }
 
     private fun hasFlash(camera: Camera?): Boolean {
