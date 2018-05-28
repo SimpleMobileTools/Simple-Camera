@@ -199,8 +199,10 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mIsInPhotoMode = true
         mTimerHandler = Handler()
         mFadeHandler = Handler()
-        mPreview!!.setFlashlightState(if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState)
         setupPreviewImage(true)
+
+        val initialFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
+        mPreview!!.setFlashlightState(initialFlashlightState)
     }
 
     private fun initButtons() {
@@ -214,11 +216,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun toggleCamera() {
-        if (!checkCameraAvailable()) {
-            return
+        if (checkCameraAvailable()) {
+            mPreview!!.toggleCamera()
         }
-
-        mPreview!!.toggleCamera()
     }
 
     private fun showLastMediaPreview() {
@@ -229,11 +229,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun toggleFlash() {
-        if (!checkCameraAvailable()) {
-            return
+        if (checkCameraAvailable()) {
+            mPreview?.toggleFlashlight()
         }
-
-        mPreview?.toggleFlashlight()
     }
 
     fun updateFlashlightState(state: Int) {
@@ -311,8 +309,9 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             return
         }
 
-        if (mIsVideoCaptureIntent)
+        if (mIsVideoCaptureIntent) {
             mPreview?.trySwitchToVideo()
+        }
 
         mPreview?.setFlashlightState(FLASH_OFF)
         hideTimer()
