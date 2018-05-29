@@ -42,6 +42,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mIsFlashSupported = true
     private var mIsImageCaptureIntent = false
     private var mIsInVideoMode = false
+    private var mUseFrontCamera = false
     private var mCameraId = ""
     private var mCameraState = STATE_INIT
     private var mFlashlightState = FLASH_OFF
@@ -111,7 +112,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun openCamera(width: Int, height: Int) {
-        setUpCameraOutputs(width, height)
+        setupCameraOutputs(width, height)
         configureTransform(width, height)
         val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
@@ -124,13 +125,21 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
-    private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader -> val image = reader.acquireNextImage() }
+    private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
+        val image = reader.acquireNextImage()
+        val buffer = image.planes[0].buffer
+    }
 
-    private fun setUpCameraOutputs(width: Int, height: Int) {
+    private fun setupCameraOutputs(width: Int, height: Int) {
         val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
             for (cameraId in manager.cameraIdList) {
                 val characteristics = manager.getCameraCharacteristics(cameraId)
+
+                val facing = characteristics.get(CameraCharacteristics.LENS_FACING) ?: continue
+                if ((mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_BACK) || !mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                    continue
+                }
 
                 val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP) ?: continue
                 val largest = map.getOutputSizes(ImageFormat.JPEG).maxBy { it.width * it.height }
