@@ -282,7 +282,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                             mCaptureSession = cameraCaptureSession
                             try {
                                 mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                                setupPreviewProperties(mPreviewRequestBuilder!!)
+                                mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
                                 mPreviewRequest = mPreviewRequestBuilder!!.build()
                                 mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
                                 mCameraState = STATE_PREVIEW
@@ -296,11 +296,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             )
         } catch (e: CameraAccessException) {
         }
-    }
-
-    private fun setupPreviewProperties(requestBuilder: CaptureRequest.Builder) {
-        val flashMode = if (mFlashlightState == FLASH_ON) CameraMetadata.FLASH_MODE_TORCH else CameraMetadata.FLASH_MODE_OFF
-        requestBuilder.set(CaptureRequest.FLASH_MODE, flashMode)
     }
 
     private val mCaptureCallback = object : CameraCaptureSession.CaptureCallback() {
@@ -362,10 +357,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
             captureBuilder.addTarget(mImageReader!!.surface)
-
             captureBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-            val flashMode = if (mFlashlightState == FLASH_ON) CameraMetadata.FLASH_MODE_TORCH else CameraMetadata.FLASH_MODE_OFF
-            captureBuilder.set(CaptureRequest.FLASH_MODE, flashMode)
 
             val rotation = mActivity.windowManager.defaultDisplay.rotation
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation))
@@ -390,7 +382,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private fun unlockFocus() {
         try {
             mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
-            setupPreviewProperties(mPreviewRequestBuilder!!)
+            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
             mCaptureSession!!.capture(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
             mCameraState = STATE_PREVIEW
             mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
@@ -409,6 +401,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun takePicture() {
         lockFocus()
+    }
+
+    private fun getFlashlightMode(state: Int) = when (state) {
+        FLASH_OFF -> CameraMetadata.FLASH_MODE_OFF
+        FLASH_ON -> CameraMetadata.FLASH_MODE_TORCH
+        else -> CameraMetadata.FLASH_MODE_SINGLE
     }
 
     override fun setTargetUri(uri: Uri) {
@@ -466,8 +464,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     override fun checkFlashlight() {
         if (mCameraState == STATE_PREVIEW) {
-            val flashMode = if (mFlashlightState == FLASH_ON) CameraMetadata.FLASH_MODE_TORCH else CameraMetadata.FLASH_MODE_OFF
-            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, flashMode)
+            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
             mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
             mActivity.updateFlashlightState(mFlashlightState)
         }
