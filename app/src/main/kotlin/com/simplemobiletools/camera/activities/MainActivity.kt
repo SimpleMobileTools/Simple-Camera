@@ -212,6 +212,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         val initialFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
         mPreview!!.setFlashlightState(initialFlashlightState)
+        updateFlashlightState(initialFlashlightState)
     }
 
     private fun initButtons() {
