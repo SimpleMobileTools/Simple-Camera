@@ -124,13 +124,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         }
     }
 
-    override fun resumeCamera() = setCamera(mCurrCameraId)
-
-    override fun setCamera(cameraId: Int): Boolean {
-        mCurrCameraId = cameraId
+    override fun resumeCamera(): Boolean {
         val newCamera: Camera
         try {
-            newCamera = Camera.open(cameraId)
+            newCamera = Camera.open(mCurrCameraId)
             mCallback.setIsCameraAvailable(true)
         } catch (e: Exception) {
             mActivity!!.showErrorToast(e)
@@ -204,7 +201,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
 
         mConfig.lastUsedCamera = mCurrCameraId
         releaseCamera()
-        if (setCamera(mCurrCameraId)) {
+        if (resumeCamera()) {
             setFlashlightState(FLASH_OFF)
             mActivity?.updateCameraIcon(mCurrCameraId == mCameraImpl!!.getFrontCameraId())
             mActivity?.toggleTimer(false)

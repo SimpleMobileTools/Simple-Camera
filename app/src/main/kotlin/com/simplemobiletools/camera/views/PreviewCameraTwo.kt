@@ -401,10 +401,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         checkFlashlight()
     }
 
-    override fun setCamera(cameraId: Int): Boolean {
-        return false
-    }
-
     override fun getCameraState() = mCameraState
 
     override fun showChangeResolutionDialog() {

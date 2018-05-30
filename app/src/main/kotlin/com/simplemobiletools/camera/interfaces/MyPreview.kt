@@ -13,8 +13,6 @@ interface MyPreview {
 
     fun setFlashlightState(state: Int)
 
-    fun setCamera(cameraId: Int): Boolean
-
     fun getCameraState(): Int
 
     fun showChangeResolutionDialog()
