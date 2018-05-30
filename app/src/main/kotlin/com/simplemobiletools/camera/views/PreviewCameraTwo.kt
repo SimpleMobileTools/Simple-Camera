@@ -122,12 +122,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun openCamera(width: Int, height: Int) {
         setupCameraOutputs(width, height)
-        val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
                 throw RuntimeException("Time out waiting to lock camera opening.")
             }
-            manager.openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
+            getCameraManager().openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
         } catch (e: InterruptedException) {
         } catch (e: SecurityException) {
         }
@@ -156,14 +155,13 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun getIsUsingFrontCamera(): Boolean {
-        val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        val characteristics = manager.getCameraCharacteristics(mCameraId)
+        val characteristics = getCameraManager().getCameraCharacteristics(mCameraId)
         val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
         return facing == CameraCharacteristics.LENS_FACING_FRONT
     }
 
     private fun setupCameraOutputs(width: Int, height: Int) {
-        val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val manager = getCameraManager()
         try {
             for (cameraId in manager.cameraIdList) {
                 val characteristics = manager.getCameraCharacteristics(cameraId)
@@ -381,8 +379,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private fun focusArea() {
         mActivity.drawFocusCircle(mLastClickX, mLastClickY)
 
-        val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        val characteristics = manager.getCameraCharacteristics(mCameraId)
+        val characteristics = getCameraManager().getCameraCharacteristics(mCameraId)
         val sensorArraySize = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
 
         val captureCallbackHandler = object : CameraCaptureSession.CaptureCallback() {
@@ -443,6 +440,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         } catch (e: CameraAccessException) {
         }
     }
+
+    private fun getCameraManager() = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
 
     private fun takePicture() {
         lockFocus()
