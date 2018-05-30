@@ -279,13 +279,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         private fun process(result: CaptureResult) {
             when (mCameraState) {
                 STATE_WAITING_LOCK -> {
-                    val afState = result.get(CaptureResult.CONTROL_AF_STATE)
-                    if (afState == null) {
+                    val autoFocusState = result.get(CaptureResult.CONTROL_AF_STATE)
+                    if (autoFocusState == null) {
                         captureStillPicture()
-                    } else if (afState == CaptureResult.CONTROL_AF_STATE_FOCUSED_LOCKED || afState == CaptureResult.CONTROL_AF_STATE_NOT_FOCUSED_LOCKED) {
+                    } else if (autoFocusState == CaptureResult.CONTROL_AF_STATE_FOCUSED_LOCKED || autoFocusState == CaptureResult.CONTROL_AF_STATE_NOT_FOCUSED_LOCKED) {
                         val aeState = result.get(CaptureResult.CONTROL_AE_STATE)
                         if (aeState == null || aeState == CaptureResult.CONTROL_AE_STATE_CONVERGED) {
-                            mCameraState = STATE_PICTURE_TAKEN
                             captureStillPicture()
                         } else {
                             runPrecaptureSequence()
@@ -301,7 +300,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 STATE_WAITING_NON_PRECAPTURE -> {
                     val aeState = result.get(CaptureResult.CONTROL_AE_STATE)
                     if (aeState == null || aeState != CaptureResult.CONTROL_AE_STATE_PRECAPTURE) {
-                        mCameraState = STATE_PICTURE_TAKEN
                         captureStillPicture()
                     }
                 }
@@ -332,6 +330,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 return
             }
 
+            mCameraState = STATE_PICTURE_TAKEN
             mRotationAtCapture = mActivity.mLastHandledOrientation
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
                 addTarget(mImageReader!!.surface)
