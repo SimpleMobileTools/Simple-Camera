@@ -3,7 +3,9 @@ package com.simplemobiletools.camera.views
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.*
+import android.graphics.ImageFormat
+import android.graphics.Point
+import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.media.ImageReader
 import android.net.Uri
@@ -11,7 +13,6 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Size
-import android.util.SparseIntArray
 import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
@@ -28,13 +29,6 @@ import java.util.concurrent.TimeUnit
 class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private val MAX_PREVIEW_WIDTH = 1920
     private val MAX_PREVIEW_HEIGHT = 1080
-
-    private val ORIENTATIONS = SparseIntArray().apply {
-        put(Surface.ROTATION_0, 90)
-        put(Surface.ROTATION_90, 0)
-        put(Surface.ROTATION_180, 270)
-        put(Surface.ROTATION_270, 180)
-    }
 
     private lateinit var mActivity: MainActivity
     private lateinit var mTextureView: AutoFitTextureView
@@ -82,7 +76,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
-        configureTransform(width, height)
     }
 
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {}
@@ -111,7 +104,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun openCamera(width: Int, height: Int) {
         setupCameraOutputs(width, height)
-        configureTransform(width, height)
         val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
@@ -169,19 +161,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mImageReader = ImageReader.newInstance(largest!!.width, largest.height, ImageFormat.JPEG, 2)
                 mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
 
-                val displayRotation = mActivity.windowManager.defaultDisplay.rotation
-
-                mSensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)!!
-                var swappedDimensions = false
-                when (displayRotation) {
-                    Surface.ROTATION_0, Surface.ROTATION_180 -> if (mSensorOrientation == 90 || mSensorOrientation == 270) {
-                        swappedDimensions = true
-                    }
-                    Surface.ROTATION_90, Surface.ROTATION_270 -> if (mSensorOrientation == 0 || mSensorOrientation == 180) {
-                        swappedDimensions = true
-                    }
-                }
-
                 val displaySize = Point()
                 mActivity.windowManager.defaultDisplay.getSize(displaySize)
                 var rotatedPreviewWidth = width
@@ -189,7 +168,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 var maxPreviewWidth = displaySize.x
                 var maxPreviewHeight = displaySize.y
 
-                if (swappedDimensions) {
+                mSensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)!!
+                if (mSensorOrientation == 90 || mSensorOrientation == 270) {
                     rotatedPreviewWidth = height
                     rotatedPreviewHeight = width
                     maxPreviewWidth = displaySize.y
@@ -244,31 +224,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             notBigEnough.size > 0 -> notBigEnough.maxBy { it.width * it.height }!!
             else -> choices[0]
         }
-    }
-
-    private fun configureTransform(viewWidth: Int, viewHeight: Int) {
-        if (mPreviewSize == null) {
-            return
-        }
-
-        val rotation = mActivity.windowManager.defaultDisplay.rotation
-        val matrix = Matrix()
-        val viewRect = RectF(0f, 0f, viewWidth.toFloat(), viewHeight.toFloat())
-        val bufferRect = RectF(0f, 0f, mPreviewSize!!.height.toFloat(), mPreviewSize!!.width.toFloat())
-        val centerX = viewRect.centerX()
-        val centerY = viewRect.centerY()
-
-        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
-            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY())
-            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL)
-            val scale = Math.max(viewHeight.toFloat() / mPreviewSize!!.height, viewWidth.toFloat() / mPreviewSize!!.width)
-            matrix.postScale(scale, scale, centerX, centerY)
-            matrix.postRotate((90 * (rotation - 2)).toFloat(), centerX, centerY)
-        } else if (Surface.ROTATION_180 == rotation) {
-            matrix.postRotate(180f, centerX, centerY)
-        }
-
-        mTextureView.setTransform(matrix)
     }
 
     private val cameraStateCallback = object : CameraDevice.StateCallback() {
@@ -386,12 +341,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 return
             }
 
-            val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-            captureBuilder.addTarget(mImageReader!!.surface)
-            captureBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-
-            val rotation = mActivity.windowManager.defaultDisplay.rotation
-            captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation))
+            val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
+                addTarget(mImageReader!!.surface)
+                set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
+            }
 
             val CaptureCallback = object : CameraCaptureSession.CaptureCallback() {
                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
@@ -407,8 +361,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         } catch (e: CameraAccessException) {
         }
     }
-
-    private fun getOrientation(rotation: Int) = (ORIENTATIONS.get(rotation) + mSensorOrientation + 270) % 360
 
     private fun unlockFocus() {
         try {
