@@ -15,10 +15,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.Handler
-import android.view.ScaleGestureDetector
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import android.view.ViewGroup
+import android.view.*
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
@@ -181,7 +178,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
         }
 
-        mCamera!!.setDisplayOrientation(mActivity!!.getPreviewRotation(mCurrCameraId))
+        mCamera!!.setDisplayOrientation(getPreviewRotation(mCurrCameraId))
         mParameters!!.zoom = 0
         updateCameraParameters()
 
@@ -385,9 +382,11 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     }
 
     private fun storePhoto(data: ByteArray) {
-        val flipHorizontally = mActivity!!.config.flipPhotos && mCurrCameraId == mActivity!!.getMyCamera().getFrontCameraId()
-        PhotoProcessor(mActivity!!, mTargetUri, mCurrCameraId, mRotationAtCapture, flipHorizontally).execute(data)
+        val previewRotation = getPreviewRotation(mCurrCameraId)
+        PhotoProcessor(mActivity!!, mTargetUri, mCurrCameraId, mRotationAtCapture, previewRotation, getIsUsingFrontCamera()).execute(data)
     }
+
+    private fun getIsUsingFrontCamera() = mCurrCameraId == mActivity!!.getMyCamera().getFrontCameraId()
 
     private fun handlePreview() {
         if (mConfig.isShowPreviewEnabled) {
@@ -802,8 +801,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     }
 
     private fun getVideoRotation(): Int {
-        val deviceRot = mActivity!!.compensateDeviceRotation(mActivity!!.mLastHandledOrientation, mCurrCameraId)
-        val previewRot = mActivity!!.getPreviewRotation(mCurrCameraId)
+        val deviceRot = compensateDeviceRotation(mActivity!!.mLastHandledOrientation, getIsUsingFrontCamera())
+        val previewRot = getPreviewRotation(mCurrCameraId)
         return (deviceRot + previewRot) % 360
     }
 
@@ -885,6 +884,32 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         display.getSize(size)
         size.y += mActivity!!.resources.getNavBarHeight()
         return size
+    }
+
+    private fun getPreviewRotation(cameraId: Int): Int {
+        val info = getCameraInfo(cameraId)
+        val degrees = when (mActivity!!.windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_90 -> 90
+            Surface.ROTATION_180 -> 180
+            Surface.ROTATION_270 -> 270
+            else -> 0
+        }
+
+        var result: Int
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360
+            result = 360 - result
+        } else {
+            result = info.orientation - degrees + 360
+        }
+
+        return result % 360
+    }
+
+    private fun getCameraInfo(cameraId: Int): Camera.CameraInfo {
+        val info = android.hardware.Camera.CameraInfo()
+        Camera.getCameraInfo(cameraId, info)
+        return info
     }
 
     interface PreviewListener {

@@ -9,10 +9,8 @@ import android.os.AsyncTask
 import android.os.Environment
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.camera.extensions.compensateDeviceRotation
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
-import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import java.io.File
@@ -20,14 +18,15 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int, val flipHorizontally: Boolean) : AsyncTask<ByteArray, Void, String>() {
+class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val currCameraId: Int, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean) :
+        AsyncTask<ByteArray, Void, String>() {
 
     override fun doInBackground(vararg params: ByteArray): String {
         var fos: OutputStream? = null
         val path: String
         try {
-            path = if (uri != null) {
-                uri.path
+            path = if (saveUri != null) {
+                saveUri.path
             } else {
                 activity.getOutputMediaFile(true)
             }
@@ -61,27 +60,25 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
 
                 fos = activity.contentResolver.openOutputStream(document.uri)
             } else {
-                fos = if (uri == null) {
+                fos = if (saveUri == null) {
                     FileOutputStream(photoFile)
                 } else {
-                    activity.contentResolver.openOutputStream(uri)
+                    activity.contentResolver.openOutputStream(saveUri)
                 }
             }
 
-            var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val exif = ExifInterface(photoFile.toString())
-
-            val deviceRot = activity.compensateDeviceRotation(deviceOrientation, currCameraId)
-            val previewRot = activity.getPreviewRotation(currCameraId)
             val orient = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
             val imageRot = orient.degreesFromOrientation()
 
-            val totalRotation = (imageRot + deviceRot + previewRot) % 360
+            val deviceRot = compensateDeviceRotation(deviceOrientation, isUsingFrontCamera)
+            var image = BitmapFactory.decodeByteArray(data, 0, data.size)
+            val totalRotation = (imageRot + deviceRot + previewRotation) % 360
             if (activity.isPathOnSD(path) && !isNougatPlus()) {
                 image = rotate(image, totalRotation)
             }
 
-            if (flipHorizontally) {
+            if (isUsingFrontCamera && activity.config.flipPhotos) {
                 val matrix = Matrix()
                 if (path.startsWith(activity.internalStoragePath)) {
                     matrix.preScale(1f, -1f)

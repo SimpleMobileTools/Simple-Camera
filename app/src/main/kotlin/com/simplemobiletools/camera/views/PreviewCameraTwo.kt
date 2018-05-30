@@ -16,7 +16,6 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import java.util.*
@@ -133,10 +132,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val buffer = reader.acquireNextImage().planes[0].buffer
         val bytes = ByteArray(buffer.remaining())
         buffer.get(bytes)
-        PhotoProcessor(mActivity, mTargetUri, 0, mRotationAtCapture, mActivity.config.flipPhotos && getIsFrontCamera()).execute(bytes)
+        PhotoProcessor(mActivity, mTargetUri, 0, mRotationAtCapture, mSensorOrientation, getIsUsingFrontCamera()).execute(bytes)
     }
 
-    private fun getIsFrontCamera(): Boolean {
+    private fun getIsUsingFrontCamera(): Boolean {
         val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         val characteristics = manager.getCameraCharacteristics(mCameraId)
         val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
@@ -341,6 +340,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             val CaptureCallback = object : CameraCaptureSession.CaptureCallback() {
                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                     unlockFocus()
+                    mActivity.toggleBottomButtons(false)
+                }
+
+                override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
+                    super.onCaptureFailed(session, request, failure)
                     mActivity.toggleBottomButtons(false)
                 }
             }
