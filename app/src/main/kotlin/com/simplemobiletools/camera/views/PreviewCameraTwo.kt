@@ -92,8 +92,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun stopBackgroundThread() {
-        mBackgroundThread?.quitSafely()
         try {
+            mBackgroundThread?.quitSafely()
             mBackgroundThread?.join()
             mBackgroundThread = null
             mBackgroundHandler = null
@@ -342,6 +342,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             val CaptureCallback = object : CameraCaptureSession.CaptureCallback() {
                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                     unlockFocus()
+                    mActivity.toggleBottomButtons(false)
                 }
             }
 
