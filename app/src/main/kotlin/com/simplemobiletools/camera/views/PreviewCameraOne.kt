@@ -36,7 +36,6 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
 
     private lateinit var mSurfaceHolder: SurfaceHolder
     private lateinit var mSurfaceView: SurfaceView
-    private lateinit var mCallback: PreviewListener
     private lateinit var mScreenSize: Point
     private lateinit var mConfig: Config
     private var mSupportedPreviewSizes: List<Camera.Size>? = null
@@ -75,9 +74,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     constructor(context: Context) : super(context)
 
     @SuppressLint("ClickableViewAccessibility")
-    constructor(activity: MainActivity, surfaceView: SurfaceView, previewListener: PreviewListener) : super(activity) {
+    constructor(activity: MainActivity, surfaceView: SurfaceView) : super(activity) {
         mActivity = activity
-        mCallback = previewListener
         mSurfaceView = surfaceView
         mSurfaceHolder = mSurfaceView.holder
         mSurfaceHolder.addCallback(this)
@@ -128,10 +126,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         val newCamera: Camera
         try {
             newCamera = Camera.open(mCurrCameraId)
-            mCallback.setIsCameraAvailable(true)
+            mActivity!!.setIsCameraAvailable(true)
         } catch (e: Exception) {
             mActivity!!.showErrorToast(e)
-            mCallback.setIsCameraAvailable(false)
+            mActivity!!.setIsCameraAvailable(false)
             return false
         }
 
@@ -188,7 +186,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             }
         }
 
-        mCallback.setFlashAvailable(hasFlash(mCamera))
+        mActivity!!.setFlashAvailable(hasFlash(mCamera))
         return true
     }
 
@@ -432,7 +430,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             mParameters!!.focusAreas = focusAreas
 
             if (showFocusRect) {
-                mCallback.drawFocusCircle(mLastClickX, mLastClickY)
+                mActivity!!.drawFocusCircle(mLastClickX, mLastClickY)
             }
         }
 
@@ -829,7 +827,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
                 mActivity!!.rescanPaths(arrayListOf(mCurrVideoPath)) {
-                    mCallback.videoSaved(Uri.fromFile(File(mCurrVideoPath)))
+                    mActivity!!.videoSaved(Uri.fromFile(File(mCurrVideoPath)))
                     toggleShutterSound(false)
                 }
             } catch (e: RuntimeException) {
@@ -907,15 +905,5 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         val info = android.hardware.Camera.CameraInfo()
         Camera.getCameraInfo(cameraId, info)
         return info
-    }
-
-    interface PreviewListener {
-        fun setFlashAvailable(available: Boolean)
-
-        fun setIsCameraAvailable(available: Boolean)
-
-        fun videoSaved(uri: Uri)
-
-        fun drawFocusCircle(x: Float, y: Float)
     }
 }

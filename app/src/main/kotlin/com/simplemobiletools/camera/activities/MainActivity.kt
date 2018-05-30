@@ -23,14 +23,13 @@ import com.simplemobiletools.camera.interfaces.MyCamera
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.camera.views.PreviewCameraOne
-import com.simplemobiletools.camera.views.PreviewCameraOne.PreviewListener
 import com.simplemobiletools.camera.views.PreviewCameraTwo
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
+class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private val FADE_DELAY = 5000L
 
     lateinit var mTimerHandler: Handler
@@ -194,7 +193,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
-        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view) else PreviewCameraOne(this, camera_surface_view, this)
+        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view) else PreviewCameraOne(this, camera_surface_view)
         view_holder.addView(mPreview as ViewGroup)
 
         val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
@@ -511,7 +510,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         return mIsCameraAvailable
     }
 
-    override fun setFlashAvailable(available: Boolean) {
+    fun setFlashAvailable(available: Boolean) {
         if (available) {
             toggle_flash.beVisible()
         } else {
@@ -520,11 +519,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    override fun setIsCameraAvailable(available: Boolean) {
+    fun setIsCameraAvailable(available: Boolean) {
         mIsCameraAvailable = available
     }
 
-    override fun videoSaved(uri: Uri) {
+    fun videoSaved(uri: Uri) {
         setupPreviewImage(mIsInPhotoMode)
         if (mIsVideoCaptureIntent) {
             Intent().apply {
@@ -536,7 +535,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    override fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
+    fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
         rescanPaths(arrayListOf(path)) {
