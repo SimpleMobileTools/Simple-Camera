@@ -76,11 +76,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun onPaused() {
+        closeCamera()
         stopBackgroundThread()
-        mCaptureSession?.close()
-        mCameraDevice?.close()
-        mCameraDevice = null
-        mCaptureSession = null
     }
 
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
@@ -122,6 +119,21 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             manager.openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
         } catch (e: InterruptedException) {
         } catch (e: SecurityException) {
+        }
+    }
+
+    private fun closeCamera() {
+        try {
+            mCameraOpenCloseLock.acquire()
+            mCaptureSession?.close()
+            mCaptureSession = null
+            mCameraDevice?.close()
+            mCameraDevice = null
+            mImageReader?.close()
+            mImageReader = null
+        } catch (e: Exception) {
+        } finally {
+            mCameraOpenCloseLock.release()
         }
     }
 
@@ -249,7 +261,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mTextureView.setTransform(matrix)
     }
 
-    private var cameraStateCallback = object : CameraDevice.StateCallback() {
+    private val cameraStateCallback = object : CameraDevice.StateCallback() {
         override fun onOpened(cameraDevice: CameraDevice) {
             mCameraOpenCloseLock.release()
             mCameraDevice = cameraDevice

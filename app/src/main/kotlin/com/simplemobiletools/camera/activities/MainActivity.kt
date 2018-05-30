@@ -69,6 +69,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun onResume() {
         super.onResume()
         if (hasStorageAndCameraPermissions()) {
+            mPreview?.onResumed()
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
             scheduleFadeOut()
@@ -84,7 +85,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         if (hasStorageAndCameraPermissions()) {
             mOrientationEventListener.enable()
         }
-        mPreview?.onResumed()
     }
 
     override fun onPause() {
