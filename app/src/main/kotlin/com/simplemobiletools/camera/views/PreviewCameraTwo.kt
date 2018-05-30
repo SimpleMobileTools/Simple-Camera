@@ -403,9 +403,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     override fun getCameraState() = mCameraState
 
-    override fun releaseCamera() {
-    }
-
     override fun showChangeResolutionDialog() {
     }
 

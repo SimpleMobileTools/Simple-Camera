@@ -115,7 +115,9 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
 
     override fun onResumed() {}
 
-    override fun onPaused() {}
+    override fun onPaused() {
+        releaseCamera()
+    }
 
     override fun tryInitVideoMode() {
         if (mIsSurfaceCreated) {
@@ -502,7 +504,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         }
     }
 
-    override fun releaseCamera() {
+    fun releaseCamera() {
         stopRecording()
         mCamera?.stopPreview()
         mCamera?.release()

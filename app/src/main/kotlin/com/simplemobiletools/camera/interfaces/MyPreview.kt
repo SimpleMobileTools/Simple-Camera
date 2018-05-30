@@ -17,8 +17,6 @@ interface MyPreview {
 
     fun getCameraState(): Int
 
-    fun releaseCamera()
-
     fun showChangeResolutionDialog()
 
     fun toggleFrontBackCamera()

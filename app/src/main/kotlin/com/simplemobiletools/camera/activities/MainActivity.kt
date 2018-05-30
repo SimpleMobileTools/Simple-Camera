@@ -97,7 +97,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mFadeHandler.removeCallbacksAndMessages(null)
 
         hideTimer()
-        mPreview?.releaseCamera()
         mOrientationEventListener.disable()
 
         if (mPreview?.getCameraState() == STATE_PICTURE_TAKEN) {
@@ -108,7 +107,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
 
     override fun onDestroy() {
         super.onDestroy()
-        mPreview?.releaseCamera()
         mPreview = null
     }
 
