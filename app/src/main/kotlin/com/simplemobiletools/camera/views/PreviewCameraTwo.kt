@@ -7,6 +7,7 @@ import android.graphics.ImageFormat
 import android.graphics.Point
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
+import android.hardware.camera2.params.MeteringRectangle
 import android.media.ImageReader
 import android.net.Uri
 import android.os.Build
@@ -24,9 +25,11 @@ import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 
+
 // based on the Android Camera2 sample at https://github.com/googlesamples/android-Camera2Basic
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
+    private val FOCUS_TAG = "focus_tag"
     private val MAX_PREVIEW_WIDTH = 1920
     private val MAX_PREVIEW_HEIGHT = 1080
 
@@ -265,28 +268,27 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             mPreviewRequestBuilder!!.addTarget(surface)
 
-            mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface),
-                    object : CameraCaptureSession.StateCallback() {
-                        override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
-                            if (mCameraDevice == null) {
-                                return
-                            }
+            val stateCallback = object : CameraCaptureSession.StateCallback() {
+                override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
+                    if (mCameraDevice == null) {
+                        return
+                    }
 
-                            mCaptureSession = cameraCaptureSession
-                            try {
-                                mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                                mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
-                                mPreviewRequest = mPreviewRequestBuilder!!.build()
-                                mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-                                mCameraState = STATE_PREVIEW
-                            } catch (e: CameraAccessException) {
-                            }
-                        }
+                    mCaptureSession = cameraCaptureSession
+                    try {
+                        mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                        mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
+                        mPreviewRequest = mPreviewRequestBuilder!!.build()
+                        mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                        mCameraState = STATE_PREVIEW
+                    } catch (e: CameraAccessException) {
+                    }
+                }
 
-                        override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
-                        }
-                    }, null
-            )
+                override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
+            }
+
+            mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
         } catch (e: CameraAccessException) {
         }
     }
@@ -354,7 +356,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
             }
 
-            val CaptureCallback = object : CameraCaptureSession.CaptureCallback() {
+            val captureCallback = object : CameraCaptureSession.CaptureCallback() {
                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                     unlockFocus()
                     mActivity.toggleBottomButtons(false)
@@ -369,14 +371,57 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mCaptureSession!!.apply {
                 stopRepeating()
                 abortCaptures()
-                capture(captureBuilder.build(), CaptureCallback, null)
+                capture(captureBuilder.build(), captureCallback, null)
             }
         } catch (e: CameraAccessException) {
         }
     }
 
+    // inspired by https://gist.github.com/royshil/8c760c2485257c85a11cafd958548482
     private fun focusArea() {
         mActivity.drawFocusCircle(mLastClickX, mLastClickY)
+
+        val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val characteristics = manager.getCameraCharacteristics(mCameraId)
+        val sensorArraySize = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+
+        val x = (mLastClickX / mTextureView.width) * sensorArraySize.height()
+        val y = (mLastClickY / mTextureView.height) * sensorArraySize.width()
+        val halfTouchWidth = 150
+        val halfTouchHeight = 150
+        val focusAreaTouch = MeteringRectangle(Math.max(x - halfTouchWidth, 0f).toInt(),
+                Math.max(y - halfTouchHeight, 0f).toInt(),
+                halfTouchWidth * 2,
+                halfTouchHeight * 2,
+                MeteringRectangle.METERING_WEIGHT_MAX - 1)
+
+        val captureCallbackHandler = object : CameraCaptureSession.CaptureCallback() {
+            override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
+                super.onCaptureCompleted(session, request, result)
+
+                if (request.tag === FOCUS_TAG) {
+                    mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, null)
+                    mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, null)
+                }
+            }
+        }
+
+        mCaptureSession!!.stopRepeating()
+        mPreviewRequestBuilder!!.apply {
+            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
+            set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF)
+            mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
+
+            if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
+                set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(focusAreaTouch))
+            }
+
+            set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+            set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_AUTO)
+            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
+            setTag(FOCUS_TAG)
+            mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
+        }
     }
 
     private fun lockFocus() {
