@@ -385,16 +385,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val characteristics = manager.getCameraCharacteristics(mCameraId)
         val sensorArraySize = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
 
-        val x = (mLastClickX / mTextureView.width) * sensorArraySize.height()
-        val y = (mLastClickY / mTextureView.height) * sensorArraySize.width()
-        val halfTouchWidth = 150
-        val halfTouchHeight = 150
-        val focusAreaTouch = MeteringRectangle(Math.max(x - halfTouchWidth, 0f).toInt(),
-                Math.max(y - halfTouchHeight, 0f).toInt(),
-                halfTouchWidth * 2,
-                halfTouchHeight * 2,
-                MeteringRectangle.METERING_WEIGHT_MAX - 1)
-
         val captureCallbackHandler = object : CameraCaptureSession.CaptureCallback() {
             override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                 super.onCaptureCompleted(session, request, result)
@@ -413,6 +403,16 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
 
             if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
+                val x = (mLastClickX / mTextureView.width) * sensorArraySize.height()
+                val y = (mLastClickY / mTextureView.height) * sensorArraySize.width()
+                val halfTouchWidth = 150
+                val halfTouchHeight = 150
+                val focusAreaTouch = MeteringRectangle(Math.max(x - halfTouchWidth, 0f).toInt(),
+                        Math.max(y - halfTouchHeight, 0f).toInt(),
+                        halfTouchWidth * 2,
+                        halfTouchHeight * 2,
+                        MeteringRectangle.METERING_WEIGHT_MAX - 1)
+
                 set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(focusAreaTouch))
             }
 
