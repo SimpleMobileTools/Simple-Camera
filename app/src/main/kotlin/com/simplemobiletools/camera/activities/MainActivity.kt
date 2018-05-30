@@ -453,7 +453,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         showToggleCameraIfNeeded()
         if (mPreview?.resumeCamera() == true) {
             hideNavigationBarIcons()
-            mPreview?.checkFlashlight()
 
             if (!mIsInPhotoMode) {
                 initVideoButtons()

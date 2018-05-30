@@ -444,6 +444,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun toggleFrontBackCamera() {
+        mUseFrontCamera = !mUseFrontCamera
     }
 
     override fun toggleFlashlight() {
@@ -472,7 +473,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun checkFlashlight() {
-        if (mCameraState == STATE_PREVIEW) {
+        if (mCameraState == STATE_PREVIEW && mIsFlashSupported) {
             mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
             mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
             mActivity.updateFlashlightState(mFlashlightState)
