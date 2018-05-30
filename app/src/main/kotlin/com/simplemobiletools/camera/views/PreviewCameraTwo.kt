@@ -386,7 +386,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                 super.onCaptureCompleted(session, request, result)
 
-                if (request.tag === FOCUS_TAG) {
+                if (request.tag == FOCUS_TAG) {
                     mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, null)
                     mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, null)
                 }
