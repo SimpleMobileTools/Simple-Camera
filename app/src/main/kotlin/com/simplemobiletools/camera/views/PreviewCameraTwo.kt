@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera.views
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.ImageFormat
@@ -33,6 +34,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private var mSensorOrientation = 0
     private var mRotationAtCapture = 0
+    private var mLastClickX = 0f
+    private var mLastClickY = 0f
     private var mIsFlashSupported = true
     private var mIsImageCaptureIntent = false
     private var mIsInVideoMode = false
@@ -54,9 +57,20 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     constructor(context: Context) : super(context)
 
+    @SuppressLint("ClickableViewAccessibility")
     constructor(activity: MainActivity, textureView: AutoFitTextureView) : super(activity) {
         mActivity = activity
         mTextureView = textureView
+
+        mTextureView.setOnTouchListener { view, event ->
+            mLastClickX = event.x
+            mLastClickY = event.y
+            false
+        }
+
+        mTextureView.setOnClickListener {
+            focusArea()
+        }
     }
 
     override fun onResumed() {
@@ -358,15 +372,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
-    private fun unlockFocus() {
-        try {
-            mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
-            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
-            mCaptureSession!!.capture(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
-            mCameraState = STATE_PREVIEW
-            mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-        } catch (e: CameraAccessException) {
-        }
+    private fun focusArea() {
+
     }
 
     private fun lockFocus() {
@@ -374,6 +381,17 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
             mCameraState = STATE_WAITING_LOCK
             mCaptureSession!!.capture(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
+        } catch (e: CameraAccessException) {
+        }
+    }
+
+    private fun unlockFocus() {
+        try {
+            mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
+            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
+            mCaptureSession!!.capture(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
+            mCameraState = STATE_PREVIEW
+            mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
         } catch (e: CameraAccessException) {
         }
     }
