@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Size
+import android.view.MotionEvent
 import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
@@ -63,8 +64,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mTextureView = textureView
 
         mTextureView.setOnTouchListener { view, event ->
-            mLastClickX = event.x
-            mLastClickY = event.y
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                mLastClickX = event.x
+                mLastClickY = event.y
+            }
             false
         }
 
