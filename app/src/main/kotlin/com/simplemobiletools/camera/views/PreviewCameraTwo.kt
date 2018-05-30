@@ -132,7 +132,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val buffer = reader.acquireNextImage().planes[0].buffer
         val bytes = ByteArray(buffer.remaining())
         buffer.get(bytes)
-        PhotoProcessor(mActivity, mTargetUri, 0, mRotationAtCapture, mSensorOrientation, getIsUsingFrontCamera()).execute(bytes)
+        PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, mSensorOrientation, getIsUsingFrontCamera()).execute(bytes)
     }
 
     private fun getIsUsingFrontCamera(): Boolean {
@@ -182,8 +182,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     maxPreviewHeight = MAX_PREVIEW_HEIGHT
                 }
 
-                mPreviewSize = chooseOptimalSize(configMap.getOutputSizes(SurfaceTexture::class.java),
-                        rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, largest)
+                val outputSizes = configMap.getOutputSizes(SurfaceTexture::class.java)
+                mPreviewSize = chooseOptimalSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, largest)
 
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
                 mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
