@@ -2,7 +2,6 @@ package com.simplemobiletools.camera.views
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.ImageFormat
 import android.graphics.Point
 import android.graphics.SurfaceTexture
@@ -41,6 +40,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mCameraId = ""
     private var mCameraState = STATE_INIT
     private var mFlashlightState = FLASH_OFF
+    private var mRotationAtCapture = 0
 
     private var mBackgroundThread: HandlerThread? = null
     private var mBackgroundHandler: Handler? = null
@@ -134,7 +134,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val buffer = reader.acquireNextImage().planes[0].buffer
         val bytes = ByteArray(buffer.remaining())
         buffer.get(bytes)
-        PhotoProcessor(mActivity, mTargetUri, 0, 0, mActivity.config.flipPhotos && getIsFrontCamera()).execute(bytes)
+        PhotoProcessor(mActivity, mTargetUri, 0, mRotationAtCapture, mActivity.config.flipPhotos && getIsFrontCamera()).execute(bytes)
     }
 
     private fun getIsFrontCamera(): Boolean {
@@ -155,8 +155,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     continue
                 }
 
-                val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP) ?: continue
-                val largest = map.getOutputSizes(ImageFormat.JPEG).maxBy { it.width * it.height }
+                val configMap = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP) ?: continue
+                val largest = configMap.getOutputSizes(ImageFormat.JPEG).maxBy { it.width * it.height }
 
                 mImageReader = ImageReader.newInstance(largest!!.width, largest.height, ImageFormat.JPEG, 2)
                 mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
@@ -184,19 +184,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     maxPreviewHeight = MAX_PREVIEW_HEIGHT
                 }
 
-                mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture::class.java),
-                        rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
-                        maxPreviewHeight, largest)
+                mPreviewSize = chooseOptimalSize(configMap.getOutputSizes(SurfaceTexture::class.java),
+                        rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, largest)
 
-                val orientation = resources.configuration.orientation
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    mTextureView.setAspectRatio(mPreviewSize!!.width, mPreviewSize!!.height)
-                } else {
-                    mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
-                }
-
-                val available = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)
-                mIsFlashSupported = available ?: false
+                mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
+                mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
                 mCameraId = cameraId
                 return
             }
@@ -341,6 +333,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 return
             }
 
+            mRotationAtCapture = mActivity.mLastHandledOrientation
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
                 addTarget(mImageReader!!.surface)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
