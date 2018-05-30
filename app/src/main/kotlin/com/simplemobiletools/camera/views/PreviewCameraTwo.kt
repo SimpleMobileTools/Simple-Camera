@@ -33,6 +33,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private lateinit var mTextureView: AutoFitTextureView
 
     private var mSensorOrientation = 0
+    private var mRotationAtCapture = 0
     private var mIsFlashSupported = true
     private var mIsImageCaptureIntent = false
     private var mIsInVideoMode = false
@@ -40,7 +41,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mCameraId = ""
     private var mCameraState = STATE_INIT
     private var mFlashlightState = FLASH_OFF
-    private var mRotationAtCapture = 0
 
     private var mBackgroundThread: HandlerThread? = null
     private var mBackgroundHandler: Handler? = null
@@ -75,8 +75,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         stopBackgroundThread()
     }
 
-    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
-    }
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {}
 
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {}
 
