@@ -373,7 +373,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun focusArea() {
-
+        mActivity.drawFocusCircle(mLastClickX, mLastClickY)
     }
 
     private fun lockFocus() {

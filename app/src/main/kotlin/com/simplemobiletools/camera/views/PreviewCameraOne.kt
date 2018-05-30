@@ -99,8 +99,9 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             if (mIsPreviewShown) {
                 resumePreview()
             } else {
-                if (!mWasZooming && !mIsPreviewShown)
+                if (!mWasZooming && !mIsPreviewShown) {
                     focusArea(false)
+                }
 
                 mWasZooming = false
                 mSurfaceView.isSoundEffectsEnabled = true
