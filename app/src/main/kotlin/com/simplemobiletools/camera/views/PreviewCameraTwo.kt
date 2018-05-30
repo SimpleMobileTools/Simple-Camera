@@ -16,6 +16,7 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
+import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import java.util.*
@@ -138,8 +139,17 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
-        val image = reader.acquireNextImage()
-        val buffer = image.planes[0].buffer
+        val buffer = reader.acquireNextImage().planes[0].buffer
+        val bytes = ByteArray(buffer.remaining())
+        buffer.get(bytes)
+        PhotoProcessor(mActivity, mTargetUri, 0, 0, mActivity.config.flipPhotos && getIsFrontCamera()).execute(bytes)
+    }
+
+    private fun getIsFrontCamera(): Boolean {
+        val manager = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val characteristics = manager.getCameraCharacteristics(mCameraId)
+        val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
+        return facing == CameraCharacteristics.LENS_FACING_FRONT
     }
 
     private fun setupCameraOutputs(width: Int, height: Int) {

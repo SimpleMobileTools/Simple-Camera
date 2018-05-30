@@ -9,7 +9,10 @@ import android.os.AsyncTask
 import android.os.Environment
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
-import com.simplemobiletools.camera.extensions.*
+import com.simplemobiletools.camera.extensions.compensateDeviceRotation
+import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getOutputMediaFile
+import com.simplemobiletools.camera.extensions.getPreviewRotation
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import java.io.File
@@ -17,7 +20,7 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int) : AsyncTask<ByteArray, Void, String>() {
+class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId: Int, val deviceOrientation: Int, val flipHorizontally: Boolean) : AsyncTask<ByteArray, Void, String>() {
 
     override fun doInBackground(vararg params: ByteArray): String {
         var fos: OutputStream? = null
@@ -78,7 +81,7 @@ class PhotoProcessor(val activity: MainActivity, val uri: Uri?, val currCameraId
                 image = rotate(image, totalRotation)
             }
 
-            if (currCameraId == activity.getMyCamera().getFrontCameraId() && !activity.config.flipPhotos) {
+            if (flipHorizontally) {
                 val matrix = Matrix()
                 if (path.startsWith(activity.internalStoragePath)) {
                     matrix.preScale(1f, -1f)

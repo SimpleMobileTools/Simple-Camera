@@ -383,7 +383,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     }
 
     private fun storePhoto(data: ByteArray) {
-        PhotoProcessor(mActivity!!, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
+        val flipHorizontally = mActivity!!.config.flipPhotos && mCurrCameraId == mActivity!!.getMyCamera().getFrontCameraId()
+        PhotoProcessor(mActivity!!, mTargetUri, mCurrCameraId, mRotationAtCapture, flipHorizontally).execute(data)
     }
 
     private fun handlePreview() {
