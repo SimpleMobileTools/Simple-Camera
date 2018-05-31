@@ -279,10 +279,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     fun toggleBottomButtons(hide: Boolean) {
-        val alpha = if (hide) 0f else 1f
-        shutter.animate().alpha(alpha).start()
-        toggle_camera.animate().alpha(alpha).start()
-        toggle_flash.animate().alpha(alpha).start()
+        runOnUiThread {
+            val alpha = if (hide) 0f else 1f
+            shutter.animate().alpha(alpha).start()
+            toggle_camera.animate().alpha(alpha).start()
+            toggle_flash.animate().alpha(alpha).start()
+        }
 
         shutter.isClickable = !hide
         toggle_camera.isClickable = !hide
