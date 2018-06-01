@@ -442,7 +442,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mCaptureSession!!.stopRepeating()
         mPreviewRequestBuilder!!.apply {
             set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
-            set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
 
             val characteristics = getCameraCharacteristics()
@@ -456,7 +455,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
 
             set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-            set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_AUTO)
             set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
             setTag(FOCUS_TAG)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
