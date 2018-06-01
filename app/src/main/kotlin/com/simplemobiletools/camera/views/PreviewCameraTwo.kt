@@ -61,6 +61,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val mCameraToPreviewMatrix = Matrix()
     private val mPreviewToCameraMatrix = Matrix()
     private val mCameraOpenCloseLock = Semaphore(1)
+    private var mZoomRect = Rect()
 
     constructor(context: Context) : super(context)
 
@@ -173,8 +174,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             var cropHeight = (diffHeight / 100 * mZoomLevel).toInt()
             cropWidth -= cropWidth and 3
             cropHeight -= cropHeight and 3
-            val zoom = Rect(cropWidth, cropHeight, sensorRect.width() - cropWidth, sensorRect.height() - cropHeight)
-            mPreviewRequestBuilder!!.set(CaptureRequest.SCALER_CROP_REGION, zoom)
+            mZoomRect = Rect(cropWidth, cropHeight, sensorRect.width() - cropWidth, sensorRect.height() - cropHeight)
+            mPreviewRequestBuilder!!.set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
             mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
         }
         mZoomFingerSpacing = currentFingerSpacing
@@ -391,6 +392,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 addTarget(mImageReader!!.surface)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                 set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
+                set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
             }
 
             val captureCallback = object : CameraCaptureSession.CaptureCallback() {
@@ -526,19 +528,24 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun lockFocus() {
         try {
-            mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
             mCameraState = STATE_WAITING_LOCK
-            mCaptureSession!!.capture(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
+            mPreviewRequestBuilder!!.apply {
+                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
+                set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
+                mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
+            }
         } catch (e: CameraAccessException) {
         }
     }
 
     private fun unlockFocus() {
         try {
-            mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
-            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
-            mCaptureSession!!.capture(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
             mCameraState = STATE_PREVIEW
+            mPreviewRequestBuilder!!.apply {
+                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
+                set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
+                mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
+            }
             mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
         } catch (e: CameraAccessException) {
         }
