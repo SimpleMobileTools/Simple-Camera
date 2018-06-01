@@ -3,9 +3,7 @@ package com.simplemobiletools.camera.views
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
-import android.graphics.ImageFormat
-import android.graphics.Point
-import android.graphics.SurfaceTexture
+import android.graphics.*
 import android.hardware.camera2.*
 import android.hardware.camera2.params.MeteringRectangle
 import android.media.ImageReader
@@ -21,6 +19,7 @@ import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.FocusArea
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -57,6 +56,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mCaptureSession: CameraCaptureSession? = null
     private var mPreviewRequestBuilder: CaptureRequest.Builder? = null
     private var mPreviewRequest: CaptureRequest? = null
+    private val mCameraToPreviewMatrix = Matrix()
+    private val mPreviewToCameraMatrix = Matrix()
     private val mCameraOpenCloseLock = Semaphore(1)
 
     constructor(context: Context) : super(context)
@@ -379,9 +380,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private fun focusArea() {
         mActivity.drawFocusCircle(mLastClickX, mLastClickY)
 
-        val characteristics = getCameraManager().getCameraCharacteristics(mCameraId)
-        val sensorArraySize = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
-
         val captureCallbackHandler = object : CameraCaptureSession.CaptureCallback() {
             override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                 super.onCaptureCompleted(session, request, result)
@@ -399,18 +397,14 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
 
-            if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
-                val x = (mLastClickX / mTextureView.width) * sensorArraySize.height()
-                val y = (mLastClickY / mTextureView.height) * sensorArraySize.width()
-                val halfTouchWidth = 150
-                val halfTouchHeight = 150
-                val focusAreaTouch = MeteringRectangle(Math.max(x - halfTouchWidth, 0f).toInt(),
-                        Math.max(y - halfTouchHeight, 0f).toInt(),
-                        halfTouchWidth * 2,
-                        halfTouchHeight * 2,
-                        MeteringRectangle.METERING_WEIGHT_MAX - 1)
+            val characteristics = getCameraManager().getCameraCharacteristics(mCameraId)
 
-                set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(focusAreaTouch))
+            // touch-to-focus inspired by OpenCamera
+            if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
+                val focusArea = getFocusArea()
+                val sensorRect = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+                val meteringRect = convertAreaToMeteringRectangle(sensorRect, focusArea)
+                set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(meteringRect))
             }
 
             set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
@@ -418,6 +412,77 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
             setTag(FOCUS_TAG)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
+        }
+    }
+
+    private fun convertAreaToMeteringRectangle(sensorRect: Rect, focusArea: FocusArea): MeteringRectangle {
+        val camera2Rect = convertRectToCamera2(sensorRect, focusArea.rect)
+        return MeteringRectangle(camera2Rect, focusArea.weight)
+    }
+
+    private fun convertRectToCamera2(cropRect: Rect, rect: Rect): Rect {
+        val leftF = (rect.left + 1000) / 2000.0
+        val topF = (rect.top + 1000) / 2000.0
+        val rightF = (rect.right + 1000) / 2000.0
+        val bottomF = (rect.bottom + 1000) / 2000.0
+        var left = (cropRect.left + leftF * (cropRect.width() - 1)).toInt()
+        var right = (cropRect.left + rightF * (cropRect.width() - 1)).toInt()
+        var top = (cropRect.top + topF * (cropRect.height() - 1)).toInt()
+        var bottom = (cropRect.top + bottomF * (cropRect.height() - 1)).toInt()
+        left = Math.max(left, cropRect.left)
+        right = Math.max(right, cropRect.left)
+        top = Math.max(top, cropRect.top)
+        bottom = Math.max(bottom, cropRect.top)
+        left = Math.min(left, cropRect.right)
+        right = Math.min(right, cropRect.right)
+        top = Math.min(top, cropRect.bottom)
+        bottom = Math.min(bottom, cropRect.bottom)
+
+        return Rect(left, top, right, bottom)
+    }
+
+    private fun getFocusArea(): FocusArea {
+        val coords = floatArrayOf(mLastClickX, mLastClickY)
+        calculateCameraToPreviewMatrix()
+        mPreviewToCameraMatrix.mapPoints(coords)
+        val focusX = coords[0].toInt()
+        val focusY = coords[1].toInt()
+
+        val focusSize = 50
+        val rect = Rect()
+        rect.left = focusX - focusSize
+        rect.right = focusX + focusSize
+        rect.top = focusY - focusSize
+        rect.bottom = focusY + focusSize
+
+        if (rect.left < -1000) {
+            rect.left = -1000
+            rect.right = rect.left + 2 * focusSize
+        } else if (rect.right > 1000) {
+            rect.right = 1000
+            rect.left = rect.right - 2 * focusSize
+        }
+
+        if (rect.top < -1000) {
+            rect.top = -1000
+            rect.bottom = rect.top + 2 * focusSize
+        } else if (rect.bottom > 1000) {
+            rect.bottom = 1000
+            rect.top = rect.bottom - 2 * focusSize
+        }
+
+        return FocusArea(rect, MeteringRectangle.METERING_WEIGHT_MAX)
+    }
+
+    private fun calculateCameraToPreviewMatrix() {
+        val yScale = if (getIsUsingFrontCamera()) -1 else 1
+        mCameraToPreviewMatrix.apply {
+            reset()
+            setScale(1f, yScale.toFloat())
+            postRotate(mSensorOrientation.toFloat())
+            postScale(mTextureView.width / 2000f, mTextureView.height / 2000f)
+            postTranslate(mTextureView.width / 2f, mTextureView.height / 2f)
+            invert(mPreviewToCameraMatrix)
         }
     }
 
