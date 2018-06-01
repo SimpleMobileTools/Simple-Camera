@@ -24,7 +24,6 @@ import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 
-
 // based on the Android Camera2 sample at https://github.com/googlesamples/android-Camera2Basic
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
@@ -37,9 +36,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private var mSensorOrientation = 0
     private var mRotationAtCapture = 0
+    private var mZoomLevel = 1
+    private var mZoomFingerSpacing = 0f
     private var mLastClickX = 0f
     private var mLastClickY = 0f
     private var mIsFlashSupported = true
+    private var mIsZoomSupported = true
     private var mIsImageCaptureIntent = false
     private var mIsInVideoMode = false
     private var mUseFrontCamera = false
@@ -71,6 +73,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             if (event.action == MotionEvent.ACTION_DOWN) {
                 mLastClickX = event.x
                 mLastClickY = event.y
+            }
+
+            if (mIsZoomSupported && event.pointerCount > 1) {
+                handleZoom(event)
             }
             false
         }
@@ -148,6 +154,38 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
+    private fun handleZoom(event: MotionEvent) {
+        val maxZoom = getCameraCharacteristics().get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) * 10
+        val sensorRect = getCameraCharacteristics(mCameraId).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+        val currentFingerSpacing = getFingerSpacing(event)
+        if (mZoomFingerSpacing != 0f) {
+            if (currentFingerSpacing > mZoomFingerSpacing && maxZoom > mZoomLevel) {
+                mZoomLevel++
+            } else if (currentFingerSpacing < mZoomFingerSpacing && mZoomLevel > 1) {
+                mZoomLevel--
+            }
+
+            val minWidth = sensorRect.width() / maxZoom
+            val minHeight = sensorRect.height() / maxZoom
+            val diffWidth = sensorRect.width() - minWidth
+            val diffHeight = sensorRect.height() - minHeight
+            var cropWidth = (diffWidth / 100 * mZoomLevel).toInt()
+            var cropHeight = (diffHeight / 100 * mZoomLevel).toInt()
+            cropWidth -= cropWidth and 3
+            cropHeight -= cropHeight and 3
+            val zoom = Rect(cropWidth, cropHeight, sensorRect.width() - cropWidth, sensorRect.height() - cropHeight)
+            mPreviewRequestBuilder!!.set(CaptureRequest.SCALER_CROP_REGION, zoom)
+            mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
+        }
+        mZoomFingerSpacing = currentFingerSpacing
+    }
+
+    private fun getFingerSpacing(event: MotionEvent): Float {
+        val x = event.getX(0) - event.getX(1)
+        val y = event.getY(0) - event.getY(1)
+        return Math.sqrt((x * x + y * y).toDouble()).toFloat()
+    }
+
     private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
         val buffer = reader.acquireNextImage().planes[0].buffer
         val bytes = ByteArray(buffer.remaining())
@@ -156,8 +194,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun getIsUsingFrontCamera(): Boolean {
-        val characteristics = getCameraManager().getCameraCharacteristics(mCameraId)
-        val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
+        val facing = getCameraCharacteristics().get(CameraCharacteristics.LENS_FACING)
         return facing == CameraCharacteristics.LENS_FACING_FRONT
     }
 
@@ -165,7 +202,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val manager = getCameraManager()
         try {
             for (cameraId in manager.cameraIdList) {
-                val characteristics = manager.getCameraCharacteristics(cameraId)
+                val characteristics = getCameraCharacteristics(cameraId)
 
                 val facing = characteristics.get(CameraCharacteristics.LENS_FACING) ?: continue
                 if ((mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_BACK) || !mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_FRONT) {
@@ -206,6 +243,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
                 mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
+                mIsZoomSupported = characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
                 mCameraId = cameraId
                 return
             }
@@ -397,7 +435,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
 
-            val characteristics = getCameraManager().getCameraCharacteristics(mCameraId)
+            val characteristics = getCameraCharacteristics()
 
             // touch-to-focus inspired by OpenCamera
             if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
@@ -507,6 +545,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun getCameraManager() = mActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+
+    private fun getCameraCharacteristics(cameraId: String = mCameraId) = getCameraManager().getCameraCharacteristics(cameraId)
 
     private fun takePicture() {
         lockFocus()
