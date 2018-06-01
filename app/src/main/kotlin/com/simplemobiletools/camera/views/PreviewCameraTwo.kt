@@ -421,10 +421,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun convertRectToCamera2(cropRect: Rect, rect: Rect): Rect {
-        val leftF = (rect.left + 1000) / 2000.0
-        val topF = (rect.top + 1000) / 2000.0
-        val rightF = (rect.right + 1000) / 2000.0
-        val bottomF = (rect.bottom + 1000) / 2000.0
+        val leftF = (rect.left + 1000) / 2000f
+        val topF = (rect.top + 1000) / 2000f
+        val rightF = (rect.right + 1000) / 2000f
+        val bottomF = (rect.bottom + 1000) / 2000f
         var left = (cropRect.left + leftF * (cropRect.width() - 1)).toInt()
         var right = (cropRect.left + rightF * (cropRect.width() - 1)).toInt()
         var top = (cropRect.top + topF * (cropRect.height() - 1)).toInt()
