@@ -30,6 +30,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val FOCUS_TAG = "focus_tag"
     private val MAX_PREVIEW_WIDTH = 1920
     private val MAX_PREVIEW_HEIGHT = 1080
+    private val CLICK_MS = 250
+    private val CLICK_DIST = 20
 
     private lateinit var mActivity: MainActivity
     private lateinit var mTextureView: AutoFitTextureView
@@ -38,8 +40,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mRotationAtCapture = 0
     private var mZoomLevel = 1
     private var mZoomFingerSpacing = 0f
-    private var mLastClickX = 0f
-    private var mLastClickY = 0f
+    private var mDownEventAtMS = 0L
+    private var mDownEventAtX = 0f
+    private var mDownEventAtY = 0f
     private var mIsFlashSupported = true
     private var mIsZoomSupported = true
     private var mIsImageCaptureIntent = false
@@ -72,18 +75,21 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
         mTextureView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                mLastClickX = event.x
-                mLastClickY = event.y
+                mDownEventAtMS = System.currentTimeMillis()
+                mDownEventAtX = event.x
+                mDownEventAtY = event.y
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                if (System.currentTimeMillis() - mDownEventAtMS < CLICK_MS &&
+                        Math.abs(event.x - mDownEventAtX) < CLICK_DIST &&
+                        Math.abs(event.y - mDownEventAtY) < CLICK_DIST) {
+                    focusArea(event.x, event.y)
+                }
             }
 
             if (mIsZoomSupported && event.pointerCount > 1) {
                 handleZoom(event)
             }
-            false
-        }
-
-        mTextureView.setOnClickListener {
-            focusArea()
+            true
         }
     }
 
@@ -417,8 +423,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     // inspired by https://gist.github.com/royshil/8c760c2485257c85a11cafd958548482
-    private fun focusArea() {
-        mActivity.drawFocusCircle(mLastClickX, mLastClickY)
+    private fun focusArea(x: Float, y: Float) {
+        mActivity.drawFocusCircle(x, y)
 
         val captureCallbackHandler = object : CameraCaptureSession.CaptureCallback() {
             override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
@@ -441,7 +447,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
             // touch-to-focus inspired by OpenCamera
             if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
-                val focusArea = getFocusArea()
+                val focusArea = getFocusArea(x, y)
                 val sensorRect = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
                 val meteringRect = convertAreaToMeteringRectangle(sensorRect, focusArea)
                 set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(meteringRect))
@@ -481,8 +487,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         return Rect(left, top, right, bottom)
     }
 
-    private fun getFocusArea(): FocusArea {
-        val coords = floatArrayOf(mLastClickX, mLastClickY)
+    private fun getFocusArea(x: Float, y: Float): FocusArea {
+        val coords = floatArrayOf(x, y)
         calculateCameraToPreviewMatrix()
         mPreviewToCameraMatrix.mapPoints(coords)
         val focusX = coords[0].toInt()
