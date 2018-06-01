@@ -424,7 +424,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
                 if (request.tag == FOCUS_TAG) {
                     mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, null)
-                    mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, null)
+                    mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
                 }
             }
         }
