@@ -1,20 +1,21 @@
 package com.simplemobiletools.camera.dialogs
 
-import android.hardware.Camera
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.SimpleActivity
-import com.simplemobiletools.camera.extensions.getAspectRatio
-import com.simplemobiletools.camera.helpers.Config
+import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
 
-class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, val camera: Camera, val isFrontCamera: Boolean, val callback: () -> Unit) {
-    var dialog: AlertDialog
+class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Boolean, val photoResolutions: ArrayList<MySize>,
+                             val videoResolutions: ArrayList<MySize>, val callback: () -> Unit) {
+    private var dialog: AlertDialog
+    private val config = activity.config
 
     init {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_resolution, null).apply {
@@ -31,7 +32,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
     }
 
     private fun setupPhotoResolutionPicker(view: View) {
-        val items = getFormattedResolutions(camera.parameters.supportedPictureSizes)
+        val items = getFormattedResolutions(photoResolutions)
         var selectionIndex = if (isFrontCamera) config.frontPhotoResIndex else config.backPhotoResIndex
         selectionIndex = Math.max(selectionIndex, 0)
 
@@ -51,7 +52,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
     }
 
     private fun setupVideoResolutionPicker(view: View) {
-        val items = getFormattedResolutions(camera.parameters.supportedVideoSizes ?: camera.parameters.supportedPreviewSizes)
+        val items = getFormattedResolutions(videoResolutions)
         var selectionIndex = if (isFrontCamera) config.frontVideoResIndex else config.backVideoResIndex
 
         view.change_resolution_video_holder.setOnClickListener {
@@ -69,7 +70,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
         view.change_resolution_video.text = items[selectionIndex].title
     }
 
-    private fun getFormattedResolutions(resolutions: List<Camera.Size>): ArrayList<RadioItem> {
+    private fun getFormattedResolutions(resolutions: List<MySize>): ArrayList<RadioItem> {
         val items = ArrayList<RadioItem>(resolutions.size)
         val sorted = resolutions.sortedByDescending { it.width * it.height }
         sorted.forEachIndexed { index, size ->

@@ -19,10 +19,14 @@ import android.view.*
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
-import com.simplemobiletools.camera.extensions.*
+import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getMyCamera
+import com.simplemobiletools.camera.extensions.getOutputMediaFile
+import com.simplemobiletools.camera.extensions.realScreenSize
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.MyCameraOneImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
@@ -219,7 +223,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         rescheduleAutofocus()
     }
 
-    private fun getSelectedResolution(): Camera.Size {
+    private fun getSelectedResolution(): MySize {
         if (mParameters == null) {
             mParameters = mCamera!!.parameters
         }
@@ -229,7 +233,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
         } else {
             mParameters!!.supportedPictureSizes
-        }.sortedByDescending { it.width * it.height }
+        }.map { MySize(it.width, it.height) }.sortedByDescending { it.width * it.height }
 
         if (index == -1) {
             index = getDefaultFullscreenResolution(resolutions) ?: 0
@@ -247,7 +251,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         }
     }
 
-    private fun getDefaultFullscreenResolution(resolutions: List<Camera.Size>): Int? {
+    private fun getDefaultFullscreenResolution(resolutions: List<MySize>): Int? {
         val screenAspectRatio = mActivity!!.realScreenSize.y / mActivity!!.realScreenSize.x.toFloat()
         resolutions.forEachIndexed { index, size ->
             val diff = screenAspectRatio - (size.width / size.height.toFloat())
@@ -491,7 +495,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     override fun showChangeResolutionDialog() {
         if (mCamera != null) {
             val oldResolution = getSelectedResolution()
-            ChangeResolutionDialog(mActivity!!, mConfig, mCamera!!, getIsUsingFrontCamera()) {
+            val photoResolutions = mCamera!!.parameters.supportedPictureSizes.map { MySize(it.width, it.height) } as ArrayList<MySize>
+            val videoSizes = mCamera!!.parameters.supportedVideoSizes ?: mCamera!!.parameters.supportedPreviewSizes
+            val videoResolutions = videoSizes.map { MySize(it.width, it.height) } as ArrayList<MySize>
+            ChangeResolutionDialog(mActivity!!, getIsUsingFrontCamera(), photoResolutions, videoResolutions) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
                 }

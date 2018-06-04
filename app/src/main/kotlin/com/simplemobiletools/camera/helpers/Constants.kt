@@ -3,6 +3,7 @@ package com.simplemobiletools.camera.helpers
 const val ORIENT_PORTRAIT = 0
 const val ORIENT_LANDSCAPE_LEFT = 1
 const val ORIENT_LANDSCAPE_RIGHT = 2
+const val RATIO_TOLERANCE = 0.1f
 
 // shared preferences
 const val SAVE_PHOTOS = "save_photos"
