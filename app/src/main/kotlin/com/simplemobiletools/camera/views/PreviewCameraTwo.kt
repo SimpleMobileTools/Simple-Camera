@@ -199,12 +199,16 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val buffer = reader.acquireNextImage().planes[0].buffer
         val bytes = ByteArray(buffer.remaining())
         buffer.get(bytes)
-        PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, mSensorOrientation, getIsUsingFrontCamera()).execute(bytes)
+        PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, getJPEGOrientation(), mUseFrontCamera).execute(bytes)
     }
 
-    private fun getIsUsingFrontCamera(): Boolean {
-        val facing = getCameraCharacteristics().get(CameraCharacteristics.LENS_FACING)
-        return facing == CameraCharacteristics.LENS_FACING_FRONT
+    private fun getJPEGOrientation(): Int {
+        var orientation = mSensorOrientation
+        if (mUseFrontCamera) {
+            orientation += 180
+        }
+
+        return orientation % 360
     }
 
     private fun setupCameraOutputs(width: Int, height: Int) {
@@ -403,7 +407,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 addTarget(mImageReader!!.surface)
                 setFlashAndExposure(this)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
+                set(CaptureRequest.JPEG_ORIENTATION, getJPEGOrientation())
                 set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
             }
@@ -525,7 +529,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun calculateCameraToPreviewMatrix() {
-        val yScale = if (getIsUsingFrontCamera()) -1 else 1
+        val yScale = if (mUseFrontCamera) -1 else 1
         mCameraToPreviewMatrix.apply {
             reset()
             setScale(1f, yScale.toFloat())
