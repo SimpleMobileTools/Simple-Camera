@@ -45,6 +45,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mDownEventAtY = 0f
     private var mIsFlashSupported = true
     private var mIsZoomSupported = true
+    private var mIsFocusSupported = true
     private var mIsImageCaptureIntent = false
     private var mIsInVideoMode = false
     private var mUseFrontCamera = false
@@ -252,6 +253,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
                 mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
                 mIsZoomSupported = characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
+                mIsFocusSupported = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
                 mCameraId = cameraId
                 return
             }
@@ -447,9 +449,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
 
-            val characteristics = getCameraCharacteristics()
-
             // touch-to-focus inspired by OpenCamera
+            val characteristics = getCameraCharacteristics()
             if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
                 val focusArea = getFocusArea(x, y)
                 val sensorRect = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
@@ -571,7 +572,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private fun getCameraCharacteristics(cameraId: String = mCameraId) = getCameraManager().getCameraCharacteristics(cameraId)
 
     private fun takePicture() {
-        lockFocus()
+        if (mIsFocusSupported) {
+            lockFocus()
+        } else {
+            captureStillPicture()
+        }
     }
 
     private fun getFlashlightMode() = when (mFlashlightState) {
