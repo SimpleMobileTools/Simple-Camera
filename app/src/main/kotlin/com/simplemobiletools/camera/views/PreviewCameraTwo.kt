@@ -323,7 +323,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                         mCaptureSession = cameraCaptureSession
                         mPreviewRequestBuilder!!.apply {
                             set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                            set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
+                            set(CaptureRequest.FLASH_MODE, getFlashlightMode())
                             mPreviewRequest = build()
                         }
                         mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
@@ -399,6 +399,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mRotationAtCapture = mActivity.mLastHandledOrientation
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
                 addTarget(mImageReader!!.surface)
+                set(CaptureRequest.FLASH_MODE, getFlashlightMode())
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                 set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
                 set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
@@ -535,9 +536,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun lockFocus() {
         try {
-            mCameraState = STATE_WAITING_LOCK
             mPreviewRequestBuilder!!.apply {
                 set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
+                mCameraState = STATE_WAITING_LOCK
                 mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
             }
         } catch (e: CameraAccessException) {
@@ -547,8 +548,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private fun unlockFocus() {
         try {
             mPreviewRequestBuilder!!.apply {
-                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_CANCEL)
-                set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
+                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
                 mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
             }
             mCameraState = STATE_PREVIEW
@@ -565,10 +565,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         lockFocus()
     }
 
-    private fun getFlashlightMode(state: Int) = when (state) {
-        FLASH_OFF -> CameraMetadata.FLASH_MODE_OFF
+    private fun getFlashlightMode() = when (mFlashlightState) {
         FLASH_ON -> CameraMetadata.FLASH_MODE_TORCH
-        else -> CameraMetadata.FLASH_MODE_SINGLE
+        else -> CameraMetadata.FLASH_MODE_OFF
     }
 
     override fun setTargetUri(uri: Uri) {
@@ -620,8 +619,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     override fun checkFlashlight() {
         if (mCameraState == STATE_PREVIEW && mIsFlashSupported) {
-            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode(mFlashlightState))
-            mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
+            mPreviewRequestBuilder!!.set(CaptureRequest.FLASH_MODE, getFlashlightMode())
+            mPreviewRequest = mPreviewRequestBuilder!!.build()
+            mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
             mActivity.updateFlashlightState(mFlashlightState)
         }
     }
