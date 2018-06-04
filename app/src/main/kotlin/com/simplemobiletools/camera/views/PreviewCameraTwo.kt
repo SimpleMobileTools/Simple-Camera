@@ -80,7 +80,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mDownEventAtX = event.x
                 mDownEventAtY = event.y
             } else if (event.action == MotionEvent.ACTION_UP) {
-                if (System.currentTimeMillis() - mDownEventAtMS < CLICK_MS &&
+                if (mIsFocusSupported && System.currentTimeMillis() - mDownEventAtMS < CLICK_MS &&
                         Math.abs(event.x - mDownEventAtX) < CLICK_DIST &&
                         Math.abs(event.y - mDownEventAtY) < CLICK_DIST) {
                     focusArea(event.x, event.y)
