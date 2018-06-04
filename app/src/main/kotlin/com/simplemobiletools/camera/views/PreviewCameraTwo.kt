@@ -258,6 +258,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
                 mIsZoomSupported = characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
                 mIsFocusSupported = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
+
+                mActivity.setFlashAvailable(mIsFlashSupported)
                 mCameraId = cameraId
                 return
             }
