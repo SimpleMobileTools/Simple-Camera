@@ -608,6 +608,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     override fun toggleFrontBackCamera() {
         mUseFrontCamera = !mUseFrontCamera
+        closeCamera()
+        openCamera(mTextureView.width, mTextureView.height)
     }
 
     override fun toggleFlashlight() {
