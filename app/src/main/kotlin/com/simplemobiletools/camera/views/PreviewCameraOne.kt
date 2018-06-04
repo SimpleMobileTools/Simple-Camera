@@ -491,7 +491,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     override fun showChangeResolutionDialog() {
         if (mCamera != null) {
             val oldResolution = getSelectedResolution()
-            ChangeResolutionDialog(mActivity!!, mConfig, mCamera!!) {
+            ChangeResolutionDialog(mActivity!!, mConfig, mCamera!!, getIsUsingFrontCamera()) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
                 }
