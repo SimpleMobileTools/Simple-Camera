@@ -10,6 +10,7 @@ import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.hardware.camera2.params.MeteringRectangle
 import android.media.ImageReader
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
@@ -635,7 +636,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val oldResolution = getCurrentResolution()
         val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
         val photoResolutions = configMap.getOutputSizes(ImageFormat.JPEG).map { MySize(it.width, it.height) } as ArrayList
-        val videoResolutions = ArrayList<MySize>()
+        val videoResolutions = configMap.getOutputSizes(MediaRecorder::class.java).map { MySize(it.width, it.height) } as ArrayList
         ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions) {
             if (oldResolution != getCurrentResolution()) {
                 closeCamera()
