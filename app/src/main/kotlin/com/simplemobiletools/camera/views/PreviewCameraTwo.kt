@@ -3,7 +3,10 @@ package com.simplemobiletools.camera.views
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
-import android.graphics.*
+import android.graphics.ImageFormat
+import android.graphics.Matrix
+import android.graphics.Rect
+import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.hardware.camera2.params.MeteringRectangle
 import android.media.ImageReader
@@ -11,6 +14,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.DisplayMetrics
 import android.util.Size
 import android.view.MotionEvent
 import android.view.Surface
@@ -18,10 +22,12 @@ import android.view.TextureView
 import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
+import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
+import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
@@ -213,6 +219,13 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         return orientation % 360
     }
 
+    private fun getCurrentResolution(): MySize {
+        val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+        val resIndex = if (mUseFrontCamera) mActivity.config.frontPhotoResIndex else mActivity.config.backPhotoResIndex
+        val size = configMap.getOutputSizes(ImageFormat.JPEG).sortedByDescending { it.width * it.height }[resIndex]
+        return MySize(size.width, size.height)
+    }
+
     private fun setupCameraOutputs(width: Int, height: Int) {
         val manager = getCameraManager()
         try {
@@ -224,25 +237,27 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     continue
                 }
 
-                val configMap = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP) ?: continue
-                val largest = configMap.getOutputSizes(ImageFormat.JPEG).maxBy { it.width * it.height }
+                mCameraId = cameraId
+                val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+                val currentResolution = getCurrentResolution()
 
-                mImageReader = ImageReader.newInstance(largest!!.width, largest.height, ImageFormat.JPEG, 2)
+                mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
                 mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
 
-                val displaySize = Point()
-                mActivity.windowManager.defaultDisplay.getSize(displaySize)
+                val displaySize = getRealDisplaySize()
+                var maxPreviewWidth = displaySize.width
+                var maxPreviewHeight = displaySize.height
                 var rotatedPreviewWidth = width
                 var rotatedPreviewHeight = height
-                var maxPreviewWidth = displaySize.x
-                var maxPreviewHeight = displaySize.y
 
                 mSensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)!!
                 if (mSensorOrientation == 90 || mSensorOrientation == 270) {
                     rotatedPreviewWidth = height
                     rotatedPreviewHeight = width
-                    maxPreviewWidth = displaySize.y
-                    maxPreviewHeight = displaySize.x
+
+                    val tmpWidth = maxPreviewWidth
+                    maxPreviewWidth = maxPreviewHeight
+                    maxPreviewHeight = tmpWidth
                 }
 
                 if (maxPreviewWidth > MAX_PREVIEW_WIDTH) {
@@ -254,22 +269,20 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 }
 
                 val outputSizes = configMap.getOutputSizes(SurfaceTexture::class.java)
-                mPreviewSize = chooseOptimalSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, largest)
+                mPreviewSize = chooseOptimalSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
                 mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
                 mIsZoomSupported = characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
                 mIsFocusSupported = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
-
                 mActivity.setFlashAvailable(mIsFlashSupported)
-                mCameraId = cameraId
                 return
             }
         } catch (e: Exception) {
         }
     }
 
-    private fun chooseOptimalSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, aspectRatio: Size): Size {
+    private fun chooseOptimalSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, aspectRatio: MySize): Size {
         val bigEnough = ArrayList<Size>()
         val notBigEnough = ArrayList<Size>()
         val width = aspectRatio.width
@@ -288,6 +301,17 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             bigEnough.size > 0 -> bigEnough.minBy { it.width * it.height }!!
             notBigEnough.size > 0 -> notBigEnough.maxBy { it.width * it.height }!!
             else -> choices[0]
+        }
+    }
+
+    private fun getRealDisplaySize(): MySize {
+        val metrics = DisplayMetrics()
+        return if (isJellyBean1Plus()) {
+            mActivity.windowManager.defaultDisplay.getRealMetrics(metrics)
+            MySize(metrics.widthPixels, metrics.heightPixels)
+        } else {
+            mActivity.windowManager.defaultDisplay.getMetrics(metrics)
+            MySize(metrics.widthPixels, metrics.heightPixels)
         }
     }
 
@@ -608,11 +632,14 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     override fun getCameraState() = mCameraState
 
     override fun showChangeResolutionDialog() {
+        val oldResolution = getCurrentResolution()
         val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
         val photoResolutions = configMap.getOutputSizes(ImageFormat.JPEG).map { MySize(it.width, it.height) } as ArrayList
         val videoResolutions = ArrayList<MySize>()
         ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions) {
+            if (oldResolution != getCurrentResolution()) {
 
+            }
         }
     }
 
