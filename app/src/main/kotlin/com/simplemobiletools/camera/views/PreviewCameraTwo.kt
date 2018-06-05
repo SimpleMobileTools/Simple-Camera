@@ -338,7 +338,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                         }
                         mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
                         mCameraState = STATE_PREVIEW
-                    } catch (e: CameraAccessException) {
+                    } catch (e: Exception) {
                     }
                 }
 
