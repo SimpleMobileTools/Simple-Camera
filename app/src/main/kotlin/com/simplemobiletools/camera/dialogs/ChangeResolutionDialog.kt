@@ -48,7 +48,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Bo
                 dialog.dismiss()
             }
         }
-        view.change_resolution_photo.text = items[selectionIndex].title
+        view.change_resolution_photo.text = items.getOrNull(selectionIndex)?.title
     }
 
     private fun setupVideoResolutionPicker(view: View) {
@@ -67,7 +67,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Bo
                 dialog.dismiss()
             }
         }
-        view.change_resolution_video.text = items[selectionIndex].title
+        view.change_resolution_video.text = items.getOrNull(selectionIndex)?.title
     }
 
     private fun getFormattedResolutions(resolutions: List<MySize>): ArrayList<RadioItem> {
