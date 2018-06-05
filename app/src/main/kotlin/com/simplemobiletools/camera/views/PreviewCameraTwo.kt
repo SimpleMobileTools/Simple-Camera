@@ -117,7 +117,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         stopBackgroundThread()
     }
 
-    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {}
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
+        closeCamera()
+        openCamera(width, height)
+    }
 
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {}
 
@@ -339,6 +342,28 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun createCameraPreviewSession() {
+        val stateCallback = object : CameraCaptureSession.StateCallback() {
+            override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
+                if (mCameraDevice == null) {
+                    return
+                }
+
+                try {
+                    mCaptureSession = cameraCaptureSession
+                    mPreviewRequestBuilder!!.apply {
+                        set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                        setFlashAndExposure(this)
+                        mPreviewRequest = build()
+                    }
+                    mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                    mCameraState = STATE_PREVIEW
+                } catch (e: Exception) {
+                }
+            }
+
+            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
+        }
+
         try {
             val texture = mTextureView.surfaceTexture!!
             texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
@@ -347,30 +372,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             mPreviewRequestBuilder!!.addTarget(surface)
 
-            val stateCallback = object : CameraCaptureSession.StateCallback() {
-                override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
-                    if (mCameraDevice == null) {
-                        return
-                    }
-
-                    try {
-                        mCaptureSession = cameraCaptureSession
-                        mPreviewRequestBuilder!!.apply {
-                            set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                            setFlashAndExposure(this)
-                            mPreviewRequest = build()
-                        }
-                        mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-                        mCameraState = STATE_PREVIEW
-                    } catch (e: Exception) {
-                    }
-                }
-
-                override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
-            }
-
-            mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
-        } catch (e: CameraAccessException) {
+            mCameraDevice?.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
+        } catch (e: Exception) {
         }
     }
 
@@ -603,14 +606,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun getCameraCharacteristics(cameraId: String = mCameraId) = getCameraManager().getCameraCharacteristics(cameraId)
 
-    private fun takePicture() {
-        if (mIsFocusSupported) {
-            lockFocus()
-        } else {
-            captureStillPicture()
-        }
-    }
-
     private fun getFlashlightMode() = when (mFlashlightState) {
         FLASH_ON -> CameraMetadata.FLASH_MODE_TORCH
         else -> CameraMetadata.FLASH_MODE_OFF
@@ -638,7 +633,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val videoResolutions = ArrayList<MySize>()
         ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions) {
             if (oldResolution != getCurrentResolution()) {
-
+                closeCamera()
+                openCamera(mTextureView.width, mTextureView.height)
             }
         }
     }
@@ -655,7 +651,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun tryTakePicture() {
-        takePicture()
+        if (mIsFocusSupported) {
+            lockFocus()
+        } else {
+            captureStillPicture()
+        }
     }
 
     override fun toggleRecording(): Boolean {
