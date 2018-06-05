@@ -209,7 +209,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
-        val buffer = reader.acquireNextImage().planes[0].buffer
+        val buffer = reader.acquireNextImage().planes.first().buffer
         val bytes = ByteArray(buffer.remaining())
         buffer.get(bytes)
         PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, getJPEGOrientation(), mUseFrontCamera).execute(bytes)
@@ -278,9 +278,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mPreviewSize = chooseOptimalSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
-                mIsFlashSupported = characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
-                mIsZoomSupported = characteristics.get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
-                mIsFocusSupported = characteristics.get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
+                characteristics.apply {
+                    mIsFlashSupported = get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
+                    mIsZoomSupported = get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
+                    mIsFocusSupported = get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
+                }
                 mActivity.setFlashAvailable(mIsFlashSupported)
                 return
             }
@@ -304,9 +306,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
 
         return when {
-            bigEnough.size > 0 -> bigEnough.minBy { it.width * it.height }!!
-            notBigEnough.size > 0 -> notBigEnough.maxBy { it.width * it.height }!!
-            else -> choices[0]
+            bigEnough.isNotEmpty() -> bigEnough.minBy { it.width * it.height }!!
+            notBigEnough.isNotEmpty() -> notBigEnough.maxBy { it.width * it.height }!!
+            else -> choices.first()
         }
     }
 
