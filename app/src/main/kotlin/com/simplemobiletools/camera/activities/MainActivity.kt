@@ -517,6 +517,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             toggle_flash.beVisible()
         } else {
             toggle_flash.beInvisible()
+            toggle_flash.setImageResource(R.drawable.ic_flash_off)
             mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
