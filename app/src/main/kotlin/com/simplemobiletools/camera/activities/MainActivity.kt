@@ -119,7 +119,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mCameraImpl = getMyCamera()
 
         if (config.alwaysOpenBackCamera) {
-            config.lastUsedCamera = mCameraImpl.getBackCameraId()
+            config.lastUsedCamera = mCameraImpl.getBackCameraId().toString()
         }
     }
 
@@ -196,7 +196,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view) else PreviewCameraOne(this, camera_surface_view)
         view_holder.addView(mPreview as ViewGroup)
 
-        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
+        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
         toggle_camera.setImageResource(imageDrawable)
 
         mFocusCircleView = FocusCircleView(applicationContext)

@@ -46,9 +46,9 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(FLIP_PHOTOS, true)
         set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
 
-    var lastUsedCamera: Int
-        get() = prefs.getInt(LAST_USED_CAMERA, context.getMyCamera().getBackCameraId())
-        set(cameraId) = prefs.edit().putInt(LAST_USED_CAMERA, cameraId).apply()
+    var lastUsedCamera: String
+        get() = prefs.getString(LAST_USED_CAMERA, context.getMyCamera().getBackCameraId().toString())
+        set(cameraId) = prefs.edit().putString(LAST_USED_CAMERA, cameraId).apply()
 
     var flashlightState: Int
         get() = prefs.getInt(FLASHLIGHT_STATE, FLASH_OFF)

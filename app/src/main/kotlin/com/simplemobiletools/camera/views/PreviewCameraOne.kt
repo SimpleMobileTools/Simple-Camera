@@ -202,7 +202,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             mCameraImpl!!.getBackCameraId()
         }
 
-        mConfig.lastUsedCamera = mCurrCameraId
+        mConfig.lastUsedCamera = mCurrCameraId.toString()
         releaseCamera()
         if (resumeCamera()) {
             setFlashlightState(FLASH_OFF)
@@ -243,7 +243,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     }
 
     private fun getResolutionIndex(): Int {
-        val isBackCamera = mConfig.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
+        val isBackCamera = mConfig.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK.toString()
         return if (mIsInVideoMode) {
             if (isBackCamera) mConfig.backVideoResIndex else mConfig.frontVideoResIndex
         } else {

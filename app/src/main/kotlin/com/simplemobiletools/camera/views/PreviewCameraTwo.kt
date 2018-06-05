@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
@@ -81,6 +82,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     constructor(activity: MainActivity, textureView: AutoFitTextureView) : super(activity) {
         mActivity = activity
         mTextureView = textureView
+        mUseFrontCamera = activity.config.lastUsedCamera == activity.getMyCamera().getBackCameraId().toString()
 
         mTextureView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -241,6 +243,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 }
 
                 mCameraId = cameraId
+                mActivity.config.lastUsedCamera = mCameraId
                 val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
                 val currentResolution = getCurrentResolution()
 
