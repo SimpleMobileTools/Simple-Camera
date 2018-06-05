@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Schlichte Kamera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
     <string name="camera_open_error">Beim Zugriff auf die Kamera ist ein Fehler aufgetreten</string>
@@ -39,15 +39,15 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Eine einfache Kamera mit Blitzlicht und Zoom, ganz ohne Werbung.</string>
+    <string name="app_short_description">Eine schlichte Kamera mit Blitzlicht und Zoom, ganz ohne Werbung.</string>
     <string name="app_long_description">
         Die Kamera kann sowohl zum Schießen von Fotos, als auch zum Aufnehmen von Videos genutzt werden. Wechsle zwischen Front- und Rückkamera, verändere den Pfad, in dem Bilder gespeichert werden, oder ändere die Bildauflösung. Der Blitz kann ein- und ausgeschaltet werden oder als Taschenlampe benutzt werden. Mit den Fingern kann gezoomt werden.
 
-        Falls du diese Anwendung durch einen Hardware-Kameraknopf starten möchtest, musst du vielleicht die vorinstallierte Kamera-Anwendung erst deaktivieren, unter Einstellungen -> Apps -> Kamera -> deaktivieren.
+        Falls du diese App durch einen Hardware-Kameraknopf starten möchtest, musst du vielleicht die vorinstallierte Kamera-App erst deaktivieren, unter Einstellungen -> Apps -> Kamera -> deaktivieren.
 
         Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
 
-        Diese Anwendung ist nur eine aus einer größeren Serie. Der Rest davon findet sich auf https://www.simplemobiletools.com
+        Diese App ist nur eine aus einer größeren Serie von schlichten Apps. Der Rest davon findet sich auf https://www.simplemobiletools.com
     </string>
 
     <!--
