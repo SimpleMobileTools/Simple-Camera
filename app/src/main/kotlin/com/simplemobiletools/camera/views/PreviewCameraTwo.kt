@@ -746,8 +746,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mIsRecording = false
         mMediaRecorder!!.stop()
         mMediaRecorder!!.reset()
-        closeCamera()
-        openCamera(mTextureView.width, mTextureView.height)
+        Thread {
+            closeCamera()
+            openCamera(mTextureView.width, mTextureView.height)
+        }.start()
         mActivity.setRecordingState(false)
     }
 
