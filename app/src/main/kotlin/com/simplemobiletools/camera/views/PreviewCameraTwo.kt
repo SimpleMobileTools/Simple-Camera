@@ -416,8 +416,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                             mPreviewRequest = build()
                         }
                         mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-                        mCameraState = STATE_PREVIEW
                     }
+                    mCameraState = STATE_PREVIEW
                 } catch (e: Exception) {
                 }
             }
@@ -734,6 +734,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     mMediaRecorder?.start()
                 }
                 mActivity.setRecordingState(true)
+                mCameraState = STATE_RECORDING
             }
 
             override fun onConfigureFailed(session: CameraCaptureSession?) {}
