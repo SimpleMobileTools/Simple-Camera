@@ -831,7 +831,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun checkFlashlight() {
-        if (mCameraState == STATE_PREVIEW && mIsFlashSupported) {
+        if ((mCameraState == STATE_PREVIEW || mCameraState == STATE_RECORDING) && mIsFlashSupported) {
             setFlashAndExposure(mPreviewRequestBuilder!!)
             mPreviewRequest = mPreviewRequestBuilder!!.build()
             mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
@@ -839,8 +839,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
-    override fun deviceOrientationChanged() {
-    }
+    override fun deviceOrientationChanged() {}
 
     override fun resumeCamera() = true
 
