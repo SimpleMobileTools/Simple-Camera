@@ -110,7 +110,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     private fun initVariables() {
-        mIsInPhotoMode = false
+        mIsInPhotoMode = config.initPhotoMode
         mIsCameraAvailable = false
         mIsVideoCaptureIntent = false
         mIsHardwareShutterHandled = false
@@ -202,7 +202,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mFocusCircleView = FocusCircleView(applicationContext)
         view_holder.addView(mFocusCircleView)
 
-        mIsInPhotoMode = true
         mTimerHandler = Handler()
         mFadeHandler = Handler()
         setupPreviewImage(true)
@@ -325,6 +324,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mPreview?.setFlashlightState(FLASH_OFF)
         hideTimer()
         mIsInPhotoMode = !mIsInPhotoMode
+        config.initPhotoMode = mIsInPhotoMode
         showToggleCameraIfNeeded()
         checkButtons()
         toggleBottomButtons(false)

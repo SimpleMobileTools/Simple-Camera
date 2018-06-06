@@ -84,6 +84,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mActivity = activity
         mTextureView = textureView
         mUseFrontCamera = activity.config.lastUsedCamera == activity.getMyCamera().getBackCameraId().toString()
+        mIsInVideoMode = !activity.config.initPhotoMode
 
         mTextureView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -227,8 +228,27 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun getCurrentResolution(): MySize {
         val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-        val resIndex = if (mUseFrontCamera) mActivity.config.frontPhotoResIndex else mActivity.config.backPhotoResIndex
-        val size = configMap.getOutputSizes(ImageFormat.JPEG).sortedByDescending { it.width * it.height }[resIndex]
+        val resIndex = if (mUseFrontCamera) {
+            if (mIsInVideoMode) {
+                mActivity.config.frontVideoResIndex
+            } else {
+                mActivity.config.frontPhotoResIndex
+            }
+        } else {
+            if (mIsInVideoMode) {
+                mActivity.config.backVideoResIndex
+            } else {
+                mActivity.config.backPhotoResIndex
+            }
+        }
+
+        val outputSizes = if (mIsInVideoMode) {
+            configMap.getOutputSizes(MediaRecorder::class.java)
+        } else {
+            configMap.getOutputSizes(ImageFormat.JPEG)
+        }
+
+        val size = outputSizes.sortedByDescending { it.width * it.height }[resIndex]
         return MySize(size.width, size.height)
     }
 
@@ -248,8 +268,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
                 val currentResolution = getCurrentResolution()
 
-                mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
-                mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
+                if (mIsInVideoMode) {
+                    mImageReader = null
+                } else {
+                    mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
+                    mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
+                }
 
                 val displaySize = getRealDisplaySize()
                 var maxPreviewWidth = displaySize.width
@@ -275,7 +299,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     maxPreviewHeight = MAX_PREVIEW_HEIGHT
                 }
 
-                val outputSizes = configMap.getOutputSizes(SurfaceTexture::class.java)
+                val outputSizes = if (mIsInVideoMode) configMap.getOutputSizes(MediaRecorder::class.java) else configMap.getOutputSizes(SurfaceTexture::class.java)
                 mPreviewSize = chooseOptimalSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
@@ -354,15 +378,20 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     return
                 }
 
+                mCaptureSession = cameraCaptureSession
                 try {
-                    mCaptureSession = cameraCaptureSession
-                    mPreviewRequestBuilder!!.apply {
-                        set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                        setFlashAndExposure(this)
-                        mPreviewRequest = build()
+                    if (mIsInVideoMode) {
+                        mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+                        mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, mBackgroundHandler)
+                    } else {
+                        mPreviewRequestBuilder!!.apply {
+                            set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                            setFlashAndExposure(this)
+                            mPreviewRequest = build()
+                        }
+                        mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                        mCameraState = STATE_PREVIEW
                     }
-                    mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-                    mCameraState = STATE_PREVIEW
                 } catch (e: Exception) {
                 }
             }
@@ -378,7 +407,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             mPreviewRequestBuilder!!.addTarget(surface)
 
-            mCameraDevice?.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
+            if (mIsInVideoMode) {
+                mCameraDevice!!.createCaptureSession(Arrays.asList(surface), stateCallback, mBackgroundHandler)
+            } else {
+                mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
+            }
         } catch (e: Exception) {
         }
     }
@@ -669,22 +702,27 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun tryInitVideoMode() {
+        initVideoMode()
     }
 
     override fun initPhotoMode() {
         mIsInVideoMode = false
+        closeCamera()
+        openCamera(mTextureView.width, mTextureView.height)
     }
 
     override fun initVideoMode(): Boolean {
         mIsInVideoMode = true
-        return false
+        closeCamera()
+        openCamera(mTextureView.width, mTextureView.height)
+        return true
     }
 
     override fun checkFlashlight() {
         if (mCameraState == STATE_PREVIEW && mIsFlashSupported) {
             setFlashAndExposure(mPreviewRequestBuilder!!)
             mPreviewRequest = mPreviewRequestBuilder!!.build()
-            mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+            mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
             mActivity.updateFlashlightState(mFlashlightState)
         }
     }
