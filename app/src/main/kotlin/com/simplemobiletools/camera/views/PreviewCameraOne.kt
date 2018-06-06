@@ -793,14 +793,13 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         mIsImageCaptureIntent = isImageCaptureIntent
     }
 
-    override fun toggleRecording(): Boolean {
+    override fun toggleRecording() {
         if (mIsRecording) {
             stopRecording()
             initVideoMode()
         } else {
             startRecording()
         }
-        return mIsRecording
     }
 
     private fun getVideoRotation(): Int {
@@ -823,6 +822,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             mRecorder!!.start()
             toggleShutterSound(false)
             mIsRecording = true
+            mActivity!!.setRecordingState(true)
         } catch (e: Exception) {
             mActivity!!.showErrorToast(e)
             releaseCamera()
@@ -850,6 +850,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
 
         mRecorder = null
         mIsRecording = false
+        mActivity!!.setRecordingState(false)
 
         val file = File(mCurrVideoPath)
         if (file.exists() && file.length() == 0L) {

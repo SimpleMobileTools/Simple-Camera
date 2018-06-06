@@ -23,7 +23,7 @@ interface MyPreview {
 
     fun tryTakePicture()
 
-    fun toggleRecording(): Boolean
+    fun toggleRecording()
 
     fun tryInitVideoMode()
 

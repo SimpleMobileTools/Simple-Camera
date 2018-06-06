@@ -17,6 +17,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
 import android.util.Size
+import android.util.SparseIntArray
 import android.view.MotionEvent
 import android.view.Surface
 import android.view.TextureView
@@ -25,6 +26,7 @@ import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getMyCamera
+import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
@@ -34,7 +36,8 @@ import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 
-// based on the Android Camera2 sample at https://github.com/googlesamples/android-Camera2Basic
+// based on the Android Camera2 photo sample at https://github.com/googlesamples/android-Camera2Basic
+// and video sample at https://github.com/googlesamples/android-Camera2Video
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private val FOCUS_TAG = "focus_tag"
@@ -42,6 +45,20 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val MAX_PREVIEW_HEIGHT = 1080
     private val CLICK_MS = 250
     private val CLICK_DIST = 20
+
+    private val DEFAULT_ORIENTATIONS = SparseIntArray(4).apply {
+        append(Surface.ROTATION_0, 90)
+        append(Surface.ROTATION_90, 0)
+        append(Surface.ROTATION_180, 270)
+        append(Surface.ROTATION_270, 180)
+    }
+
+    private val INVERSE_ORIENTATIONS = SparseIntArray(4).apply {
+        append(Surface.ROTATION_0, 270)
+        append(Surface.ROTATION_90, 180)
+        append(Surface.ROTATION_180, 90)
+        append(Surface.ROTATION_270, 0)
+    }
 
     private lateinit var mActivity: MainActivity
     private lateinit var mTextureView: AutoFitTextureView
@@ -58,6 +75,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mIsFocusSupported = true
     private var mIsImageCaptureIntent = false
     private var mIsInVideoMode = false
+    private var mIsRecording = false
     private var mUseFrontCamera = false
     private var mCameraId = ""
     private var mCameraState = STATE_INIT
@@ -72,6 +90,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mCaptureSession: CameraCaptureSession? = null
     private var mPreviewRequestBuilder: CaptureRequest.Builder? = null
     private var mPreviewRequest: CaptureRequest? = null
+    private var mMediaRecorder: MediaRecorder? = null
     private val mCameraToPreviewMatrix = Matrix()
     private val mPreviewToCameraMatrix = Matrix()
     private val mCameraOpenCloseLock = Semaphore(1)
@@ -177,6 +196,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
+    private fun closeCaptureSession() {
+        mCaptureSession?.close()
+        mCaptureSession = null
+    }
+
     private fun handleZoom(event: MotionEvent) {
         val maxZoom = getCameraCharacteristics().get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) * 10
         val sensorRect = getCameraCharacteristics(mCameraId).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
@@ -270,9 +294,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
                 if (mIsInVideoMode) {
                     mImageReader = null
+                    mMediaRecorder = MediaRecorder()
                 } else {
                     mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
                     mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
+                    mMediaRecorder = null
                 }
 
                 val displaySize = getRealDisplaySize()
@@ -300,7 +326,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 }
 
                 val outputSizes = if (mIsInVideoMode) configMap.getOutputSizes(MediaRecorder::class.java) else configMap.getOutputSizes(SurfaceTexture::class.java)
-                mPreviewSize = chooseOptimalSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
+                mPreviewSize = chooseOptimalPreviewSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
                 characteristics.apply {
@@ -315,7 +341,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
-    private fun chooseOptimalSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, aspectRatio: MySize): Size {
+    private fun chooseOptimalPreviewSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, aspectRatio: MySize): Size {
         val bigEnough = ArrayList<Size>()
         val notBigEnough = ArrayList<Size>()
         val width = aspectRatio.width
@@ -400,6 +426,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
 
         try {
+            closeCaptureSession()
             val texture = mTextureView.surfaceTexture!!
             texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
 
@@ -414,6 +441,16 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
         } catch (e: Exception) {
         }
+    }
+
+    private fun updatePreview() {
+        try {
+            mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+            mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, mBackgroundHandler)
+        } catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
+
     }
 
     private val mCaptureCallback = object : CameraCaptureSession.CaptureCallback() {
@@ -650,6 +687,70 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         else -> CameraMetadata.FLASH_MODE_OFF
     }
 
+    private fun setupMediaRecorder() {
+        val videoSize = getCurrentResolution()
+        val currVideoPath = mActivity.getOutputMediaFile(false)
+        val rotation = mActivity.windowManager.defaultDisplay.rotation
+        mMediaRecorder!!.apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setVideoSource(MediaRecorder.VideoSource.SURFACE)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setOutputFile(currVideoPath)
+            setVideoEncodingBitRate(10000000)
+            setVideoFrameRate(30)
+            setVideoSize(videoSize.width, videoSize.height)
+            setVideoEncoder(MediaRecorder.VideoEncoder.H264)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            when (mSensorOrientation) {
+                90 -> setOrientationHint(DEFAULT_ORIENTATIONS.get(rotation))
+                270 -> setOrientationHint(INVERSE_ORIENTATIONS.get(rotation))
+            }
+            prepare()
+        }
+    }
+
+    private fun startRecording() {
+        closeCaptureSession()
+        setupMediaRecorder()
+        val texture = mTextureView.surfaceTexture
+        texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
+        mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD)
+        val surfaces = ArrayList<Surface>()
+
+        val previewSurface = Surface(texture)
+        surfaces.add(previewSurface)
+        mPreviewRequestBuilder!!.addTarget(previewSurface)
+
+        val recorderSurface = mMediaRecorder!!.surface
+        surfaces.add(recorderSurface)
+        mPreviewRequestBuilder!!.addTarget(recorderSurface)
+
+        val captureCallback = object : CameraCaptureSession.StateCallback() {
+            override fun onConfigured(session: CameraCaptureSession?) {
+                mCaptureSession = session
+                updatePreview()
+                mIsRecording = true
+                mActivity.runOnUiThread {
+                    mMediaRecorder?.start()
+                }
+                mActivity.setRecordingState(true)
+            }
+
+            override fun onConfigureFailed(session: CameraCaptureSession?) {}
+        }
+
+        mCameraDevice!!.createCaptureSession(surfaces, captureCallback, mBackgroundHandler)
+    }
+
+    private fun stopRecording() {
+        mIsRecording = false
+        mMediaRecorder!!.stop()
+        mMediaRecorder!!.reset()
+        closeCamera()
+        openCamera(mTextureView.width, mTextureView.height)
+        mActivity.setRecordingState(false)
+    }
+
     override fun setTargetUri(uri: Uri) {
         mTargetUri = uri
     }
@@ -697,8 +798,16 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
-    override fun toggleRecording(): Boolean {
-        return false
+    override fun toggleRecording() {
+        if (mCameraDevice == null || !mTextureView.isAvailable || mPreviewSize == null) {
+            return
+        }
+
+        if (mIsRecording) {
+            stopRecording()
+        } else {
+            startRecording()
+        }
     }
 
     override fun tryInitVideoMode() {

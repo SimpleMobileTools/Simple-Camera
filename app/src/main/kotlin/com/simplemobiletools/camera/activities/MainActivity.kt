@@ -265,15 +265,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             toggleBottomButtons(true)
             mPreview?.tryTakePicture()
         } else {
-            if (mPreview?.toggleRecording() == true) {
-                shutter.setImageResource(R.drawable.ic_video_stop)
-                toggle_camera.beInvisible()
-                showTimer()
-            } else {
-                shutter.setImageResource(R.drawable.ic_video_rec)
-                showToggleCameraIfNeeded()
-                hideTimer()
-            }
+            mPreview?.toggleRecording()
         }
     }
 
@@ -524,6 +516,20 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 
     fun setIsCameraAvailable(available: Boolean) {
         mIsCameraAvailable = available
+    }
+
+    fun setRecordingState(isRecording: Boolean) {
+        runOnUiThread {
+            if (isRecording) {
+                shutter.setImageResource(R.drawable.ic_video_stop)
+                toggle_camera.beInvisible()
+                showTimer()
+            } else {
+                shutter.setImageResource(R.drawable.ic_video_rec)
+                showToggleCameraIfNeeded()
+                hideTimer()
+            }
+        }
     }
 
     fun videoSaved(uri: Uri) {
