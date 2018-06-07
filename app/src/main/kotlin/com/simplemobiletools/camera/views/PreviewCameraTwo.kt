@@ -169,15 +169,15 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun openCamera(width: Int, height: Int) {
-        setupCameraOutputs(width, height)
         try {
+            setupCameraOutputs(width, height)
             if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
                 throw RuntimeException("Time out waiting to lock camera opening.")
             }
             getCameraManager().openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
-        } catch (e: InterruptedException) {
-        } catch (e: SecurityException) {
+        } catch (e: Exception) {
         }
     }
 
