@@ -112,13 +112,14 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mDownEventAtY = event.y
             } else if (event.action == MotionEvent.ACTION_UP) {
                 if (mIsFocusSupported && System.currentTimeMillis() - mDownEventAtMS < CLICK_MS &&
+                        mCaptureSession != null &&
                         Math.abs(event.x - mDownEventAtX) < CLICK_DIST &&
                         Math.abs(event.y - mDownEventAtY) < CLICK_DIST) {
                     focusArea(event.x, event.y)
                 }
             }
 
-            if (mIsZoomSupported && event.pointerCount > 1) {
+            if (mIsZoomSupported && event.pointerCount > 1 && mCaptureSession != null) {
                 handleZoom(event)
             }
             true
