@@ -714,6 +714,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val texture = mTextureView.surfaceTexture
         texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
         mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD)
+        mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_VIDEO_RECORD)
         val surfaces = ArrayList<Surface>()
 
         val previewSurface = Surface(texture)
