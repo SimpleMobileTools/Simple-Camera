@@ -569,7 +569,15 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
 
             set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
+
+            val trigger = if (mIsRecording) {
+                set(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_CONTINUOUS_VIDEO)
+                CameraMetadata.CONTROL_AF_TRIGGER_IDLE
+            } else {
+                CameraMetadata.CONTROL_AF_TRIGGER_START
+            }
+
+            set(CaptureRequest.CONTROL_AF_TRIGGER, trigger)
             setTag(FOCUS_TAG)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
         }
