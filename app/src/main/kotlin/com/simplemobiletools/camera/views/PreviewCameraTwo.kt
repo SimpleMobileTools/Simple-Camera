@@ -448,9 +448,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
             mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, mBackgroundHandler)
         } catch (e: CameraAccessException) {
-            e.printStackTrace()
         }
-
     }
 
     private val mCaptureCallback = object : CameraCaptureSession.CaptureCallback() {
