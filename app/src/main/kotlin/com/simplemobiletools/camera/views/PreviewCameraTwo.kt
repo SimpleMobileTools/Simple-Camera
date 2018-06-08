@@ -10,6 +10,7 @@ import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.hardware.camera2.params.MeteringRectangle
 import android.media.ImageReader
+import android.media.MediaActionSound
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
@@ -94,6 +95,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val mCameraToPreviewMatrix = Matrix()
     private val mPreviewToCameraMatrix = Matrix()
     private val mCameraOpenCloseLock = Semaphore(1)
+    private val mMediaActionSound = MediaActionSound()
     private var mZoomRect = Rect()
 
     constructor(context: Context) : super(context)
@@ -104,6 +106,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mTextureView = textureView
         mUseFrontCamera = !activity.config.alwaysOpenBackCamera && activity.config.lastUsedCamera == activity.getMyCamera().getBackCameraId().toString()
         mIsInVideoMode = !activity.config.initPhotoMode
+        loadSounds()
 
         mTextureView.setOnTouchListener { view, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -174,6 +177,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mBackgroundHandler = null
         } catch (e: InterruptedException) {
         }
+    }
+
+    private fun loadSounds() {
+        mMediaActionSound.load(MediaActionSound.START_VIDEO_RECORDING)
+        mMediaActionSound.load(MediaActionSound.STOP_VIDEO_RECORDING)
+        mMediaActionSound.load(MediaActionSound.SHUTTER_CLICK)
     }
 
     @SuppressLint("MissingPermission")
@@ -513,6 +522,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 return
             }
 
+            if (mActivity.config.isSoundEnabled) {
+                mMediaActionSound.play(MediaActionSound.SHUTTER_CLICK)
+            }
+
             mCameraState = STATE_PICTURE_TAKEN
             mRotationAtCapture = mActivity.mLastHandledOrientation
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
@@ -725,6 +738,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private fun startRecording() {
         closeCaptureSession()
         setupMediaRecorder()
+        if (mActivity.config.isSoundEnabled) {
+            mMediaActionSound.play(MediaActionSound.START_VIDEO_RECORDING)
+        }
         val texture = mTextureView.surfaceTexture
         texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
         mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD)
@@ -758,6 +774,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun stopRecording() {
+        if (mActivity.config.isSoundEnabled) {
+            mMediaActionSound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+        }
+
         mIsRecording = false
         mMediaRecorder!!.stop()
         mMediaRecorder!!.reset()
