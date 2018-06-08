@@ -681,6 +681,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
             }
         } catch (e: CameraAccessException) {
+            mCameraState = STATE_PREVIEW
         }
     }
 
@@ -693,6 +694,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mCameraState = STATE_PREVIEW
             mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
         } catch (e: CameraAccessException) {
+        } finally {
+            mCameraState = STATE_PREVIEW
         }
     }
 
@@ -736,6 +739,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun startRecording() {
+        mCameraState = STATE_STARTING_RECORDING
         closeCaptureSession()
         setupMediaRecorder()
         if (mActivity.config.isSoundEnabled) {
@@ -767,13 +771,16 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mCameraState = STATE_RECORDING
             }
 
-            override fun onConfigureFailed(session: CameraCaptureSession?) {}
+            override fun onConfigureFailed(session: CameraCaptureSession?) {
+                mCameraState = STATE_PREVIEW
+            }
         }
 
         mCameraDevice!!.createCaptureSession(surfaces, captureCallback, mBackgroundHandler)
     }
 
     private fun stopRecording() {
+        mCameraState = STATE_STOPING_RECORDING
         if (mActivity.config.isSoundEnabled) {
             mMediaActionSound.play(MediaActionSound.STOP_VIDEO_RECORDING)
         }
