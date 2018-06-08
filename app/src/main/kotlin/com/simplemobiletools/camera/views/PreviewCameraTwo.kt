@@ -818,6 +818,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             return
         }
 
+        if (mCameraState != STATE_PREVIEW && mCameraState != STATE_RECORDING) {
+            return
+        }
+
         if (mIsRecording) {
             stopRecording()
         } else {
