@@ -128,7 +128,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             mIsHardwareShutterHandled = true
             shutterPressed()
             true
-        } else if (config.volumeButtonsAsShutter && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+        } else if (!mIsHardwareShutterHandled && config.volumeButtonsAsShutter && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+            mIsHardwareShutterHandled = true
             shutterPressed()
             true
         } else {
@@ -137,7 +138,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_CAMERA) {
+        if (keyCode == KeyEvent.KEYCODE_CAMERA || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
             mIsHardwareShutterHandled = false
         }
         return super.onKeyUp(keyCode, event)
