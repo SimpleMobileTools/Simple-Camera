@@ -802,6 +802,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun tryTakePicture() {
+        if (mCameraState != STATE_PREVIEW) {
+            return
+        }
+
         if (mIsFocusSupported && mActivity.config.focusBeforeCapture) {
             lockFocus()
         } else {
