@@ -14,6 +14,7 @@ import com.simplemobiletools.commons.extensions.humanizePath
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.LICENSE_LEAK_CANARY
+import com.simplemobiletools.commons.helpers.isLollipopPlus
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -105,6 +106,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupShowPreview() {
+        settings_show_preview_holder.beVisibleIf(!isLollipopPlus())
         settings_show_preview.isChecked = config.isShowPreviewEnabled
         settings_show_preview_holder.setOnClickListener {
             settings_show_preview.toggle()
