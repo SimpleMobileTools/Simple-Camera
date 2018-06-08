@@ -115,12 +115,18 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                         mCaptureSession != null &&
                         Math.abs(event.x - mDownEventAtX) < CLICK_DIST &&
                         Math.abs(event.y - mDownEventAtY) < CLICK_DIST) {
-                    focusArea(event.x, event.y)
+                    try {
+                        focusArea(event.x, event.y)
+                    } catch (e: Exception) {
+                    }
                 }
             }
 
             if (mIsZoomSupported && event.pointerCount > 1 && mCaptureSession != null) {
-                handleZoom(event)
+                try {
+                    handleZoom(event)
+                } catch (e: Exception) {
+                }
             }
             true
         }
