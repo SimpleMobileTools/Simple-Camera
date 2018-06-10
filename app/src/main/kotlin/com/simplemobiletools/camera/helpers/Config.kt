@@ -51,7 +51,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(cameraId) = prefs.edit().putString(LAST_USED_CAMERA, cameraId).apply()
 
     var initPhotoMode: Boolean
-        get() = prefs.getBoolean(INIT_PHOTO_MODE, false)
+        get() = prefs.getBoolean(INIT_PHOTO_MODE, true)
         set(initPhotoMode) = prefs.edit().putBoolean(INIT_PHOTO_MODE, initPhotoMode).apply()
 
     var flashlightState: Int
