@@ -309,7 +309,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 val characteristics = getCameraCharacteristics(cameraId)
 
                 val facing = characteristics.get(CameraCharacteristics.LENS_FACING) ?: continue
-                if ((mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_BACK) || !mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                if ((mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_BACK) || (!mUseFrontCamera && facing == CameraCharacteristics.LENS_FACING_FRONT)) {
                     continue
                 }
 
