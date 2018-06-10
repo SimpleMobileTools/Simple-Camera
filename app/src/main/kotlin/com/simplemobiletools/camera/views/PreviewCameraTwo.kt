@@ -109,7 +109,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     constructor(activity: MainActivity, textureView: AutoFitTextureView) : super(activity) {
         mActivity = activity
         mTextureView = textureView
-        mUseFrontCamera = !activity.config.alwaysOpenBackCamera && activity.config.lastUsedCamera == activity.getMyCamera().getBackCameraId().toString()
+        mUseFrontCamera = !activity.config.alwaysOpenBackCamera && activity.config.lastUsedCamera == activity.getMyCamera().getFrontCameraId().toString()
         mIsInVideoMode = !activity.config.initPhotoMode
         loadSounds()
 
