@@ -251,10 +251,13 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
-        val buffer = reader.acquireNextImage().planes.first().buffer
-        val bytes = ByteArray(buffer.remaining())
-        buffer.get(bytes)
-        PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, getJPEGOrientation(), mUseFrontCamera).execute(bytes)
+        try {
+            val buffer = reader.acquireNextImage().planes.first().buffer
+            val bytes = ByteArray(buffer.remaining())
+            buffer.get(bytes)
+            PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, getJPEGOrientation(), mUseFrontCamera).execute(bytes)
+        } catch (e: Exception) {
+        }
     }
 
     private fun getJPEGOrientation(): Int {
