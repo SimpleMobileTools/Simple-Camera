@@ -71,6 +71,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mDownEventAtMS = 0L
     private var mDownEventAtX = 0f
     private var mDownEventAtY = 0f
+    private var mLastFocusX = 0f
+    private var mLastFocusY = 0f
     private var mIsFlashSupported = true
     private var mIsZoomSupported = true
     private var mIsFocusSupported = true
@@ -119,7 +121,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                         Math.abs(event.x - mDownEventAtX) < CLICK_DIST &&
                         Math.abs(event.y - mDownEventAtY) < CLICK_DIST) {
                     try {
-                        focusArea(event.x, event.y)
+                        focusArea(event.x, event.y, true)
                     } catch (e: Exception) {
                     }
                 }
@@ -564,8 +566,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     // inspired by https://gist.github.com/royshil/8c760c2485257c85a11cafd958548482
-    private fun focusArea(x: Float, y: Float) {
-        mActivity.drawFocusCircle(x, y)
+    private fun focusArea(x: Float, y: Float, drawCircle: Boolean) {
+        mLastFocusX = x
+        mLastFocusY = y
+        if (drawCircle) {
+            mActivity.drawFocusCircle(x, y)
+        }
 
         val captureCallbackHandler = object : CameraCaptureSession.CaptureCallback() {
             override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
@@ -691,6 +697,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
             mCameraState = STATE_PREVIEW
             mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+
+            if (mLastFocusX != 0f && mLastFocusY != 0f) {
+                focusArea(mLastFocusX, mLastFocusY, false)
+            }
         } catch (e: CameraAccessException) {
         } finally {
             mCameraState = STATE_PREVIEW
@@ -871,6 +881,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     override fun initVideoMode(): Boolean {
+        mLastFocusX = 0f
+        mLastFocusY = 0f
         mIsInVideoMode = true
         closeCamera()
         openCamera(mTextureView.width, mTextureView.height)
