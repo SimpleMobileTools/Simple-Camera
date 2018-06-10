@@ -380,6 +380,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     mIsFocusSupported = get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
                 }
                 mActivity.setFlashAvailable(mIsFlashSupported)
+                mActivity.updateCameraIcon(mUseFrontCamera)
                 return
             }
         } catch (e: Exception) {
