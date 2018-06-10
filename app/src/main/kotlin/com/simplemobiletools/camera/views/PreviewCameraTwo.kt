@@ -570,7 +570,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 super.onCaptureCompleted(session, request, result)
 
                 if (request.tag == FOCUS_TAG) {
-                    mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AF_TRIGGER, null)
                     mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
                 }
             }
@@ -591,17 +590,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
 
             set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-
-            val trigger = if (mIsRecording) {
-                set(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_CONTINUOUS_VIDEO)
-                CameraMetadata.CONTROL_AF_TRIGGER_IDLE
-            } else {
-                CameraMetadata.CONTROL_AF_TRIGGER_START
-            }
-
-            set(CaptureRequest.CONTROL_AF_TRIGGER, trigger)
+            set(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_AUTO)
+            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
             setTag(FOCUS_TAG)
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
+            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
         }
     }
 
