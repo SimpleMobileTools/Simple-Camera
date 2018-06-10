@@ -206,6 +206,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mCameraDevice = null
             mImageReader?.close()
             mImageReader = null
+            mMediaRecorder?.release()
+            mMediaRecorder = null
         } catch (e: Exception) {
         } finally {
             mCameraOpenCloseLock.release()
