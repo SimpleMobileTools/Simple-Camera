@@ -827,6 +827,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val videoResolutions = configMap.getOutputSizes(MediaRecorder::class.java).map { MySize(it.width, it.height) } as ArrayList
         ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions) {
             if (oldResolution != getCurrentResolution()) {
+                if (mIsRecording) {
+                    stopRecording()
+                }
                 closeCamera()
                 openCamera(mTextureView.width, mTextureView.height)
             }
