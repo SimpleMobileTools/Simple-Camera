@@ -351,7 +351,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 val outputSizes = if (mIsInVideoMode) configMap.getOutputSizes(MediaRecorder::class.java) else configMap.getOutputSizes(SurfaceTexture::class.java)
                 mPreviewSize = chooseOptimalPreviewSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
-                mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
+                mActivity.runOnUiThread {
+                    mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
+                }
                 characteristics.apply {
                     mIsFlashSupported = get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
                     mIsZoomSupported = get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
