@@ -34,9 +34,15 @@ import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
+import java.lang.IllegalArgumentException
+import java.lang.InterruptedException
+import java.lang.Math
+import java.lang.System
+import java.lang.Thread
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
+import kotlin.RuntimeException
 
 // based on the Android Camera2 photo sample at https://github.com/googlesamples/android-Camera2Basic
 // and video sample at https://github.com/googlesamples/android-Camera2Video
@@ -109,7 +115,14 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     constructor(activity: MainActivity, textureView: AutoFitTextureView) : super(activity) {
         mActivity = activity
         mTextureView = textureView
-        mUseFrontCamera = !activity.config.alwaysOpenBackCamera && activity.config.lastUsedCamera == activity.getMyCamera().getFrontCameraId().toString()
+        val cameraCharacteristics = try {
+            getCameraCharacteristics(activity.config.lastUsedCamera)
+        } catch (e: IllegalArgumentException) {
+            null
+        }
+
+        val isFrontCamera = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING).toString() == activity.getMyCamera().getFrontCameraId().toString()
+        mUseFrontCamera = !activity.config.alwaysOpenBackCamera && isFrontCamera
         mIsInVideoMode = !activity.config.initPhotoMode
         loadSounds()
 

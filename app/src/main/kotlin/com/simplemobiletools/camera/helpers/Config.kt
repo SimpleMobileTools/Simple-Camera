@@ -2,7 +2,6 @@ package com.simplemobiletools.camera.helpers
 
 import android.content.Context
 import android.os.Environment
-import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
 
@@ -47,7 +46,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
 
     var lastUsedCamera: String
-        get() = prefs.getString(LAST_USED_CAMERA, context.getMyCamera().getBackCameraId().toString())
+        get() = prefs.getString(LAST_USED_CAMERA, "0")
         set(cameraId) = prefs.edit().putString(LAST_USED_CAMERA, cameraId).apply()
 
     var initPhotoMode: Boolean
