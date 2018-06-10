@@ -47,6 +47,20 @@ data class MySize(val width: Int, val height: Int) {
         return diff < RATIO_TOLERANCE
     }
 
+    private fun isNineteenToNine(): Boolean {
+        val selectedRatio = Math.abs(width / height.toFloat())
+        val checkedRatio = 19 / 9.toFloat()
+        val diff = Math.abs(selectedRatio - checkedRatio)
+        return diff < RATIO_TOLERANCE
+    }
+
+    private fun isNineteenToEight(): Boolean {
+        val selectedRatio = Math.abs(width / height.toFloat())
+        val checkedRatio = 19 / 8.toFloat()
+        val diff = Math.abs(selectedRatio - checkedRatio)
+        return diff < RATIO_TOLERANCE
+    }
+
     private fun isOneNineToOne() = Math.abs(1.9 - (width / height.toFloat())) < RATIO_TOLERANCE
 
     private fun isSquare() = width == height
@@ -59,6 +73,8 @@ data class MySize(val width: Int, val height: Int) {
         isThreeToTwo() -> "3:2"
         isSixToFive() -> "6:5"
         isOneNineToOne() -> "1.9:1"
+        isNineteenToNine() -> "19:9"
+        isNineteenToEight() -> "19:8"
         isSquare() -> "1:1"
         else -> context.resources.getString(R.string.other)
     }
