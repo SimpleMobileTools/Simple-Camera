@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.hardware.camera2.params.MeteringRectangle
+import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.ImageReader
 import android.media.MediaActionSound
 import android.media.MediaRecorder
@@ -44,6 +45,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val FOCUS_TAG = "focus_tag"
     private val MAX_PREVIEW_WIDTH = 1920
     private val MAX_PREVIEW_HEIGHT = 1080
+    private val MAX_VIDEO_WIDTH = 4096
+    private val MAX_VIDEO_HEIGHT = 2160
     private val CLICK_MS = 250
     private val CLICK_DIST = 20
 
@@ -290,7 +293,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
 
         val outputSizes = if (mIsInVideoMode) {
-            configMap.getOutputSizes(MediaRecorder::class.java)
+            getAvailableVideoSizes(configMap).toTypedArray()
         } else {
             configMap.getOutputSizes(ImageFormat.JPEG)
         }
@@ -348,7 +351,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     maxPreviewHeight = MAX_PREVIEW_HEIGHT
                 }
 
-                val outputSizes = if (mIsInVideoMode) configMap.getOutputSizes(MediaRecorder::class.java) else configMap.getOutputSizes(SurfaceTexture::class.java)
+                val outputSizes = if (mIsInVideoMode) {
+                    getAvailableVideoSizes(configMap).toTypedArray()
+                } else {
+                    configMap.getOutputSizes(SurfaceTexture::class.java)
+                }
                 mPreviewSize = chooseOptimalPreviewSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mActivity.runOnUiThread {
@@ -805,6 +812,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mActivity.setRecordingState(false)
     }
 
+    private fun getAvailableVideoSizes(configMap: StreamConfigurationMap) = configMap.getOutputSizes(MediaRecorder::class.java).filter {
+        it.width <= MAX_VIDEO_WIDTH && it.height <= MAX_VIDEO_HEIGHT
+    }
+
     override fun setTargetUri(uri: Uri) {
         mTargetUri = uri
     }
@@ -824,7 +835,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val oldResolution = getCurrentResolution()
         val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
         val photoResolutions = configMap.getOutputSizes(ImageFormat.JPEG).map { MySize(it.width, it.height) } as ArrayList
-        val videoResolutions = configMap.getOutputSizes(MediaRecorder::class.java).map { MySize(it.width, it.height) } as ArrayList
+        val videoResolutions = getAvailableVideoSizes(configMap).map { MySize(it.width, it.height) } as ArrayList
         ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions) {
             if (oldResolution != getCurrentResolution()) {
                 if (mIsRecording) {
