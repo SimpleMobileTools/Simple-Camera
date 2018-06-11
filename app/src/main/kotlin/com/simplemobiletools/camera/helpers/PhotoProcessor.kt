@@ -17,6 +17,8 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean) :
         AsyncTask<ByteArray, Void, String>() {
@@ -105,8 +107,16 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
             }
 
             if (activity.config.savePhotoMetadata) {
-                val fileExif = ExifInterface(path)
-                tempExif.copyTo(fileExif)
+                val dateTimeFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.getDefault())
+                val formatted = dateTimeFormat.format(Date())
+
+                ExifInterface(path).apply {
+                    setAttribute(ExifInterface.TAG_DATETIME, formatted)
+                    setAttribute(ExifInterface.TAG_DATETIME_DIGITIZED, formatted)
+                    setAttribute(ExifInterface.TAG_DATETIME_ORIGINAL, formatted)
+                    saveAttributes()
+                    tempExif.copyTo(this)
+                }
             }
 
             return photoFile.absolutePath
