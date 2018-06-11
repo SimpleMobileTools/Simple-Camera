@@ -597,8 +597,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
         }
 
-        mCaptureSession!!.stopRepeating()
         cancelAutoFocus()
+        mCaptureSession!!.stopRepeating()
         mPreviewRequestBuilder!!.apply {
             // touch-to-focus inspired by OpenCamera
             val characteristics = getCameraCharacteristics()
