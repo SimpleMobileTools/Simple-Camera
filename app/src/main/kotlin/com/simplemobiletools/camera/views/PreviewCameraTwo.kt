@@ -561,8 +561,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
             val captureCallback = object : CameraCaptureSession.CaptureCallback() {
                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
-                    unlockFocus()
                     mActivity.toggleBottomButtons(false)
+                    if (shouldLockFocus()) {
+                        unlockFocus()
+                    } else {
+                        resetPreviewSession()
+                    }
                 }
 
                 override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
@@ -678,6 +682,47 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
 
         return FocusArea(rect, MeteringRectangle.METERING_WEIGHT_MAX)
+    }
+
+    // touch-to-focus stucks after capturing a photo without "Focus before capture" so just reset the whole session until fixed properly
+    private fun resetPreviewSession() {
+        val stateCallback = object : CameraCaptureSession.StateCallback() {
+            override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
+                if (mCameraDevice == null) {
+                    return
+                }
+
+                mCaptureSession = cameraCaptureSession
+                try {
+                    mPreviewRequestBuilder!!.apply {
+                        set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                        setFlashAndExposure(this)
+                        mPreviewRequest = build()
+                    }
+                    mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                    mCameraState = STATE_PREVIEW
+
+                    Handler().postDelayed({
+                        if (mLastFocusX != 0f && mLastFocusY != 0f) {
+                            focusArea(mLastFocusX, mLastFocusY, false)
+                        }
+                    }, 200L)
+                } catch (e: Exception) {
+                }
+            }
+
+            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
+        }
+
+        try {
+            closeCaptureSession()
+            val texture = mTextureView.surfaceTexture!!
+            texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
+
+            val surface = Surface(texture)
+            mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
+        } catch (e: Exception) {
+        }
     }
 
     private fun calculateCameraToPreviewMatrix() {
@@ -822,6 +867,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         it.width <= MAX_VIDEO_WIDTH && it.height <= MAX_VIDEO_HEIGHT
     }
 
+    private fun shouldLockFocus() = mIsFocusSupported && mActivity.config.focusBeforeCapture
+
     override fun setTargetUri(uri: Uri) {
         mTargetUri = uri
     }
@@ -869,7 +916,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             return
         }
 
-        if (mIsFocusSupported && mActivity.config.focusBeforeCapture) {
+        if (shouldLockFocus()) {
             lockFocus()
         } else {
             captureStillPicture()
