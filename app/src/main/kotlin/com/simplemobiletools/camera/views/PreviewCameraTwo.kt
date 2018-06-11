@@ -597,9 +597,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
         }
 
-        cancelAutoFocus()
         mCaptureSession!!.stopRepeating()
         mPreviewRequestBuilder!!.apply {
+            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
+            mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
+
             // touch-to-focus inspired by OpenCamera
             val characteristics = getCameraCharacteristics()
             if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
@@ -616,12 +618,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
             set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
         }
-    }
-
-    private fun cancelAutoFocus() {
-        val cancelRequest = mPreviewRequestBuilder
-        cancelRequest!!.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
-        mCaptureSession!!.capture(cancelRequest.build(), null, mBackgroundHandler)
     }
 
     private fun convertAreaToMeteringRectangle(sensorRect: Rect, focusArea: FocusArea): MeteringRectangle {
