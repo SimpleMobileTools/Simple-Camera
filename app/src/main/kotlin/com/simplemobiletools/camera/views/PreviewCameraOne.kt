@@ -849,8 +849,10 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         }
 
         mRecorder = null
+        if (mIsRecording) {
+            mActivity!!.setRecordingState(false)
+        }
         mIsRecording = false
-        mActivity!!.setRecordingState(false)
 
         val file = File(mCurrVideoPath)
         if (file.exists() && file.length() == 0L) {
