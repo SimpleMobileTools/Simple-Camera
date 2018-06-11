@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 4.1.0 *(2018-06-11)*
+----------------------------
+
+ * Fully rewrote the Camera functionality under the hood for Android 5+
+ * Properly save image EXIF data when selected so
+ * Fix the rotation of images returned to third party intents
+ * Removed the option to show the captured photo after taking it
+
 Version 4.0.0 *(2018-05-15)*
 ----------------------------
 
