@@ -144,9 +144,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         return super.onKeyUp(keyCode, event)
     }
 
-    private fun hideToggleModeAbout() {
+    private fun hideIntentButtons() {
         toggle_photo_video.beGone()
         settings.beGone()
+        last_photo_video_preview.beGone()
     }
 
     private fun tryInitCamera() {
@@ -170,14 +171,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 
     private fun handleIntent() {
         if (isImageCaptureIntent()) {
-            hideToggleModeAbout()
+            hideIntentButtons()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
                 mPreview?.setTargetUri(output)
             }
         } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
-            hideToggleModeAbout()
+            hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
         }
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
