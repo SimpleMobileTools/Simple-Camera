@@ -275,18 +275,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             val buffer = reader.acquireNextImage().planes.first().buffer
             val bytes = ByteArray(buffer.remaining())
             buffer.get(bytes)
-            PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, getJPEGOrientation(), mUseFrontCamera).execute(bytes)
+            PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, mSensorOrientation, mUseFrontCamera).execute(bytes)
         } catch (e: Exception) {
         }
-    }
-
-    private fun getJPEGOrientation(): Int {
-        var orientation = mSensorOrientation
-        if (mUseFrontCamera) {
-            orientation += 180
-        }
-
-        return orientation % 360
     }
 
     private fun getCurrentResolution(): MySize {
@@ -562,7 +553,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 addTarget(mImageReader!!.surface)
                 setFlashAndExposure(this)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                set(CaptureRequest.JPEG_ORIENTATION, getJPEGOrientation())
+                set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
                 set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
             }
