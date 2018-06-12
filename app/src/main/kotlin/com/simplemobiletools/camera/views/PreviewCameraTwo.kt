@@ -575,7 +575,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 }
             }
 
-            mCaptureSession!!.apply {
+            mCaptureSession?.apply {
                 stopRepeating()
                 abortCaptures()
                 capture(captureBuilder.build(), captureCallback, null)
