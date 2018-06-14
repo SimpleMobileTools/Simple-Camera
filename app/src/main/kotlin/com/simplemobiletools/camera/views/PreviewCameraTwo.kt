@@ -112,7 +112,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     constructor(context: Context) : super(context)
 
     @SuppressLint("ClickableViewAccessibility")
-    constructor(activity: MainActivity, textureView: AutoFitTextureView) : super(activity) {
+    constructor(activity: MainActivity, textureView: AutoFitTextureView, initPhotoMode: Boolean) : super(activity) {
         mActivity = activity
         mTextureView = textureView
         val cameraCharacteristics = try {
@@ -123,7 +123,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
         val isFrontCamera = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING).toString() == activity.getMyCamera().getFrontCameraId().toString()
         mUseFrontCamera = !activity.config.alwaysOpenBackCamera && isFrontCamera
-        mIsInVideoMode = !activity.config.initPhotoMode
+        mIsInVideoMode = !initPhotoMode
         loadSounds()
 
         mTextureView.setOnTouchListener { view, event ->

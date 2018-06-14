@@ -156,7 +156,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
                 handlePermission(PERMISSION_WRITE_STORAGE) {
                     if (it) {
                         initializeCamera()
-                        handleIntent()
                     } else {
                         toast(R.string.no_storage_permissions)
                         finish()
@@ -178,6 +177,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             }
         } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
+            mIsInPhotoMode = false
             hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
         }
@@ -190,12 +190,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         setContentView(R.layout.activity_main)
         initButtons()
 
+        handleIntent()
         camera_surface_view.beVisibleIf(!isLollipopPlus())
         camera_texture_view.beVisibleIf(isLollipopPlus())
 
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
-        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view) else PreviewCameraOne(this, camera_surface_view)
+        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view, mIsInPhotoMode) else PreviewCameraOne(this, camera_surface_view)
         view_holder.addView(mPreview as ViewGroup)
 
         val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
