@@ -34,6 +34,7 @@ import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
+import java.io.File
 import java.lang.IllegalArgumentException
 import java.lang.InterruptedException
 import java.lang.Math
@@ -90,6 +91,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private var mIsRecording = false
     private var mUseFrontCamera = false
     private var mCameraId = ""
+    private var mLastVideoPath = ""
     private var mCameraState = STATE_INIT
     private var mFlashlightState = FLASH_OFF
 
@@ -786,13 +788,13 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun setupMediaRecorder() {
         val videoSize = getCurrentResolution()
-        val currVideoPath = mActivity.getOutputMediaFile(false)
+        mLastVideoPath = mActivity.getOutputMediaFile(false)
         val rotation = mActivity.windowManager.defaultDisplay.rotation
         mMediaRecorder!!.apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setVideoSource(MediaRecorder.VideoSource.SURFACE)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            setOutputFile(currVideoPath)
+            setOutputFile(mLastVideoPath)
             setVideoEncodingBitRate(10000000)
             setVideoFrameRate(30)
             setVideoSize(videoSize.width, videoSize.height)
@@ -813,6 +815,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         if (mActivity.config.isSoundEnabled) {
             mMediaActionSound.play(MediaActionSound.START_VIDEO_RECORDING)
         }
+
         val texture = mTextureView.surfaceTexture
         texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
         mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD)
@@ -856,6 +859,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mIsRecording = false
         mMediaRecorder!!.stop()
         mMediaRecorder!!.reset()
+        mActivity.videoSaved(Uri.fromFile(File(mLastVideoPath)))
         Thread {
             closeCamera()
             openCamera(mTextureView.width, mTextureView.height)

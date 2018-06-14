@@ -536,7 +536,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     fun videoSaved(uri: Uri) {
-        setupPreviewImage(mIsInPhotoMode)
+        setupPreviewImage(false)
         if (mIsVideoCaptureIntent) {
             Intent().apply {
                 data = uri
@@ -551,7 +551,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 
     override fun mediaSaved(path: String) {
         rescanPaths(arrayListOf(path)) {
-            setupPreviewImage(mIsInPhotoMode)
+            setupPreviewImage(true)
             Intent(BROADCAST_REFRESH_MEDIA).apply {
                 putExtra(REFRESH_PATH, path)
                 `package` = "com.simplemobiletools.gallery"
