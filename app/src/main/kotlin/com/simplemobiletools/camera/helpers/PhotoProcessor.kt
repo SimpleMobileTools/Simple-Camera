@@ -18,7 +18,8 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean) :
+class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean,
+                     val isThirdPartyIntent: Boolean) :
         AsyncTask<ByteArray, Void, String>() {
 
     override fun doInBackground(vararg params: ByteArray): String {
@@ -67,14 +68,21 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
                 }
             }
 
-            val exif = ExifInterface(photoFile.toString())
-            val orient = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+            val exif = try {
+                ExifInterface(path)
+            } catch (e: Exception) {
+                null
+            }
+
+            val orient = exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
+                    ?: ExifInterface.ORIENTATION_UNDEFINED
+
             val imageRot = orient.degreesFromOrientation()
 
             val deviceRot = compensateDeviceRotation(deviceOrientation, isUsingFrontCamera)
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val totalRotation = (imageRot + deviceRot + previewRotation) % 360
-            if (path.startsWith(activity.internalStoragePath) || isNougatPlus()) {
+            if (path.startsWith(activity.internalStoragePath) || isNougatPlus() && !isThirdPartyIntent) {
                 // do not rotate the image itself in these cases, rotate it by exif only
             } else {
                 // make sure the image itself is rotated at third party intents
@@ -98,13 +106,15 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
 
             try {
                 image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
-                activity.saveImageRotation(path, totalRotation)
+                if (!isThirdPartyIntent) {
+                    activity.saveImageRotation(path, totalRotation)
+                }
             } catch (e: Exception) {
                 activity.showErrorToast(e)
                 return ""
             }
 
-            if (activity.config.savePhotoMetadata) {
+            if (activity.config.savePhotoMetadata && !isThirdPartyIntent) {
                 val fileExif = ExifInterface(path)
                 tempExif.copyTo(fileExif)
             }

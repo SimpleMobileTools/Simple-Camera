@@ -383,7 +383,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
 
     private fun storePhoto(data: ByteArray) {
         val previewRotation = getPreviewRotation(mCurrCameraId)
-        PhotoProcessor(mActivity!!, mTargetUri, mRotationAtCapture, previewRotation, getIsUsingFrontCamera()).execute(data)
+        PhotoProcessor(mActivity!!, mTargetUri, mRotationAtCapture, previewRotation, getIsUsingFrontCamera(), mIsImageCaptureIntent).execute(data)
     }
 
     private fun getIsUsingFrontCamera() = mCurrCameraId == mActivity!!.getMyCamera().getFrontCameraId()

@@ -275,7 +275,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             val buffer = reader.acquireNextImage().planes.first().buffer
             val bytes = ByteArray(buffer.remaining())
             buffer.get(bytes)
-            PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, mSensorOrientation, mUseFrontCamera).execute(bytes)
+            PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, mSensorOrientation, mUseFrontCamera, mIsImageCaptureIntent).execute(bytes)
         } catch (e: Exception) {
         }
     }
