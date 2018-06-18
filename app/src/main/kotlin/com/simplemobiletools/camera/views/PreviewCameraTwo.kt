@@ -109,7 +109,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     private val mPreviewToCameraMatrix = Matrix()
     private val mCameraOpenCloseLock = Semaphore(1)
     private val mMediaActionSound = MediaActionSound()
-    private var mZoomRect = Rect()
+    private var mZoomRect: Rect? = null
 
     constructor(context: Context) : super(context)
 
@@ -557,8 +557,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 setFlashAndExposure(this)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                 set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
-                set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
+                if (mZoomRect != null) {
+                    set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
+                }
             }
 
             val captureCallback = object : CameraCaptureSession.CaptureCallback() {
@@ -706,7 +708,9 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
                     Handler().postDelayed({
                         if (mLastFocusX != 0f && mLastFocusY != 0f) {
-                            focusArea(mLastFocusX, mLastFocusY, false)
+                            if (mCaptureSession != null) {
+                                focusArea(mLastFocusX, mLastFocusY, false)
+                            }
                         }
                     }, 200L)
                 } catch (e: Exception) {
