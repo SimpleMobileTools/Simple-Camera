@@ -486,7 +486,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
             }
         } catch (e: Exception) {
-            mActivity.showErrorToast("Create preview $e")
         }
     }
 
