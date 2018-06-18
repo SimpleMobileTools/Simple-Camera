@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 4.1.2 *(2018-06-18)*
+----------------------------
+
+ * Fixed third party intent handling
+ * Fixed some glitch causing photos be captured fully zoomed in
+ * Added a couple extra error message displays
+
 Version 4.1.1 *(2018-06-12)*
 ----------------------------
 
