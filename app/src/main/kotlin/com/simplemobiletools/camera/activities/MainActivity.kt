@@ -258,8 +258,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         toggle_flash.setImageResource(flashDrawable)
     }
 
-    fun updateCameraIcon(showFront: Boolean) {
-        toggle_camera.setImageResource(if (showFront) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
+    fun updateCameraIcon(isUsingFrontCamera: Boolean) {
+        toggle_camera.setImageResource(if (isUsingFrontCamera) R.drawable.ic_camera_rear else R.drawable.ic_camera_front)
     }
 
     private fun shutterPressed() {
