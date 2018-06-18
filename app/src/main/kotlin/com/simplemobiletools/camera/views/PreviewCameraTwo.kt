@@ -121,6 +121,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         val cameraCharacteristics = try {
             getCameraCharacteristics(activity.config.lastUsedCamera)
         } catch (e: IllegalArgumentException) {
+            mActivity.showErrorToast("Get camera characteristics $e")
             null
         }
 
@@ -209,12 +210,15 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     @SuppressLint("MissingPermission")
     private fun openCamera(width: Int, height: Int) {
         try {
-            setupCameraOutputs(width, height)
-            if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
-                throw RuntimeException("Time out waiting to lock camera opening.")
+            mActivity.runOnUiThread {
+                setupCameraOutputs(width, height)
+                if (!mCameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
+                    throw RuntimeException("Time out waiting to lock camera opening.")
+                }
+                getCameraManager().openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
             }
-            getCameraManager().openCamera(mCameraId, cameraStateCallback, mBackgroundHandler)
         } catch (e: Exception) {
+            mActivity.showErrorToast("Open camera $e")
         }
     }
 
@@ -378,6 +382,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 return
             }
         } catch (e: Exception) {
+            mActivity.showErrorToast("Setup camera outputs $e")
         }
     }
 
@@ -481,6 +486,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
             }
         } catch (e: Exception) {
+            mActivity.showErrorToast("Create preview $e")
         }
     }
 
@@ -586,6 +592,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 capture(captureBuilder.build(), captureCallback, null)
             }
         } catch (e: CameraAccessException) {
+            mActivity.showErrorToast("Capture picture $e")
         }
     }
 
