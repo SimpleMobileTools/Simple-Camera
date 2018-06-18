@@ -33,6 +33,7 @@ import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
+import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
 import java.lang.IllegalArgumentException
@@ -851,7 +852,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
         }
 
-        mCameraDevice!!.createCaptureSession(surfaces, captureCallback, mBackgroundHandler)
+        try {
+            mCameraDevice!!.createCaptureSession(surfaces, captureCallback, mBackgroundHandler)
+        } catch (e: Exception) {
+            mActivity.showErrorToast(e)
+            mCameraState = STATE_PREVIEW
+        }
     }
 
     private fun stopRecording() {
