@@ -168,36 +168,41 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         }
     }
 
-    private fun handleIntent() {
+    private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+
+    private fun checkImageCaptureIntent() {
         if (isImageCaptureIntent()) {
             hideIntentButtons()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
                 mPreview?.setTargetUri(output)
             }
-        } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
+        }
+    }
+
+    private fun checkVideoCaptureIntent() {
+        if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
             mIsVideoCaptureIntent = true
             mIsInPhotoMode = false
             hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
         }
-        mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
     }
-
-    private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
 
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
         initButtons()
 
-        handleIntent()
         camera_surface_view.beVisibleIf(!isLollipopPlus())
         camera_texture_view.beVisibleIf(isLollipopPlus())
 
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
+        checkVideoCaptureIntent()
         mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view, mIsInPhotoMode) else PreviewCameraOne(this, camera_surface_view)
         view_holder.addView(mPreview as ViewGroup)
+        checkImageCaptureIntent()
+        mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
         val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
         toggle_camera.setImageResource(imageDrawable)
