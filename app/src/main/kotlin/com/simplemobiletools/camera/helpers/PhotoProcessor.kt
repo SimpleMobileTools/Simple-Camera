@@ -82,6 +82,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
             val deviceRot = compensateDeviceRotation(deviceOrientation, isUsingFrontCamera)
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val totalRotation = (imageRot + deviceRot + previewRotation) % 360
+
             if (path.startsWith(activity.internalStoragePath) || isNougatPlus() && !isThirdPartyIntent) {
                 // do not rotate the image itself in these cases, rotate it by exif only
             } else {
