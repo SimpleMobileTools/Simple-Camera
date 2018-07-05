@@ -608,7 +608,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 super.onCaptureCompleted(session, request, result)
 
                 if (request.tag == FOCUS_TAG) {
-                    mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
+                    mCaptureSession?.setRepeatingRequest(mPreviewRequestBuilder!!.build(), mCaptureCallback, mBackgroundHandler)
                 }
             }
         }
@@ -798,24 +798,28 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     }
 
     private fun setupMediaRecorder() {
-        val videoSize = getCurrentResolution()
-        mLastVideoPath = mActivity.getOutputMediaFile(false)
-        val rotation = mActivity.windowManager.defaultDisplay.rotation
-        mMediaRecorder!!.apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
-            setVideoSource(MediaRecorder.VideoSource.SURFACE)
-            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            setOutputFile(mLastVideoPath)
-            setVideoEncodingBitRate(10000000)
-            setVideoFrameRate(30)
-            setVideoSize(videoSize.width, videoSize.height)
-            setVideoEncoder(MediaRecorder.VideoEncoder.H264)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            when (mSensorOrientation) {
-                90 -> setOrientationHint(DEFAULT_ORIENTATIONS.get(rotation))
-                270 -> setOrientationHint(INVERSE_ORIENTATIONS.get(rotation))
+        try {
+            val videoSize = getCurrentResolution()
+            mLastVideoPath = mActivity.getOutputMediaFile(false)
+            val rotation = mActivity.windowManager.defaultDisplay.rotation
+            mMediaRecorder!!.apply {
+                setAudioSource(MediaRecorder.AudioSource.MIC)
+                setVideoSource(MediaRecorder.VideoSource.SURFACE)
+                setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                setOutputFile(mLastVideoPath)
+                setVideoEncodingBitRate(10000000)
+                setVideoFrameRate(30)
+                setVideoSize(videoSize.width, videoSize.height)
+                setVideoEncoder(MediaRecorder.VideoEncoder.H264)
+                setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+                when (mSensorOrientation) {
+                    90 -> setOrientationHint(DEFAULT_ORIENTATIONS.get(rotation))
+                    270 -> setOrientationHint(INVERSE_ORIENTATIONS.get(rotation))
+                }
+                prepare()
             }
-            prepare()
+        } catch (e: Exception) {
+            mActivity.showErrorToast(e)
         }
     }
 
