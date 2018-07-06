@@ -33,6 +33,7 @@ import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
+import com.simplemobiletools.commons.extensions.rescanPaths
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
@@ -879,7 +880,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         mIsRecording = false
         mMediaRecorder!!.stop()
         mMediaRecorder!!.reset()
-        mActivity.videoSaved(Uri.fromFile(File(mLastVideoPath)))
+        mActivity.rescanPaths(arrayListOf(mLastVideoPath)) {
+            mActivity.videoSaved(Uri.fromFile(File(mLastVideoPath)))
+        }
+
         Thread {
             closeCamera()
             openCamera(mTextureView.width, mTextureView.height)
