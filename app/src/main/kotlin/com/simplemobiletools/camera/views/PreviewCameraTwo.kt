@@ -591,14 +591,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
 
             val captureCallback = object : CameraCaptureSession.CaptureCallback() {
-                override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
-                    mActivity.toggleBottomButtons(false)
-                    if (shouldLockFocus()) {
-                        unlockFocus()
-                    } else {
-                        resetPreviewSession()
-                    }
-                }
+                override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {}
 
                 override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
                     super.onCaptureFailed(session, request, failure)
@@ -752,6 +745,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             closeCaptureSession()
             val texture = mTextureView.surfaceTexture!!
             texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
+
+            val currentResolution = getCurrentResolution()
+            mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
+            mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
 
             val surface = Surface(texture)
             mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
@@ -1018,6 +1015,16 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     override fun deviceOrientationChanged() {}
 
     override fun resumeCamera() = true
+
+    override fun imageSaved() {
+        mImageReader?.close()
+        mActivity.toggleBottomButtons(false)
+        if (shouldLockFocus()) {
+            unlockFocus()
+        } else {
+            resetPreviewSession()
+        }
+    }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {}
 }

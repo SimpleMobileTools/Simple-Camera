@@ -155,6 +155,8 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         return true
     }
 
+    override fun imageSaved() {}
+
     private fun initCamera(): Boolean {
         if (mCamera == null)
             return false

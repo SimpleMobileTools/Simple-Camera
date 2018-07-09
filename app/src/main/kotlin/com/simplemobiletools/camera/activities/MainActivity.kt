@@ -555,6 +555,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
+        mPreview?.imageSaved()
         rescanPaths(arrayListOf(path)) {
             setupPreviewImage(true)
             Intent(BROADCAST_REFRESH_MEDIA).apply {

@@ -36,4 +36,6 @@ interface MyPreview {
     fun deviceOrientationChanged()
 
     fun resumeCamera(): Boolean
+
+    fun imageSaved()
 }
