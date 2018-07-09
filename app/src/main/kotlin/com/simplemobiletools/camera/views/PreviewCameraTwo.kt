@@ -578,11 +578,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
             mCameraState = STATE_PICTURE_TAKEN
             mRotationAtCapture = mActivity.mLastHandledOrientation
+            val jpegOrientation = (mSensorOrientation + compensateDeviceRotation(mRotationAtCapture, mUseFrontCamera)) % 360
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
                 addTarget(mImageReader!!.surface)
                 setFlashAndExposure(this)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
+                set(CaptureRequest.JPEG_ORIENTATION, jpegOrientation)
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
                 set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
                 if (mZoomRect != null) {
