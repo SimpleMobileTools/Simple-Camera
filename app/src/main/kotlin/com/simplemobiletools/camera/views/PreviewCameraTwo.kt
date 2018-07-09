@@ -453,13 +453,13 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
                 mCaptureSession = cameraCaptureSession
                 try {
+                    mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
                     if (mIsInVideoMode) {
                         mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
                         mCaptureSession!!.setRepeatingRequest(mPreviewRequestBuilder!!.build(), null, mBackgroundHandler)
                     } else {
                         mPreviewRequestBuilder!!.apply {
                             set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                            set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
                             setFlashAndExposure(this)
                             mPreviewRequest = build()
                         }
@@ -852,10 +852,12 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
         val texture = mTextureView.surfaceTexture
         texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD)
-        mPreviewRequestBuilder!!.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_VIDEO_RECORD)
-        val surfaces = ArrayList<Surface>()
+        mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
+            set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_VIDEO_RECORD)
+            set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
+        }
 
+        val surfaces = ArrayList<Surface>()
         val previewSurface = Surface(texture)
         surfaces.add(previewSurface)
         mPreviewRequestBuilder!!.addTarget(previewSurface)
