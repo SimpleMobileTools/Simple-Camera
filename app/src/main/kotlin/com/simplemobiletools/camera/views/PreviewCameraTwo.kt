@@ -18,6 +18,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
+import android.util.Range
 import android.util.Size
 import android.util.SparseIntArray
 import android.view.MotionEvent
@@ -458,6 +459,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     } else {
                         mPreviewRequestBuilder!!.apply {
                             set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                            set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
                             setFlashAndExposure(this)
                             mPreviewRequest = build()
                         }
@@ -488,6 +490,23 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
         } catch (e: Exception) {
         }
+    }
+
+    private fun getFrameRange(): Range<Int> {
+        val ranges = getCameraCharacteristics().get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES)
+        var currRangeSize = -1
+        var currMinRange = 0
+        var result: Range<Int>? = null
+        for (range in ranges) {
+            val diff = range.upper - range.lower
+            if (diff > currRangeSize || (diff == currRangeSize && range.lower > currMinRange)) {
+                currRangeSize = diff
+                currMinRange = range.lower
+                result = range
+            }
+        }
+
+        return result!!
     }
 
     private fun updatePreview() {
@@ -565,6 +584,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                 set(CaptureRequest.JPEG_ORIENTATION, mSensorOrientation)
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
+                set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
                 if (mZoomRect != null) {
                     set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
                 }
