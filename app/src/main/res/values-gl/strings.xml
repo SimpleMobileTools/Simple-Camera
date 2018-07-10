@@ -11,13 +11,14 @@
     <string name="click_to_resume_preview">Pulse na imaxe para voltar a vista previa</string>
     <string name="photo_not_saved">Non se puido gardar a fotografía</string>
     <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">outro</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Qué calidade de compresión debo escoller para a foto?</string>
+    <string name="faq_1_text">Depende do obxetivo. Para uso xeral a maioría de usuarias recomenda 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drásticamente comparado co 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Gardar fotos e videos en</string>
@@ -35,7 +36,7 @@
     <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
     <string name="save_photo_metadata">Gardar metadatos exif da foto</string>
     <string name="photo_compression_quality">Calidade da compresión da foto</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">Disparador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

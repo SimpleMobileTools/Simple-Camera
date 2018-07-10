@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">點擊圖片回到拍攝預覽</string>
     <string name="photo_not_saved">相片無法儲存</string>
     <string name="setting_resolution_failed">設定合適解析度失敗</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">其它</string>
@@ -35,18 +36,18 @@
     <string name="always_open_back_camera">開啟程式總是用後鏡頭</string>
     <string name="save_photo_metadata">儲存相片EXIF資訊</string>
     <string name="photo_compression_quality">相片壓縮品質</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">快門</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">一個有閃光燈和變焦，且沒有廣告的相機。</string>
     <string name="app_long_description">
         這相機可用來相片拍攝和影片紀錄。你可以切換前後鏡頭、修改儲存路徑和限制解析度。閃光燈能被開關或當作手電筒。你可以捏抓來進行縮放。
-		
+
         如果你想要按下實體相機鍵來啟動這應用程式，你可能必須禁用內建的相機程式(設定 -> 應用程式 -> 相機 -> 停用)。
-				
+
         不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
-		
+
         這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 https://www.simplemobiletools.com
     </string>
 

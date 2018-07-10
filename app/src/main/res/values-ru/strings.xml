@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Чтобы возобновить предпросмотр, нажмите на изображение</string>
     <string name="photo_not_saved">Не удалось сохранить фото</string>
     <string name="setting_resolution_failed">Не удалось установить правильное разрешение</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">другое</string>

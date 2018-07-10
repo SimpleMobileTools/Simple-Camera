@@ -2,7 +2,6 @@ package com.simplemobiletools.camera.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.hardware.Camera
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
@@ -17,35 +16,36 @@ import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
-import com.simplemobiletools.camera.views.FocusRectView
-import com.simplemobiletools.camera.views.Preview
-import com.simplemobiletools.camera.views.Preview.PreviewListener
+import com.simplemobiletools.camera.interfaces.MyCamera
+import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.views.FocusCircleView
+import com.simplemobiletools.camera.views.PreviewCameraOne
+import com.simplemobiletools.camera.views.PreviewCameraTwo
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSavedListener {
-    private val FADE_DELAY = 5000
+class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
+    private val FADE_DELAY = 5000L
 
-    lateinit var mFocusRectView: FocusRectView
     lateinit var mTimerHandler: Handler
-    lateinit var mFadeHandler: Handler
+    private lateinit var mOrientationEventListener: OrientationEventListener
+    private lateinit var mFocusCircleView: FocusCircleView
+    private lateinit var mFadeHandler: Handler
+    private lateinit var mCameraImpl: MyCamera
 
-    private var mPreview: Preview? = null
+    private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
-    private var mFlashlightState = FLASH_OFF
     private var mIsInPhotoMode = false
     private var mIsCameraAvailable = false
     private var mIsVideoCaptureIntent = false
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
-    private var mCurrCameraId = 0
     var mLastHandledOrientation = 0
-
-    lateinit var mOrientationEventListener: OrientationEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
@@ -57,8 +57,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        if (config.alwaysOpenBackCamera)
-            config.lastUsedCamera = Camera.CameraInfo.CAMERA_FACING_BACK
 
         initVariables()
         tryInitCamera()
@@ -70,10 +68,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     override fun onResume() {
         super.onResume()
         if (hasStorageAndCameraPermissions()) {
+            mPreview?.onResumed()
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
             scheduleFadeOut()
-            mFocusRectView.setStrokeColor(config.primaryColor)
+            mFocusCircleView.setStrokeColor(getAdjustedPrimaryColor())
 
             if (mIsVideoCaptureIntent && mIsInPhotoMode) {
                 handleTogglePhotoVideo()
@@ -97,29 +96,31 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         mFadeHandler.removeCallbacksAndMessages(null)
 
         hideTimer()
-        mPreview?.releaseCamera()
         mOrientationEventListener.disable()
 
-        if (mPreview?.isWaitingForTakePictureCallback == true) {
+        if (mPreview?.getCameraState() == STATE_PICTURE_TAKEN) {
             toast(R.string.photo_not_saved)
         }
+        mPreview?.onPaused()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mPreview?.releaseCamera()
-        mPreview?.mActivity = null
         mPreview = null
     }
 
     private fun initVariables() {
-        mIsInPhotoMode = false
+        mIsInPhotoMode = config.initPhotoMode
         mIsCameraAvailable = false
         mIsVideoCaptureIntent = false
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
-        mCurrCameraId = 0
         mLastHandledOrientation = 0
+        mCameraImpl = getMyCamera()
+
+        if (config.alwaysOpenBackCamera) {
+            config.lastUsedCamera = mCameraImpl.getBackCameraId().toString()
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -127,7 +128,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             mIsHardwareShutterHandled = true
             shutterPressed()
             true
-        } else if (config.volumeButtonsAsShutter && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+        } else if (!mIsHardwareShutterHandled && config.volumeButtonsAsShutter && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+            mIsHardwareShutterHandled = true
             shutterPressed()
             true
         } else {
@@ -136,15 +138,16 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_CAMERA) {
+        if (keyCode == KeyEvent.KEYCODE_CAMERA || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
             mIsHardwareShutterHandled = false
         }
         return super.onKeyUp(keyCode, event)
     }
 
-    private fun hideToggleModeAbout() {
+    private fun hideIntentButtons() {
         toggle_photo_video.beGone()
         settings.beGone()
+        last_photo_video_preview.beGone()
     }
 
     private fun tryInitCamera() {
@@ -153,7 +156,6 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
                 handlePermission(PERMISSION_WRITE_STORAGE) {
                     if (it) {
                         initializeCamera()
-                        handleIntent()
                     } else {
                         toast(R.string.no_storage_permissions)
                         finish()
@@ -166,43 +168,55 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    private fun handleIntent() {
+    private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+
+    private fun checkImageCaptureIntent() {
         if (isImageCaptureIntent()) {
-            hideToggleModeAbout()
+            hideIntentButtons()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
-                mPreview?.mTargetUri = output
+                mPreview?.setTargetUri(output)
             }
-        } else if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
-            mIsVideoCaptureIntent = true
-            hideToggleModeAbout()
-            shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
         }
-        mPreview?.isImageCaptureIntent = isImageCaptureIntent()
     }
 
-    private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+    private fun checkVideoCaptureIntent() {
+        if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
+            mIsVideoCaptureIntent = true
+            mIsInPhotoMode = false
+            hideIntentButtons()
+            shutter.setImageResource(R.drawable.ic_video_rec)
+        }
+    }
 
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
         initButtons()
 
+        camera_surface_view.beVisibleIf(!isLollipopPlus())
+        camera_texture_view.beVisibleIf(isLollipopPlus())
+
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
-        mCurrCameraId = config.lastUsedCamera
-        mPreview = Preview(this, camera_view, this)
-        mPreview!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        view_holder.addView(mPreview)
-        toggle_camera.setImageResource(if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) R.drawable.ic_camera_front else R.drawable.ic_camera_rear)
+        checkVideoCaptureIntent()
+        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view, mIsInPhotoMode) else PreviewCameraOne(this, camera_surface_view)
+        view_holder.addView(mPreview as ViewGroup)
+        checkImageCaptureIntent()
+        mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
-        mFocusRectView = FocusRectView(applicationContext)
-        view_holder.addView(mFocusRectView)
+        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
+        toggle_camera.setImageResource(imageDrawable)
 
-        mIsInPhotoMode = true
+        mFocusCircleView = FocusCircleView(applicationContext)
+        view_holder.addView(mFocusCircleView)
+
         mTimerHandler = Handler()
         mFadeHandler = Handler()
-        mFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
         setupPreviewImage(true)
+
+        val initialFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
+        mPreview!!.setFlashlightState(initialFlashlightState)
+        updateFlashlightState(initialFlashlightState)
     }
 
     private fun initButtons() {
@@ -216,28 +230,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun toggleCamera() {
-        if (!checkCameraAvailable()) {
-            return
-        }
-
-        mCurrCameraId = if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
-            Camera.CameraInfo.CAMERA_FACING_FRONT
-        } else {
-            Camera.CameraInfo.CAMERA_FACING_BACK
-        }
-
-        config.lastUsedCamera = mCurrCameraId
-        var newIconId = R.drawable.ic_camera_front
-        mPreview?.releaseCamera()
-        if (mPreview?.setCamera(mCurrCameraId) == true) {
-            if (mCurrCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                newIconId = R.drawable.ic_camera_rear
-            }
-            toggle_camera.setImageResource(newIconId)
-            disableFlash()
-            hideTimer()
-        } else {
-            toast(R.string.camera_switch_error)
+        if (checkCameraAvailable()) {
+            mPreview!!.toggleFrontBackCamera()
         }
     }
 
@@ -249,41 +243,23 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun toggleFlash() {
-        if (!checkCameraAvailable()) {
-            return
-        }
-
-        mFlashlightState = ++mFlashlightState % if (mIsInPhotoMode) 3 else 2
-        checkFlash()
-    }
-
-    private fun checkFlash() {
-        when (mFlashlightState) {
-            FLASH_ON -> enableFlash()
-            FLASH_AUTO -> autoFlash()
-            else -> disableFlash()
+        if (checkCameraAvailable()) {
+            mPreview?.toggleFlashlight()
         }
     }
 
-    private fun disableFlash() {
-        mPreview?.disableFlash()
-        toggle_flash.setImageResource(R.drawable.ic_flash_off)
-        mFlashlightState = FLASH_OFF
-        config.flashlightState = FLASH_OFF
+    fun updateFlashlightState(state: Int) {
+        config.flashlightState = state
+        val flashDrawable = when (state) {
+            FLASH_OFF -> R.drawable.ic_flash_off
+            FLASH_ON -> R.drawable.ic_flash_on
+            else -> R.drawable.ic_flash_auto
+        }
+        toggle_flash.setImageResource(flashDrawable)
     }
 
-    private fun enableFlash() {
-        mPreview?.enableFlash()
-        toggle_flash.setImageResource(R.drawable.ic_flash_on)
-        mFlashlightState = FLASH_ON
-        config.flashlightState = FLASH_ON
-    }
-
-    private fun autoFlash() {
-        mPreview?.autoFlash()
-        toggle_flash.setImageResource(R.drawable.ic_flash_auto)
-        mFlashlightState = FLASH_AUTO
-        config.flashlightState = FLASH_AUTO
+    fun updateCameraIcon(isUsingFrontCamera: Boolean) {
+        toggle_camera.setImageResource(if (isUsingFrontCamera) R.drawable.ic_camera_rear else R.drawable.ic_camera_front)
     }
 
     private fun shutterPressed() {
@@ -297,27 +273,21 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             toggleBottomButtons(true)
             mPreview?.tryTakePicture()
         } else {
-            if (mPreview?.toggleRecording() == true) {
-                shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_stop))
-                toggle_camera.beInvisible()
-                showTimer()
-            } else {
-                shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
-                showToggleCameraIfNeeded()
-                hideTimer()
-            }
+            mPreview?.toggleRecording()
         }
     }
 
     fun toggleBottomButtons(hide: Boolean) {
-        val alpha = if (hide) 0f else 1f
-        shutter.animate().alpha(alpha).start()
-        toggle_camera.animate().alpha(alpha).start()
-        toggle_flash.animate().alpha(alpha).start()
+        runOnUiThread {
+            val alpha = if (hide) 0f else 1f
+            shutter.animate().alpha(alpha).start()
+            toggle_camera.animate().alpha(alpha).start()
+            toggle_flash.animate().alpha(alpha).start()
 
-        shutter.isClickable = !hide
-        toggle_camera.isClickable = !hide
-        toggle_flash.isClickable = !hide
+            shutter.isClickable = !hide
+            toggle_camera.isClickable = !hide
+            toggle_flash.isClickable = !hide
+        }
     }
 
     private fun launchSettings() {
@@ -347,12 +317,14 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
             return
         }
 
-        if (mIsVideoCaptureIntent)
-            mPreview?.trySwitchToVideo()
+        if (mIsVideoCaptureIntent) {
+            mPreview?.tryInitVideoMode()
+        }
 
-        disableFlash()
+        mPreview?.setFlashlightState(FLASH_OFF)
         hideTimer()
         mIsInPhotoMode = !mIsInPhotoMode
+        config.initPhotoMode = mIsInPhotoMode
         showToggleCameraIfNeeded()
         checkButtons()
         toggleBottomButtons(false)
@@ -367,14 +339,14 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initPhotoMode() {
-        toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_video))
-        shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_shutter))
+        toggle_photo_video.setImageResource(R.drawable.ic_video)
+        shutter.setImageResource(R.drawable.ic_shutter)
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
 
     private fun tryInitVideoMode() {
-        if (mPreview?.initRecorder() == true) {
+        if (mPreview?.initVideoMode() == true) {
             initVideoButtons()
         } else {
             if (!mIsVideoCaptureIntent) {
@@ -384,11 +356,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun initVideoButtons() {
-        toggle_photo_video.setImageDrawable(resources.getDrawable(R.drawable.ic_camera))
+        toggle_photo_video.setImageResource(R.drawable.ic_camera)
         showToggleCameraIfNeeded()
-        shutter.setImageDrawable(resources.getDrawable(R.drawable.ic_video_rec))
-        checkFlash()
+        shutter.setImageResource(R.drawable.ic_video_rec)
         setupPreviewImage(false)
+        mPreview?.checkFlashlight()
     }
 
     private fun setupPreviewImage(isPhoto: Boolean) {
@@ -416,8 +388,11 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun scheduleFadeOut() {
-        if (!config.keepSettingsVisible)
-            mFadeHandler.postDelayed({ fadeOutButtons() }, FADE_DELAY.toLong())
+        if (!config.keepSettingsVisible) {
+            mFadeHandler.postDelayed({
+                fadeOutButtons()
+            }, FADE_DELAY)
+        }
     }
 
     private fun fadeOutButtons() {
@@ -444,11 +419,12 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
     }
 
-    private fun hideTimer() {
-        video_rec_curr_timer.text = 0.getFormattedDuration()
-        video_rec_curr_timer.beGone()
-        mCurrVideoRecTimer = 0
-        mTimerHandler.removeCallbacksAndMessages(null)
+    fun toggleTimer(show: Boolean) {
+        if (show) {
+            showTimer()
+        } else {
+            hideTimer()
+        }
     }
 
     private fun showTimer() {
@@ -456,20 +432,26 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         setupTimer()
     }
 
+    private fun hideTimer() {
+        video_rec_curr_timer.text = 0.getFormattedDuration()
+        video_rec_curr_timer.beGone()
+        mCurrVideoRecTimer = 0
+        mTimerHandler.removeCallbacksAndMessages(null)
+    }
+
     private fun setupTimer() {
         runOnUiThread(object : Runnable {
             override fun run() {
                 video_rec_curr_timer.text = mCurrVideoRecTimer++.getFormattedDuration()
-                mTimerHandler.postDelayed(this, 1000)
+                mTimerHandler.postDelayed(this, 1000L)
             }
         })
     }
 
     private fun resumeCameraItems() {
         showToggleCameraIfNeeded()
-        if (mPreview?.setCamera(mCurrCameraId) == true) {
+        if (mPreview?.resumeCamera() == true) {
             hideNavigationBarIcons()
-            checkFlash()
 
             if (!mIsInPhotoMode) {
                 initVideoButtons()
@@ -480,7 +462,7 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
     }
 
     private fun showToggleCameraIfNeeded() {
-        toggle_camera?.beInvisibleIf(Camera.getNumberOfCameras() <= 1)
+        toggle_camera?.beInvisibleIf(mCameraImpl.getCountOfCameras() <= 1)
     }
 
     private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
@@ -530,26 +512,36 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         return mIsCameraAvailable
     }
 
-    fun finishActivity() {
-        setResult(Activity.RESULT_OK)
-        finish()
-    }
-
-    override fun setFlashAvailable(available: Boolean) {
+    fun setFlashAvailable(available: Boolean) {
         if (available) {
             toggle_flash.beVisible()
         } else {
             toggle_flash.beInvisible()
-            disableFlash()
+            toggle_flash.setImageResource(R.drawable.ic_flash_off)
+            mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
 
-    override fun setIsCameraAvailable(available: Boolean) {
+    fun setIsCameraAvailable(available: Boolean) {
         mIsCameraAvailable = available
     }
 
-    override fun videoSaved(uri: Uri) {
-        setupPreviewImage(mIsInPhotoMode)
+    fun setRecordingState(isRecording: Boolean) {
+        runOnUiThread {
+            if (isRecording) {
+                shutter.setImageResource(R.drawable.ic_video_stop)
+                toggle_camera.beInvisible()
+                showTimer()
+            } else {
+                shutter.setImageResource(R.drawable.ic_video_rec)
+                showToggleCameraIfNeeded()
+                hideTimer()
+            }
+        }
+    }
+
+    fun videoSaved(uri: Uri) {
+        setupPreviewImage(false)
         if (mIsVideoCaptureIntent) {
             Intent().apply {
                 data = uri
@@ -560,11 +552,12 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
     }
 
-    override fun drawFocusRect(x: Int, y: Int) = mFocusRectView.drawFocusRect(x, y)
+    fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
-        scanPath(path) {
-            setupPreviewImage(mIsInPhotoMode)
+        mPreview?.imageSaved()
+        rescanPaths(arrayListOf(path)) {
+            setupPreviewImage(true)
             Intent(BROADCAST_REFRESH_MEDIA).apply {
                 putExtra(REFRESH_PATH, path)
                 `package` = "com.simplemobiletools.gallery"
@@ -573,7 +566,8 @@ class MainActivity : SimpleActivity(), PreviewListener, PhotoProcessor.MediaSave
         }
 
         if (isImageCaptureIntent()) {
-            finishActivity()
+            setResult(Activity.RESULT_OK)
+            finish()
         }
     }
 

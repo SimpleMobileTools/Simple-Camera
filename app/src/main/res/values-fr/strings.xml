@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Cliquez sur l\'image pour reprendre l\'aperçu</string>
     <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
     <string name="setting_resolution_failed">La définition de la résolution a échoué</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">autre</string>

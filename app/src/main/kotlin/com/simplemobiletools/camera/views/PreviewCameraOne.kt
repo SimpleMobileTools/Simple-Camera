@@ -1,52 +1,65 @@
 package com.simplemobiletools.camera.views
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
+import android.app.Activity
 import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
 import android.hardware.Camera
-import android.media.*
+import android.media.AudioManager
+import android.media.CamcorderProfile
+import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.os.Handler
-import android.view.ScaleGestureDetector
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import android.view.ViewGroup
+import android.view.*
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
-import com.simplemobiletools.camera.extensions.*
-import com.simplemobiletools.camera.helpers.Config
-import com.simplemobiletools.camera.helpers.PhotoProcessor
+import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getMyCamera
+import com.simplemobiletools.camera.extensions.getOutputMediaFile
+import com.simplemobiletools.camera.extensions.realScreenSize
+import com.simplemobiletools.camera.helpers.*
+import com.simplemobiletools.camera.implementations.MyCameraOneImpl
+import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
 import java.io.IOException
 import java.util.*
 
-class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScanCompletedListener {
-    var mCamera: Camera? = null
+class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
     private val FOCUS_AREA_SIZE = 100
     private val PHOTO_PREVIEW_LENGTH = 500L
     private val REFOCUS_PERIOD = 3000L
 
-    lateinit var mSurfaceHolder: SurfaceHolder
-    lateinit var mSurfaceView: SurfaceView
-    lateinit var mCallback: PreviewListener
-    lateinit var mScreenSize: Point
-    lateinit var config: Config
+    private lateinit var mSurfaceHolder: SurfaceHolder
+    private lateinit var mSurfaceView: SurfaceView
+    private lateinit var mScreenSize: Point
+    private lateinit var mConfig: Config
     private var mSupportedPreviewSizes: List<Camera.Size>? = null
     private var mPreviewSize: Camera.Size? = null
     private var mParameters: Camera.Parameters? = null
     private var mRecorder: MediaRecorder? = null
     private var mScaleGestureDetector: ScaleGestureDetector? = null
     private var mZoomRatios = ArrayList<Int>()
+    private var mFlashlightState = FLASH_OFF
+    private var mCamera: Camera? = null
+    private var mCameraImpl: MyCameraOneImpl? = null
+    private var mAutoFocusHandler = Handler()
+    private var mActivity: MainActivity? = null
+    private var mTargetUri: Uri? = null
+    private var mCameraState = STATE_PREVIEW
 
     private var mCurrVideoPath = ""
     private var mCanTakePicture = false
     private var mIsRecording = false
-    private var mIsVideoMode = false
+    private var mIsInVideoMode = false
     private var mIsSurfaceCreated = false
     private var mSwitchToVideoAsap = false
     private var mSetupPreviewAfterMeasure = false
@@ -54,41 +67,31 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     private var mWasZooming = false
     private var mIsPreviewShown = false
     private var mWasCameraPreviewSet = false
-    private var mLastClickX = 0
-    private var mLastClickY = 0
+    private var mIsImageCaptureIntent = false
+    private var mIsFocusingBeforeCapture = false
+    private var mLastClickX = 0f
+    private var mLastClickY = 0f
     private var mCurrCameraId = 0
     private var mMaxZoom = 0
     private var mRotationAtCapture = 0
-    private var mIsFocusingBeforeCapture = false
-    private var autoFocusHandler = Handler()
-
-    var mActivity: MainActivity? = null
-    var isWaitingForTakePictureCallback = false
-    var mTargetUri: Uri? = null
-    var isImageCaptureIntent = false
 
     constructor(context: Context) : super(context)
 
     @SuppressLint("ClickableViewAccessibility")
-    constructor(activity: MainActivity, surfaceView: SurfaceView, previewListener: PreviewListener) : super(activity) {
+    constructor(activity: MainActivity, surfaceView: SurfaceView) : super(activity) {
         mActivity = activity
-        mCallback = previewListener
         mSurfaceView = surfaceView
         mSurfaceHolder = mSurfaceView.holder
         mSurfaceHolder.addCallback(this)
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS)
-        mCanTakePicture = false
-        mIsVideoMode = false
-        mIsSurfaceCreated = false
-        mSetupPreviewAfterMeasure = false
-        mCurrVideoPath = ""
-        config = activity.config
+        mCameraImpl = MyCameraOneImpl(activity.applicationContext)
+        mConfig = activity.config
         mScreenSize = getScreenSize()
         initGestureDetector()
 
         mSurfaceView.setOnTouchListener { view, event ->
-            mLastClickX = event.x.toInt()
-            mLastClickY = event.y.toInt()
+            mLastClickX = event.x
+            mLastClickY = event.y
 
             if (mMaxZoom > 0 && mParameters?.isZoomSupported == true) {
                 mScaleGestureDetector!!.onTouchEvent(event)
@@ -100,8 +103,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mIsPreviewShown) {
                 resumePreview()
             } else {
-                if (!mWasZooming && !mIsPreviewShown)
+                if (!mWasZooming && !mIsPreviewShown) {
                     focusArea(false)
+                }
 
                 mWasZooming = false
                 mSurfaceView.isSoundEffectsEnabled = true
@@ -109,23 +113,28 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
     }
 
-    fun trySwitchToVideo() {
+    override fun onResumed() {}
+
+    override fun onPaused() {
+        releaseCamera()
+    }
+
+    override fun tryInitVideoMode() {
         if (mIsSurfaceCreated) {
-            initRecorder()
+            initVideoMode()
         } else {
             mSwitchToVideoAsap = true
         }
     }
 
-    fun setCamera(cameraId: Int): Boolean {
-        mCurrCameraId = cameraId
+    override fun resumeCamera(): Boolean {
         val newCamera: Camera
         try {
-            newCamera = Camera.open(cameraId)
-            mCallback.setIsCameraAvailable(true)
+            newCamera = Camera.open(mCurrCameraId)
+            mActivity!!.setIsCameraAvailable(true)
         } catch (e: Exception) {
             mActivity!!.showErrorToast(e)
-            mCallback.setIsCameraAvailable(false)
+            mActivity!!.setIsCameraAvailable(false)
             return false
         }
 
@@ -135,8 +144,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         releaseCamera()
         mCamera = newCamera
-        if (initCamera() && mIsVideoMode) {
-            initRecorder()
+        if (initCamera() && mIsInVideoMode) {
+            initVideoMode()
         }
 
         if (!mWasCameraPreviewSet && mIsSurfaceCreated) {
@@ -145,6 +154,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
         return true
     }
+
+    override fun imageSaved() {}
 
     private fun initCamera(): Boolean {
         if (mCamera == null)
@@ -169,7 +180,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mParameters!!.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
         }
 
-        mCamera!!.setDisplayOrientation(mActivity!!.getPreviewRotation(mCurrCameraId))
+        mCamera!!.setDisplayOrientation(getPreviewRotation(mCurrCameraId))
         mParameters!!.zoom = 0
         updateCameraParameters()
 
@@ -182,9 +193,29 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             }
         }
 
-        mCallback.setFlashAvailable(hasFlash(mCamera))
+        mActivity!!.setFlashAvailable(hasFlash(mCamera))
         return true
     }
+
+    override fun toggleFrontBackCamera() {
+        mCurrCameraId = if (mCurrCameraId == mCameraImpl!!.getBackCameraId()) {
+            mCameraImpl!!.getFrontCameraId()
+        } else {
+            mCameraImpl!!.getBackCameraId()
+        }
+
+        mConfig.lastUsedCamera = mCurrCameraId.toString()
+        releaseCamera()
+        if (resumeCamera()) {
+            setFlashlightState(FLASH_OFF)
+            mActivity?.updateCameraIcon(mCurrCameraId == mCameraImpl!!.getFrontCameraId())
+            mActivity?.toggleTimer(false)
+        } else {
+            mActivity?.toast(R.string.camera_switch_error)
+        }
+    }
+
+    override fun getCameraState() = mCameraState
 
     private fun refreshPreview() {
         mIsSixteenToNine = getSelectedResolution().isSixteenToNine()
@@ -194,17 +225,17 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         rescheduleAutofocus()
     }
 
-    private fun getSelectedResolution(): Camera.Size {
+    private fun getSelectedResolution(): MySize {
         if (mParameters == null) {
             mParameters = mCamera!!.parameters
         }
 
         var index = getResolutionIndex()
-        val resolutions = if (mIsVideoMode) {
+        val resolutions = if (mIsInVideoMode) {
             mParameters!!.supportedVideoSizes ?: mParameters!!.supportedPreviewSizes
         } else {
             mParameters!!.supportedPictureSizes
-        }.sortedByDescending { it.width * it.height }
+        }.map { MySize(it.width, it.height) }.sortedByDescending { it.width * it.height }
 
         if (index == -1) {
             index = getDefaultFullscreenResolution(resolutions) ?: 0
@@ -214,20 +245,20 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun getResolutionIndex(): Int {
-        val isBackCamera = config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
-        return if (mIsVideoMode) {
-            if (isBackCamera) config.backVideoResIndex else config.frontVideoResIndex
+        val isBackCamera = mConfig.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK.toString()
+        return if (mIsInVideoMode) {
+            if (isBackCamera) mConfig.backVideoResIndex else mConfig.frontVideoResIndex
         } else {
-            if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
+            if (isBackCamera) mConfig.backPhotoResIndex else mConfig.frontPhotoResIndex
         }
     }
 
-    private fun getDefaultFullscreenResolution(resolutions: List<Camera.Size>): Int? {
+    private fun getDefaultFullscreenResolution(resolutions: List<MySize>): Int? {
         val screenAspectRatio = mActivity!!.realScreenSize.y / mActivity!!.realScreenSize.x.toFloat()
         resolutions.forEachIndexed { index, size ->
             val diff = screenAspectRatio - (size.width / size.height.toFloat())
-            if (Math.abs(diff) < RATIO_TOLERANCE) {
-                config.backPhotoResIndex = index
+            if (Math.abs(diff) < 0.1f) {
+                mConfig.backPhotoResIndex = index
                 return index
             }
         }
@@ -281,14 +312,15 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         })
     }
 
-    fun tryTakePicture() {
-        if (config.focusBeforeCapture) {
+    override fun tryTakePicture() {
+        if (mConfig.focusBeforeCapture) {
             focusArea(true)
         } else {
             takePicture()
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private fun takePicture() {
         if (mCanTakePicture) {
             val selectedResolution = getSelectedResolution()
@@ -298,19 +330,19 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mActivity!!.toast(R.string.setting_resolution_failed)
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (isJellyBean1Plus()) {
                 mCamera!!.enableShutterSound(false)
             }
 
             mRotationAtCapture = mActivity!!.mLastHandledOrientation
             updateCameraParameters()
-            isWaitingForTakePictureCallback = true
+            mCameraState = STATE_PICTURE_TAKEN
             mIsPreviewShown = true
             try {
                 Thread {
                     mCamera!!.takePicture(null, null, takePictureCallback)
 
-                    if (config.isSoundEnabled) {
+                    if (mConfig.isSoundEnabled) {
                         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
                         val volume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM)
                         if (volume != 0) {
@@ -332,16 +364,19 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             return@PictureCallback
         }
 
-        isWaitingForTakePictureCallback = false
-        if (!isImageCaptureIntent) {
+        mCameraState = STATE_PREVIEW
+        if (!mIsImageCaptureIntent) {
             handlePreview()
         }
 
-        if (isImageCaptureIntent) {
+        if (mIsImageCaptureIntent) {
             if (mTargetUri != null) {
                 storePhoto(data)
             } else {
-                mActivity!!.finishActivity()
+                mActivity!!.apply {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
             }
         } else {
             storePhoto(data)
@@ -349,14 +384,17 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun storePhoto(data: ByteArray) {
-        PhotoProcessor(mActivity!!, mTargetUri, mCurrCameraId, mRotationAtCapture).execute(data)
+        val previewRotation = getPreviewRotation(mCurrCameraId)
+        PhotoProcessor(mActivity!!, mTargetUri, mRotationAtCapture, previewRotation, getIsUsingFrontCamera(), mIsImageCaptureIntent).execute(data)
     }
 
+    private fun getIsUsingFrontCamera() = mCurrCameraId == mActivity!!.getMyCamera().getFrontCameraId()
+
     private fun handlePreview() {
-        if (config.isShowPreviewEnabled) {
-            if (!config.wasPhotoPreviewHintShown) {
+        if (mConfig.isShowPreviewEnabled) {
+            if (!mConfig.wasPhotoPreviewHintShown) {
                 mActivity!!.toast(R.string.click_to_resume_preview)
-                config.wasPhotoPreviewHintShown = true
+                mConfig.wasPhotoPreviewHintShown = true
             }
         } else {
             Handler().postDelayed({
@@ -388,18 +426,18 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
         mCamera!!.cancelAutoFocus()
         if (mParameters!!.maxNumFocusAreas > 0) {
-            if (mLastClickX == 0 && mLastClickY == 0) {
-                mLastClickX = width / 2
-                mLastClickY = height / 2
+            if (mLastClickX == 0f && mLastClickY == 0f) {
+                mLastClickX = width / 2.toFloat()
+                mLastClickY = height / 2.toFloat()
             }
 
-            val focusRect = calculateFocusArea(mLastClickX.toFloat(), mLastClickY.toFloat())
+            val focusRect = calculateFocusArea(mLastClickX, mLastClickY)
             val focusAreas = ArrayList<Camera.Area>(1)
             focusAreas.add(Camera.Area(focusRect, 1000))
             mParameters!!.focusAreas = focusAreas
 
             if (showFocusRect) {
-                mCallback.drawFocusRect(mLastClickX, mLastClickY)
+                mActivity!!.drawFocusCircle(mLastClickX, mLastClickY)
             }
         }
 
@@ -448,18 +486,21 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun rescheduleAutofocus() {
-        autoFocusHandler.removeCallbacksAndMessages(null)
-        autoFocusHandler.postDelayed({
-            if (!mIsVideoMode || !mIsRecording) {
+        mAutoFocusHandler.removeCallbacksAndMessages(null)
+        mAutoFocusHandler.postDelayed({
+            if (!mIsInVideoMode || !mIsRecording) {
                 focusArea(false, false)
             }
         }, REFOCUS_PERIOD)
     }
 
-    fun showChangeResolutionDialog() {
+    override fun showChangeResolutionDialog() {
         if (mCamera != null) {
             val oldResolution = getSelectedResolution()
-            ChangeResolutionDialog(mActivity!!, config, mCamera!!) {
+            val photoResolutions = mCamera!!.parameters.supportedPictureSizes.map { MySize(it.width, it.height) } as ArrayList<MySize>
+            val videoSizes = mCamera!!.parameters.supportedVideoSizes ?: mCamera!!.parameters.supportedPreviewSizes
+            val videoResolutions = videoSizes.map { MySize(it.width, it.height) } as ArrayList<MySize>
+            ChangeResolutionDialog(mActivity!!, getIsUsingFrontCamera(), photoResolutions, videoResolutions, false) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
                 }
@@ -482,7 +523,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mCamera?.setPreviewDisplay(mSurfaceHolder)
 
             if (mSwitchToVideoAsap)
-                initRecorder()
+                initVideoMode()
         } catch (e: IOException) {
             mActivity!!.showErrorToast(e)
         }
@@ -491,8 +532,8 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
         mIsSurfaceCreated = true
 
-        if (mIsVideoMode) {
-            initRecorder()
+        if (mIsInVideoMode) {
+            initVideoMode()
         }
     }
 
@@ -557,7 +598,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         if (mSupportedPreviewSizes != null) {
             // for simplicity lets assume that most displays are 16:9 and the remaining ones are 4:3
             // always set 16:9 for videos as many devices support 4:3 only in low quality
-            mPreviewSize = if (mIsSixteenToNine || mIsVideoMode) {
+            mPreviewSize = if (mIsSixteenToNine || mIsInVideoMode) {
                 getOptimalPreviewSize(mSupportedPreviewSizes!!, mScreenSize.y, mScreenSize.x)
             } else {
                 val newRatioHeight = (mScreenSize.x * (4.toDouble() / 3)).toInt()
@@ -570,7 +611,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             if (mScreenSize.x > mPreviewSize!!.height) {
                 val ratio = mScreenSize.x.toFloat() / mPreviewSize!!.height
                 lp.width = (mPreviewSize!!.height * ratio).toInt()
-                if (mIsSixteenToNine || mIsVideoMode) {
+                if (mIsSixteenToNine || mIsInVideoMode) {
                     lp.height = mScreenSize.y
                 } else {
                     lp.height = (mPreviewSize!!.width * ratio).toInt()
@@ -590,18 +631,40 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
     }
 
-    fun enableFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_TORCH
+    override fun setFlashlightState(state: Int) {
+        mFlashlightState = state
+        checkFlashlight()
+    }
+
+    override fun toggleFlashlight() {
+        val newState = ++mFlashlightState % if (mIsInVideoMode) 2 else 3
+        setFlashlightState(newState)
+    }
+
+    override fun checkFlashlight() {
+        when (mFlashlightState) {
+            FLASH_OFF -> disableFlash()
+            FLASH_ON -> enableFlash()
+            FLASH_AUTO -> setAutoFlash()
+        }
+        mActivity?.updateFlashlightState(mFlashlightState)
+    }
+
+    private fun disableFlash() {
+        mFlashlightState = FLASH_OFF
+        mParameters?.flashMode = Camera.Parameters.FLASH_MODE_OFF
         updateCameraParameters()
     }
 
-    fun disableFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+    private fun enableFlash() {
+        mFlashlightState = FLASH_ON
+        mParameters?.flashMode = Camera.Parameters.FLASH_MODE_TORCH
         updateCameraParameters()
     }
 
-    fun autoFlash() {
-        mParameters!!.flashMode = Camera.Parameters.FLASH_MODE_OFF
+    private fun setAutoFlash() {
+        mFlashlightState = FLASH_AUTO
+        mParameters?.flashMode = Camera.Parameters.FLASH_MODE_OFF
         updateCameraParameters()
 
         Handler().postDelayed({
@@ -611,16 +674,16 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }, 1000)
     }
 
-    fun initPhotoMode() {
+    override fun initPhotoMode() {
         stopRecording()
         cleanupRecorder()
         mIsRecording = false
-        mIsVideoMode = false
+        mIsInVideoMode = false
         refreshPreview()
     }
 
     // VIDEO RECORDING
-    fun initRecorder(): Boolean {
+    override fun initVideoMode(): Boolean {
         if (mCamera == null || mRecorder != null || !mIsSurfaceCreated) {
             return false
         }
@@ -629,7 +692,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         mSwitchToVideoAsap = false
 
         mIsRecording = false
-        mIsVideoMode = true
+        mIsInVideoMode = true
         mRecorder = MediaRecorder().apply {
             setCamera(mCamera)
             setVideoSource(MediaRecorder.VideoSource.DEFAULT)
@@ -686,9 +749,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
 
     private fun checkPermissions(): Boolean {
         if (mActivity!!.needsStupidWritePermissions(mCurrVideoPath)) {
-            if (config.treeUri.isEmpty()) {
+            if (mConfig.treeUri.isEmpty()) {
                 mActivity!!.toast(R.string.save_error_internal_storage)
-                config.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
+                mConfig.savePhotosFolder = Environment.getExternalStorageDirectory().toString()
                 releaseCamera()
                 return false
             }
@@ -724,26 +787,33 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         }
     }
 
-    fun toggleRecording(): Boolean {
+    override fun setTargetUri(uri: Uri) {
+        mTargetUri = uri
+    }
+
+    override fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) {
+        mIsImageCaptureIntent = isImageCaptureIntent
+    }
+
+    override fun toggleRecording() {
         if (mIsRecording) {
             stopRecording()
-            initRecorder()
+            initVideoMode()
         } else {
             startRecording()
         }
-        return mIsRecording
     }
 
     private fun getVideoRotation(): Int {
-        val deviceRot = mActivity!!.mLastHandledOrientation.compensateDeviceRotation(mCurrCameraId)
-        val previewRot = mActivity!!.getPreviewRotation(mCurrCameraId)
+        val deviceRot = compensateDeviceRotation(mActivity!!.mLastHandledOrientation, getIsUsingFrontCamera())
+        val previewRot = getPreviewRotation(mCurrCameraId)
         return (deviceRot + previewRot) % 360
     }
 
-    fun deviceOrientationChanged() {
-        if (mIsVideoMode && !mIsRecording) {
+    override fun deviceOrientationChanged() {
+        if (mIsInVideoMode && !mIsRecording) {
             mRecorder = null
-            initRecorder()
+            initVideoMode()
         }
     }
 
@@ -754,6 +824,7 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             mRecorder!!.start()
             toggleShutterSound(false)
             mIsRecording = true
+            mActivity!!.setRecordingState(true)
         } catch (e: Exception) {
             mActivity!!.showErrorToast(e)
             releaseCamera()
@@ -765,7 +836,10 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
             try {
                 toggleShutterSound(true)
                 mRecorder!!.stop()
-                mActivity!!.scanPath(mCurrVideoPath) {}
+                mActivity!!.rescanPaths(arrayListOf(mCurrVideoPath)) {
+                    mActivity!!.videoSaved(Uri.fromFile(File(mCurrVideoPath)))
+                    toggleShutterSound(false)
+                }
             } catch (e: RuntimeException) {
                 mActivity!!.showErrorToast(e)
                 toggleShutterSound(false)
@@ -774,10 +848,12 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
                 mIsRecording = false
                 releaseCamera()
             }
-
         }
 
         mRecorder = null
+        if (mIsRecording) {
+            mActivity!!.setRecordingState(false)
+        }
         mIsRecording = false
 
         val file = File(mCurrVideoPath)
@@ -787,14 +863,9 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
     }
 
     private fun toggleShutterSound(mute: Boolean?) {
-        if (!config.isSoundEnabled) {
+        if (!mConfig.isSoundEnabled) {
             (mActivity!!.getSystemService(Context.AUDIO_SERVICE) as AudioManager).setStreamMute(AudioManager.STREAM_SYSTEM, mute!!)
         }
-    }
-
-    override fun onScanCompleted(path: String, uri: Uri) {
-        mCallback.videoSaved(uri)
-        toggleShutterSound(false)
     }
 
     private fun hasFlash(camera: Camera?): Boolean {
@@ -823,13 +894,29 @@ class Preview : ViewGroup, SurfaceHolder.Callback, MediaScannerConnection.OnScan
         return size
     }
 
-    interface PreviewListener {
-        fun setFlashAvailable(available: Boolean)
+    private fun getPreviewRotation(cameraId: Int): Int {
+        val info = getCameraInfo(cameraId)
+        val degrees = when (mActivity!!.windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_90 -> 90
+            Surface.ROTATION_180 -> 180
+            Surface.ROTATION_270 -> 270
+            else -> 0
+        }
 
-        fun setIsCameraAvailable(available: Boolean)
+        var result: Int
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360
+            result = 360 - result
+        } else {
+            result = info.orientation - degrees + 360
+        }
 
-        fun videoSaved(uri: Uri)
+        return result % 360
+    }
 
-        fun drawFocusRect(x: Int, y: Int)
+    private fun getCameraInfo(cameraId: Int): Camera.CameraInfo {
+        val info = android.hardware.Camera.CameraInfo()
+        Camera.getCameraInfo(cameraId, info)
+        return info
     }
 }

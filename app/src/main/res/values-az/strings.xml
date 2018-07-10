@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Önbaxışa davam etmək üçün şəkilə toxun</string>
     <string name="photo_not_saved">Şəkli yaddaşa salmaq olmur</string>
     <string name="setting_resolution_failed">Uyğun görüntü imkanını seçmək olmur</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">digər</string>

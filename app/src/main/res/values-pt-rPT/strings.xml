@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Clique na imagem para continuar com a pré-visualização</string>
     <string name="photo_not_saved">Não foi possível guardar a foto</string>
     <string name="setting_resolution_failed">Falha ao definir a resolução ideal</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">outra</string>
@@ -35,7 +36,7 @@
     <string name="always_open_back_camera">Abrir a aplicação sempre com a câmara traseira</string>
     <string name="save_photo_metadata">Guardar dados exif das fotos</string>
     <string name="photo_compression_quality">Qualidade da compressão</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">Obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

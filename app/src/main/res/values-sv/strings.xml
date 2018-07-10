@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Kamera</string>
-    <string name="camera_unavailable">Kameran inte tillgänglig</string>
+    <string name="camera_unavailable">Kameran är inte tillgänglig</string>
     <string name="camera_open_error">Ett fel uppstod vid åtkomst till kameran</string>
     <string name="video_creating_error">Ett fel uppstod när videofilen skulle skapas</string>
     <string name="video_mode_error">Byte till videoläge misslyckades</string>
@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Tryck på bilden för att återuppta förhandsgranskningen</string>
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
     <string name="setting_resolution_failed">Det gick inte att ställa in den valda upplösningen</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">annat</string>
@@ -35,7 +36,7 @@
     <string name="always_open_back_camera">Växla till den bakre kameran när appen öppnas</string>
     <string name="save_photo_metadata">Spara fotonas Exif-metadata</string>
     <string name="photo_compression_quality">Fotokomprimeringskvalitet</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">Slutare</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

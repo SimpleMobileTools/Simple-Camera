@@ -1,6 +1,33 @@
 Changelog
 ==========
 
+Version 4.1.3 *(2018-07-10)*
+----------------------------
+
+ * Fixed some images not being saved properly
+ * Fixed too dark preview and images on some devices
+ * Couple other UX and stability improvements
+
+Version 4.1.2 *(2018-06-18)*
+----------------------------
+
+ * Fixed third party intent handling
+ * Fixed some glitch causing photos be captured fully zoomed in
+ * Added a couple extra error message displays
+
+Version 4.1.1 *(2018-06-12)*
+----------------------------
+
+ * Adding a couple crashfixes
+
+Version 4.1.0 *(2018-06-11)*
+----------------------------
+
+ * Fully rewrote the Camera functionality under the hood for Android 5+
+ * Properly save image EXIF data when selected so
+ * Fix the rotation of images returned to third party intents
+ * Removed the option to show the captured photo after taking it
+
 Version 4.0.0 *(2018-05-15)*
 ----------------------------
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Basit Kamera</string>
+    <string name="app_launcher_name">Kamera</string>
+    <string name="camera_unavailable">Kamera kullanılamıyor</string>
+    <string name="camera_open_error">Kameraya erişilirken bir hata oluştu</string>
+    <string name="video_creating_error">Video dosyası oluşturulurken bir hata oluştu</string>
+    <string name="video_mode_error">Video moduna geçilemedi</string>
+    <string name="save_error_internal_storage">Bir hata oluştu, kayıt klasörü dahili depolama olarak değiştirildi</string>
+    <string name="camera_switch_error">Kameraya geçilemedi</string>
+    <string name="click_to_resume_preview">Önizlemeye devam etmek için resmin üzerine tıklayın</string>
+    <string name="photo_not_saved">Fotoğraf kaydedilemedi</string>
+    <string name="setting_resolution_failed">Doğru çözünürlük ayarı başarısız oldu</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">diğer</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Hangi fotoğraf sıkıştırma kalitesini ayarlamalıyım?</string>
+    <string name="faq_1_text">Hedefinize bağlı. Genel amaçlar için çoğu kişi %75-%80\'i kullanmanızı önerir, görüntü hala gerçekten kaliteliyken, dosya boyutu %100\'e göre büyük ölçüde azalır.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Fotoğraf ve videoları şuraya kaydet:</string>
+    <string name="show_preview">Çekimden sonra fotoğraf önizlemesini göster</string>
+    <string name="shutter_sound">Deklanşör sesi</string>
+    <string name="back_camera">Arka kamera çözünürlükleri</string>
+    <string name="front_camera">Ön kamera çözünürlükleri</string>
+    <string name="photo">Fotoğraf</string>
+    <string name="video">Video</string>
+    <string name="focus_before_capture">Çekimden önce odaklan</string>
+    <string name="volume_buttons_as_shutter">Ses tuşlarını deklanşör olarak kullan</string>
+    <string name="turn_flash_off_at_startup">Başlangıçta flaşı kapat</string>
+    <string name="flip_front_camera_photos_horizontally">Ön kamera fotoğraflarını yatay olarak çevir</string>
+    <string name="keep_settings_visible">Ayar düğmelerini görünür durumda tut</string>
+    <string name="always_open_back_camera">Uygulamayı her zaman Arka kamera ile aç</string>
+    <string name="save_photo_metadata">Fotoğraf exif meta verilerini kaydet</string>
+    <string name="photo_compression_quality">Fotoğraf sıkıştırma kalitesi</string>
+    <string name="shutter">Deklanşör</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Flaşlı, zumlu ve reklamsız bir kamera.</string>
+    <string name="app_long_description">
+        Kamera hem fotoğraf çekimi hem de video kaydı için kullanılabilir. Ön ve arka kamera arasında geçiş yapabilir, kayıt yolunu değiştirebilir ve çözünürlüğü sınırlayabilirsiniz. Flaş açılıp kapatılabilir veya el feneri olarak kullanılabilir. Çimdikle yakınlaştırabilir ve uzaklaştırabilirsiniz.
+
+        Bu uygulamayı donanımsal kamera tuşuna basarak başlatmak istiyorsanız, Ayarlar -> Uygulamalar -> Kamera -> Devre Dışı Bırak özelliği ile yerleşik Kamera uygulamasını devre dışı bırakmanız gerekebilir.
+
+        Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
+
+        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı http://www.simplemobiletools.com adresinde bulabilirsiniz
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

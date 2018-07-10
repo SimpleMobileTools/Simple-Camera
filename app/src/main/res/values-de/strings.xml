@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
     <string name="setting_resolution_failed">Korrekte Auflösung konnte nicht eingestellt werden</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">andere</string>
@@ -32,7 +33,7 @@
     <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
     <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
     <string name="keep_settings_visible">Taste für Einstellungen immer sichtbar</string>
-    <string name="always_open_back_camera">Starte App immer mit der Rückkamera</string>
+    <string name="always_open_back_camera">Starte Anwendung immer mit der Rückkamera</string>
     <string name="save_photo_metadata">Exif-Metadaten speichern</string>
     <string name="photo_compression_quality">Fotokomprimierungsqualität</string>
     <string name="shutter">Shutter</string>
