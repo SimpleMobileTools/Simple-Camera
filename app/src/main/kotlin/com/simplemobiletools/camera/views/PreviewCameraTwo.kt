@@ -36,10 +36,9 @@ import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
-import com.simplemobiletools.commons.extensions.rescanPaths
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
+import com.simplemobiletools.commons.models.FileDirItem
 import java.io.File
 import java.lang.IllegalArgumentException
 import java.lang.InterruptedException
@@ -911,6 +910,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         } catch (e: Exception) {
             mActivity.toast(R.string.video_recording_failed, Toast.LENGTH_LONG)
             openResolutionsDialog(true)
+            val fileDirItem = FileDirItem(mLastVideoPath, mLastVideoPath.getFilenameFromPath())
+            mActivity.deleteFile(fileDirItem, false)
         } finally {
             Thread {
                 closeCamera()
