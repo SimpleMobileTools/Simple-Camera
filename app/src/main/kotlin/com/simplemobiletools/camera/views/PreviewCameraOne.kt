@@ -500,7 +500,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
             val photoResolutions = mCamera!!.parameters.supportedPictureSizes.map { MySize(it.width, it.height) } as ArrayList<MySize>
             val videoSizes = mCamera!!.parameters.supportedVideoSizes ?: mCamera!!.parameters.supportedPreviewSizes
             val videoResolutions = videoSizes.map { MySize(it.width, it.height) } as ArrayList<MySize>
-            ChangeResolutionDialog(mActivity!!, getIsUsingFrontCamera(), photoResolutions, videoResolutions) {
+            ChangeResolutionDialog(mActivity!!, getIsUsingFrontCamera(), photoResolutions, videoResolutions, false) {
                 if (oldResolution != getSelectedResolution()) {
                     refreshPreview()
                 }

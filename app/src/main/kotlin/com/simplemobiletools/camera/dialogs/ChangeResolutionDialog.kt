@@ -13,7 +13,7 @@ import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
 
 class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Boolean, val photoResolutions: ArrayList<MySize>,
-                             val videoResolutions: ArrayList<MySize>, val callback: () -> Unit) {
+                             val videoResolutions: ArrayList<MySize>, val openVideoResolutions: Boolean, val callback: () -> Unit) {
     private var dialog: AlertDialog
     private val config = activity.config
 
@@ -27,7 +27,11 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Bo
                 .setPositiveButton(R.string.ok, null)
                 .setOnDismissListener { callback() }
                 .create().apply {
-                    activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera)
+                    activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera) {
+                        if (openVideoResolutions) {
+                            view.change_resolution_video_holder.performClick()
+                        }
+                    }
                 }
     }
 

@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Paspausti ant paveikslėlio peržiūros pratęsimui</string>
     <string name="photo_not_saved">Nuotrauka negali būti išsaugota</string>
     <string name="setting_resolution_failed">Nustatant tinkamą raišką įvyko klaida</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">Kita</string>

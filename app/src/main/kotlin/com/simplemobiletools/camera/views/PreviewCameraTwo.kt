@@ -25,6 +25,8 @@ import android.view.MotionEvent
 import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
+import android.widget.Toast
+import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.config
@@ -36,6 +38,7 @@ import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.extensions.rescanPaths
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import java.io.File
 import java.lang.IllegalArgumentException
@@ -899,17 +902,22 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
 
         mIsRecording = false
-        mMediaRecorder!!.stop()
-        mMediaRecorder!!.reset()
-        mActivity.rescanPaths(arrayListOf(mLastVideoPath)) {
-            mActivity.videoSaved(Uri.fromFile(File(mLastVideoPath)))
+        try {
+            mMediaRecorder!!.stop()
+            mMediaRecorder!!.reset()
+            mActivity.rescanPaths(arrayListOf(mLastVideoPath)) {
+                mActivity.videoSaved(Uri.fromFile(File(mLastVideoPath)))
+            }
+        } catch (e: Exception) {
+            mActivity.toast(R.string.video_recording_failed, Toast.LENGTH_LONG)
+            openResolutionsDialog(true)
+        } finally {
+            Thread {
+                closeCamera()
+                openCamera(mTextureView.width, mTextureView.height)
+            }.start()
+            mActivity.setRecordingState(false)
         }
-
-        Thread {
-            closeCamera()
-            openCamera(mTextureView.width, mTextureView.height)
-        }.start()
-        mActivity.setRecordingState(false)
     }
 
     private fun getAvailableVideoSizes(configMap: StreamConfigurationMap) = configMap.getOutputSizes(MediaRecorder::class.java).filter {
@@ -934,11 +942,15 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
     override fun getCameraState() = mCameraState
 
     override fun showChangeResolutionDialog() {
+        openResolutionsDialog(false)
+    }
+
+    private fun openResolutionsDialog(openVideoResolutions: Boolean) {
         val oldResolution = getCurrentResolution()
         val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
         val photoResolutions = configMap.getOutputSizes(ImageFormat.JPEG).map { MySize(it.width, it.height) } as ArrayList
         val videoResolutions = getAvailableVideoSizes(configMap).map { MySize(it.width, it.height) } as ArrayList
-        ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions) {
+        ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions, openVideoResolutions) {
             if (oldResolution != getCurrentResolution()) {
                 if (mIsRecording) {
                     stopRecording()

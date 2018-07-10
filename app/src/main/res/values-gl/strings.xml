@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Pulse na imaxe para voltar a vista previa</string>
     <string name="photo_not_saved">Non se puido gardar a fotografía</string>
     <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">outro</string>

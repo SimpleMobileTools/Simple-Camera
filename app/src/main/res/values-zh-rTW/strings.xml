@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">點擊圖片回到拍攝預覽</string>
     <string name="photo_not_saved">相片無法儲存</string>
     <string name="setting_resolution_failed">設定合適解析度失敗</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">其它</string>

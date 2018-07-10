@@ -11,6 +11,7 @@
     <string name="click_to_resume_preview">Tryck på bilden för att återuppta förhandsgranskningen</string>
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
     <string name="setting_resolution_failed">Det gick inte att ställa in den valda upplösningen</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
     <!-- Other aspect ratio -->
     <string name="other">annat</string>
