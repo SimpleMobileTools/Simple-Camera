@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 4.1.3 *(2018-07-10)*
+----------------------------
+
+ * Fixed some images not being saved properly
+ * Fixed too dark preview and images on some devices
+ * Couple other UX and stability improvements
+
 Version 4.1.2 *(2018-06-18)*
 ----------------------------
 
