@@ -369,6 +369,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                 } else {
                     configMap.getOutputSizes(SurfaceTexture::class.java)
                 }
+
                 mPreviewSize = chooseOptimalPreviewSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mActivity.runOnUiThread {
@@ -388,11 +389,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         }
     }
 
-    private fun chooseOptimalPreviewSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, aspectRatio: MySize): Size {
+    private fun chooseOptimalPreviewSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, selectedResolution: MySize): Size {
         val bigEnough = ArrayList<Size>()
         val notBigEnough = ArrayList<Size>()
-        val width = aspectRatio.width
-        val height = aspectRatio.height
+        val width = selectedResolution.width
+        val height = selectedResolution.height
         for (option in choices) {
             if (option.width <= maxWidth && option.height <= maxHeight && option.height == option.width * height / width) {
                 if (option.width >= textureViewWidth && option.height >= textureViewHeight) {
@@ -406,7 +407,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         return when {
             bigEnough.isNotEmpty() -> bigEnough.minBy { it.width * it.height }!!
             notBigEnough.isNotEmpty() -> notBigEnough.maxBy { it.width * it.height }!!
-            else -> choices.first()
+            else -> selectedResolution.toSize()
         }
     }
 
