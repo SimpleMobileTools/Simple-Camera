@@ -257,7 +257,7 @@ class PreviewCameraOne : ViewGroup, SurfaceHolder.Callback, MyPreview {
         val screenAspectRatio = mActivity!!.realScreenSize.y / mActivity!!.realScreenSize.x.toFloat()
         resolutions.forEachIndexed { index, size ->
             val diff = screenAspectRatio - (size.width / size.height.toFloat())
-            if (Math.abs(diff) < RATIO_TOLERANCE) {
+            if (Math.abs(diff) < 0.1f) {
                 mConfig.backPhotoResIndex = index
                 return index
             }
