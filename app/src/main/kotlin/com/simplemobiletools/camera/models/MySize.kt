@@ -2,66 +2,28 @@ package com.simplemobiletools.camera.models
 
 import android.content.Context
 import com.simplemobiletools.camera.R
-import com.simplemobiletools.camera.helpers.RATIO_TOLERANCE
 
 data class MySize(val width: Int, val height: Int) {
-    fun isSixteenToNine(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 16 / 9.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    val ratio = width / height.toFloat()
+    fun isSixteenToNine() = ratio == 16 / 9f
 
-    private fun isFiveToThree(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 5 / 3.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isFiveToThree() = ratio == 5 / 3f
 
-    private fun isFourToThree(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 4 / 3.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isFourToThree() = ratio == 4 / 3f
 
-    private fun isThreeToFour(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 3 / 4.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isTwoToOne() = ratio == 2f
 
-    private fun isThreeToTwo(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 3 / 2.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isThreeToFour() = ratio == 3 / 4f
 
-    private fun isSixToFive(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 6 / 5.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isThreeToTwo() = ratio == 3 / 2f
 
-    private fun isNineteenToNine(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 19 / 9.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isSixToFive() = ratio == 6 / 5f
 
-    private fun isNineteenToEight(): Boolean {
-        val selectedRatio = Math.abs(width / height.toFloat())
-        val checkedRatio = 19 / 8.toFloat()
-        val diff = Math.abs(selectedRatio - checkedRatio)
-        return diff < RATIO_TOLERANCE
-    }
+    private fun isNineteenToNine() = ratio == 19 / 9f
 
-    private fun isOneNineToOne() = Math.abs(1.9 - (width / height.toFloat())) < RATIO_TOLERANCE
+    private fun isNineteenToEight() = ratio == 19 / 8f
+
+    private fun isOneNineToOne() = ratio == 1.9f
 
     private fun isSquare() = width == height
 
@@ -76,6 +38,7 @@ data class MySize(val width: Int, val height: Int) {
         isNineteenToNine() -> "19:9"
         isNineteenToEight() -> "19:8"
         isSquare() -> "1:1"
+        isTwoToOne() -> "2:1"
         else -> context.resources.getString(R.string.other)
     }
 }
