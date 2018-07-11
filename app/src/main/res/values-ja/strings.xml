@@ -11,7 +11,7 @@
     <string name="click_to_resume_preview">プレビューを再開するには画像をタップ</string>
     <string name="photo_not_saved">この画像は保存されていません</string>
     <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
 
     <!-- Other aspect ratio -->
     <string name="other">その他</string>
