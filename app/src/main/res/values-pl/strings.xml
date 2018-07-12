@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Prosty Aparat</string>
-    <string name="app_launcher_name">Prosty Aparat</string>
+    <string name="app_name">Prosty aparat</string>
+    <string name="app_launcher_name">Prosty aparat</string>
     <string name="camera_unavailable">Aparat niedostępny</string>
     <string name="camera_open_error">Wystąpił błąd podczas uzyskiwania dostępu do aparatu</string>
     <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku wideo</string>
     <string name="video_mode_error">Przejście do trybu nagrywania filmów nie powidodło się</string>
-    <string name="save_error_internal_storage">Wystąpił błąd, zmieniłem folder roboczy na pamięć wewnętrzną</string>
+    <string name="save_error_internal_storage">Wystąpił błąd, zmieniam folder roboczy na pamięć wewnętrzną</string>
     <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
     <string name="click_to_resume_preview">Kliknij obraz, aby wznowić podgląd</string>
-    <string name="photo_not_saved">Nie mogłem zapisać zdjęcia</string>
-    <string name="setting_resolution_failed">Nie mogłem ustawić poprawnej rozdzielczości</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="photo_not_saved">Nie udało się zapisać zdjęcia</string>
+    <string name="setting_resolution_failed">Nie udało się ustawić poprawnej rozdzielczości</string>
+    <string name="video_recording_failed">Nie udało się rozpocząć nagrywania. Spróbuj zmienić rozdzielczość.</string>
 
     <!-- Other aspect ratio -->
     <string name="other">inne</string>
@@ -42,7 +42,7 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Prosta aplikacja aparatu z lampą błyskową, regulacją przybliżenia i bez reklam.</string>
     <string name="app_long_description">
-        Aplikacja zarówno do robienia zdjęć, jak i kręcenia filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
+        Aplikacja zarówno do robienia zdjęć, jak i nagrywania filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
 
         Aby móc uruchamiać aplikację sprzętowym przyciskiem, wyłącz (lub usuń) domsyślną aplkację kamery (Ustawienia -> Aplikacje -> (aplikacja kamery) -> Wyłącz).
 
