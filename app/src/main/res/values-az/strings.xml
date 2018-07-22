@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Sadə Kamera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="camera_unavailable">Kamera əlçatan deyil</string>
     <string name="camera_open_error">Kameranı açarkən xəta baş verdi</string>
@@ -11,7 +11,7 @@
     <string name="click_to_resume_preview">Önbaxışa davam etmək üçün şəkilə toxun</string>
     <string name="photo_not_saved">Şəkli yaddaşa salmaq olmur</string>
     <string name="setting_resolution_failed">Uyğun görüntü imkanını seçmək olmur</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">Video yazmaq olmur, xahiş olunur görüntü imkanını dəyişin</string>
 
     <!-- Other aspect ratio -->
     <string name="other">digər</string>
@@ -36,7 +36,7 @@
     <string name="always_open_back_camera">Tətbiqi həmişə Arxa kamerada başlat</string>
     <string name="save_photo_metadata">Şəklin haqqında əlavələri saxla</string>
     <string name="photo_compression_quality">Şəkil sıxışdırma keyfiyyəti</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">Çəkən</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
