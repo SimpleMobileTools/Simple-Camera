@@ -97,12 +97,14 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun launchAbout() {
+        val licenses = LICENSE_GLIDE or LICENSE_LEAK_CANARY
+
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_1_title, R.string.faq_1_text),
                 FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
         )
 
-        startAboutActivity(R.string.app_name, LICENSE_GLIDE or LICENSE_LEAK_CANARY, BuildConfig.VERSION_NAME, faqItems)
+        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
     }
 
     private fun getLastPart(path: String): String {
