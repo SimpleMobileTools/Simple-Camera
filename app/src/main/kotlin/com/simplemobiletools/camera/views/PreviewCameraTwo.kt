@@ -796,7 +796,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             if (mLastFocusX != 0f && mLastFocusY != 0f) {
                 focusArea(mLastFocusX, mLastFocusY, false)
             }
-        } catch (e: CameraAccessException) {
+        } catch (e: Exception) {
         } finally {
             mCameraState = STATE_PREVIEW
         }
