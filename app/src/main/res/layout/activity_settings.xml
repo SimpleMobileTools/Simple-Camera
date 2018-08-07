@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_scrollview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -74,7 +75,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/use_english_language"/>
+                android:text="@string/use_english_language"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -97,7 +99,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/avoid_whats_new"/>
+                android:text="@string/avoid_whats_new"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -120,7 +123,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/keep_settings_visible"/>
+                android:text="@string/keep_settings_visible"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -144,7 +148,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/focus_before_capture"/>
+                android:text="@string/focus_before_capture"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -185,7 +190,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/shutter_sound"/>
+                android:text="@string/shutter_sound"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -208,7 +214,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/volume_buttons_as_shutter"/>
+                android:text="@string/volume_buttons_as_shutter"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -249,7 +256,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/turn_flash_off_at_startup"/>
+                android:text="@string/turn_flash_off_at_startup"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -272,7 +280,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/always_open_back_camera"/>
+                android:text="@string/always_open_back_camera"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -313,7 +322,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/save_photo_metadata"/>
+                android:text="@string/save_photo_metadata"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -336,7 +346,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/show_preview"/>
+                android:text="@string/show_preview"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
@@ -359,7 +370,8 @@
                 android:clickable="false"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/flip_front_camera_photos_horizontally"/>
+                android:text="@string/flip_front_camera_photos_horizontally"
+                app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
 
