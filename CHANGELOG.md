@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.2.0 *(2018-08-08)*
+----------------------------
+
+ * Fixed app freezing after photo capture on some devices
+ * Other UX and stability improvements
+
 Version 4.1.3 *(2018-07-10)*
 ----------------------------
 
