@@ -283,9 +283,11 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private val imageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
         try {
-            val buffer = reader.acquireNextImage().planes.first().buffer
+            val image = reader.acquireNextImage()
+            val buffer = image.planes.first().buffer
             val bytes = ByteArray(buffer.remaining())
             buffer.get(bytes)
+            image.close()
             PhotoProcessor(mActivity, mTargetUri, mRotationAtCapture, mSensorOrientation, mUseFrontCamera, mIsImageCaptureIntent).execute(bytes)
         } catch (e: Exception) {
         }
@@ -338,7 +340,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
                     mMediaRecorder = MediaRecorder()
                 } else {
                     mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
-                    mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
+                    mImageReader!!.setOnImageAvailableListener(imageAvailableListener, null)
                     mMediaRecorder = null
                 }
 
@@ -595,7 +597,10 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             }
 
             val captureCallback = object : CameraCaptureSession.CaptureCallback() {
-                override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {}
+                override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
+                    unlockFocus()
+                    mActivity.toggleBottomButtons(false)
+                }
 
                 override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
                     super.onCaptureFailed(session, request, failure)
@@ -796,7 +801,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             if (mLastFocusX != 0f && mLastFocusY != 0f) {
                 focusArea(mLastFocusX, mLastFocusY, false)
             }
-        } catch (e: Exception) {
+        } catch (e: CameraAccessException) {
         } finally {
             mCameraState = STATE_PREVIEW
         }
@@ -1033,15 +1038,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     override fun resumeCamera() = true
 
-    override fun imageSaved() {
-        mImageReader?.close()
-        mActivity.toggleBottomButtons(false)
-        if (shouldLockFocus()) {
-            unlockFocus()
-        } else {
-            resetPreviewSession()
-        }
-    }
+    override fun imageSaved() {}
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {}
 }
