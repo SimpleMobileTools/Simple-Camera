@@ -11,7 +11,7 @@
     <string name="click_to_resume_preview">Kliknite sliku kako biste nastavili pregled</string>
     <string name="photo_not_saved">Fotografiju nije moguće spremiti</string>
     <string name="setting_resolution_failed">Postavljanje ispravne rezolucije nije uspjelo</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">Snimanje videozapisa nije uspjelo, pokušajte koristiti drugu razlučivost</string>
 
     <!-- Other aspect ratio -->
     <string name="other">ostalo</string>
