@@ -11,14 +11,14 @@
     <string name="click_to_resume_preview">Cliquez sur l\'image pour reprendre l\'aperçu</string>
     <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
     <string name="setting_resolution_failed">La définition de la résolution a échoué</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">L\'enregistrement vidéo a échoué, essayez d\'utiliser une résolution différente.</string>
 
     <!-- Other aspect ratio -->
     <string name="other">autre</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos ?</string>
-	<string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80%, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100%.</string>
+    <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80%, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
@@ -36,9 +36,9 @@
     <string name="always_open_back_camera">Toujours ouvrir l\'application avec la caméra arrière</string>
     <string name="save_photo_metadata">Sauvegarder les méta-données exif de la photo</string>
     <string name="photo_compression_quality">Qualité des photos</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">Obturateur</string>
 
-    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un appareil photo avec flash, zoom et pas de publicité.</string>
     <string name="app_long_description">
