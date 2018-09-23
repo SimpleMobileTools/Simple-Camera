@@ -11,7 +11,7 @@
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
     <string name="setting_resolution_failed">Korrekte Auflösung konnte nicht eingestellt werden</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">Videoaufzeichnung fehlgeschlagen, probiere eine andere Auflösung aus</string>
 
     <!-- Other aspect ratio -->
     <string name="other">andere</string>
@@ -22,21 +22,21 @@
 
     <!-- Settings -->
     <string name="save_photos">Fotos und Videos speichern nach</string>
-    <string name="show_preview">Zeige eine Vorschau des Fotos nach der Aufnahme</string>
+    <string name="show_preview">Vorschau des Fotos nach der Aufnahme anzeigen</string>
     <string name="shutter_sound">Auslöseton</string>
-    <string name="back_camera">Rückkamera Auflösung</string>
-    <string name="front_camera">Frontkamera Auflösung</string>
+    <string name="back_camera">Rückkamera-Auflösung</string>
+    <string name="front_camera">Frontkamera-Auflösung</string>
     <string name="photo">Foto</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Vor der Aufnahme fokussieren</string>
-    <string name="volume_buttons_as_shutter">Benutze Lautstärkeregler als Auslöser</string>
-    <string name="turn_flash_off_at_startup">Schalte Blitzlicht bei Start aus</string>
-    <string name="flip_front_camera_photos_horizontally">Drehe Fotos der Frontkamera horizontal</string>
+    <string name="volume_buttons_as_shutter">Lautstärkeregler als Auslöser verwenden</string>
+    <string name="turn_flash_off_at_startup">Blitzlicht bei Start ausschalten</string>
+    <string name="flip_front_camera_photos_horizontally">Fotos der Frontkamera horizontal drehen</string>
     <string name="keep_settings_visible">Taste für Einstellungen immer sichtbar</string>
-    <string name="always_open_back_camera">Starte Anwendung immer mit der Rückkamera</string>
+    <string name="always_open_back_camera">Anwendung immer mit der Rückkamera starten</string>
     <string name="save_photo_metadata">Exif-Metadaten speichern</string>
     <string name="photo_compression_quality">Fotokomprimierungsqualität</string>
-    <string name="shutter">Shutter</string>
+    <string name="shutter">Verschluss</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
