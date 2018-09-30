@@ -11,7 +11,7 @@
     <string name="click_to_resume_preview">Tryck på bilden för att återuppta förhandsgranskningen</string>
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
     <string name="setting_resolution_failed">Det gick inte att ställa in den valda upplösningen</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">Videoinspelningen misslyckades, prova med en annan upplösning</string>
 
     <!-- Other aspect ratio -->
     <string name="other">annat</string>
@@ -28,7 +28,7 @@
     <string name="front_camera">Främre kamerans upplösningar</string>
     <string name="photo">Foto</string>
     <string name="video">Video</string>
-    <string name="focus_before_capture">Fokusera om innan bildtagning</string>
+    <string name="focus_before_capture">Fokusera före tagning</string>
     <string name="volume_buttons_as_shutter">Använd volymknapparna som slutare</string>
     <string name="turn_flash_off_at_startup">Stäng av blixten vid start</string>
     <string name="flip_front_camera_photos_horizontally">Vänd främre kamerans foton horisontellt</string>
