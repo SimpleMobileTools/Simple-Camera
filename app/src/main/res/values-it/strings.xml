@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Camera</string>
+    <string name="app_launcher_name">Fotocamera</string>
     <string name="camera_unavailable">Fotocamera non disponibile</string>
-    <string name="camera_open_error">Errore nell\'accesso alla fotocamera</string>
-    <string name="video_creating_error">Errore nella creazione del file video</string>
-    <string name="video_mode_error">Passaggio alla modalità video fallita</string>
-    <string name="save_error_internal_storage">An error occurred, save folder changed to internal storage</string>
-    <string name="camera_switch_error">Cambio fotocamera fallito</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="camera_open_error">Impossibile accedere alla fotocamera</string>
+    <string name="video_creating_error">Impossibile creare file video</string>
+    <string name="video_mode_error">Impossibile passare alla modalità video</string>
+    <string name="save_error_internal_storage">C'è stato un errore, la cartella di salvataggio è stata spostata nella memoria interna</string>
+    <string name="camera_switch_error">Impossibile cambiare fotocamera</string>
+    <string name="click_to_resume_preview">Fare click sull\'immagine per riprendere l\'anteprima</string>
+    <string name="photo_not_saved">Impossibile salvare la fotografia</string>
+    <string name="setting_resolution_failed">Impossibile impostare la giusta risoluzione</string>
+    <string name="video_recording_failed">Impossibile registrare video, provare ad utilizzare una risoluzione differente</string>
 
     <!-- Other aspect ratio -->
-    <string name="other">other</string>
+    <string name="other">altro</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Che qualità di compressione dovrei impostare?</string>
+    <string name="faq_1_text">Dipende dal tuo obiettivo. In genere si consiglia di utilizzare una qualità del 75%-80%, così che l\'immagine sia ancora di ottima qualità, ma la dimensione del file è ridotta drasticamente rispetto al 100%.</string>
 
     <!-- Settings -->
-    <string name="save_photos">Save photos and videos to</string>
-    <string name="show_preview">Show a photo preview after capturing</string>
+    <string name="save_photos">Salva fotografie e video in</string>
+    <string name="show_preview">Mostra un\'anteprima della fotografia dopo averla scattata</string>
     <string name="shutter_sound">Suono otturatore</string>
-    <string name="back_camera">Back camera resolutions</string>
-    <string name="front_camera">Front camera resolutions</string>
-    <string name="photo">Photo</string>
+    <string name="back_camera">Risoluzioni della camera posteriore</string>
+    <string name="front_camera">Risoluzioni della camera frontale</string>
+    <string name="photo">Fotografia</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Messa a fuoco prima della cattura</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep the setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
-    <string name="shutter">Shutter</string>
+    <string name="volume_buttons_as_shutter">Usa il pulsante del volume come otturatore</string>
+    <string name="turn_flash_off_at_startup">Spengi il flash all\'avvio</string>
+    <string name="flip_front_camera_photos_horizontally">Rovescia le fotografie della fotocamera frontale orrizontalmente</string>
+    <string name="keep_settings_visible">Mantieni il pulsante delle impostazioni visibile</string>
+    <string name="always_open_back_camera">Apri sempre l\'applicazione con la fotocamera posteriore</string>
+    <string name="save_photo_metadata">Salva i metadati exif</string>
+    <string name="photo_compression_quality">Qualità della compressione della fotografia</string>
+    <string name="shutter">Otturatore</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A camera with flash, zoom and no ads.</string>
+    <string name="app_short_description">Una fotocamera con flash, ingrandimento e senza pubblicità.</string>
     <string name="app_long_description">
-        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path, limit the resolution. The flash can be turned on and off, used as a flashlight. You can pinch to zoom in.
+        La fotocamera è utilizzabile sia per catturare foto che per registrare video. Puoi cambiare fra fotocamera posteriore ed anteriore, modificare il percorso di salvataggio e limitare la risoluzione. Il flash può essere abilitato o disabilitato, oppure utilizzato come torcia. Puoi utilizzare le dita per ingrandire.
 
-        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Se vuoi avviare questa applicazione premendo il tasto fisico della fotocamera, potresti aver bisogno di disabilitare la fotocamera incorporata nel sistema in Impostazioni -> Applicazioni -> Fotocamera -> Disabilita.
 
-        Non contiene pubblicità o autorizzazioni non necessarie. È completamente opensource, offre colori personalizzabili.
+        Non contiene pubblicità nè chiede permessi non necessari. È completamente open source ed offre colori personalizzabili.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+        Quest\'app fa parte di una serie più grande. Puoi trovare le altre su https://www.simplemobiletools.com
     </string>
 
     <!--
