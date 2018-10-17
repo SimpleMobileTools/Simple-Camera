@@ -6,7 +6,7 @@
     <string name="camera_open_error">Impossibile accedere alla fotocamera</string>
     <string name="video_creating_error">Impossibile creare file video</string>
     <string name="video_mode_error">Impossibile passare alla modalità video</string>
-    <string name="save_error_internal_storage">C'è stato un errore, la cartella di salvataggio è stata spostata nella memoria interna</string>
+    <string name="save_error_internal_storage">C\'è stato un errore, la cartella di salvataggio è stata spostata nella memoria interna</string>
     <string name="camera_switch_error">Impossibile cambiare fotocamera</string>
     <string name="click_to_resume_preview">Fare click sull\'immagine per riprendere l\'anteprima</string>
     <string name="photo_not_saved">Impossibile salvare la fotografia</string>

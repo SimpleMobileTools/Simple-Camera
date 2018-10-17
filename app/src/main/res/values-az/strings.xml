@@ -18,7 +18,7 @@
 
     <!-- FAQ -->
     <string name="faq_1_title">Şəkli hansı keyfiyyətdə yaddaşa salmalıyam?</string>
-    <string name="faq_1_text">Ümumiyyətlə, özünüzdən asılıdır. Gündəlik istifadə üçün çoxları 75%-80%\'i tövsiyyə edir, hansı ki, bu parametrdə şəkil hələ də yaxşı görünür, amma fayl ölçüsü 100%'ə nəzərən kiçilmişdir.</string>
+    <string name="faq_1_text">Ümumiyyətlə, özünüzdən asılıdır. Gündəlik istifadə üçün çoxları 75%-80%\'i tövsiyyə edir, hansı ki, bu parametrdə şəkil hələ də yaxşı görünür, amma fayl ölçüsü 100%\'ə nəzərən kiçilmişdir.</string>
 
     <!-- Settings -->
     <string name="save_photos">Şəkil və videoları burda saxla</string>
