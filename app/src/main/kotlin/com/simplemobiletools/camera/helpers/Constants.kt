@@ -6,7 +6,6 @@ const val ORIENT_LANDSCAPE_RIGHT = 2
 
 // shared preferences
 const val SAVE_PHOTOS = "save_photos"
-const val SHOW_PREVIEW = "show_preview"
 const val SOUND = "sound"
 const val FOCUS_BEFORE_CAPTURE = "focus_before_capture_2"
 const val VOLUME_BUTTONS_AS_SHUTTER = "volume_buttons_as_shutter"
@@ -19,7 +18,6 @@ const val BACK_PHOTO_RESOLUTION_INDEX = "back_photo_resolution_index_2"
 const val BACK_VIDEO_RESOLUTION_INDEX = "back_video_resolution_index_2"
 const val FRONT_PHOTO_RESOLUTION_INDEX = "front_photo_resolution_index_2"
 const val FRONT_VIDEO_RESOLUTION_INDEX = "front_video_resolution_index_2"
-const val PHOTO_PREVIEW_HINT_SHOWN = "photo_preview_hint_shown"
 const val KEEP_SETTINGS_VISIBLE = "keep_settings_visible"
 const val ALWAYS_OPEN_BACK_CAMERA = "always_open_back_camera"
 const val SAVE_PHOTO_METADATA = "save_photo_metadata"

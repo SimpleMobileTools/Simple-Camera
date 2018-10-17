@@ -32,10 +32,4 @@ interface MyPreview {
     fun initVideoMode(): Boolean
 
     fun checkFlashlight()
-
-    fun deviceOrientationChanged()
-
-    fun resumeCamera(): Boolean
-
-    fun imageSaved()
 }

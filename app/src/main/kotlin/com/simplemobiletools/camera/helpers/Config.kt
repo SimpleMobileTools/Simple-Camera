@@ -21,10 +21,6 @@ class Config(context: Context) : BaseConfig(context) {
         }
         set(path) = prefs.edit().putString(SAVE_PHOTOS, path).apply()
 
-    var isShowPreviewEnabled: Boolean
-        get() = prefs.getBoolean(SHOW_PREVIEW, false)
-        set(enabled) = prefs.edit().putBoolean(SHOW_PREVIEW, enabled).apply()
-
     var isSoundEnabled: Boolean
         get() = prefs.getBoolean(SOUND, true)
         set(enabled) = prefs.edit().putBoolean(SOUND, enabled).apply()
@@ -72,10 +68,6 @@ class Config(context: Context) : BaseConfig(context) {
     var frontVideoResIndex: Int
         get() = prefs.getInt(FRONT_VIDEO_RESOLUTION_INDEX, 0)
         set(frontVideoResIndex) = prefs.edit().putInt(FRONT_VIDEO_RESOLUTION_INDEX, frontVideoResIndex).apply()
-
-    var wasPhotoPreviewHintShown: Boolean
-        get() = prefs.getBoolean(PHOTO_PREVIEW_HINT_SHOWN, false)
-        set(wasPhotoPreviewHintShown) = prefs.edit().putBoolean(PHOTO_PREVIEW_HINT_SHOWN, wasPhotoPreviewHintShown).apply()
 
     var keepSettingsVisible: Boolean
         get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)

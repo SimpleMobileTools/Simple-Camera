@@ -1,8 +1,6 @@
 package com.simplemobiletools.camera.models
 
-import android.annotation.TargetApi
 import android.content.Context
-import android.os.Build
 import android.util.Size
 import com.simplemobiletools.camera.R
 
@@ -45,6 +43,5 @@ data class MySize(val width: Int, val height: Int) {
         else -> context.resources.getString(R.string.other)
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     fun toSize() = Size(width, height)
 }

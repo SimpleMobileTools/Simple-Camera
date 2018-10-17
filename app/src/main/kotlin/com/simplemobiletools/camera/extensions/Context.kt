@@ -4,9 +4,6 @@ import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
 import com.simplemobiletools.camera.helpers.Config
-import com.simplemobiletools.camera.implementations.MyCameraOneImpl
-import com.simplemobiletools.camera.implementations.MyCameraTwoImpl
-import com.simplemobiletools.commons.helpers.isLollipopPlus
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,5 +44,3 @@ val Context.realScreenSize: Point
     }
 
 val Context.navBarHeight: Int get() = realScreenSize.y - usableScreenSize.y
-
-fun Context.getMyCamera() = if (isLollipopPlus()) MyCameraTwoImpl(applicationContext) else MyCameraOneImpl(applicationContext)

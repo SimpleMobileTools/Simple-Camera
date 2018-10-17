@@ -1,7 +1,6 @@
 package com.simplemobiletools.camera.views
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.ImageFormat
 import android.graphics.Matrix
@@ -14,7 +13,6 @@ import android.media.ImageReader
 import android.media.MediaActionSound
 import android.media.MediaRecorder
 import android.net.Uri
-import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.DisplayMetrics
@@ -30,30 +28,22 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.helpers.*
+import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.isJellyBean1Plus
 import com.simplemobiletools.commons.models.FileDirItem
 import java.io.File
-import java.lang.IllegalArgumentException
-import java.lang.InterruptedException
-import java.lang.Math
-import java.lang.System
-import java.lang.Thread
 import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
-import kotlin.RuntimeException
 
 // based on the Android Camera2 photo sample at https://github.com/googlesamples/android-Camera2Basic
 // and video sample at https://github.com/googlesamples/android-Camera2Video
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
+class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private val FOCUS_TAG = "focus_tag"
     private val MAX_PREVIEW_WIDTH = 1920
     private val MAX_PREVIEW_HEIGHT = 1080
@@ -129,7 +119,7 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             null
         }
 
-        val isFrontCamera = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING).toString() == activity.getMyCamera().getFrontCameraId().toString()
+        val isFrontCamera = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING).toString() == MyCameraImpl(activity).getFrontCameraId().toString()
         mUseFrontCamera = !activity.config.alwaysOpenBackCamera && isFrontCamera
         mIsInVideoMode = !initPhotoMode
         loadSounds()
@@ -417,13 +407,8 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
 
     private fun getRealDisplaySize(): MySize {
         val metrics = DisplayMetrics()
-        return if (isJellyBean1Plus()) {
-            mActivity.windowManager.defaultDisplay.getRealMetrics(metrics)
-            MySize(metrics.widthPixels, metrics.heightPixels)
-        } else {
-            mActivity.windowManager.defaultDisplay.getMetrics(metrics)
-            MySize(metrics.widthPixels, metrics.heightPixels)
-        }
+        mActivity.windowManager.defaultDisplay.getRealMetrics(metrics)
+        return MySize(metrics.widthPixels, metrics.heightPixels)
     }
 
     private val cameraStateCallback = object : CameraDevice.StateCallback() {
@@ -718,53 +703,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
         return FocusArea(rect, MeteringRectangle.METERING_WEIGHT_MAX)
     }
 
-    // touch-to-focus stucks after capturing a photo without "Focus before capture" so just reset the whole session until fixed properly
-    private fun resetPreviewSession() {
-        val stateCallback = object : CameraCaptureSession.StateCallback() {
-            override fun onConfigured(cameraCaptureSession: CameraCaptureSession) {
-                if (mCameraDevice == null) {
-                    return
-                }
-
-                mCaptureSession = cameraCaptureSession
-                try {
-                    mPreviewRequestBuilder!!.apply {
-                        set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                        setFlashAndExposure(this)
-                        mPreviewRequest = build()
-                    }
-                    mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-                    mCameraState = STATE_PREVIEW
-
-                    Handler().postDelayed({
-                        if (mLastFocusX != 0f && mLastFocusY != 0f) {
-                            if (mCaptureSession != null) {
-                                focusArea(mLastFocusX, mLastFocusY, false)
-                            }
-                        }
-                    }, 200L)
-                } catch (e: Exception) {
-                }
-            }
-
-            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
-        }
-
-        try {
-            closeCaptureSession()
-            val texture = mTextureView.surfaceTexture!!
-            texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-
-            val currentResolution = getCurrentResolution()
-            mImageReader = ImageReader.newInstance(currentResolution.width, currentResolution.height, ImageFormat.JPEG, 2)
-            mImageReader!!.setOnImageAvailableListener(imageAvailableListener, mBackgroundHandler)
-
-            val surface = Surface(texture)
-            mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
-        } catch (e: Exception) {
-        }
-    }
-
     private fun calculateCameraToPreviewMatrix() {
         val yScale = if (mUseFrontCamera) -1 else 1
         mCameraToPreviewMatrix.apply {
@@ -1033,12 +971,6 @@ class PreviewCameraTwo : ViewGroup, TextureView.SurfaceTextureListener, MyPrevie
             mActivity.updateFlashlightState(mFlashlightState)
         }
     }
-
-    override fun deviceOrientationChanged() {}
-
-    override fun resumeCamera() = true
-
-    override fun imageSaved() {}
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {}
 }

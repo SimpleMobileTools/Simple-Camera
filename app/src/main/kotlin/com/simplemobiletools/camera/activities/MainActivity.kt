@@ -16,14 +16,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getMyCamera
 import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
-import com.simplemobiletools.camera.interfaces.MyCamera
+import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.views.CameraPreview
 import com.simplemobiletools.camera.views.FocusCircleView
-import com.simplemobiletools.camera.views.PreviewCameraOne
-import com.simplemobiletools.camera.views.PreviewCameraTwo
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
@@ -36,7 +34,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mFadeHandler: Handler
-    private lateinit var mCameraImpl: MyCamera
+    private lateinit var mCameraImpl: MyCameraImpl
 
     private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
@@ -116,7 +114,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
         mLastHandledOrientation = 0
-        mCameraImpl = getMyCamera()
+        mCameraImpl = MyCameraImpl(applicationContext)
 
         if (config.alwaysOpenBackCamera) {
             config.lastUsedCamera = mCameraImpl.getBackCameraId().toString()
@@ -193,13 +191,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         setContentView(R.layout.activity_main)
         initButtons()
 
-        camera_surface_view.beVisibleIf(!isLollipopPlus())
-        camera_texture_view.beVisibleIf(isLollipopPlus())
-
         (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         checkVideoCaptureIntent()
-        mPreview = if (isLollipopPlus()) PreviewCameraTwo(this, camera_texture_view, mIsInPhotoMode) else PreviewCameraOne(this, camera_surface_view)
+        mPreview = CameraPreview(this, camera_texture_view, mIsInPhotoMode)
         view_holder.addView(mPreview as ViewGroup)
         checkImageCaptureIntent()
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
@@ -373,7 +368,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
         runOnUiThread {
-            if (!isActivityDestroyed()) {
+            if (!isDestroyed) {
                 val options = RequestOptions()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -419,14 +414,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
     }
 
-    fun toggleTimer(show: Boolean) {
-        if (show) {
-            showTimer()
-        } else {
-            hideTimer()
-        }
-    }
-
     private fun showTimer() {
         video_rec_curr_timer.beVisible()
         setupTimer()
@@ -450,14 +437,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 
     private fun resumeCameraItems() {
         showToggleCameraIfNeeded()
-        if (mPreview?.resumeCamera() == true) {
-            hideNavigationBarIcons()
+        hideNavigationBarIcons()
 
-            if (!mIsInPhotoMode) {
-                initVideoButtons()
-            }
-        } else {
-            toast(R.string.camera_switch_error)
+        if (!mIsInPhotoMode) {
+            initVideoButtons()
         }
     }
 
@@ -470,7 +453,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private fun setupOrientationEventListener() {
         mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
             override fun onOrientationChanged(orientation: Int) {
-                if (isActivityDestroyed()) {
+                if (isDestroyed) {
                     mOrientationEventListener.disable()
                     return
                 }
@@ -490,7 +473,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
 
                     animateViews(degrees)
                     mLastHandledOrientation = currOrient
-                    mPreview?.deviceOrientationChanged()
                 }
             }
         }
@@ -555,7 +537,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
-        mPreview?.imageSaved()
         rescanPaths(arrayListOf(path)) {
             setupPreviewImage(true)
             Intent(BROADCAST_REFRESH_MEDIA).apply {

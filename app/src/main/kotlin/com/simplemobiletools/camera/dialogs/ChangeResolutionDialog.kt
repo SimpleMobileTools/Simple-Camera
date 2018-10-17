@@ -1,8 +1,8 @@
 package com.simplemobiletools.camera.dialogs
 
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.SimpleActivity
 import com.simplemobiletools.camera.extensions.config
