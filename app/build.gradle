@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         debug {
-	        applicationIdSuffix ".debug"
+            applicationIdSuffix ".debug"
         }
         release {
             minifyEnabled true
@@ -40,15 +40,8 @@ android {
     }
 }
 
-ext {
-    leakCanaryVersion = '1.5.4'
-}
-
 dependencies {
     implementation 'com.simplemobiletools:commons:4.6.4'
-
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
 Properties props = new Properties()
