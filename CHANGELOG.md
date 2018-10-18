@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 5.0.0 *(2018-10-18)*
+----------------------------
+
+ * Increased the min required Android OS version to 5 (Lollipop)
+ * Fixed crashing at vidoe recording, when saving on an SD card
+ * Replaced the G+ button with Reddit
+ * Multiple other stability, ux and translation improvements
+
 Version 4.2.0 *(2018-08-08)*
 ----------------------------
 
