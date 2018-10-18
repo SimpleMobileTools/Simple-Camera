@@ -766,12 +766,20 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         try {
             val videoSize = getCurrentResolution()
             mLastVideoPath = mActivity.getOutputMediaFile(false)
+            val uri = if (context.isPathOnSD(mLastVideoPath)) {
+                context.getDocumentFile(mLastVideoPath.getParentPath())?.createFile("video/mp4", mLastVideoPath.getFilenameFromPath())!!.uri
+            } else {
+                Uri.fromFile(File(mLastVideoPath))
+            }
+
+            val fileDescriptor = context.contentResolver.openFileDescriptor(uri, "w").fileDescriptor
+
             val rotation = mActivity.windowManager.defaultDisplay.rotation
             mMediaRecorder!!.apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
                 setVideoSource(MediaRecorder.VideoSource.SURFACE)
                 setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                setOutputFile(mLastVideoPath)
+                setOutputFile(fileDescriptor)
                 setVideoEncodingBitRate(10000000)
                 setVideoFrameRate(30)
                 setVideoSize(videoSize.width, videoSize.height)
