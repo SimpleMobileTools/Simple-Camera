@@ -965,10 +965,13 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
     override fun checkFlashlight() {
         if ((mCameraState == STATE_PREVIEW || mCameraState == STATE_RECORDING) && mIsFlashSupported) {
-            setFlashAndExposure(mPreviewRequestBuilder!!)
-            mPreviewRequest = mPreviewRequestBuilder!!.build()
-            mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
-            mActivity.updateFlashlightState(mFlashlightState)
+            try {
+                setFlashAndExposure(mPreviewRequestBuilder!!)
+                mPreviewRequest = mPreviewRequestBuilder!!.build()
+                mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                mActivity.updateFlashlightState(mFlashlightState)
+            } catch (e: Exception) {
+            }
         }
     }
 
