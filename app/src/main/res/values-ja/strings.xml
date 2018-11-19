@@ -6,41 +6,49 @@
     <string name="camera_open_error">カメラへのアクセス時にエラーが発生しました</string>
     <string name="video_creating_error">ビデオファイルの作成時にエラーが発生しました</string>
     <string name="video_mode_error">ビデオモードへの切り替えに失敗しました</string>
-    <string name="save_error_internal_storage">エラーが発生しました。保存フォルダーは内部ストレージに変更されました</string>
+    <string name="save_error_internal_storage">エラーが発生しました。保存フォルダは内部ストレージに変更されました</string>
     <string name="camera_switch_error">カメラの切り替えに失敗しました</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
+    <string name="click_to_resume_preview">プレビューを再開するには画像をタップ</string>
     <string name="photo_not_saved">この画像は保存されていません</string>
+    <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
+    <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
 
-    <!-- other aspect ratio -->
-    <string name="other">other</string>
+    <!-- Other aspect ratio -->
+    <string name="other">その他</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">What photo compression quality should I set?</string>
+    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">写真とビデオの保存先</string>
     <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
     <string name="shutter_sound">シャッター音</string>
-    <string name="back_camera">背面ｶﾒﾗ解像度</string>
-    <string name="front_camera">前面ｶﾒﾗ解像度</string>
+    <string name="back_camera">背面カメラ解像度</string>
+    <string name="front_camera">前面カメラ解像度</string>
     <string name="photo">画像</string>
     <string name="video">動画</string>
     <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
-    <string name="volume_buttons_as_shutter">音量ﾎﾞﾀﾝで撮影</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
+    <string name="volume_buttons_as_shutter">音量ボタンで撮影</string>
+    <string name="turn_flash_off_at_startup">起動時にライトをオンにする</string>
     <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="keep_settings_visible">設定ボタンを表示したままにする</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="save_photo_metadata">写真のEXIFデータを保存する</string>
+    <string name="photo_compression_quality">写真の圧縮品質</string>
+    <string name="shutter">シャッター</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">フラッシュ、ズーム付きのカメラ。広告はありません。</string>
     <string name="app_long_description">
-        カメラは、写真撮影とビデオ撮影の両方に使用できます。 前面カメラと背面カメラを切り替えたり、保存パスを変更したり、解像度を制限することができます。 フラッシュをオン/オフしたり、ピンチでズームインしたりすることができます。 ビデオの撮影中は、フラッシュを懐中電灯として使用できます。
+        カメラは、写真撮影とビデオ撮影の両方に使用できます。 前面カメラと背面カメラの切り替え、保存場所を変更、解像度を制限することができます。 フラッシュをオン/オフしたり、ピンチでズームインしたりすることができます。 ビデオの撮影中は、フラッシュを懐中電灯として使用できます。
 
-        ハードウェアのカメラボタンを押してこのアプリを起動したい場合は、設定 -> アプリ -> カメラ -> 無効、で付属のカメラアプリを無効にする必要があります。
+        ハードウェアのカメラボタンを押してこのアプリを起動したい場合は「設定 -> アプリ -> カメラ -> 無効」で端末標準のカメラアプリを無効にする必要があります。
 
         広告や不要なアクセス許可は含まれていません。 完全にオープンソースで、ダークテーマも提供しています。
 
-        このアプリは、大きな一連のアプリの一つです。 他のアプリは http://www.simplemobiletools.com で見つけることができます
+        このアプリは、大きな一連のアプリの一つです。 他のアプリは https://www.simplemobiletools.com で見つけることができます
     </string>
 
     <!--

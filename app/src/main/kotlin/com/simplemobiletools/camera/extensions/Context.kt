@@ -23,22 +23,24 @@ fun Context.getOutputMediaFile(isPhoto: Boolean): String {
 
     val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
     return if (isPhoto) {
-        "${mediaStorageDir.path}${File.separator}IMG_$timestamp.jpg"
+        "${mediaStorageDir.path}/IMG_$timestamp.jpg"
     } else {
-        "${mediaStorageDir.path}${File.separator}VID_$timestamp.mp4"
+        "${mediaStorageDir.path}/VID_$timestamp.mp4"
     }
 }
 
-val Context.usableScreenSize: Point get() {
-    val size = Point()
-    windowManager.defaultDisplay.getSize(size)
-    return size
-}
+val Context.usableScreenSize: Point
+    get() {
+        val size = Point()
+        windowManager.defaultDisplay.getSize(size)
+        return size
+    }
 
-val Context.realScreenSize: Point get() {
-    val size = Point()
-    windowManager.defaultDisplay.getRealSize(size)
-    return size
-}
+val Context.realScreenSize: Point
+    get() {
+        val size = Point()
+        windowManager.defaultDisplay.getRealSize(size)
+        return size
+    }
 
 val Context.navBarHeight: Int get() = realScreenSize.y - usableScreenSize.y

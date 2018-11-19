@@ -1,22 +1,21 @@
 package com.simplemobiletools.camera.dialogs
 
-import android.hardware.Camera
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.SimpleActivity
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getAspectRatio
-import com.simplemobiletools.camera.helpers.Config
+import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
 
-class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, val camera: Camera, val callback: () -> Unit) {
-    var dialog: AlertDialog
-    private val isBackCamera = activity.config.lastUsedCamera == Camera.CameraInfo.CAMERA_FACING_BACK
+class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Boolean, val photoResolutions: ArrayList<MySize>,
+                             val videoResolutions: ArrayList<MySize>, val openVideoResolutions: Boolean, val callback: () -> Unit) {
+    private var dialog: AlertDialog
+    private val config = activity.config
 
     init {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_resolution, null).apply {
@@ -28,49 +27,54 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val config: Config, v
                 .setPositiveButton(R.string.ok, null)
                 .setOnDismissListener { callback() }
                 .create().apply {
-            activity.setupDialogStuff(view, this, if (isBackCamera) R.string.back_camera else R.string.front_camera)
-        }
+                    activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera) {
+                        if (openVideoResolutions) {
+                            view.change_resolution_video_holder.performClick()
+                        }
+                    }
+                }
     }
 
     private fun setupPhotoResolutionPicker(view: View) {
-        val items = getFormattedResolutions(camera.parameters.supportedPictureSizes)
-        var selectionIndex = if (isBackCamera) config.backPhotoResIndex else config.frontPhotoResIndex
+        val items = getFormattedResolutions(photoResolutions)
+        var selectionIndex = if (isFrontCamera) config.frontPhotoResIndex else config.backPhotoResIndex
         selectionIndex = Math.max(selectionIndex, 0)
 
         view.change_resolution_photo_holder.setOnClickListener {
             RadioGroupDialog(activity, items, selectionIndex) {
                 selectionIndex = it as Int
                 view.change_resolution_photo.text = items[selectionIndex].title
-                if (isBackCamera)
-                    config.backPhotoResIndex = it
-                else
+                if (isFrontCamera) {
                     config.frontPhotoResIndex = it
+                } else {
+                    config.backPhotoResIndex = it
+                }
                 dialog.dismiss()
             }
         }
-        view.change_resolution_photo.text = items[selectionIndex].title
+        view.change_resolution_photo.text = items.getOrNull(selectionIndex)?.title
     }
 
     private fun setupVideoResolutionPicker(view: View) {
-        val items = getFormattedResolutions(camera.parameters.supportedVideoSizes ?: camera.parameters.supportedPreviewSizes)
-        var selectionIndex = if (isBackCamera) config.backVideoResIndex else config.frontVideoResIndex
+        val items = getFormattedResolutions(videoResolutions)
+        var selectionIndex = if (isFrontCamera) config.frontVideoResIndex else config.backVideoResIndex
 
         view.change_resolution_video_holder.setOnClickListener {
             RadioGroupDialog(activity, items, selectionIndex) {
                 selectionIndex = it as Int
                 view.change_resolution_video.text = items[selectionIndex].title
-                if (isBackCamera) {
-                    config.backVideoResIndex = it
-                } else {
+                if (isFrontCamera) {
                     config.frontVideoResIndex = it
+                } else {
+                    config.backVideoResIndex = it
                 }
                 dialog.dismiss()
             }
         }
-        view.change_resolution_video.text = items[selectionIndex].title
+        view.change_resolution_video.text = items.getOrNull(selectionIndex)?.title
     }
 
-    private fun getFormattedResolutions(resolutions: List<Camera.Size>): ArrayList<RadioItem> {
+    private fun getFormattedResolutions(resolutions: List<MySize>): ArrayList<RadioItem> {
         val items = ArrayList<RadioItem>(resolutions.size)
         val sorted = resolutions.sortedByDescending { it.width * it.height }
         sorted.forEachIndexed { index, size ->

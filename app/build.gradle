@@ -3,15 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "com.simplemobiletools.camera"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 51
-        versionName "3.0.1"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 64
+        versionName "5.0.0"
         setProperty("archivesBaseName", "camera")
     }
 
@@ -20,6 +20,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -37,15 +40,8 @@ android {
     }
 }
 
-ext {
-    leakCanaryVersion = '1.5.4'
-}
-
 dependencies {
-    implementation 'com.simplemobiletools:commons:3.2.3'
-
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    implementation 'com.simplemobiletools:commons:5.1.4'
 }
 
 Properties props = new Properties()

@@ -4,19 +4,25 @@
     <string name="app_launcher_name">Cámara</string>
     <string name="camera_unavailable">Cámara non dispoñible</string>
     <string name="camera_open_error">Fallou o acceso a cámara</string>
-    <string name="video_creating_error">Fallou a creacin do ficheiro de vídeo</string>
-    <string name="video_mode_error">Non se puido mudar ao modo de vdeo</string>
+    <string name="video_creating_error">Fallou a creación do ficheiro de vídeo</string>
+    <string name="video_mode_error">Non se puido mudar ao modo de vídeo</string>
     <string name="save_error_internal_storage">Algo fallou, o cartafol para gardar fotos mudou ao almacenamento interno</string>
     <string name="camera_switch_error">Fallou o cambio de cámara</string>
     <string name="click_to_resume_preview">Pulse na imaxe para voltar a vista previa</string>
     <string name="photo_not_saved">Non se puido gardar a fotografía</string>
+    <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
-    <!-- other aspect ratio -->
+    <!-- Other aspect ratio -->
     <string name="other">outro</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Qué calidade de compresión debo escoller para a foto?</string>
+    <string name="faq_1_text">Depende do obxetivo. Para uso xeral a maioría de usuarias recomenda 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drásticamente comparado co 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Gardar fotos e videos en</string>
-    <string name="show_preview">Mostrar unha vistra previa da foto tras a captura</string>
+    <string name="show_preview">Mostrar unha vista previa da foto tras a captura</string>
     <string name="shutter_sound">Son do disparador</string>
     <string name="back_camera">Resolucións da cámara traseira</string>
     <string name="front_camera">Resolucións da cámara frontal</string>
@@ -29,6 +35,8 @@
     <string name="keep_settings_visible">Manter visibles os botóns de axustes</string>
     <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
     <string name="save_photo_metadata">Gardar metadatos exif da foto</string>
+    <string name="photo_compression_quality">Calidade da compresión da foto</string>
+    <string name="shutter">Disparador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -40,7 +48,7 @@
    
         Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade, ten cores personalizados.
    
-        Este aplicativo é só unha peza da colección de aplicativos. Pode atopar o resto en http://www.simplemobiletools.com
+        Este aplicativo é só unha peza da colección de aplicativos. Pode atopar o resto en https://www.simplemobiletools.com
     </string>
 
     <!--

@@ -10,9 +10,15 @@
     <string name="camera_switch_error">Switching camera failed</string>
     <string name="click_to_resume_preview">Click on the image to resume preview</string>
     <string name="photo_not_saved">The photo could not be saved</string>
+    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
-    <!-- other aspect ratio -->
+    <!-- Other aspect ratio -->
     <string name="other">other</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">What photo compression quality should I set?</string>
+    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Save photos and videos to</string>
@@ -26,9 +32,11 @@
     <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
     <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
     <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep setting buttons visible</string>
+    <string name="keep_settings_visible">Keep the setting buttons visible</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
     <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -40,7 +48,7 @@
 
         Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
     </string>
 
     <!--

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الكاميرا البسيطة</string>
+    <string name="app_launcher_name">الكاميرا</string>
+    <string name="camera_unavailable">الكاميرا غير متاحة</string>
+    <string name="camera_open_error">حدث خطأ أثناء الدخول إلى الكاميرا</string>
+    <string name="video_creating_error">حدث خطأ أثناء إنشاء ملف الفيديو</string>
+    <string name="video_mode_error">أخفق التبديل إلى وضع الفيديو</string>
+    <string name="save_error_internal_storage">حدث خطأ، تم تغيير مجلد الحفظ إلى وحدة التخزين الداخلية</string>
+    <string name="camera_switch_error">أخفق تبديل الكاميرا</string>
+    <string name="click_to_resume_preview">انقر على الصورة لاستئناف المعاينة</string>
+    <string name="photo_not_saved">تعذر حفظ الصورة</string>
+    <string name="setting_resolution_failed">Setting proper resolution failed</string>
+    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">آخرى</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">What photo compression quality should I set?</string>
+    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">حفظ الصور ومقاطع الفيديو إلى</string>
+    <string name="show_preview">عرض معاينة الصورة بعد التقاطها</string>
+    <string name="shutter_sound">صوت الغالق</string>
+    <string name="back_camera">دقة الكاميرا الخلفية</string>
+    <string name="front_camera">دقة الكاميرا الامامية</string>
+    <string name="photo">الصور</string>
+    <string name="video">الفديو</string>
+    <string name="focus_before_capture">تركيز قبل الإلتقاط</string>
+    <string name="volume_buttons_as_shutter">استخدام أزرار الصوت للإلتقاط</string>
+    <string name="turn_flash_off_at_startup">إيقاف تشغيل الفلاش عند بدء التشغيل</string>
+    <string name="flip_front_camera_photos_horizontally">قلب صور الكاميرا الأمامية أفقيا</string>
+    <string name="keep_settings_visible">إبقاء أزرار الإعداد مرئيا</string>
+    <string name="always_open_back_camera">دائما فتح التطبيق مع الكاميرا الخلفية</string>
+    <string name="save_photo_metadata">حفظ بيانات الصورة الوصفية</string>
+    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="shutter">Shutter</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">كاميرا مع فلاش، والتكبير وبدون أي إعلانات.</string>
+    <string name="app_long_description">الكاميرا يمكن استخدامها لكل من التقاط الصور وتسجيل الفيديو. يمكنك التبديل بين الكاميرا الأمامية والخلفية، تعديل مسار الحفظ وتحديد الدقة . يمكن تشغيل وإيقاف الوميض أو استخدامها كمصباح. يمكنك القرص للتكبير والتصغير. إذا كنت ترغب في تشغيل هذا التطبيق عبر الضغط على زر الكاميرا الأجهزة ، قد تضطر إلى تعطيل الخيار المدمج في التطبيق الكاميرا في إعدادات -> تطبيقات -> كاميرا -> تعطيل. \n
+ لا يحتوي على إعلانات أو أذونات لا حاجة لها. مفتوح المصدر بشكل كامل، ويوفر الألوان للتخصيص. هذا التطبيق هو مجرد قطعة واحدة من سلسلة أكبر من التطبيقات. يمكنك العثور على بقيتهم هنا\n
+ https://www.simplemobiletools.com</string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

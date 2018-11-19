@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/change_resolution_photo"
             android:layout_toStartOf="@+id/change_resolution_photo"
+            android:layout_toLeftOf="@+id/change_resolution_photo"
             android:text="@string/photo"/>
 
         <com.simplemobiletools.commons.views.MyTextView
@@ -47,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/change_resolution_video"
             android:layout_toStartOf="@+id/change_resolution_video"
+            android:layout_toLeftOf="@+id/change_resolution_video"
             android:text="@string/video"/>
 
         <com.simplemobiletools.commons.views.MyTextView

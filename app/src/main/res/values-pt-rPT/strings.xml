@@ -6,13 +6,19 @@
     <string name="camera_open_error">Ocorreu um erro ao aceder à câmara</string>
     <string name="video_creating_error">Ocorreu um erro ao criar o ficheiro de vídeo</string>
     <string name="video_mode_error">Falha ao mudar para o modo de vídeo</string>
-    <string name="save_error_internal_storage">Erro, a pasta para guardar ficheiros foi alterada para o armazenamento interno</string>
+    <string name="save_error_internal_storage">Falha. A pasta para guardar ficheiros foi alterada para o armazenamento interno</string>
     <string name="camera_switch_error">Falha ao mudar de câmara</string>
     <string name="click_to_resume_preview">Clique na imagem para continuar com a pré-visualização</string>
     <string name="photo_not_saved">Não foi possível guardar a foto</string>
+    <string name="setting_resolution_failed">Falha ao definir a resolução ideal</string>
+    <string name="video_recording_failed">Falha ao gravar o vídeo. Tente com outra resolução.</string>
 
-    <!-- other aspect ratio -->
+    <!-- Other aspect ratio -->
     <string name="other">outra</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">What photo compression quality should I set?</string>
+    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Guardar fotos e vídeos em</string>
@@ -29,6 +35,8 @@
     <string name="keep_settings_visible">Botão de definições sempre visível</string>
     <string name="always_open_back_camera">Abrir a aplicação sempre com a câmara traseira</string>
     <string name="save_photo_metadata">Guardar dados exif das fotos</string>
+    <string name="photo_compression_quality">Qualidade da compressão</string>
+    <string name="shutter">Obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -40,7 +48,7 @@
 
         Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
 
-        Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com
+        Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em https://www.simplemobiletools.com
     </string>
 
     <!--

@@ -7,15 +7,12 @@ import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.humanizePath
-import com.simplemobiletools.commons.extensions.updateTextColors
-import com.simplemobiletools.commons.extensions.useEnglishToggled
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
-import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
-import com.simplemobiletools.commons.helpers.LICENSE_LEAK_CANARY
+import com.simplemobiletools.commons.models.FAQItem
+import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
-import java.io.File
 import java.util.*
 
 class SettingsActivity : SimpleActivity() {
@@ -27,9 +24,10 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
+        setupPurchaseThankYou()
         setupCustomizeColors()
         setupUseEnglish()
-        setupShowPreview()
+        setupAvoidWhatsNew()
         setupSound()
         setupFocusBeforeCapture()
         setupVolumeButtonsAsShutter()
@@ -39,7 +37,9 @@ class SettingsActivity : SimpleActivity() {
         setupAlwaysOpenBackCamera()
         setupSavePhotoMetadata()
         setupSavePhotosFolder()
+        setupPhotoQuality()
         updateTextColors(settings_holder)
+        setupSectionColors()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -49,10 +49,24 @@ class SettingsActivity : SimpleActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.about -> startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_GLIDE or LICENSE_LEAK_CANARY, BuildConfig.VERSION_NAME)
+            R.id.about -> launchAbout()
             else -> super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setupSectionColors() {
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        arrayListOf(shutter_label, startup_label, saving_label).forEach {
+            it.setTextColor(adjustedPrimaryColor)
+        }
+    }
+
+    private fun setupPurchaseThankYou() {
+        settings_purchase_thank_you_holder.beVisibleIf(config.appRunCount > 10 && !isThankYouInstalled())
+        settings_purchase_thank_you_holder.setOnClickListener {
+            launchPurchaseThankYouIntent()
+        }
     }
 
     private fun setupCustomizeColors() {
@@ -67,21 +81,32 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
-            useEnglishToggled()
+            System.exit(0)
         }
+    }
+
+    private fun setupAvoidWhatsNew() {
+        settings_avoid_whats_new.isChecked = config.avoidWhatsNew
+        settings_avoid_whats_new_holder.setOnClickListener {
+            settings_avoid_whats_new.toggle()
+            config.avoidWhatsNew = settings_avoid_whats_new.isChecked
+        }
+    }
+
+    private fun launchAbout() {
+        val licenses = LICENSE_GLIDE
+
+        val faqItems = arrayListOf(
+                FAQItem(R.string.faq_1_title, R.string.faq_1_text),
+                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
+        )
+
+        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
     }
 
     private fun getLastPart(path: String): String {
         val humanized = humanizePath(path)
         return humanized.substringAfterLast("/", humanized)
-    }
-
-    private fun setupShowPreview() {
-        settings_show_preview.isChecked = config.isShowPreviewEnabled
-        settings_show_preview_holder.setOnClickListener {
-            settings_show_preview.toggle()
-            config.isShowPreviewEnabled = settings_show_preview.isChecked
-        }
     }
 
     private fun setupSound() {
@@ -152,11 +177,38 @@ class SettingsActivity : SimpleActivity() {
         settings_save_photos.text = getLastPart(config.savePhotosFolder)
         settings_save_photos_holder.setOnClickListener {
             FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
-                handleSAFDialog(File(it)) {
+                handleSAFDialog(it) {
                     config.savePhotosFolder = it
                     settings_save_photos.text = getLastPart(config.savePhotosFolder)
                 }
             }
         }
+    }
+
+    private fun setupPhotoQuality() {
+        updatePhotoQuality(config.photoQuality)
+        settings_photo_quality_holder.setOnClickListener {
+            val items = arrayListOf(
+                    RadioItem(100, "100%"),
+                    RadioItem(95, "95%"),
+                    RadioItem(90, "90%"),
+                    RadioItem(85, "85%"),
+                    RadioItem(80, "80%"),
+                    RadioItem(75, "75%"),
+                    RadioItem(70, "70%"),
+                    RadioItem(65, "65%"),
+                    RadioItem(60, "60%"),
+                    RadioItem(55, "55%"),
+                    RadioItem(50, "50%"))
+
+            RadioGroupDialog(this@SettingsActivity, items, config.photoQuality) {
+                config.photoQuality = it as Int
+                updatePhotoQuality(it)
+            }
+        }
+    }
+
+    private fun updatePhotoQuality(quality: Int) {
+        settings_photo_quality.text = "$quality%"
     }
 }

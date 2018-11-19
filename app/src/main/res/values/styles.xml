@@ -3,10 +3,9 @@
 
     <style name="AppTheme" parent="AppTheme.Base"/>
 
-    <style name="FullScreenTheme.Base" parent="AppTheme">
+    <style name="FullScreenTheme" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
-
-    <style name="FullScreenTheme" parent="FullScreenTheme.Base"/>
 
 </resources>

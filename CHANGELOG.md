@@ -1,6 +1,96 @@
 Changelog
 ==========
 
+Version 5.0.0 *(2018-10-18)*
+----------------------------
+
+ * Increased the min required Android OS version to 5 (Lollipop)
+ * Fixed crashing at vidoe recording, when saving on an SD card
+ * Replaced the G+ button with Reddit
+ * Multiple other stability, ux and translation improvements
+
+Version 4.2.0 *(2018-08-08)*
+----------------------------
+
+ * Fixed app freezing after photo capture on some devices
+ * Other UX and stability improvements
+
+Version 4.1.3 *(2018-07-10)*
+----------------------------
+
+ * Fixed some images not being saved properly
+ * Fixed too dark preview and images on some devices
+ * Couple other UX and stability improvements
+
+Version 4.1.2 *(2018-06-18)*
+----------------------------
+
+ * Fixed third party intent handling
+ * Fixed some glitch causing photos be captured fully zoomed in
+ * Added a couple extra error message displays
+
+Version 4.1.1 *(2018-06-12)*
+----------------------------
+
+ * Adding a couple crashfixes
+
+Version 4.1.0 *(2018-06-11)*
+----------------------------
+
+ * Fully rewrote the Camera functionality under the hood for Android 5+
+ * Properly save image EXIF data when selected so
+ * Fix the rotation of images returned to third party intents
+ * Removed the option to show the captured photo after taking it
+
+Version 4.0.0 *(2018-05-15)*
+----------------------------
+
+ * Allow customizing the app launcher icon color
+ * Split settings into subsections
+ * Couple smaller bugfixes and stability improvements
+
+Version 3.2.1 *(2018-04-08)*
+----------------------------
+
+ * Catch and show errors happening at saving images
+
+Version 3.2.0 *(2018-04-01)*
+----------------------------
+
+ * Rotate and store images more efficiently, if saved on SD cards
+ * Allow the app being ran above the lockscreen
+ * Couple stability improvements
+
+Version 3.1.4 *(2018-02-26)*
+----------------------------
+
+ * Show an error if setting the proper resolution failed
+ * Fix slow photo preview on Nexus 4
+ * Couple stability improvements
+ * Added an initial FAQ section
+
+Version 3.1.3 *(2018-02-01)*
+----------------------------
+
+ * Just adding a new tag for f-droid
+ 
+Version 3.1.2 *(2018-01-23)*
+----------------------------
+
+ * Fix a glitch at slow zooming
+ * Refresh Simple Gallery in the background after taking a photo/video
+
+Version 3.1.1 *(2018-01-14)*
+----------------------------
+
+ * Fixing a crash at saving photos
+
+Version 3.1.0 *(2018-01-13)*
+----------------------------
+
+ * Allow changing the photo compression quality
+ * Make dark theme the default
+
 Version 3.0.1 *(2017-12-07)*
 ----------------------------
 
