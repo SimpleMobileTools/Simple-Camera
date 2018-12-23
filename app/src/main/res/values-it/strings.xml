@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Semplice Fotocamera</string>
     <string name="app_launcher_name">Fotocamera</string>
     <string name="camera_unavailable">Fotocamera non disponibile</string>
     <string name="camera_open_error">Impossibile accedere alla fotocamera</string>
@@ -8,47 +8,47 @@
     <string name="video_mode_error">Impossibile passare alla modalità video</string>
     <string name="save_error_internal_storage">C\'è stato un errore, la cartella di salvataggio è stata spostata nella memoria interna</string>
     <string name="camera_switch_error">Impossibile cambiare fotocamera</string>
-    <string name="click_to_resume_preview">Fare click sull\'immagine per riprendere l\'anteprima</string>
-    <string name="photo_not_saved">Impossibile salvare la fotografia</string>
+    <string name="click_to_resume_preview">Premere sull\'immagine per riprendere l\'anteprima</string>
+    <string name="photo_not_saved">Impossibile salvare la foto</string>
     <string name="setting_resolution_failed">Impossibile impostare la giusta risoluzione</string>
-    <string name="video_recording_failed">Impossibile registrare video, provare ad utilizzare una risoluzione differente</string>
+    <string name="video_recording_failed">Impossibile registrare video, provare a utilizzare una risoluzione differente</string>
 
     <!-- Other aspect ratio -->
     <string name="other">altro</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Che qualità di compressione dovrei impostare?</string>
-    <string name="faq_1_text">Dipende dal tuo obiettivo. In genere si consiglia di utilizzare una qualità del 75%-80%, così che l\'immagine sia ancora di ottima qualità, ma la dimensione del file è ridotta drasticamente rispetto al 100%.</string>
+    <string name="faq_1_text">Dipende dal proprio obiettivo. In genere si consiglia di utilizzare una qualità del 75%-80%, in modo che l\'immagine sia ancora di ottima qualità, ma la dimensione del file viene ridotta drasticamente rispetto al 100%.</string>
 
     <!-- Settings -->
-    <string name="save_photos">Salva fotografie e video in</string>
-    <string name="show_preview">Mostra un\'anteprima della fotografia dopo averla scattata</string>
-    <string name="shutter_sound">Suono otturatore</string>
+    <string name="save_photos">Salva foto e video in</string>
+    <string name="show_preview">Mostra un\'anteprima della foto dopo averla scattata</string>
+    <string name="shutter_sound">Suono dell\'otturatore</string>
     <string name="back_camera">Risoluzioni della camera posteriore</string>
     <string name="front_camera">Risoluzioni della camera frontale</string>
-    <string name="photo">Fotografia</string>
+    <string name="photo">Foto</string>
     <string name="video">Video</string>
     <string name="focus_before_capture">Messa a fuoco prima della cattura</string>
     <string name="volume_buttons_as_shutter">Usa il pulsante del volume come otturatore</string>
     <string name="turn_flash_off_at_startup">Spengi il flash all\'avvio</string>
-    <string name="flip_front_camera_photos_horizontally">Rovescia le fotografie della fotocamera frontale orrizontalmente</string>
+    <string name="flip_front_camera_photos_horizontally">Rovescia orrizontalmente le foto scattate dalla fotocamera frontale</string>
     <string name="keep_settings_visible">Mantieni il pulsante delle impostazioni visibile</string>
-    <string name="always_open_back_camera">Apri sempre l\'applicazione con la fotocamera posteriore</string>
+    <string name="always_open_back_camera">All'\avvio apri la fotocamera posteriore</string>
     <string name="save_photo_metadata">Salva i metadati exif</string>
-    <string name="photo_compression_quality">Qualità della compressione della fotografia</string>
+    <string name="photo_compression_quality">Qualità della compressione delle foto</string>
     <string name="shutter">Otturatore</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Una fotocamera con flash, ingrandimento e senza pubblicità.</string>
     <string name="app_long_description">
-        La fotocamera è utilizzabile sia per catturare foto che per registrare video. Puoi cambiare fra fotocamera posteriore ed anteriore, modificare il percorso di salvataggio e limitare la risoluzione. Il flash può essere abilitato o disabilitato, oppure utilizzato come torcia. Puoi utilizzare le dita per ingrandire.
+        La fotocamera è utilizzabile sia per catturare foto che per registrare video. Si può cambiare fra fotocamera posteriore e anteriore, modificare il percorso di salvataggio e limitare la risoluzione. Il flash può essere abilitato o disabilitato, oppure utilizzato come torcia. Si possono utilizzare le dita per modificare l'ingrandimento.
 
-        Se vuoi avviare questa applicazione premendo il tasto fisico della fotocamera, potresti aver bisogno di disabilitare la fotocamera incorporata nel sistema in Impostazioni -> Applicazioni -> Fotocamera -> Disabilita.
+        Si può avviare questa applicazione premendo il tasto fisico della fotocamera, per fare ciò è possibile di aver bisogno di disabilitare la fotocamera incorporata nel sistema, andando in Impostazioni → Applicazioni → Fotocamera → Disabilita.
 
-        Non contiene pubblicità nè chiede permessi non necessari. È completamente open source ed offre colori personalizzabili.
+        L\'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
 
-        Quest\'app fa parte di una serie più grande. Puoi trovare le altre su https://www.simplemobiletools.com
+        Questa è solamente una delle tante applicazioni della serie Simple Mobile Tools. Si possono trovare le altre su https://www.simplemobiletools.com      
     </string>
 
     <!--
