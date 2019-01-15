@@ -3,52 +3,52 @@
     <string name="app_name">Eenvoudig Camera</string>
     <string name="app_launcher_name">Camera</string>
     <string name="camera_unavailable">Camera niet beschikbaar</string>
-    <string name="camera_open_error">Een fout opgetreden met de camera</string>
-    <string name="video_creating_error">Een fout opgetreden maken van het videobestand</string>
+    <string name="camera_open_error">Fout opgetreden bij toegang verkrijgen tot de camera</string>
+    <string name="video_creating_error">Fout opgetreden bij aanmaken van videobestand</string>
     <string name="video_mode_error">Schakelen naar de videomodus is mislukt</string>
-    <string name="save_error_internal_storage">Er is een fout opgetreden, de map opslaan is gewijzigd in interne opslag</string>
-    <string name="camera_switch_error">Schakelen camera is mislukt</string>
-    <string name="click_to_resume_preview">Click on the image to resume preview</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="save_error_internal_storage">Er is een fout opgetreden, de doelmap is gewijzigd naar interne opslag</string>
+    <string name="camera_switch_error">Schakelen van camera is mislukt</string>
+    <string name="click_to_resume_preview">Klik op de afbeelding om voorbeeldweergave te hervatten</string>
+    <string name="photo_not_saved">Foto kon niet worden opgeslagen</string>
+    <string name="setting_resolution_failed">Instellen van resolutie is mislukt</string>
+    <string name="video_recording_failed">Video-opname is mislukt, probeer nogmaals met een andere resolutie</string>
 
     <!-- Other aspect ratio -->
-    <string name="other">Ander</string>
+    <string name="other">Anders</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Welke kwaliteit voor foto\'s moet ik instellen?</string>
+    <string name="faq_1_text">Voor normaal gebruik adviseren de meeste mensen een compressie van 75%-80%. De afbeelding zal dan nog steeds van goede kwaliteit zijn en de bestandsgrootte zal enorm veel kleiner zijn dan met 100%.</string>
 
     <!-- Settings -->
-    <string name="save_photos">Opslaan foto\'s en video\'s naar</string>
-    <string name="show_preview">Bekijk een voorbeeld na het nemen van een foto</string>
-    <string name="shutter_sound">Sluiter geluid</string>
-    <string name="back_camera">Terug camera resoluties</string>
-    <string name="front_camera">Camera aan de voorkant resoluties</string>
+    <string name="save_photos">Foto\'s en video\'s opslaan in</string>
+    <string name="show_preview">Voorbeeld tonen het na nemen van een foto</string>
+    <string name="shutter_sound">Sluitergeluid</string>
+    <string name="back_camera">Resoluties camera achterop</string>
+    <string name="front_camera">Resoluties camera voorop</string>
     <string name="photo">Foto</string>
     <string name="video">Video</string>
-    <string name="focus_before_capture">Focus before capture</string>
-    <string name="volume_buttons_as_shutter">Use volume buttons as shutter</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep the setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
-    <string name="shutter">Shutter</string>
+    <string name="focus_before_capture">Voor opname eerst scherpstellen</string>
+    <string name="volume_buttons_as_shutter">Volumeknoppen als sluiterknop gebruiken</string>
+    <string name="turn_flash_off_at_startup">Flitser bij opstarten uitschakelen</string>
+    <string name="flip_front_camera_photos_horizontally">Foto\'s van camera voorop horizontaal spiegelen</string>
+    <string name="keep_settings_visible">Knop Instellingen altijd tonen</string>
+    <string name="always_open_back_camera">Bij openen app altijd camera achterop activeren</string>
+    <string name="save_photo_metadata">EXIF-metadata in foto\'s opslaan</string>
+    <string name="photo_compression_quality">Kwaliteit foto\'s</string>
+    <string name="shutter">Sluiter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Een camera met flits, zoom en geen advertenties.</string>
+    <string name="app_short_description">Een camera met flits en zoom, zonder advertenties.</string>
     <string name="app_long_description">
-        De camera is geschikt voor zowel foto\’s en video-opname. U kunt schakelen tussen de camera\’s, verander de opslaglocatie en de resolutie te beperken. Flash kan worden gebruikt. U kunt knijpen en zoom.
+        De camera is geschikt voor zowel foto\'s als video\'s en biedt de mogelijkheid tot schakelen tussen de camera\'s voorop en achterop, het instellen van opslaglocatie en resolutie. De flitser kan worden gebruikt voor opnames en als zaklamp. In- en uitzoomen kan met knijpgebaren.
 
-        Als standaard te gebruiken, Verwijder de standaard camera in Instellingen -> Apps.
+        Om deze app te gebruiken voor de cameraknop op het toestel is het wellicht nodig om de app \"Camera\" via Instellingen -> Apps uit te schakelen.
 
-        De applicatie heeft geen advertenties of onnodige machtigingen bevatten. Het is volledig open source, biedt een Dark thema.
+        Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
 
-        U kunt meer Simple apps bij https://www.simplemobiletools.com vinden.
+        Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com
     </string>
 
     <!--
