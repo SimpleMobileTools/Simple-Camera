@@ -9,7 +9,7 @@ If you want to launch this app at pressing the hardware camera button, you might
 
 Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
-This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
 
 <a href='https://play.google.com/store/apps/details?id=com.simplemobiletools.camera'><img src='https://simplemobiletools.com/assets/images/google-play.png' alt='Get it on Google Play' height='45' /></a>
 <a href='https://f-droid.org/packages/com.simplemobiletools.camera'><img src='https://simplemobiletools.com/assets/images/f-droid.png' alt='Get it on F-Droid' height='45' /></a>
