@@ -17,8 +17,8 @@
     <string name="other">その他</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>
+    <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質ですが、ファイルサイズは100%と比べて大幅に削減することができます。</string>
 
     <!-- Settings -->
     <string name="save_photos">写真とビデオの保存先</string>
@@ -31,9 +31,9 @@
     <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
     <string name="volume_buttons_as_shutter">音量ボタンで撮影</string>
     <string name="turn_flash_off_at_startup">起動時にライトをオンにする</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
+    <string name="flip_front_camera_photos_horizontally">前面カメラの写真を左右に反転</string>
     <string name="keep_settings_visible">設定ボタンを表示したままにする</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
+    <string name="always_open_back_camera">常に背面カメラでアプリを開く</string>
     <string name="save_photo_metadata">写真のEXIFデータを保存する</string>
     <string name="photo_compression_quality">写真の圧縮品質</string>
     <string name="shutter">シャッター</string>
