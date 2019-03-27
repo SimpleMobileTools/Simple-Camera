@@ -33,7 +33,7 @@
     <string name="turn_flash_off_at_startup">Spengi il flash all\'avvio</string>
     <string name="flip_front_camera_photos_horizontally">Rovescia orrizontalmente le foto scattate dalla fotocamera frontale</string>
     <string name="keep_settings_visible">Mantieni il pulsante delle impostazioni visibile</string>
-    <string name="always_open_back_camera">All'\avvio apri la fotocamera posteriore</string>
+    <string name="always_open_back_camera">All\'avvio apri la fotocamera posteriore</string>
     <string name="save_photo_metadata">Salva i metadati exif</string>
     <string name="photo_compression_quality">Qualità della compressione delle foto</string>
     <string name="shutter">Otturatore</string>
@@ -42,7 +42,7 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Una fotocamera con flash, ingrandimento e senza pubblicità.</string>
     <string name="app_long_description">
-        La fotocamera è utilizzabile sia per catturare foto che per registrare video. Si può cambiare fra fotocamera posteriore e anteriore, modificare il percorso di salvataggio e limitare la risoluzione. Il flash può essere abilitato o disabilitato, oppure utilizzato come torcia. Si possono utilizzare le dita per modificare l'ingrandimento.
+        La fotocamera è utilizzabile sia per catturare foto che per registrare video. Si può cambiare fra fotocamera posteriore e anteriore, modificare il percorso di salvataggio e limitare la risoluzione. Il flash può essere abilitato o disabilitato, oppure utilizzato come torcia. Si possono utilizzare le dita per modificare l\'ingrandimento.
 
         Si può avviare questa applicazione premendo il tasto fisico della fotocamera, per fare ciò è possibile di aver bisogno di disabilitare la fotocamera incorporata nel sistema, andando in Impostazioni → Applicazioni → Fotocamera → Disabilita.
 
