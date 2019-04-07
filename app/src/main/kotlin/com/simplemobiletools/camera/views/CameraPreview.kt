@@ -731,15 +731,15 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         try {
             mPreviewRequestBuilder!!.apply {
                 set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
-                mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
+                mCaptureSession?.capture(build(), mCaptureCallback, mBackgroundHandler)
             }
             mCameraState = STATE_PREVIEW
-            mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+            mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
 
             if (mLastFocusX != 0f && mLastFocusY != 0f) {
                 focusArea(mLastFocusX, mLastFocusY, false)
             }
-        } catch (e: CameraAccessException) {
+        } catch (e: Exception) {
         } finally {
             mCameraState = STATE_PREVIEW
         }
@@ -816,9 +816,13 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         surfaces.add(previewSurface)
         mPreviewRequestBuilder!!.addTarget(previewSurface)
 
-        val recorderSurface = mMediaRecorder!!.surface
-        surfaces.add(recorderSurface)
-        mPreviewRequestBuilder!!.addTarget(recorderSurface)
+        try {
+            val recorderSurface = mMediaRecorder!!.surface
+            surfaces.add(recorderSurface)
+            mPreviewRequestBuilder!!.addTarget(recorderSurface)
+        } catch (e: Exception) {
+            mActivity.showErrorToast(e)
+        }
 
         val captureCallback = object : CameraCaptureSession.StateCallback() {
             override fun onConfigured(session: CameraCaptureSession?) {
