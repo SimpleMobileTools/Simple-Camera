@@ -822,6 +822,8 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mPreviewRequestBuilder!!.addTarget(recorderSurface)
         } catch (e: Exception) {
             mActivity.showErrorToast(e)
+            mCameraState = STATE_PREVIEW
+            return
         }
 
         val captureCallback = object : CameraCaptureSession.StateCallback() {
