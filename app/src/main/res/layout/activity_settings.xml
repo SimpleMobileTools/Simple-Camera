@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/purchase_simple_thank_you"/>
 
         </RelativeLayout>
@@ -51,7 +50,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/customize_colors"/>
 
         </RelativeLayout>
@@ -74,32 +72,7 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/use_english_language"
-                app:switchPadding="@dimen/medium_margin"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/settings_avoid_whats_new_holder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="?attr/selectableItemBackground"
-            android:paddingLeft="@dimen/normal_margin"
-            android:paddingTop="@dimen/activity_margin"
-            android:paddingRight="@dimen/normal_margin"
-            android:paddingBottom="@dimen/activity_margin">
-
-            <com.simplemobiletools.commons.views.MySwitchCompat
-                android:id="@+id/settings_avoid_whats_new"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
-                android:text="@string/avoid_whats_new"
                 app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
@@ -122,12 +95,10 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/keep_settings_visible"
                 app:switchPadding="@dimen/medium_margin"/>
 
         </RelativeLayout>
-
 
         <RelativeLayout
             android:id="@+id/settings_focus_before_capture_holder"
@@ -147,7 +118,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/focus_before_capture"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -165,7 +135,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/bigger_margin"
-            android:layout_marginLeft="@dimen/bigger_margin"
             android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/shutter"
             android:textAllCaps="true"
@@ -189,7 +158,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/shutter_sound"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -213,7 +181,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/volume_buttons_as_shutter"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -231,7 +198,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/bigger_margin"
-            android:layout_marginLeft="@dimen/bigger_margin"
             android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/startup"
             android:textAllCaps="true"
@@ -255,7 +221,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/turn_flash_off_at_startup"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -279,7 +244,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/always_open_back_camera"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -297,7 +261,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/bigger_margin"
-            android:layout_marginLeft="@dimen/bigger_margin"
             android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/saving_label"
             android:textAllCaps="true"
@@ -321,7 +284,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/save_photo_metadata"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -345,7 +307,6 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/flip_front_camera_photos_horizontally"
                 app:switchPadding="@dimen/medium_margin"/>
 
@@ -368,7 +329,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/settings_save_photos"
-                android:layout_toLeftOf="@+id/settings_save_photos"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingRight="@dimen/medium_margin"
                 android:text="@string/save_photos"/>
@@ -378,9 +338,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginEnd="@dimen/small_margin"
-                android:layout_marginRight="@dimen/small_margin"
                 android:background="@null"
                 android:clickable="false"/>
 
@@ -403,7 +361,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/settings_photo_quality"
-                android:layout_toLeftOf="@+id/settings_photo_quality"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingRight="@dimen/medium_margin"
                 android:text="@string/photo_compression_quality"/>
@@ -413,9 +370,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_marginEnd="@dimen/small_margin"
-                android:layout_marginRight="@dimen/small_margin"
                 android:background="@null"
                 android:clickable="false"/>
 

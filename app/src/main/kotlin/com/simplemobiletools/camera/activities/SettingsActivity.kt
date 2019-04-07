@@ -27,7 +27,6 @@ class SettingsActivity : SimpleActivity() {
         setupPurchaseThankYou()
         setupCustomizeColors()
         setupUseEnglish()
-        setupAvoidWhatsNew()
         setupSound()
         setupFocusBeforeCapture()
         setupVolumeButtonsAsShutter()
@@ -82,14 +81,6 @@ class SettingsActivity : SimpleActivity() {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
             System.exit(0)
-        }
-    }
-
-    private fun setupAvoidWhatsNew() {
-        settings_avoid_whats_new.isChecked = config.avoidWhatsNew
-        settings_avoid_whats_new_holder.setOnClickListener {
-            settings_avoid_whats_new.toggle()
-            config.avoidWhatsNew = settings_avoid_whats_new.isChecked
         }
     }
 
@@ -177,8 +168,9 @@ class SettingsActivity : SimpleActivity() {
         settings_save_photos.text = getLastPart(config.savePhotosFolder)
         settings_save_photos_holder.setOnClickListener {
             FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
+                val path = it
                 handleSAFDialog(it) {
-                    config.savePhotosFolder = it
+                    config.savePhotosFolder = path
                     settings_save_photos.text = getLastPart(config.savePhotosFolder)
                 }
             }

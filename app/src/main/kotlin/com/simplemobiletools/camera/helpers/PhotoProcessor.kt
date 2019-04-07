@@ -46,7 +46,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
 
             val photoFile = File(path)
             if (activity.needsStupidWritePermissions(path)) {
-                if (!activity.hasProperStoredTreeUri()) {
+                if (!activity.hasProperStoredTreeUri(activity.isPathOnOTG(path))) {
                     activity.toast(R.string.save_error_internal_storage)
                     activity.config.savePhotosFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                     return ""
@@ -107,7 +107,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
 
             try {
                 image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
-                if (!isThirdPartyIntent) {
+                if (!isThirdPartyIntent && isNougatPlus()) {
                     activity.saveImageRotation(path, totalRotation)
                 }
             } catch (e: Exception) {
