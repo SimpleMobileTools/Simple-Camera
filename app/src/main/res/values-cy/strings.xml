@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Camera</string>
+    <string name="camera_unavailable">Camera dim ar gael</string>
+    <string name="camera_open_error">Bu gwall wrth gael at y camera</string>
+    <string name="video_creating_error">Bu gwall wrth greu\'r ffeil fideo</string>
+    <string name="video_mode_error">Methodd ceisio newid i modd fideo</string>
+    <string name="save_error_internal_storage">Bu gwall; newidiwyd y ffolder cadw i\'r storfa fewnol</string>
+    <string name="camera_switch_error">Methwyd newid camera</string>
+    <string name="click_to_resume_preview">Clicia ar y llun i barhau i ddangos</string>
+    <string name="photo_not_saved">Methwyd â chadw\'r llun</string>
+    <string name="setting_resolution_failed">Methwyd â gosod y cydraniad cywir</string>
+    <string name="video_recording_failed">Methwyd â recordio fideo; rho gynnig ar gydraniad gwahanol</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">arall</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Pa ansawdd cywasgu llun dylwn ei osod?</string>
+    <string name="faq_1_text">Mae\'n dibynnu ar dy bwrpas. Ar gyfer defnydd cyffredin, argymhellir defnyddio 75%-80% fel bod safon y llun yn dal i fod yn dda iawn ond bydd maint y ffeil yn dipyn llai na 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Cadw lluniau a fideos i</string>
+    <string name="show_preview">Dangos rhagolwg o lun ar ôl ei dynnu</string>
+    <string name="shutter_sound">Sain caead</string>
+    <string name="back_camera">Cydraniad y camera cefn</string>
+    <string name="front_camera">Cydraniad y camera blaen</string>
+    <string name="photo">Llun</string>
+    <string name="video">Fideo</string>
+    <string name="focus_before_capture">Ffocysu cyn tynnu\'r llun</string>
+    <string name="volume_buttons_as_shutter">Defnyddio botymau sain i dynnu lluniau</string>
+    <string name="turn_flash_off_at_startup">Troi\'r fflach i ffwrdd wrth ddechrau</string>
+    <string name="flip_front_camera_photos_horizontally">Fflipio lluniau\'r camera blaen yn llorweddol</string>
+    <string name="keep_settings_visible">Cadw\'r botymau gosodiadau mewn golwg</string>
+    <string name="always_open_back_camera">Agor yr ap gyda\'r camera cefn bob tro</string>
+    <string name="save_photo_metadata">Cadw metaddata lluniau</string>
+    <string name="photo_compression_quality">Ansawdd cywasgiad lluniau</string>
+    <string name="shutter">Caead</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Camera gyda fflach, chwyddo a dim hysbysebion.</string>
+    <string name="app_long_description">
+        Gellir defnyddio\'r camera i dynnu lluniau a recordio fideos. Gellir newid rhwng y camerâu blaen a chefn, addasu ble mae lluniau a fideos yn cael eu cadw a chyfyngu\'r cydraniad. Mae\'n bosib troi\'r fflach ymlaen neu i ffwrdd neu ei ddefnyddio fel fflacholau. Mae pinsio yn chwyddo mewn ac allan.
+
+        Os wyt eisiau lansio\'r ap hwn gan ddefnyddio botwm camera dy ddyfais, mae\'n bosib bydd yn rhaid analluogi dy ap camera arferol yn Gosodiadau -> Apiau -> Camera -> Analluogi.
+
+        Nid yw\'n cynnwys unrhyw hysbysebion nac yn gofyn caniatâd diangen. Mae\'n gwbl cod agored ac mae modd addasu lliwiau\'r ap fel wyt ti\'n eu hoffi.
+
+        Mae\'r ap hwn yn un ymhlith nifer o apiau ar gael yn Gymraeg gan Simple Mobile Tools. Mae rhagor i\'w gweld yma: https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
