@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Просто Камера</string>
+    <string name="app_launcher_name">Камера</string>
+    <string name="camera_unavailable">Камера недоступна</string>
+    <string name="camera_open_error">Трапилася помилка під час доступу до камери</string>
+    <string name="video_creating_error">Трапилася помилка під час створення відеофайлу</string>
+    <string name="video_mode_error">Не вдалося перемекнутись у режим відеозйомки</string>
+    <string name="save_error_internal_storage">Трапилася помилка, місце для збереження змінено на внутрішню пам\'ять</string>
+    <string name="camera_switch_error">Не вдалося перемкнути камеру</string>
+    <string name="click_to_resume_preview">Щоб відновити попередній перегляд, натисніть на зображення</string>
+    <string name="photo_not_saved">Не вдалося зберегти фото</string>
+    <string name="setting_resolution_failed">Не вдалося встановити правильне розширення</string>
+    <string name="video_recording_failed">Не вдалося записати відео, спробуйте встановити інше розширення</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">інше</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Який ступінь стиснення фото слід встановити?</string>
+    <string name="faq_1_text">Це залежить від вашої мети. Загалом більшість людей радять використовувати 75%-80%, тоді зображення ще дійсно гарної якості, але розмір файлу істотно зменшується порівняно зі 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Зберігати фото і відео у</string>
+    <string name="show_preview">Попередньо переглядати фото після зйомки</string>
+    <string name="shutter_sound">Звук затвора</string>
+    <string name="back_camera">Розширення задньої камери</string>
+    <string name="front_camera">Розширення фронтальної камери</string>
+    <string name="photo">Фото</string>
+    <string name="video">Відео</string>
+    <string name="focus_before_capture">Фокусувати перед зйомкою</string>
+    <string name="volume_buttons_as_shutter">Спускати затвор натисненням кнопок гучності</string>
+    <string name="turn_flash_off_at_startup">Вимикати спалах при запуску</string>
+    <string name="flip_front_camera_photos_horizontally">Орієнтувати горизонтально фото з фронтальної камери</string>
+    <string name="keep_settings_visible">Завжди показувати панель налаштувань</string>
+    <string name="always_open_back_camera">Завжди активувати задню камеру під час запуску додатка</string>
+    <string name="save_photo_metadata">Зберігати метадані EXIF</string>
+    <string name="photo_compression_quality">Якість фото після стиснення</string>
+    <string name="shutter">Затвор</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Камера зі спалахом і зумом. Без реклами.</string>
+    <string name="app_long_description">
+        Камеру можна використовувати для зйомки фото і відео. Можна перемикатись між фронтальною та задньою камерами, змінювати шлях збереження і обмежувати розширення зйомки. Можна керувати спалахом, використовувати як ліхтарик. Ви можете масштабувати з допомогою жестів.
+
+        Якщо ви хочете запускати цей додаток натиском фізичної кнопки камери, вам доведеться відключити стандартний додаток камери в налаштуваннях смартфона (Налаштування -> Додатки -> Камера -> Відключити).
+
+        Цей додаток не буде показувати рекламу, потрібні лише найнеобхідніші дозволи. Додаток має повністю відкритий програмний код, кольори оформлення можна легко налаштувати.
+
+        Просто Камера - це один із ряду додатків від Simple Mobile Tools. Інші додатки можна знайти тут: https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
