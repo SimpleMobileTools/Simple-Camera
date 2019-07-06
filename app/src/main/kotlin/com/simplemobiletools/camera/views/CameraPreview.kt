@@ -720,7 +720,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mPreviewRequestBuilder!!.apply {
                 set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
                 mCameraState = STATE_WAITING_LOCK
-                mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
+                mCaptureSession?.capture(build(), mCaptureCallback, mBackgroundHandler)
             }
         } catch (e: CameraAccessException) {
             mCameraState = STATE_PREVIEW
