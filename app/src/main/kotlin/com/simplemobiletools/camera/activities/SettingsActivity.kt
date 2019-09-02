@@ -39,10 +39,12 @@ class SettingsActivity : SimpleActivity() {
         setupPhotoQuality()
         updateTextColors(settings_holder)
         setupSectionColors()
+        invalidateOptionsMenu()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        updateMenuItemColors(menu)
         return true
     }
 
