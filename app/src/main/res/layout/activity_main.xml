@@ -26,7 +26,7 @@
         android:layout_below="@+id/settings"
         android:layout_alignParentRight="true"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_video"/>
+        android:src="@drawable/ic_video_vector"/>
 
     <ImageView
         android:id="@+id/change_resolution"
@@ -35,7 +35,7 @@
         android:layout_below="@+id/toggle_photo_video"
         android:layout_alignParentRight="true"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_resolution"/>
+        android:src="@drawable/ic_resolution_vector"/>
 
     <ImageView
         android:id="@+id/last_photo_video_preview"
@@ -58,14 +58,14 @@
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
             android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_camera_front"/>
+            android:src="@drawable/ic_camera_front_vector"/>
 
         <ImageView
             android:id="@+id/shutter"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
-            android:src="@drawable/ic_shutter"/>
+            android:src="@drawable/ic_shutter_vector"/>
 
         <ImageView
             android:id="@+id/toggle_flash"
@@ -73,7 +73,7 @@
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
             android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_flash_off"/>
+            android:src="@drawable/ic_flash_off_vector"/>
 
     </LinearLayout>
 

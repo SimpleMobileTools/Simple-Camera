@@ -199,7 +199,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         checkImageCaptureIntent()
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
-        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front else R.drawable.ic_camera_rear
+        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front_vector else R.drawable.ic_camera_rear_vector
         toggle_camera.setImageResource(imageDrawable)
 
         mFocusCircleView = FocusCircleView(applicationContext)
@@ -246,15 +246,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     fun updateFlashlightState(state: Int) {
         config.flashlightState = state
         val flashDrawable = when (state) {
-            FLASH_OFF -> R.drawable.ic_flash_off
-            FLASH_ON -> R.drawable.ic_flash_on
-            else -> R.drawable.ic_flash_auto
+            FLASH_OFF -> R.drawable.ic_flash_off_vector
+            FLASH_ON -> R.drawable.ic_flash_on_vector
+            else -> R.drawable.ic_flash_auto_vector
         }
         toggle_flash.setImageResource(flashDrawable)
     }
 
     fun updateCameraIcon(isUsingFrontCamera: Boolean) {
-        toggle_camera.setImageResource(if (isUsingFrontCamera) R.drawable.ic_camera_rear else R.drawable.ic_camera_front)
+        toggle_camera.setImageResource(if (isUsingFrontCamera) R.drawable.ic_camera_rear_vector else R.drawable.ic_camera_front_vector)
     }
 
     private fun shutterPressed() {
@@ -334,8 +334,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     private fun initPhotoMode() {
-        toggle_photo_video.setImageResource(R.drawable.ic_video)
-        shutter.setImageResource(R.drawable.ic_shutter)
+        toggle_photo_video.setImageResource(R.drawable.ic_video_vector)
+        shutter.setImageResource(R.drawable.ic_shutter_vector)
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
     }
@@ -499,7 +499,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
             toggle_flash.beVisible()
         } else {
             toggle_flash.beInvisible()
-            toggle_flash.setImageResource(R.drawable.ic_flash_off)
+            toggle_flash.setImageResource(R.drawable.ic_flash_off_vector)
             mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
