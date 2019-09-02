@@ -351,7 +351,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     private fun initVideoButtons() {
-        toggle_photo_video.setImageResource(R.drawable.ic_camera)
+        toggle_photo_video.setImageResource(R.drawable.ic_camera_vector)
         showToggleCameraIfNeeded()
         shutter.setImageResource(R.drawable.ic_video_rec)
         setupPreviewImage(false)

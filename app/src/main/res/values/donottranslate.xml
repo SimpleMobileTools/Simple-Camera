@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="package_name">com.simplemobiletools.camera</string>
 
     <!-- Release notes -->
     <string name="release_52">Allow changing the photo compression quality</string>
