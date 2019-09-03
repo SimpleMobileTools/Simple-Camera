@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 5.1.0 *(2019-09-03)*
+----------------------------
+
+ * Fixed photos being wrongly rotated in some cases
+ * Added a black screen blinking in as an indication of photo capture
+ * Replaced icon with vectors for better quality and lower size
+
 Version 5.0.2 *(2019-07-06)*
 ----------------------------
 
