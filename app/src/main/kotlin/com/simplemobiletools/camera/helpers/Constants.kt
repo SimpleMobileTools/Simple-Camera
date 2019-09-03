@@ -38,9 +38,8 @@ const val STATE_STARTING_RECORDING = 6
 const val STATE_STOPING_RECORDING = 7
 const val STATE_RECORDING = 8
 
-fun compensateDeviceRotation(orientation: Int, isUsingFrontCamera: Boolean) = when {
-    orientation == ORIENT_LANDSCAPE_LEFT -> 270
-    orientation == ORIENT_LANDSCAPE_RIGHT -> 90
-    isUsingFrontCamera -> 180
+fun compensateDeviceRotation(orientation: Int) = when (orientation) {
+    ORIENT_LANDSCAPE_LEFT -> 270
+    ORIENT_LANDSCAPE_RIGHT -> 90
     else -> 0
 }

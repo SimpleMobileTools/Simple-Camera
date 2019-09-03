@@ -79,7 +79,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
 
             val imageRot = orient.degreesFromOrientation()
 
-            val deviceRot = compensateDeviceRotation(deviceOrientation, isUsingFrontCamera)
+            val deviceRot = compensateDeviceRotation(deviceOrientation)
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val totalRotation = (imageRot + deviceRot + previewRotation) % 360
 

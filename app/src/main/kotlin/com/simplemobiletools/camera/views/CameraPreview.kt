@@ -568,7 +568,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
             mCameraState = STATE_PICTURE_TAKEN
             mRotationAtCapture = mActivity.mLastHandledOrientation
-            val jpegOrientation = (mSensorOrientation + compensateDeviceRotation(mRotationAtCapture, mUseFrontCamera)) % 360
+            val jpegOrientation = (mSensorOrientation + compensateDeviceRotation(mRotationAtCapture)) % 360
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
                 addTarget(mImageReader!!.surface)
                 setFlashAndExposure(this)
