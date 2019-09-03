@@ -93,15 +93,17 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
                 image = rotate(image, totalRotation)
             }
 
-            if (isUsingFrontCamera && activity.config.flipPhotos) {
-                val matrix = Matrix()
-                val isPortrait = image.width < image.height
-                matrix.preScale(if (isPortrait) -1f else 1f, if (isPortrait) 1f else -1f)
+            if (isUsingFrontCamera) {
+                if (activity.config.flipPhotos || deviceRot != 0) {
+                    val matrix = Matrix()
+                    val isPortrait = image.width < image.height
+                    matrix.preScale(if (isPortrait) -1f else 1f, if (isPortrait) 1f else -1f)
 
-                try {
-                    image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
-                } catch (e: OutOfMemoryError) {
-                    activity.toast(R.string.out_of_memory_error)
+                    try {
+                        image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
+                    } catch (e: OutOfMemoryError) {
+                        activity.toast(R.string.out_of_memory_error)
+                    }
                 }
             }
 
