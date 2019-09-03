@@ -1,11 +1,13 @@
 package com.simplemobiletools.camera.helpers
 
+import android.annotation.TargetApi
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Environment
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
@@ -22,6 +24,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
                      val isThirdPartyIntent: Boolean) :
         AsyncTask<ByteArray, Void, String>() {
 
+    @TargetApi(Build.VERSION_CODES.N)
     override fun doInBackground(vararg params: ByteArray): String {
         var fos: OutputStream? = null
         val path: String
@@ -92,11 +95,8 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
 
             if (isUsingFrontCamera && activity.config.flipPhotos) {
                 val matrix = Matrix()
-                if (path.startsWith(activity.internalStoragePath)) {
-                    matrix.preScale(1f, -1f)
-                } else {
-                    matrix.preScale(-1f, 1f)
-                }
+                val isPortrait = image.width < image.height
+                matrix.preScale(if (isPortrait) -1f else 1f, if (isPortrait) 1f else -1f)
 
                 try {
                     image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
@@ -116,12 +116,27 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
             }
 
             if (activity.config.savePhotoMetadata && !isThirdPartyIntent) {
-                val fileExif = ExifInterface(path)
-                tempExif.copyTo(fileExif)
+                val exifInterface = if (path.startsWith(activity.internalStoragePath) || !isNougatPlus()) {
+                    ExifInterface(path)
+                } else {
+                    val documentFile = activity.getSomeDocumentFile(path)
+                    if (documentFile != null) {
+                        val parcelFileDescriptor = activity.contentResolver.openFileDescriptor(documentFile.uri, "rw")
+                        val fileDescriptor = parcelFileDescriptor.fileDescriptor
+                        ExifInterface(fileDescriptor)
+                    } else {
+                        null
+                    }
+                }
+
+                if (exifInterface != null) {
+                    tempExif.copyTo(exifInterface)
+                }
             }
 
             return photoFile.absolutePath
         } catch (e: FileNotFoundException) {
+            activity.showErrorToast(e)
         } finally {
             fos?.close()
         }
