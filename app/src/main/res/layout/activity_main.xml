@@ -12,6 +12,13 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:id="@+id/capture_black_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0"
+        android:background="#000000" />
+
+    <ImageView
         android:id="@+id/settings"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"

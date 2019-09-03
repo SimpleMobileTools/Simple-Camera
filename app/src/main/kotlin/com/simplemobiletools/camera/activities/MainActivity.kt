@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     private val FADE_DELAY = 5000L
+    private val CAPTURE_ANIMATION_DURATION = 100L
 
     lateinit var mTimerHandler: Handler
     private lateinit var mOrientationEventListener: OrientationEventListener
@@ -267,6 +268,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
             mPreview?.tryTakePicture()
+            capture_black_screen.animate().alpha(0.8f).setDuration(CAPTURE_ANIMATION_DURATION).withEndAction {
+                capture_black_screen.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
+            }.start()
         } else {
             mPreview?.toggleRecording()
         }
