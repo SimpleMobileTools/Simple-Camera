@@ -386,14 +386,24 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private fun chooseOptimalPreviewSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, selectedResolution: MySize): Size {
         val bigEnough = ArrayList<Size>()
         val notBigEnough = ArrayList<Size>()
+        val bigEnoughIncorrectAR = ArrayList<Size>()
+        val notBigEnoughIncorrectAR = ArrayList<Size>()
         val width = selectedResolution.width
         val height = selectedResolution.height
         for (option in choices) {
-            if (option.width <= maxWidth && option.height <= maxHeight && option.height == option.width * height / width) {
-                if (option.width >= textureViewWidth && option.height >= textureViewHeight) {
-                    bigEnough.add(option)
+            if (option.width <= maxWidth && option.height <= maxHeight) {
+                if (option.height == option.width * height / width) {
+                    if (option.width >= textureViewWidth && option.height >= textureViewHeight) {
+                        bigEnough.add(option)
+                    } else {
+                        notBigEnough.add(option)
+                    }
                 } else {
-                    notBigEnough.add(option)
+                    if (option.width >= textureViewWidth && option.height >= textureViewHeight) {
+                        bigEnoughIncorrectAR.add(option)
+                    } else {
+                        notBigEnoughIncorrectAR.add(option)
+                    }
                 }
             }
         }
@@ -401,6 +411,8 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         return when {
             bigEnough.isNotEmpty() -> bigEnough.minBy { it.width * it.height }!!
             notBigEnough.isNotEmpty() -> notBigEnough.maxBy { it.width * it.height }!!
+            bigEnoughIncorrectAR.isNotEmpty() -> bigEnoughIncorrectAR.minBy { it.width * it.height }!!
+            notBigEnoughIncorrectAR.isNotEmpty() -> notBigEnoughIncorrectAR.maxBy { it.width * it.height }!!
             else -> selectedResolution.toSize()
         }
     }
@@ -457,10 +469,13 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                     }
                     mCameraState = STATE_PREVIEW
                 } catch (e: Exception) {
+                  mActivity.showErrorToast("Error in onConfigure callback: $e")
                 }
             }
 
-            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
+            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
+              mActivity.showErrorToast("Failed configuring capture session")
+            }
         }
 
         try {
@@ -479,6 +494,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
             }
         } catch (e: Exception) {
+          mActivity.showErrorToast("Error setting up capture session: $e")
         }
     }
 
