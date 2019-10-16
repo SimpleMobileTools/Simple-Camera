@@ -1,0 +1,7 @@
+Fotoaparát je použiteľný na tvorbu fotiek, ako aj nahrávanie videí. Viete sa prepínať medzi prednou a zadnou kamerou, upravovať miesto ukladania a meniŤ rozlíšenia. Blesk môže použitý aj ako trvalé svetlo. Gestami viete približovať aj odďaľovať.
+
+Na spúšťanie apky s hardvérovým tlačidlom kamery pravdepodobne musíte deaktivovať predvolený fotoaparár zariadenia v Nastavenia -> Aplikácie -> Fotoaparát -> Deaktivovať,
+
+Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+
+Táto aplikácia je iba jednou zo skupiny aplikácií. Ostatné viete nájsť na https://www.simplemobiletools.com

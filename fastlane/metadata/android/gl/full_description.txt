@@ -1,0 +1,7 @@
+A cámara pódese usar para gardar fotos e gravar vídeos. Pode cambiar entre a cámara traseira e a dianteira, modificar o cartafol onde garda os ficheiros así como limitar a resolución. O flash pódese apagar ou acender ou utilizalo como destello. Pode facer zoom na escena.
+
+Se quere iniciar este aplicativo utilizando o botón de hardware, podería ter que deshabilitar o aplicativo Camara por omisión do sistema en Axustes -> Aplicativos -> Camara -> Deshabilitar.
+
+Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade, ten cores personalizados.
+
+Este aplicativo é só unha peza da colección de aplicativos. Pode atopar o resto en https://www.simplemobiletools.com

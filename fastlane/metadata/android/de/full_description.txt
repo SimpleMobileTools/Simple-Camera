@@ -1,0 +1,7 @@
+Die Kamera kann sowohl zum Schießen von Fotos, als auch zum Aufnehmen von Videos genutzt werden. Wechsle zwischen Front- und Rückkamera, verändere den Pfad, in dem Bilder gespeichert werden, oder ändere die Bildauflösung. Der Blitz kann ein- und ausgeschaltet werden oder als Taschenlampe benutzt werden. Mit den Fingern kann gezoomt werden.
+
+Falls du diese App durch einen Hardware-Kameraknopf starten möchtest, musst du vielleicht die vorinstallierte Kamera-App erst deaktivieren, unter Einstellungen -> Apps -> Kamera -> deaktivieren.
+
+Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
+
+Diese App ist nur eine aus einer größeren Serie von schlichten Apps. Der Rest davon findet sich auf https://www.simplemobiletools.com

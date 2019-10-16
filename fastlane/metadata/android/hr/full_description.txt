@@ -1,0 +1,7 @@
+Kamera se može koristiti za snimanje slika, ali i videozapisa. Možete birati između prednje i stražnje kamere, promijeniti mapu za spremanje i ograničiti razlučivost. Bljeskalica se može uključiti, isključiti ili koristiti kao svjetiljka. Možete povećati ili smanjiti zumiranje prstima.
+
+Ako želite pokrenuti ovu aplikaciju pritiskom hardverskog gumba kamere, možda ćete morati onemogućiti ugrađenu aplikaciju Kamere u Postavkama -> Aplikacije -> Kamera -> Onemogući.
+
+Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
+
+Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com

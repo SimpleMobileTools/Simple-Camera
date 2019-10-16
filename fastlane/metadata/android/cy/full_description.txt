@@ -1,0 +1,7 @@
+Gellir defnyddio'r camera i dynnu lluniau a recordio fideos. Gellir newid rhwng y camerâu blaen a chefn, addasu ble mae lluniau a fideos yn cael eu cadw a chyfyngu'r cydraniad. Mae'n bosib troi'r fflach ymlaen neu i ffwrdd neu ei ddefnyddio fel fflacholau. Mae pinsio yn chwyddo mewn ac allan.
+
+Os wyt eisiau lansio'r ap hwn gan ddefnyddio botwm camera dy ddyfais, mae'n bosib bydd yn rhaid analluogi dy ap camera arferol yn Gosodiadau -> Apiau -> Camera -> Analluogi.
+
+Nid yw'n cynnwys unrhyw hysbysebion nac yn gofyn caniatâd diangen. Mae'n gwbl cod agored ac mae modd addasu lliwiau'r ap fel wyt ti'n eu hoffi.
+
+Mae'r ap hwn yn un ymhlith nifer o apiau ar gael yn Gymraeg gan Simple Mobile Tools. Mae rhagor i'w gweld yma: https://www.simplemobiletools.com

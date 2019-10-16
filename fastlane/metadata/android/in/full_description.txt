@@ -1,0 +1,7 @@
+Kamera bisa digunakan untuk mengambil foto dan merekam video. Anda bisa beralih antara kamera depan dan belakang, ubah lokasi penyimpanan dan membatasi resolusi. Blitz bisa dinyalakan dan dimatikan atau digunakan sebagai lampu senter. Anda bisa mencubit layar untuk memperbesar dan mengecilkan foto atau video.
+
+Jika anda ingin menjalankan kamera ini dengan menekan tombol perangkat keras kamera perangkat, anda mungkin perlu untuk menonaktifkan aplikasi Kamera bawaan di dalam Pengaturan -> Aplikasi -> Kamera -> Nonaktifkan.
+
+Sama sekali tidak berisi iklan dan tidak membutuhkan perizinan yang tidak perlu. Sepenuhnya bersumber terbuka, dengan warna yang bisa disesuaikan.
+
+Aplikasi ini hanya salah satu bagian dari rangkaian aplikasi yang lebih besar. Anda bisa menemukan yang lainnya di https://www.simplemobiletools.com

@@ -1,0 +1,7 @@
+La caméra est utilisable pour prendre des photos mais aussi des vidéos. Vous pouvez choisir entre la caméra avant et la caméra arrière, modifier le dossier d'enregistrement et limiter la résolution. Le flash peut être allumé, éteint ou utilisé comme lampe de poche. Vous pouvez pincer pour zoomer.
+
+Si vous souhaitez démarrer cette application à la place de l'application d'origine, vous devrez désactiver l'application d'origine dans : Paramètres -> Applications -> appareil photo -> désactiver.
+
+L'application ne contient ni publicités ni autorisations inutiles. Elle est totalement OpenSource et possède aussi un thème sombre.
+
+Cette application fait partie d'un ensemble plus grand d'applications. Vous pouvez trouvez les autres sur https://www.simplemobiletools.com

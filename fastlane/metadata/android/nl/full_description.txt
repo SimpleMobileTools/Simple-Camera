@@ -1,0 +1,7 @@
+De camera is geschikt voor zowel foto's als video's en biedt de mogelijkheid tot schakelen tussen de camera's voorop en achterop, het instellen van opslaglocatie en resolutie. De flitser kan worden gebruikt voor opnames en als zaklamp. In- en uitzoomen kan met knijpgebaren.
+
+Om deze app te gebruiken voor de cameraknop op het toestel is het wellicht nodig om de app "Camera" via Instellingen -> Apps uit te schakelen.
+
+Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
+
+Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com

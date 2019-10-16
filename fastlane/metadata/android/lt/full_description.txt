@@ -1,0 +1,7 @@
+Fotoaparatas naudojamas nuotraukoms ir vaizdo įrašams užfiksuoti. Galima persijungti tarp priekinės ir galinės kamerų, pakeisti išsaugojimo vietą, nustayti raišką. Žibintuvėlis gali būti įjungtas arba išjungtas, used as a flashlight. Galite spustelti, kad pritrauktumėte vaizdą.
+
+IJei norite pajungti šią programėlę paspausdami specialiai tam skirtą kameros mygtuką, Jūs turite išjunti numatytąją kamerą nustatymuose Nustaytmai -> Programėlės -> Kamera -> Išjungti.
+
+Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
+
+Ši programėle yra viena iš keletos mūsų programėlių. Likusias Jūs galite rasti čia https://www.simplemobiletools.com

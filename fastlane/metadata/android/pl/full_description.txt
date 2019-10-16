@@ -1,0 +1,7 @@
+Aplikacja zarówno do robienia zdjęć, jak i nagrywania filmów. Możesz przełączać się między tylną i przednią kamerą, modyfikować ścieżkę zapisu i rozdzielczość swoich dzieł. Lampa błyskowa może być włączana i wyłączana, a także używana jako latarka. Do przybliżania i oddalania widoku służą gesty szczypania.
+
+Aby móc uruchamiać aplikację sprzętowym przyciskiem, wyłącz (lub usuń) domsyślną aplkację kamery (Ustawienia -> Aplikacje -> (aplikacja kamery) -> Wyłącz).
+
+Aplikacja nie zawiera żadnych reklam ani niepotrzebnych uprawnień. Jest też w pełni otawrtoźrodłowa.
+
+Niniejsza aplikacja jest tylko częścią naszej kolekcji prostych narzędzi. Ta, jak i pozostałe, dostępne są na stronie https://www.simplemobiletools.com
