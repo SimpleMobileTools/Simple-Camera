@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Una fotocamera con flash, ingrandimento e senza pubblicità.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         La fotocamera è utilizzabile sia per catturare foto che per registrare video. Si può cambiare fra fotocamera posteriore e anteriore, modificare il percorso di salvataggio e limitare la risoluzione. Il flash può essere abilitato o disabilitato, oppure utilizzato come torcia. Si possono utilizzare le dita per modificare l\'ingrandimento.
 

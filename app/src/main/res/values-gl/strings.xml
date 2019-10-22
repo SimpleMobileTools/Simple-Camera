@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Unha cámara con flash, zoom e sen publi.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         A cámara pódese usar para gardar fotos e gravar vídeos. Pode cambiar entre a cámara traseira e a dianteira, modificar o cartafol onde garda os ficheiros así como limitar a resolución. O flash pódese apagar ou acender ou utilizalo como destello. Pode facer zoom na escena.
    

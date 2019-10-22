@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Fənərli, yaxınlaşdırmalı və reklamsız Kamera.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Bu kamera həm şəkil çəkmək həm də video yazmaq üçün əlverişlidir. Ön və arxa kameralarda keçiş apara, fayl məkanını dəyişdirə və görüntü imkanını hüdudlandıra bilərsiniz. Fənər söndürülə yaxud da adi fənər işığı kimi istifadə oluna bilər. Çimdikləyərək yaxınlaşdıra ya da uzaqlaşdıra bilərsiniz.
 

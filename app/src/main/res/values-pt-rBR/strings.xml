@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Uma câmera com flash, zoom e sem anúncios.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Pode-se utilizar este aplicativo para tirar fotos ou gravar vídeos, alternar entre a câmera frontal e a traseira, alterar o caminho para guardar os arquivos e ajustar a resolução. Pode-se ativar o flash e apertar na tela para dar zoom. Se estiver gravando vídeos, pode-se utilizar o flash como lanterna.
 

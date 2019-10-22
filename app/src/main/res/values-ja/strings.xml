@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">フラッシュ、ズーム付きのカメラ。広告はありません。</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         カメラは、写真撮影とビデオ撮影の両方に使用できます。 前面カメラと背面カメラの切り替え、保存場所を変更、解像度を制限することができます。 フラッシュをオン/オフしたり、ピンチでズームインしたりすることができます。 ビデオの撮影中は、フラッシュを懐中電灯として使用できます。
 

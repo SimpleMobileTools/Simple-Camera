@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Kamera s bljeskalicom, zumiranjem i bez oglasa.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Kamera se može koristiti za snimanje slika, ali i videozapisa. Možete birati između prednje i stražnje kamere, promijeniti mapu za spremanje i ograničiti razlučivost. Bljeskalica se može uključiti, isključiti ili koristiti kao svjetiljka. Možete povećati ili smanjiti zumiranje prstima.
 

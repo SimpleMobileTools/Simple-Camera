@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">كاميرا مع فلاش، والتكبير وبدون أي إعلانات.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">الكاميرا يمكن استخدامها لكل من التقاط الصور وتسجيل الفيديو. يمكنك التبديل بين الكاميرا الأمامية والخلفية، تعديل مسار الحفظ وتحديد الدقة . يمكن تشغيل وإيقاف الوميض أو استخدامها كمصباح. يمكنك القرص للتكبير والتصغير. إذا كنت ترغب في تشغيل هذا التطبيق عبر الضغط على زر الكاميرا الأجهزة ، قد تضطر إلى تعطيل الخيار المدمج في التطبيق الكاميرا في إعدادات -> تطبيقات -> كاميرا -> تعطيل. \n
  لا يحتوي على إعلانات أو أذونات لا حاجة لها. مفتوح المصدر بشكل كامل، ويوفر الألوان للتخصيص. هذا التطبيق هو مجرد قطعة واحدة من سلسلة أكبر من التطبيقات. يمكنك العثور على بقيتهم هنا\n
  https://www.simplemobiletools.com</string>

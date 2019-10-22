@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Flaşlı, zumlu ve reklamsız bir kamera.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Kamera hem fotoğraf çekimi hem de video kaydı için kullanılabilir. Ön ve arka kamera arasında geçiş yapabilir, kayıt yolunu değiştirebilir ve çözünürlüğü sınırlayabilirsiniz. Flaş açılıp kapatılabilir veya el feneri olarak kullanılabilir. Çimdikle yakınlaştırabilir ve uzaklaştırabilirsiniz.
 

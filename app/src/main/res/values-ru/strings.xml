@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Камера со вспышкой и зумом. Без рекламы.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Камерой можно пользоваться для фото- и видеосъёмки. Можно переключаться между фронтальной и задней камерами, ограничивать разрешение съёмки и выбирать путь сохранения. Вспышка может быть включена или выключена как фонарик. С помощью жестов можно изменять масштаб.
 

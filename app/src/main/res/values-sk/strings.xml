@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Fotoaparát s bleskom, priblížením a bez reklám.</string>
+    <string name="app_short_description">Vytváranie spomienok nebolo nikdy jednoduchšie.</string>
     <string name="app_long_description">
         Fotoaparát je použiteľný na tvorbu fotiek, ako aj nahrávanie videí. Viete sa prepínať medzi prednou a zadnou kamerou, upravovať miesto ukladania a meniŤ rozlíšenia. Blesk môže použitý aj ako trvalé svetlo. Gestami viete približovať aj odďaľovať.
 

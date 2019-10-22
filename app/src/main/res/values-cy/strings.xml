@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Camera gyda fflach, chwyddo a dim hysbysebion.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Gellir defnyddio\'r camera i dynnu lluniau a recordio fideos. Gellir newid rhwng y camerâu blaen a chefn, addasu ble mae lluniau a fideos yn cael eu cadw a chyfyngu\'r cydraniad. Mae\'n bosib troi\'r fflach ymlaen neu i ffwrdd neu ei ddefnyddio fel fflacholau. Mae pinsio yn chwyddo mewn ac allan.
 

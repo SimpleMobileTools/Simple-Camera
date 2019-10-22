@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Fotoaparatas su žibintuvėlių, pritraukimu ir be reklamų.</string>
+    <string name="app_short_description">Creating memories has never been easier.</string>
     <string name="app_long_description">
         Fotoaparatas naudojamas nuotraukoms ir vaizdo įrašams užfiksuoti. Galima persijungti tarp priekinės ir galinės kamerų, pakeisti išsaugojimo vietą, nustayti raišką. Žibintuvėlis gali būti įjungtas arba išjungtas, used as a flashlight. Galite spustelti, kad pritrauktumėte vaizdą.
 
