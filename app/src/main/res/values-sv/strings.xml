@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier.</string>
+    <string name="app_short_description">Det har aldrig varit enklare att skapa minnen.</string>
     <string name="app_long_description">
         Kameran kan användas för både fototagning och videoinspelning. Du kan växla mellan främre och bakre kamera, ändra sparsökvägen och begränsa upplösningen. Blixten kan slås på, stängas av och användas som en ficklampa. Du kan nypa ihop eller föra isär fingrarna för att zooma in och ut.
 
