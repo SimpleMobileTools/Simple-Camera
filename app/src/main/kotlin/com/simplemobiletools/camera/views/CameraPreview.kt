@@ -469,13 +469,10 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                     }
                     mCameraState = STATE_PREVIEW
                 } catch (e: Exception) {
-                  mActivity.showErrorToast("Error in onConfigure callback: $e")
                 }
             }
 
-            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {
-              mActivity.showErrorToast("Failed configuring capture session")
-            }
+            override fun onConfigureFailed(cameraCaptureSession: CameraCaptureSession) {}
         }
 
         try {
@@ -494,7 +491,6 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 mCameraDevice!!.createCaptureSession(Arrays.asList(surface, mImageReader!!.surface), stateCallback, null)
             }
         } catch (e: Exception) {
-          mActivity.showErrorToast("Error setting up capture session: $e")
         }
     }
 
