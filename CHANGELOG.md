@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.1.1 *(2019-10-28)*
+----------------------------
+
+ * Improved proper preview size picking (by ThibG)
+ * Some other stability and translation improvements
+
 Version 5.1.0 *(2019-09-03)*
 ----------------------------
 
