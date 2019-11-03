@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier.</string>
+    <string name="app_short_description">創造回憶從未如此輕鬆。</string>
     <string name="app_long_description">
         這相機可用來相片拍攝和影片紀錄。你可以切換前後鏡頭、修改儲存路徑和限制解析度。閃光燈能被開關或當作手電筒。你可以捏抓來進行縮放。
 
