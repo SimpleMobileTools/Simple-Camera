@@ -39,6 +39,8 @@
     <string name="shutter">Rana</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Mengabadikan kenangan menjadi sangat mudah.</string>
     <string name="app_long_description">
