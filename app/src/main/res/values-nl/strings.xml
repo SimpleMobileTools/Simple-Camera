@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Eenvoudig Camera</string>
+    <string name="app_name">Eenvoudige Camera</string>
     <string name="app_launcher_name">Camera</string>
     <string name="camera_unavailable">Camera niet beschikbaar</string>
     <string name="camera_open_error">Fout opgetreden bij toegang verkrijgen tot de camera</string>
@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
+    <string name="app_title">Eenvoudige Camera - Geen onnodige functies</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Herinneringen creëren is nog nooit zo eenvoudig geweest.</string>
     <string name="app_long_description">
