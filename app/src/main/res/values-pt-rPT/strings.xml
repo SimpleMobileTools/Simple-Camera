@@ -40,9 +40,9 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
+    <string name="app_title">Simple Camera - Máquina fotográfica</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier.</string>
+    <string name="app_short_description">A criação de memórias nunca foi tão fácil.</string>
     <string name="app_long_description">
         Pode utilizar esta aplicação para tirar fotografias ou gravar vídeos. Pode alternar entre a câmara frontal e a traseira, alterar o caminho para guardar os ficheiros e ajustar a resolução. Pode ativar o flash e apertar o ecrã para ampliar. Se estiver a gravar vídeos, pode utilizar o flash como lanterna.
 
