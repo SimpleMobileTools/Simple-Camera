@@ -9,16 +9,16 @@
     <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta de destino al almacenamiento interno</string>
     <string name="camera_switch_error">Ha fallado el cambio de cámara</string>
     <string name="click_to_resume_preview">Haga clic en la imagen para reanudar la vista previa</string>
-    <string name="photo_not_saved">The photo could not be saved</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="photo_not_saved">No se pudo guardar la imagen</string>
+    <string name="setting_resolution_failed">Falló la configuración de la resolución apropiada</string>
+    <string name="video_recording_failed">Grabación de video fallida, intenta usar una diferente resolución</string>
 
     <!-- Other aspect ratio -->
     <string name="other">otro</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">¿Qué calidad de compresión de foto debería establecer?</string>
+    <string name="faq_1_text">Depende de tu objetivo. Para propósitos generales, la mayoría de las personas aconsejan usar 75%-80%, y la imagen seguirá siendo de calidad realmente buena, pero el tamaño del archivo es reducido drásticamente comparado con el 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Guardar fotografías y vídeos en</string>
@@ -27,24 +27,24 @@
     <string name="back_camera">Resolución de la cámara trasera</string>
     <string name="front_camera">Resolución de la cámara frontal</string>
     <string name="photo">Foto</string>
-    <string name="video">Vídeo</string>
+    <string name="video">Video</string>
     <string name="focus_before_capture">Enfocar antes de la captura</string>
     <string name="volume_buttons_as_shutter">Utilizar los botones de volumen como obturador</string>
-    <string name="turn_flash_off_at_startup">Turn flash off at startup</string>
-    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
-    <string name="keep_settings_visible">Keep the setting buttons visible</string>
-    <string name="always_open_back_camera">Always open the app with the Back camera</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
-    <string name="shutter">Shutter</string>
+    <string name="turn_flash_off_at_startup">Apagar flash al iniciar</string>
+    <string name="flip_front_camera_photos_horizontally">Girar horizontalmente fotos con cámara frontal</string>
+    <string name="keep_settings_visible">Mantener los botones de configuración visibles</string>
+    <string name="always_open_back_camera">Siempre abrir la aplicación en la cámara trasera</string>
+    <string name="save_photo_metadata">Guardar metadatos exif de las fotos</string>
+    <string name="photo_compression_quality">Calidad de compresión de foto</string>
+    <string name="shutter">Obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
+    <string name="app_title">Simple Camera - Sin funciones innecesarias</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier.</string>
+    <string name="app_short_description">Crear recuerdos nunca había sido tan fácil.</string>
     <string name="app_long_description">
-        La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede conmutar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom&#8230; Mientras se graba un vídeo el flash puede ser usado como una linterna.
+        La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede cambiar entre la cámara trasera y frontal, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom... Mientras se graba un vídeo el flash puede ser usado como una linterna.
 
         Si usted quiere lanzar esta aplicación presionando el botón físico de cámara, puede que tenga que deshabilitar la aplicación nativa de cámara (Ajustes -> Aplicaciones -> Cámara -> Deshabilitar).
 
