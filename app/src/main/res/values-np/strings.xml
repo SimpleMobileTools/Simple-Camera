@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">सिम्पल क्यामेरा</string>
+    <string name="app_launcher_name">क्यामेरा</string>
+    <string name="camera_unavailable">क्यामेरा उपलब्ध छैन</string>
+    <string name="camera_open_error">क्यामेरा पहुचहुनमा समस्या आयो</string>
+    <string name="video_creating_error">भिडियो फाईल सिर्जना हुनमा समस्या आयो</string>
+    <string name="video_mode_error">भिडियो मोड जडानगरन असक्षम भयो</string>
+    <string name="save_error_internal_storage">केहि त्रुटि देखियो, बचत फोल्डर आन्तरिक स्टोरेजमा परिवर्तन हुने</string>
+    <string name="camera_switch_error">क्यामेरा खुल्न सकेन</string>
+    <string name="click_to_resume_preview">हेर्नको लागि तस्बिरमा क्लिक गर्नुहोस</string>
+    <string name="photo_not_saved">फोटो बचत हुन सक्दैन</string>
+    <string name="setting_resolution_failed">ठिक रिजोलुसनमा स्थापित गर्न असफल भयो</string>
+    <string name="video_recording_failed">भिडियो रेकर्डिङ हुन सकेन, फरक रिजोलुसनमा राखेर प्रयास गर्नुहोस</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">थप</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">मैले कस्तो फोटो खदाईको गुणस्तर स्थापित गर्नुपर्छ ?</string>
+    <string name="faq_1_text">यो तपाईको चाहानामा भर पर्छ । सामान्यतया सबैले 75%-80% मा प्रयोग गर्छन, जब तस्बिर राम्रो गुणस्तरको छ, तर 100% को तुलनामा फाईल साईज अस्वभाविक रुपले घट्छ </string>
+
+    <!-- Settings -->
+    <string name="save_photos">फोटो र भिडियो यहाँ बचत गर्नुहोस</string>
+    <string name="show_preview">खिचेपछि फोटो देखाउनुहोस</string>
+    <string name="shutter_sound">खिच्ने आवाज</string>
+    <string name="back_camera">क्यामेरा रिजोलुसनमा फर्कनुहोस</string>
+    <string name="front_camera">अगाडिको क्यामेराको रिजोनुसन</string>
+    <string name="photo">फोटो</string>
+    <string name="video">भिडियो</string>
+    <string name="focus_before_capture">खिच्नुभन्दा पहिले फोकस हुने</string>
+    <string name="volume_buttons_as_shutter">भोलुम बटन फोटो खिच्नको लागि प्रयोग गर्ने</string>
+    <string name="turn_flash_off_at_startup">शुरुमा फल्यास बन्द हुने</string>
+    <string name="flip_front_camera_photos_horizontally">Flip front camera photos horizontally</string>
+    <string name="keep_settings_visible">सेटिङलाई देखिनेगरि राख्नुहोस</string>
+    <string name="always_open_back_camera">सधै यो एप खोल्दा पछाडिको क्यामेरा प्रयोग हुने</string>
+    <string name="save_photo_metadata">फोटो बचत exif मेटाडेटा</string>
+    <string name="photo_compression_quality">फोटो खदाईको गुणस्तर</string>
+    <string name="shutter">खिच्ने</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Creating memories has never been easier.</string>
+    <string name="app_long_description">
+        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path and limit the resolution. The flash can be turned on and off or used as a flashlight. You can pinch to zoom in and out.
+
+        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
