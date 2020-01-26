@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jednoduchý fotoaparát</string>
+    <string name="app_launcher_name">Fotoaparát</string>
+    <string name="camera_unavailable">Fotoaparát není dostupný</string>
+    <string name="camera_open_error">Nastala chyba při přístupu k fotoaparátu</string>
+    <string name="video_creating_error">Nastala chyba při vytváření souboru videa</string>
+    <string name="video_mode_error">Přepnutí do režimu videa selhalo</string>
+    <string name="save_error_internal_storage">Nastala chyba, složka ukládání změněna na interní úložiště</string>
+    <string name="camera_switch_error">Přepnutí fotoaparátu selhalo</string>
+    <string name="click_to_resume_preview">Pro pokračování prohlížení se dotkněte obrázku</string>
+    <string name="photo_not_saved">Fotografii se nepodařilo uložit</string>
+    <string name="setting_resolution_failed">Nepodařilo se nastavit správné rozlišení</string>
+    <string name="video_recording_failed">Nahrávání videa selhalo, zkuste použít jiné rozlišení</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">jiný</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Jakou kvalitu komprese fotografií bych měl použít?</string>
+    <string name="faq_1_text">Záleží, jaké jsou vaše požadavky. Pro všeobecné použití se doporučuje 75%-80%, kdy je obrazová kvalita stále vysoká, ale výsledný soubor má o mnoho menší velikost v porovnání se 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Ukládat fotografie a videa do</string>
+    <string name="show_preview">Zobrazit náhled fotografie po zachycení</string>
+    <string name="shutter_sound">Zvuk závěrky</string>
+    <string name="back_camera">Rozlišení zadního fotoaparátu</string>
+    <string name="front_camera">Rozlišení předního fotoaparátu</string>
+    <string name="photo">Fotografie</string>
+    <string name="video">Videa</string>
+    <string name="focus_before_capture">Zaostřit před focením</string>
+    <string name="volume_buttons_as_shutter">Použít tlačítka hlasitosti jako spoušť</string>
+    <string name="turn_flash_off_at_startup">Vypnout blesk při spuštění</string>
+    <string name="flip_front_camera_photos_horizontally">Překlopit vodorovně fotografie z přední kamery</string>
+    <string name="keep_settings_visible">Neskrývat tlačítka nastavení</string>
+    <string name="always_open_back_camera">Vždy spouštět aplikaci se zadním fotoapatárem</string>
+    <string name="save_photo_metadata">Ukládat exif metadata fotografií</string>
+    <string name="photo_compression_quality">Kvalita komprese fotografií</string>
+    <string name="shutter">Spoušť</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Jednoduchý fotoaparát - Bez nepotřebných funkcí</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Vytváření vzpomínek nikdy nebylo jednodušší.</string>
+    <string name="app_long_description">
+        Fotoaparát lze použít jak pro zachycení fotografijí, tak i pro nahrávání videí. Můžete přepínat mezi přední a zadní kamerou, měnit místo uložení a rozlišení. Blesk lze použít i jako svítilnu. Gestem můžete přibližovat a oddalovat.
+
+        Chcete-li aplikaci spouštět fyzickým tlačítkem fotoaparátu, pravděpodobně budete muset zakázat výchozí aplikaci fotoaparátu v Nastavení -> Aplikace -> Fotoaparát -> Zakázat.
+
+        Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
+
+        Tato aplikace je jen jednou z většího celku aplikací. Ostatní z nich naleznete na https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
