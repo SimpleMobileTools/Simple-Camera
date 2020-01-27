@@ -36,7 +36,7 @@
     <string name="always_open_back_camera">Aplikaci vždy otvírat s aktivní zadní kamerou</string>
     <string name="save_photo_metadata">Ukládat exif metadata fotografií</string>
     <string name="photo_compression_quality">Kvalita komprese fotek</string>
-    <string name="shutter">Spúšť</string>
+    <string name="shutter">Spoušť</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
@@ -46,9 +46,9 @@
     <string name="app_long_description">
         Fotoaparát je použitelný pro fotografování, stejně jako k nahrávání videí. Můžete přepínat mezi přední a zadní kamerou, upravovat místo pro uložení a měnit rozlišení. Blesk můžete použít jako svítilnu. Gesty můžete přibližovat i oddalovat.
 
-        Ke spuštění aplikace hardwarovým tlačítkem kamery pravděpodobně musíte deaktivovat předvolený fotoaparát zařízení v Nastavení -> Aplikace -> Fotoaparát -> Deaktivovat.
+        Pro spouštění aplikace hardwarovým tlačítkem kamery pravděpodobně budete muset zakázat výchozí aplikaci fotoaparátu zařízení v Nastavení -> Aplikace -> Fotoaparát -> Zakázat.
 
-        Neobsahuje žádné reklamy ani nepotřebná oprávnění. Má otevřený zdrojový kód a možnost změny barev.
+        Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
 
         Tato aplikace je jen jednou ze sady aplikací. Ostatní si můžete prohlédnout na https://www.simplemobiletools.com
     </string>
