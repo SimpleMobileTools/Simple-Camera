@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Απλή Κάμερα</string>
+    <string name="app_launcher_name">Κάμερα</string>
+    <string name="camera_unavailable">Μη διαθέσιμη κάμερα</string>
+    <string name="camera_open_error">Παρουσιάστηκε σφάλμα κατά την πρόσβαση στην κάμερα</string>
+    <string name="video_creating_error">Παρουσιάστηκε σφάλμα κατά τη δημιουργία αρχείου βίντεο</string>
+    <string name="video_mode_error">Η εναλλαγή σε λειτουργία βίντεο απέτυχε</string>
+    <string name="save_error_internal_storage">Παρουσιάστηκε σφάλμα, η αποθήκευση του φακέλου άλλαξε σε εσωτερικό χώρο αποθήκευσης</string>
+    <string name="camera_switch_error">Η εναλλαγή κάμερας απέτυχε</string>
+    <string name="click_to_resume_preview">Κάντε κλικ στην εικόνα για συνέχιση της προεπισκόπησης</string>
+    <string name="photo_not_saved">Δεν ήταν δυνατή η αποθήκευση της φωτογραφίας</string>
+    <string name="setting_resolution_failed">Η ρύθμιση της σωστής ανάλυσης απέτυχε</string>
+    <string name="video_recording_failed">Η εγγραφή βίντεο απέτυχε, δοκιμάστε να χρησιμοποιήσετε διαφορετική ανάλυση</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">άλλο</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">Ποια ποιότητα συμπίεσης φωτογραφιών πρέπει να ορίσω;</string>
+    <string name="faq_1_text">Εξαρτάται από το στόχο σου. Για γενικούς σκοπούς, οι περισσότεροι συμβουλεύουν τη χρήση του 75%-80%, όταν η εικόνα εξακολουθεί να είναι πραγματικά καλής ποιότητας, αλλά το μέγεθος του αρχείου μειώνεται δραστικά σε σύγκριση με το 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">Αποθήκευση φωτογραφιών και βίντεο σε</string>
+    <string name="show_preview">Εμφάνιση προεπισκόπησης φωτογραφίας μετά τη σύλληψη</string>
+    <string name="shutter_sound">Ήχος κλείστρου</string>
+    <string name="back_camera">Αναλύσεις πίσω κάμερας</string>
+    <string name="front_camera">Αναλύσεις εμπρόσθιας κάμερας</string>
+    <string name="photo">Φωτογραφία</string>
+    <string name="video">Βίντεο</string>
+    <string name="focus_before_capture">Εστίαση πριν τη λήψη</string>
+    <string name="volume_buttons_as_shutter">Χρήση κουμπιών έντασης ως κλείστρο</string>
+    <string name="turn_flash_off_at_startup">Απενεργοποίηση φλας κατά την εκκίνηση</string>
+    <string name="flip_front_camera_photos_horizontally">Οριζόντια αναστροφή φωτογραφιών μπροστινής κάμερας</string>
+    <string name="keep_settings_visible">Διατήρηση εμφανών κουμπιών ρύθμισης</string>
+    <string name="always_open_back_camera">Πάντα άνοιγμα της εφαρμογής με την πίσω κάμερα</string>
+    <string name="save_photo_metadata">Αποθήκευση μεταδεδομένων exif φωτογραφίας</string>
+    <string name="photo_compression_quality">Ποιότητα συμπίεσης φωτογραφιών</string>
+    <string name="shutter">Κλείστρο</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Απλή Κάμερα - Χωρίς περιττές λειτουργίες</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Η δημιουργία αναμνήσεων δεν ήταν ποτέ ευκολότερη.</string>
+    <string name="app_long_description">
+        Η Κάμερα μπορεί να χρησιμοποιηθεί τόσο για λήψη φωτογραφιών όσο και για εγγραφή βίντεο. Μπορείτε να κάνετε εναλλαγή μεταξύ της μπροστινής και της πίσω κάμερας, να τροποποιήσετε τη διαδρομή αποθήκευσης και να περιορίσετε την ανάλυση. Το φλάς μπορεί να ενεργοποιηθεί και να απενεργοποιηθεί ή να χρησιμοποιηθεί ως φακός. Μπορείτε να κάνετε με τα δάκτυλα  μεγέθυνση ή σμίκρυνση.
+
+        Εάν θέλετε να εκκινήσετε αυτή την εφαρμογή πατώντας το κουμπί της κάμερας υλικού, ίσως χρειαστεί να απενεργοποιήσετε την ενσωματωμένη εφαρμογή κάμερας στις Ρυθμίσεις -> Εφαρμογές -> Κάμερα -> Απενεργοποίηση.
+
+        Δεν περιέχει διαφημίσεις ή περιττές άδειες. Είναι πλήρως ανοιχτού κώδικα, παρέχει προσαρμόσιμα χρώματα.
+
+        Αυτή η εφαρμογή είναι μόνο ένα μέρος μιας μεγάλης σειράς εφαρμογών. Μπορείτε να βρείτε τις υπόλοιπες στο https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
