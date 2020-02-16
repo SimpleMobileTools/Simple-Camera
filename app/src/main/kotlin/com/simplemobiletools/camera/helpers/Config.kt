@@ -17,7 +17,7 @@ class Config(context: Context) : BaseConfig(context) {
                 path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
                 savePhotosFolder = path
             }
-            return path
+            return path!!
         }
         set(path) = prefs.edit().putString(SAVE_PHOTOS, path).apply()
 
@@ -42,7 +42,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
 
     var lastUsedCamera: String
-        get() = prefs.getString(LAST_USED_CAMERA, "0")
+        get() = prefs.getString(LAST_USED_CAMERA, "0")!!
         set(cameraId) = prefs.edit().putString(LAST_USED_CAMERA, cameraId).apply()
 
     var initPhotoMode: Boolean

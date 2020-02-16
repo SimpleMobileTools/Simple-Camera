@@ -239,8 +239,8 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     }
 
     private fun handleZoom(event: MotionEvent) {
-        val maxZoom = getCameraCharacteristics().get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) * 10
-        val sensorRect = getCameraCharacteristics(mCameraId).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+        val maxZoom = getCameraCharacteristics().get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)!! * 10
+        val sensorRect = getCameraCharacteristics(mCameraId).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)!!
         val currentFingerSpacing = getFingerSpacing(event)
         if (mZoomFingerSpacing != 0f) {
             if (currentFingerSpacing > mZoomFingerSpacing && maxZoom > mZoomLevel) {
@@ -260,7 +260,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mZoomRect = Rect(cropWidth, cropHeight, sensorRect.width() - cropWidth, sensorRect.height() - cropHeight)
             mPreviewRequestBuilder!!.set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
             mPreviewRequest = mPreviewRequestBuilder!!.build()
-            mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+            mCaptureSession!!.setRepeatingRequest(mPreviewRequest!!, mCaptureCallback, mBackgroundHandler)
         }
         mZoomFingerSpacing = currentFingerSpacing
     }
@@ -284,7 +284,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     }
 
     private fun getCurrentResolution(): MySize {
-        val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+        val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val resIndex = if (mUseFrontCamera) {
             if (mIsInVideoMode) {
                 mActivity.config.frontVideoResIndex
@@ -322,7 +322,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
                 mCameraId = cameraId
                 mActivity.config.lastUsedCamera = mCameraId
-                val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+                val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
                 val currentResolution = getCurrentResolution()
 
                 if (mIsInVideoMode) {
@@ -372,7 +372,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 characteristics.apply {
                     mIsFlashSupported = get(CameraCharacteristics.FLASH_INFO_AVAILABLE) ?: false
                     mIsZoomSupported = get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM) ?: 0f > 0f
-                    mIsFocusSupported = get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES).size > 1
+                    mIsFocusSupported = get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES)!!.size > 1
                 }
                 mActivity.setFlashAvailable(mIsFlashSupported)
                 mActivity.updateCameraIcon(mUseFrontCamera)
@@ -465,7 +465,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                             setFlashAndExposure(this)
                             mPreviewRequest = build()
                         }
-                        mCaptureSession!!.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                        mCaptureSession!!.setRepeatingRequest(mPreviewRequest!!, mCaptureCallback, mBackgroundHandler)
                     }
                     mCameraState = STATE_PREVIEW
                 } catch (e: Exception) {
@@ -495,7 +495,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     }
 
     private fun getFrameRange(): Range<Int> {
-        val ranges = getCameraCharacteristics().get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES)
+        val ranges = getCameraCharacteristics().get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES)!!
         var currRangeSize = -1
         var currMinRange = 0
         var result: Range<Int>? = null
@@ -599,7 +599,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                     mActivity.toggleBottomButtons(false)
                 }
 
-                override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
+                override fun onCaptureFailed(session: CameraCaptureSession, request: CaptureRequest, failure: CaptureFailure) {
                     super.onCaptureFailed(session, request, failure)
                     mActivity.toggleBottomButtons(false)
                 }
@@ -640,9 +640,9 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
             // touch-to-focus inspired by OpenCamera
             val characteristics = getCameraCharacteristics()
-            if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF) >= 1) {
+            if (characteristics.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF)!! >= 1) {
                 val focusArea = getFocusArea(x, y)
-                val sensorRect = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)
+                val sensorRect = characteristics.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)!!
                 val meteringRect = convertAreaToMeteringRectangle(sensorRect, focusArea)
                 set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(meteringRect))
             }
@@ -746,7 +746,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 mCaptureSession?.capture(build(), mCaptureCallback, mBackgroundHandler)
             }
             mCameraState = STATE_PREVIEW
-            mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+            mCaptureSession?.setRepeatingRequest(mPreviewRequest!!, mCaptureCallback, mBackgroundHandler)
 
             if (mLastFocusX != 0f && mLastFocusY != 0f) {
                 focusArea(mLastFocusX, mLastFocusY, false)
@@ -784,7 +784,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 Uri.fromFile(File(mLastVideoPath))
             }
 
-            val fileDescriptor = context.contentResolver.openFileDescriptor(uri, "w").fileDescriptor
+            val fileDescriptor = context.contentResolver.openFileDescriptor(uri, "w")!!.fileDescriptor
 
             val rotation = mActivity.windowManager.defaultDisplay.rotation
             mMediaRecorder!!.apply {
@@ -839,7 +839,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         }
 
         val captureCallback = object : CameraCaptureSession.StateCallback() {
-            override fun onConfigured(session: CameraCaptureSession?) {
+            override fun onConfigured(session: CameraCaptureSession) {
                 mCaptureSession = session
                 updatePreview()
                 mIsRecording = true
@@ -850,7 +850,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 mCameraState = STATE_RECORDING
             }
 
-            override fun onConfigureFailed(session: CameraCaptureSession?) {
+            override fun onConfigureFailed(session: CameraCaptureSession) {
                 mCameraState = STATE_PREVIEW
             }
         }
@@ -917,7 +917,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
     private fun openResolutionsDialog(openVideoResolutions: Boolean) {
         val oldResolution = getCurrentResolution()
-        val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
+        val configMap = getCameraCharacteristics().get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!
         val photoResolutions = configMap.getOutputSizes(ImageFormat.JPEG).map { MySize(it.width, it.height) } as ArrayList
         val videoResolutions = getAvailableVideoSizes(configMap).map { MySize(it.width, it.height) } as ArrayList
         ChangeResolutionDialog(mActivity, mUseFrontCamera, photoResolutions, videoResolutions, openVideoResolutions) {
@@ -994,7 +994,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             try {
                 setFlashAndExposure(mPreviewRequestBuilder!!)
                 mPreviewRequest = mPreviewRequestBuilder!!.build()
-                mCaptureSession?.setRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler)
+                mCaptureSession?.setRepeatingRequest(mPreviewRequest!!, mCaptureCallback, mBackgroundHandler)
                 mActivity.updateFlashlightState(mFlashlightState)
             } catch (e: Exception) {
             }

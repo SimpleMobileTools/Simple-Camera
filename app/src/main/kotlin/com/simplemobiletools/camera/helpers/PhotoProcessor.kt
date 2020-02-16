@@ -30,7 +30,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
         val path: String
         try {
             path = if (saveUri != null) {
-                saveUri.path
+                saveUri.path!!
             } else {
                 activity.getOutputMediaFile(true)
             }
@@ -124,7 +124,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
                     val documentFile = activity.getSomeDocumentFile(path)
                     if (documentFile != null) {
                         val parcelFileDescriptor = activity.contentResolver.openFileDescriptor(documentFile.uri, "rw")
-                        val fileDescriptor = parcelFileDescriptor.fileDescriptor
+                        val fileDescriptor = parcelFileDescriptor!!.fileDescriptor
                         ExifInterface(fileDescriptor)
                     } else {
                         null
