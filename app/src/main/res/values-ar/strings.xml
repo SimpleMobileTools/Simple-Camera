@@ -43,9 +43,22 @@
     <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Creating memories has never been easier.</string>
-    <string name="app_long_description">الكاميرا يمكن استخدامها لكل من التقاط الصور وتسجيل الفيديو. يمكنك التبديل بين الكاميرا الأمامية والخلفية، تعديل مسار الحفظ وتحديد الدقة . يمكن تشغيل وإيقاف الوميض أو استخدامها كمصباح. يمكنك القرص للتكبير والتصغير. إذا كنت ترغب في تشغيل هذا التطبيق عبر الضغط على زر الكاميرا الأجهزة ، قد تضطر إلى تعطيل الخيار المدمج في التطبيق الكاميرا في إعدادات -> تطبيقات -> كاميرا -> تعطيل. \n
- لا يحتوي على إعلانات أو أذونات لا حاجة لها. مفتوح المصدر بشكل كامل، ويوفر الألوان للتخصيص. هذا التطبيق هو مجرد قطعة واحدة من سلسلة أكبر من التطبيقات. يمكنك العثور على بقيتهم هنا\n
- https://www.simplemobiletools.com</string>
+    <string name="app_long_description">
+        The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path and limit the resolution. The flash can be turned on and off or used as a flashlight. You can pinch to zoom in and out.
+
+        If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
 
     <!--
         Haven't found some strings? There's more at
