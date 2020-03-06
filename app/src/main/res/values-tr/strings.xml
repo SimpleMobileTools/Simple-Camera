@@ -40,9 +40,9 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Contains no unnecessary functions</string>
+    <string name="app_title">Basit Kamera - Gereksiz işlevler içermez</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier.</string>
+    <string name="app_short_description">Anı yaratmak hiç bu kadar kolay olmamıştı.</string>
     <string name="app_long_description">
         Kamera hem fotoğraf çekimi hem de video kaydı için kullanılabilir. Ön ve arka kamera arasında geçiş yapabilir, kayıt yolunu değiştirebilir ve çözünürlüğü sınırlayabilirsiniz. Flaş açılıp kapatılabilir veya el feneri olarak kullanılabilir. Çimdikle yakınlaştırabilir ve uzaklaştırabilirsiniz.
 
@@ -50,7 +50,7 @@
 
         Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
 
-        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz
+        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz.
     </string>
 
     <!--
