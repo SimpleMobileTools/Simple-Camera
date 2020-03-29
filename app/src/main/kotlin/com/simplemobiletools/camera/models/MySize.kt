@@ -43,5 +43,7 @@ data class MySize(val width: Int, val height: Int) {
         else -> context.resources.getString(R.string.other)
     }
 
+    fun pixels() = width * height
+
     fun toSize() = Size(width, height)
 }
