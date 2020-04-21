@@ -16,7 +16,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.navBarHeight
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
@@ -192,7 +191,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
+        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navigationBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
 
         checkVideoCaptureIntent()
         mPreview = CameraPreview(this, camera_texture_view, mIsInPhotoMode)
