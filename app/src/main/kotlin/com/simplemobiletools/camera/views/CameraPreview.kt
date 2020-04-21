@@ -66,8 +66,8 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
     private var mSensorOrientation = 0
     private var mRotationAtCapture = 0
-    private var mZoomLevel = 1
-    private var mZoomFingerSpacing = 0f
+    private var mZoomLevel = 1f
+    private var mZoomFingerSpacing = 0
     private var mLastFocusX = 0f
     private var mLastFocusY = 0f
     private var mIsFlashSupported = true
@@ -226,30 +226,33 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     }
 
     private fun handleZoom(event: MotionEvent) {
-        val maxZoom = getCameraCharacteristics().get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)!! * 10
-        val sensorRect = getCameraCharacteristics(mCameraId).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)!!
+        val maxZoom = getCameraCharacteristics().get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)!!
+        val sensorRect = getCameraCharacteristics().get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE) ?: return
         val currentFingerSpacing = getFingerSpacing(event)
-        if (mZoomFingerSpacing != 0f) {
-            if (currentFingerSpacing > mZoomFingerSpacing && maxZoom > mZoomLevel) {
-                mZoomLevel++
-            } else if (currentFingerSpacing < mZoomFingerSpacing && mZoomLevel > 1) {
-                mZoomLevel--
+
+        var delta = 0.05f
+        if (mZoomFingerSpacing != 0) {
+            if (currentFingerSpacing > mZoomFingerSpacing) {
+                if (maxZoom - mZoomLevel <= delta) {
+                    delta = maxZoom - mZoomLevel
+                }
+                mZoomLevel += delta
+            } else if (currentFingerSpacing < mZoomFingerSpacing) {
+                if (mZoomLevel - delta < 1f) {
+                    delta = mZoomLevel - 1f
+                }
+                mZoomLevel -= delta
             }
 
-            val minWidth = sensorRect.width() / maxZoom
-            val minHeight = sensorRect.height() / maxZoom
-            val diffWidth = sensorRect.width() - minWidth
-            val diffHeight = sensorRect.height() - minHeight
-            var cropWidth = (diffWidth / 100 * mZoomLevel).toInt()
-            var cropHeight = (diffHeight / 100 * mZoomLevel).toInt()
-            cropWidth -= cropWidth and 3
-            cropHeight -= cropHeight and 3
-            mZoomRect = Rect(cropWidth, cropHeight, sensorRect.width() - cropWidth, sensorRect.height() - cropHeight)
+            val ratio = 1 / mZoomLevel
+            val croppedWidth = sensorRect.width() - Math.round(sensorRect.width() * ratio)
+            val croppedHeight = sensorRect.height() - Math.round(sensorRect.height() * ratio)
+            mZoomRect = Rect(croppedWidth / 2, croppedHeight / 2, sensorRect.width() - croppedWidth / 2, sensorRect.height() - croppedHeight / 2)
             mPreviewRequestBuilder!!.set(CaptureRequest.SCALER_CROP_REGION, mZoomRect)
             mPreviewRequest = mPreviewRequestBuilder!!.build()
             mCaptureSession!!.setRepeatingRequest(mPreviewRequest!!, mCaptureCallback, mBackgroundHandler)
         }
-        mZoomFingerSpacing = currentFingerSpacing
+        mZoomFingerSpacing = currentFingerSpacing.toInt()
     }
 
     private fun getFingerSpacing(event: MotionEvent): Float {
