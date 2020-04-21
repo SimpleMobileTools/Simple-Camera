@@ -19,10 +19,7 @@ import android.util.DisplayMetrics
 import android.util.Range
 import android.util.Size
 import android.util.SparseIntArray
-import android.view.MotionEvent
-import android.view.Surface
-import android.view.TextureView
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
@@ -49,8 +46,6 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private val MAX_PREVIEW_HEIGHT = 1080
     private val MAX_VIDEO_WIDTH = 4096
     private val MAX_VIDEO_HEIGHT = 2160
-    private val CLICK_MS = 250
-    private val CLICK_DIST = 20
 
     private val DEFAULT_ORIENTATIONS = SparseIntArray(4).apply {
         append(Surface.ROTATION_0, 90)
@@ -73,9 +68,6 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private var mRotationAtCapture = 0
     private var mZoomLevel = 1
     private var mZoomFingerSpacing = 0f
-    private var mDownEventAtMS = 0L
-    private var mDownEventAtX = 0f
-    private var mDownEventAtY = 0f
     private var mLastFocusX = 0f
     private var mLastFocusY = 0f
     private var mIsFlashSupported = true
@@ -124,22 +116,17 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         mIsInVideoMode = !initPhotoMode
         loadSounds()
 
-        mTextureView.setOnTouchListener { view, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                mDownEventAtMS = System.currentTimeMillis()
-                mDownEventAtX = event.x
-                mDownEventAtY = event.y
-            } else if (event.action == MotionEvent.ACTION_UP) {
-                if (mIsFocusSupported && System.currentTimeMillis() - mDownEventAtMS < CLICK_MS &&
-                        mCaptureSession != null &&
-                        Math.abs(event.x - mDownEventAtX) < CLICK_DIST &&
-                        Math.abs(event.y - mDownEventAtY) < CLICK_DIST) {
-                    try {
-                        focusArea(event.x, event.y, true)
-                    } catch (e: Exception) {
-                    }
+        val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+                if (e != null && mIsFocusSupported && mCaptureSession != null) {
+                    focusArea(e.rawX, e.rawY, true)
                 }
+                return true
             }
+        })
+
+        mTextureView.setOnTouchListener { view, event ->
+            gestureDetector.onTouchEvent(event)
 
             if (mIsZoomSupported && event.pointerCount > 1 && mCaptureSession != null) {
                 try {
