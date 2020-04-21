@@ -56,7 +56,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
                 }
 
                 var document = activity.getDocumentFile(path.getParentPath())
-                document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1))
+                document = document?.createFile("", path.substring(path.lastIndexOf('/') + 1)) ?: activity.getDocumentFile(path)
                 if (document == null) {
                     activity.toast(R.string.save_error_internal_storage)
                     return ""

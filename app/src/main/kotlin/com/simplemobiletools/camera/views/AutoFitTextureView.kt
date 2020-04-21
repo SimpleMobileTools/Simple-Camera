@@ -3,7 +3,6 @@ package com.simplemobiletools.camera.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.TextureView
-import android.view.View
 
 // taken from the official Camera2 sample at https://github.com/googlesamples/android-Camera2Basic
 class AutoFitTextureView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : TextureView(context, attrs, defStyle) {
@@ -23,8 +22,8 @@ class AutoFitTextureView @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        val width = View.MeasureSpec.getSize(widthMeasureSpec)
-        val height = View.MeasureSpec.getSize(heightMeasureSpec)
+        val width = MeasureSpec.getSize(widthMeasureSpec)
+        val height = MeasureSpec.getSize(heightMeasureSpec)
 
         if (mRatioWidth == 0 || mRatioHeight == 0) {
             setMeasuredDimension(width, height)
