@@ -173,8 +173,10 @@ class SettingsActivity : SimpleActivity() {
             FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
                 val path = it
                 handleSAFDialog(it) {
-                    config.savePhotosFolder = path
-                    settings_save_photos.text = getLastPart(config.savePhotosFolder)
+                    if (it) {
+                        config.savePhotosFolder = path
+                        settings_save_photos.text = getLastPart(config.savePhotosFolder)
+                    }
                 }
             }
         }
