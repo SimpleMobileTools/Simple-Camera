@@ -773,7 +773,10 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             val videoSize = getCurrentResolution()
             mLastVideoPath = mActivity.getOutputMediaFile(false)
             val uri = if (context.isPathOnSD(mLastVideoPath)) {
-                context.getDocumentFile(mLastVideoPath.getParentPath())?.createFile("video/mp4", mLastVideoPath.getFilenameFromPath())!!.uri
+                val parentDocumentFile = context.getDocumentFile(mLastVideoPath.getParentPath())
+                val documentFile = parentDocumentFile?.createFile("video/mp4", mLastVideoPath.getFilenameFromPath())
+                        ?: mActivity.getDocumentFile(mLastVideoPath)
+                documentFile!!.uri
             } else {
                 Uri.fromFile(File(mLastVideoPath))
             }
