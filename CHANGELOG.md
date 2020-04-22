@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 5.2.0 *(2020-04-22)*
+----------------------------
+
+ * Fixed zooming with gestures, make it smoother
+ * Properly handle creating files on some SD cards
+ * Some other UI improvements
+
 Version 5.1.3 *(2020-03-09)*
 ----------------------------
 

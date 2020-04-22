@@ -1,0 +1,3 @@
+ * Fixed zooming with gestures, make it smoother
+ * Properly handle creating files on some SD cards
+ * Some other UI improvements
