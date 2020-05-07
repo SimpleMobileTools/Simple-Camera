@@ -40,27 +40,27 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Eenvoudige Camera - Maak supersnel foto\'s en video\'s</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
+    <string name="app_short_description">Herinneringen creëren is nog nooit zo simpel geweest. Zonder ads.</string>
     <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
+        Deze handige app is te gebruiken voor het eenvoudig maken van foto\'s en video\'s. Schakel tussen camera\'s aan voor- en achterkant, pas de opslaglocatie aan of beperk de resolutie met een simpele handeling. Er zijn verder nog vele opties beschikbaar om de app aan te passen aan persoonlijke voorkeuren.
 
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
+        De flitser kan in- en uitgeschakeld worden, of zelfs gebruikt worden als zaklamp. Zoomen kan met knijpbebaren en het beeld kan gespiegeld worden voor portretfoto\'s.
 
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
+        De resolutie waarin de foto/video wordt opgeslagen kan eenvoudig worden aangepast, evenals de opslagkwaliteit en de beeldverhouding.
 
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
+        Na het maken van een foto verschijnt het voorbeeld van de nieuwe foto. Een klik op het voorbeeld zal de foto in de Galerij openen. De app geeft een duidelijke indicatie wanneer de opname wordt gemaakt, zodat altijd duidelijk is dat de foto is opgeslagen.
 
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Om deze app als standaard in te stellen wanneer gebruikgemaakt wordt van een speciale cameraknop op het apparaat, kan het nodig zijn om de ingebouwde Camera-app uit te schakelen via Instellingen -> Apps -> Camera -> Uitschakelen.
 
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
+        Om altijd een haarscherpe foto te krijgen, kan de optie om vooraf scherp te stellen ingeschakeld worden. Dit zorgt voor een kleine vertraging bij het maken van de foto.
 
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
+        Gebruik de volumeknoppen als sluiterknop, of kies om de flitser standaard in te schakelen bij het starten van de app.
 
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
+        Er zijn diverse andere opties betreffende sluitergeluid, flitser, metadata, fotokwaliteit etc. De opslaglocatie kan naar voorkeur worden aangepast: zowel interne opslag als SD-kaarten worden ondersteund.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps.
 
         Bevat geen advertenties of onnodige machtigingen. Volledig open-source. Kleuren van de app kunnen worden aangepast.
 
