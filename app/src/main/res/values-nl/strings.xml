@@ -40,7 +40,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Eenvoudige Camera - Maak supersnel foto\'s en video\'s</string>
+    <string name="app_title">Eenvoudige Camera - Maak supersnel foto\'s en video</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Herinneringen creëren is nog nooit zo simpel geweest. Zonder ads.</string>
     <string name="app_long_description">
