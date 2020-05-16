@@ -628,7 +628,11 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             }
         }
 
-        mCaptureSession!!.stopRepeating()
+        try {
+            mCaptureSession!!.stopRepeating()
+        } catch (ignored: Exception) {
+        }
+
         mPreviewRequestBuilder!!.apply {
             set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
             mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
@@ -775,7 +779,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             val uri = if (context.isPathOnSD(mLastVideoPath)) {
                 val parentDocumentFile = context.getDocumentFile(mLastVideoPath.getParentPath())
                 val documentFile = parentDocumentFile?.createFile("video/mp4", mLastVideoPath.getFilenameFromPath())
-                        ?: mActivity.getDocumentFile(mLastVideoPath)
+                    ?: mActivity.getDocumentFile(mLastVideoPath)
                 documentFile!!.uri
             } else {
                 Uri.fromFile(File(mLastVideoPath))
