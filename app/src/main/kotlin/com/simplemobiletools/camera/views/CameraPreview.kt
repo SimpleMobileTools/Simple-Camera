@@ -108,7 +108,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         mTextureView = textureView
         val cameraCharacteristics = try {
             getCameraCharacteristics(activity.config.lastUsedCamera)
-        } catch (e: IllegalArgumentException) {
+        } catch (e: Exception) {
             mActivity.showErrorToast("Get camera characteristics $e")
             null
         }
