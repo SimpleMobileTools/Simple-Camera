@@ -16,8 +16,8 @@ android {
         applicationId "com.simplemobiletools.camera"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 72
-        versionName "5.2.0"
+        versionCode 73
+        versionName "5.2.1"
         setProperty("archivesBaseName", "camera")
         vectorDrawables.useSupportLibrary = true
     }
