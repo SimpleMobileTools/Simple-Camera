@@ -21,6 +21,7 @@ import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.views.CameraPreview
 import com.simplemobiletools.camera.views.FocusCircleView
+import com.simplemobiletools.commons.dialogs.NewAppsIconsDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
@@ -61,6 +62,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+
+        // notify some users about the SMS Messenger and Voice Recorder apps
+        if (!config.wasMessengerRecorderShown && config.appRunCount > 35) {
+            NewAppsIconsDialog(this)
+            config.wasMessengerRecorderShown = true
+        }
     }
 
     override fun onResume() {
@@ -373,14 +380,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         runOnUiThread {
             if (!isDestroyed) {
                 val options = RequestOptions()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
 
                 Glide.with(this)
-                        .load(mPreviewUri)
-                        .apply(options)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(last_photo_video_preview)
+                    .load(mPreviewUri)
+                    .apply(options)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(last_photo_video_preview)
             }
         }
     }
