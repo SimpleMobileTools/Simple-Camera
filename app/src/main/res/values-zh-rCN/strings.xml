@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">简易相机</string>
+    <string name="app_launcher_name">相机</string>
+    <string name="camera_unavailable">相机不可用</string>
+    <string name="camera_open_error">访问相机时发生错误</string>
+    <string name="video_creating_error">创建视频文件时发生错误</string>
+    <string name="video_mode_error">切换至视频模式时失败</string>
+    <string name="save_error_internal_storage">发生错误，切换保存文件夹至内部存储</string>
+    <string name="camera_switch_error">切换相机失败</string>
+    <string name="click_to_resume_preview">点击图像来恢复预览</string>
+    <string name="photo_not_saved">照片无法保存</string>
+    <string name="setting_resolution_failed">设定合适的分辨率时失败</string>
+    <string name="video_recording_failed">视频录制失败，尝试使用不同的分辨率</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">其他</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">我应该设置成什么样的照片压缩率呢？</string>
+    <string name="faq_1_text">这取决于您的目标。对于大多数人的普通用途来说，建议使用 75%-80%，此时图片依然具有相当好的质量，但文件尺寸相比于 100% 时有非常巨大的缩减。</string>
+
+    <!-- Settings -->
+    <string name="save_photos">保存照片和视频至</string>
+    <string name="show_preview">在拍摄后显示照片预览</string>
+    <string name="shutter_sound">快门声音</string>
+    <string name="back_camera">后置相机分辨率</string>
+    <string name="front_camera">前置相机分辨率</string>
+    <string name="photo">照片</string>
+    <string name="video">视频</string>
+    <string name="focus_before_capture">拍摄前对焦</string>
+    <string name="volume_buttons_as_shutter">使用音量按键作为快门</string>
+    <string name="turn_flash_off_at_startup">在启动后关闭闪光灯</string>
+    <string name="flip_front_camera_photos_horizontally">水平对调前置相机</string>
+    <string name="keep_settings_visible">保持设定按钮可见</string>
+    <string name="always_open_back_camera">在打开应用程序时一直使用后置相机</string>
+    <string name="save_photo_metadata">保存照片 EXIF 元数据</string>
+    <string name="photo_compression_quality">照片压缩质量</string>
+    <string name="shutter">快门</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">简易相机 - 轻松拍摄照片 &amp; 视频</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">创建美妙回忆从未如此简单。提供一个不含广告的优雅界面。</string>
+    <string name="app_long_description">
+        这个易用的相机可用于轻松的拍摄照片和视频录制。您可以快速切换前置和后置相机、修改保存路径或者限定分辨率。您将再也不会错失生命中的关键时刻。它具有各种有用的设定让它变得更加个性化，符合您的需求。让我们列举其中的一些。
+
+        闪光灯可以被设置为开或者关，或者当作手电筒使用，并不是太常见。您可以捏住屏幕来缩放或者切换水平调换来捕获精美的人像照片。
+
+        您可以轻松的通过几下点击更改分辨率、质量或者比率，就像你对于现代的相机应用所期待的那样。这适用于照片和视频。
+
+        在拍摄一张图片后您可以查看照片的缩略图，点击它您可以快速在您偏好的图库中打开。您会在照片拍摄时看到清晰的提示，确保文件已被保存。
+
+        如果您想要通过点按您设备的硬件相机按钮来启动这个简单的相机，您可能需要按照 设定 -> 应用程序 -> 相机 -> 禁用 的方式禁用内建的相机应用。
+
+        如果您偏好质量胜过速度，您可以启用一个选项相机的拍摄前总是对焦，来保证结果总是清晰的。
+
+        您可以配置它使用音量按键当作快门，或者在启动时默认打开闪光灯。
+
+        它具备多种其他设定比如快门声、闪光灯、照片元数据和照片质量等。输出文件的路径也可以自定义，于是您可以决定您想要文件保存的地方。它支持内部存储和 SD 卡。
+
+        它遵循质感设计且默认应用黑暗模式，提供便于使用的极佳的用户体验。相对于其他应用，不包含互联网访问给予您更佳的隐私、保密性和稳定性。
+
+        不包含广告及非必要的权限，而且完全开放源代码，并提供自定义颜色。
+
+        <b>于此查看简易工具系列全套:</b>
+        https://www.simplemobiletools.com
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
