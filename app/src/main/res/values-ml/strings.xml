@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">ക്യാമറ</string>
+    <string name="camera_unavailable">ക്യാമറ ലഭ്യമല്ല</string>
+    <string name="camera_open_error">ക്യാമറ ആക്‌സസ് ചെയ്യുന്നതിൽ ഒരു പിശക് സംഭവിച്ചു</string>
+    <string name="video_creating_error">വീഡിയോ ഫയൽ സൃഷ്ടിക്കുന്നതിൽ ഒരു പിശക് സംഭവിച്ചു</string>
+    <string name="video_mode_error">വീഡിയോ മോഡിലേക്ക് മാറുന്നതിൽ പരാജയപ്പെട്ടു</string>
+    <string name="save_error_internal_storage">ഒരു പിശക് സംഭവിച്ചു, സേവ് ഫോൾഡർ ഇന്റെർണൽ സ്റ്റോറേജിലേക്കു മാറ്റി</string>
+    <string name="camera_switch_error">ക്യാമറ സ്വിച്ചുചെയ്യുന്നത് പരാജയപ്പെട്ടു</string>
+    <string name="click_to_resume_preview">പ്രിവ്യൂ പുനരാരംഭിക്കാൻ ചിത്രത്തിൽ ക്ലിക്കുചെയ്യുക</string>
+    <string name="photo_not_saved">ഫോട്ടോ സംരക്ഷിക്കാൻ കഴിഞ്ഞില്ല</string>
+    <string name="setting_resolution_failed">ശരിയായ റെസലൂഷൻ സജ്ജമാക്കാൻ പരാജയപ്പെട്ടു</string>
+    <string name="video_recording_failed">വീഡിയോ റെക്കോർഡിംഗ് പരാജയപ്പെട്ടു, മറ്റൊരു റെസലൂഷൻ ഉപയോഗിക്കുക</string>
+
+    <!-- Other aspect ratio -->
+    <string name="other">other</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">ഏത് ഫോട്ടോ കംപ്രഷനാണ് ഞാൻ ഉപയോഗിക്കേണ്ടത്?</string>
+    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+
+    <!-- Settings -->
+    <string name="save_photos">ഫോട്ടോകളും വീഡിയോകളും ഇതിലേക്ക് സംരക്ഷിക്കുക</string>
+    <string name="show_preview">ക്യാപ്‌ചർ ചെയ്‌തതിന് ശേഷം ഒരു ഫോട്ടോ പ്രിവ്യൂ കാണിക്കുക</string>
+    <string name="shutter_sound">ഷട്ടർ ശബ്ദം</string>
+    <string name="back_camera">പിന്നിലേ ക്യാമറയുടെ റെസലൂഷൻ</string>
+    <string name="front_camera">മുൻ ക്യാമറയുടെ റെസലൂഷൻ</string>
+    <string name="photo">ഫോട്ടോ</string>
+    <string name="video">വീഡിയോ</string>
+    <string name="focus_before_capture">ഫോട്ടോ എടുക്കുന്നതിനു മുമ്പ് ഫോക്കസ് ചെയ്യുക </string>
+    <string name="volume_buttons_as_shutter">വോളിയം ബട്ടണുകൾ ഷട്ടറായി ഉപയോഗിക്കുക</string>
+    <string name="turn_flash_off_at_startup">ആരംഭത്തിൽ ഫ്ലാഷ് ഓഫ് ചെയ്യുക</string>
+    <string name="flip_front_camera_photos_horizontally">മുൻ ക്യാമറ ഫോട്ടോകൾ തിരശ്ചീനമായി ഫ്ലിപ്പുചെയ്യുക</string>
+    <string name="keep_settings_visible">ക്രമീകരണ ബട്ടൺ ദൃശ്യമാക്കുക </string>
+    <string name="always_open_back_camera">എല്ലായ്പ്പോഴും പുറകിലെ ക്യാമറ ഉപയോഗിച്ച് അപ്ലിക്കേഷൻ തുറക്കുക</string>
+    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="photo_compression_quality">ഫോട്ടോ കംപ്രഷൻ ക്വാളിറ്റി</string>
+    <string name="shutter">ഷട്ടർ</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">ഒരു നല്ല ഇന്റർഫേസുള്ള ലളിതമായ കാമറ ആപ്പ്.</string>
+    <string name="app_long_description">
+        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
+
+        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
+
+        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
+
+        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
+
+        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+
+        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
+
+        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
+
+        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
