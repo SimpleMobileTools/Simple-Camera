@@ -630,27 +630,27 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
         try {
             mCaptureSession!!.stopRepeating()
-        } catch (ignored: Exception) {
-        }
 
-        mPreviewRequestBuilder!!.apply {
-            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
-            mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
+            mPreviewRequestBuilder!!.apply {
+                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
+                mCaptureSession!!.capture(build(), mCaptureCallback, mBackgroundHandler)
 
-            // touch-to-focus inspired by OpenCamera
-            if (mCameraCharacteristics?.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF)!! >= 1) {
-                val focusArea = getFocusArea(x, y)
-                val sensorRect = mCameraCharacteristics!!.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)!!
-                val meteringRect = convertAreaToMeteringRectangle(sensorRect, focusArea)
-                set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(meteringRect))
+                // touch-to-focus inspired by OpenCamera
+                if (mCameraCharacteristics?.get(CameraCharacteristics.CONTROL_MAX_REGIONS_AF)!! >= 1) {
+                    val focusArea = getFocusArea(x, y)
+                    val sensorRect = mCameraCharacteristics!!.get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE)!!
+                    val meteringRect = convertAreaToMeteringRectangle(sensorRect, focusArea)
+                    set(CaptureRequest.CONTROL_AF_REGIONS, arrayOf(meteringRect))
+                }
+
+                set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+                set(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_AUTO)
+                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
+                setTag(FOCUS_TAG)
+                mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
+                set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
             }
-
-            set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-            set(CaptureRequest.CONTROL_AF_MODE, CameraMetadata.CONTROL_AF_MODE_AUTO)
-            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START)
-            setTag(FOCUS_TAG)
-            mCaptureSession!!.capture(build(), captureCallbackHandler, mBackgroundHandler)
-            set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_IDLE)
+        } catch (ignored: Exception) {
         }
     }
 
