@@ -57,5 +57,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.28.3'
+    implementation 'com.simplemobiletools:commons:5.30.12'
+    implementation 'androidx.documentfile:documentfile:1.0.1'
 }
