@@ -9,6 +9,10 @@
         android:required="true"/>
 
     <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false"/>
+
+    <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false"/>
 
