@@ -3,40 +3,40 @@
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Cámara</string>
     <string name="camera_unavailable">Cámara non dispoñible</string>
-    <string name="camera_open_error">Fallou o acceso a cámara</string>
+    <string name="camera_open_error">Fallou o acceso á cámara</string>
     <string name="video_creating_error">Fallou a creación do ficheiro de vídeo</string>
-    <string name="video_mode_error">Non se puido mudar ao modo de vídeo</string>
-    <string name="save_error_internal_storage">Algo fallou, o cartafol para gardar fotos mudou ao almacenamento interno</string>
-    <string name="camera_switch_error">Fallou o cambio de cámara</string>
-    <string name="click_to_resume_preview">Pulse na imaxe para voltar a vista previa</string>
-    <string name="photo_not_saved">Non se puido gardar a fotografía</string>
+    <string name="video_mode_error">Non se puido mudar ao modo vídeo</string>
+    <string name="save_error_internal_storage">Algo fallou: o cartafol para gardar fotos mudou ao almacenamento interno</string>
+    <string name="camera_switch_error">Fallou o cambio á cámara</string>
+    <string name="click_to_resume_preview">Preme na imaxe para volver a vista previa</string>
+    <string name="photo_not_saved">Non se puido gardar a foto</string>
     <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="video_recording_failed">Fallou gravación do vídeo; inténtao de novo usando unha resolución diferente</string>
 
     <!-- Other aspect ratio -->
     <string name="other">outro</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">Qué calidade de compresión debo escoller para a foto?</string>
-    <string name="faq_1_text">Depende do obxetivo. Para uso xeral a maioría de usuarias recomenda 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drásticamente comparado co 100%.</string>
+    <string name="faq_1_title">Que calidade de compresión debo escoller para a foto?</string>
+    <string name="faq_1_text">Depende do obxectivo. Para uso xeral a maioría das persoas usuarias recomendan entre un 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drasticamente comparado co 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Gardar fotos e videos en</string>
     <string name="show_preview">Mostrar unha vista previa da foto tras a captura</string>
-    <string name="shutter_sound">Son do disparador</string>
+    <string name="shutter_sound">Son do obturador</string>
     <string name="back_camera">Resolucións da cámara traseira</string>
     <string name="front_camera">Resolucións da cámara frontal</string>
     <string name="photo">Foto</string>
     <string name="video">Vídeo</string>
     <string name="focus_before_capture">Enfocar antes da captura</string>
-    <string name="volume_buttons_as_shutter">Utilizar botóns de volume como disparador</string>
+    <string name="volume_buttons_as_shutter">Utilizar botóns de volume como disparadores</string>
     <string name="turn_flash_off_at_startup">Flash apagado ao inicio</string>
     <string name="flip_front_camera_photos_horizontally">Xirar horizontalmente as fotos da cámara frontal</string>
-    <string name="keep_settings_visible">Manter visibles os botóns de axustes</string>
+    <string name="keep_settings_visible">Manter visibles os botóns dos axustes</string>
     <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
-    <string name="save_photo_metadata">Gardar metadatos exif da foto</string>
+    <string name="save_photo_metadata">Gardar metadatos EXIF da foto</string>
     <string name="photo_compression_quality">Calidade da compresión da foto</string>
-    <string name="shutter">Disparador</string>
+    <string name="shutter">Obturador</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
@@ -44,27 +44,27 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
     <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
+        Esta cámara pódese usar tanto para sacar fotos como para gravar vídeos. Podes cambiar rapidamente entre a cámara dianteira e a traseira, modificar a ruta para gardar ou limitar a resolución. Hai outros moitos axustes dispoñibles que o farán máis persoal se cabe e adaptado ás túas necesidades. Algúns deles son:
 
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
+        O flash pode activarse e desactivarse ou usalo como unha lanterna. Podes ampliar e reducir ou alternar cara a unha imaxe horizontal cos dedos mentres sacas fotos.
 
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
+        Podes cambiar a resolución, calidade ou proporción premendo unhas poucas veces, tanto para fotos como para vídeos.
 
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
+        Despois de sacar unha foto, verás unha miniatura dela, que premendo nela lévate a abrila na Galería. Verás unha indicación clara de cando a foto se está capturando, garantindo que o ficheiro se gardou.
 
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Se queres iniciar esta cámara premendo no botón da cámara do teu dispositivo/hardware, terás que desactivar a compilación no aplicativo da Cámara en Axustes -> Aplicativos -> Cámara -> Desactivar.
 
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
+        No caso de que prefiras calidade por riba da velocidade, podes activar unha opción para enfocar sempre a cámara antes de sacar unha foto para que teñas a certeza de que o resultado vai saír ben.
 
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
+        Pódelo configurar para usar os botóns de volume como obturador ou activar a lanterna por defecto ao inicio.
 
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
+        Ten outros múltiples axustes relacionados co son do obturador, flash, metadatos da foto, calidade da foto, etc. A ruta da foto pode personalizarse; así, podes decidir onde queres gardar os teus ficheiros multimedia. Dá soporte tanto ao almacenamento interno como á tarxeta SD.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        E, por último, ten un deseño material e tema escuro por defecto, fornece unha boa experiencia de usuario ao ser fácil de usar. Ao non ter que acceder a Internet, tes máis privacidade, seguridade e estabilidade que outros aplicativos.
    
-        Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade, ten cores personalizados.
+        Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade e ten cores personalizables.
    
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Visite a nosa páxina a través desta ligazón:</b>
         https://www.simplemobiletools.com
 
         <b>Facebook:</b>
