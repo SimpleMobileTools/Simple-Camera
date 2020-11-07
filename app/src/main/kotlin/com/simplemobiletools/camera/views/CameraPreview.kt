@@ -577,6 +577,10 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mRotationAtCapture = mActivity.mLastHandledOrientation
             val jpegOrientation = (mSensorOrientation + compensateDeviceRotation(mRotationAtCapture)) % 360
             val captureBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE).apply {
+                if (mImageReader!!.surface == null) {
+                    return
+                }
+
                 addTarget(mImageReader!!.surface)
                 setFlashAndExposure(this)
                 set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
@@ -605,7 +609,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 abortCaptures()
                 capture(captureBuilder.build(), captureCallback, null)
             }
-        } catch (e: CameraAccessException) {
+        } catch (e: Exception) {
             mActivity.showErrorToast("Capture picture $e")
         }
     }
@@ -845,7 +849,12 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                 updatePreview()
                 mIsRecording = true
                 mActivity.runOnUiThread {
-                    mMediaRecorder?.start()
+                    try {
+                        mMediaRecorder?.start()
+                    } catch (e: Exception) {
+                        mActivity.showErrorToast(e)
+                        mCameraState = STATE_PREVIEW
+                    }
                 }
                 mActivity.setRecordingState(true)
                 mCameraState = STATE_RECORDING

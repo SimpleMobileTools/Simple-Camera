@@ -9,8 +9,12 @@ class MyCameraImpl(val context: Context) {
 
     fun getBackCameraId() = CameraCharacteristics.LENS_FACING_BACK
 
-    fun getCountOfCameras(): Int {
-        val manager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        return manager.cameraIdList.size
+    fun getCountOfCameras(): Int? {
+        return try {
+            val manager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            manager.cameraIdList.size
+        } catch (e: Exception) {
+            null
+        }
     }
 }

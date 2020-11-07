@@ -448,7 +448,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     }
 
     private fun showToggleCameraIfNeeded() {
-        toggle_camera?.beInvisibleIf(mCameraImpl.getCountOfCameras() <= 1)
+        toggle_camera?.beInvisibleIf(mCameraImpl.getCountOfCameras() ?: 1 <= 1)
     }
 
     private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
