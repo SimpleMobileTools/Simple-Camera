@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Simple Camera</string>
+    <string name="app_launcher_name">Cámara Simple</string>
     <string name="camera_unavailable">Cámara no disponible</string>
     <string name="camera_open_error">Ha ocurrido un error al acceder a la cámara</string>
     <string name="video_creating_error">Ha ocurrido un error creando el archivo de vídeo</string>
@@ -40,31 +40,31 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Cámara Simple - Captura fotos y videos fácilmente</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
+    <string name="app_short_description">Crear recuerdos nunca había sido tan fácil. Una excelente interfaz sin anuncios</string>
     <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
+        Esta práctica cámara es usable para tomar fotos y grabar videos. Puedes cambiar entre cámara frontal y trasera rápidamente, modificar la ruta de guardado o limitar la resolución. Nunca perderás los momentos importantes en tu vida. Hay varios ajustes útiles disponibles para ahcerla más personal, ajustada a tus necesidades. Listemos algunas de ellas.
 
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
+        El flash puede ser encendido o apagado, o usado como una útil linterna, lo cual no es visto a menudo. Puedes pellizcar la pantalla para acercar o alejar, o alternar en imagen horizontal girando durante la captura para tomar fantásticos retratos.
 
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
+        Puedes cambiar la resolución de salida, calidad relación de aspecto fácilmente con solo unos toques, como esperarías de una aplicación de cámara moderna. Esto aplica tanto a fotos como a videos.
 
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
+        Después de tomar una foto verás la miniatura de la nueva foto, y presionándola podrás abrirla rápidamente en tu galería preferida. Verás una indicación clara cuando la foto se capture, garantizando que el archivo ha sido guardado.
 
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Si quieres abrir esta cámara sencilla el botón de cámara de tu dispositivo, puede que tengas que deshabilitar la aplicaciónn de cámara incluida en Ajustes -> Aplicaciones -> Cámara -> Deshabilitar.
 
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
+        En caso de que prefieras calidad sobre velocidad, puedes habilitar una opción para siempre enfocar la cámara antes de tomar una foto, para asegurar que el resultado sea claro como el cristal.
 
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
+        Puedes configurar el usar los botones de volúmen como disparador, o encender el flash por defecto al iniciar.
 
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
+        Tiene muchas otras opciones relacionadas al sonido del obturados, flash, metadatos de fotos, calidad de fotografías, etc. La ruta del archivo de salida puede ser personalizada, así puedes decidir dónde quieres que tus archivos sean guardados. Soporta tanto almacenamiento interno como tarjetas SD.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Incluye diseño material y tema obscuro por defecto, provee una gran experiencia de usuario para uso sencillo. La falta del acceso a internet te da más privacidad, seguridad y estabilidad que otras aplicaciones.
 
-        No contiene publicidad ni permisos innecesarios. Es totalmente libre, proporciona colores personalizables.
+        No contiene anuncios o permisos innecesarios. Es completamente de código abierto, provee colores personalizables.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Mira la suite completa de herramientas Simples aquí:</b>
         https://www.simplemobiletools.com
 
         <b>Facebook:</b>
