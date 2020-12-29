@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.3.0 *(2020-12-29)*
+----------------------------
+
+ * Adding some translation and stability improvements
+ * Require Simple Thank You purchase for customizing the app colors
+
 Version 5.2.3 *(2020-11-07)*
 ----------------------------
 
