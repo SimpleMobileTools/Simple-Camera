@@ -821,52 +821,23 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mMediaActionSound.play(MediaActionSound.START_VIDEO_RECORDING)
         }
 
-        val texture = mTextureView.surfaceTexture
-        texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
-        mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
-            set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_VIDEO_RECORD)
-            set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
-        }
-
-        val surfaces = ArrayList<Surface>()
-        val previewSurface = Surface(texture)
-        surfaces.add(previewSurface)
-        mPreviewRequestBuilder!!.addTarget(previewSurface)
-
         try {
+            val texture = mTextureView.surfaceTexture
+            texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
+            mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
+                set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_VIDEO_RECORD)
+                set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, getFrameRange())
+            }
+
+            val surfaces = ArrayList<Surface>()
+            val previewSurface = Surface(texture)
+            surfaces.add(previewSurface)
+            mPreviewRequestBuilder!!.addTarget(previewSurface)
+
             val recorderSurface = mMediaRecorder!!.surface
             surfaces.add(recorderSurface)
             mPreviewRequestBuilder!!.addTarget(recorderSurface)
-        } catch (e: Exception) {
-            mActivity.showErrorToast(e)
-            mCameraState = STATE_PREVIEW
-            return
-        }
-
-        val captureCallback = object : CameraCaptureSession.StateCallback() {
-            override fun onConfigured(session: CameraCaptureSession) {
-                mCaptureSession = session
-                updatePreview()
-                mIsRecording = true
-                mActivity.runOnUiThread {
-                    try {
-                        mMediaRecorder?.start()
-                    } catch (e: Exception) {
-                        mActivity.showErrorToast(e)
-                        mCameraState = STATE_PREVIEW
-                    }
-                }
-                mActivity.setRecordingState(true)
-                mCameraState = STATE_RECORDING
-            }
-
-            override fun onConfigureFailed(session: CameraCaptureSession) {
-                mCameraState = STATE_PREVIEW
-            }
-        }
-
-        try {
-            mCameraDevice!!.createCaptureSession(surfaces, captureCallback, mBackgroundHandler)
+            mCameraDevice!!.createCaptureSession(surfaces, getCameraCaptureCallback(), mBackgroundHandler)
         } catch (e: Exception) {
             mActivity.showErrorToast(e)
             mCameraState = STATE_PREVIEW
@@ -898,6 +869,32 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             }.start()
             mActivity.setRecordingState(false)
         }
+    }
+
+    private fun getCameraCaptureCallback(): CameraCaptureSession.StateCallback {
+        val callback = object : CameraCaptureSession.StateCallback() {
+            override fun onConfigured(session: CameraCaptureSession) {
+                mCaptureSession = session
+                updatePreview()
+                mIsRecording = true
+                mActivity.runOnUiThread {
+                    try {
+                        mMediaRecorder?.start()
+                    } catch (e: Exception) {
+                        mActivity.showErrorToast(e)
+                        mCameraState = STATE_PREVIEW
+                    }
+                }
+                mActivity.setRecordingState(true)
+                mCameraState = STATE_RECORDING
+            }
+
+            override fun onConfigureFailed(session: CameraCaptureSession) {
+                mCameraState = STATE_PREVIEW
+            }
+        }
+
+        return callback
     }
 
     private fun getAvailableVideoSizes(configMap: StreamConfigurationMap) = configMap.getOutputSizes(MediaRecorder::class.java).filter {
