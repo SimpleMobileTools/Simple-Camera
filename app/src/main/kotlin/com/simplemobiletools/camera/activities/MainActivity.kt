@@ -99,7 +99,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         if (mPreview?.getCameraState() == STATE_PICTURE_TAKEN) {
             toast(R.string.photo_not_saved)
         }
-        mPreview?.onPaused()
+
+        ensureBackgroundThread {
+            mPreview?.onPaused()
+        }
     }
 
     override fun onDestroy() {
