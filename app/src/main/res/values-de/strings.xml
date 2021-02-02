@@ -44,27 +44,27 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
     <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
+        Diese App kann sowohl Fotos als auch Videos aufnehmen. Du kannst schnell zwischen Front- und Rückkamera wechseln, die Auflösung verändern und den Speicherpfad verändern. Du wirst niemals die wichtigen Momente deines Lebens vermissen. Es gibt viele hilfreiche Einstellungen, um die App an deinen Bedürfnissen anzupassen. Listen wir mal ein paar von denen auf:
 
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
+        Der Blitz kann an- oder ausgeschaltet werden und somit als Taschenlampe fungieren - dies gibt es nicht so häufig. Du kannst mit deinen Fingern rein- und rauszoomen oder zu horizontalen Bildern wechseln, um fantastische Portrait-Fotos zu erstellen.
 
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
+        Du kannst die Outputauflösung, -qualität und das Seitenverhältnis mit wenigen Klicks anpassen; genauso, wie du es von einer modernen Kamera-App erwarten würdest. Dies gilt sowohl für Fotos, als auch für Videos.
 
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
+        Nachdem du ein Foto aufgenommen hast, wirst du das neue Vorschaubild sehen. Drückst du drauf, öffnet sich das Bild in deiner Gallery. Du wirst einen deutlichen Hinweis sehen, wenn das Foto aufgenommen wird, um zu garantieren, dass die Datei gespeichert worden ist.
 
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        Möchtest du diese App öffnen, indem du den Hardware-Knopf deines Smartphones drückst, musst du ggf. die eingebaute Kamera-App deaktivieren: Einstellungen -> Apps -> Kamera -> Deaktivieren.
 
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
+        Für den Fall, dass dir Qualität wichtiger ist, als die Geschwindigkeit, kannst du eine Option aktivieren, um die Kamera immer zu fokusieren bevor ein Bild gemacht wird, um sicher zu gehen, dass das Ergebnis kristallklar sein wird.
 
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
+        Du kannst es so konfigurieren, dass es die Lautstärke Tasten als Auslöser verwendet oder um die Taschenlampe standardmäßig beim Appstart zu aktivieren.
 
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
+        Es gibt viele weitere Einstellungen, die den Auslöseton, Blitz, Bildmetadaten, Fotoqualität usw betreffen. Der Output-Pfad kann angepasst werden, sodass du entscheiden kannst, wo die Datei gespeichert werden soll. Internerspeicher und SD-Karte werden unterstützt.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Es kommt standardmäßig mit material design und Dunkelmodus, um großartige Nutzererfahrung und einfache Nutzung zu ermöglichen. Da die App keinen Internetzugriff hat, bietet sie mehr Datenschutz, Sicherheit und Stabilität als andere Apps.
 
         Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Entdecke die gesamte Serie an schlichten Apps hier:</b>
         https://www.simplemobiletools.com
 
         <b>Facebook:</b>
