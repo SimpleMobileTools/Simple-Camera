@@ -4,11 +4,11 @@ import android.annotation.TargetApi
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Environment
+import androidx.exifinterface.media.ExifInterface
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.config
@@ -22,7 +22,7 @@ import java.io.OutputStream
 
 class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean,
                      val isThirdPartyIntent: Boolean) :
-        AsyncTask<ByteArray, Void, String>() {
+    AsyncTask<ByteArray, Void, String>() {
 
     @TargetApi(Build.VERSION_CODES.N)
     override fun doInBackground(vararg params: ByteArray): String {
@@ -78,7 +78,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
             }
 
             val orient = exif?.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)
-                    ?: ExifInterface.ORIENTATION_UNDEFINED
+                ?: ExifInterface.ORIENTATION_UNDEFINED
 
             val imageRot = orient.degreesFromOrientation()
 
