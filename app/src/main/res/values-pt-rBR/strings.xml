@@ -10,15 +10,15 @@
     <string name="camera_switch_error">Falha ao mudar de câmera</string>
     <string name="click_to_resume_preview">Clique na imagem para resumir a pré-visualização</string>
     <string name="photo_not_saved">A foto não pôde ser salva</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
+    <string name="setting_resolution_failed">Falha no ajuste da resolução</string>
+    <string name="video_recording_failed">Falha na gravação de vídeo. Tente alterar a resoluçãon</string>
 
     <!-- Other aspect ratio -->
     <string name="other">outra</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_title">Que qualidade de compressão de imagem devo definir?</string>
+    <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Salvar fotos e vídeos em</string>
@@ -35,7 +35,7 @@
     <string name="keep_settings_visible">Manter o botão de configurações visível</string>
     <string name="always_open_back_camera">Sempre abrir o app com a câmera traseira</string>
     <string name="save_photo_metadata">Salvar metadados exif com a foto</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
+    <string name="photo_compression_quality">Qualidade de compresão de imagem</string>
     <string name="shutter">Shutter</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
