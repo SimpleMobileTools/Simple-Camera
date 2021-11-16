@@ -3,23 +3,20 @@
     <string name="app_name">Semplice Fotocamera</string>
     <string name="app_launcher_name">Fotocamera</string>
     <string name="camera_unavailable">Fotocamera non disponibile</string>
-    <string name="camera_open_error">Impossibile accedere alla fotocamera</string>
-    <string name="video_creating_error">Impossibile creare file video</string>
+    <string name="camera_open_error">Impossibile accedere alla telecamera</string>
+    <string name="video_creating_error">Impossibile creare il file video</string>
     <string name="video_mode_error">Impossibile passare alla modalità video</string>
-    <string name="save_error_internal_storage">C\'è stato un errore, la cartella di salvataggio è stata spostata nella memoria interna</string>
-    <string name="camera_switch_error">Impossibile cambiare fotocamera</string>
+    <string name="save_error_internal_storage">Si è verificato un errore perché la cartella di archiviazione è passata all\'archiviazione interna</string>
+    <string name="camera_switch_error">Impossibile cambiare telecamera</string>
     <string name="click_to_resume_preview">Premere sull\'immagine per riprendere l\'anteprima</string>
     <string name="photo_not_saved">Impossibile salvare la foto</string>
     <string name="setting_resolution_failed">Impossibile impostare la giusta risoluzione</string>
     <string name="video_recording_failed">Impossibile registrare video, provare a utilizzare una risoluzione differente</string>
-
     <!-- Other aspect ratio -->
     <string name="other">altro</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Che qualità di compressione dovrei impostare?</string>
     <string name="faq_1_text">Dipende dal proprio obiettivo. In genere si consiglia di utilizzare una qualità del 75%-80%, in modo che l\'immagine sia ancora di ottima qualità, ma la dimensione del file viene ridotta drasticamente rispetto al 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Salva foto e video in</string>
     <string name="show_preview">Mostra un\'anteprima della foto dopo averla scattata</string>
@@ -33,47 +30,16 @@
     <string name="turn_flash_off_at_startup">Spengi il flash all\'avvio</string>
     <string name="flip_front_camera_photos_horizontally">Rovescia orrizontalmente le foto scattate dalla fotocamera frontale</string>
     <string name="keep_settings_visible">Mantieni il pulsante delle impostazioni visibile</string>
-    <string name="always_open_back_camera">All\'avvio apri la fotocamera posteriore</string>
-    <string name="save_photo_metadata">Salva i metadati exif</string>
+    <string name="always_open_back_camera">Apri sempre l\'app con la fotocamera posteriore</string>
+    <string name="save_photo_metadata">Salva i metadati Exif nelle foto</string>
     <string name="photo_compression_quality">Qualità della compressione delle foto</string>
     <string name="shutter">Otturatore</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Fotocamera semplice – Cattura foto e video facilmente</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
-    <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
-
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
-
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
-
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
-
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
-
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
-
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
-
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        L\'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Crea ricordi non è mai stato così facile. Bella interfaccia senza pubblicità.</string>
+    <string name="app_long_description"> Questa pratica fotocamera è utilizzabile sia per scattare foto che per registrare video. È possibile passare rapidamente dalla fotocamera anteriore a quella posteriore, modificare il percorso di salvataggio o limitare la risoluzione. Non perderai mai i momenti importanti della tua vita. Ci sono molte impostazioni utili disponibili per renderlo ancora più personale, adatto alle vostre esigenze. Elenchiamone alcune. Il flash può essere acceso e spento o usato come un\'utile torcia, cosa che non si vede spesso. È possibile pizzicare lo schermo per ingrandire e rimpicciolire o attivare lo scambio di immagini orizzontali durante la cattura di fantastici ritratti. Si può facilmente cambiare la risoluzione di uscita, la qualità o il rapporto d\'aspetto con pochi clic, come ci si aspetta da una moderna app per fotocamera. Questo vale sia per le foto che per i video. Dopo aver scattato una foto vedrai la nuova miniatura della foto, premendo la quale potrai aprirla rapidamente nella tua galleria preferita. Vedrete una chiara indicazione di quando la foto viene catturata, garantendo che il file è stato salvato. Se vuoi lanciare questa facile fotocamera premendo il pulsante della fotocamera hardware del tuo dispositivo, potresti dover disabilitare l\'app Camera integrata in Impostazioni -&gt; Applicazioni -&gt; Fotocamera -&gt; Disattiva. Nel caso in cui si preferisca la qualità alla velocità, è possibile attivare un\'opzione per mettere sempre a fuoco la fotocamera prima di scattare una foto, per assicurarsi che il risultato sia cristallino. È possibile configurarlo per utilizzare i pulsanti del volume come un otturatore, o per attivare la torcia elettrica di default all\'avvio. Ha molte altre impostazioni relative al suono dell\'otturatore, al flash, ai metadati delle foto, alla qualità delle foto, ecc. Il percorso del file di output può essere personalizzato, così potrete decidere dove volete che i vostri media siano salvati. Supporta sia la memoria interna che le schede SD. Viene fornito con material design e tema scuro per impostazione predefinita, fornisce una grande esperienza utente per un facile utilizzo. La mancanza di accesso a internet ti dà più privacy, sicurezza e stabilità rispetto ad altre app. Non contiene annunci o permessi inutili. È completamente opensource, fornisce colori personalizzabili. <b>Scopri la suite completa di Simple Tools qui:</b> https://www.simplemobiletools.com <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
