@@ -3,23 +3,20 @@
     <string name="app_name">Simple Caméra</string>
     <string name="app_launcher_name">Caméra</string>
     <string name="camera_unavailable">Caméra indisponible</string>
-    <string name="camera_open_error">Une erreur est survenue lors de l\'accès à la caméra</string>
-    <string name="video_creating_error">Une erreur est survenue lors de la création du fichier vidéo</string>
-    <string name="video_mode_error">Échec lors du passage vers le mode vidéo</string>
-    <string name="save_error_internal_storage">Une erreur est survenue, le dossier de sauvegarde a été changé vers la mémoire interne</string>
-    <string name="camera_switch_error">La permutation de caméra a échouée</string>
+    <string name="camera_open_error">Impossible d\'accéder à l\'appareil photo</string>
+    <string name="video_creating_error">Impossible de créer le fichier vidéo</string>
+    <string name="video_mode_error">Impossible de passer en mode vidéo</string>
+    <string name="save_error_internal_storage">Une erreur s\'est produite parce que le dossier de stockage a été changé en stockage interne</string>
+    <string name="camera_switch_error">Impossible de changer d\'appareil photo</string>
     <string name="click_to_resume_preview">Cliquez sur l\'image pour reprendre l\'aperçu</string>
-    <string name="photo_not_saved">La photo ne peut pas être sauvegardée</string>
+    <string name="photo_not_saved">La photo n\'a pas pu être enregistrée</string>
     <string name="setting_resolution_failed">La définition de la résolution a échoué</string>
-    <string name="video_recording_failed">L\'enregistrement vidéo a échoué, essayez d\'utiliser une résolution différente.</string>
-
+    <string name="video_recording_failed">L\'enregistrement vidéo a échoué, essayez d\'utiliser une résolution différente</string>
     <!-- Other aspect ratio -->
     <string name="other">autre</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos ?</string>
     <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80%, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
     <string name="show_preview">Apercevoir la photo après la prise</string>
@@ -33,47 +30,16 @@
     <string name="turn_flash_off_at_startup">Désactiver le flash au démarrage</string>
     <string name="flip_front_camera_photos_horizontally">Inverser horizontalement les images de la caméra avant</string>
     <string name="keep_settings_visible">Garder visible les boutons de réglage</string>
-    <string name="always_open_back_camera">Toujours ouvrir l\'application avec la caméra arrière</string>
-    <string name="save_photo_metadata">Sauvegarder les méta-données exif de la photo</string>
+    <string name="always_open_back_camera">Toujours ouvrir l\'application avec l\'appareil photo arrière</string>
+    <string name="save_photo_metadata">Enregistrer les métadonnées Exif dans les photos</string>
     <string name="photo_compression_quality">Qualité des photos</string>
     <string name="shutter">Obturateur</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Appareil photo simple – faites facilement des photos et des vidéos</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
-    <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
-
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
-
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
-
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
-
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
-
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
-
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
-
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        L\'application ne contient ni publicités ni autorisations inutiles. Elle est totalement OpenSource et possède aussi un thème sombre.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Créer des souvenirs n\'a jamais été aussi facile. Interface agréable sans publicité.</string>
+    <string name="app_long_description"> Cet appareil photo pratique permet de prendre facilement des photos et d\'enregistrer des vidéos. Vous pouvez rapidement basculer entre la caméra avant et arrière, modifier le chemin d\'enregistrement ou limiter la résolution. Vous ne manquerez jamais les moments importants de votre vie. De nombreux paramètres utiles sont disponibles pour rendre l\'appareil encore plus personnel, adapté à vos besoins. En voici quelques-uns. Le flash peut être activé et désactivé ou utilisé comme une lampe de poche utile, ce que l\'on ne voit pas souvent. Vous pouvez pincer l\'écran pour effectuer un zoom avant et arrière ou activer la permutation horizontale des images pendant la capture de fantastiques photos de portrait. Vous pouvez facilement modifier la résolution de sortie, la qualité ou le rapport hauteur/largeur en quelques clics, comme vous pouvez l\'attendre d\'une application appareil photo moderne. Cela s\'applique aussi bien aux photos qu\'aux vidéos. Après avoir pris une photo, vous verrez la nouvelle vignette de la photo, en appuyant sur laquelle vous pouvez rapidement l\'ouvrir dans votre galerie préférée. Vous verrez une indication claire du moment où la photo a été prise, garantissant que le fichier a été enregistré. Si vous souhaitez lancer cet appareil photo facile en appuyant sur le bouton de l\'appareil photo matériel de votre appareil, vous devrez peut-être désactiver l\'application Appareil photo intégrée dans Paramètres - &gt; Apps - &gt; Appareil photo - &gt; Désactiver. Si vous préférez la qualité à la vitesse, vous pouvez activer une option permettant de toujours faire la mise au point de l\'appareil photo avant de prendre une photo, afin de vous assurer que le résultat est limpide. Vous pouvez le configurer pour utiliser les boutons de volume comme un obturateur, ou pour allumer la lampe de poche par défaut au démarrage. Il dispose de plusieurs autres paramètres liés au son de l\'obturateur, au flash, aux métadonnées des photos, à la qualité des photos, etc. Le chemin du fichier de sortie peut être personnalisé, de sorte que vous pouvez décider de l\'endroit où vous souhaitez enregistrer vos médias. Il prend en charge à la fois le stockage interne et les cartes SD. Il est livré avec un design matériel et un thème sombre par défaut, offrant une grande expérience utilisateur pour une utilisation facile. L\'absence d\'accès à Internet vous donne plus de confidentialité, de sécurité et de stabilité que les autres applications. Ne contient pas de publicités ou de permissions inutiles. Il est entièrement libre, fournit des couleurs personnalisables. <b>Découvrez la suite complète de Simple Tools ici :</b> https://www.simplemobiletools.com <b>Facebook :</b> https://www.facebook.com/simplemobiletools <b>Reddit :</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
