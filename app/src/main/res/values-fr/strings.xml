@@ -9,7 +9,7 @@
     <string name="save_error_internal_storage">Une erreur s\'est produite parce que le dossier de stockage a été changé en stockage interne</string>
     <string name="camera_switch_error">Impossible de changer d\'appareil photo</string>
     <string name="click_to_resume_preview">Cliquez sur l\'image pour reprendre l\'aperçu</string>
-    <string name="photo_not_saved">La photo n\'a pas pu être enregistrée</string>
+    <string name="photo_not_saved">Impossible d\'enregistrer la photo</string>
     <string name="setting_resolution_failed">La définition de la résolution a échoué</string>
     <string name="video_recording_failed">L\'enregistrement vidéo a échoué, essayez d\'utiliser une résolution différente</string>
     <!-- Other aspect ratio -->
