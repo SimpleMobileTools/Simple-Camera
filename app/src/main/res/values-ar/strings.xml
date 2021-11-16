@@ -3,23 +3,20 @@
     <string name="app_name">الكاميرا البسيطة</string>
     <string name="app_launcher_name">الكاميرا</string>
     <string name="camera_unavailable">الكاميرا غير متاحة</string>
-    <string name="camera_open_error">حدث خطأ أثناء الدخول إلى الكاميرا</string>
-    <string name="video_creating_error">حدث خطأ أثناء إنشاء ملف الفيديو</string>
-    <string name="video_mode_error">أخفق التبديل إلى وضع الفيديو</string>
-    <string name="save_error_internal_storage">حدث خطأ، تم تغيير مجلد الحفظ إلى وحدة التخزين الداخلية</string>
-    <string name="camera_switch_error">أخفق تبديل الكاميرا</string>
+    <string name="camera_open_error">تعذر الوصول إلى الكاميرا</string>
+    <string name="video_creating_error">تعذر إنشاء ملف الفيديو</string>
+    <string name="video_mode_error">تعذر التبديل إلى وضع الفيديو</string>
+    <string name="save_error_internal_storage">حدث خطأ بسبب تغيير مجلد التخزين إلى التخزين الداخلي</string>
+    <string name="camera_switch_error">تعذر تبديل الكاميرا</string>
     <string name="click_to_resume_preview">انقر على الصورة لاستئناف المعاينة</string>
     <string name="photo_not_saved">تعذر حفظ الصورة</string>
-    <string name="setting_resolution_failed">Setting proper resolution failed</string>
-    <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
-
+    <string name="setting_resolution_failed">فشل إعداد الدقة المناسبة</string>
+    <string name="video_recording_failed">فشل تسجيل الفيديو ، حاول استخدام دقة مختلفة</string>
     <!-- Other aspect ratio -->
     <string name="other">آخرى</string>
-
     <!-- FAQ -->
-    <string name="faq_1_title">What photo compression quality should I set?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
-
+    <string name="faq_1_title">ما هي جودة ضغط الصور التي يجب تعيينها؟</string>
+    <string name="faq_1_text">ذلك يعتمد على هدفك. لأغراض عامة ينصح معظم الناس باستخدام 75٪ -80٪، عندما تكون الصورة لا تزال ذات نوعية جيدة حقا، ولكن يتم تقليل حجم الملف بشكل كبير مقارنة مع 100٪.</string>
     <!-- Settings -->
     <string name="save_photos">حفظ الصور ومقاطع الفيديو إلى</string>
     <string name="show_preview">عرض معاينة الصورة بعد التقاطها</string>
@@ -33,47 +30,16 @@
     <string name="turn_flash_off_at_startup">إيقاف تشغيل الفلاش عند بدء التشغيل</string>
     <string name="flip_front_camera_photos_horizontally">قلب صور الكاميرا الأمامية أفقيا</string>
     <string name="keep_settings_visible">إبقاء أزرار الإعداد مرئيا</string>
-    <string name="always_open_back_camera">دائما فتح التطبيق مع الكاميرا الخلفية</string>
+    <string name="always_open_back_camera">افتح التطبيق دائمًا بالكاميرا الخلفية</string>
     <string name="save_photo_metadata">حفظ بيانات الصورة الوصفية</string>
-    <string name="photo_compression_quality">Photo compression quality</string>
-    <string name="shutter">Shutter</string>
-
+    <string name="photo_compression_quality">جودة ضغط الصور</string>
+    <string name="shutter">الغالق</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">كاميرا بسيطة - التقط الصور ومقاطع الفيديو بسهولة</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
-    <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
-
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
-
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
-
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
-
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
-
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
-
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
-
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">إنشاء الذكريات لم يكن أسهل من أي وقت مضى. واجهة جميلة بدون إعلانات.</string>
+    <string name="app_long_description">" .هذه الكاميرا سهلة الاستخدام قابلة للاستخدام في التقاط الصور وتسجيل الفيديو بسهولة. يمكنك التبديل بسرعة بين الكاميرا الأمامية والخلفية أو تعديل مسار الحفظ أو الحد من الدقة. لن تفوتك أبدًا اللحظات المهمة في حياتك. هناك العديد من الإعدادات المفيدة المتاحة لجعلها أكثر خصوصية ومناسبة لاحتياجاتك. دعنا نسرد بعض منهم. يمكن تشغيل الفلاش وإيقاف تشغيله أو استخدامه كمصباح يدوي مفيد ، والذي لا يُرى كثيرًا. يمكنك الضغط على الشاشة للتكبير والتصغير أو تبديل تبديل الصورة الأفقية أثناء التقاط صور بورتريه رائعة. يمكنك بسهولة تغيير دقة الإخراج أو الجودة أو نسبة العرض إلى الارتفاع ببضع نقرات ، كما تتوقع من تطبيق كاميرا حديث. هذا ينطبق على كل من الصور ومقاطع الفيديو. بعد التقاط صورة ، سترى الصورة المصغرة الجديدة للصورة ، بالضغط عليها يمكنك فتحها بسرعة في معرض الصور المفضل لديك. سترى إشارة واضحة لوقت التقاط الصورة ، مما يضمن حفظ الملف. إذا كنت ترغب في تشغيل هذه الكاميرا السهلة عند الضغط على زر الكاميرا في الجهاز ، فقد تضطر إلى تعطيل تطبيق الكاميرا المدمج في الإعدادات - &amp;gt; التطبيقات - &amp;gt; الكاميرا - &amp;gt; تعطيل. في حال كنت تفضل الجودة على السرعة ، يمكنك تمكين خيار تركيز الكاميرا دائمًا قبل التقاط الصورة ، للتأكد من أن النتيجة واضحة تمامًا. يمكنك تكوينه لاستخدام أزرار الصوت كغالق ، أو لتشغيل المصباح بشكل افتراضي عند بدء التشغيل. يحتوي على العديد من الإعدادات الأخرى المتعلقة بصوت الغالق والفلاش والبيانات الوصفية للصورة وجودة الصورة وما إلى ذلك. يمكن تخصيص مسار ملف الإخراج ، بحيث يمكنك تحديد المكان الذي تريد حفظ الوسائط فيه. يدعم كلاً من التخزين الداخلي وبطاقات SD. يأتي بتصميم مادي وسمة داكنة بشكل افتراضي ، مما يوفر تجربة مستخدم رائعة لسهولة الاستخدام. يمنحك نقص الوصول إلى الإنترنت مزيدًا من الخصوصية والأمان والاستقرار مقارنة بالتطبيقات الأخرى. لا يحتوي على إعلانات أو أذونات غير ضرورية. إنه مفتوح المصدر بالكامل ، ويوفر ألوانًا قابلة للتخصيص. &lt;b&gt; تحقق من المجموعة الكاملة من الأدوات البسيطة &lt;/b&gt;هنا:https://www.simplemobiletools.com &lt;b&gt; Facebook: &lt;/b&gt; https://www.facebook.com/simplemobiletools &lt;b&gt; Reddit: &lt;b&gt; https://www.reddit.com/r/SimpleMobileTools "</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
