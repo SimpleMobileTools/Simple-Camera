@@ -12,17 +12,14 @@
     <string name="photo_not_saved">Foto kon niet worden opgeslagen</string>
     <string name="setting_resolution_failed">Instellen van resolutie is mislukt</string>
     <string name="video_recording_failed">Video-opname is mislukt, probeer nogmaals met een andere resolutie</string>
-
     <!-- Other aspect ratio -->
     <string name="other">Anders</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Welke kwaliteit voor foto\'s moet ik instellen?</string>
     <string name="faq_1_text">Voor normaal gebruik adviseren de meeste mensen een compressie van 75%-80%. De afbeelding zal dan nog steeds van goede kwaliteit zijn en de bestandsgrootte zal enorm veel kleiner zijn dan met 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Foto\'s en video\'s opslaan in</string>
-    <string name="show_preview">Voorbeeld tonen het na nemen van een foto</string>
+    <string name="show_preview">Voorbeeld tonen na het nemen van een foto</string>
     <string name="shutter_sound">Sluitergeluid</string>
     <string name="back_camera">Resoluties camera achterop</string>
     <string name="front_camera">Resoluties camera voorop</string>
@@ -37,7 +34,6 @@
     <string name="save_photo_metadata">EXIF-metadata in foto\'s opslaan</string>
     <string name="photo_compression_quality">Kwaliteit foto\'s</string>
     <string name="shutter">Sluiter</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Eenvoudige Camera - Maak supersnel foto\'s en video</string>
@@ -52,7 +48,7 @@
 
         Na het maken van een foto verschijnt het voorbeeld van de nieuwe foto. Een klik op het voorbeeld zal de foto in de Galerij openen. De app geeft een duidelijke indicatie wanneer de opname wordt gemaakt, zodat altijd duidelijk is dat de foto is opgeslagen.
 
-        Om deze app als standaard in te stellen wanneer gebruikgemaakt wordt van een speciale cameraknop op het apparaat, kan het nodig zijn om de ingebouwde Camera-app uit te schakelen via Instellingen -> Apps -> Camera -> Uitschakelen.
+        Om deze app als standaard in te stellen wanneer gebruikgemaakt wordt van een speciale cameraknop op het apparaat, kan het nodig zijn om de ingebouwde Camera-app uit te schakelen via Instellingen -&gt; Apps -&gt; Camera -&gt; Uitschakelen.
 
         Om altijd een haarscherpe foto te krijgen, kan de optie om vooraf scherp te stellen ingeschakeld worden. Dit zorgt voor een kleine vertraging bij het maken van de foto.
 
@@ -73,7 +69,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
