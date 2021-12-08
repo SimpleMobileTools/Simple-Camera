@@ -3,23 +3,20 @@
     <string name="app_name">Schlichte Kamera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
-    <string name="camera_open_error">Beim Zugriff auf die Kamera ist ein Fehler aufgetreten</string>
-    <string name="video_creating_error">Beim Erstellen der Videodatei ist ein Fehler aufgetreten</string>
-    <string name="video_mode_error">Beim Umschalten zum Videomodus ist ein Fehler aufgetreten</string>
-    <string name="save_error_internal_storage">Ein Fehler ist aufgetreten. Speicherordner wurde auf den internen Speicher gesetzt</string>
-    <string name="camera_switch_error">Kamerawechsel fehlgeschlagen</string>
+    <string name="camera_open_error">Kein Zugriff auf die Kamera möglich</string>
+    <string name="video_creating_error">Die Videodatei konnte nicht erstellt werden</string>
+    <string name="video_mode_error">Konnte nicht in den Videomodus wechseln</string>
+    <string name="save_error_internal_storage">Es ist ein Fehler aufgetreten, weil der Speicherordner in den internen Speicher geändert wurde</string>
+    <string name="camera_switch_error">Kamera kann nicht umgeschaltet werden</string>
     <string name="click_to_resume_preview">Klicke auf das Bild, um bei der Vorschau zu bleiben</string>
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
     <string name="setting_resolution_failed">Korrekte Auflösung konnte nicht eingestellt werden</string>
     <string name="video_recording_failed">Videoaufzeichnung fehlgeschlagen, probiere eine andere Auflösung aus</string>
-
     <!-- Other aspect ratio -->
     <string name="other">andere</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Was für eine Fotokomprimierungsqualität soll ich einstellen?</string>
     <string name="faq_1_text">Das hängt von deinem Ziel ab. Für allgemeine Zwecke empfehlen die meisten 75 - 80 %, wodurch die Qualität immer noch sehr gut bleibt, aber die Dateigrösse drastisch reduziert ist im Vergleich zu 100 %.</string>
-
     <!-- Settings -->
     <string name="save_photos">Fotos und Videos speichern nach</string>
     <string name="show_preview">Vorschau des Fotos nach der Aufnahme anzeigen</string>
@@ -34,15 +31,14 @@
     <string name="flip_front_camera_photos_horizontally">Fotos der Frontkamera horizontal drehen</string>
     <string name="keep_settings_visible">Taste für Einstellungen immer sichtbar</string>
     <string name="always_open_back_camera">Anwendung immer mit der Rückkamera starten</string>
-    <string name="save_photo_metadata">Exif-Metadaten speichern</string>
+    <string name="save_photo_metadata">Exif-Metadaten in Fotos speichern</string>
     <string name="photo_compression_quality">Fotokomprimierungsqualität</string>
     <string name="shutter">Verschluss</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Einfache Kamera – Einfaches Aufnehmen von Fotos und Videos</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
+    <string name="app_short_description">Das Erstellen von Erinnerungen war noch nie so einfach. Schöne Oberfläche ohne Werbung.</string>
     <string name="app_long_description">
         Diese App kann sowohl Fotos als auch Videos aufnehmen. Du kannst schnell zwischen Front- und Rückkamera wechseln, die Auflösung verändern und den Speicherpfad verändern. Du wirst niemals die wichtigen Momente deines Lebens vermissen. Es gibt viele hilfreiche Einstellungen, um die App an deinen Bedürfnissen anzupassen. Listen wir mal ein paar von denen auf:
 
@@ -52,7 +48,7 @@
 
         Nachdem du ein Foto aufgenommen hast, wirst du das neue Vorschaubild sehen. Drückst du drauf, öffnet sich das Bild in deiner Gallery. Du wirst einen deutlichen Hinweis sehen, wenn das Foto aufgenommen wird, um zu garantieren, dass die Datei gespeichert worden ist.
 
-        Möchtest du diese App öffnen, indem du den Hardware-Knopf deines Smartphones drückst, musst du ggf. die eingebaute Kamera-App deaktivieren: Einstellungen -> Apps -> Kamera -> Deaktivieren.
+        Möchtest du diese App öffnen, indem du den Hardware-Knopf deines Smartphones drückst, musst du ggf. die eingebaute Kamera-App deaktivieren: Einstellungen -&gt; Apps -&gt; Kamera -&gt; Deaktivieren.
 
         Für den Fall, dass dir Qualität wichtiger ist, als die Geschwindigkeit, kannst du eine Option aktivieren, um die Kamera immer zu fokusieren bevor ein Bild gemacht wird, um sicher zu gehen, dass das Ergebnis kristallklar sein wird.
 
@@ -73,7 +69,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

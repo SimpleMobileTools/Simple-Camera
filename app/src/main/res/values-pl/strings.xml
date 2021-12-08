@@ -1,79 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Prosty aparat</string>
-    <string name="app_launcher_name">Prosty aparat</string>
+    <string name="app_launcher_name">Aparat</string>
     <string name="camera_unavailable">Aparat niedostępny</string>
-    <string name="camera_open_error">Wystąpił błąd podczas uzyskiwania dostępu do aparatu</string>
-    <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku wideo</string>
-    <string name="video_mode_error">Przejście do trybu nagrywania filmów nie powidodło się</string>
-    <string name="save_error_internal_storage">Wystąpił błąd, zmieniam folder roboczy na pamięć wewnętrzną</string>
-    <string name="camera_switch_error">Przełączenie kamery nie powiodło się</string>
-    <string name="click_to_resume_preview">Kliknij obraz, aby wznowić podgląd</string>
+    <string name="camera_open_error">Nie udało się uzyskać dostępu do aparatu</string>
+    <string name="video_creating_error">Nie udało się utworzyć pliku wideo</string>
+    <string name="video_mode_error">Nie udało się przełączyć na tryb wideo</string>
+    <string name="save_error_internal_storage">Wystąpił błąd, ponieważ folder przechowywania został zmieniony na pamięć wewnętrzną</string>
+    <string name="camera_switch_error">Nie udało się przełączyć aparatu</string>
+    <string name="click_to_resume_preview">Naciśnij obraz, aby wznowić podgląd</string>
     <string name="photo_not_saved">Nie udało się zapisać zdjęcia</string>
     <string name="setting_resolution_failed">Nie udało się ustawić poprawnej rozdzielczości</string>
-    <string name="video_recording_failed">Nie udało się rozpocząć nagrywania. Spróbuj zmienić rozdzielczość.</string>
-
+    <string name="video_recording_failed">Nie udało się rozpocząć nagrywania. Spróbuj użyć innej rozdzielczości.</string>
     <!-- Other aspect ratio -->
     <string name="other">inne</string>
-
     <!-- FAQ -->
-    <string name="faq_1_title">Jaki poziom kompresji ustawić?</string>
-    <string name="faq_1_text">Zależy to od rodzaju zdjęcia. Generalnie zalecany jest poziom 75-80% - stanowi on często dobry kompromis między jakością a rozmiarem zdjęcia.</string>
-
+    <string name="faq_1_title">Jaką jakość kompresji zdjęć powinienem ustawić\?</string>
+    <string name="faq_1_text">Zależy to od Twojego celu. Do celów ogólnych większość ludzi zaleca poziom 75-80% — wtedy obraz jest nadal w dobrej jakości, ale rozmiar pliku znacznie zmniejsza się w porównaniu do 100%.</string>
     <!-- Settings -->
     <string name="save_photos">Zapisuj zdjęcia i filmy w</string>
     <string name="show_preview">Pokazuj podgląd po zrobieniu zdjęcia</string>
     <string name="shutter_sound">Dźwięk migawki</string>
-    <string name="back_camera">Rozdzielczość tylnej kamery</string>
-    <string name="front_camera">Rozdzielczość przedniej kamery</string>
+    <string name="back_camera">Rozdzielczość tylnego aparatu</string>
+    <string name="front_camera">Rozdzielczość przedniego aparatu</string>
     <string name="photo">Zdjęcie</string>
     <string name="video">Film</string>
-    <string name="focus_before_capture">Łap ostrość przed zrobieniem zdjęcia</string>
+    <string name="focus_before_capture">Ustawiaj ostrość przed zrobieniem zdjęcia</string>
     <string name="volume_buttons_as_shutter">Używaj przycisków głośności jako spustu migawki</string>
-    <string name="turn_flash_off_at_startup">Wyłącz lampę błyskową podczas uruchamiania</string>
-    <string name="flip_front_camera_photos_horizontally">Przewracaj poziomo zdjęcia z przedniej kamery</string>
-    <string name="keep_settings_visible">Pozostawiaj widoczne przyciski ustawień</string>
-    <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączoną tylną kamerą</string>
-    <string name="save_photo_metadata">Zapisuj dane EXIF w zdjęciach</string>
-    <string name="photo_compression_quality">Poziom kompresji zdjęć</string>
+    <string name="turn_flash_off_at_startup">Wyłączaj lampę błyskową przy uruchomieniu</string>
+    <string name="flip_front_camera_photos_horizontally">Odbijaj lustrzanie zdjęcia z przedniego aparatu</string>
+    <string name="keep_settings_visible">Pozostawiaj przyciski ustawień widoczne</string>
+    <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączonym tylnym aparatem</string>
+    <string name="save_photo_metadata">Zapisuj metadane EXIF w zdjęciach</string>
+    <string name="photo_compression_quality">Jakość kompresji zdjęć</string>
     <string name="shutter">Migawka</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Prosty aparat - Łatwo rób zdjęcia i nagrywaj filmy</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
-    <string name="app_long_description">
-        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
-
-        The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos.
-
-        You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos.
-
-        After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
-
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
-
-        In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
-
-        You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
-
-        It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Aplikacja nie zawiera żadnych reklam ani niepotrzebnych uprawnień. Jest też w pełni otawrtoźrodłowa.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Tworzenie wspomnień nigdy nie było łatwiejsze. Ładny interfejs bez reklam</string>
+    <string name="app_long_description"> Ten poręczny aparat może być używany zarówno do robienia zdjęć, jak i nagrywania filmów. Możesz szybko przełączać się między przednią i tylną kamerą, zmieniać ścieżkę zapisywania lub ograniczać rozdzielczość. Nigdy nie przegapisz najważniejszych chwil w swoim życiu. Jest w nim dostępnych wiele pomocnych ustawień, które sprawią, że będzie jeszcze bardziej osobisty i dostosowany do Twoich potrzeb. Wymieńmy kilka z nich. Lampa błyskowa może być włączana lub wyłączana albo użyta jako przydatna latarka, co nie jest często spotykane. Możesz wykonać gest zsunięcia palców na ekranie, aby powiększyć lub oddalić albo odbić lustrzanie zdjęcia podczas robienia wspaniałych portretów. Możesz łatwo zmienić wynikową rozdzielczość, jakość czy proporcje ekranu w parę kliknięć, tak jak spodziewałbyś/spodziewałabyś się po nowoczesnej aplikacji aparatu. Działa to zarówno na zdjęcia, jak i filmy. Po zrobieniu zdjęcia zobaczysz jego miniaturkę, po naciśnięciu której otworzy się ono w preferowanej przez Ciebie galerii. Jeśli chcesz, aby ten prosty aparat uruchamiał się po naciśnięciu przycisku aparatu Twojego urządzenia, będziesz prawdopodobnie musiał(a) wyłączyć wbudowaną aplikację aparatu w Ustawienia -&gt; Aplikacje -&gt; Aparat -&gt; Wyłącz. Jeśli ważniejsza jest dla Ciebie jakość od szybkości, możesz włączyć opcję ustawiania ostrości, aby aparat zawsze ustawiał ostrość przed zrobieniem zdjęcia — będziesz wtedy mieć pewność, że rezultat będzie idealny. Możesz skonfigurować aplikację, aby korzystała z przycisków głośności jako spustu migawki, albo żeby włączała latarkę przy uruchomieniu. Ma wiele opcji związanych z dźwiękiem migawki, lampą błyskową, metadanymi zdjęć, jakością zdjęć itd. Ścieżka wynikowa może być konfigurowana, abyś to Ty decydował(a), gdzie Twoje multimedia mają być zapisywane. Obsługuje zarówno pamięć wewnętrzną, jak i karty SD. Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje. Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę. <b>Sprawdź pełen zestaw od Simple Tools tutaj:</b> https://www.simplemobiletools.com <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
