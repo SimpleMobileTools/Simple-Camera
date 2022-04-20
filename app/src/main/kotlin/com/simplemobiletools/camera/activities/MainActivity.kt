@@ -46,10 +46,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
     var mLastHandledOrientation = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
@@ -194,7 +196,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(0, 0, 0, (navigationBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt())
+        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(
+            0,
+            0,
+            0,
+            (navigationBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt()
+        )
 
         checkVideoCaptureIntent()
         mPreview = CameraPreview(this, camera_texture_view, mIsInPhotoMode)
@@ -202,7 +209,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         checkImageCaptureIntent()
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
-        val imageDrawable = if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front_vector else R.drawable.ic_camera_rear_vector
+        val imageDrawable =
+            if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front_vector else R.drawable.ic_camera_rear_vector
         toggle_camera.setImageResource(imageDrawable)
 
         mFocusCircleView = FocusCircleView(applicationContext)

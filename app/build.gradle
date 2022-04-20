@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.simplemobiletools.camera"
-        minSdkVersion 21
+        minSdkVersion 29
         targetSdkVersion 31
         versionCode 77
         versionName "5.3.1"

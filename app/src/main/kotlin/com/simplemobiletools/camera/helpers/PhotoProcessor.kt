@@ -1,12 +1,10 @@
 package com.simplemobiletools.camera.helpers
 
-import android.annotation.TargetApi
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Environment
 import androidx.exifinterface.media.ExifInterface
 import com.simplemobiletools.camera.R
@@ -14,17 +12,17 @@ import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.isNougatPlus
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean,
-                     val isThirdPartyIntent: Boolean) :
+class PhotoProcessor(
+    val activity: MainActivity, val saveUri: Uri?, val deviceOrientation: Int, val previewRotation: Int, val isUsingFrontCamera: Boolean,
+    val isThirdPartyIntent: Boolean
+) :
     AsyncTask<ByteArray, Void, String>() {
 
-    @TargetApi(Build.VERSION_CODES.N)
     override fun doInBackground(vararg params: ByteArray): String {
         var fos: OutputStream? = null
         val path: String
@@ -86,9 +84,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
             var image = BitmapFactory.decodeByteArray(data, 0, data.size)
             val totalRotation = (imageRot + deviceRot + previewRotation) % 360
 
-            if (path.startsWith(activity.internalStoragePath) || isNougatPlus() && !isThirdPartyIntent) {
-                // do not rotate the image itself in these cases, rotate it by exif only
-            } else {
+            if (isThirdPartyIntent) {
                 // make sure the image itself is rotated at third party intents
                 image = rotate(image, totalRotation)
             }
@@ -109,7 +105,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
 
             try {
                 image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
-                if (!isThirdPartyIntent && isNougatPlus()) {
+                if (!isThirdPartyIntent) {
                     activity.saveImageRotation(path, totalRotation)
                 }
             } catch (e: Exception) {
@@ -118,7 +114,7 @@ class PhotoProcessor(val activity: MainActivity, val saveUri: Uri?, val deviceOr
             }
 
             if (activity.config.savePhotoMetadata && !isThirdPartyIntent) {
-                val exifInterface = if (path.startsWith(activity.internalStoragePath) || !isNougatPlus()) {
+                val exifInterface = if (path.startsWith(activity.internalStoragePath)) {
                     ExifInterface(path)
                 } else {
                     val documentFile = activity.getSomeDocumentFile(path)
