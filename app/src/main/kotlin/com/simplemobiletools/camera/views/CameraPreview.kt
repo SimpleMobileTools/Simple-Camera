@@ -155,12 +155,12 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         stopBackgroundThread()
     }
 
-    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
         closeCamera()
         openCamera(width, height)
     }
 
-    override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {}
+    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
 
     override fun onSurfaceTextureDestroyed(surface: SurfaceTexture) = true
 
@@ -359,7 +359,8 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                     configMap.getOutputSizes(SurfaceTexture::class.java)
                 }
 
-                mPreviewSize = chooseOptimalPreviewSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
+                mPreviewSize =
+                    chooseOptimalPreviewSize(outputSizes, rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, currentResolution)
 
                 mActivity.runOnUiThread {
                     mTextureView.setAspectRatio(mPreviewSize!!.height, mPreviewSize!!.width)
@@ -378,7 +379,14 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         }
     }
 
-    private fun chooseOptimalPreviewSize(choices: Array<Size>, textureViewWidth: Int, textureViewHeight: Int, maxWidth: Int, maxHeight: Int, selectedResolution: MySize): Size {
+    private fun chooseOptimalPreviewSize(
+        choices: Array<Size>,
+        textureViewWidth: Int,
+        textureViewHeight: Int,
+        maxWidth: Int,
+        maxHeight: Int,
+        selectedResolution: MySize
+    ): Size {
         val bigEnough = ArrayList<Size>()
         val notBigEnough = ArrayList<Size>()
         val bigEnoughIncorrectAR = ArrayList<Size>()
@@ -404,10 +412,10 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         }
 
         return when {
-            bigEnough.isNotEmpty() -> bigEnough.minBy { it.width * it.height }!!
-            notBigEnough.isNotEmpty() -> notBigEnough.maxBy { it.width * it.height }!!
-            bigEnoughIncorrectAR.isNotEmpty() -> bigEnoughIncorrectAR.minBy { it.width * it.height }!!
-            notBigEnoughIncorrectAR.isNotEmpty() -> notBigEnoughIncorrectAR.maxBy { it.width * it.height }!!
+            bigEnough.isNotEmpty() -> bigEnough.minByOrNull { it.width * it.height }!!
+            notBigEnough.isNotEmpty() -> notBigEnough.maxByOrNull { it.width * it.height }!!
+            bigEnoughIncorrectAR.isNotEmpty() -> bigEnoughIncorrectAR.minByOrNull { it.width * it.height }!!
+            notBigEnoughIncorrectAR.isNotEmpty() -> notBigEnoughIncorrectAR.maxByOrNull { it.width * it.height }!!
             else -> selectedResolution.toSize()
         }
     }
@@ -822,7 +830,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         }
 
         try {
-            val texture = mTextureView.surfaceTexture
+            val texture = mTextureView.surfaceTexture!!
             texture.setDefaultBufferSize(mPreviewSize!!.width, mPreviewSize!!.height)
             mPreviewRequestBuilder = mCameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
                 set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_VIDEO_RECORD)

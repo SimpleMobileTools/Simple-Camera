@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,14 +8,14 @@
     <com.simplemobiletools.camera.views.AutoFitTextureView
         android:id="@+id/camera_texture_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/capture_black_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0"
-        android:background="#000000" />
+        android:background="@color/md_grey_black" />
 
     <ImageView
         android:id="@+id/settings"
@@ -24,7 +23,7 @@
         android:layout_height="@dimen/icon_size"
         android:layout_alignParentRight="true"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_settings_cog"/>
+        android:src="@drawable/ic_settings_cog_vector" />
 
     <ImageView
         android:id="@+id/toggle_photo_video"
@@ -33,7 +32,7 @@
         android:layout_below="@+id/settings"
         android:layout_alignParentRight="true"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_video_vector"/>
+        android:src="@drawable/ic_video_vector" />
 
     <ImageView
         android:id="@+id/change_resolution"
@@ -42,7 +41,7 @@
         android:layout_below="@+id/toggle_photo_video"
         android:layout_alignParentRight="true"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_resolution_vector"/>
+        android:src="@drawable/ic_resolution_vector" />
 
     <ImageView
         android:id="@+id/last_photo_video_preview"
@@ -50,7 +49,7 @@
         android:layout_height="@dimen/icon_size"
         android:layout_below="@+id/change_resolution"
         android:layout_alignParentRight="true"
-        android:padding="@dimen/medium_margin"/>
+        android:padding="@dimen/medium_margin" />
 
     <LinearLayout
         android:id="@+id/btn_holder"
@@ -65,14 +64,14 @@
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
             android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_camera_front_vector"/>
+            android:src="@drawable/ic_camera_front_vector" />
 
         <ImageView
             android:id="@+id/shutter"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
-            android:src="@drawable/ic_shutter_vector"/>
+            android:src="@drawable/ic_shutter_vector" />
 
         <ImageView
             android:id="@+id/toggle_flash"
@@ -80,7 +79,7 @@
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
             android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_flash_off_vector"/>
+            android:src="@drawable/ic_flash_off_vector" />
 
     </LinearLayout>
 
@@ -92,6 +91,6 @@
         android:layout_centerHorizontal="true"
         android:text="00:00"
         android:textColor="@android:color/white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>
