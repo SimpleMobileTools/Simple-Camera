@@ -38,8 +38,28 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupPhotoQuality()
         updateTextColors(settings_holder)
-        setupSectionColors()
         invalidateOptionsMenu()
+
+        val properPrimaryColor = getProperPrimaryColor()
+        arrayListOf(
+            settings_color_customization_label,
+            settings_general_settings_label,
+            settings_shutter_label,
+            settings_startup_label,
+            settings_saving_label
+        ).forEach {
+            it.setTextColor(properPrimaryColor)
+        }
+
+        arrayOf(
+            settings_color_customization_holder,
+            settings_general_settings_holder,
+            settings_shutter_holder,
+            settings_startup_holder,
+            settings_saving_holder
+        ).forEach {
+            it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,15 +76,14 @@ class SettingsActivity : SimpleActivity() {
         return true
     }
 
-    private fun setupSectionColors() {
-        val properPrimaryColor = getProperPrimaryColor()
-        arrayListOf(shutter_label, startup_label, saving_label).forEach {
-            it.setTextColor(properPrimaryColor)
-        }
-    }
-
     private fun setupPurchaseThankYou() {
         settings_purchase_thank_you_holder.beGoneIf(isOrWasThankYouInstalled())
+
+        // make sure the corners at ripple fit the stroke rounded corners
+        if (settings_purchase_thank_you_holder.isGone()) {
+            settings_use_english_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+        }
+
         settings_purchase_thank_you_holder.setOnClickListener {
             launchPurchaseThankYouIntent()
         }
@@ -80,6 +99,11 @@ class SettingsActivity : SimpleActivity() {
     private fun setupUseEnglish() {
         settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
         settings_use_english.isChecked = config.useEnglish
+
+        if (settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone()) {
+            settings_keep_settings_visible_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+        }
+
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
@@ -91,9 +115,9 @@ class SettingsActivity : SimpleActivity() {
         val licenses = LICENSE_GLIDE
 
         val faqItems = arrayListOf(
-                FAQItem(R.string.faq_1_title, R.string.faq_1_text),
-                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons)
+            FAQItem(R.string.faq_1_title, R.string.faq_1_text),
+            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
+            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
@@ -187,17 +211,18 @@ class SettingsActivity : SimpleActivity() {
         updatePhotoQuality(config.photoQuality)
         settings_photo_quality_holder.setOnClickListener {
             val items = arrayListOf(
-                    RadioItem(100, "100%"),
-                    RadioItem(95, "95%"),
-                    RadioItem(90, "90%"),
-                    RadioItem(85, "85%"),
-                    RadioItem(80, "80%"),
-                    RadioItem(75, "75%"),
-                    RadioItem(70, "70%"),
-                    RadioItem(65, "65%"),
-                    RadioItem(60, "60%"),
-                    RadioItem(55, "55%"),
-                    RadioItem(50, "50%"))
+                RadioItem(100, "100%"),
+                RadioItem(95, "95%"),
+                RadioItem(90, "90%"),
+                RadioItem(85, "85%"),
+                RadioItem(80, "80%"),
+                RadioItem(75, "75%"),
+                RadioItem(70, "70%"),
+                RadioItem(65, "65%"),
+                RadioItem(60, "60%"),
+                RadioItem(55, "55%"),
+                RadioItem(50, "50%")
+            )
 
             RadioGroupDialog(this@SettingsActivity, items, config.photoQuality) {
                 config.photoQuality = it as Int
