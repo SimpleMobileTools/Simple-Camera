@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.os.Handler
 import android.view.ViewGroup
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.commons.extensions.getProperPrimaryColor
 
 class FocusCircleView(context: Context) : ViewGroup(context) {
     private val CIRCLE_RADIUS = 50f
@@ -22,7 +23,7 @@ class FocusCircleView(context: Context) : ViewGroup(context) {
         mHandler = Handler()
         mPaint = Paint().apply {
             style = Paint.Style.STROKE
-            color = context.config.primaryColor
+            color = context.getProperPrimaryColor()
             strokeWidth = 2f
         }
     }
