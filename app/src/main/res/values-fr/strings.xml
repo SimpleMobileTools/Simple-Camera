@@ -15,8 +15,8 @@
     <!-- Other aspect ratio -->
     <string name="other">autre</string>
     <!-- FAQ -->
-    <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos ?</string>
-    <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80%, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100%.</string>
+    <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos \?</string>
+    <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80 %, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100 %.</string>
     <!-- Settings -->
     <string name="save_photos">Sauvegarder les photos et vidéos vers</string>
     <string name="show_preview">Apercevoir la photo après la prise</string>
