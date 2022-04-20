@@ -29,10 +29,8 @@ class SettingsActivity : SimpleActivity() {
         setupUseEnglish()
         setupSound()
         setupVolumeButtonsAsShutter()
-        setupTurnFlashOffAtStartup()
         setupFlipPhotos()
         setupKeepSettingsVisible()
-        setupAlwaysOpenBackCamera()
         setupSavePhotoMetadata()
         setupSavePhotosFolder()
         setupPhotoQuality()
@@ -44,7 +42,6 @@ class SettingsActivity : SimpleActivity() {
             settings_color_customization_label,
             settings_general_settings_label,
             settings_shutter_label,
-            settings_startup_label,
             settings_saving_label
         ).forEach {
             it.setTextColor(properPrimaryColor)
@@ -54,7 +51,6 @@ class SettingsActivity : SimpleActivity() {
             settings_color_customization_holder,
             settings_general_settings_holder,
             settings_shutter_holder,
-            settings_startup_holder,
             settings_saving_holder
         ).forEach {
             it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
@@ -143,14 +139,6 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupTurnFlashOffAtStartup() {
-        settings_turn_flash_off_at_startup.isChecked = config.turnFlashOffAtStartup
-        settings_turn_flash_off_at_startup_holder.setOnClickListener {
-            settings_turn_flash_off_at_startup.toggle()
-            config.turnFlashOffAtStartup = settings_turn_flash_off_at_startup.isChecked
-        }
-    }
-
     private fun setupFlipPhotos() {
         settings_flip_photos.isChecked = config.flipPhotos
         settings_flip_photos_holder.setOnClickListener {
@@ -164,14 +152,6 @@ class SettingsActivity : SimpleActivity() {
         settings_keep_settings_visible_holder.setOnClickListener {
             settings_keep_settings_visible.toggle()
             config.keepSettingsVisible = settings_keep_settings_visible.isChecked
-        }
-    }
-
-    private fun setupAlwaysOpenBackCamera() {
-        settings_always_open_back_camera.isChecked = config.alwaysOpenBackCamera
-        settings_always_open_back_camera_holder.setOnClickListener {
-            settings_always_open_back_camera.toggle()
-            config.alwaysOpenBackCamera = settings_always_open_back_camera.isChecked
         }
     }
 

@@ -120,10 +120,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mCurrVideoRecTimer = 0
         mLastHandledOrientation = 0
         mCameraImpl = MyCameraImpl(applicationContext)
-
-        if (config.alwaysOpenBackCamera) {
-            config.lastUsedCamera = mCameraImpl.getBackCameraId().toString()
-        }
+        config.lastUsedCamera = mCameraImpl.getBackCameraId().toString()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -220,7 +217,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener {
         mFadeHandler = Handler()
         setupPreviewImage(true)
 
-        val initialFlashlightState = if (config.turnFlashOffAtStartup) FLASH_OFF else config.flashlightState
+        val initialFlashlightState = FLASH_OFF
         mPreview!!.setFlashlightState(initialFlashlightState)
         updateFlashlightState(initialFlashlightState)
     }

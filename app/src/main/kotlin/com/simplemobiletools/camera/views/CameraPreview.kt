@@ -27,7 +27,6 @@ import com.simplemobiletools.camera.dialogs.ChangeResolutionDialog
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.helpers.*
-import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.FocusArea
 import com.simplemobiletools.camera.models.MySize
@@ -113,8 +112,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             null
         }
 
-        val isFrontCamera = cameraCharacteristics?.get(CameraCharacteristics.LENS_FACING).toString() == MyCameraImpl(activity).getFrontCameraId().toString()
-        mUseFrontCamera = !activity.config.alwaysOpenBackCamera && isFrontCamera
+        mUseFrontCamera = false
         mIsInVideoMode = !initPhotoMode
         loadSounds()
 

@@ -29,10 +29,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(VOLUME_BUTTONS_AS_SHUTTER, false)
         set(volumeButtonsAsShutter) = prefs.edit().putBoolean(VOLUME_BUTTONS_AS_SHUTTER, volumeButtonsAsShutter).apply()
 
-    var turnFlashOffAtStartup: Boolean
-        get() = prefs.getBoolean(TURN_FLASH_OFF_AT_STARTUP, false)
-        set(turnFlashOffAtStartup) = prefs.edit().putBoolean(TURN_FLASH_OFF_AT_STARTUP, turnFlashOffAtStartup).apply()
-
     var flipPhotos: Boolean
         get() = prefs.getBoolean(FLIP_PHOTOS, true)
         set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
@@ -68,10 +64,6 @@ class Config(context: Context) : BaseConfig(context) {
     var keepSettingsVisible: Boolean
         get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)
         set(keepSettingsVisible) = prefs.edit().putBoolean(KEEP_SETTINGS_VISIBLE, keepSettingsVisible).apply()
-
-    var alwaysOpenBackCamera: Boolean
-        get() = prefs.getBoolean(ALWAYS_OPEN_BACK_CAMERA, false)
-        set(alwaysOpenBackCamera) = prefs.edit().putBoolean(ALWAYS_OPEN_BACK_CAMERA, alwaysOpenBackCamera).apply()
 
     var savePhotoMetadata: Boolean
         get() = prefs.getBoolean(SAVE_PHOTO_METADATA, true)
