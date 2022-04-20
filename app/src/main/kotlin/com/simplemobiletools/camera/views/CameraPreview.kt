@@ -909,8 +909,6 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         it.width <= MAX_VIDEO_WIDTH && it.height <= MAX_VIDEO_HEIGHT
     }
 
-    private fun shouldLockFocus() = mIsFocusSupported && mActivity.config.focusBeforeCapture
-
     override fun setTargetUri(uri: Uri) {
         mTargetUri = uri
     }
@@ -962,7 +960,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             return
         }
 
-        if (shouldLockFocus()) {
+        if (mIsFocusSupported) {
             lockFocus()
         } else {
             captureStillPicture()

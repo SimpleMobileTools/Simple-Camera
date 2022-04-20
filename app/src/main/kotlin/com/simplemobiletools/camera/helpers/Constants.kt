@@ -7,7 +7,6 @@ const val ORIENT_LANDSCAPE_RIGHT = 2
 // shared preferences
 const val SAVE_PHOTOS = "save_photos"
 const val SOUND = "sound"
-const val FOCUS_BEFORE_CAPTURE = "focus_before_capture_2"
 const val VOLUME_BUTTONS_AS_SHUTTER = "volume_buttons_as_shutter"
 const val TURN_FLASH_OFF_AT_STARTUP = "turn_flash_off_at_startup"
 const val FLIP_PHOTOS = "flip_photos"

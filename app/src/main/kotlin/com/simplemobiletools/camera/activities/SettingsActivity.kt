@@ -28,7 +28,6 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupUseEnglish()
         setupSound()
-        setupFocusBeforeCapture()
         setupVolumeButtonsAsShutter()
         setupTurnFlashOffAtStartup()
         setupFlipPhotos()
@@ -101,7 +100,7 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english.isChecked = config.useEnglish
 
         if (settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone()) {
-            settings_keep_settings_visible_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+            settings_keep_settings_visible_holder.background = resources.getDrawable(R.drawable.ripple_all_corners, theme)
         }
 
         settings_use_english_holder.setOnClickListener {
@@ -133,14 +132,6 @@ class SettingsActivity : SimpleActivity() {
         settings_sound_holder.setOnClickListener {
             settings_sound.toggle()
             config.isSoundEnabled = settings_sound.isChecked
-        }
-    }
-
-    private fun setupFocusBeforeCapture() {
-        settings_focus_before_capture.isChecked = config.focusBeforeCapture
-        settings_focus_before_capture_holder.setOnClickListener {
-            settings_focus_before_capture.toggle()
-            config.focusBeforeCapture = settings_focus_before_capture.isChecked
         }
     }
 
