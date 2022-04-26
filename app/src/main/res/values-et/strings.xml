@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_launcher_name">Kaamera</string>
+    <string name="camera_unavailable">Kaamera pole kasutatav</string>
+    <string name="camera_open_error">Kaameraühenduse loomisel tekki viga</string>
+    <string name="app_name">Lihtne kaamera</string>
+    <string name="video_mode_error">Videorežiimi vahetamine ei õnnestunud</string>
+    <string name="video_creating_error">Videofaili loomisel tekkis viga</string>
+</resources>
