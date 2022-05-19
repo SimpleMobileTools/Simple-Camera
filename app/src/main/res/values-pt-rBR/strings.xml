@@ -12,14 +12,11 @@
     <string name="photo_not_saved">A foto não pôde ser salva</string>
     <string name="setting_resolution_failed">Falha no ajuste da resolução</string>
     <string name="video_recording_failed">Falha na gravação de vídeo. Tente alterar a resoluçãon</string>
-
     <!-- Other aspect ratio -->
     <string name="other">outra</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir?</string>
     <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Salvar fotos e vídeos em</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>
@@ -36,13 +33,12 @@
     <string name="always_open_back_camera">Sempre abrir o app com a câmera traseira</string>
     <string name="save_photo_metadata">Salvar metadados exif com a foto</string>
     <string name="photo_compression_quality">Qualidade de compresão de imagem</string>
-    <string name="shutter">Shutter</string>
-
+    <string name="shutter">Obturador</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
+    <string name="app_title">Câmera simples - Capture fotos e vídeos facilmente</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
+    <string name="app_short_description">Criar memórias nunca foi tão fácil. Proporciona uma interface agradável, sem anúncios.</string>
     <string name="app_long_description">
         This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them.
 
@@ -52,7 +48,7 @@
 
         After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
 
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -&gt; Apps -&gt; Camera -&gt; Disable.
 
         In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
 
@@ -73,7 +69,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Não encontrou todas as cadeias a traduzir? Existem mais algumas em:
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
