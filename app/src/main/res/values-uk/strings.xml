@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Просто Камера</string>
+    <string name="app_name">Проста Камера</string>
     <string name="app_launcher_name">Камера</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Трапилася помилка під час доступу до камери</string>
