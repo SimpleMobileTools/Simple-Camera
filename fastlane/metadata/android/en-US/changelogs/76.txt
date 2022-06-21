@@ -1,2 +1,0 @@
- * Adding some translation and stability improvements
- * Require Simple Thank You purchase for customizing the app colors
