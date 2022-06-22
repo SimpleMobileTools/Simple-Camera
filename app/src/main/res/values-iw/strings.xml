@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="focus_before_capture">התמקד לפני צילום</string>
-    <string name="volume_buttons_as_shutter">השתמש בלחצני עוצמת הקול בתור תריס</string>
-    <string name="turn_flash_off_at_startup">כבה את הפלאש בעת ההפעלה</string>
-    <string name="flip_front_camera_photos_horizontally">הפוך את תמונות המצלמה הקדמית אופקית</string>
-    <string name="keep_settings_visible">השאר את לחצני ההגדרה גלויים</string>
-    <string name="always_open_back_camera">פתח את האפליקציה תמיד עם המצלמה האחורית</string>
-    <string name="shutter">תריס</string>
-    <string name="show_preview">הצג תצוגה מקדימה של תמונה לאחר הצילום</string>
     <string name="app_name">מצלמה פשוטה</string>
     <string name="app_launcher_name">מצלמה</string>
     <string name="camera_unavailable">המצלמה לא זמינה</string>
@@ -16,22 +8,36 @@
     <string name="video_mode_error">המעבר למצב וידאו נכשל</string>
     <string name="save_error_internal_storage">אירעה שגיאה, תיקיית השמירה שונתה לאחסון פנימי</string>
     <string name="camera_switch_error">החלפת מצלמה נכשלה</string>
-    <string name="shutter_sound">צליל תריס</string>
     <string name="click_to_resume_preview">לחץ על התמונה כדי לחדש את התצוגה המקדימה</string>
     <string name="photo_not_saved">לא ניתן היה לשמור את התמונה</string>
     <string name="setting_resolution_failed">הגדרת הרזולוציה המתאימה נכשלה</string>
     <string name="video_recording_failed">הקלטת הווידאו נכשלה, נסה להשתמש ברזולוציה אחרת</string>
+    <!-- Other aspect ratio -->
     <string name="other">אחר</string>
+    <!-- FAQ -->    
     <string name="faq_1_title">איזו איכות דחיסת תמונה עלי להגדיר\?</string>
     <string name="faq_1_text">זה תלוי במטרה שלך. למטרות כלליות רוב האנשים ממליצים להשתמש ב-75%-80%, כאשר התמונה עדיין באיכות טובה, אך גודל הקובץ מצטמצם באופן דרסטי בהשוואה ל-100%.</string>
+    <!-- Settings -->
     <string name="save_photos">שמור תמונות וסרטונים ב</string>
+    <string name="show_preview">הצג תצוגה מקדימה של תמונה לאחר הצילום</string>
+    <string name="shutter_sound">צליל תריס</string>
     <string name="back_camera">רזולוציות של מצלמה אחורית</string>
     <string name="front_camera">רזולוציות של מצלמה קדמית</string>
     <string name="photo">תמונה</string>
     <string name="video">וידיאו</string>
+    <string name="focus_before_capture">התמקד לפני צילום</string>
+    <string name="volume_buttons_as_shutter">השתמש בלחצני עוצמת הקול בתור תריס</string>
+    <string name="turn_flash_off_at_startup">כבה את הפלאש בעת ההפעלה</string>
+    <string name="flip_front_camera_photos_horizontally">הפוך את תמונות המצלמה הקדמית אופקית</string>
+    <string name="keep_settings_visible">השאר את לחצני ההגדרה גלויים</string>
+    <string name="always_open_back_camera">פתח את האפליקציה תמיד עם המצלמה האחורית</string>
     <string name="save_photo_metadata">שמור מטא נתונים של Exif של תמונה</string>
     <string name="photo_compression_quality">איכות דחיסת תמונה</string>
+    <string name="shutter">תריס</string>
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">מצלמה פשוטה - צלם תמונות וסרטונים בקלות</string>
+    <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">יצירת זיכרונות מעולם לא הייתה קלה יותר. מספק ממשק נחמד ללא פרסומות.</string>
     <string name="app_long_description"> מצלמה שימושית זו ניתנת לשימוש הן לצילום תמונות קל והן להקלטת וידאו. אתה יכול לעבור במהירות בין המצלמה הקדמית לאחורית, לשנות את נתיב השמירה או להגביל את הרזולוציה. לעולם לא תחמיץ את הרגעים החשובים בחייך. ישנן הגדרות מועילות רבות זמינות כדי להפוך אותו לאישי עוד יותר, מתאים לצרכים שלך. בואו נרשום כמה מהם. ניתן להפעיל ולכבות את הפלאש או להשתמש בו כפנס שימושי, שלא רואים לעתים קרובות. אתה יכול לצבוט את המסך כדי להתקרב ולהקטין או לשנות את החלפת התמונות האופקית במהלך צילום תמונות דיוקן פנטסטיות. אתה יכול לשנות בקלות את רזולוציית הפלט, האיכות או יחס הגובה-רוחב בכמה לחיצות, כפי שהיית מצפה מאפליקציית מצלמה מודרנית. זה תקף גם לתמונות וגם לסרטונים. לאחר צילום תמונה תראה את התמונה הממוזערת החדשה, על ידי לחיצה עליה תוכל לפתוח אותה במהירות בגלריה המועדפת עליך. תראה אינדיקציה ברורה מתי התמונה נלקחת, מה שמבטיח שהקובץ נשמר. אם ברצונך להפעיל את המצלמה הקלה הזו בלחיצה על כפתור מצלמת החומרה של המכשיר שלך, ייתכן שיהיה עליך להשבית את אפליקציית המצלמה המובנית בהגדרות -&gt; אפליקציות -&gt; מצלמה -&gt; השבת. במקרה שאתה מעדיף איכות על פני מהירות, אתה יכול לאפשר אפשרות למקד את המצלמה תמיד לפני צילום תמונה, כדי לוודא שהתוצאה ברורה. אתה יכול להגדיר אותו להשתמש בלחצני עוצמת הקול בתור תריס, או להדליק פנס כברירת מחדל בעת האתחול. יש לו מספר הגדרות אחרות הקשורות לצליל התריס, פלאש, מטא-נתונים של תמונה, איכות תמונה וכו\'. ניתן להתאים אישית את נתיב קובץ הפלט, כך שתוכל להחליט היכן תרצה לשמור את המדיה שלך. זה תומך גם באחסון הפנימי וגם בכרטיסי SD. זה מגיע עם עיצוב חומר וערכת נושא כהה כברירת מחדל, מספק חווית משתמש נהדרת לשימוש קל. היעדר גישה לאינטרנט נותן לך יותר פרטיות, אבטחה ויציבות מאשר אפליקציות אחרות. אינו מכיל פרסומות או הרשאות מיותרות. זה קוד פתוח לחלוטין, מספק צבעים הניתנים להתאמה אישית. <b>בדוק את החבילה המלאה של כלים פשוטים כאן:</b> https://www.simplemobiletools.com <b>פייסבוק:</b> https://www.facebook.com/simplemobiletools <b>Reddit :</b> https://www.reddit.com/r/SimpleMobileTools </string>
 </resources>
