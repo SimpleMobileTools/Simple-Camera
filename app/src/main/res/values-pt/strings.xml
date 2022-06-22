@@ -12,8 +12,6 @@
     <string name="photo_not_saved">A foto não pôde ser salva</string>
     <string name="setting_resolution_failed">Falha no ajuste da resolução</string>
     <string name="video_recording_failed">Falha na gravação de vídeo. Tente alterar a resoluçãon</string>
-    <!-- Other aspect ratio -->
-    <string name="other">outra</string>
     <!-- FAQ -->
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir?</string>
     <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>

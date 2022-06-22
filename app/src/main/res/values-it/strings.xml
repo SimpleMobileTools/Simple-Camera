@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Impossibile salvare la foto</string>
     <string name="setting_resolution_failed">Impossibile impostare la giusta risoluzione</string>
     <string name="video_recording_failed">Impossibile registrare video, provare a utilizzare una risoluzione differente</string>
-    <!-- Other aspect ratio -->
-    <string name="other">altro</string>
     <!-- FAQ -->
     <string name="faq_1_title">Che qualità di compressione dovrei impostare?</string>
     <string name="faq_1_text">Dipende dal proprio obiettivo. In genere si consiglia di utilizzare una qualità del 75%-80%, in modo che l\'immagine sia ancora di ottima qualità, ma la dimensione del file viene ridotta drasticamente rispetto al 100%.</string>

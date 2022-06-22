@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Не вдалося зберегти фото</string>
     <string name="setting_resolution_failed">Не вдалося встановити правильне розширення</string>
     <string name="video_recording_failed">Не вдалося записати відео, спробуйте встановити інше розширення</string>
-    <!-- Other aspect ratio -->
-    <string name="other">інше</string>
     <!-- FAQ -->
     <string name="faq_1_title">Який ступінь стиснення фото слід встановити?</string>
     <string name="faq_1_text">Це залежить від вашої мети. Загалом більшість людей радять використовувати 75%-80%, тоді зображення ще дійсно гарної якості, але розмір файлу істотно зменшується порівняно зі 100%.</string>

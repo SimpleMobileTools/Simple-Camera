@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
     <string name="setting_resolution_failed">Det gick inte att ställa in den valda upplösningen</string>
     <string name="video_recording_failed">Videoinspelningen misslyckades, prova med en annan upplösning</string>
-    <!-- Other aspect ratio -->
-    <string name="other">annat</string>
     <!-- FAQ -->
     <string name="faq_1_title">Vilken kvalitet för fotokomprimering ska jag ställa in\?</string>
     <string name="faq_1_text">Det beror på ditt mål. För generiska ändamål rekommenderar de flesta att man använder 75-80 %, då bilden fortfarande har riktigt bra kvalitet, men filstorleken minskar drastiskt jämfört med 100 %.</string>

@@ -12,8 +12,6 @@
     <string name="photo_not_saved">无法保存照片</string>
     <string name="setting_resolution_failed">设定分辨率失败</string>
     <string name="video_recording_failed">视频录制失败，将尝试其他分辨率</string>
-    <!-- Other aspect ratio -->
-    <string name="other">其他</string>
     <!-- FAQ -->
     <string name="faq_1_title">我应该选用怎样的照片压缩率呢？</string>
     <string name="faq_1_text">这取决于您的目的。对大多数人的一般用途来说，建议使用 75%-80%，此时图片仍有不错的品质，而文件大小相比 100% 时大幅减小。</string>

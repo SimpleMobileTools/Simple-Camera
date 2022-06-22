@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Nepodařilo se nastavit správné rozlišení</string>
     <string name="video_recording_failed">Nahrávání videa selhalo, zkuste použít jiné rozlišení</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">jiné</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Jakou kvalitu fotek bych měl použít?</string>
     <string name="faq_1_text">Záleží to na vášem cíli. Pro obecné účely doporučuje většina lidí 75%-80%, kdy je kvalita fotek stále vysoká, ale výsledný soubor má o mnoho menší velikost v porovnání se 100% kvalitou.</string>

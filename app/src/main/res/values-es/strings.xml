@@ -12,8 +12,6 @@
     <string name="photo_not_saved">No se pudo guardar la imagen</string>
     <string name="setting_resolution_failed">Falló la configuración de la resolución apropiada</string>
     <string name="video_recording_failed">Grabación de video fallida, intenta usar una diferente resolución</string>
-    <!-- Other aspect ratio -->
-    <string name="other">otro</string>
     <!-- FAQ -->
     <string name="faq_1_title">¿Qué calidad de compresión de foto debería establecer?</string>
     <string name="faq_1_text">Depende de tu objetivo. Para propósitos generales, la mayoría de las personas aconsejan usar 75%-80%, y la imagen seguirá siendo de calidad realmente buena, pero el tamaño del archivo es reducido drásticamente comparado con el 100%.</string>

@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
     <string name="video_recording_failed">Fallou gravación do vídeo; inténtao de novo usando unha resolución diferente</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">outro</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Que calidade de compresión debo escoller para a foto?</string>
     <string name="faq_1_text">Depende do obxectivo. Para uso xeral a maioría das persoas usuarias recomendan entre un 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drasticamente comparado co 100%.</string>

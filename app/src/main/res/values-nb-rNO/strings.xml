@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Kunne ikke lagre bildet</string>
     <string name="setting_resolution_failed">Kunne ikke sette riktig oppløsning</string>
     <string name="video_recording_failed">Videoopptak mislyktes. Prøv å bruke en annen oppløsning.</string>
-    <!-- Other aspect ratio -->
-    <string name="other">annet</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hvilket bildekomprimeringsnivå bør jeg bruke\?</string>
     <string name="faq_1_text">Det avhenger av hva du vil. Til alminnelige formål anbefales 75%-80%. Fremdeles god kvalitet, men vesentlig redusert filstørrelse sammenlignet med 100%.</string>

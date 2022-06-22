@@ -12,9 +12,7 @@
     <string name="photo_not_saved">לא ניתן היה לשמור את התמונה</string>
     <string name="setting_resolution_failed">הגדרת הרזולוציה המתאימה נכשלה</string>
     <string name="video_recording_failed">הקלטת הווידאו נכשלה, נסה להשתמש ברזולוציה אחרת</string>
-    <!-- Other aspect ratio -->
-    <string name="other">אחר</string>
-    <!-- FAQ -->    
+    <!-- FAQ -->
     <string name="faq_1_title">איזו איכות דחיסת תמונה עלי להגדיר\?</string>
     <string name="faq_1_text">זה תלוי במטרה שלך. למטרות כלליות רוב האנשים ממליצים להשתמש ב-75%-80%, כאשר התמונה עדיין באיכות טובה, אך גודל הקובץ מצטמצם באופן דרסטי בהשוואה ל-100%.</string>
     <!-- Settings -->

@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
     <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">その他</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>
     <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質ですが、ファイルサイズは100%と比べて大幅に削減することができます。</string>

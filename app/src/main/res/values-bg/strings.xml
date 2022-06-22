@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Снимката не можа да бъде записана</string>
     <string name="setting_resolution_failed">Задаването на резолюция бе неуспешно</string>
     <string name="video_recording_failed">Видеозаписът бе неуспешен, опитайте различна резолюция</string>
-    <!-- Other aspect ratio -->
-    <string name="other">други</string>
     <!-- FAQ -->
     <string name="faq_1_title">Колко трябва да компресирам качеството на снимките\?</string>
     <string name="faq_1_text">Зависи. За общо ползване повечето хора съветват да 75%-80%, като изображението все още е с наистина добро качество, но размерът на файла е драстично намален в сравнение със 100%.</string>

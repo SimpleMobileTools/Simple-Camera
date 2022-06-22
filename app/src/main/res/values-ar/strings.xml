@@ -12,8 +12,6 @@
     <string name="photo_not_saved">تعذر حفظ الصورة</string>
     <string name="setting_resolution_failed">فشل إعداد الدقة المناسبة</string>
     <string name="video_recording_failed">فشل تسجيل الفيديو ، حاول استخدام دقة مختلفة</string>
-    <!-- Other aspect ratio -->
-    <string name="other">آخرى</string>
     <!-- FAQ -->
     <string name="faq_1_title">ما هي جودة ضغط الصور التي يجب تعيينها؟</string>
     <string name="faq_1_text">ذلك يعتمد على هدفك. لأغراض عامة ينصح معظم الناس باستخدام 75٪ -80٪، عندما تكون الصورة لا تزال ذات نوعية جيدة حقا، ولكن يتم تقليل حجم الملف بشكل كبير مقارنة مع 100٪.</string>

@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Falha ao definir a resolução ideal</string>
     <string name="video_recording_failed">Falha ao gravar o vídeo. Tente com outra resolução.</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">outra</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">What photo compression quality should I set?</string>
     <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>

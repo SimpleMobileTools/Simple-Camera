@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Uyğun görüntü imkanını seçmək olmur</string>
     <string name="video_recording_failed">Video yazmaq olmur, xahiş olunur görüntü imkanını dəyişin</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">digər</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Şəkli hansı keyfiyyətdə yaddaşa salmalıyam?</string>
     <string name="faq_1_text">Ümumiyyətlə, özünüzdən asılıdır. Gündəlik istifadə üçün çoxları 75%-80%\'i tövsiyyə edir, hansı ki, bu parametrdə şəkil hələ də yaxşı görünür, amma fayl ölçüsü 100%\'ə nəzərən kiçilmişdir.</string>

@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Nustatant tinkamą raišką įvyko klaida</string>
     <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">Kita</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Kokią nuotraukos suspaudimo kokybę turėčiau nustatyti?</string>
     <string name="faq_1_text">Tai priklauso nuo Jūsų tikslų. Įprastiems tikslams dauguma žmonių pataria naudoti 75%-80%, kai nuotrauka vistiek yra geros kokybės, bet bylos dydis sumažėja kardinaliai palyginus su 100%.</string>

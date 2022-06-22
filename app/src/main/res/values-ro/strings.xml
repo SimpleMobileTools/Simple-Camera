@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Setarea rezoluției corespunzătoare a eșuat</string>
     <string name="video_recording_failed">Înregistrarea video a eșuat, încercați să utilizați o rezoluție diferită</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">Altele</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Ce calitate de compresie a fotografiilor ar trebui să setez?</string>
     <string name="faq_1_text">Depinde de obiectivul dumneavoastră. În general, majoritatea oamenilor recomandă utilizarea a 75%-80%, atunci când calitatea imaginii este foarte bună, dar dimensiunea fișierului este redusă drastic în comparație cu 100%.</string>

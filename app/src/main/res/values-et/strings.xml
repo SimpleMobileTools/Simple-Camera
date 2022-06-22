@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Foto salvestamine ei õnnestunud</string>
     <string name="setting_resolution_failed">Õige resolutsiooni määramine ei õnnestunud</string>
     <string name="video_recording_failed">Video salvestamine ei õnnestunud, proovi kasutada muud resolutsiooni</string>
-    <!-- Other aspect ratio -->
-    <string name="other">muu</string>
     <!-- FAQ -->
     <string name="faq_1_title">Missugust piltide pakkimise kvaliteeti peaksin kasutama\?</string>
     <string name="faq_1_text">See sõltub sinu eesmärkidest. Üldiselt soovitame 75-80-protsendilist pakkimist, mispuhul piltide kvaliteet on jätkuvalt mõistlik, kuid piltide suurus on 100-protsendilise kvaliteediga võrreldes väiksem.</string>

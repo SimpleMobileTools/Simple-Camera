@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">ठिक रिजोलुसनमा स्थापित गर्न असफल भयो</string>
     <string name="video_recording_failed">भिडियो रेकर्डिङ हुन सकेन, फरक रिजोलुसनमा राखेर प्रयास गर्नुहोस</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">थप</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">मैले कस्तो फोटो खदाईको गुणस्तर स्थापित गर्नुपर्छ ?</string>
     <string name="faq_1_text">यो तपाईको चाहानामा भर पर्छ । सामान्यतया सबैले 75%-80% मा प्रयोग गर्छन, जब तस्बिर राम्रो गुणस्तरको छ, तर 100% को तुलनामा फाईल साईज अस्वभाविक रुपले घट्छ </string>

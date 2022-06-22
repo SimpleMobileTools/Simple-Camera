@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Fotoğraf kaydedilemedi</string>
     <string name="setting_resolution_failed">Doğru çözünürlük ayarı başarısız oldu</string>
     <string name="video_recording_failed">Video kaydı başarısız oldu, farklı bir çözünürlük kullanmayı deneyin</string>
-    <!-- Other aspect ratio -->
-    <string name="other">diğer</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hangi fotoğraf sıkıştırma kalitesini ayarlamalıyım?</string>
     <string name="faq_1_text">Hedefinize bağlı. Genel amaçlar için çoğu kişi %75-%80\'i kullanmanızı önerir, görüntü hala gerçekten kaliteliyken, dosya boyutu %100\'e göre büyük ölçüde azalır.</string>

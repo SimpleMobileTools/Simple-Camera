@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Valokuvaa ei voitu tallentaa</string>
     <string name="setting_resolution_failed">Oikean resoluution asettaminen epäonnistui</string>
     <string name="video_recording_failed">Videon tallennus epäonnistui. Yritä käyttää toista resoluutiota</string>
-    <!-- Other aspect ratio -->
-    <string name="other">muu</string>
     <!-- FAQ -->
     <string name="faq_1_title">Mitä valokuvan pakkauslaatua minun pitäisi käyttää?</string>
     <string name="faq_1_text">Se riippuu tarkoituksestasi. Yleisissä tarkoituksissa useimmat ihmiset suosittelevat käyttämään 75-80%, kun kuva on edelleen todella hyvälaatuinen, mutta tiedoston koko pienenee huomattavasti verrattuna 100%:iin.</string>
