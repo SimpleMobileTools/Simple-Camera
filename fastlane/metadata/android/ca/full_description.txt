@@ -1,22 +1,28 @@
-Aquesta pràctica càmera es pot utilitzar tant per fer fotos com per gravar vídeos. Podeu canviar ràpidament entre la càmera frontal i la posterior, modificar el camí de desament o limitar la resolució. No us perdreu mai els moments importants de la vostra vida. Hi ha molts paràmetres útils disponibles per fer-ho encara més personal i adequat a les vostres necessitats.
+Aquesta pràctica càmera es pot utilitzar tant per fer fotos com per gravar vídeos. També podeu fer diferents marcs de fotos amb aquest editor de fotos estètic i podeu crear collages amb aquesta aplicació. Podeu canviar ràpidament entre la càmera frontal i la posterior, modificar el camí de desament o limitar la resolució. No us perdreu mai els moments importants de la vostra vida. Hi ha molts paràmetres útils disponibles per fer-ho encara més personal i adequat a les vostres necessitats. Enumerem alguns d'aquests.
 
-Enumerem alguns d\'ells. El flaix es pot encendre i apagar o utilitzar com una llanterna útil, que no es veu sovint. Podeu pessigar la pantalla per apropar i allunyar o canviar l\'intercanvi d\'imatges horitzontals durant la captura de fotografies fantàstiques de retrat. Podeu canviar fàcilment la resolució de sortida, la qualitat o la relació d\'aspecte amb uns quants clics, com és d\'esperar d\'una aplicació de càmera moderna.
+El flaix es pot encendre i apagar o utilitzar com una llanterna útil, que no es veu sovint. Podeu pessigar la pantalla per apropar i allunyar o canviar l'intercanvi d'imatges horitzontals durant la captura de fotografies fantàstiques de retrat. Amb aquesta aplicació de càmera també podeu eliminar objectes per centrar-vos en l'objecte principal de la imatge en lloc de permetre que apareguin altres distraccions a la imatge. La majoria d'aplicacions de càmera no ho fan, però la tecnologia d'eliminació d'objectes de l'aplicació ha augmentat de nivell en oferir aquesta funció en l'aplicació. També podeu utilitzar l'intercanvi de cares per a marcs de fotos divertits amb els vostres amics i familiars.
 
-Això s\'aplica tant a les fotos com als vídeos. Després de fer una foto, veureu la miniatura nova de la foto, i prement-la podreu obrir-la ràpidament a la vostra galeria preferida. Veureu una indicació clara de quan es captura la foto, que garanteix que el fitxer s\'ha desat.
+Podeu canviar fàcilment la resolució de sortida, la qualitat o la relació d'aspecte amb uns quants clics, com és d'esperar d'una aplicació moderna de càmera. Això s'aplica tant a les fotos com als vídeos. Després de fer una foto, veureu una miniatura de la foto, i prement-la podreu obrir-la ràpidament a la vostra galeria preferida. Veureu una indicació clara de quan es captura la foto, cosa que garanteix que el fitxer s'ha desat.
 
-Si voleu llançar aquesta càmera en prémer el botó de la càmera del maquinari dels vostres dispositius, és possible que hàgiu de desactivar l\'aplicació Càmera integrada a Configuració - &gt; Aplicacions - &gt; Càmera - &gt; Desactivar.En cas que preferiu la qualitat a la velocitat, podeu activar una opció per enfocar sempre la càmera abans de fer una foto, per assegurar-vos que el resultat sigui nítid. Podeu configurar-ho per utilitzar els botons de volum com a obturador o per encendre la llanterna de manera predeterminada a l\'inici.
+La funció més avançada que manca a diferents aplicacions és l'intercanvi de cares. Aquesta aplicació de càmera també us ofereix l'opció d'intercanviar les cares amb la vostra família i amics perquè pugueu gaudir de moments divertits amb ells. També podeu fer un collage de totes les vostres fotos i vídeos amb aquesta aplicació per crear collages. La tecnologia d'eliminació d'objectes dona una avantatge en comparació amb altres aplicacions, ja que aquesta funció dona a les vostres imatges un aspecte més impressionant. Mitjançant la tecnologia d'eliminació d'objectes, podeu obtenir imatges més clares i sense distraccions.
 
-Té molts altres paràmetres relacionats amb el so de l\'obturador, el flaix, les metadades de la foto, la qualitat de la foto, etc. El camí del fitxer de sortida es pot personalitzar, de manera que podeu decidir on voleu desar els fitxers multimèdia. Admet tant l\'emmagatzematge intern com les targetes SD.
+Si voleu llançar aquesta càmera en prémer el botó de la càmera del maquinari dels vostres dispositius, és possible que hàgiu de desactivar l'aplicació Càmera integrada a la Configuració -> Aplicacions -> Càmera -> Desactiva.
 
-Ve amb el Material Design i un tema fosc de manera predeterminada, proporciona una gran experiència d\'usuari per a un ús fàcil. La manca d\'accés a Internet us ofereix més privadesa, seguretat i estabilitat que altres aplicacions.
+En cas que preferiu la qualitat a la velocitat, podeu activar una opció per enfocar sempre la càmera abans de fer una foto, per assegurar-vos que el resultat sigui nítid.
 
-No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables.
+Podeu configurar-ho per utilitzar els botons de volum com a obturador o per encendre la llanterna de manera predeterminada a l'inici.
 
-<b>Consulteu el conjunt complet d\'eines simples aquí:</b>
+Té molts altres paràmetres relacionats amb el so de l'obturador, el flaix, les metadades de la foto, la qualitat de la foto, etc. El camí del fitxer de sortida es pot personalitzar, de manera que podeu decidir on voleu desar els fitxers multimèdia. Admet tant l'emmagatzematge intern com les targetes SD.
+
+Ve amb el Material Design i un tema fosc de manera predeterminada, proporciona una gran experiència d'usuari per a un ús fàcil. La manca d'accés a Internet us ofereix més privadesa, seguretat i estabilitat que altres aplicacions.
+
+No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables i opcions per fer collages.
+
+<b>Consulteu el conjunt complet d'eines simples aquí:</b>
 https://www.simplemobiletools.com
 
-<b>Facebook:</b>
+Facebook:
 https://www.facebook.com/simplemobiletools
 
-<b>Reddit:</b>
+Reddit:
 https://www.reddit.com/r/SimpleMobileTools
