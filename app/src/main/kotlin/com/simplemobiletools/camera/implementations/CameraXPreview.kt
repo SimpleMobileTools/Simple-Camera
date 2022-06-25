@@ -14,6 +14,7 @@ import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
 import android.view.OrientationEventListener
+import android.view.ScaleGestureDetector
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
@@ -44,6 +45,8 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.toAppFlashMode
 import com.simplemobiletools.camera.extensions.toCameraXFlashMode
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
+import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
+import com.simplemobiletools.camera.helpers.ZoomCalculator
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
@@ -280,6 +283,7 @@ class CameraXPreview(
     // source: https://stackoverflow.com/a/60095886/10552591
     private fun setupZoomAndFocus() {
         Log.i(TAG, "camera controller: ${previewView.controller}")
+        val scaleGesture = camera?.let { ScaleGestureDetector(activity, PinchToZoomOnScaleGestureListener(it.cameraInfo, it.cameraControl)) }
         val gestureDetector = GestureDetector(activity, object : SimpleOnGestureListener() {
             override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
                 return camera?.cameraInfo?.let {
@@ -306,6 +310,7 @@ class CameraXPreview(
         previewView.setOnTouchListener { _, event ->
             Log.i(TAG, "setOnTouchListener: x=${event.x}, y=${event.y}")
             gestureDetector.onTouchEvent(event)
+            scaleGesture?.onTouchEvent(event)
             true
         }
     }
