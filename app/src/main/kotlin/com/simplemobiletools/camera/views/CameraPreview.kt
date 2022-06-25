@@ -369,7 +369,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                     mIsFocusSupported = get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES)!!.size > 1
                 }
                 mActivity.setFlashAvailable(mIsFlashSupported)
-                mActivity.updateCameraIcon(mUseFrontCamera)
+                mActivity.onChangeCamera(mUseFrontCamera)
                 return
             }
         } catch (e: Exception) {
@@ -429,21 +429,21 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mCameraOpenCloseLock.release()
             mCameraDevice = cameraDevice
             createCameraPreviewSession()
-            mActivity.setIsCameraAvailable(true)
+            mActivity.setCameraAvailable(true)
         }
 
         override fun onDisconnected(cameraDevice: CameraDevice) {
             mCameraOpenCloseLock.release()
             cameraDevice.close()
             mCameraDevice = null
-            mActivity.setIsCameraAvailable(false)
+            mActivity.setCameraAvailable(false)
         }
 
         override fun onError(cameraDevice: CameraDevice, error: Int) {
             mCameraOpenCloseLock.release()
             cameraDevice.close()
             mCameraDevice = null
-            mActivity.setIsCameraAvailable(false)
+            mActivity.setCameraAvailable(false)
         }
     }
 
@@ -981,23 +981,18 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         }
     }
 
-    override fun tryInitVideoMode() {
-        initVideoMode()
-    }
-
     override fun initPhotoMode() {
         mIsInVideoMode = false
         closeCamera()
         openCamera(mTextureView.width, mTextureView.height)
     }
 
-    override fun initVideoMode(): Boolean {
+    override fun initVideoMode() {
         mLastFocusX = 0f
         mLastFocusY = 0f
         mIsInVideoMode = true
         closeCamera()
         openCamera(mTextureView.width, mTextureView.height)
-        return true
     }
 
     override fun checkFlashlight() {

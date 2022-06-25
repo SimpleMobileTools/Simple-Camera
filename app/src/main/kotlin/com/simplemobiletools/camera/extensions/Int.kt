@@ -1,0 +1,25 @@
+package com.simplemobiletools.camera.extensions
+
+import androidx.camera.core.ImageCapture
+import com.simplemobiletools.camera.helpers.FLASH_AUTO
+import com.simplemobiletools.camera.helpers.FLASH_OFF
+import com.simplemobiletools.camera.helpers.FLASH_ON
+import java.lang.IllegalArgumentException
+
+fun Int.toCameraXFlashMode(): Int {
+    return when (this) {
+        FLASH_ON -> ImageCapture.FLASH_MODE_ON
+        FLASH_OFF -> ImageCapture.FLASH_MODE_OFF
+        FLASH_AUTO -> ImageCapture.FLASH_MODE_AUTO
+        else -> throw IllegalArgumentException("Unknown mode: $this")
+    }
+}
+
+fun Int.toAppFlashMode(): Int {
+    return when (this) {
+        ImageCapture.FLASH_MODE_ON -> FLASH_ON
+        ImageCapture.FLASH_MODE_OFF -> FLASH_OFF
+        ImageCapture.FLASH_MODE_AUTO -> FLASH_AUTO
+        else -> throw IllegalArgumentException("Unknown mode: $this")
+    }
+}
