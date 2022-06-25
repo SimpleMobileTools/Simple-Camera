@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple Camera</string>
+    <string name="app_launcher_name">Càmera</string>
+    <string name="camera_unavailable">Càmera no disponible</string>
+    <string name="camera_open_error">S\'ha produït un error en accedir a la càmera</string>
+    <string name="video_creating_error">S\'ha produït un error en crear el fitxer de vídeo</string>
+    <string name="video_mode_error">Ha fallat en canviar al mode de vídeo</string>
+    <string name="save_error_internal_storage">S\'ha produït un error, la carpeta de desament s\'ha canviat a l\'emmagatzematge intern</string>
+    <string name="camera_switch_error">Ha fallat en commutar la càmera</string>
+    <string name="click_to_resume_preview">Feu clic a la imatge per reprendre la vista prèvia</string>
+    <string name="photo_not_saved">No s\'ha pogut desar la foto</string>
+    <string name="setting_resolution_failed">No s\'ha pogut establir la resolució adequada</string>
+    <string name="video_recording_failed">Ha fallat la gravació de vídeo, proveu d\'utilitzar una resolució diferent</string>
+    <!-- FAQ -->
+    <string name="faq_1_title">Quina qualitat de compressió fotogràfica he d\'establir\?</string>
+    <string name="faq_1_text">Depèn del vostre objectiu. Amb finalitats genèriques, la majoria de la gent aconsella utilitzar un 75%-80%, quan la imatge encara és de molt bona qualitat, però la mida del fitxer es redueix dràsticament en comparació amb el 100%.</string>
+    <!-- Settings -->
+    <string name="save_photos">Desa fotos i vídeos a</string>
+    <string name="show_preview">Mostra una vista prèvia de la foto després de la captura</string>
+    <string name="shutter_sound">So de l\'obturador</string>
+    <string name="back_camera">Resolucions de la càmera posterior</string>
+    <string name="front_camera">Resolucions de la càmera frontal</string>
+    <string name="photo">Foto</string>
+    <string name="video">Vídeo</string>
+    <string name="focus_before_capture">Focus abans de la captura</string>
+    <string name="volume_buttons_as_shutter">Utilitza els botons de volum com a obturador</string>
+    <string name="turn_flash_off_at_startup">Apaga el flaix a l\'inici</string>
+    <string name="flip_front_camera_photos_horizontally">Inverteix les fotos de la càmera frontal horitzontalment</string>
+    <string name="keep_settings_visible">Mantén els botons de configuració visibles</string>
+    <string name="always_open_back_camera">Obre sempre l\'aplicació amb la càmera del darrere</string>
+    <string name="save_photo_metadata">Desa les metadades Exif de la foto</string>
+    <string name="photo_compression_quality">Qualitat de compressió fotogràfica</string>
+    <string name="shutter">Obturador</string>
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Càmera simple: feu fotos i vídeos fàcilment</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Crear records mai ha estat tan fàcil. Proporciona una interfície agradable.</string>
+    <string name="app_long_description">
+        Aquesta pràctica càmera es pot utilitzar tant per fer fotos com per gravar vídeos. Podeu canviar ràpidament entre la càmera frontal i la posterior, modificar el camí de desament o limitar la resolució. No us perdreu mai els moments importants de la vostra vida. Hi ha molts paràmetres útils disponibles per fer-ho encara més personal i adequat a les vostres necessitats. Enumerem alguns d\'ells. El flaix es pot encendre i apagar o utilitzar com una llanterna útil, que no es veu sovint. Podeu pessigar la pantalla per apropar i allunyar o canviar l\'intercanvi d\'imatges horitzontals durant la captura de fotografies fantàstiques de retrat. Podeu canviar fàcilment la resolució de sortida, la qualitat o la relació d\'aspecte amb uns quants clics, com és d\'esperar d\'una aplicació de càmera moderna. Això s\'aplica tant a les fotos com als vídeos. Després de fer una foto, veureu la miniatura nova de la foto, i prement-la podreu obrir-la ràpidament a la vostra galeria preferida. Veureu una indicació clara de quan es captura la foto, que garanteix que el fitxer s\'ha desat. Si voleu llançar aquesta càmera en prémer el botó de la càmera del maquinari dels vostres dispositius, és possible que hàgiu de desactivar l\'aplicació Càmera integrada a Configuració - &gt; Aplicacions - &gt; Càmera - &gt; Desactivar. En cas que preferiu la qualitat a la velocitat, podeu activar una opció per enfocar sempre la càmera abans de fer una foto, per assegurar-vos que el resultat sigui nítid. Podeu configurar-ho per utilitzar els botons de volum com a obturador o per encendre la llanterna de manera predeterminada a l\'inici. Té molts altres paràmetres relacionats amb el so de l\'obturador, el flaix, les metadades de la foto, la qualitat de la foto, etc. El camí del fitxer de sortida es pot personalitzar, de manera que podeu decidir on voleu desar els fitxers multimèdia. Admet tant l\'emmagatzematge intern com les targetes SD. Ve amb el Material Design i un tema fosc de manera predeterminada, proporciona una gran experiència d\'usuari per a un ús fàcil. La manca d\'accés a Internet us ofereix més privadesa, seguretat i estabilitat que altres aplicacions. No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables. <b>Consulteu el conjunt complet d\'eines simples aquí:</b> https://www.simplemobiletools.com <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools
+    </string>
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

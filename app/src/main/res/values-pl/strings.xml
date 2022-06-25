@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Nie udało się zapisać zdjęcia</string>
     <string name="setting_resolution_failed">Nie udało się ustawić poprawnej rozdzielczości</string>
     <string name="video_recording_failed">Nie udało się rozpocząć nagrywania. Spróbuj użyć innej rozdzielczości.</string>
-    <!-- Other aspect ratio -->
-    <string name="other">inne</string>
     <!-- FAQ -->
     <string name="faq_1_title">Jaką jakość kompresji zdjęć powinienem ustawić\?</string>
     <string name="faq_1_text">Zależy to od Twojego celu. Do celów ogólnych większość ludzi zaleca poziom 75-80% — wtedy obraz jest nadal w dobrej jakości, ale rozmiar pliku znacznie zmniejsza się w porównaniu do 100%.</string>

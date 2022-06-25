@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">設定合適解析度失敗</string>
     <string name="video_recording_failed">影片錄製失敗，試著使用不同的解析度</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">其它</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">我應該設定什麼相片壓縮品質?</string>
     <string name="faq_1_text">視你目標而定。對大多數一般人而言，建議使用75%-80%，圖片依然是相當高品質，但檔案大小比100%大幅減少很多。</string>

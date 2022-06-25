@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Невозможно сохранить фото</string>
     <string name="setting_resolution_failed">Не удалось установить правильное разрешение</string>
     <string name="video_recording_failed">Ошибка при записи видео, попробуйте использовать другое разрешение</string>
-    <!-- Other aspect ratio -->
-    <string name="other">другое</string>
     <!-- FAQ -->
     <string name="faq_1_title">Какое качество сжатия фото нужно установить?</string>
     <string name="faq_1_text">Это зависит от вашей цели. В общем случае большинство людей советуют использовать 75%-80%, тогда изображение всё ещё действительно хорошего качества, но размер файла резко уменьшается по сравнению со 100%.</string>
@@ -36,7 +34,7 @@
     <string name="shutter">Затвор</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - простая съёмка фото и видео</string>
+    <string name="app_title">Simple Camera - Съёмка фото и видео</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Создавать воспоминания никогда не было так просто. Удобный интерфейс без рекламы.</string>
     <string name="app_long_description">

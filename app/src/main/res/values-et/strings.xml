@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lihtne kaamera</string>
+    <string name="app_launcher_name">Kaamera</string>
+    <string name="camera_unavailable">Kaamera pole kasutatav</string>
+    <string name="camera_open_error">Kaameraühenduse loomisel tekki viga</string>
+    <string name="video_creating_error">Videofaili loomisel tekkis viga</string>
+    <string name="video_mode_error">Videorežiimi vahetamine ei õnnestunud</string>
+    <string name="save_error_internal_storage">Tekkis viga ja salvestamise kaust asub on nüüd sisemälus</string>
+    <string name="camera_switch_error">Kaamera vahetamine ei õnnestunud</string>
+    <string name="click_to_resume_preview">Eelvaate jätkamiseks klõpsi pilti</string>
+    <string name="photo_not_saved">Foto salvestamine ei õnnestunud</string>
+    <string name="setting_resolution_failed">Õige resolutsiooni määramine ei õnnestunud</string>
+    <string name="video_recording_failed">Video salvestamine ei õnnestunud, proovi kasutada muud resolutsiooni</string>
+    <!-- FAQ -->
+    <string name="faq_1_title">Missugust piltide pakkimise kvaliteeti peaksin kasutama\?</string>
+    <string name="faq_1_text">See sõltub sinu eesmärkidest. Üldiselt soovitame 75-80-protsendilist pakkimist, mispuhul piltide kvaliteet on jätkuvalt mõistlik, kuid piltide suurus on 100-protsendilise kvaliteediga võrreldes väiksem.</string>
+    <!-- Settings -->
+    <string name="save_photos">Fotode ja piltide salvestamise kaust</string>
+    <string name="show_preview">Peale pildistamist näita foto eelvaadet</string>
+    <string name="shutter_sound">Katiku heli</string>
+    <string name="back_camera">Tagakaamera resolutsioonid</string>
+    <string name="front_camera">Eeskaamera resolutsioonid</string>
+    <string name="photo">Foto</string>
+    <string name="video">Video</string>
+    <string name="focus_before_capture">Enne pildistamist teravda pilti</string>
+    <string name="volume_buttons_as_shutter">Kasuta helinuppe päästikuna</string>
+    <string name="turn_flash_off_at_startup">Käivitamisel lülita välk välja</string>
+    <string name="flip_front_camera_photos_horizontally">Pööra eeskaamera pilt horisontaalselt</string>
+    <string name="keep_settings_visible">Hoia seadistusnupud nähtaval</string>
+    <string name="always_open_back_camera">Rakenduse käivitamisel kasuta esmalt tagakaamerat</string>
+    <string name="save_photo_metadata">Salvesta fotofaili EXIF-metateave</string>
+    <string name="photo_compression_quality">Fotode pakkimise tase</string>
+    <string name="shutter">Katik</string>
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Lihtne kaamera salvestab sinu fotod ja videod</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Mugav viis mälestuste jäädvustamiseks. Lihtsa liidesega reklaamideta rakendus.</string>
+    <string name="app_long_description">
+        This handy camera is usable for both easy photo taking and video recording. You can quickly switch between the front and rear camera, modify the save path or limit the resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let\'s list some of them. The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos. You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern camera app. This applies to both photos and videos. After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved. If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -&gt; Apps -&gt; Camera -&gt; Disable. In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear. You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup. It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards. It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps. Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors. <b>Check out the full suite of Simple Tools here:</b> https://www.simplemobiletools.com <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools
+    </string>
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

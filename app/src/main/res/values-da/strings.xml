@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Fotoet kunne ikke gemmes</string>
     <string name="setting_resolution_failed">Indstilling af korrekt opløsning mislykkedes</string>
     <string name="video_recording_failed">Videooptagelse mislykkedes. Prøv at bruge en anden opløsning</string>
-    <!-- Other aspect ratio -->
-    <string name="other">andet</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hvilken fotokomprimeringskvalitet skal jeg anvende\?</string>
     <string name="faq_1_text">Det afhænger af dit mål. Til almindelige formål anbefaler de fleste at bruge 75-80 %, hvor billedet stadig har en rigtig god kvalitet, men hvor filstørrelsen er reduceret drastisk i forhold til 100 %.</string>

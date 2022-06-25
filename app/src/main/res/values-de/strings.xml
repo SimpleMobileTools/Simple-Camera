@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
     <string name="setting_resolution_failed">Korrekte Auflösung konnte nicht eingestellt werden</string>
     <string name="video_recording_failed">Videoaufzeichnung fehlgeschlagen, probiere eine andere Auflösung aus</string>
-    <!-- Other aspect ratio -->
-    <string name="other">andere</string>
     <!-- FAQ -->
     <string name="faq_1_title">Was für eine Fotokomprimierungsqualität soll ich einstellen?</string>
     <string name="faq_1_text">Das hängt von deinem Ziel ab. Für allgemeine Zwecke empfehlen die meisten 75 - 80 %, wodurch die Qualität immer noch sehr gut bleibt, aber die Dateigrösse drastisch reduziert ist im Vergleich zu 100 %.</string>

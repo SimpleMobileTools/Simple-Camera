@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Gagal mengubah ke resolusi yang benar</string>
     <string name="video_recording_failed">Gagal merekam video, coba gunakan resolusi yang berbeda</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">lainnya</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Kualitas kompresi foto mana yang harus saya gunakan?</string>
     <string name="faq_1_text">Tergantung tujuan anda. Untuk hal-hal yang umum direkomendasikan menggunakan 75%-80%, kualitas gambar masih sangat bagus, tetapi ukuran berkas berkurang signifikan dibandingkan dengan 100%.</string>

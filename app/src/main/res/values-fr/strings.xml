@@ -12,8 +12,6 @@
     <string name="photo_not_saved">Impossible d\'enregistrer la photo</string>
     <string name="setting_resolution_failed">La définition de la résolution a échoué</string>
     <string name="video_recording_failed">L\'enregistrement vidéo a échoué, essayez d\'utiliser une résolution différente</string>
-    <!-- Other aspect ratio -->
-    <string name="other">autre</string>
     <!-- FAQ -->
     <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos \?</string>
     <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80 %, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100 %.</string>

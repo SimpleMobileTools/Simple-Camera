@@ -13,9 +13,6 @@
     <string name="setting_resolution_failed">Methwyd â gosod y cydraniad cywir</string>
     <string name="video_recording_failed">Methwyd â recordio fideo; rho gynnig ar gydraniad gwahanol</string>
 
-    <!-- Other aspect ratio -->
-    <string name="other">arall</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Pa ansawdd cywasgu llun dylwn ei osod?</string>
     <string name="faq_1_text">Mae\'n dibynnu ar dy bwrpas. Ar gyfer defnydd cyffredin, argymhellir defnyddio 75%-80% fel bod safon y llun yn dal i fod yn dda iawn ond bydd maint y ffeil yn dipyn llai na 100%.</string>
