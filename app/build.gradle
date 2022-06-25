@@ -34,7 +34,7 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+            applicationIdSuffix ".debugcamerax"
         }
         release {
             minifyEnabled true
