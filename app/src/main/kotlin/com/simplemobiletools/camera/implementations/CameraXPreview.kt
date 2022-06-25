@@ -2,11 +2,14 @@ package com.simplemobiletools.camera.implementations
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Context
 import android.hardware.SensorManager
+import android.hardware.display.DisplayManager
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Display
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
@@ -44,7 +47,6 @@ import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
-import java.lang.IllegalArgumentException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -54,7 +56,7 @@ import kotlin.math.min
 
 class CameraXPreview(
     private val activity: AppCompatActivity,
-    private val viewFinder: PreviewView,
+    private val previewView: PreviewView,
     private val listener: CameraXPreviewListener,
 ) : MyPreview, DefaultLifecycleObserver {
 
@@ -62,13 +64,19 @@ class CameraXPreview(
         private const val TAG = "CameraXPreview"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
+
+        // Auto focus is 1/6 of the area.
+        private const val AF_SIZE = 1.0f / 6.0f
+        private const val AE_SIZE = AF_SIZE * 1.5f
     }
 
     private val config = activity.config
     private val contentResolver = activity.contentResolver
     private val mainExecutor = activity.mainExecutor
+    private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
+
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
         override fun onOrientationChanged(orientation: Int) {
@@ -115,7 +123,7 @@ class CameraXPreview(
     init {
         bindToLifeCycle()
         mediaSoundHelper.loadSounds()
-        viewFinder.doOnLayout {
+        previewView.doOnLayout {
             startCamera()
         }
     }
@@ -143,7 +151,7 @@ class CameraXPreview(
         val cameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
         val metrics = windowMetricsCalculator.computeCurrentWindowMetrics(activity).bounds
         val aspectRatio = aspectRatio(metrics.width(), metrics.height())
-        val rotation = viewFinder.display.rotation
+        val rotation = previewView.display.rotation
 
         preview = buildPreview(aspectRatio, rotation)
         val captureUseCase = getCaptureUseCase(aspectRatio, rotation)
@@ -154,8 +162,8 @@ class CameraXPreview(
             preview,
             captureUseCase,
         )
-        preview?.setSurfaceProvider(viewFinder.surfaceProvider)
-        setupFocus()
+        preview?.setSurfaceProvider(previewView.surfaceProvider)
+        setupZoomAndFocus()
     }
 
     private fun setupCameraObservers() {
@@ -223,10 +231,12 @@ class CameraXPreview(
 
     private fun getCaptureUseCase(aspectRatio: Int, rotation: Int): UseCase {
         return if (isPhotoCapture) {
+            cameraProvider?.unbind(videoCapture)
             buildImageCapture(aspectRatio, rotation).also {
                 imageCapture = it
             }
         } else {
+            cameraProvider?.unbind(imageCapture)
             buildVideoCapture().also {
                 videoCapture = it
             }
@@ -252,6 +262,7 @@ class CameraXPreview(
 
     private fun buildVideoCapture(): VideoCapture<Recorder> {
         val recorder = Recorder.Builder()
+            //TODO: user control for quality
             .setQualitySelector(QualitySelector.from(Quality.FHD))
             .build()
         return VideoCapture.withOutput(recorder)
@@ -267,30 +278,32 @@ class CameraXPreview(
 
     @SuppressLint("ClickableViewAccessibility")
     // source: https://stackoverflow.com/a/60095886/10552591
-    private fun setupFocus() {
+    private fun setupZoomAndFocus() {
+        Log.i(TAG, "camera controller: ${previewView.controller}")
         val gestureDetector = GestureDetector(activity, object : SimpleOnGestureListener() {
-            override fun onSingleTapConfirmed(event: MotionEvent?): Boolean {
-                Log.i(TAG, "onSingleTapConfirmed: x=${event?.x}, y=${event?.y}")
-                return event?.let {
-                    val factory: MeteringPointFactory = SurfaceOrientedMeteringPointFactory(viewFinder.width.toFloat(), viewFinder.height.toFloat())
+            override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
+                return camera?.cameraInfo?.let {
+                    val display = displayManager.getDisplay(Display.DEFAULT_DISPLAY)
+                    val width = previewView.width.toFloat()
+                    val height = previewView.height.toFloat()
+                    Log.i(TAG, "onSingleTapConfirmed: width=$width,height=$height")
+                    val factory = DisplayOrientedMeteringPointFactory(display, it, width, height)
                     val xPos = event.x
                     val yPos = event.y
-                    val autoFocusPoint = factory.createPoint(event.x, event.y)
-                    try {
-                        val focusMeteringAction = FocusMeteringAction.Builder(autoFocusPoint, FocusMeteringAction.FLAG_AF)
-                            .disableAutoCancel()
-                            .build()
-                        camera?.cameraControl?.startFocusAndMetering(focusMeteringAction)
-                        listener.onFocusCamera(xPos, yPos)
-                        Log.i(TAG, "start focus")
-                    } catch (e: CameraInfoUnavailableException) {
-                        Log.e(TAG, "cannot access camera", e)
-                    }
+                    val autoFocusPoint = factory.createPoint(xPos, yPos, AF_SIZE)
+                    val autoExposurePoint = factory.createPoint(xPos, yPos, AE_SIZE)
+                    val focusMeteringAction = FocusMeteringAction.Builder(autoFocusPoint, FocusMeteringAction.FLAG_AF)
+                        .addPoint(autoExposurePoint, FocusMeteringAction.FLAG_AE)
+                        .disableAutoCancel()
+                        .build()
+                    camera?.cameraControl?.startFocusAndMetering(focusMeteringAction)
+                    listener.onFocusCamera(xPos, yPos)
+                    Log.i(TAG, "start focus")
                     true
                 } ?: false
             }
         })
-        viewFinder.setOnTouchListener { _, event ->
+        previewView.setOnTouchListener { _, event ->
             Log.i(TAG, "setOnTouchListener: x=${event.x}, y=${event.y}")
             gestureDetector.onTouchEvent(event)
             true
