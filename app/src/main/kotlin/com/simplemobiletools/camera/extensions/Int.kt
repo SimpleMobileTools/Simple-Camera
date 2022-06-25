@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera.extensions
 
+import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import com.simplemobiletools.camera.helpers.FLASH_AUTO
 import com.simplemobiletools.camera.helpers.FLASH_OFF
@@ -23,3 +24,12 @@ fun Int.toAppFlashMode(): Int {
         else -> throw IllegalArgumentException("Unknown mode: $this")
     }
 }
+
+fun Int.toCameraSelector(): CameraSelector {
+    return if (this == CameraSelector.LENS_FACING_FRONT) {
+        CameraSelector.DEFAULT_FRONT_CAMERA
+    } else {
+        CameraSelector.DEFAULT_BACK_CAMERA
+    }
+}
+

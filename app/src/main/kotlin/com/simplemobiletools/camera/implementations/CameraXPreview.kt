@@ -43,10 +43,11 @@ import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.toAppFlashMode
+import com.simplemobiletools.camera.extensions.toCameraSelector
 import com.simplemobiletools.camera.extensions.toCameraXFlashMode
+import com.simplemobiletools.camera.extensions.toLensFacing
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
-import com.simplemobiletools.camera.helpers.ZoomCalculator
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
@@ -110,7 +111,7 @@ class CameraXPreview(
         get() = cameraProvider?.availableCameraInfos?.size ?: 0
 
     private val frontCameraInUse: Boolean
-        get() = lensFacing == CameraSelector.DEFAULT_FRONT_CAMERA
+        get() = cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
 
     private var preview: Preview? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -119,7 +120,7 @@ class CameraXPreview(
     private var camera: Camera? = null
     private var currentRecording: Recording? = null
     private var recordingState: VideoRecordEvent? = null
-    private var lensFacing = CameraSelector.DEFAULT_BACK_CAMERA
+    private var cameraSelector = config.lastUsedCameraLens.toCameraSelector()
     private var flashMode = config.flashlightState.toCameraXFlashMode()
     private var isPhotoCapture = config.initPhotoMode
 
@@ -161,7 +162,7 @@ class CameraXPreview(
         cameraProvider.unbindAll()
         camera = cameraProvider.bindToLifecycle(
             activity,
-            lensFacing,
+            cameraSelector,
             preview,
             captureUseCase,
         )
@@ -332,11 +333,13 @@ class CameraXPreview(
     }
 
     override fun toggleFrontBackCamera() {
-        lensFacing = if (frontCameraInUse) {
+        val newCameraSelector = if (frontCameraInUse) {
             CameraSelector.DEFAULT_BACK_CAMERA
         } else {
             CameraSelector.DEFAULT_FRONT_CAMERA
         }
+        cameraSelector = newCameraSelector
+        config.lastUsedCameraLens = newCameraSelector.toLensFacing()
         startCamera()
     }
 

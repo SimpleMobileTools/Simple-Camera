@@ -2,6 +2,7 @@ package com.simplemobiletools.camera.helpers
 
 import android.content.Context
 import android.os.Environment
+import androidx.camera.core.CameraSelector
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
 
@@ -36,6 +37,10 @@ class Config(context: Context) : BaseConfig(context) {
     var lastUsedCamera: String
         get() = prefs.getString(LAST_USED_CAMERA, "0")!!
         set(cameraId) = prefs.edit().putString(LAST_USED_CAMERA, cameraId).apply()
+
+    var lastUsedCameraLens: Int
+        get() = prefs.getInt(LAST_USED_CAMERA_LENS, CameraSelector.LENS_FACING_BACK)
+        set(lens) = prefs.edit().putInt(LAST_USED_CAMERA_LENS, lens).apply()
 
     var initPhotoMode: Boolean
         get() = prefs.getBoolean(INIT_PHOTO_MODE, true)
