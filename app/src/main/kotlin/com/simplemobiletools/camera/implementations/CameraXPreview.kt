@@ -101,18 +101,6 @@ class CameraXPreview(
         }
     }
 
-    private val hasBackCamera: Boolean
-        get() = cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ?: false
-
-    private val hasFrontCamera: Boolean
-        get() = cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false
-
-    private val cameraCount: Int
-        get() = cameraProvider?.availableCameraInfos?.size ?: 0
-
-    private val frontCameraInUse: Boolean
-        get() = cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
-
     private var preview: Preview? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var imageCapture: ImageCapture? = null
@@ -172,13 +160,13 @@ class CameraXPreview(
 
     private fun setupCameraObservers() {
         listener.setFlashAvailable(camera?.cameraInfo?.hasFlashUnit() ?: false)
-        listener.onChangeCamera(frontCameraInUse)
+        listener.onChangeCamera(isFrontCameraInUse())
 
         camera?.cameraInfo?.cameraState?.observe(activity) { cameraState ->
             when (cameraState.type) {
                 CameraState.Type.OPEN,
                 CameraState.Type.OPENING -> {
-                    listener.setHasFrontAndBackCamera(hasFrontCamera && hasBackCamera)
+                    listener.setHasFrontAndBackCamera(hasFrontCamera() && hasBackCamera())
                     listener.setCameraAvailable(true)
                 }
                 CameraState.Type.PENDING_OPEN,
@@ -280,6 +268,18 @@ class CameraXPreview(
         return AspectRatio.RATIO_16_9
     }
 
+    private fun hasBackCamera(): Boolean {
+        return cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ?: false
+    }
+
+    private fun hasFrontCamera(): Boolean {
+        return cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false
+    }
+
+    private fun isFrontCameraInUse(): Boolean {
+        return cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     // source: https://stackoverflow.com/a/60095886/10552591
     private fun setupZoomAndFocus() {
@@ -333,7 +333,7 @@ class CameraXPreview(
     }
 
     override fun toggleFrontBackCamera() {
-        val newCameraSelector = if (frontCameraInUse) {
+        val newCameraSelector = if (isFrontCameraInUse()) {
             CameraSelector.DEFAULT_BACK_CAMERA
         } else {
             CameraSelector.DEFAULT_FRONT_CAMERA
