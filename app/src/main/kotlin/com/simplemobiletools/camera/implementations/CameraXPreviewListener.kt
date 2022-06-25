@@ -10,4 +10,7 @@ interface CameraXPreviewListener {
     fun toggleBottomButtons(hide:Boolean)
     fun onMediaCaptured(uri: Uri)
     fun onChangeFlashMode(flashMode: Int)
+    fun onVideoRecordingStarted()
+    fun onVideoRecordingStopped()
+    fun onVideoDurationChanged(durationNanos: Long)
 }

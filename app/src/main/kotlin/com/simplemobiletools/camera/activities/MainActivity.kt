@@ -39,6 +39,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REFRESH_PATH
 import com.simplemobiletools.commons.models.Release
+import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.btn_holder
 import kotlinx.android.synthetic.main.activity_main.capture_black_screen
 import kotlinx.android.synthetic.main.activity_main.change_resolution
@@ -547,6 +548,24 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onChangeFlashMode(flashMode: Int) {
         updateFlashlightState(flashMode)
+    }
+
+    override fun onVideoRecordingStarted() {
+        shutter.setImageResource(R.drawable.ic_video_stop)
+        toggle_camera.beInvisible()
+        video_rec_curr_timer.beVisible()
+    }
+
+    override fun onVideoRecordingStopped() {
+        shutter.setImageResource(R.drawable.ic_video_rec)
+        video_rec_curr_timer.text = 0.getFormattedDuration()
+        video_rec_curr_timer.beGone()
+        toggle_camera.beVisible()
+    }
+
+    override fun onVideoDurationChanged(durationNanos: Long) {
+        val seconds = TimeUnit.NANOSECONDS.toSeconds(durationNanos).toInt()
+        video_rec_curr_timer.text = seconds.getFormattedDuration()
     }
 
     fun setRecordingState(isRecording: Boolean) {

@@ -37,6 +37,7 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.toAppFlashMode
 import com.simplemobiletools.camera.extensions.toCameraXFlashMode
+import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
@@ -63,6 +64,7 @@ class CameraXPreview(
     private val config = activity.config
     private val contentResolver = activity.contentResolver
     private val mainExecutor = activity.mainExecutor
+    private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
@@ -109,6 +111,7 @@ class CameraXPreview(
 
     init {
         bindToLifeCycle()
+        mediaSoundHelper.loadSounds()
         viewFinder.doOnLayout {
             startCamera()
         }
@@ -315,6 +318,7 @@ class CameraXPreview(
             .setMetadata(metadata)
             .build()
 
+
         imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: OutputFileResults) {
                 listener.toggleBottomButtons(false)
@@ -327,6 +331,7 @@ class CameraXPreview(
                 Log.e(TAG, "Error", exception)
             }
         })
+        playShutterSoundIfEnabled()
     }
 
     override fun initPhotoMode() {
@@ -368,15 +373,25 @@ class CameraXPreview(
             .withAudioEnabled()
             .start(mainExecutor) { recordEvent ->
                 Log.d(TAG, "recordEvent=$recordEvent ")
-                if (recordEvent !is VideoRecordEvent.Status) {
-                    recordingState = recordEvent
-                }
+                recordingState = recordEvent
+                when(recordEvent){
+                    is VideoRecordEvent.Start -> {
+                        playStartVideoRecordingSoundIfEnabled()
+                        listener.onVideoRecordingStarted()
+                    }
 
-                if (recordEvent is VideoRecordEvent.Finalize) {
-                    if (recordEvent.hasError()) {
-                        // TODO: Handle errors
-                    } else {
-                        listener.onMediaCaptured(recordEvent.outputResults.outputUri)
+                    is VideoRecordEvent.Status -> {
+                        listener.onVideoDurationChanged(recordEvent.recordingStats.recordedDurationNanos)
+                    }
+
+                    is VideoRecordEvent.Finalize -> {
+                        playStopVideoRecordingSoundIfEnabled()
+                        listener.onVideoRecordingStopped()
+                        if (recordEvent.hasError()) {
+                            // TODO: Handle errors
+                        } else {
+                            listener.onMediaCaptured(recordEvent.outputResults.outputUri)
+                        }
                     }
                 }
             }
@@ -389,6 +404,24 @@ class CameraXPreview(
             "IMG_$timestamp"
         } else {
             "VID_$timestamp"
+        }
+    }
+
+    private fun playShutterSoundIfEnabled(){
+        if(config.isSoundEnabled){
+            mediaSoundHelper.playShutterSound()
+        }
+    }
+
+    private fun playStartVideoRecordingSoundIfEnabled(){
+        if(config.isSoundEnabled){
+            mediaSoundHelper.playStartVideoRecordingSound()
+        }
+    }
+
+    private fun playStopVideoRecordingSoundIfEnabled(){
+        if(config.isSoundEnabled){
+            mediaSoundHelper.playStopVideoRecordingSound()
         }
     }
 }
