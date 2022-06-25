@@ -568,6 +568,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         video_rec_curr_timer.text = seconds.getFormattedDuration()
     }
 
+    override fun onFocusCamera(xPos: Float, yPos: Float) {
+        mFocusCircleView.drawFocusCircle(xPos, yPos)
+    }
+
     fun setRecordingState(isRecording: Boolean) {
         runOnUiThread {
             if (isRecording) {

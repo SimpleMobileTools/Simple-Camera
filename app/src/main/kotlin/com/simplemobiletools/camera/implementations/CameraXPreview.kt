@@ -7,6 +7,9 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.GestureDetector
+import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.MotionEvent
 import android.view.OrientationEventListener
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
@@ -152,6 +155,7 @@ class CameraXPreview(
             captureUseCase,
         )
         preview?.setSurfaceProvider(viewFinder.surfaceProvider)
+        setupFocus()
     }
 
     private fun setupCameraObservers() {
@@ -259,6 +263,38 @@ class CameraXPreview(
             return AspectRatio.RATIO_4_3
         }
         return AspectRatio.RATIO_16_9
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    // source: https://stackoverflow.com/a/60095886/10552591
+    private fun setupFocus() {
+        val gestureDetector = GestureDetector(activity, object : SimpleOnGestureListener() {
+            override fun onSingleTapConfirmed(event: MotionEvent?): Boolean {
+                Log.i(TAG, "onSingleTapConfirmed: x=${event?.x}, y=${event?.y}")
+                return event?.let {
+                    val factory: MeteringPointFactory = SurfaceOrientedMeteringPointFactory(viewFinder.width.toFloat(), viewFinder.height.toFloat())
+                    val xPos = event.x
+                    val yPos = event.y
+                    val autoFocusPoint = factory.createPoint(event.x, event.y)
+                    try {
+                        val focusMeteringAction = FocusMeteringAction.Builder(autoFocusPoint, FocusMeteringAction.FLAG_AF)
+                            .disableAutoCancel()
+                            .build()
+                        camera?.cameraControl?.startFocusAndMetering(focusMeteringAction)
+                        listener.onFocusCamera(xPos, yPos)
+                        Log.i(TAG, "start focus")
+                    } catch (e: CameraInfoUnavailableException) {
+                        Log.e(TAG, "cannot access camera", e)
+                    }
+                    true
+                } ?: false
+            }
+        })
+        viewFinder.setOnTouchListener { _, event ->
+            Log.i(TAG, "setOnTouchListener: x=${event.x}, y=${event.y}")
+            gestureDetector.onTouchEvent(event)
+            true
+        }
     }
 
     override fun onStart(owner: LifecycleOwner) {
@@ -375,7 +411,7 @@ class CameraXPreview(
             .start(mainExecutor) { recordEvent ->
                 Log.d(TAG, "recordEvent=$recordEvent ")
                 recordingState = recordEvent
-                when(recordEvent){
+                when (recordEvent) {
                     is VideoRecordEvent.Start -> {
                         playStartVideoRecordingSoundIfEnabled()
                         listener.onVideoRecordingStarted()
@@ -408,20 +444,20 @@ class CameraXPreview(
         }
     }
 
-    private fun playShutterSoundIfEnabled(){
-        if(config.isSoundEnabled){
+    private fun playShutterSoundIfEnabled() {
+        if (config.isSoundEnabled) {
             mediaSoundHelper.playShutterSound()
         }
     }
 
-    private fun playStartVideoRecordingSoundIfEnabled(){
-        if(config.isSoundEnabled){
+    private fun playStartVideoRecordingSoundIfEnabled() {
+        if (config.isSoundEnabled) {
             mediaSoundHelper.playStartVideoRecordingSound()
         }
     }
 
-    private fun playStopVideoRecordingSoundIfEnabled(){
-        if(config.isSoundEnabled){
+    private fun playStopVideoRecordingSoundIfEnabled() {
+        if (config.isSoundEnabled) {
             mediaSoundHelper.playStopVideoRecordingSound()
         }
     }

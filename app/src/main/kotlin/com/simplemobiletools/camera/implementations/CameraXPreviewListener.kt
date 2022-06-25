@@ -13,4 +13,5 @@ interface CameraXPreviewListener {
     fun onVideoRecordingStarted()
     fun onVideoRecordingStopped()
     fun onVideoDurationChanged(durationNanos: Long)
+    fun onFocusCamera(xPos: Float, yPos: Float)
 }
