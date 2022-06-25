@@ -233,6 +233,7 @@ class CameraXPreview(
         return ImageCapture.Builder()
             .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
             .setFlashMode(flashMode)
+            .setJpegQuality(config.photoQuality)
             .setTargetAspectRatio(aspectRatio)
             .setTargetRotation(rotation)
             .build()
@@ -305,7 +306,7 @@ class CameraXPreview(
         val imageCapture = imageCapture ?: throw IllegalStateException("Camera initialization failed.")
 
         val metadata = Metadata().apply {
-            isReversedHorizontal = frontCameraInUse
+            isReversedHorizontal = config.flipPhotos
         }
 
         val contentValues = ContentValues().apply {
