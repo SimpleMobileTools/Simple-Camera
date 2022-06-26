@@ -122,7 +122,7 @@ class CameraXPreview(
     private var currentRecording: Recording? = null
     private var recordingState: VideoRecordEvent? = null
     private var cameraSelector = config.lastUsedCameraLens.toCameraSelector()
-    private var flashMode = config.flashlightState.toCameraXFlashMode()
+    private var flashMode = FLASH_MODE_OFF
     private var isPhotoCapture = config.initPhotoMode
 
     init {
@@ -357,13 +357,22 @@ class CameraXPreview(
     }
 
     override fun toggleFlashlight() {
-        val newFlashMode = when (flashMode) {
-            FLASH_MODE_OFF -> FLASH_MODE_ON
-            FLASH_MODE_ON -> FLASH_MODE_AUTO
-            FLASH_MODE_AUTO -> FLASH_MODE_OFF
-            else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+        val newFlashMode = if (isPhotoCapture) {
+            when (flashMode) {
+                FLASH_MODE_OFF -> FLASH_MODE_ON
+                FLASH_MODE_ON -> FLASH_MODE_AUTO
+                FLASH_MODE_AUTO -> FLASH_MODE_OFF
+                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+            }
+        } else {
+            when (flashMode) {
+                FLASH_MODE_OFF -> FLASH_MODE_ON
+                FLASH_MODE_ON -> FLASH_MODE_OFF
+                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+            }.also {
+                camera?.cameraControl?.enableTorch(it == FLASH_MODE_ON)
+            }
         }
-
         flashMode = newFlashMode
         imageCapture?.flashMode = newFlashMode
         val appFlashMode = flashMode.toAppFlashMode()

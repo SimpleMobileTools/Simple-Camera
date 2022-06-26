@@ -236,7 +236,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mFadeHandler = Handler()
         setupPreviewImage(true)
 
-        val initialFlashlightState = config.flashlightState
+        val initialFlashlightState = FLASH_OFF
         mPreview!!.setFlashlightState(initialFlashlightState)
         updateFlashlightState(initialFlashlightState)
     }
