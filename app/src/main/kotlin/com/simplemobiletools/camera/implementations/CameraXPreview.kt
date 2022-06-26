@@ -55,13 +55,12 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.toAppFlashMode
 import com.simplemobiletools.camera.extensions.toCameraSelector
-import com.simplemobiletools.camera.extensions.toCameraXFlashMode
 import com.simplemobiletools.camera.extensions.toLensFacing
+import com.simplemobiletools.camera.helpers.CameraErrorHandler
 import com.simplemobiletools.camera.helpers.MediaOutputHelper
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
 import com.simplemobiletools.camera.interfaces.MyPreview
-import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -93,6 +92,7 @@ class CameraXPreview(
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
+    private val cameraErrorHandler = CameraErrorHandler(activity)
 
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
@@ -137,7 +137,7 @@ class CameraXPreview(
         activity.lifecycle.addObserver(this)
     }
 
-    private fun startCamera() {
+    private fun startCamera(switching: Boolean = false) {
         Log.i(TAG, "startCamera: ")
         val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
         cameraProviderFuture.addListener({
@@ -147,7 +147,7 @@ class CameraXPreview(
                 setupCameraObservers()
             } catch (e: Exception) {
                 Log.e(TAG, "startCamera: ", e)
-                activity.showErrorToast(activity.getString(R.string.camera_open_error))
+                activity.toast(if (switching) R.string.camera_switch_error else R.string.camera_open_error)
             }
         }, mainExecutor)
     }
@@ -189,48 +189,7 @@ class CameraXPreview(
                 }
             }
 
-            // TODO: Handle errors
-            cameraState.error?.let { error ->
-                listener.setCameraAvailable(false)
-                when (error.code) {
-                    CameraState.ERROR_STREAM_CONFIG -> {
-                        Log.e(TAG, "ERROR_STREAM_CONFIG")
-                        // Make sure to setup the use cases properly
-                        activity.toast(R.string.camera_unavailable)
-                    }
-                    CameraState.ERROR_CAMERA_IN_USE -> {
-                        Log.e(TAG, "ERROR_CAMERA_IN_USE")
-                        // Close the camera or ask user to close another camera app that's using the
-                        // camera
-                        activity.showErrorToast("Camera is in use by another app, please close")
-                    }
-                    CameraState.ERROR_MAX_CAMERAS_IN_USE -> {
-                        Log.e(TAG, "ERROR_MAX_CAMERAS_IN_USE")
-                        // Close another open camera in the app, or ask the user to close another
-                        // camera app that's using the camera
-                        activity.showErrorToast("Camera is in use by another app, please close")
-                    }
-                    CameraState.ERROR_OTHER_RECOVERABLE_ERROR -> {
-                        Log.e(TAG, "ERROR_OTHER_RECOVERABLE_ERROR")
-                        activity.toast(R.string.camera_open_error)
-                    }
-                    CameraState.ERROR_CAMERA_DISABLED -> {
-                        Log.e(TAG, "ERROR_CAMERA_DISABLED")
-                        // Ask the user to enable the device's cameras
-                        activity.toast(R.string.camera_open_error)
-                    }
-                    CameraState.ERROR_CAMERA_FATAL_ERROR -> {
-                        Log.e(TAG, "ERROR_CAMERA_FATAL_ERROR")
-                        // Ask the user to reboot the device to restore camera function
-                        activity.toast(R.string.camera_open_error)
-                    }
-                    CameraState.ERROR_DO_NOT_DISTURB_MODE_ENABLED -> {
-                        // Ask the user to disable the "Do Not Disturb" mode, then reopen the camera
-                        Log.e(TAG, "ERROR_DO_NOT_DISTURB_MODE_ENABLED")
-                        activity.toast(R.string.camera_open_error)
-                    }
-                }
-            }
+            cameraErrorHandler.handleCameraError(cameraState?.error)
         }
     }
 
@@ -353,7 +312,7 @@ class CameraXPreview(
         }
         cameraSelector = newCameraSelector
         config.lastUsedCameraLens = newCameraSelector.toLensFacing()
-        startCamera()
+        startCamera(switching = true)
     }
 
     override fun toggleFlashlight() {
@@ -411,9 +370,9 @@ class CameraXPreview(
             }
 
             override fun onError(exception: ImageCaptureException) {
-                listener.toggleBottomButtons(false)
-                activity.showErrorToast("Capture picture $exception")
                 Log.e(TAG, "Error", exception)
+                listener.toggleBottomButtons(false)
+                cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
             }
         })
         playShutterSoundIfEnabled()
@@ -477,7 +436,8 @@ class CameraXPreview(
                         playStopVideoRecordingSoundIfEnabled()
                         listener.onVideoRecordingStopped()
                         if (recordEvent.hasError()) {
-                            // TODO: Handle errors
+                            Log.e(TAG, "recording failed:", recordEvent.cause)
+                            cameraErrorHandler.handleVideoRecordingError(recordEvent.error)
                         } else {
                             listener.onMediaCaptured(mediaOutput?.uri ?: recordEvent.outputResults.outputUri)
                         }
