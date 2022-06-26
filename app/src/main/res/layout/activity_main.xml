@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <com.simplemobiletools.camera.views.AutoFitTextureView
-        android:id="@+id/camera_texture_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <androidx.camera.view.PreviewView
+        android:id="@+id/view_finder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <ImageView
         android:id="@+id/capture_black_screen"

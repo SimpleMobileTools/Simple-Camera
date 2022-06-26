@@ -3,17 +3,18 @@ package com.simplemobiletools.camera.interfaces
 import android.net.Uri
 
 interface MyPreview {
-    fun onResumed()
 
-    fun onPaused()
+    fun onResumed() = Unit
+
+    fun onPaused() = Unit
 
     fun setTargetUri(uri: Uri)
 
-    fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean)
+    fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) = Unit
 
-    fun setFlashlightState(state: Int)
+    fun setFlashlightState(state: Int) = Unit
 
-    fun getCameraState(): Int
+    fun getCameraState(): Int = 0
 
     fun showChangeResolutionDialog()
 
@@ -25,11 +26,9 @@ interface MyPreview {
 
     fun toggleRecording()
 
-    fun tryInitVideoMode()
-
     fun initPhotoMode()
 
-    fun initVideoMode(): Boolean
+    fun initVideoMode()
 
-    fun checkFlashlight()
+    fun checkFlashlight() = Unit
 }

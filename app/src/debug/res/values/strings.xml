@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_launcher_name">Camera_debug</string>
+    <!--TODO Revert to Camera_debug -->
+    <string name="app_launcher_name">CameraX_debug</string>
 </resources>

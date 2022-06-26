@@ -96,7 +96,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private val mCameraToPreviewMatrix = Matrix()
     private val mPreviewToCameraMatrix = Matrix()
     private val mCameraOpenCloseLock = Semaphore(1)
-    private val mMediaActionSound = MediaActionSound()
+    private val mediaSoundHelper = MediaSoundHelper()
     private var mZoomRect: Rect? = null
 
     constructor(context: Context) : super(context)
@@ -114,7 +114,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
 
         mUseFrontCamera = false
         mIsInVideoMode = !initPhotoMode
-        loadSounds()
+        mediaSoundHelper.loadSounds()
 
         val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
             override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
@@ -180,12 +180,6 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mBackgroundHandler = null
         } catch (e: InterruptedException) {
         }
-    }
-
-    private fun loadSounds() {
-        mMediaActionSound.load(MediaActionSound.START_VIDEO_RECORDING)
-        mMediaActionSound.load(MediaActionSound.STOP_VIDEO_RECORDING)
-        mMediaActionSound.load(MediaActionSound.SHUTTER_CLICK)
     }
 
     @SuppressLint("MissingPermission")
@@ -369,7 +363,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
                     mIsFocusSupported = get(CameraCharacteristics.CONTROL_AF_AVAILABLE_MODES)!!.size > 1
                 }
                 mActivity.setFlashAvailable(mIsFlashSupported)
-                mActivity.updateCameraIcon(mUseFrontCamera)
+                mActivity.onChangeCamera(mUseFrontCamera)
                 return
             }
         } catch (e: Exception) {
@@ -429,21 +423,21 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             mCameraOpenCloseLock.release()
             mCameraDevice = cameraDevice
             createCameraPreviewSession()
-            mActivity.setIsCameraAvailable(true)
+            mActivity.setCameraAvailable(true)
         }
 
         override fun onDisconnected(cameraDevice: CameraDevice) {
             mCameraOpenCloseLock.release()
             cameraDevice.close()
             mCameraDevice = null
-            mActivity.setIsCameraAvailable(false)
+            mActivity.setCameraAvailable(false)
         }
 
         override fun onError(cameraDevice: CameraDevice, error: Int) {
             mCameraOpenCloseLock.release()
             cameraDevice.close()
             mCameraDevice = null
-            mActivity.setIsCameraAvailable(false)
+            mActivity.setCameraAvailable(false)
         }
     }
 
@@ -576,7 +570,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
             }
 
             if (mActivity.config.isSoundEnabled) {
-                mMediaActionSound.play(MediaActionSound.SHUTTER_CLICK)
+                mediaSoundHelper.playShutterSound()
             }
 
             mCameraState = STATE_PICTURE_TAKEN
@@ -824,7 +818,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         closeCaptureSession()
         setupMediaRecorder()
         if (mActivity.config.isSoundEnabled) {
-            mMediaActionSound.play(MediaActionSound.START_VIDEO_RECORDING)
+            mediaSoundHelper.playStartVideoRecordingSound()
         }
 
         try {
@@ -853,7 +847,7 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
     private fun stopRecording() {
         mCameraState = STATE_STOPING_RECORDING
         if (mActivity.config.isSoundEnabled) {
-            mMediaActionSound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+            mediaSoundHelper.playStopVideoRecordingSound()
         }
 
         mIsRecording = false
@@ -981,23 +975,18 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         }
     }
 
-    override fun tryInitVideoMode() {
-        initVideoMode()
-    }
-
     override fun initPhotoMode() {
         mIsInVideoMode = false
         closeCamera()
         openCamera(mTextureView.width, mTextureView.height)
     }
 
-    override fun initVideoMode(): Boolean {
+    override fun initVideoMode() {
         mLastFocusX = 0f
         mLastFocusY = 0f
         mIsInVideoMode = true
         closeCamera()
         openCamera(mTextureView.width, mTextureView.height)
-        return true
     }
 
     override fun checkFlashlight() {
