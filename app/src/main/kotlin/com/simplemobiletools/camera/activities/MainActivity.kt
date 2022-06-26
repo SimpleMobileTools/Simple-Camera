@@ -23,6 +23,7 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.helpers.FLASH_OFF
 import com.simplemobiletools.camera.helpers.FLASH_ON
+import com.simplemobiletools.camera.helpers.MediaOutputHelper
 import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_LEFT
 import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_RIGHT
 import com.simplemobiletools.camera.helpers.ORIENT_PORTRAIT
@@ -220,7 +221,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         )
 
         checkVideoCaptureIntent()
-        mPreview = CameraXPreview(this, view_finder, this)
+        mPreview = CameraXPreview(this, view_finder, MediaOutputHelper(this), this)
         checkImageCaptureIntent()
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 

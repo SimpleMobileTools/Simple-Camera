@@ -17,7 +17,13 @@ import android.view.OrientationEventListener
 import android.view.ScaleGestureDetector
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.CameraState
+import androidx.camera.core.DisplayOrientedMeteringPointFactory
+import androidx.camera.core.FocusMeteringAction
+import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
 import androidx.camera.core.ImageCapture.FLASH_MODE_AUTO
 import androidx.camera.core.ImageCapture.FLASH_MODE_OFF
@@ -26,7 +32,11 @@ import androidx.camera.core.ImageCapture.Metadata
 import androidx.camera.core.ImageCapture.OnImageSavedCallback
 import androidx.camera.core.ImageCapture.OutputFileOptions
 import androidx.camera.core.ImageCapture.OutputFileResults
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.core.UseCase
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.video.FileDescriptorOutputOptions
 import androidx.camera.video.MediaStoreOutputOptions
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
@@ -35,6 +45,7 @@ import androidx.camera.video.Recording
 import androidx.camera.video.VideoCapture
 import androidx.camera.video.VideoRecordEvent
 import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -46,6 +57,7 @@ import com.simplemobiletools.camera.extensions.toAppFlashMode
 import com.simplemobiletools.camera.extensions.toCameraSelector
 import com.simplemobiletools.camera.extensions.toCameraXFlashMode
 import com.simplemobiletools.camera.extensions.toLensFacing
+import com.simplemobiletools.camera.helpers.MediaOutputHelper
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
 import com.simplemobiletools.camera.interfaces.MyPreview
@@ -61,6 +73,7 @@ import kotlin.math.min
 class CameraXPreview(
     private val activity: AppCompatActivity,
     private val previewView: PreviewView,
+    private val mediaOutputHelper: MediaOutputHelper,
     private val listener: CameraXPreviewListener,
 ) : MyPreview, DefaultLifecycleObserver {
 
@@ -76,7 +89,7 @@ class CameraXPreview(
 
     private val config = activity.config
     private val contentResolver = activity.contentResolver
-    private val mainExecutor = activity.mainExecutor
+    private val mainExecutor = ContextCompat.getMainExecutor(activity)
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
@@ -363,24 +376,29 @@ class CameraXPreview(
         val imageCapture = imageCapture ?: throw IllegalStateException("Camera initialization failed.")
 
         val metadata = Metadata().apply {
-            isReversedHorizontal = config.flipPhotos
+            isReversedHorizontal = isFrontCameraInUse() && config.flipPhotos
         }
 
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(true))
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-        }
-        val contentUri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-        val outputOptions = OutputFileOptions.Builder(contentResolver, contentUri, contentValues)
-            .setMetadata(metadata)
-            .build()
+        val mediaOutput = mediaOutputHelper.getOutputStreamMediaOutput()
 
+        val outputOptionsBuilder = if (mediaOutput != null) {
+            OutputFileOptions.Builder(mediaOutput.outputStream)
+        } else {
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(true))
+                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+            }
+            val contentUri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            OutputFileOptions.Builder(contentResolver, contentUri, contentValues)
+        }
+
+        val outputOptions = outputOptionsBuilder.setMetadata(metadata).build()
 
         imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: OutputFileResults) {
                 listener.toggleBottomButtons(false)
-                listener.onMediaCaptured(outputFileResults.savedUri!!)
+                listener.onMediaCaptured(mediaOutput?.uri ?: outputFileResults.savedUri!!)
             }
 
             override fun onError(exception: ImageCaptureException) {
@@ -416,19 +434,23 @@ class CameraXPreview(
     @SuppressLint("MissingPermission")
     private fun startRecording() {
         val videoCapture = videoCapture ?: throw IllegalStateException("Camera initialization failed.")
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(false))
-            put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-        }
-        val contentUri = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-        val outputOptions = MediaStoreOutputOptions.Builder(contentResolver, contentUri)
-            .setContentValues(contentValues)
-            .build()
 
-        currentRecording = videoCapture.output
-            .prepareRecording(activity, outputOptions)
-            .withAudioEnabled()
+        val mediaOutput = mediaOutputHelper.getFileDescriptorMediaOutput()
+        val recording = if (mediaOutput != null) {
+            FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
+                .let { videoCapture.output.prepareRecording(activity, it) }
+        } else {
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(false))
+                put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+            }
+            val contentUri = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            MediaStoreOutputOptions.Builder(contentResolver, contentUri).setContentValues(contentValues).build()
+                .let { videoCapture.output.prepareRecording(activity, it) }
+        }
+
+        currentRecording = recording.withAudioEnabled()
             .start(mainExecutor) { recordEvent ->
                 Log.d(TAG, "recordEvent=$recordEvent ")
                 recordingState = recordEvent
@@ -448,7 +470,7 @@ class CameraXPreview(
                         if (recordEvent.hasError()) {
                             // TODO: Handle errors
                         } else {
-                            listener.onMediaCaptured(recordEvent.outputResults.outputUri)
+                            listener.onMediaCaptured(mediaOutput?.uri ?: recordEvent.outputResults.outputUri)
                         }
                     }
                 }
