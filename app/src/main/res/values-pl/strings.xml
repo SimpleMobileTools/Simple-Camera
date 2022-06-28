@@ -16,13 +16,13 @@
     <string name="faq_1_title">Jaką jakość kompresji zdjęć powinienem ustawić\?</string>
     <string name="faq_1_text">Zależy to od Twojego celu. Do celów ogólnych większość ludzi zaleca poziom 75-80% — wtedy obraz jest nadal w dobrej jakości, ale rozmiar pliku znacznie zmniejsza się w porównaniu do 100%.</string>
     <!-- Settings -->
-    <string name="save_photos">Zapisuj zdjęcia i filmy w</string>
+    <string name="save_photos">Zapisuj zdjęcia i wideo w</string>
     <string name="show_preview">Pokazuj podgląd po zrobieniu zdjęcia</string>
     <string name="shutter_sound">Dźwięk migawki</string>
     <string name="back_camera">Rozdzielczość tylnego aparatu</string>
     <string name="front_camera">Rozdzielczość przedniego aparatu</string>
     <string name="photo">Zdjęcie</string>
-    <string name="video">Film</string>
+    <string name="video">Wideo</string>
     <string name="focus_before_capture">Ustawiaj ostrość przed zrobieniem zdjęcia</string>
     <string name="volume_buttons_as_shutter">Używaj przycisków głośności jako spustu migawki</string>
     <string name="turn_flash_off_at_startup">Wyłączaj lampę błyskową przy uruchomieniu</string>
