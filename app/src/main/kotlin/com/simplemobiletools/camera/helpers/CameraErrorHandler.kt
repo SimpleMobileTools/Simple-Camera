@@ -38,4 +38,8 @@ class CameraErrorHandler(
             else -> context.toast(R.string.video_recording_failed)
         }
     }
+
+    fun showSaveToInternalStorage() {
+        context.toast(R.string.save_error_internal_storage)
+    }
 }

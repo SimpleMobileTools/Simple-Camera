@@ -53,6 +53,7 @@ import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getRandomMediaName
 import com.simplemobiletools.camera.extensions.toAppFlashMode
 import com.simplemobiletools.camera.extensions.toCameraSelector
 import com.simplemobiletools.camera.extensions.toLensFacing
@@ -61,7 +62,10 @@ import com.simplemobiletools.camera.helpers.MediaOutputHelper
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.MediaOutput
+import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -73,7 +77,9 @@ class CameraXPreview(
     private val activity: AppCompatActivity,
     private val previewView: PreviewView,
     private val mediaOutputHelper: MediaOutputHelper,
+    private val cameraErrorHandler: CameraErrorHandler,
     private val listener: CameraXPreviewListener,
+    initInPhotoMode: Boolean,
 ) : MyPreview, DefaultLifecycleObserver {
 
     companion object {
@@ -92,7 +98,6 @@ class CameraXPreview(
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
-    private val cameraErrorHandler = CameraErrorHandler(activity)
 
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
@@ -123,7 +128,9 @@ class CameraXPreview(
     private var recordingState: VideoRecordEvent? = null
     private var cameraSelector = config.lastUsedCameraLens.toCameraSelector()
     private var flashMode = FLASH_MODE_OFF
-    private var isPhotoCapture = config.initPhotoMode
+    private var isPhotoCapture = initInPhotoMode.also {
+        Log.i(TAG, "initInPhotoMode= $it")
+    }
 
     init {
         bindToLifeCycle()
@@ -147,7 +154,8 @@ class CameraXPreview(
                 setupCameraObservers()
             } catch (e: Exception) {
                 Log.e(TAG, "startCamera: ", e)
-                activity.toast(if (switching) R.string.camera_switch_error else R.string.camera_open_error)
+                val errorMessage = if (switching) R.string.camera_switch_error else R.string.camera_open_error
+                activity.toast(errorMessage)
             }
         }, mainExecutor)
     }
@@ -296,10 +304,6 @@ class CameraXPreview(
         orientationEventListener.disable()
     }
 
-    override fun setTargetUri(uri: Uri) {
-
-    }
-
     override fun showChangeResolutionDialog() {
 
     }
@@ -347,18 +351,11 @@ class CameraXPreview(
             isReversedHorizontal = isFrontCameraInUse() && config.flipPhotos
         }
 
-        val mediaOutput = mediaOutputHelper.getOutputStreamMediaOutput()
-
-        val outputOptionsBuilder = if (mediaOutput != null) {
-            OutputFileOptions.Builder(mediaOutput.outputStream)
-        } else {
-            val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(true))
-                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-            }
-            val contentUri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-            OutputFileOptions.Builder(contentResolver, contentUri, contentValues)
+        val mediaOutput = mediaOutputHelper.getImageMediaOutput()
+        val outputOptionsBuilder = when (mediaOutput) {
+            is MediaOutput.MediaStoreOutput -> OutputFileOptions.Builder(contentResolver, mediaOutput.contentUri, mediaOutput.contentValues)
+            is MediaOutput.OutputStreamMediaOutput -> OutputFileOptions.Builder(mediaOutput.outputStream)
+            else -> throw IllegalArgumentException("Unexpected option for image")
         }
 
         val outputOptions = outputOptionsBuilder.setMetadata(metadata).build()
@@ -366,7 +363,7 @@ class CameraXPreview(
         imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: OutputFileResults) {
                 listener.toggleBottomButtons(false)
-                listener.onMediaCaptured(mediaOutput?.uri ?: outputFileResults.savedUri!!)
+                listener.onMediaCaptured(mediaOutput.uri ?: outputFileResults.savedUri!!)
             }
 
             override fun onError(exception: ImageCaptureException) {
@@ -403,19 +400,17 @@ class CameraXPreview(
     private fun startRecording() {
         val videoCapture = videoCapture ?: throw IllegalStateException("Camera initialization failed.")
 
-        val mediaOutput = mediaOutputHelper.getFileDescriptorMediaOutput()
-        val recording = if (mediaOutput != null) {
-            FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
-                .let { videoCapture.output.prepareRecording(activity, it) }
-        } else {
-            val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(false))
-                put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
-                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        val mediaOutput = mediaOutputHelper.getVideoMediaOutput()
+        val recording = when (mediaOutput) {
+            is MediaOutput.FileDescriptorMediaOutput -> {
+                FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
+                    .let { videoCapture.output.prepareRecording(activity, it) }
             }
-            val contentUri = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-            MediaStoreOutputOptions.Builder(contentResolver, contentUri).setContentValues(contentValues).build()
-                .let { videoCapture.output.prepareRecording(activity, it) }
+            is MediaOutput.MediaStoreOutput -> {
+                MediaStoreOutputOptions.Builder(contentResolver, mediaOutput.contentUri).setContentValues(mediaOutput.contentValues).build()
+                    .let { videoCapture.output.prepareRecording(activity, it) }
+            }
+            else -> throw IllegalArgumentException("Unexpected output option for video $mediaOutput")
         }
 
         currentRecording = recording.withAudioEnabled()
@@ -439,21 +434,12 @@ class CameraXPreview(
                             Log.e(TAG, "recording failed:", recordEvent.cause)
                             cameraErrorHandler.handleVideoRecordingError(recordEvent.error)
                         } else {
-                            listener.onMediaCaptured(mediaOutput?.uri ?: recordEvent.outputResults.outputUri)
+                            listener.onMediaCaptured(mediaOutput.uri ?: recordEvent.outputResults.outputUri)
                         }
                     }
                 }
             }
         Log.d(TAG, "Recording started")
-    }
-
-    private fun getRandomMediaName(isPhoto: Boolean): String {
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        return if (isPhoto) {
-            "IMG_$timestamp"
-        } else {
-            "VID_$timestamp"
-        }
     }
 
     private fun playShutterSoundIfEnabled() {

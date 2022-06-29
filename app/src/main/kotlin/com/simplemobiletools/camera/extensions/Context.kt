@@ -17,10 +17,19 @@ fun Context.getOutputMediaFile(isPhoto: Boolean): String {
         }
     }
 
+    val mediaName = getRandomMediaName(isPhoto)
+    return if (isPhoto) {
+        "${mediaStorageDir.path}/$mediaName.jpg"
+    } else {
+        "${mediaStorageDir.path}/$mediaName.mp4"
+    }
+}
+
+fun getRandomMediaName(isPhoto: Boolean): String {
     val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
     return if (isPhoto) {
-        "${mediaStorageDir.path}/IMG_$timestamp.jpg"
+        "IMG_$timestamp"
     } else {
-        "${mediaStorageDir.path}/VID_$timestamp.mp4"
+        "VID_$timestamp"
     }
 }
