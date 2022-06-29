@@ -9,28 +9,28 @@
     <string name="save_error_internal_storage">Трапилася помилка, місце для збереження змінено на внутрішню пам\'ять</string>
     <string name="camera_switch_error">Не вдалося перемкнути камеру</string>
     <string name="click_to_resume_preview">Щоб відновити попередній перегляд, натисніть на зображення</string>
-    <string name="photo_not_saved">Не вдалося зберегти фото</string>
+    <string name="photo_not_saved">Не вдалося зберегти світлину</string>
     <string name="setting_resolution_failed">Не вдалося встановити правильне розширення</string>
     <string name="video_recording_failed">Не вдалося записати відео, спробуйте встановити інше розширення</string>
     <!-- FAQ -->
-    <string name="faq_1_title">Який ступінь стиснення фото слід встановити?</string>
+    <string name="faq_1_title">Який ступінь стиснення світлин слід встановити\?</string>
     <string name="faq_1_text">Це залежить від вашої мети. Загалом більшість людей радять використовувати 75%-80%, тоді зображення ще дійсно гарної якості, але розмір файлу істотно зменшується порівняно зі 100%.</string>
     <!-- Settings -->
-    <string name="save_photos">Зберігати фото і відео у</string>
-    <string name="show_preview">Попередньо переглядати фото після зйомки</string>
+    <string name="save_photos">Зберігати світлини і відео до</string>
+    <string name="show_preview">Попередньо переглядати світлину після зйомки</string>
     <string name="shutter_sound">Звук затвора</string>
     <string name="back_camera">Розширення задньої камери</string>
     <string name="front_camera">Розширення фронтальної камери</string>
-    <string name="photo">Фото</string>
+    <string name="photo">Світлина</string>
     <string name="video">Відео</string>
     <string name="focus_before_capture">Фокусувати перед зйомкою</string>
     <string name="volume_buttons_as_shutter">Спускати затвор натисненням кнопок гучності</string>
     <string name="turn_flash_off_at_startup">Вимикати спалах при запуску</string>
-    <string name="flip_front_camera_photos_horizontally">Орієнтувати горизонтально фото з фронтальної камери</string>
+    <string name="flip_front_camera_photos_horizontally">Горизонтально орієнтувати світлини з фронтальної камери</string>
     <string name="keep_settings_visible">Завжди показувати панель налаштувань</string>
     <string name="always_open_back_camera">Завжди активувати задню камеру під час запуску додатка</string>
     <string name="save_photo_metadata">Зберігати метадані EXIF</string>
-    <string name="photo_compression_quality">Якість фото після стиснення</string>
+    <string name="photo_compression_quality">Якість світлини після стиснення</string>
     <string name="shutter">Затвор</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
