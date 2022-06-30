@@ -46,7 +46,7 @@
 
         After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
 
-        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+        If you want to launch this easy camera at pressing your devices\' hardware camera button, you might have to disable the built in Camera app in Settings -&gt; Apps -&gt; Camera -&gt; Disable.
 
         In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
 
@@ -67,9 +67,14 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
-    -->    
+    -->
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">Do Not Disturb mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 </resources>
