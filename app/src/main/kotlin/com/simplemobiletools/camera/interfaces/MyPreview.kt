@@ -8,7 +8,7 @@ interface MyPreview {
 
     fun onPaused() = Unit
 
-    fun setTargetUri(uri: Uri)
+    fun setTargetUri(uri: Uri) = Unit
 
     fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) = Unit
 

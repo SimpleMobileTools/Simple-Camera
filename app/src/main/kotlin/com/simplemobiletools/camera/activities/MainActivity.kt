@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Size
 import android.view.KeyEvent
 import android.view.OrientationEventListener
 import android.view.View
@@ -27,7 +28,7 @@ import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_LEFT
 import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_RIGHT
 import com.simplemobiletools.camera.helpers.ORIENT_PORTRAIT
 import com.simplemobiletools.camera.helpers.PhotoProcessor
-import com.simplemobiletools.camera.implementations.CameraXPreview
+import com.simplemobiletools.camera.implementations.CameraXInitializer
 import com.simplemobiletools.camera.implementations.CameraXPreviewListener
 import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
@@ -38,6 +39,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
 import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REFRESH_PATH
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.Release
 import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.btn_holder
@@ -50,7 +52,7 @@ import kotlinx.android.synthetic.main.activity_main.toggle_camera
 import kotlinx.android.synthetic.main.activity_main.toggle_flash
 import kotlinx.android.synthetic.main.activity_main.toggle_photo_video
 import kotlinx.android.synthetic.main.activity_main.video_rec_curr_timer
-import kotlinx.android.synthetic.main.activity_main.view_finder
+import kotlinx.android.synthetic.main.activity_main.preview_view
 import kotlinx.android.synthetic.main.activity_main.view_holder
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
@@ -68,7 +70,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mPreviewUri: Uri? = null
     private var mIsInPhotoMode = false
     private var mIsCameraAvailable = false
-    private var mIsVideoCaptureIntent = false
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
     var mLastHandledOrientation = 0
@@ -101,7 +102,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             scheduleFadeOut()
             mFocusCircleView.setStrokeColor(getProperPrimaryColor())
 
-            if (mIsVideoCaptureIntent && mIsInPhotoMode) {
+            if (isVideoCaptureIntent() && mIsInPhotoMode) {
                 handleTogglePhotoVideo()
                 checkButtons()
             }
@@ -132,9 +133,17 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initVariables() {
-        mIsInPhotoMode = config.initPhotoMode
+        mIsInPhotoMode = if (isVideoCaptureIntent()) {
+            Log.w(TAG, "initializeCamera: video capture")
+            false
+        } else if (isImageCaptureIntent()) {
+            Log.w(TAG, "initializeCamera: image capture mode")
+            true
+        } else {
+            config.initPhotoMode
+        }
+        Log.w(TAG, "initInPhotoMode = $mIsInPhotoMode")
         mIsCameraAvailable = false
-        mIsVideoCaptureIntent = false
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
         mLastHandledOrientation = 0
@@ -187,10 +196,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun isImageCaptureIntent() = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+    private fun isImageCaptureIntent(): Boolean = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
+
+    private fun isVideoCaptureIntent(): Boolean = intent?.action == MediaStore.ACTION_VIDEO_CAPTURE
 
     private fun checkImageCaptureIntent() {
         if (isImageCaptureIntent()) {
+            Log.i(TAG, "isImageCaptureIntent: ")
             hideIntentButtons()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
@@ -201,7 +213,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun checkVideoCaptureIntent() {
         if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
-            mIsVideoCaptureIntent = true
+            Log.i(TAG, "checkVideoCaptureIntent: ")
             mIsInPhotoMode = false
             hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
@@ -220,7 +232,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         )
 
         checkVideoCaptureIntent()
-        mPreview = CameraXPreview(this, view_finder, this)
+        val outputUri = intent.extras?.get(MediaStore.EXTRA_OUTPUT) as? Uri
+        val is3rdPartyIntent = isVideoCaptureIntent() || isImageCaptureIntent()
+        mPreview = CameraXInitializer(this).createCameraXPreview(
+            preview_view,
+            listener = this,
+            outputUri = outputUri,
+            is3rdPartyIntent = is3rdPartyIntent,
+            initInPhotoMode = mIsInPhotoMode,
+        )
         checkImageCaptureIntent()
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
@@ -235,7 +255,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mFadeHandler = Handler()
         setupPreviewImage(true)
 
-        val initialFlashlightState = config.flashlightState
+        val initialFlashlightState = FLASH_OFF
         mPreview!!.setFlashlightState(initialFlashlightState)
         updateFlashlightState(initialFlashlightState)
     }
@@ -312,7 +332,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 togglePhotoVideo()
             } else {
                 toast(R.string.no_audio_permissions)
-                if (mIsVideoCaptureIntent) {
+                if (isVideoCaptureIntent()) {
                     finish()
                 }
             }
@@ -324,7 +344,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             return
         }
 
-        if (mIsVideoCaptureIntent) {
+        if (isVideoCaptureIntent()) {
             mPreview?.initVideoMode()
         }
 
@@ -356,7 +376,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             mPreview?.initVideoMode()
             initVideoButtons()
         } catch (e: Exception) {
-            if (!mIsVideoCaptureIntent) {
+            if (!isVideoCaptureIntent()) {
                 toast(R.string.video_mode_error)
             }
         }
@@ -544,6 +564,27 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onMediaCaptured(uri: Uri) {
         loadLastTakenMedia(uri)
+        ensureBackgroundThread {
+            if (isImageCaptureIntent()) {
+                val bitmap = contentResolver.loadThumbnail(uri, Size(30, 30), null)
+                Intent().apply {
+                    data = uri
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    putExtra("data", bitmap)
+                    setResult(Activity.RESULT_OK, this)
+                }
+                Log.w(TAG, "onMediaCaptured: exiting uri=$uri")
+                finish()
+            } else if (isVideoCaptureIntent()) {
+                Intent().apply {
+                    data = uri
+                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    setResult(Activity.RESULT_OK, this)
+                }
+                Log.w(TAG, "onMediaCaptured: video exiting uri=$uri")
+                finish()
+            }
+        }
     }
 
     override fun onChangeFlashMode(flashMode: Int) {
@@ -587,7 +628,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     fun videoSaved(uri: Uri) {
         setupPreviewImage(false)
-        if (mIsVideoCaptureIntent) {
+        if (isVideoCaptureIntent()) {
             Intent().apply {
                 data = uri
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION

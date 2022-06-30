@@ -17,7 +17,13 @@ import android.view.OrientationEventListener
 import android.view.ScaleGestureDetector
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.CameraState
+import androidx.camera.core.DisplayOrientedMeteringPointFactory
+import androidx.camera.core.FocusMeteringAction
+import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
 import androidx.camera.core.ImageCapture.FLASH_MODE_AUTO
 import androidx.camera.core.ImageCapture.FLASH_MODE_OFF
@@ -26,7 +32,11 @@ import androidx.camera.core.ImageCapture.Metadata
 import androidx.camera.core.ImageCapture.OnImageSavedCallback
 import androidx.camera.core.ImageCapture.OutputFileOptions
 import androidx.camera.core.ImageCapture.OutputFileResults
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.core.UseCase
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.video.FileDescriptorOutputOptions
 import androidx.camera.video.MediaStoreOutputOptions
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
@@ -35,6 +45,7 @@ import androidx.camera.video.Recording
 import androidx.camera.video.VideoCapture
 import androidx.camera.video.VideoRecordEvent
 import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -42,15 +53,19 @@ import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.getRandomMediaName
 import com.simplemobiletools.camera.extensions.toAppFlashMode
 import com.simplemobiletools.camera.extensions.toCameraSelector
-import com.simplemobiletools.camera.extensions.toCameraXFlashMode
 import com.simplemobiletools.camera.extensions.toLensFacing
+import com.simplemobiletools.camera.helpers.CameraErrorHandler
+import com.simplemobiletools.camera.helpers.MediaOutputHelper
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
 import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
 import com.simplemobiletools.camera.interfaces.MyPreview
-import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.camera.models.MediaOutput
+import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -61,7 +76,10 @@ import kotlin.math.min
 class CameraXPreview(
     private val activity: AppCompatActivity,
     private val previewView: PreviewView,
+    private val mediaOutputHelper: MediaOutputHelper,
+    private val cameraErrorHandler: CameraErrorHandler,
     private val listener: CameraXPreviewListener,
+    initInPhotoMode: Boolean,
 ) : MyPreview, DefaultLifecycleObserver {
 
     companion object {
@@ -76,7 +94,7 @@ class CameraXPreview(
 
     private val config = activity.config
     private val contentResolver = activity.contentResolver
-    private val mainExecutor = activity.mainExecutor
+    private val mainExecutor = ContextCompat.getMainExecutor(activity)
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
@@ -109,8 +127,10 @@ class CameraXPreview(
     private var currentRecording: Recording? = null
     private var recordingState: VideoRecordEvent? = null
     private var cameraSelector = config.lastUsedCameraLens.toCameraSelector()
-    private var flashMode = config.flashlightState.toCameraXFlashMode()
-    private var isPhotoCapture = config.initPhotoMode
+    private var flashMode = FLASH_MODE_OFF
+    private var isPhotoCapture = initInPhotoMode.also {
+        Log.i(TAG, "initInPhotoMode= $it")
+    }
 
     init {
         bindToLifeCycle()
@@ -124,7 +144,7 @@ class CameraXPreview(
         activity.lifecycle.addObserver(this)
     }
 
-    private fun startCamera() {
+    private fun startCamera(switching: Boolean = false) {
         Log.i(TAG, "startCamera: ")
         val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
         cameraProviderFuture.addListener({
@@ -134,7 +154,8 @@ class CameraXPreview(
                 setupCameraObservers()
             } catch (e: Exception) {
                 Log.e(TAG, "startCamera: ", e)
-                activity.showErrorToast(activity.getString(R.string.camera_open_error))
+                val errorMessage = if (switching) R.string.camera_switch_error else R.string.camera_open_error
+                activity.toast(errorMessage)
             }
         }, mainExecutor)
     }
@@ -176,48 +197,7 @@ class CameraXPreview(
                 }
             }
 
-            // TODO: Handle errors
-            cameraState.error?.let { error ->
-                listener.setCameraAvailable(false)
-                when (error.code) {
-                    CameraState.ERROR_STREAM_CONFIG -> {
-                        Log.e(TAG, "ERROR_STREAM_CONFIG")
-                        // Make sure to setup the use cases properly
-                        activity.toast(R.string.camera_unavailable)
-                    }
-                    CameraState.ERROR_CAMERA_IN_USE -> {
-                        Log.e(TAG, "ERROR_CAMERA_IN_USE")
-                        // Close the camera or ask user to close another camera app that's using the
-                        // camera
-                        activity.showErrorToast("Camera is in use by another app, please close")
-                    }
-                    CameraState.ERROR_MAX_CAMERAS_IN_USE -> {
-                        Log.e(TAG, "ERROR_MAX_CAMERAS_IN_USE")
-                        // Close another open camera in the app, or ask the user to close another
-                        // camera app that's using the camera
-                        activity.showErrorToast("Camera is in use by another app, please close")
-                    }
-                    CameraState.ERROR_OTHER_RECOVERABLE_ERROR -> {
-                        Log.e(TAG, "ERROR_OTHER_RECOVERABLE_ERROR")
-                        activity.toast(R.string.camera_open_error)
-                    }
-                    CameraState.ERROR_CAMERA_DISABLED -> {
-                        Log.e(TAG, "ERROR_CAMERA_DISABLED")
-                        // Ask the user to enable the device's cameras
-                        activity.toast(R.string.camera_open_error)
-                    }
-                    CameraState.ERROR_CAMERA_FATAL_ERROR -> {
-                        Log.e(TAG, "ERROR_CAMERA_FATAL_ERROR")
-                        // Ask the user to reboot the device to restore camera function
-                        activity.toast(R.string.camera_open_error)
-                    }
-                    CameraState.ERROR_DO_NOT_DISTURB_MODE_ENABLED -> {
-                        // Ask the user to disable the "Do Not Disturb" mode, then reopen the camera
-                        Log.e(TAG, "ERROR_DO_NOT_DISTURB_MODE_ENABLED")
-                        activity.toast(R.string.camera_open_error)
-                    }
-                }
-            }
+            cameraErrorHandler.handleCameraError(cameraState?.error)
         }
     }
 
@@ -324,10 +304,6 @@ class CameraXPreview(
         orientationEventListener.disable()
     }
 
-    override fun setTargetUri(uri: Uri) {
-
-    }
-
     override fun showChangeResolutionDialog() {
 
     }
@@ -340,17 +316,26 @@ class CameraXPreview(
         }
         cameraSelector = newCameraSelector
         config.lastUsedCameraLens = newCameraSelector.toLensFacing()
-        startCamera()
+        startCamera(switching = true)
     }
 
     override fun toggleFlashlight() {
-        val newFlashMode = when (flashMode) {
-            FLASH_MODE_OFF -> FLASH_MODE_ON
-            FLASH_MODE_ON -> FLASH_MODE_AUTO
-            FLASH_MODE_AUTO -> FLASH_MODE_OFF
-            else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+        val newFlashMode = if (isPhotoCapture) {
+            when (flashMode) {
+                FLASH_MODE_OFF -> FLASH_MODE_ON
+                FLASH_MODE_ON -> FLASH_MODE_AUTO
+                FLASH_MODE_AUTO -> FLASH_MODE_OFF
+                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+            }
+        } else {
+            when (flashMode) {
+                FLASH_MODE_OFF -> FLASH_MODE_ON
+                FLASH_MODE_ON -> FLASH_MODE_OFF
+                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+            }.also {
+                camera?.cameraControl?.enableTorch(it == FLASH_MODE_ON)
+            }
         }
-
         flashMode = newFlashMode
         imageCapture?.flashMode = newFlashMode
         val appFlashMode = flashMode.toAppFlashMode()
@@ -363,30 +348,28 @@ class CameraXPreview(
         val imageCapture = imageCapture ?: throw IllegalStateException("Camera initialization failed.")
 
         val metadata = Metadata().apply {
-            isReversedHorizontal = config.flipPhotos
+            isReversedHorizontal = isFrontCameraInUse() && config.flipPhotos
         }
 
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(true))
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        val mediaOutput = mediaOutputHelper.getImageMediaOutput()
+        val outputOptionsBuilder = when (mediaOutput) {
+            is MediaOutput.MediaStoreOutput -> OutputFileOptions.Builder(contentResolver, mediaOutput.contentUri, mediaOutput.contentValues)
+            is MediaOutput.OutputStreamMediaOutput -> OutputFileOptions.Builder(mediaOutput.outputStream)
+            else -> throw IllegalArgumentException("Unexpected option for image")
         }
-        val contentUri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-        val outputOptions = OutputFileOptions.Builder(contentResolver, contentUri, contentValues)
-            .setMetadata(metadata)
-            .build()
 
+        val outputOptions = outputOptionsBuilder.setMetadata(metadata).build()
 
         imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: OutputFileResults) {
                 listener.toggleBottomButtons(false)
-                listener.onMediaCaptured(outputFileResults.savedUri!!)
+                listener.onMediaCaptured(mediaOutput.uri ?: outputFileResults.savedUri!!)
             }
 
             override fun onError(exception: ImageCaptureException) {
-                listener.toggleBottomButtons(false)
-                activity.showErrorToast("Capture picture $exception")
                 Log.e(TAG, "Error", exception)
+                listener.toggleBottomButtons(false)
+                cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
             }
         })
         playShutterSoundIfEnabled()
@@ -416,19 +399,21 @@ class CameraXPreview(
     @SuppressLint("MissingPermission")
     private fun startRecording() {
         val videoCapture = videoCapture ?: throw IllegalStateException("Camera initialization failed.")
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(false))
-            put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-        }
-        val contentUri = MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-        val outputOptions = MediaStoreOutputOptions.Builder(contentResolver, contentUri)
-            .setContentValues(contentValues)
-            .build()
 
-        currentRecording = videoCapture.output
-            .prepareRecording(activity, outputOptions)
-            .withAudioEnabled()
+        val mediaOutput = mediaOutputHelper.getVideoMediaOutput()
+        val recording = when (mediaOutput) {
+            is MediaOutput.FileDescriptorMediaOutput -> {
+                FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
+                    .let { videoCapture.output.prepareRecording(activity, it) }
+            }
+            is MediaOutput.MediaStoreOutput -> {
+                MediaStoreOutputOptions.Builder(contentResolver, mediaOutput.contentUri).setContentValues(mediaOutput.contentValues).build()
+                    .let { videoCapture.output.prepareRecording(activity, it) }
+            }
+            else -> throw IllegalArgumentException("Unexpected output option for video $mediaOutput")
+        }
+
+        currentRecording = recording.withAudioEnabled()
             .start(mainExecutor) { recordEvent ->
                 Log.d(TAG, "recordEvent=$recordEvent ")
                 recordingState = recordEvent
@@ -446,23 +431,15 @@ class CameraXPreview(
                         playStopVideoRecordingSoundIfEnabled()
                         listener.onVideoRecordingStopped()
                         if (recordEvent.hasError()) {
-                            // TODO: Handle errors
+                            Log.e(TAG, "recording failed:", recordEvent.cause)
+                            cameraErrorHandler.handleVideoRecordingError(recordEvent.error)
                         } else {
-                            listener.onMediaCaptured(recordEvent.outputResults.outputUri)
+                            listener.onMediaCaptured(mediaOutput.uri ?: recordEvent.outputResults.outputUri)
                         }
                     }
                 }
             }
         Log.d(TAG, "Recording started")
-    }
-
-    private fun getRandomMediaName(isPhoto: Boolean): String {
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        return if (isPhoto) {
-            "IMG_$timestamp"
-        } else {
-            "VID_$timestamp"
-        }
     }
 
     private fun playShutterSoundIfEnabled() {
