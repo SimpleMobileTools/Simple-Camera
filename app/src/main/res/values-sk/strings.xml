@@ -12,11 +12,9 @@
     <string name="photo_not_saved">Fotografiu sa nepodarilo uložiť</string>
     <string name="setting_resolution_failed">Nepodarilo sa nastaviť správne rozlíšenie</string>
     <string name="video_recording_failed">Nahrávanie videa zlyhalo, skúste použiť iné rozlíšenie</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Akú kvalitu fotiek by som mal použiť?</string>
     <string name="faq_1_text">Záleží to od vášho cieľa. Pre všeobecné použitie odporúča väčšina ľudí 75%-80% kedy je kvalita fotiek stále vysoká, ale výsledný súbor má oveľa menšiu veľkosť v porovnaní so 100% kvalitou.</string>
-
     <!-- Settings -->
     <string name="save_photos">Ukladať fotky a videá do</string>
     <string name="show_preview">Zobraziť náhľad fotky po vytvorení</string>
@@ -34,7 +32,6 @@
     <string name="save_photo_metadata">Ukladať exif metadáta fotografií</string>
     <string name="photo_compression_quality">Kvalita kompresie fotiek</string>
     <string name="shutter">Spúšť</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Jednoduchý fotoaparát - Ľahká foto a video tvorba</string>
@@ -49,7 +46,7 @@
 
         Po vytvorení fotky sa objaví jej miniatúra a ak na ňu kliknete, viete si pozrieť celú fotku vo vašej predvolenej galérií. Pri fotení uvidíte jasné znamenie vytvorenia fotky, čo garantuje, že fotka bola v poriadku uložená.
 
-        Ak chcete tento jednoduchý fotaparát spustiť hardvérovým tlačidlom na vašom zariadení, možno budete musieť vypnúť predvolenú Kameru v Nastaveniach -> Aplikácie -> Kamera -> Deaktivovať.
+        Ak chcete tento jednoduchý fotaparát spustiť hardvérovým tlačidlom na vašom zariadení, možno budete musieť vypnúť predvolenú Kameru v Nastaveniach -&gt; Aplikácie -&gt; Kamera -&gt; Deaktivovať.
 
         Ak preferujete kvalitu fotiek nad rýchlosťou vytvorenia, viete povoliť možnosť zaostrenia pred vytvorením fotky. To vám zaručí krištáľovo čisté fotky.
 
@@ -70,9 +67,14 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">Do Not Disturb mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 </resources>
