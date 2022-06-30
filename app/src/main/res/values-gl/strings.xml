@@ -12,11 +12,9 @@
     <string name="photo_not_saved">Non se puido gardar a foto</string>
     <string name="setting_resolution_failed">Fallou o establecemento da resolución</string>
     <string name="video_recording_failed">Fallou gravación do vídeo; inténtao de novo usando unha resolución diferente</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Que calidade de compresión debo escoller para a foto?</string>
     <string name="faq_1_text">Depende do obxectivo. Para uso xeral a maioría das persoas usuarias recomendan entre un 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drasticamente comparado co 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Gardar fotos e videos en</string>
     <string name="show_preview">Mostrar unha vista previa da foto tras a captura</string>
@@ -34,7 +32,6 @@
     <string name="save_photo_metadata">Gardar metadatos EXIF da foto</string>
     <string name="photo_compression_quality">Calidade da compresión da foto</string>
     <string name="shutter">Obturador</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
@@ -49,7 +46,7 @@
 
         Despois de sacar unha foto, verás unha miniatura dela, que premendo nela lévate a abrila na Galería. Verás unha indicación clara de cando a foto se está capturando, garantindo que o ficheiro se gardou.
 
-        Se queres iniciar esta cámara premendo no botón da cámara do teu dispositivo/hardware, terás que desactivar a compilación no aplicativo da Cámara en Axustes -> Aplicativos -> Cámara -> Desactivar.
+        Se queres iniciar esta cámara premendo no botón da cámara do teu dispositivo/hardware, terás que desactivar a compilación no aplicativo da Cámara en Axustes -&gt; Aplicativos -&gt; Cámara -&gt; Desactivar.
 
         No caso de que prefiras calidade por riba da velocidade, podes activar unha opción para enfocar sempre a cámara antes de sacar unha foto para que teñas a certeza de que o resultado vai saír ben.
 
@@ -70,9 +67,14 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">Do Not Disturb mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 </resources>
