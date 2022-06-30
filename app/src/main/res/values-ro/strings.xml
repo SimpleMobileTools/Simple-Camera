@@ -12,11 +12,9 @@
     <string name="photo_not_saved">Fotografia nu a putut fi salvată</string>
     <string name="setting_resolution_failed">Setarea rezoluției corespunzătoare a eșuat</string>
     <string name="video_recording_failed">Înregistrarea video a eșuat, încercați să utilizați o rezoluție diferită</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">Ce calitate de compresie a fotografiilor ar trebui să setez?</string>
     <string name="faq_1_text">Depinde de obiectivul dumneavoastră. În general, majoritatea oamenilor recomandă utilizarea a 75%-80%, atunci când calitatea imaginii este foarte bună, dar dimensiunea fișierului este redusă drastic în comparație cu 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Salvați fotografii și clipuri video pe</string>
     <string name="show_preview">Afișați o previzualizare a fotografiei după captură</string>
@@ -34,7 +32,6 @@
     <string name="save_photo_metadata">Salvați metadatele exif ale fotografiilor</string>
     <string name="photo_compression_quality">Calitatea comprimării fotografiilor</string>
     <string name="shutter">Obturator</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
@@ -49,7 +46,7 @@
 
         După ce faceți o fotografie, veți vedea noua miniatură a fotografiei, pe care o puteți deschide rapid în galeria preferată. Veți vedea o indicație clară a momentului în care fotografia este capturată, garantând că fișierul a fost salvat.
 
-        Dacă doriți să lansați cu uşurinţa această cameră la apăsarea butonului hardware al camerei de pe dispozitiv, este posibil să trebuiască să dezactivați aplicația Camera încorporată din Setări -> Aplicații -> Camera -> Dezactivare.
+        Dacă doriți să lansați cu uşurinţa această cameră la apăsarea butonului hardware al camerei de pe dispozitiv, este posibil să trebuiască să dezactivați aplicația Camera încorporată din Setări -&gt; Aplicații -&gt; Camera -&gt; Dezactivare.
 
         În cazul în care preferați calitatea în locul vitezei, puteți activa o opțiune pentru a focaliza întotdeauna camera înainte de a face o fotografie, pentru a vă asigura că rezultatul este foarte clar.
 
@@ -70,9 +67,14 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">Do Not Disturb mode is enabled. Please disable and try again</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 </resources>
