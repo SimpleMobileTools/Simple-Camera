@@ -12,12 +12,12 @@
     <string name="photo_not_saved">Невозможно сохранить фото</string>
     <string name="setting_resolution_failed">Не удалось установить правильное разрешение</string>
     <string name="video_recording_failed">Ошибка при записи видео, попробуйте использовать другое разрешение</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">Камера используется другим приложением, закройте его и повторите попытку</string>
+    <string name="camera_configure_error">При настройке камеры произошла ошибка</string>
+    <string name="camera_disabled_by_admin_error">Камера отключена администратором</string>
+    <string name="camera_dnd_error">Включён режим \"Не беспокоить\", отключите и повторите попытку</string>
+    <string name="photo_capture_failed">Не удалось сделать снимок</string>
+    <string name="video_capture_insufficient_storage_error">Запись видео не удалась из-за нехватки памяти</string>
     <!-- FAQ -->
     <string name="faq_1_title">Какое качество сжатия фото нужно установить?</string>
     <string name="faq_1_text">Это зависит от вашей цели. В общем случае большинство людей советуют использовать 75%-80%, тогда изображение всё ещё действительно хорошего качества, но размер файла резко уменьшается по сравнению со 100%.</string>
