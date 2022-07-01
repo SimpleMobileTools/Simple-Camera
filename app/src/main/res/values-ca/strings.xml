@@ -12,6 +12,12 @@
     <string name="photo_not_saved">No s\'ha pogut desar la foto</string>
     <string name="setting_resolution_failed">No s\'ha pogut establir la resolució adequada</string>
     <string name="video_recording_failed">Ha fallat la gravació de vídeo, proveu d\'utilitzar una resolució diferent</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">Quina qualitat de compressió fotogràfica he d\'establir\?</string>
     <string name="faq_1_text">Depèn del vostre objectiu. Amb finalitats genèriques, la majoria de la gent aconsella utilitzar un 75%-80%, quan la imatge encara és de molt bona qualitat, però la mida del fitxer es redueix dràsticament en comparació amb el 100%.</string>

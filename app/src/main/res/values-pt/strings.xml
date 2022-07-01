@@ -12,6 +12,12 @@
     <string name="photo_not_saved">A foto não pôde ser salva</string>
     <string name="setting_resolution_failed">Falha no ajuste da resolução</string>
     <string name="video_recording_failed">Falha na gravação de vídeo. Tente alterar a resoluçãon</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir?</string>
     <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>

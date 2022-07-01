@@ -12,6 +12,12 @@
     <string name="photo_not_saved">Fotografiu sa nepodarilo uložiť</string>
     <string name="setting_resolution_failed">Nepodarilo sa nastaviť správne rozlíšenie</string>
     <string name="video_recording_failed">Nahrávanie videa zlyhalo, skúste použiť iné rozlíšenie</string>
+    <string name="camera_in_use_error">Kamera je používaná inou apkou, prosím zatvorte ju a skúste znova</string>
+    <string name="camera_configure_error">Pri nastavovaní kamery došlo k chybe</string>
+    <string name="camera_disabled_by_admin_error">Kamera je blokovaná adminom</string>
+    <string name="camera_dnd_error">Je zapnutý mód "Nevyrušujte". Prosím vypnite ho a skúste znova</string>
+    <string name="photo_capture_failed">Snímanie fotografie zlyhalo</string>
+    <string name="video_capture_insufficient_storage_error">Nahrávanie videa zlyhalo pre nedostatok miesta</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Akú kvalitu fotiek by som mal použiť?</string>

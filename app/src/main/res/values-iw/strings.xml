@@ -12,6 +12,12 @@
     <string name="photo_not_saved">לא ניתן היה לשמור את התמונה</string>
     <string name="setting_resolution_failed">הגדרת הרזולוציה המתאימה נכשלה</string>
     <string name="video_recording_failed">הקלטת הווידאו נכשלה, נסה להשתמש ברזולוציה אחרת</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">איזו איכות דחיסת תמונה עלי להגדיר\?</string>
     <string name="faq_1_text">זה תלוי במטרה שלך. למטרות כלליות רוב האנשים ממליצים להשתמש ב-75%-80%, כאשר התמונה עדיין באיכות טובה, אך גודל הקובץ מצטמצם באופן דרסטי בהשוואה ל-100%.</string>

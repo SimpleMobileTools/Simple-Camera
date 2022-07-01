@@ -12,6 +12,12 @@
     <string name="photo_not_saved">फोटो बचत हुन सक्दैन</string>
     <string name="setting_resolution_failed">ठिक रिजोलुसनमा स्थापित गर्न असफल भयो</string>
     <string name="video_recording_failed">भिडियो रेकर्डिङ हुन सकेन, फरक रिजोलुसनमा राखेर प्रयास गर्नुहोस</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">मैले कस्तो फोटो खदाईको गुणस्तर स्थापित गर्नुपर्छ ?</string>

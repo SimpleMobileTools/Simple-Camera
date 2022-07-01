@@ -12,6 +12,12 @@
     <string name="photo_not_saved">No se pudo guardar la imagen</string>
     <string name="setting_resolution_failed">Falló la configuración de la resolución apropiada</string>
     <string name="video_recording_failed">Grabación de video fallida, intenta usar una diferente resolución</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">¿Qué calidad de compresión de foto debería establecer?</string>
     <string name="faq_1_text">Depende de tu objetivo. Para propósitos generales, la mayoría de las personas aconsejan usar 75%-80%, y la imagen seguirá siendo de calidad realmente buena, pero el tamaño del archivo es reducido drásticamente comparado con el 100%.</string>

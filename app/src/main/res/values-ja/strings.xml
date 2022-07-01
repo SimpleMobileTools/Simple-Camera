@@ -12,6 +12,12 @@
     <string name="photo_not_saved">この画像は保存されていません</string>
     <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
     <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>

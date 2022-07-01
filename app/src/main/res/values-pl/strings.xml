@@ -12,6 +12,12 @@
     <string name="photo_not_saved">Nie udało się zapisać zdjęcia</string>
     <string name="setting_resolution_failed">Nie udało się ustawić poprawnej rozdzielczości</string>
     <string name="video_recording_failed">Nie udało się rozpocząć nagrywania. Spróbuj użyć innej rozdzielczości.</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">Jaką jakość kompresji zdjęć powinienem ustawić\?</string>
     <string name="faq_1_text">Zależy to od Twojego celu. Do celów ogólnych większość ludzi zaleca poziom 75-80% — wtedy obraz jest nadal w dobrej jakości, ale rozmiar pliku znacznie zmniejsza się w porównaniu do 100%.</string>
