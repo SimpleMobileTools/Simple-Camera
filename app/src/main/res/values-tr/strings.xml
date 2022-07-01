@@ -12,12 +12,12 @@
     <string name="photo_not_saved">Fotoğraf kaydedilemedi</string>
     <string name="setting_resolution_failed">Doğru çözünürlük ayarı başarısız oldu</string>
     <string name="video_recording_failed">Video kaydı başarısız oldu, farklı bir çözünürlük kullanmayı deneyin</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">Kamera başka bir uygulama tarafından kullanılıyor, lütfen uygulamayı kapatın ve tekrar deneyin</string>
+    <string name="camera_configure_error">Kamera yapılandırılırken bir hata oluştu</string>
+    <string name="camera_disabled_by_admin_error">Kamera yönetici tarafından devre dışı bırakıldı</string>
+    <string name="camera_dnd_error">Rahatsız Etmeyin modu etkinleştirildi. Lütfen devre dışı bırakın ve tekrar deneyin</string>
+    <string name="photo_capture_failed">Fotoğraf çekimi başarısız oldu</string>
+    <string name="video_capture_insufficient_storage_error">Yetersiz depolama alanı nedeniyle video kaydı başarısız oldu</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hangi fotoğraf sıkıştırma kalitesini ayarlamalıyım?</string>
     <string name="faq_1_text">Hedefinize bağlı. Genel amaçlar için çoğu kişi %75-%80\'i kullanmanızı önerir, görüntü hala gerçekten kaliteliyken, dosya boyutu %100\'e göre büyük ölçüde azalır.</string>
