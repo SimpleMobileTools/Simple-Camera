@@ -12,12 +12,12 @@
     <string name="photo_not_saved">无法保存照片</string>
     <string name="setting_resolution_failed">设定分辨率失败</string>
     <string name="video_recording_failed">视频录制失败，将尝试其他分辨率</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">其他应用正在使用相机，请关闭该应用并重试</string>
+    <string name="camera_configure_error">配置相机时出错</string>
+    <string name="camera_disabled_by_admin_error">相机被管理员禁用</string>
+    <string name="camera_dnd_error">勿扰模式处于开启状态。 请禁用并重试</string>
+    <string name="photo_capture_failed">照片拍摄失败</string>
+    <string name="video_capture_insufficient_storage_error">由于存储空间不足，视频录制失败</string>
     <!-- FAQ -->
     <string name="faq_1_title">我应该选用怎样的照片压缩率呢？</string>
     <string name="faq_1_text">这取决于您的目的。对大多数人的一般用途来说，建议使用 75%-80%，此时图片仍有不错的品质，而文件大小相比 100% 时大幅减小。</string>

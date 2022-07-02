@@ -12,12 +12,12 @@
     <string name="photo_not_saved">Не вдалося зберегти фото</string>
     <string name="setting_resolution_failed">Не вдалося встановити правильне розширення</string>
     <string name="video_recording_failed">Не вдалося записати відео, спробуйте встановити інше розширення</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">Камера використовується іншою програмою, будь ласка, закрийте її та спробуйте знову</string>
+    <string name="camera_configure_error">Під час налаштування камери сталася помилка</string>
+    <string name="camera_disabled_by_admin_error">Камера вимкнена адміністратором</string>
+    <string name="camera_dnd_error">Увімкнено режим «Не турбувати». Будь ласка, вимкніть і спробуйте знову</string>
+    <string name="photo_capture_failed">Не вдалося зняти світлину</string>
+    <string name="video_capture_insufficient_storage_error">Через нестачу пам’яті не вдалося записати відео</string>
     <!-- FAQ -->
     <string name="faq_1_title">Який ступінь стиснення фото слід встановити?</string>
     <string name="faq_1_text">Це залежить від вашої мети. Загалом більшість людей радять використовувати 75%-80%, тоді зображення ще дійсно гарної якості, але розмір файлу істотно зменшується порівняно зі 100%.</string>
