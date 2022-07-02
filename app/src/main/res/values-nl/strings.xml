@@ -12,12 +12,12 @@
     <string name="photo_not_saved">Foto kon niet worden opgeslagen</string>
     <string name="setting_resolution_failed">Instellen van resolutie is mislukt</string>
     <string name="video_recording_failed">Video-opname is mislukt, probeer nogmaals met een andere resolutie</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">De camera wordt gebruikt door een andere app. Sluit die app en probeer het nog eens.</string>
+    <string name="camera_configure_error">Er is een fout opgetreden bij het configureren van de camera</string>
+    <string name="camera_disabled_by_admin_error">De camera is uitgeschakeld door de beheerder</string>
+    <string name="camera_dnd_error">De modus \"Niet storen\" is ingeschakeld. Schakel deze uit en probeer het nog eens.</string>
+    <string name="photo_capture_failed">Foto-opname mislukt</string>
+    <string name="video_capture_insufficient_storage_error">Video-opname mislukt door onvoldoende opslag</string>
     <!-- FAQ -->
     <string name="faq_1_title">Welke kwaliteit voor foto\'s moet ik instellen?</string>
     <string name="faq_1_text">Voor normaal gebruik adviseren de meeste mensen een compressie van 75%-80%. De afbeelding zal dan nog steeds van goede kwaliteit zijn en de bestandsgrootte zal enorm veel kleiner zijn dan met 100%.</string>
