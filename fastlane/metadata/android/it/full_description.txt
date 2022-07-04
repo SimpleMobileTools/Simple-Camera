@@ -20,7 +20,7 @@ Viene fornita con material design e un tema scuro per impostazione predefinita, 
 
 Non contiene annunci o autorizzazioni non necessarie. È completamente open source, fornisce colori personalizzabili e opzioni creazione di collage.
 
-<b>Dai un'occhiata alla suite completa di Simple Tools qui:</b>
+Dai un'occhiata alla suite completa di Simple Tools qui:
 https://www.simplemobiletools.com
 
 Facebook:
@@ -28,3 +28,6 @@ https://www.facebook.com/simplemobiletools
 
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
