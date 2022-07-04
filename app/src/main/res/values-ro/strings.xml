@@ -40,43 +40,6 @@
     <string name="save_photo_metadata">Salvați metadatele exif ale fotografiilor</string>
     <string name="photo_compression_quality">Calitatea comprimării fotografiilor</string>
     <string name="shutter">Obturator</string>
-
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Crează amintiri cu ușurinţă. Prezintă o interfață plăcută, fără reclame.</string>
-    <string name="app_long_description">
-        Această cameră practică poate fi utilizată atât pentru realizarea de fotografii, cât și pentru înregistrarea video. Puteți comuta rapid între camera din față și cea din spate, puteți modifica calea de salvare sau limita rezoluția. Nu veți rata niciodată momentele importante din viața dumneavoastră. Sunt disponibile multe setări utile pentru a crea cu uşurinţă aceste momente personale exact cum doriţi. Să enumerăm câteva dintre ele.
-
-        Blițul poate fi activat și dezactivat sau poate fi folosit ca o lanternă utilă, ceea ce nu se vede prea des. Puteți folosi degetele pe ecran pentru a mări și micșora imaginea sau pentru a comuta schimbarea orizontală a imaginii în timpul capturării unor fotografii portret fantastice.
-
-        Puteți schimba cu ușurință rezoluția, calitatea sau raportul de aspect cu câteva apăsări, așa cum v-ați aștepta de la o aplicație modernă de cameră foto. Acest lucru este valabil atât pentru fotografii, cât și pentru videoclipuri.
-
-        După ce faceți o fotografie, veți vedea noua miniatură a fotografiei, pe care o puteți deschide rapid în galeria preferată. Veți vedea o indicație clară a momentului în care fotografia este capturată, garantând că fișierul a fost salvat.
-
-        Dacă doriți să lansați cu uşurinţa această cameră la apăsarea butonului hardware al camerei de pe dispozitiv, este posibil să trebuiască să dezactivați aplicația Camera încorporată din Setări -> Aplicații -> Camera -> Dezactivare.
-
-        În cazul în care preferați calitatea în locul vitezei, puteți activa o opțiune pentru a focaliza întotdeauna camera înainte de a face o fotografie, pentru a vă asigura că rezultatul este foarte clar.
-
-        O puteți configura pentru a utiliza butoanele de volum ca declanșator sau pentru a porni în mod implicit lanterna la pornire.
-
-        Dispune de numeroase alte setări legate de sunetul declanșatorului, bliț, metadate foto, calitatea fotografiei etc. Calea fișierului de ieșire poate fi personalizată, astfel încât puteți decide unde doriți să vă salvați mediile. Suportă atât memoria internă, cât și cardurile SD.
-
-        Aplicaţia vine cu design material şi temă întunecată în mod implicit. Limitarea necesităţii accesului la internet vă oferă mai multă intimitate, securitate şi stabilitate decât alte aplicaţii.
-
-        Nu conţine reclame sau permisiuni inutile. Codul sursă este complet open source şi oferă culori personalizabile.
-
-        <b>Consultaţi întreaga suită de aplicaţii Simple Tools aici:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

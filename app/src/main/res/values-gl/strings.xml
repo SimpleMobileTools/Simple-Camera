@@ -40,43 +40,6 @@
     <string name="save_photo_metadata">Gardar metadatos EXIF da foto</string>
     <string name="photo_compression_quality">Calidade da compresión da foto</string>
     <string name="shutter">Obturador</string>
-
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple Camera - Capture photos &amp; videos easily</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Creating memories has never been easier. Provides a nice interface with no ads.</string>
-    <string name="app_long_description">
-        Esta cámara pódese usar tanto para sacar fotos como para gravar vídeos. Podes cambiar rapidamente entre a cámara dianteira e a traseira, modificar a ruta para gardar ou limitar a resolución. Hai outros moitos axustes dispoñibles que o farán máis persoal se cabe e adaptado ás túas necesidades. Algúns deles son:
-
-        O flash pode activarse e desactivarse ou usalo como unha lanterna. Podes ampliar e reducir ou alternar cara a unha imaxe horizontal cos dedos mentres sacas fotos.
-
-        Podes cambiar a resolución, calidade ou proporción premendo unhas poucas veces, tanto para fotos como para vídeos.
-
-        Despois de sacar unha foto, verás unha miniatura dela, que premendo nela lévate a abrila na Galería. Verás unha indicación clara de cando a foto se está capturando, garantindo que o ficheiro se gardou.
-
-        Se queres iniciar esta cámara premendo no botón da cámara do teu dispositivo/hardware, terás que desactivar a compilación no aplicativo da Cámara en Axustes -> Aplicativos -> Cámara -> Desactivar.
-
-        No caso de que prefiras calidade por riba da velocidade, podes activar unha opción para enfocar sempre a cámara antes de sacar unha foto para que teñas a certeza de que o resultado vai saír ben.
-
-        Pódelo configurar para usar os botóns de volume como obturador ou activar a lanterna por defecto ao inicio.
-
-        Ten outros múltiples axustes relacionados co son do obturador, flash, metadatos da foto, calidade da foto, etc. A ruta da foto pode personalizarse; así, podes decidir onde queres gardar os teus ficheiros multimedia. Dá soporte tanto ao almacenamento interno como á tarxeta SD.
-
-        E, por último, ten un deseño material e tema escuro por defecto, fornece unha boa experiencia de usuario ao ser fácil de usar. Ao non ter que acceder a Internet, tes máis privacidade, seguridade e estabilidade que outros aplicativos.
-   
-        Non ten publicidade nin permisos innecesarios. É de código aberto na súa totalidade e ten cores personalizables.
-   
-        <b>Visite a nosa páxina a través desta ligazón:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

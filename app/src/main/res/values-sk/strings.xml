@@ -40,43 +40,6 @@
     <string name="save_photo_metadata">Ukladať exif metadáta fotografií</string>
     <string name="photo_compression_quality">Kvalita kompresie fotiek</string>
     <string name="shutter">Spúšť</string>
-
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Jednoduchý fotoaparát - Ľahká foto a video tvorba</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Vytváranie spomienok nebolo nikdy jednoduchšie. Pekné rozhranie bez reklám.</string>
-    <string name="app_long_description">
-        Táto praktická kamera je použiteľná pre ľahké vytváranie fotiek, ako aj natáčanie videí. Viete sa rýchlo prepnúť medzi prednou a zadnou kamerou, zmeniť miesto uloženia súborov, alebo zmeniť rozlíšenie. Už nikdy vám neujdú dôležité momenty vášho života. K dispozícií je veľa užitočných nastavení, ktorými si viete apku prispôsobiť pre vaše potreby. Vymenujme si niektoré.
-
-        Blesk môže byť zapnutý, vypnutý, alebo použitý ako baterka, čo nevidno v apkách často.  Gestami viete zoomovať, alebo si prestaviť horizontálne preklopenie fotiek pri tvorbe predným foťákom.
-
-        Jednoducho si vieťe zmeniť rozlíšenie, kvalitu, alebo pomer strán pár kliknutiami. Presne tak, ako sa to od moderného fotoaparátu očakáva. Platí to ako pre fotky, tak aj videá.
-
-        Po vytvorení fotky sa objaví jej miniatúra a ak na ňu kliknete, viete si pozrieť celú fotku vo vašej predvolenej galérií. Pri fotení uvidíte jasné znamenie vytvorenia fotky, čo garantuje, že fotka bola v poriadku uložená.
-
-        Ak chcete tento jednoduchý fotaparát spustiť hardvérovým tlačidlom na vašom zariadení, možno budete musieť vypnúť predvolenú Kameru v Nastaveniach -> Aplikácie -> Kamera -> Deaktivovať.
-
-        Ak preferujete kvalitu fotiek nad rýchlosťou vytvorenia, viete povoliť možnosť zaostrenia pred vytvorením fotky. To vám zaručí krištáľovo čisté fotky.
-
-        Viete si nastaviť aj používanie tlačidiel na zmenu hlasitosti ako spúšť, alebo spustenie baterky pri spustení apky.
-
-        Je tu aj veľa rôznych nastavení spojených s rýchlosťou clony, blesku, metadát fotiek, kvality atď. Cesta na ukladanie súborov môže byť zmenená, viete tak jednoducho zmeniť, kde budú uložené. Podporované sú ako SD karty, tak aj interná pamäť.
-
-        Táto apka je založená na Material dizajne a má prednastavenú tmavú tému, poskytuje výbornú používateľskú skúsenosť pre ľahké používanie. Chýbajúci prístup k internetu garantuje lepšie súkromie, bezpečnosť a stabilitu ako ostatné apky.
-
-        Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
-
-        <b>Pozrite si celú sadu aplikácií na:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
