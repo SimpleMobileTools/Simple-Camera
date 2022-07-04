@@ -12,16 +12,16 @@
     <string name="photo_not_saved">Δεν ήταν δυνατή η αποθήκευση της φωτογραφίας</string>
     <string name="setting_resolution_failed">Η ρύθμιση της σωστής ανάλυσης απέτυχε</string>
     <string name="video_recording_failed">Η εγγραφή βίντεο απέτυχε, δοκιμάστε να χρησιμοποιήσετε διαφορετική ανάλυση</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">Η κάμερα χρησιμοποιείται από άλλη εφαρμογή, κλείστε την εφαρμογή και δοκιμάστε ξανά.</string>
+    <string name="camera_configure_error">Προέκυψε σφάλμα κατά τη διαμόρφωση της κάμερας</string>
+    <string name="camera_disabled_by_admin_error">Η κάμερα είναι απενεργοποιημένη από τον διαχειριστή</string>
+    <string name="camera_dnd_error">"Η λειτουργία \"Μην ενοχλείτε\" είναι ενεργοποιημένη. Παρακαλώ απενεργοποιήστε και δοκιμάστε ξανά</string>
+    <string name="photo_capture_failed">Αποτυχία λήψης φωτογραφιών</string>
+    <string name="video_capture_insufficient_storage_error">Η εγγραφή βίντεο απέτυχε λόγω ανεπαρκούς αποθηκευτικού χώρου</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Ποια ποιότητα συμπίεσης φωτογραφιών πρέπει να ορίσω;</string>
-    <string name="faq_1_text">Εξαρτάται από το στόχο σου. Για γενικούς σκοπούς, οι περισσότεροι συμβουλεύουν τη χρήση του 75%-80%, όταν η εικόνα εξακολουθεί να είναι πραγματικά καλής ποιότητας, αλλά το μέγεθος του αρχείου μειώνεται δραστικά σε σύγκριση με το 100%.</string>
+    <string name="faq_1_text">Εξαρτάται από το στόχο σας. Για γενικούς σκοπούς, οι περισσότεροι συμβουλεύουν τη χρήση του 75%-80%, όταν η εικόνα εξακολουθεί να είναι πραγματικά καλής ποιότητας, αλλά το μέγεθος του αρχείου μειώνεται δραστικά σε σύγκριση με το 100%.</string>
 
     <!-- Settings -->
     <string name="save_photos">Αποθήκευση φωτογραφιών και βίντεο σε</string>
