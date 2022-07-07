@@ -1,13 +1,22 @@
 package com.simplemobiletools.camera.models
 
 import android.content.Context
-import android.util.Size
 import com.simplemobiletools.camera.R
 
-data class MySize(val width: Int, val height: Int) {
-    val ratio = width / height.toFloat()
+enum class VideoQuality(val width: Int, val height: Int) {
+    UHD(3840, 2160),
+    FHD(1920, 1080),
+    HD(1280, 720),
+    SD(720, 480);
+
+
     val pixels: Int = width * height
-    fun isSixteenToNine() = ratio == 16 / 9f
+
+    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / VideoQuality.ONE_MEGA_PIXELS)
+
+    val ratio = width / height.toFloat()
+
+    private fun isSixteenToNine() = ratio == 16 / 9f
 
     private fun isFiveToThree() = ratio == 5 / 3f
 
@@ -44,5 +53,7 @@ data class MySize(val width: Int, val height: Int) {
         else -> context.resources.getString(R.string.other)
     }
 
-    fun toSize() = Size(width, height)
+    companion object {
+        private const val ONE_MEGA_PIXELS = 1000000
+    }
 }
