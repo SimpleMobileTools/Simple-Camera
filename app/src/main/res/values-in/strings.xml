@@ -12,17 +12,15 @@
     <string name="photo_not_saved">Foto tidak bisa disimpan</string>
     <string name="setting_resolution_failed">Gagal mengubah ke resolusi yang benar</string>
     <string name="video_recording_failed">Gagal merekam video, coba gunakan resolusi yang berbeda</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">Kamera sedang digunakan oleh aplikasi lain, silakan tutup dan coba lagi</string>
+    <string name="camera_configure_error">Telah terjadi kesalahan saat mengatur konfigurasi kamera</string>
+    <string name="camera_disabled_by_admin_error">Kamera dinonaktifkan oleh admin</string>
+    <string name="camera_dnd_error">Mode Jangan Ganggu diaktifkan. Silakan nonaktifkan dan coba lagi</string>
+    <string name="photo_capture_failed">Gagal mengambil foto</string>
+    <string name="video_capture_insufficient_storage_error">Gagal merekam video karena penyimpanan tidak cukup</string>
     <!-- FAQ -->
     <string name="faq_1_title">Kualitas kompresi foto mana yang harus saya gunakan?</string>
     <string name="faq_1_text">Tergantung tujuan anda. Untuk hal-hal yang umum direkomendasikan menggunakan 75%-80%, kualitas gambar masih sangat bagus, tetapi ukuran berkas berkurang signifikan dibandingkan dengan 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Simpan foto dan video ke</string>
     <string name="show_preview">Tampilkan pratinjau setelah mengambil foto</string>
