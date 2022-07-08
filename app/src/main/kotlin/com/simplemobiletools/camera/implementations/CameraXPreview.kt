@@ -1,13 +1,9 @@
 package com.simplemobiletools.camera.implementations
 
 import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.Display
 import android.view.GestureDetector
@@ -36,14 +32,7 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.core.UseCase
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.video.FileDescriptorOutputOptions
-import androidx.camera.video.MediaStoreOutputOptions
-import androidx.camera.video.Quality
-import androidx.camera.video.QualitySelector
-import androidx.camera.video.Recorder
-import androidx.camera.video.Recording
-import androidx.camera.video.VideoCapture
-import androidx.camera.video.VideoRecordEvent
+import androidx.camera.video.*
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
@@ -52,23 +41,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.simplemobiletools.camera.R
-import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getRandomMediaName
-import com.simplemobiletools.camera.extensions.toAppFlashMode
-import com.simplemobiletools.camera.extensions.toCameraSelector
-import com.simplemobiletools.camera.extensions.toLensFacing
-import com.simplemobiletools.camera.helpers.CameraErrorHandler
-import com.simplemobiletools.camera.helpers.MediaOutputHelper
-import com.simplemobiletools.camera.helpers.MediaSoundHelper
-import com.simplemobiletools.camera.helpers.PinchToZoomOnScaleGestureListener
+import com.simplemobiletools.camera.dialogs.ChangeResolutionDialogX
+import com.simplemobiletools.camera.extensions.*
+import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.MediaOutput
-import com.simplemobiletools.commons.extensions.hasPermission
 import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -98,6 +76,8 @@ class CameraXPreview(
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
+    private val videoQualityManager = VideoQualityManager(config)
+    private val imageQualityManager = ImageQualityManager(activity)
 
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
@@ -146,6 +126,7 @@ class CameraXPreview(
 
     private fun startCamera(switching: Boolean = false) {
         Log.i(TAG, "startCamera: ")
+        imageQualityManager.initSupportedQualities()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
         cameraProviderFuture.addListener({
             try {
@@ -163,7 +144,12 @@ class CameraXPreview(
     private fun bindCameraUseCases() {
         val cameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
         val metrics = windowMetricsCalculator.computeCurrentWindowMetrics(activity).bounds
-        val aspectRatio = aspectRatio(metrics.width(), metrics.height())
+        val aspectRatio = if (isPhotoCapture) {
+            aspectRatio(metrics.width(), metrics.height())
+        } else {
+            val selectedQuality = videoQualityManager.getUserSelectedQuality(cameraSelector)
+            selectedQuality.getAspectRatio()
+        }
         val rotation = previewView.display.rotation
 
         preview = buildPreview(aspectRatio, rotation)
@@ -174,7 +160,10 @@ class CameraXPreview(
             cameraSelector,
             preview,
             captureUseCase,
-        )
+        ).also {
+            videoQualityManager.initSupportedQualities(cameraProvider, it)
+        }
+
         preview?.setSurfaceProvider(previewView.surfaceProvider)
         setupZoomAndFocus()
     }
@@ -220,22 +209,30 @@ class CameraXPreview(
             .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
-            .setTargetAspectRatio(aspectRatio)
             .setTargetRotation(rotation)
+            .apply {
+                imageQualityManager.getUserSelectedResolution(cameraSelector)?.let { resolution ->
+                    Log.i(TAG, "buildImageCapture: resolution=$resolution")
+                    setTargetResolution(resolution)
+                } ?: setTargetAspectRatio(aspectRatio)
+            }
             .build()
     }
 
     private fun buildPreview(aspectRatio: Int, rotation: Int): Preview {
         return Preview.Builder()
-            .setTargetAspectRatio(aspectRatio)
             .setTargetRotation(rotation)
+            .setTargetAspectRatio(aspectRatio)
             .build()
     }
 
     private fun buildVideoCapture(): VideoCapture<Recorder> {
+        val qualitySelector = QualitySelector.from(
+            videoQualityManager.getUserSelectedQuality(cameraSelector),
+            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD),
+        )
         val recorder = Recorder.Builder()
-            //TODO: user control for quality
-            .setQualitySelector(QualitySelector.from(Quality.FHD))
+            .setQualitySelector(qualitySelector)
             .build()
         return VideoCapture.withOutput(recorder)
     }
@@ -305,7 +302,18 @@ class CameraXPreview(
     }
 
     override fun showChangeResolutionDialog() {
-
+        val oldQuality = videoQualityManager.getUserSelectedQuality(cameraSelector)
+        ChangeResolutionDialogX(
+            activity,
+            isFrontCameraInUse(),
+            imageQualityManager.getSupportedResolutions(cameraSelector),
+            videoQualityManager.getSupportedQualities(cameraSelector)
+        ) {
+            if (oldQuality != videoQualityManager.getUserSelectedQuality(cameraSelector)) {
+                currentRecording?.stop()
+            }
+            startCamera()
+        }
     }
 
     override fun toggleFrontBackCamera() {
@@ -344,7 +352,6 @@ class CameraXPreview(
     }
 
     override fun tryTakePicture() {
-        Log.i(TAG, "captureImage: ")
         val imageCapture = imageCapture ?: throw IllegalStateException("Camera initialization failed.")
 
         val metadata = Metadata().apply {
