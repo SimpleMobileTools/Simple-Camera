@@ -12,17 +12,15 @@
     <string name="photo_not_saved">相片無法儲存</string>
     <string name="setting_resolution_failed">設定合適解析度失敗</string>
     <string name="video_recording_failed">影片錄製失敗，試著使用不同的解析度</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">其他程式正在使用相機，請將那個程式關閉後再試一次</string>
+    <string name="camera_configure_error">配置相機時出錯</string>
+    <string name="camera_disabled_by_admin_error">相機已由管理者停用</string>
+    <string name="camera_dnd_error">零打擾模式已啟用，請將其停用後再試一次</string>
+    <string name="photo_capture_failed">拍照失敗</string>
+    <string name="video_capture_insufficient_storage_error">儲存空間不足，錄影失敗</string>
     <!-- FAQ -->
     <string name="faq_1_title">我應該設定什麼相片壓縮品質?</string>
     <string name="faq_1_text">視你目標而定。對大多數一般人而言，建議使用75%-80%，圖片依然是相當高品質，但檔案大小比100%大幅減少很多。</string>
-
     <!-- Settings -->
     <string name="save_photos">相片和影片儲存位置</string>
     <string name="show_preview">拍攝後顯示相片預覽</string>

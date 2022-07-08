@@ -12,12 +12,12 @@
     <string name="photo_not_saved">Impossible d\'enregistrer la photo</string>
     <string name="setting_resolution_failed">La définition de la résolution a échoué</string>
     <string name="video_recording_failed">L\'enregistrement vidéo a échoué, essayez d\'utiliser une résolution différente</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">La caméra est utilisée par une autre application, veuillez fermer l\'application et réessayer</string>
+    <string name="camera_configure_error">Une erreur s\'est produite lors de la configuration de la caméra</string>
+    <string name="camera_disabled_by_admin_error">La caméra est désactivée par l\'administrateur</string>
+    <string name="camera_dnd_error">Le mode Ne pas déranger est activé. Veuillez le désactiver et réessayer</string>
+    <string name="photo_capture_failed">Échec de la prise de photo</string>
+    <string name="video_capture_insufficient_storage_error">L\'enregistrement vidéo a échoué en raison d\'un stockage insuffisant</string>
     <!-- FAQ -->
     <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos \?</string>
     <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80 %, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100 %.</string>
