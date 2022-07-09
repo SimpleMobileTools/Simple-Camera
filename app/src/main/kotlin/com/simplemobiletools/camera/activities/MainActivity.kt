@@ -2,18 +2,14 @@ package com.simplemobiletools.camera.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
-import android.util.Size
-import android.view.KeyEvent
-import android.view.OrientationEventListener
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,38 +18,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.helpers.FLASH_OFF
-import com.simplemobiletools.camera.helpers.FLASH_ON
-import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_LEFT
-import com.simplemobiletools.camera.helpers.ORIENT_LANDSCAPE_RIGHT
-import com.simplemobiletools.camera.helpers.ORIENT_PORTRAIT
-import com.simplemobiletools.camera.helpers.PhotoProcessor
+import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.CameraXInitializer
 import com.simplemobiletools.camera.implementations.CameraXPreviewListener
 import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.BROADCAST_REFRESH_MEDIA
-import com.simplemobiletools.commons.helpers.PERMISSION_CAMERA
-import com.simplemobiletools.commons.helpers.PERMISSION_RECORD_AUDIO
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
-import com.simplemobiletools.commons.helpers.REFRESH_PATH
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
 import java.util.concurrent.TimeUnit
-import kotlinx.android.synthetic.main.activity_main.btn_holder
-import kotlinx.android.synthetic.main.activity_main.capture_black_screen
-import kotlinx.android.synthetic.main.activity_main.change_resolution
-import kotlinx.android.synthetic.main.activity_main.last_photo_video_preview
-import kotlinx.android.synthetic.main.activity_main.settings
-import kotlinx.android.synthetic.main.activity_main.shutter
-import kotlinx.android.synthetic.main.activity_main.toggle_camera
-import kotlinx.android.synthetic.main.activity_main.toggle_flash
-import kotlinx.android.synthetic.main.activity_main.toggle_photo_video
-import kotlinx.android.synthetic.main.activity_main.video_rec_curr_timer
-import kotlinx.android.synthetic.main.activity_main.preview_view
-import kotlinx.android.synthetic.main.activity_main.view_holder
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private val TAG = "MainActivity"
@@ -562,28 +537,35 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    override fun onMediaCaptured(uri: Uri) {
+    override fun onMediaSaved(uri: Uri) {
         loadLastTakenMedia(uri)
-        ensureBackgroundThread {
-            if (isImageCaptureIntent()) {
-                val bitmap = contentResolver.loadThumbnail(uri, Size(30, 30), null)
-                Intent().apply {
-                    data = uri
-                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    putExtra("data", bitmap)
-                    setResult(Activity.RESULT_OK, this)
-                }
-                Log.w(TAG, "onMediaCaptured: exiting uri=$uri")
-                finish()
-            } else if (isVideoCaptureIntent()) {
-                Intent().apply {
-                    data = uri
-                    flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    setResult(Activity.RESULT_OK, this)
-                }
-                Log.w(TAG, "onMediaCaptured: video exiting uri=$uri")
-                finish()
+        if (isImageCaptureIntent()) {
+            Intent().apply {
+                data = uri
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                setResult(Activity.RESULT_OK, this)
             }
+            Log.w(TAG, "onMediaCaptured: exiting uri=$uri")
+            finish()
+        } else if (isVideoCaptureIntent()) {
+            Intent().apply {
+                data = uri
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                setResult(Activity.RESULT_OK, this)
+            }
+            Log.w(TAG, "onMediaCaptured: video exiting uri=$uri")
+            finish()
+        }
+    }
+
+    override fun onImageCaptured(bitmap: Bitmap) {
+        if (isImageCaptureIntent()) {
+            Intent().apply {
+                putExtra("data", bitmap)
+                setResult(Activity.RESULT_OK, this)
+            }
+            Log.w(TAG, "onImageCaptured: exiting bitmap size=${bitmap.byteCount}")
+            finish()
         }
     }
 

@@ -22,4 +22,6 @@ sealed class MediaOutput(
         val fileDescriptor: ParcelFileDescriptor,
         override val uri: Uri,
     ) : MediaOutput(uri)
+
+    object BitmapOutput : MediaOutput(null)
 }

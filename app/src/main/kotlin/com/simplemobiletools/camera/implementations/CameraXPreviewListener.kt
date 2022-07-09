@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera.implementations
 
+import android.graphics.Bitmap
 import android.net.Uri
 
 interface CameraXPreviewListener {
@@ -8,7 +9,8 @@ interface CameraXPreviewListener {
     fun setFlashAvailable(available: Boolean)
     fun onChangeCamera(frontCamera: Boolean)
     fun toggleBottomButtons(hide:Boolean)
-    fun onMediaCaptured(uri: Uri)
+    fun onMediaSaved(uri: Uri)
+    fun onImageCaptured(bitmap: Bitmap)
     fun onChangeFlashMode(flashMode: Int)
     fun onVideoRecordingStarted()
     fun onVideoRecordingStopped()

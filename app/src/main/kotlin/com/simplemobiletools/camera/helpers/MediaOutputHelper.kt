@@ -11,20 +11,7 @@ import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getRandomMediaName
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.extensions.createDocumentUriFromRootTree
-import com.simplemobiletools.commons.extensions.createDocumentUriUsingFirstParentTreeUri
-import com.simplemobiletools.commons.extensions.getAndroidSAFUri
-import com.simplemobiletools.commons.extensions.getDocumentFile
-import com.simplemobiletools.commons.extensions.getDoesFilePathExist
-import com.simplemobiletools.commons.extensions.getFileOutputStreamSync
-import com.simplemobiletools.commons.extensions.getFilenameFromPath
-import com.simplemobiletools.commons.extensions.getMimeType
-import com.simplemobiletools.commons.extensions.hasProperStoredAndroidTreeUri
-import com.simplemobiletools.commons.extensions.hasProperStoredFirstParentUri
-import com.simplemobiletools.commons.extensions.hasProperStoredTreeUri
-import com.simplemobiletools.commons.extensions.isAccessibleWithSAFSdk30
-import com.simplemobiletools.commons.extensions.isRestrictedSAFOnlyRoot
-import com.simplemobiletools.commons.extensions.needsStupidWritePermissions
+import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.OutputStream
 
@@ -56,7 +43,7 @@ class MediaOutputHelper(
                     getMediaStoreOutput(isPhoto = true)
                 }
             } else {
-                getMediaStoreOutput(isPhoto = true)
+                MediaOutput.BitmapOutput
             }
         } else {
             getOutputStreamMediaOutput() ?: getMediaStoreOutput(isPhoto = true)
