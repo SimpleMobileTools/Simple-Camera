@@ -5,34 +5,14 @@ import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
 import android.util.Log
-import android.view.Display
-import android.view.GestureDetector
+import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.MotionEvent
-import android.view.OrientationEventListener
-import android.view.ScaleGestureDetector
-import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.AspectRatio
-import androidx.camera.core.Camera
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.CameraState
-import androidx.camera.core.DisplayOrientedMeteringPointFactory
-import androidx.camera.core.FocusMeteringAction
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
-import androidx.camera.core.ImageCapture.FLASH_MODE_AUTO
-import androidx.camera.core.ImageCapture.FLASH_MODE_OFF
-import androidx.camera.core.ImageCapture.FLASH_MODE_ON
-import androidx.camera.core.ImageCapture.Metadata
-import androidx.camera.core.ImageCapture.OnImageSavedCallback
-import androidx.camera.core.ImageCapture.OutputFileOptions
-import androidx.camera.core.ImageCapture.OutputFileResults
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
-import androidx.camera.core.UseCase
+import androidx.camera.core.*
+import androidx.camera.core.ImageCapture.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.*
+import androidx.camera.video.VideoCapture
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
@@ -359,27 +339,51 @@ class CameraXPreview(
         }
 
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
-        val outputOptionsBuilder = when (mediaOutput) {
-            is MediaOutput.MediaStoreOutput -> OutputFileOptions.Builder(contentResolver, mediaOutput.contentUri, mediaOutput.contentValues)
-            is MediaOutput.OutputStreamMediaOutput -> OutputFileOptions.Builder(mediaOutput.outputStream)
-            else -> throw IllegalArgumentException("Unexpected option for image")
+
+        if (mediaOutput is MediaOutput.BitmapOutput) {
+            imageCapture.takePicture(mainExecutor, object : ImageCapture.OnImageCapturedCallback() {
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    listener.toggleBottomButtons(false)
+                    val bitmap = BitmapUtils.makeBitmap(image.toJpegByteArray())
+                    if (bitmap != null) {
+                        listener.onImageCaptured(bitmap)
+                    } else {
+                        cameraErrorHandler.handleImageCaptureError(ImageCapture.ERROR_CAPTURE_FAILED)
+                    }
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    handleImageCaptureError(exception)
+                }
+            })
+        } else {
+            val outputOptionsBuilder = when (mediaOutput) {
+                is MediaOutput.MediaStoreOutput -> OutputFileOptions.Builder(contentResolver, mediaOutput.contentUri, mediaOutput.contentValues)
+                is MediaOutput.OutputStreamMediaOutput -> OutputFileOptions.Builder(mediaOutput.outputStream)
+                is MediaOutput.BitmapOutput -> throw IllegalStateException("Cannot produce an OutputFileOptions for a bitmap output")
+                else -> throw IllegalArgumentException("Unexpected option for image ")
+            }
+
+            val outputOptions = outputOptionsBuilder.setMetadata(metadata).build()
+
+            imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: OutputFileResults) {
+                    listener.toggleBottomButtons(false)
+                    listener.onMediaSaved(mediaOutput.uri ?: outputFileResults.savedUri!!)
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    handleImageCaptureError(exception)
+                }
+            })
         }
-
-        val outputOptions = outputOptionsBuilder.setMetadata(metadata).build()
-
-        imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
-            override fun onImageSaved(outputFileResults: OutputFileResults) {
-                listener.toggleBottomButtons(false)
-                listener.onMediaCaptured(mediaOutput.uri ?: outputFileResults.savedUri!!)
-            }
-
-            override fun onError(exception: ImageCaptureException) {
-                Log.e(TAG, "Error", exception)
-                listener.toggleBottomButtons(false)
-                cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
-            }
-        })
         playShutterSoundIfEnabled()
+    }
+
+    private fun handleImageCaptureError(exception: ImageCaptureException) {
+        Log.e(TAG, "Error", exception)
+        listener.toggleBottomButtons(false)
+        cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
     }
 
     override fun initPhotoMode() {
@@ -441,7 +445,7 @@ class CameraXPreview(
                             Log.e(TAG, "recording failed:", recordEvent.cause)
                             cameraErrorHandler.handleVideoRecordingError(recordEvent.error)
                         } else {
-                            listener.onMediaCaptured(mediaOutput.uri ?: recordEvent.outputResults.outputUri)
+                            listener.onMediaSaved(mediaOutput.uri ?: recordEvent.outputResults.outputUri)
                         }
                     }
                 }

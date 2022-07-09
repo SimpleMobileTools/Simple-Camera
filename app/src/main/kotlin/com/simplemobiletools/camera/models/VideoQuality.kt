@@ -9,10 +9,9 @@ enum class VideoQuality(val width: Int, val height: Int) {
     HD(1280, 720),
     SD(720, 480);
 
-
     val pixels: Int = width * height
 
-    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / VideoQuality.ONE_MEGA_PIXELS)
+    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / VideoQuality.ONE_MEGA_PIXEL)
 
     val ratio = width / height.toFloat()
 
@@ -54,6 +53,6 @@ enum class VideoQuality(val width: Int, val height: Int) {
     }
 
     companion object {
-        private const val ONE_MEGA_PIXELS = 1000000
+        private const val ONE_MEGA_PIXEL = 1000000
     }
 }
