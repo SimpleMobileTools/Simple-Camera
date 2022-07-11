@@ -20,9 +20,9 @@
     <string name="video_capture_insufficient_storage_error">Erro ao gravar vídeo devido a armazenamento insuficiente</string>
     <!-- FAQ -->
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir\?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
+    <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>
     <!-- Settings -->
-    <string name="save_photos">Save photos and videos to</string>
+    <string name="save_photos">Salvar fotos e vídeos para</string>
     <string name="show_preview">Show a photo preview after capturing</string>
     <string name="shutter_sound">Shutter sound</string>
     <string name="back_camera">Back camera resolutions</string>
