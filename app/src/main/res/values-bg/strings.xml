@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Обикновена камера</string>
+    <string name="app_name">Обикновена Камера</string>
     <string name="app_launcher_name">Камера</string>
     <string name="camera_unavailable">Камерата не е налична</string>
     <string name="camera_open_error">Възникна грешка при достъпа до камерата</string>
