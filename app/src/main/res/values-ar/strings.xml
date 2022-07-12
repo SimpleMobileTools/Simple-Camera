@@ -12,12 +12,12 @@
     <string name="photo_not_saved">تعذر حفظ الصورة</string>
     <string name="setting_resolution_failed">فشل إعداد الدقة المناسبة</string>
     <string name="video_recording_failed">فشل تسجيل الفيديو ، حاول استخدام دقة مختلفة</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
+    <string name="camera_in_use_error">الكاميرا قيد الاستخدام بواسطة تطبيق آخر ، يرجى إغلاق التطبيق والمحاولة مرة أخرى</string>
+    <string name="camera_configure_error">حدث خطأ أثناء تكوين الكاميرا</string>
+    <string name="camera_disabled_by_admin_error">تم تعطيل الكاميرا من قبل المسؤول</string>
+    <string name="camera_dnd_error">تم تمكين وضع عدم الإزعاج. يرجى تعطيله والمحاولة مرة أخرى</string>
+    <string name="photo_capture_failed">فشل التقاط الصور</string>
+    <string name="video_capture_insufficient_storage_error">فشل تسجيل الفيديو بسبب عدم كفاية مساحة التخزين</string>
     <!-- FAQ -->
     <string name="faq_1_title">ما هي جودة ضغط الصور التي يجب تعيينها؟</string>
     <string name="faq_1_text">ذلك يعتمد على هدفك. لأغراض عامة ينصح معظم الناس باستخدام 75٪ -80٪، عندما تكون الصورة لا تزال ذات نوعية جيدة حقا، ولكن يتم تقليل حجم الملف بشكل كبير مقارنة مع 100٪.</string>
