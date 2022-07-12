@@ -43,7 +43,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
-    private var mIsInPhotoMode = false
+    private var mIsInPhotoMode = true
     private var mIsCameraAvailable = false
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
@@ -154,11 +154,23 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun tryInitCamera() {
-        handlePermission(PERMISSION_CAMERA) {
-            if (it) {
-                handlePermission(PERMISSION_WRITE_STORAGE) {
-                    if (it) {
-                        initializeCamera()
+        handlePermission(PERMISSION_CAMERA) { grantedCameraPermission ->
+            if (grantedCameraPermission) {
+                handlePermission(PERMISSION_WRITE_STORAGE) { grantedStoragePermission ->
+                    if (grantedStoragePermission) {
+                        if (mIsInPhotoMode) {
+                            initializeCamera()
+                        } else {
+                            handlePermission(PERMISSION_RECORD_AUDIO) { grantedRecordAudioPermission ->
+                                if (grantedRecordAudioPermission) {
+                                    initializeCamera()
+                                } else {
+                                    toast(R.string.no_audio_permissions)
+                                    togglePhotoVideoMode()
+                                    tryInitCamera()
+                                }
+                            }
+                        }
                     } else {
                         toast(R.string.no_storage_permissions)
                         finish()
@@ -325,10 +337,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         mPreview?.setFlashlightState(FLASH_OFF)
         hideTimer()
-        mIsInPhotoMode = !mIsInPhotoMode
-        config.initPhotoMode = mIsInPhotoMode
+        togglePhotoVideoMode()
         checkButtons()
         toggleBottomButtons(false)
+    }
+
+    private fun togglePhotoVideoMode() {
+        mIsInPhotoMode = !mIsInPhotoMode
+        config.initPhotoMode = mIsInPhotoMode
     }
 
     private fun checkButtons() {
@@ -456,7 +472,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun hasStorageAndCameraPermissions() = hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
+    private fun hasStorageAndCameraPermissions(): Boolean {
+        return if (mIsInPhotoMode) {
+            hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
+        } else {
+            hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA) && hasPermission(PERMISSION_RECORD_AUDIO)
+        }
+    }
 
     private fun setupOrientationEventListener() {
         mOrientationEventListener = object : OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {

@@ -27,6 +27,7 @@ import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -58,6 +59,7 @@ class CameraXPreview(
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
     private val videoQualityManager = VideoQualityManager(config)
     private val imageQualityManager = ImageQualityManager(activity)
+    private val exifRemover = ExifRemover(contentResolver)
 
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
@@ -368,8 +370,17 @@ class CameraXPreview(
 
             imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: OutputFileResults) {
-                    listener.toggleBottomButtons(false)
-                    listener.onMediaSaved(mediaOutput.uri ?: outputFileResults.savedUri!!)
+                    ensureBackgroundThread {
+                        val savedUri = mediaOutput.uri ?: outputFileResults.savedUri!!
+                        if (!config.savePhotoMetadata) {
+                            exifRemover.removeExif(savedUri)
+                        }
+
+                        activity.runOnUiThread {
+                            listener.toggleBottomButtons(false)
+                            listener.onMediaSaved(savedUri)
+                        }
+                    }
                 }
 
                 override fun onError(exception: ImageCaptureException) {
