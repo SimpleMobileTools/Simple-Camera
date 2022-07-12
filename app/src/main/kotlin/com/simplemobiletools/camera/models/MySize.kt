@@ -5,8 +5,16 @@ import android.util.Size
 import com.simplemobiletools.camera.R
 
 data class MySize(val width: Int, val height: Int) {
+    companion object {
+        private const val ONE_MEGA_PIXEL = 1000000
+    }
+
     val ratio = width / height.toFloat()
+
     val pixels: Int = width * height
+
+    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
+
     fun isSixteenToNine() = ratio == 16 / 9f
 
     private fun isFiveToThree() = ratio == 5 / 3f

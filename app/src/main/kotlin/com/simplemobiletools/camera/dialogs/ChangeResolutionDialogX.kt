@@ -22,7 +22,7 @@ class ChangeResolutionDialogX(
     private val isFrontCamera: Boolean,
     private val photoResolutions: List<MySize> = listOf(),
     private val videoResolutions: List<VideoQuality>,
-    private val callback: () -> Unit
+    private val callback: () -> Unit,
 ) {
     private var dialog: AlertDialog
     private val config = activity.config
@@ -42,12 +42,16 @@ class ChangeResolutionDialogX(
     }
 
     private fun setupPhotoResolutionPicker(view: View) {
-        val items = getFormattedResolutions(photoResolutions)
+        val items = photoResolutions.mapIndexed { index, resolution->
+            val megapixels = resolution.megaPixels
+            val aspectRatio = resolution.getAspectRatio(activity)
+            RadioItem(index, "${resolution.width} x ${resolution.height}  ($megapixels MP,  $aspectRatio)")
+        }
         var selectionIndex = if (isFrontCamera) config.frontPhotoResIndex else config.backPhotoResIndex
-        selectionIndex = Math.max(selectionIndex, 0)
+        selectionIndex = selectionIndex.coerceAtLeast(0)
 
         view.change_resolution_photo_holder.setOnClickListener {
-            RadioGroupDialog(activity, items, selectionIndex) {
+            RadioGroupDialog(activity, ArrayList(items), selectionIndex) {
                 selectionIndex = it as Int
                 Log.w(TAG, "setupPhotoResolutionPicker: selectionIndex=$it")
                 view.change_resolution_photo.text = items[selectionIndex].title
@@ -89,16 +93,5 @@ class ChangeResolutionDialogX(
             }
         }
         view.change_resolution_video.text = items.getOrNull(selectionIndex)?.title
-    }
-
-    private fun getFormattedResolutions(resolutions: List<MySize>): ArrayList<RadioItem> {
-        val items = ArrayList<RadioItem>(resolutions.size)
-        val sorted = resolutions.sortedByDescending { it.width * it.height }
-        sorted.forEachIndexed { index, size ->
-            val megapixels = String.format("%.1f", (size.width * size.height.toFloat()) / 1000000)
-            val aspectRatio = size.getAspectRatio(activity)
-            items.add(RadioItem(index, "${size.width} x ${size.height}  ($megapixels MP,  $aspectRatio)"))
-        }
-        return items
     }
 }

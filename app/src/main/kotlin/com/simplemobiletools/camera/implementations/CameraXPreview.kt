@@ -5,6 +5,7 @@ import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
 import android.util.Log
+import android.util.Size
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import androidx.appcompat.app.AppCompatActivity
@@ -74,7 +75,7 @@ class CameraXPreview(
                 in 225 until 315 -> Surface.ROTATION_90
                 else -> Surface.ROTATION_0
             }
-
+            Log.i(TAG, "onOrientationChanged: rotation=$rotation")
             preview?.targetRotation = rotation
             imageCapture?.targetRotation = rotation
             videoCapture?.targetRotation = rotation
@@ -194,11 +195,22 @@ class CameraXPreview(
             .setTargetRotation(rotation)
             .apply {
                 imageQualityManager.getUserSelectedResolution(cameraSelector)?.let { resolution ->
+                    val rotatedResolution = getRotatedResolution(rotation, resolution)
+                    Log.i(TAG, "buildImageCapture: rotation=$rotation")
                     Log.i(TAG, "buildImageCapture: resolution=$resolution")
-                    setTargetResolution(resolution)
+                    Log.i(TAG, "buildImageCapture: rotatedResolution=$rotatedResolution")
+                    setTargetResolution(rotatedResolution)
                 } ?: setTargetAspectRatio(aspectRatio)
             }
             .build()
+    }
+
+    private fun getRotatedResolution(rotationDegrees: Int, resolution: Size): Size {
+        return if (rotationDegrees == Surface.ROTATION_0 || rotationDegrees == Surface.ROTATION_180) {
+            Size(resolution.height, resolution.width)
+        } else {
+            Size(resolution.width, resolution.height)
+        }
     }
 
     private fun buildPreview(aspectRatio: Int, rotation: Int): Preview {
