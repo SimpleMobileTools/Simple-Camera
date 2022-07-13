@@ -3,6 +3,7 @@ package com.simplemobiletools.camera.models
 import android.content.ContentValues
 import android.net.Uri
 import android.os.ParcelFileDescriptor
+import java.io.File
 import java.io.OutputStream
 
 sealed class MediaOutput(
@@ -20,6 +21,11 @@ sealed class MediaOutput(
 
     data class FileDescriptorMediaOutput(
         val fileDescriptor: ParcelFileDescriptor,
+        override val uri: Uri,
+    ) : MediaOutput(uri)
+
+    data class FileMediaOutput(
+        val file: File,
         override val uri: Uri,
     ) : MediaOutput(uri)
 

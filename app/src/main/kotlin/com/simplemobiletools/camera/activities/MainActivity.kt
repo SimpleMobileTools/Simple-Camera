@@ -7,8 +7,8 @@ import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
@@ -31,9 +31,10 @@ import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
-    private val TAG = "MainActivity"
-    private val FADE_DELAY = 5000L
-    private val CAPTURE_ANIMATION_DURATION = 100L
+    companion object {
+        private const val FADE_DELAY = 5000L
+        private const val CAPTURE_ANIMATION_DURATION = 100L
+    }
 
     lateinit var mTimerHandler: Handler
     private lateinit var mOrientationEventListener: OrientationEventListener
@@ -49,14 +50,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mCurrVideoRecTimer = 0
     var mLastHandledOrientation = 0
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
@@ -67,6 +62,22 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+        if (isRPlus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else if (isOreoMr1Plus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     override fun onResume() {
@@ -109,15 +120,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun initVariables() {
         mIsInPhotoMode = if (isVideoCaptureIntent()) {
-            Log.w(TAG, "initializeCamera: video capture")
             false
         } else if (isImageCaptureIntent()) {
-            Log.w(TAG, "initializeCamera: image capture mode")
             true
         } else {
             config.initPhotoMode
         }
-        Log.w(TAG, "initInPhotoMode = $mIsInPhotoMode")
         mIsCameraAvailable = false
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
@@ -189,7 +197,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun checkImageCaptureIntent() {
         if (isImageCaptureIntent()) {
-            Log.i(TAG, "isImageCaptureIntent: ")
             hideIntentButtons()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
@@ -200,7 +207,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun checkVideoCaptureIntent() {
         if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
-            Log.i(TAG, "checkVideoCaptureIntent: ")
             mIsInPhotoMode = false
             hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
@@ -238,8 +244,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mFocusCircleView = FocusCircleView(applicationContext)
         view_holder.addView(mFocusCircleView)
 
-        mTimerHandler = Handler()
-        mFadeHandler = Handler()
+        mTimerHandler = Handler(Looper.getMainLooper())
+        mFadeHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
 
         val initialFlashlightState = FLASH_OFF
@@ -389,7 +395,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
-        Log.e(TAG, "mPreviewUri= $mPreviewUri")
 
         loadLastTakenMedia(mPreviewUri)
     }
@@ -439,8 +444,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         view.isClickable = value != .0f
     }
 
+    @Suppress("DEPRECATION")
     private fun hideNavigationBarIcons() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+        if (isRPlus()) {
+            window.insetsController?.hide(WindowInsets.Type.systemBars())
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+        }
     }
 
     private fun showTimer() {
@@ -567,7 +577,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 setResult(Activity.RESULT_OK, this)
             }
-            Log.w(TAG, "onMediaCaptured: exiting uri=$uri")
             finish()
         } else if (isVideoCaptureIntent()) {
             Intent().apply {
@@ -575,7 +584,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 setResult(Activity.RESULT_OK, this)
             }
-            Log.w(TAG, "onMediaCaptured: video exiting uri=$uri")
             finish()
         }
     }
@@ -586,7 +594,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 putExtra("data", bitmap)
                 setResult(Activity.RESULT_OK, this)
             }
-            Log.w(TAG, "onImageCaptured: exiting bitmap size=${bitmap.byteCount}")
             finish()
         }
     }
@@ -645,7 +652,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
-        Log.e(TAG, "mediaSaved: $path")
         rescanPaths(arrayListOf(path)) {
             setupPreviewImage(true)
             Intent(BROADCAST_REFRESH_MEDIA).apply {
