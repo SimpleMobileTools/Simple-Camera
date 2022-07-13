@@ -1,7 +1,7 @@
 package com.simplemobiletools.camera.helpers
 
 import android.util.Log
-import androidx.camera.core.Camera
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.Quality
@@ -11,7 +11,10 @@ import com.simplemobiletools.camera.extensions.toVideoQuality
 import com.simplemobiletools.camera.models.CameraSelectorVideoQualities
 import com.simplemobiletools.camera.models.VideoQuality
 
-class VideoQualityManager(private val config: Config) {
+class VideoQualityManager(
+    private val activity: AppCompatActivity,
+    private val config: Config,
+) {
 
     companion object {
         private const val TAG = "VideoQualityHelper"
@@ -21,12 +24,11 @@ class VideoQualityManager(private val config: Config) {
 
     private val videoQualities = mutableListOf<CameraSelectorVideoQualities>()
 
-    fun initSupportedQualities(
-        cameraProvider: ProcessCameraProvider,
-        camera: Camera,
-    ) {
+    fun initSupportedQualities(cameraProvider: ProcessCameraProvider) {
         if (videoQualities.isEmpty()) {
             for (camSelector in CAMERA_SELECTORS) {
+                cameraProvider.unbindAll()
+                val camera = cameraProvider.bindToLifecycle(activity, camSelector)
                 try {
                     if (cameraProvider.hasCamera(camSelector)) {
                         QualitySelector.getSupportedQualities(camera.cameraInfo)

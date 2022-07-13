@@ -58,7 +58,7 @@ class CameraXPreview(
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
-    private val videoQualityManager = VideoQualityManager(config)
+    private val videoQualityManager = VideoQualityManager(activity, config)
     private val imageQualityManager = ImageQualityManager(activity)
     private val exifRemover = ExifRemover(contentResolver)
 
@@ -110,10 +110,13 @@ class CameraXPreview(
     private fun startCamera(switching: Boolean = false) {
         Log.i(TAG, "startCamera: ")
         imageQualityManager.initSupportedQualities()
+
         val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
         cameraProviderFuture.addListener({
             try {
-                cameraProvider = cameraProviderFuture.get()
+                val provider = cameraProviderFuture.get()
+                cameraProvider = provider
+                videoQualityManager.initSupportedQualities(provider)
                 bindCameraUseCases()
                 setupCameraObservers()
             } catch (e: Exception) {
@@ -143,9 +146,7 @@ class CameraXPreview(
             cameraSelector,
             preview,
             captureUseCase,
-        ).also {
-            videoQualityManager.initSupportedQualities(cameraProvider, it)
-        }
+        )
 
         preview?.setSurfaceProvider(previewView.surfaceProvider)
         setupZoomAndFocus()
@@ -188,7 +189,7 @@ class CameraXPreview(
     }
 
     private fun buildImageCapture(aspectRatio: Int, rotation: Int): ImageCapture {
-        return ImageCapture.Builder()
+        return Builder()
             .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
@@ -362,7 +363,7 @@ class CameraXPreview(
                     if (bitmap != null) {
                         listener.onImageCaptured(bitmap)
                     } else {
-                        cameraErrorHandler.handleImageCaptureError(ImageCapture.ERROR_CAPTURE_FAILED)
+                        cameraErrorHandler.handleImageCaptureError(ERROR_CAPTURE_FAILED)
                     }
                 }
 
