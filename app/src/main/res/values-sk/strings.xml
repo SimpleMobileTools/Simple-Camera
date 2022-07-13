@@ -20,11 +20,11 @@
     <string name="video_capture_insufficient_storage_error">Nahrávanie videa zlyhalo pre nedostatok miesta</string>
 
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_photo_video">Prepnúť foto/video mód</string>
+    <string name="change_resolution">Zmeniť rozlíšenie</string>
+    <string name="view_last_media">Zobraziť posledný súbor</string>
+    <string name="toggle_camera">Prepnúť prednú/zadnú kameru</string>
+    <string name="toggle_flash">Prepnúť blesk</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Akú kvalitu fotiek by som mal použiť?</string>
