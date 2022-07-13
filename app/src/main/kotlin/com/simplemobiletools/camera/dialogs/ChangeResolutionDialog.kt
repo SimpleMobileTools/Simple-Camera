@@ -33,8 +33,9 @@ class ChangeResolutionDialog(
             .setPositiveButton(R.string.ok, null)
             .setOnDismissListener { callback() }
             .apply {
-                activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera) {
-                    dialog = it
+                val titleId = if (isFrontCamera) R.string.front_camera else R.string.back_camera
+                activity.setupDialogStuff(view, this, titleId) { alertDialog ->
+                    dialog = alertDialog
                     if (openVideoResolutions) {
                         view.change_resolution_video_holder.performClick()
                     }
