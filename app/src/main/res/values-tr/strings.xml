@@ -12,6 +12,12 @@
     <string name="photo_not_saved">Fotoğraf kaydedilemedi</string>
     <string name="setting_resolution_failed">Doğru çözünürlük ayarı başarısız oldu</string>
     <string name="video_recording_failed">Video kaydı başarısız oldu, farklı bir çözünürlük kullanmayı deneyin</string>
+    <string name="camera_in_use_error">Kamera başka bir uygulama tarafından kullanılıyor, lütfen uygulamayı kapatın ve tekrar deneyin</string>
+    <string name="camera_configure_error">Kamera yapılandırılırken bir hata oluştu</string>
+    <string name="camera_disabled_by_admin_error">Kamera yönetici tarafından devre dışı bırakıldı</string>
+    <string name="camera_dnd_error">Rahatsız Etmeyin modu etkinleştirildi. Lütfen devre dışı bırakın ve tekrar deneyin</string>
+    <string name="photo_capture_failed">Fotoğraf çekimi başarısız oldu</string>
+    <string name="video_capture_insufficient_storage_error">Yetersiz depolama alanı nedeniyle video kaydı başarısız oldu</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hangi fotoğraf sıkıştırma kalitesini ayarlamalıyım?</string>
     <string name="faq_1_text">Hedefinize bağlı. Genel amaçlar için çoğu kişi %75-%80\'i kullanmanızı önerir, görüntü hala gerçekten kaliteliyken, dosya boyutu %100\'e göre büyük ölçüde azalır.</string>
@@ -32,41 +38,6 @@
     <string name="save_photo_metadata">Fotoğraflara Exif meta verilerini kaydet</string>
     <string name="photo_compression_quality">Fotoğraf sıkıştırma kalitesi</string>
     <string name="shutter">Deklanşör</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Basit Kamera - Kolayca fotoğraf ve video çekin</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Anı yaratmak hiç bu kadar kolay olmamıştı. Reklamsız hoş bir arayüz sağlar.</string>
-    <string name="app_long_description">
-        Bu kullanışlı kamera hem kolay fotoğraf çekimi hem de video kaydı için kullanılabilir. Ön ve arka kamera arasında hızlıca geçiş yapabilir, kayıt yolunu değiştirebilir veya çözünürlüğü sınırlandırabilirsiniz. Hayatınızın önemli anlarını asla özlemeyeceksiniz. İhtiyaçlarınız için daha kişisel hale getirmek için birçok yararlı ayar vardır. Bazılarını listeleyelim.
-
-        Flaş açılıp kapatılabilir veya sık görülmeyen kullanışlı bir el feneri olarak kullanılabilir. Fantastik portre fotoğrafları çekerken yakınlaştırmak ve uzaklaştırmak için ekranı sıkıştırabilir veya yatay görüntü geçişi arasında geçiş yapabilirsiniz.
-
-        Modern bir kamera uygulamasından beklediğiniz gibi çıktı çözünürlüğünü, kalitesini veya en boy oranını birkaç tıklamayla kolayca değiştirebilirsiniz. Bu hem fotoğraflar hem de videolar için geçerlidir.
-
-        Bir resim çektikten sonra, tercih ettiğiniz galeride hızlıca açabileceğiniz yeni fotoğraf küçük resmini göreceksiniz. Dosyanın kaydedildiğini garanti ederek, fotoğrafın ne zaman çekildiğine dair net bir gösterge göreceksiniz.
-
-        Cihazlarınızın donanım kamera düğmesine basarak bu kolay kamerayı başlatmak istiyorsanız, Ayarlar -&gt; Uygulamalar -&gt; Kamera -&gt; Devre Dışı Bırak menüsünden yerleşik Kamera uygulamasını devre dışı bırakmanız gerekebilir.
-
-        Kaliteyi hızdan daha fazla tercih ederseniz, sonucun kristal netliğinde olduğundan emin olmak için fotoğraf çekmeden önce fotoğraf makinesini her zaman odaklama seçeneğini etkinleştirebilirsiniz.
-
-        Ses tuşlarını deklanşör olarak kullanmak veya başlangıçta el fenerini varsayılan olarak açmak için yapılandırabilirsiniz.
-
-        Deklanşör sesi, flaş, fotoğraf meta verileri, fotoğraf kalitesi vb. İle ilgili birden fazla ayar vardır. Çıktı dosyası yolu özelleştirilebilir, böylece medyanızın nereye kaydedilmesini istediğinize karar verebilirsiniz. Hem dahili depolama hem de SD kartları destekler.
-
-        Varsayılan olarak materyal tasarımı ve koyu tema ile birlikte gelir, kolay kullanım için mükemmel kullanıcı deneyimi sağlar. İnternet erişiminin olmaması, diğer uygulamalardan daha fazla gizlilik, güvenlik ve kararlılık sağlar.
-
-        Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
-
-        <b>Basit Araçlar paketinin tamamını buradan inceleyin:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

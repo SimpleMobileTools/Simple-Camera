@@ -4,25 +4,31 @@
     <string name="app_launcher_name">Aparat</string>
     <string name="camera_unavailable">Aparat niedostępny</string>
     <string name="camera_open_error">Nie udało się uzyskać dostępu do aparatu</string>
-    <string name="video_creating_error">Nie udało się utworzyć pliku wideo</string>
+    <string name="video_creating_error">Wystąpił błąd podczas tworzenia pliku wideo</string>
     <string name="video_mode_error">Nie udało się przełączyć na tryb wideo</string>
-    <string name="save_error_internal_storage">Wystąpił błąd, ponieważ folder przechowywania został zmieniony na pamięć wewnętrzną</string>
+    <string name="save_error_internal_storage">Wystąpił błąd. Folder zapisu został zmieniony na pamięć wewnętrzną.</string>
     <string name="camera_switch_error">Nie udało się przełączyć aparatu</string>
     <string name="click_to_resume_preview">Naciśnij obraz, aby wznowić podgląd</string>
     <string name="photo_not_saved">Nie udało się zapisać zdjęcia</string>
     <string name="setting_resolution_failed">Nie udało się ustawić poprawnej rozdzielczości</string>
-    <string name="video_recording_failed">Nie udało się rozpocząć nagrywania. Spróbuj użyć innej rozdzielczości.</string>
+    <string name="video_recording_failed">Nagrywanie wideo nie powiodło się. Spróbuj użyć innej rozdzielczości.</string>
+    <string name="camera_in_use_error">Aparat jest używany przez inną aplikację. Zamknij aplikację i spróbuj ponownie.</string>
+    <string name="camera_configure_error">Wystąpił błąd podczas konfigurowania aparatu</string>
+    <string name="camera_disabled_by_admin_error">Aparat został wyłączony przez administratora</string>
+    <string name="camera_dnd_error">Tryb Nie przeszkadzać jest włączony. Wyłącz go i spróbuj ponownie.</string>
+    <string name="photo_capture_failed">Nie udało się zrobić zdjęcia</string>
+    <string name="video_capture_insufficient_storage_error">Nagrywanie wideo nie powiodło się z powodu niewystarczającej ilości miejsca</string>
     <!-- FAQ -->
     <string name="faq_1_title">Jaką jakość kompresji zdjęć powinienem ustawić\?</string>
     <string name="faq_1_text">Zależy to od Twojego celu. Do celów ogólnych większość ludzi zaleca poziom 75-80% — wtedy obraz jest nadal w dobrej jakości, ale rozmiar pliku znacznie zmniejsza się w porównaniu do 100%.</string>
     <!-- Settings -->
-    <string name="save_photos">Zapisuj zdjęcia i filmy w</string>
+    <string name="save_photos">Zapisuj zdjęcia i wideo w</string>
     <string name="show_preview">Pokazuj podgląd po zrobieniu zdjęcia</string>
     <string name="shutter_sound">Dźwięk migawki</string>
     <string name="back_camera">Rozdzielczość tylnego aparatu</string>
     <string name="front_camera">Rozdzielczość przedniego aparatu</string>
     <string name="photo">Zdjęcie</string>
-    <string name="video">Film</string>
+    <string name="video">Wideo</string>
     <string name="focus_before_capture">Ustawiaj ostrość przed zrobieniem zdjęcia</string>
     <string name="volume_buttons_as_shutter">Używaj przycisków głośności jako spustu migawki</string>
     <string name="turn_flash_off_at_startup">Wyłączaj lampę błyskową przy uruchomieniu</string>
@@ -32,12 +38,6 @@
     <string name="save_photo_metadata">Zapisuj metadane EXIF w zdjęciach</string>
     <string name="photo_compression_quality">Jakość kompresji zdjęć</string>
     <string name="shutter">Migawka</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Prosty aparat - Łatwo rób zdjęcia i nagrywaj filmy</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Tworzenie wspomnień nigdy nie było łatwiejsze. Ładny interfejs bez reklam</string>
-    <string name="app_long_description"> Ten poręczny aparat może być używany zarówno do robienia zdjęć, jak i nagrywania filmów. Możesz szybko przełączać się między przednią i tylną kamerą, zmieniać ścieżkę zapisywania lub ograniczać rozdzielczość. Nigdy nie przegapisz najważniejszych chwil w swoim życiu. Jest w nim dostępnych wiele pomocnych ustawień, które sprawią, że będzie jeszcze bardziej osobisty i dostosowany do Twoich potrzeb. Wymieńmy kilka z nich. Lampa błyskowa może być włączana lub wyłączana albo użyta jako przydatna latarka, co nie jest często spotykane. Możesz wykonać gest zsunięcia palców na ekranie, aby powiększyć lub oddalić albo odbić lustrzanie zdjęcia podczas robienia wspaniałych portretów. Możesz łatwo zmienić wynikową rozdzielczość, jakość czy proporcje ekranu w parę kliknięć, tak jak spodziewałbyś/spodziewałabyś się po nowoczesnej aplikacji aparatu. Działa to zarówno na zdjęcia, jak i filmy. Po zrobieniu zdjęcia zobaczysz jego miniaturkę, po naciśnięciu której otworzy się ono w preferowanej przez Ciebie galerii. Jeśli chcesz, aby ten prosty aparat uruchamiał się po naciśnięciu przycisku aparatu Twojego urządzenia, będziesz prawdopodobnie musiał(a) wyłączyć wbudowaną aplikację aparatu w Ustawienia -&gt; Aplikacje -&gt; Aparat -&gt; Wyłącz. Jeśli ważniejsza jest dla Ciebie jakość od szybkości, możesz włączyć opcję ustawiania ostrości, aby aparat zawsze ustawiał ostrość przed zrobieniem zdjęcia — będziesz wtedy mieć pewność, że rezultat będzie idealny. Możesz skonfigurować aplikację, aby korzystała z przycisków głośności jako spustu migawki, albo żeby włączała latarkę przy uruchomieniu. Ma wiele opcji związanych z dźwiękiem migawki, lampą błyskową, metadanymi zdjęć, jakością zdjęć itd. Ścieżka wynikowa może być konfigurowana, abyś to Ty decydował(a), gdzie Twoje multimedia mają być zapisywane. Obsługuje zarówno pamięć wewnętrzną, jak i karty SD. Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje. Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę. <b>Sprawdź pełen zestaw od Simple Tools tutaj:</b> https://www.simplemobiletools.com <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

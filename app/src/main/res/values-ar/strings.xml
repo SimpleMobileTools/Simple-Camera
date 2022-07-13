@@ -12,6 +12,12 @@
     <string name="photo_not_saved">تعذر حفظ الصورة</string>
     <string name="setting_resolution_failed">فشل إعداد الدقة المناسبة</string>
     <string name="video_recording_failed">فشل تسجيل الفيديو ، حاول استخدام دقة مختلفة</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">ما هي جودة ضغط الصور التي يجب تعيينها؟</string>
     <string name="faq_1_text">ذلك يعتمد على هدفك. لأغراض عامة ينصح معظم الناس باستخدام 75٪ -80٪، عندما تكون الصورة لا تزال ذات نوعية جيدة حقا، ولكن يتم تقليل حجم الملف بشكل كبير مقارنة مع 100٪.</string>
@@ -32,12 +38,6 @@
     <string name="save_photo_metadata">حفظ بيانات الصورة الوصفية</string>
     <string name="photo_compression_quality">جودة ضغط الصور</string>
     <string name="shutter">الغالق</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">كاميرا بسيطة - التقط الصور ومقاطع الفيديو بسهولة</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">إنشاء الذكريات لم يكن أسهل من أي وقت مضى. واجهة جميلة بدون إعلانات.</string>
-    <string name="app_long_description">" .هذه الكاميرا سهلة الاستخدام قابلة للاستخدام في التقاط الصور وتسجيل الفيديو بسهولة. يمكنك التبديل بسرعة بين الكاميرا الأمامية والخلفية أو تعديل مسار الحفظ أو الحد من الدقة. لن تفوتك أبدًا اللحظات المهمة في حياتك. هناك العديد من الإعدادات المفيدة المتاحة لجعلها أكثر خصوصية ومناسبة لاحتياجاتك. دعنا نسرد بعض منهم. يمكن تشغيل الفلاش وإيقاف تشغيله أو استخدامه كمصباح يدوي مفيد ، والذي لا يُرى كثيرًا. يمكنك الضغط على الشاشة للتكبير والتصغير أو تبديل تبديل الصورة الأفقية أثناء التقاط صور بورتريه رائعة. يمكنك بسهولة تغيير دقة الإخراج أو الجودة أو نسبة العرض إلى الارتفاع ببضع نقرات ، كما تتوقع من تطبيق كاميرا حديث. هذا ينطبق على كل من الصور ومقاطع الفيديو. بعد التقاط صورة ، سترى الصورة المصغرة الجديدة للصورة ، بالضغط عليها يمكنك فتحها بسرعة في معرض الصور المفضل لديك. سترى إشارة واضحة لوقت التقاط الصورة ، مما يضمن حفظ الملف. إذا كنت ترغب في تشغيل هذه الكاميرا السهلة عند الضغط على زر الكاميرا في الجهاز ، فقد تضطر إلى تعطيل تطبيق الكاميرا المدمج في الإعدادات - &amp;gt; التطبيقات - &amp;gt; الكاميرا - &amp;gt; تعطيل. في حال كنت تفضل الجودة على السرعة ، يمكنك تمكين خيار تركيز الكاميرا دائمًا قبل التقاط الصورة ، للتأكد من أن النتيجة واضحة تمامًا. يمكنك تكوينه لاستخدام أزرار الصوت كغالق ، أو لتشغيل المصباح بشكل افتراضي عند بدء التشغيل. يحتوي على العديد من الإعدادات الأخرى المتعلقة بصوت الغالق والفلاش والبيانات الوصفية للصورة وجودة الصورة وما إلى ذلك. يمكن تخصيص مسار ملف الإخراج ، بحيث يمكنك تحديد المكان الذي تريد حفظ الوسائط فيه. يدعم كلاً من التخزين الداخلي وبطاقات SD. يأتي بتصميم مادي وسمة داكنة بشكل افتراضي ، مما يوفر تجربة مستخدم رائعة لسهولة الاستخدام. يمنحك نقص الوصول إلى الإنترنت مزيدًا من الخصوصية والأمان والاستقرار مقارنة بالتطبيقات الأخرى. لا يحتوي على إعلانات أو أذونات غير ضرورية. إنه مفتوح المصدر بالكامل ، ويوفر ألوانًا قابلة للتخصيص. &lt;b&gt; تحقق من المجموعة الكاملة من الأدوات البسيطة &lt;/b&gt;هنا:https://www.simplemobiletools.com &lt;b&gt; Facebook: &lt;/b&gt; https://www.facebook.com/simplemobiletools &lt;b&gt; Reddit: &lt;b&gt; https://www.reddit.com/r/SimpleMobileTools "</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

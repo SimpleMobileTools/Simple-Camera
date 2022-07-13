@@ -12,6 +12,12 @@
     <string name="photo_not_saved">No se pudo guardar la imagen</string>
     <string name="setting_resolution_failed">Falló la configuración de la resolución apropiada</string>
     <string name="video_recording_failed">Grabación de video fallida, intenta usar una diferente resolución</string>
+    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
+    <string name="camera_configure_error">An error occurred while configuring the camera</string>
+    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
+    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
     <!-- FAQ -->
     <string name="faq_1_title">¿Qué calidad de compresión de foto debería establecer?</string>
     <string name="faq_1_text">Depende de tu objetivo. Para propósitos generales, la mayoría de las personas aconsejan usar 75%-80%, y la imagen seguirá siendo de calidad realmente buena, pero el tamaño del archivo es reducido drásticamente comparado con el 100%.</string>
@@ -32,41 +38,6 @@
     <string name="save_photo_metadata">Guardar metadatos exif de las fotos</string>
     <string name="photo_compression_quality">Calidad de compresión de foto</string>
     <string name="shutter">Obturador</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Cámara Simple - Captura fotos y videos fácilmente</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Crear recuerdos nunca había sido tan fácil. Una excelente interfaz sin anuncios.</string>
-    <string name="app_long_description">
-        Esta práctica cámara es usable para tomar fotos y grabar videos. Puedes cambiar entre cámara frontal y trasera rápidamente, modificar la ruta de guardado o limitar la resolución. Nunca perderás los momentos importantes en tu vida. Hay varios ajustes útiles disponibles para ahcerla más personal, ajustada a tus necesidades. Listemos algunas de ellas.
-
-        El flash puede ser encendido o apagado, o usado como una útil linterna, lo cual no es visto a menudo. Puedes pellizcar la pantalla para acercar o alejar, o alternar en imagen horizontal girando durante la captura para tomar fantásticos retratos.
-
-        Puedes cambiar la resolución de salida, calidad relación de aspecto fácilmente con solo unos toques, como esperarías de una aplicación de cámara moderna. Esto aplica tanto a fotos como a videos.
-
-        Después de tomar una foto verás la miniatura de la nueva foto, y presionándola podrás abrirla rápidamente en tu galería preferida. Verás una indicación clara cuando la foto se capture, garantizando que el archivo ha sido guardado.
-
-        Si quieres abrir esta cámara sencilla el botón de cámara de tu dispositivo, puede que tengas que deshabilitar la aplicaciónn de cámara incluida en Ajustes -&gt; Aplicaciones -&gt; Cámara -&gt; Deshabilitar.
-
-        En caso de que prefieras calidad sobre velocidad, puedes habilitar una opción para siempre enfocar la cámara antes de tomar una foto, para asegurar que el resultado sea claro como el cristal.
-
-        Puedes configurar el usar los botones de volúmen como disparador, o encender el flash por defecto al iniciar.
-
-        Tiene muchas otras opciones relacionadas al sonido del obturados, flash, metadatos de fotos, calidad de fotografías, etc. La ruta del archivo de salida puede ser personalizada, así puedes decidir dónde quieres que tus archivos sean guardados. Soporta tanto almacenamiento interno como tarjetas SD.
-
-        Incluye diseño material y tema obscuro por defecto, provee una gran experiencia de usuario para uso sencillo. La falta del acceso a internet te da más privacidad, seguridad y estabilidad que otras aplicaciones.
-
-        No contiene anuncios o permisos innecesarios. Es completamente de código abierto, provee colores personalizables.
-
-        <b>Mira la suite completa de herramientas Simples aquí:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

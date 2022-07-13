@@ -12,6 +12,12 @@
     <string name="photo_not_saved">Das Foto konnte nicht gespeichert werden</string>
     <string name="setting_resolution_failed">Korrekte Auflösung konnte nicht eingestellt werden</string>
     <string name="video_recording_failed">Videoaufzeichnung fehlgeschlagen, probiere eine andere Auflösung aus</string>
+    <string name="camera_in_use_error">Die Kamera wird von einer anderen Anwendung verwendet, bitte schließen Sie die Anwendung und versuchen Sie es erneut</string>
+    <string name="camera_configure_error">Beim Konfigurieren der Kamera ist ein Fehler aufgetreten</string>
+    <string name="camera_disabled_by_admin_error">Kamera wird vom Administrator deaktiviert</string>
+    <string name="camera_dnd_error">Der „Bitte nicht stören“-Modus ist aktiviert. Bitte deaktivieren Sie ihn und versuchen Sie es erneut</string>
+    <string name="photo_capture_failed">Fotoaufnahme fehlgeschlagen</string>
+    <string name="video_capture_insufficient_storage_error">Videoaufzeichnung aufgrund unzureichender Speicherkapazität fehlgeschlagen</string>
     <!-- FAQ -->
     <string name="faq_1_title">Was für eine Fotokomprimierungsqualität soll ich einstellen?</string>
     <string name="faq_1_text">Das hängt von deinem Ziel ab. Für allgemeine Zwecke empfehlen die meisten 75 - 80 %, wodurch die Qualität immer noch sehr gut bleibt, aber die Dateigrösse drastisch reduziert ist im Vergleich zu 100 %.</string>
@@ -32,41 +38,6 @@
     <string name="save_photo_metadata">Exif-Metadaten in Fotos speichern</string>
     <string name="photo_compression_quality">Fotokomprimierungsqualität</string>
     <string name="shutter">Verschluss</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Einfache Kamera – Einfaches Aufnehmen von Fotos und Videos</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Das Erstellen von Erinnerungen war noch nie so einfach. Schöne Oberfläche ohne Werbung.</string>
-    <string name="app_long_description">
-        Diese App kann sowohl Fotos als auch Videos aufnehmen. Du kannst schnell zwischen Front- und Rückkamera wechseln, die Auflösung verändern und den Speicherpfad verändern. Du wirst niemals die wichtigen Momente deines Lebens vermissen. Es gibt viele hilfreiche Einstellungen, um die App an deinen Bedürfnissen anzupassen. Listen wir mal ein paar von denen auf:
-
-        Der Blitz kann an- oder ausgeschaltet werden und somit als Taschenlampe fungieren - dies gibt es nicht so häufig. Du kannst mit deinen Fingern rein- und rauszoomen oder zu horizontalen Bildern wechseln, um fantastische Portrait-Fotos zu erstellen.
-
-        Du kannst die Outputauflösung, -qualität und das Seitenverhältnis mit wenigen Klicks anpassen; genauso, wie du es von einer modernen Kamera-App erwarten würdest. Dies gilt sowohl für Fotos, als auch für Videos.
-
-        Nachdem du ein Foto aufgenommen hast, wirst du das neue Vorschaubild sehen. Drückst du drauf, öffnet sich das Bild in deiner Gallery. Du wirst einen deutlichen Hinweis sehen, wenn das Foto aufgenommen wird, um zu garantieren, dass die Datei gespeichert worden ist.
-
-        Möchtest du diese App öffnen, indem du den Hardware-Knopf deines Smartphones drückst, musst du ggf. die eingebaute Kamera-App deaktivieren: Einstellungen -&gt; Apps -&gt; Kamera -&gt; Deaktivieren.
-
-        Für den Fall, dass dir Qualität wichtiger ist, als die Geschwindigkeit, kannst du eine Option aktivieren, um die Kamera immer zu fokusieren bevor ein Bild gemacht wird, um sicher zu gehen, dass das Ergebnis kristallklar sein wird.
-
-        Du kannst es so konfigurieren, dass es die Lautstärke Tasten als Auslöser verwendet oder um die Taschenlampe standardmäßig beim Appstart zu aktivieren.
-
-        Es gibt viele weitere Einstellungen, die den Auslöseton, Blitz, Bildmetadaten, Fotoqualität usw betreffen. Der Output-Pfad kann angepasst werden, sodass du entscheiden kannst, wo die Datei gespeichert werden soll. Internerspeicher und SD-Karte werden unterstützt.
-
-        Es kommt standardmäßig mit material design und Dunkelmodus, um großartige Nutzererfahrung und einfache Nutzung zu ermöglichen. Da die App keinen Internetzugriff hat, bietet sie mehr Datenschutz, Sicherheit und Stabilität als andere Apps.
-
-        Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
-
-        <b>Entdecke die gesamte Serie an schlichten Apps hier:</b>
-        https://www.simplemobiletools.com
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
