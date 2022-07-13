@@ -2,8 +2,6 @@ package com.simplemobiletools.camera.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.core.content.res.ResourcesCompat
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
@@ -15,19 +13,21 @@ import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
-import java.util.Locale
-import kotlin.system.exitProcess
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.util.*
+import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        setupOptionsMenu()
     }
 
     override fun onResume() {
         super.onResume()
         setupToolbar(settings_toolbar, NavigationIcon.Arrow)
+
         setupPurchaseThankYou()
         setupCustomizeColors()
         setupUseEnglish()
@@ -39,7 +39,6 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupPhotoQuality()
         updateTextColors(settings_holder)
-        invalidateOptionsMenu()
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayListOf(
@@ -61,18 +60,14 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        updateMenuItemColors(menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.about -> launchAbout()
-            else -> super.onOptionsItemSelected(item)
+    private fun setupOptionsMenu() {
+        settings_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.about -> launchAbout()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-        return true
     }
 
     private fun setupPurchaseThankYou() {
