@@ -7,6 +7,7 @@ import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.*
@@ -31,9 +32,11 @@ import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
-    private val TAG = "MainActivity"
-    private val FADE_DELAY = 5000L
-    private val CAPTURE_ANIMATION_DURATION = 100L
+    companion object {
+        private const val TAG = "MainActivity"
+        private const val FADE_DELAY = 5000L
+        private const val CAPTURE_ANIMATION_DURATION = 100L
+    }
 
     lateinit var mTimerHandler: Handler
     private lateinit var mOrientationEventListener: OrientationEventListener
@@ -49,14 +52,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mCurrVideoRecTimer = 0
     var mLastHandledOrientation = 0
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
@@ -67,6 +64,22 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+        if (isRPlus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else if (isOreoMr1Plus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     override fun onResume() {
@@ -238,8 +251,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mFocusCircleView = FocusCircleView(applicationContext)
         view_holder.addView(mFocusCircleView)
 
-        mTimerHandler = Handler()
-        mFadeHandler = Handler()
+        mTimerHandler = Handler(Looper.getMainLooper())
+        mFadeHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
 
         val initialFlashlightState = FLASH_OFF
@@ -439,8 +452,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         view.isClickable = value != .0f
     }
 
+    @Suppress("DEPRECATION")
     private fun hideNavigationBarIcons() {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+        if (isRPlus()) {
+            window.insetsController?.hide(WindowInsets.Type.systemBars())
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
+        }
     }
 
     private fun showTimer() {

@@ -51,7 +51,7 @@ class VideoQualityManager(
     fun getUserSelectedQuality(cameraSelector: CameraSelector): Quality {
         var selectionIndex = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontVideoResIndex else config.backVideoResIndex
         selectionIndex = selectionIndex.coerceAtLeast(0)
-        return getSupportedQualities(cameraSelector)[selectionIndex].toCameraXQuality()
+        return getSupportedQualities(cameraSelector).getOrElse(selectionIndex) { VideoQuality.HD }.toCameraXQuality()
     }
 
     fun getSupportedQualities(cameraSelector: CameraSelector): List<VideoQuality> {

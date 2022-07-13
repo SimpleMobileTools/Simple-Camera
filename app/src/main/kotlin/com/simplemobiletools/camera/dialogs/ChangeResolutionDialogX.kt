@@ -90,7 +90,7 @@ class ChangeResolutionDialogX(
                 if (isFrontCamera) {
                     config.frontVideoResIndex = selectionIndex
                 } else {
-                    config.backPhotoResIndex = selectionIndex
+                    config.backVideoResIndex = selectionIndex
                 }
                 dialog?.dismiss()
                 callback.invoke()

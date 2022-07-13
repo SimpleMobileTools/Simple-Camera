@@ -431,7 +431,7 @@ class CameraXPreview(
         }
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "NewApi")
     private fun startRecording() {
         val videoCapture = videoCapture ?: throw IllegalStateException("Camera initialization failed.")
 
@@ -439,6 +439,10 @@ class CameraXPreview(
         val recording = when (mediaOutput) {
             is MediaOutput.FileDescriptorMediaOutput -> {
                 FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
+                    .let { videoCapture.output.prepareRecording(activity, it) }
+            }
+            is MediaOutput.FileMediaOutput -> {
+                FileOutputOptions.Builder(mediaOutput.file).build()
                     .let { videoCapture.output.prepareRecording(activity, it) }
             }
             is MediaOutput.MediaStoreOutput -> {
