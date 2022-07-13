@@ -38,8 +38,9 @@ class ChangeResolutionDialogX(
         activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
             .apply {
-                activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera){
-                    dialog = it
+                val titleId = if (isFrontCamera) R.string.front_camera else R.string.back_camera
+                activity.setupDialogStuff(view, this, titleId) { alertDialog ->
+                    dialog = alertDialog
                 }
             }
     }
