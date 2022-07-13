@@ -10,6 +10,7 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.camera.models.VideoQuality
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.dialog_change_resolution.view.change_resolution_photo
@@ -24,7 +25,7 @@ class ChangeResolutionDialogX(
     private val videoResolutions: List<VideoQuality>,
     private val callback: () -> Unit,
 ) {
-    private var dialog: AlertDialog
+    private var dialog: AlertDialog? = null
     private val config = activity.config
 
     private val TAG = "ChangeResolutionDialogX"
@@ -34,10 +35,12 @@ class ChangeResolutionDialogX(
             setupVideoResolutionPicker(this)
         }
 
-        dialog = AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
-            .create().apply {
-                activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera)
+            .apply {
+                activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera){
+                    dialog = it
+                }
             }
     }
 
@@ -60,7 +63,7 @@ class ChangeResolutionDialogX(
                 } else {
                     config.backPhotoResIndex = it
                 }
-                dialog.dismiss()
+                dialog?.dismiss()
                 callback.invoke()
             }
         }
@@ -89,7 +92,7 @@ class ChangeResolutionDialogX(
                 } else {
                     config.backPhotoResIndex = selectionIndex
                 }
-                dialog.dismiss()
+                dialog?.dismiss()
                 callback.invoke()
             }
         }

@@ -8,13 +8,19 @@ import com.simplemobiletools.camera.activities.SimpleActivity
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
-import kotlinx.android.synthetic.main.dialog_change_resolution.view.*
+import kotlinx.android.synthetic.main.dialog_change_resolution.view.change_resolution_photo
+import kotlinx.android.synthetic.main.dialog_change_resolution.view.change_resolution_photo_holder
+import kotlinx.android.synthetic.main.dialog_change_resolution.view.change_resolution_video
+import kotlinx.android.synthetic.main.dialog_change_resolution.view.change_resolution_video_holder
 
-class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Boolean, val photoResolutions: ArrayList<MySize>,
-                             val videoResolutions: ArrayList<MySize>, val openVideoResolutions: Boolean, val callback: () -> Unit) {
-    private var dialog: AlertDialog
+class ChangeResolutionDialog(
+    val activity: SimpleActivity, val isFrontCamera: Boolean, val photoResolutions: ArrayList<MySize>,
+    val videoResolutions: ArrayList<MySize>, val openVideoResolutions: Boolean, val callback: () -> Unit
+) {
+    private var dialog: AlertDialog? = null
     private val config = activity.config
 
     init {
@@ -23,16 +29,17 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Bo
             setupVideoResolutionPicker(this)
         }
 
-        dialog = AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, null)
-                .setOnDismissListener { callback() }
-                .create().apply {
-                    activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera) {
-                        if (openVideoResolutions) {
-                            view.change_resolution_video_holder.performClick()
-                        }
+        activity.getAlertDialogBuilder()
+            .setPositiveButton(R.string.ok, null)
+            .setOnDismissListener { callback() }
+            .apply {
+                activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera) {
+                    dialog = it
+                    if (openVideoResolutions) {
+                        view.change_resolution_video_holder.performClick()
                     }
                 }
+            }
     }
 
     private fun setupPhotoResolutionPicker(view: View) {
@@ -49,7 +56,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Bo
                 } else {
                     config.backPhotoResIndex = it
                 }
-                dialog.dismiss()
+                dialog?.dismiss()
             }
         }
         view.change_resolution_photo.text = items.getOrNull(selectionIndex)?.title
@@ -68,7 +75,7 @@ class ChangeResolutionDialog(val activity: SimpleActivity, val isFrontCamera: Bo
                 } else {
                     config.backVideoResIndex = it
                 }
-                dialog.dismiss()
+                dialog?.dismiss()
             }
         }
         view.change_resolution_video.text = items.getOrNull(selectionIndex)?.title
