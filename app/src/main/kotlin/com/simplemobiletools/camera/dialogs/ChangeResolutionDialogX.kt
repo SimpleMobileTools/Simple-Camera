@@ -42,7 +42,7 @@ class ChangeResolutionDialogX(
     }
 
     private fun setupPhotoResolutionPicker(view: View) {
-        val items = photoResolutions.mapIndexed { index, resolution->
+        val items = photoResolutions.mapIndexed { index, resolution ->
             val megapixels = resolution.megaPixels
             val aspectRatio = resolution.getAspectRatio(activity)
             RadioItem(index, "${resolution.width} x ${resolution.height}  ($megapixels MP,  $aspectRatio)")
@@ -74,24 +74,27 @@ class ChangeResolutionDialogX(
             RadioItem(index, "${videoQuality.width} x ${videoQuality.height}  ($megapixels MP,  $aspectRatio)")
         }
 
-        val videoQuality = if (isFrontCamera) config.frontVideoQuality else config.backVideoQuality
-        var selectionIndex = videoResolutions.indexOf(videoQuality)
+        var selectionIndex = if (isFrontCamera) config.frontVideoResIndex else config.backVideoResIndex
+        selectionIndex = selectionIndex.coerceAtLeast(0)
+        Log.i(TAG, "videoResolutions=$videoResolutions")
+        Log.i(TAG, "setupVideoResolutionPicker: selectionIndex=$selectionIndex")
 
         view.change_resolution_video_holder.setOnClickListener {
             RadioGroupDialog(activity, ArrayList(items), selectionIndex) {
                 selectionIndex = it as Int
                 val selectedItem = items[selectionIndex]
-                val selectedQuality = videoResolutions[selectionIndex]
                 view.change_resolution_video.text = selectedItem.title
                 if (isFrontCamera) {
-                    config.frontVideoQuality = selectedQuality
+                    config.frontVideoResIndex = selectionIndex
                 } else {
-                    config.backVideoQuality = selectedQuality
+                    config.backPhotoResIndex = selectionIndex
                 }
                 dialog.dismiss()
                 callback.invoke()
             }
         }
-        view.change_resolution_video.text = items.getOrNull(selectionIndex)?.title
+        val selectedItem = items.getOrNull(selectionIndex)
+        view.change_resolution_video.text = selectedItem?.title
+        Log.i(TAG, "setupVideoResolutionPicker: selectedItem=$selectedItem")
     }
 }

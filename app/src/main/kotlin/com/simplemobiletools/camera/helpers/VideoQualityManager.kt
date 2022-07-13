@@ -34,6 +34,7 @@ class VideoQualityManager(private val config: Config) {
                             .also { allQualities ->
                                 val qualities = allQualities.map { it.toVideoQuality() }
                                 videoQualities.add(CameraSelectorVideoQualities(camSelector, qualities))
+
                             }
                         Log.i(TAG, "bindCameraUseCases: videoQualities=$videoQualities")
                     }
@@ -45,11 +46,9 @@ class VideoQualityManager(private val config: Config) {
     }
 
     fun getUserSelectedQuality(cameraSelector: CameraSelector): Quality {
-        return if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) {
-            config.frontVideoQuality.toCameraXQuality()
-        } else {
-            config.backVideoQuality.toCameraXQuality()
-        }
+        var selectionIndex = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontVideoResIndex else config.backVideoResIndex
+        selectionIndex = selectionIndex.coerceAtLeast(0)
+        return getSupportedQualities(cameraSelector)[selectionIndex].toCameraXQuality()
     }
 
     fun getSupportedQualities(cameraSelector: CameraSelector): List<VideoQuality> {

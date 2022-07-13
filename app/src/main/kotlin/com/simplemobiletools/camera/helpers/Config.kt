@@ -3,7 +3,6 @@ package com.simplemobiletools.camera.helpers
 import android.content.Context
 import android.os.Environment
 import androidx.camera.core.CameraSelector
-import com.simplemobiletools.camera.models.VideoQuality
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
 
@@ -62,20 +61,6 @@ class Config(context: Context) : BaseConfig(context) {
     var frontPhotoResIndex: Int
         get() = prefs.getInt(FRONT_PHOTO_RESOLUTION_INDEX, 0)
         set(frontPhotoResIndex) = prefs.edit().putInt(FRONT_PHOTO_RESOLUTION_INDEX, frontPhotoResIndex).apply()
-
-    var backVideoQuality: VideoQuality
-        get() {
-            val backQuality = prefs.getString(BACK_VIDEO_QUALITY, VideoQuality.UHD.name)
-            return VideoQuality.values().first { it.name == backQuality }
-        }
-        set(backVideoQuality) = prefs.edit().putString(BACK_VIDEO_QUALITY, backVideoQuality.name).apply()
-
-    var frontVideoQuality: VideoQuality
-        get() {
-            val frontQuality = prefs.getString(FRONT_VIDEO_QUALITY, VideoQuality.UHD.name)
-            return VideoQuality.values().first { it.name == frontQuality }
-        }
-        set(frontVideoQuality) = prefs.edit().putString(FRONT_VIDEO_QUALITY, frontVideoQuality.name).apply()
 
     var frontVideoResIndex: Int
         get() = prefs.getInt(FRONT_VIDEO_RESOLUTION_INDEX, 0)

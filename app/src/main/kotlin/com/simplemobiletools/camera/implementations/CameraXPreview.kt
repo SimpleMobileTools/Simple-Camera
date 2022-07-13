@@ -223,7 +223,7 @@ class CameraXPreview(
     private fun buildVideoCapture(): VideoCapture<Recorder> {
         val qualitySelector = QualitySelector.from(
             videoQualityManager.getUserSelectedQuality(cameraSelector),
-            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD),
+            FallbackStrategy.higherQualityOrLowerThan(Quality.SD),
         )
         val recorder = Recorder.Builder()
             .setQualitySelector(qualitySelector)
