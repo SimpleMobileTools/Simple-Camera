@@ -6,6 +6,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
+import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.toCameraXQuality
 import com.simplemobiletools.camera.extensions.toVideoQuality
 import com.simplemobiletools.camera.models.CameraSelectorVideoQualities
@@ -13,7 +14,6 @@ import com.simplemobiletools.camera.models.VideoQuality
 
 class VideoQualityManager(
     private val activity: AppCompatActivity,
-    private val config: Config,
 ) {
 
     companion object {
@@ -22,6 +22,7 @@ class VideoQualityManager(
         private val CAMERA_SELECTORS = arrayOf(CameraSelector.DEFAULT_BACK_CAMERA, CameraSelector.DEFAULT_FRONT_CAMERA)
     }
 
+    private val config = activity.config
     private val videoQualities = mutableListOf<CameraSelectorVideoQualities>()
 
     fun initSupportedQualities(cameraProvider: ProcessCameraProvider) {

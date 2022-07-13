@@ -58,7 +58,7 @@ class CameraXPreview(
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
-    private val videoQualityManager = VideoQualityManager(activity, config)
+    private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
     private val exifRemover = ExifRemover(contentResolver)
 
