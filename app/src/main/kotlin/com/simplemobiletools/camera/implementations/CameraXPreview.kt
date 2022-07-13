@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
-import android.util.Log
 import android.util.Size
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -43,7 +42,6 @@ class CameraXPreview(
 ) : MyPreview, DefaultLifecycleObserver {
 
     companion object {
-        private const val TAG = "CameraXPreview"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
 
@@ -75,7 +73,6 @@ class CameraXPreview(
                 in 225 until 315 -> Surface.ROTATION_90
                 else -> Surface.ROTATION_0
             }
-            Log.i(TAG, "onOrientationChanged: rotation=$rotation")
             preview?.targetRotation = rotation
             imageCapture?.targetRotation = rotation
             videoCapture?.targetRotation = rotation
@@ -91,9 +88,7 @@ class CameraXPreview(
     private var recordingState: VideoRecordEvent? = null
     private var cameraSelector = config.lastUsedCameraLens.toCameraSelector()
     private var flashMode = FLASH_MODE_OFF
-    private var isPhotoCapture = initInPhotoMode.also {
-        Log.i(TAG, "initInPhotoMode= $it")
-    }
+    private var isPhotoCapture = initInPhotoMode
 
     init {
         bindToLifeCycle()
@@ -108,7 +103,6 @@ class CameraXPreview(
     }
 
     private fun startCamera(switching: Boolean = false) {
-        Log.i(TAG, "startCamera: ")
         imageQualityManager.initSupportedQualities()
 
         val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
@@ -120,7 +114,6 @@ class CameraXPreview(
                 bindCameraUseCases()
                 setupCameraObservers()
             } catch (e: Exception) {
-                Log.e(TAG, "startCamera: ", e)
                 val errorMessage = if (switching) R.string.camera_switch_error else R.string.camera_open_error
                 activity.toast(errorMessage)
             }
@@ -197,9 +190,6 @@ class CameraXPreview(
             .apply {
                 imageQualityManager.getUserSelectedResolution(cameraSelector)?.let { resolution ->
                     val rotatedResolution = getRotatedResolution(rotation, resolution)
-                    Log.i(TAG, "buildImageCapture: rotation=$rotation")
-                    Log.i(TAG, "buildImageCapture: resolution=$resolution")
-                    Log.i(TAG, "buildImageCapture: rotatedResolution=$rotatedResolution")
                     setTargetResolution(rotatedResolution)
                 } ?: setTargetAspectRatio(aspectRatio)
             }
@@ -255,7 +245,6 @@ class CameraXPreview(
     @SuppressLint("ClickableViewAccessibility")
     // source: https://stackoverflow.com/a/60095886/10552591
     private fun setupZoomAndFocus() {
-        Log.i(TAG, "camera controller: ${previewView.controller}")
         val scaleGesture = camera?.let { ScaleGestureDetector(activity, PinchToZoomOnScaleGestureListener(it.cameraInfo, it.cameraControl)) }
         val gestureDetector = GestureDetector(activity, object : SimpleOnGestureListener() {
             override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
@@ -263,7 +252,6 @@ class CameraXPreview(
                     val display = displayManager.getDisplay(Display.DEFAULT_DISPLAY)
                     val width = previewView.width.toFloat()
                     val height = previewView.height.toFloat()
-                    Log.i(TAG, "onSingleTapConfirmed: width=$width,height=$height")
                     val factory = DisplayOrientedMeteringPointFactory(display, it, width, height)
                     val xPos = event.x
                     val yPos = event.y
@@ -275,13 +263,11 @@ class CameraXPreview(
                         .build()
                     camera?.cameraControl?.startFocusAndMetering(focusMeteringAction)
                     listener.onFocusCamera(xPos, yPos)
-                    Log.i(TAG, "start focus")
                     true
                 } ?: false
             }
         })
         previewView.setOnTouchListener { _, event ->
-            Log.i(TAG, "setOnTouchListener: x=${event.x}, y=${event.y}")
             gestureDetector.onTouchEvent(event)
             scaleGesture?.onTouchEvent(event)
             true
@@ -405,7 +391,6 @@ class CameraXPreview(
     }
 
     private fun handleImageCaptureError(exception: ImageCaptureException) {
-        Log.e(TAG, "Error", exception)
         listener.toggleBottomButtons(false)
         cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
     }
@@ -421,13 +406,11 @@ class CameraXPreview(
     }
 
     override fun toggleRecording() {
-        Log.d(TAG, "toggleRecording: currentRecording=$currentRecording, recordingState=$recordingState")
         if (currentRecording == null || recordingState is VideoRecordEvent.Finalize) {
             startRecording()
         } else {
             currentRecording?.stop()
             currentRecording = null
-            Log.d(TAG, "Recording stopped")
         }
     }
 
@@ -454,7 +437,6 @@ class CameraXPreview(
 
         currentRecording = recording.withAudioEnabled()
             .start(mainExecutor) { recordEvent ->
-                Log.d(TAG, "recordEvent=$recordEvent ")
                 recordingState = recordEvent
                 when (recordEvent) {
                     is VideoRecordEvent.Start -> {
@@ -470,7 +452,6 @@ class CameraXPreview(
                         playStopVideoRecordingSoundIfEnabled()
                         listener.onVideoRecordingStopped()
                         if (recordEvent.hasError()) {
-                            Log.e(TAG, "recording failed:", recordEvent.cause)
                             cameraErrorHandler.handleVideoRecordingError(recordEvent.error)
                         } else {
                             listener.onMediaSaved(mediaOutput.uri ?: recordEvent.outputResults.outputUri)
@@ -478,7 +459,6 @@ class CameraXPreview(
                     }
                 }
             }
-        Log.d(TAG, "Recording started")
     }
 
     private fun playShutterSoundIfEnabled() {

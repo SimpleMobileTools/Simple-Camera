@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
@@ -33,7 +32,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     companion object {
-        private const val TAG = "MainActivity"
         private const val FADE_DELAY = 5000L
         private const val CAPTURE_ANIMATION_DURATION = 100L
     }
@@ -122,15 +120,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun initVariables() {
         mIsInPhotoMode = if (isVideoCaptureIntent()) {
-            Log.w(TAG, "initializeCamera: video capture")
             false
         } else if (isImageCaptureIntent()) {
-            Log.w(TAG, "initializeCamera: image capture mode")
             true
         } else {
             config.initPhotoMode
         }
-        Log.w(TAG, "initInPhotoMode = $mIsInPhotoMode")
         mIsCameraAvailable = false
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
@@ -202,7 +197,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun checkImageCaptureIntent() {
         if (isImageCaptureIntent()) {
-            Log.i(TAG, "isImageCaptureIntent: ")
             hideIntentButtons()
             val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
             if (output != null && output is Uri) {
@@ -213,7 +207,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun checkVideoCaptureIntent() {
         if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
-            Log.i(TAG, "checkVideoCaptureIntent: ")
             mIsInPhotoMode = false
             hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
@@ -402,7 +395,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         mPreviewUri = Uri.withAppendedPath(uri, lastMediaId.toString())
 
-        Log.e(TAG, "mPreviewUri= $mPreviewUri")
 
         loadLastTakenMedia(mPreviewUri)
     }
@@ -585,7 +577,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 setResult(Activity.RESULT_OK, this)
             }
-            Log.w(TAG, "onMediaCaptured: exiting uri=$uri")
             finish()
         } else if (isVideoCaptureIntent()) {
             Intent().apply {
@@ -593,7 +584,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
                 setResult(Activity.RESULT_OK, this)
             }
-            Log.w(TAG, "onMediaCaptured: video exiting uri=$uri")
             finish()
         }
     }
@@ -604,7 +594,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 putExtra("data", bitmap)
                 setResult(Activity.RESULT_OK, this)
             }
-            Log.w(TAG, "onImageCaptured: exiting bitmap size=${bitmap.byteCount}")
             finish()
         }
     }
@@ -663,7 +652,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
-        Log.e(TAG, "mediaSaved: $path")
         rescanPaths(arrayListOf(path)) {
             setupPreviewImage(true)
             Intent(BROADCAST_REFRESH_MEDIA).apply {
