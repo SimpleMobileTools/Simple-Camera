@@ -18,6 +18,13 @@
     <string name="camera_dnd_error">Rahatsız Etmeyin modu etkinleştirildi. Lütfen devre dışı bırakın ve tekrar deneyin</string>
     <string name="photo_capture_failed">Fotoğraf çekimi başarısız oldu</string>
     <string name="video_capture_insufficient_storage_error">Yetersiz depolama alanı nedeniyle video kaydı başarısız oldu</string>
+
+    <!--Camera Screen Icons Content Description-->
+    <string name="toggle_photo_video">Toggle photo/video mode</string>
+    <string name="change_resolution">Change Resolution</string>
+    <string name="view_last_media">View last captured media</string>
+    <string name="toggle_camera">Toggle front/back camera</string>
+    <string name="toggle_flash">Toggle the flashlight mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hangi fotoğraf sıkıştırma kalitesini ayarlamalıyım?</string>
     <string name="faq_1_text">Hedefinize bağlı. Genel amaçlar için çoğu kişi %75-%80\'i kullanmanızı önerir, görüntü hala gerçekten kaliteliyken, dosya boyutu %100\'e göre büyük ölçüde azalır.</string>
