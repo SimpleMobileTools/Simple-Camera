@@ -10,11 +10,8 @@ import android.util.Log
 import android.util.Size
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
-import androidx.camera.video.Quality
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.toCameraXQuality
 import com.simplemobiletools.camera.models.CameraSelectorImageQualities
-import com.simplemobiletools.camera.models.CameraSelectorVideoQualities
 import com.simplemobiletools.camera.models.MySize
 
 class ImageQualityManager(
@@ -69,7 +66,7 @@ class ImageQualityManager(
         val index = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontPhotoResIndex else config.backPhotoResIndex
         return imageQualities.filter { it.camSelector == cameraSelector }
             .flatMap { it.qualities }
-            .sortedByDescending { it.pixels}
+            .sortedByDescending { it.pixels }
             .distinctBy { it.pixels }
             .map { Size(it.width, it.height) }
             .also {
@@ -85,5 +82,6 @@ class ImageQualityManager(
             .flatMap { it.qualities }
             .sortedByDescending { it.pixels }
             .distinctBy { it.pixels }
+            .filter { it.megaPixels != "0.0" }
     }
 }

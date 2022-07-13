@@ -10,10 +10,11 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
+import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
+import java.util.Locale
 import kotlinx.android.synthetic.main.activity_settings.*
-import java.util.*
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +24,7 @@ class SettingsActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-
+        setupToolbar(settings_toolbar, NavigationIcon.Arrow)
         setupPurchaseThankYou()
         setupCustomizeColors()
         setupUseEnglish()

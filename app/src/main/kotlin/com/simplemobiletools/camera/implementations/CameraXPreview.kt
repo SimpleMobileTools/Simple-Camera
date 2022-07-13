@@ -5,6 +5,7 @@ import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
 import android.util.Log
+import android.util.Size
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import androidx.appcompat.app.AppCompatActivity
@@ -57,7 +58,7 @@ class CameraXPreview(
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
-    private val videoQualityManager = VideoQualityManager(config)
+    private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
     private val exifRemover = ExifRemover(contentResolver)
 
@@ -74,7 +75,7 @@ class CameraXPreview(
                 in 225 until 315 -> Surface.ROTATION_90
                 else -> Surface.ROTATION_0
             }
-
+            Log.i(TAG, "onOrientationChanged: rotation=$rotation")
             preview?.targetRotation = rotation
             imageCapture?.targetRotation = rotation
             videoCapture?.targetRotation = rotation
@@ -109,10 +110,13 @@ class CameraXPreview(
     private fun startCamera(switching: Boolean = false) {
         Log.i(TAG, "startCamera: ")
         imageQualityManager.initSupportedQualities()
+
         val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
         cameraProviderFuture.addListener({
             try {
-                cameraProvider = cameraProviderFuture.get()
+                val provider = cameraProviderFuture.get()
+                cameraProvider = provider
+                videoQualityManager.initSupportedQualities(provider)
                 bindCameraUseCases()
                 setupCameraObservers()
             } catch (e: Exception) {
@@ -142,9 +146,7 @@ class CameraXPreview(
             cameraSelector,
             preview,
             captureUseCase,
-        ).also {
-            videoQualityManager.initSupportedQualities(cameraProvider, it)
-        }
+        )
 
         preview?.setSurfaceProvider(previewView.surfaceProvider)
         setupZoomAndFocus()
@@ -187,18 +189,29 @@ class CameraXPreview(
     }
 
     private fun buildImageCapture(aspectRatio: Int, rotation: Int): ImageCapture {
-        return ImageCapture.Builder()
+        return Builder()
             .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
             .setTargetRotation(rotation)
             .apply {
                 imageQualityManager.getUserSelectedResolution(cameraSelector)?.let { resolution ->
+                    val rotatedResolution = getRotatedResolution(rotation, resolution)
+                    Log.i(TAG, "buildImageCapture: rotation=$rotation")
                     Log.i(TAG, "buildImageCapture: resolution=$resolution")
-                    setTargetResolution(resolution)
+                    Log.i(TAG, "buildImageCapture: rotatedResolution=$rotatedResolution")
+                    setTargetResolution(rotatedResolution)
                 } ?: setTargetAspectRatio(aspectRatio)
             }
             .build()
+    }
+
+    private fun getRotatedResolution(rotationDegrees: Int, resolution: Size): Size {
+        return if (rotationDegrees == Surface.ROTATION_0 || rotationDegrees == Surface.ROTATION_180) {
+            Size(resolution.height, resolution.width)
+        } else {
+            Size(resolution.width, resolution.height)
+        }
     }
 
     private fun buildPreview(aspectRatio: Int, rotation: Int): Preview {
@@ -211,7 +224,7 @@ class CameraXPreview(
     private fun buildVideoCapture(): VideoCapture<Recorder> {
         val qualitySelector = QualitySelector.from(
             videoQualityManager.getUserSelectedQuality(cameraSelector),
-            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD),
+            FallbackStrategy.higherQualityOrLowerThan(Quality.SD),
         )
         val recorder = Recorder.Builder()
             .setQualitySelector(qualitySelector)
@@ -350,7 +363,7 @@ class CameraXPreview(
                     if (bitmap != null) {
                         listener.onImageCaptured(bitmap)
                     } else {
-                        cameraErrorHandler.handleImageCaptureError(ImageCapture.ERROR_CAPTURE_FAILED)
+                        cameraErrorHandler.handleImageCaptureError(ERROR_CAPTURE_FAILED)
                     }
                 }
 

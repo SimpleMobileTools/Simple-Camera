@@ -10,6 +10,7 @@ import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.camera.models.VideoQuality
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.dialog_change_resolution.view.change_resolution_photo
@@ -22,9 +23,9 @@ class ChangeResolutionDialogX(
     private val isFrontCamera: Boolean,
     private val photoResolutions: List<MySize> = listOf(),
     private val videoResolutions: List<VideoQuality>,
-    private val callback: () -> Unit
+    private val callback: () -> Unit,
 ) {
-    private var dialog: AlertDialog
+    private var dialog: AlertDialog? = null
     private val config = activity.config
 
     private val TAG = "ChangeResolutionDialogX"
@@ -34,20 +35,27 @@ class ChangeResolutionDialogX(
             setupVideoResolutionPicker(this)
         }
 
-        dialog = AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
-            .create().apply {
-                activity.setupDialogStuff(view, this, if (isFrontCamera) R.string.front_camera else R.string.back_camera)
+            .apply {
+                val titleId = if (isFrontCamera) R.string.front_camera else R.string.back_camera
+                activity.setupDialogStuff(view, this, titleId) { alertDialog ->
+                    dialog = alertDialog
+                }
             }
     }
 
     private fun setupPhotoResolutionPicker(view: View) {
-        val items = getFormattedResolutions(photoResolutions)
+        val items = photoResolutions.mapIndexed { index, resolution ->
+            val megapixels = resolution.megaPixels
+            val aspectRatio = resolution.getAspectRatio(activity)
+            RadioItem(index, "${resolution.width} x ${resolution.height}  ($megapixels MP,  $aspectRatio)")
+        }
         var selectionIndex = if (isFrontCamera) config.frontPhotoResIndex else config.backPhotoResIndex
-        selectionIndex = Math.max(selectionIndex, 0)
+        selectionIndex = selectionIndex.coerceAtLeast(0)
 
         view.change_resolution_photo_holder.setOnClickListener {
-            RadioGroupDialog(activity, items, selectionIndex) {
+            RadioGroupDialog(activity, ArrayList(items), selectionIndex) {
                 selectionIndex = it as Int
                 Log.w(TAG, "setupPhotoResolutionPicker: selectionIndex=$it")
                 view.change_resolution_photo.text = items[selectionIndex].title
@@ -56,7 +64,7 @@ class ChangeResolutionDialogX(
                 } else {
                     config.backPhotoResIndex = it
                 }
-                dialog.dismiss()
+                dialog?.dismiss()
                 callback.invoke()
             }
         }
@@ -70,35 +78,27 @@ class ChangeResolutionDialogX(
             RadioItem(index, "${videoQuality.width} x ${videoQuality.height}  ($megapixels MP,  $aspectRatio)")
         }
 
-        val videoQuality = if (isFrontCamera) config.frontVideoQuality else config.backVideoQuality
-        var selectionIndex = videoResolutions.indexOf(videoQuality)
+        var selectionIndex = if (isFrontCamera) config.frontVideoResIndex else config.backVideoResIndex
+        selectionIndex = selectionIndex.coerceAtLeast(0)
+        Log.i(TAG, "videoResolutions=$videoResolutions")
+        Log.i(TAG, "setupVideoResolutionPicker: selectionIndex=$selectionIndex")
 
         view.change_resolution_video_holder.setOnClickListener {
             RadioGroupDialog(activity, ArrayList(items), selectionIndex) {
                 selectionIndex = it as Int
                 val selectedItem = items[selectionIndex]
-                val selectedQuality = videoResolutions[selectionIndex]
                 view.change_resolution_video.text = selectedItem.title
                 if (isFrontCamera) {
-                    config.frontVideoQuality = selectedQuality
+                    config.frontVideoResIndex = selectionIndex
                 } else {
-                    config.backVideoQuality = selectedQuality
+                    config.backPhotoResIndex = selectionIndex
                 }
-                dialog.dismiss()
+                dialog?.dismiss()
                 callback.invoke()
             }
         }
-        view.change_resolution_video.text = items.getOrNull(selectionIndex)?.title
-    }
-
-    private fun getFormattedResolutions(resolutions: List<MySize>): ArrayList<RadioItem> {
-        val items = ArrayList<RadioItem>(resolutions.size)
-        val sorted = resolutions.sortedByDescending { it.width * it.height }
-        sorted.forEachIndexed { index, size ->
-            val megapixels = String.format("%.1f", (size.width * size.height.toFloat()) / 1000000)
-            val aspectRatio = size.getAspectRatio(activity)
-            items.add(RadioItem(index, "${size.width} x ${size.height}  ($megapixels MP,  $aspectRatio)"))
-        }
-        return items
+        val selectedItem = items.getOrNull(selectionIndex)
+        view.change_resolution_video.text = selectedItem?.title
+        Log.i(TAG, "setupVideoResolutionPicker: selectedItem=$selectedItem")
     }
 }
