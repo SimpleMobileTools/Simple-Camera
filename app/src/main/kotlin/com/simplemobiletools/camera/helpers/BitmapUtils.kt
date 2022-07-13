@@ -2,14 +2,12 @@ package com.simplemobiletools.camera.helpers
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.sqrt
 
 //inspired by https://android.googlesource.com/platform/packages/apps/Camera2/+/refs/heads/master/src/com/android/camera/util/CameraUtil.java#244
 object BitmapUtils {
-    private const val TAG = "BitmapUtils"
     private const val INLINE_BITMAP_MAX_PIXEL_NUM = 50 * 1024
 
     fun makeBitmap(jpegData: ByteArray, maxNumOfPixels: Int = INLINE_BITMAP_MAX_PIXEL_NUM): Bitmap? {
@@ -31,7 +29,6 @@ object BitmapUtils {
                 options
             )
         } catch (ex: OutOfMemoryError) {
-            Log.e(TAG, "Got oom exception ", ex)
             null
         }
     }

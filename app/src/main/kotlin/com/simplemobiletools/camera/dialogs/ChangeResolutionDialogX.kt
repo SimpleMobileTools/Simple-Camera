@@ -1,7 +1,6 @@
 package com.simplemobiletools.camera.dialogs
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -28,7 +27,6 @@ class ChangeResolutionDialogX(
     private var dialog: AlertDialog? = null
     private val config = activity.config
 
-    private val TAG = "ChangeResolutionDialogX"
     init {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_resolution, null).apply {
             setupPhotoResolutionPicker(this)
@@ -57,7 +55,6 @@ class ChangeResolutionDialogX(
         view.change_resolution_photo_holder.setOnClickListener {
             RadioGroupDialog(activity, ArrayList(items), selectionIndex) {
                 selectionIndex = it as Int
-                Log.w(TAG, "setupPhotoResolutionPicker: selectionIndex=$it")
                 view.change_resolution_photo.text = items[selectionIndex].title
                 if (isFrontCamera) {
                     config.frontPhotoResIndex = it
@@ -80,8 +77,6 @@ class ChangeResolutionDialogX(
 
         var selectionIndex = if (isFrontCamera) config.frontVideoResIndex else config.backVideoResIndex
         selectionIndex = selectionIndex.coerceAtLeast(0)
-        Log.i(TAG, "videoResolutions=$videoResolutions")
-        Log.i(TAG, "setupVideoResolutionPicker: selectionIndex=$selectionIndex")
 
         view.change_resolution_video_holder.setOnClickListener {
             RadioGroupDialog(activity, ArrayList(items), selectionIndex) {
@@ -91,7 +86,7 @@ class ChangeResolutionDialogX(
                 if (isFrontCamera) {
                     config.frontVideoResIndex = selectionIndex
                 } else {
-                    config.backPhotoResIndex = selectionIndex
+                    config.backVideoResIndex = selectionIndex
                 }
                 dialog?.dismiss()
                 callback.invoke()
@@ -99,6 +94,5 @@ class ChangeResolutionDialogX(
         }
         val selectedItem = items.getOrNull(selectionIndex)
         view.change_resolution_video.text = selectedItem?.title
-        Log.i(TAG, "setupVideoResolutionPicker: selectedItem=$selectedItem")
     }
 }

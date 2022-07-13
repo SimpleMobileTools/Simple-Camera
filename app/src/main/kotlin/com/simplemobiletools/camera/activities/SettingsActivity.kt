@@ -1,8 +1,10 @@
 package com.simplemobiletools.camera.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.res.ResourcesCompat
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
@@ -14,6 +16,7 @@ import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import java.util.Locale
+import kotlin.system.exitProcess
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : SimpleActivity() {
@@ -77,7 +80,7 @@ class SettingsActivity : SimpleActivity() {
 
         // make sure the corners at ripple fit the stroke rounded corners
         if (settings_purchase_thank_you_holder.isGone()) {
-            settings_use_english_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+            settings_use_english_holder.background = ResourcesCompat.getDrawable(resources, R.drawable.ripple_top_corners, theme)
         }
 
         settings_purchase_thank_you_holder.setOnClickListener {
@@ -97,13 +100,13 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english.isChecked = config.useEnglish
 
         if (settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone()) {
-            settings_keep_settings_visible_holder.background = resources.getDrawable(R.drawable.ripple_all_corners, theme)
+            settings_keep_settings_visible_holder.background = ResourcesCompat.getDrawable(resources, R.drawable.ripple_all_corners, theme)
         }
 
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
-            System.exit(0)
+            exitProcess(0)
         }
     }
 
@@ -172,8 +175,8 @@ class SettingsActivity : SimpleActivity() {
         settings_save_photos_holder.setOnClickListener {
             FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
                 val path = it
-                handleSAFDialog(it) {
-                    if (it) {
+                handleSAFDialog(it) { success ->
+                    if (success) {
                         config.savePhotosFolder = path
                         settings_save_photos.text = getLastPart(config.savePhotosFolder)
                     }
@@ -206,6 +209,7 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updatePhotoQuality(quality: Int) {
         settings_photo_quality.text = "$quality%"
     }

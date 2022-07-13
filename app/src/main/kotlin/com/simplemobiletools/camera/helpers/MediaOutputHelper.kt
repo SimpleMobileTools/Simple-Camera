@@ -5,13 +5,14 @@ import android.net.Uri
 import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
-import android.util.Log
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.getOutputMediaFile
 import com.simplemobiletools.camera.extensions.getRandomMediaName
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.helpers.isQPlus
 import java.io.File
 import java.io.OutputStream
 
@@ -23,8 +24,8 @@ class MediaOutputHelper(
 ) {
 
     companion object {
-        private const val TAG = "MediaOutputHelper"
         private const val MODE = "rw"
+        private const val EXTERNAL_VOLUME = "external"
         private const val IMAGE_MIME_TYPE = "image/jpeg"
         private const val VIDEO_MIME_TYPE = "video/mp4"
     }
@@ -53,44 +54,62 @@ class MediaOutputHelper(
     fun getVideoMediaOutput(): MediaOutput {
         return if (is3rdPartyIntent) {
             if (outputUri != null) {
-                val fileDescriptor = openFileDescriptor(outputUri)
-                if (fileDescriptor != null) {
-                    MediaOutput.FileDescriptorMediaOutput(fileDescriptor, outputUri)
+                if (isOreoPlus()) {
+                    val fileDescriptor = openFileDescriptor(outputUri)
+                    if (fileDescriptor != null) {
+                        MediaOutput.FileDescriptorMediaOutput(fileDescriptor, outputUri)
+                    } else {
+                        errorHandler.showSaveToInternalStorage()
+                        getMediaStoreOutput(isPhoto = false)
+                    }
                 } else {
-                    errorHandler.showSaveToInternalStorage()
-                    getMediaStoreOutput(isPhoto = false)
+                    val path = activity.getRealPathFromURI(outputUri)
+                    if (path != null) {
+                        MediaOutput.FileMediaOutput(File(path), outputUri)
+                    } else {
+                        errorHandler.showSaveToInternalStorage()
+                        getMediaStoreOutput(isPhoto = false)
+                    }
                 }
             } else {
                 getMediaStoreOutput(isPhoto = false)
             }
         } else {
-            getFileDescriptorMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
+            if (isOreoPlus()) {
+                getFileDescriptorMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
+            } else {
+                getFileMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
+            }
         }
     }
 
     private fun getMediaStoreOutput(isPhoto: Boolean): MediaOutput.MediaStoreOutput {
         val contentValues = getContentValues(isPhoto)
         val contentUri = if (isPhoto) {
-            MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            MediaStore.Images.Media.getContentUri(EXTERNAL_VOLUME)
         } else {
-            MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+            MediaStore.Video.Media.getContentUri(EXTERNAL_VOLUME)
         }
         return MediaOutput.MediaStoreOutput(contentValues, contentUri)
     }
 
+    @Suppress("DEPRECATION")
     private fun getContentValues(isPhoto: Boolean): ContentValues {
         val mimeType = if (isPhoto) IMAGE_MIME_TYPE else VIDEO_MIME_TYPE
         return ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, getRandomMediaName(isPhoto))
             put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+            if (isQPlus()) {
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+            } else {
+                put(MediaStore.MediaColumns.DATA, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString())
+            }
         }
     }
 
     private fun getOutputStreamMediaOutput(): MediaOutput.OutputStreamMediaOutput? {
         var mediaOutput: MediaOutput.OutputStreamMediaOutput? = null
         val canWrite = canWriteToFilePath(mediaStorageDir)
-        Log.i(TAG, "getMediaOutput: canWrite=${canWrite}")
         if (canWrite) {
             val path = activity.getOutputMediaFile(true)
             val uri = getUriForFilePath(path)
@@ -99,16 +118,14 @@ class MediaOutputHelper(
                 mediaOutput = MediaOutput.OutputStreamMediaOutput(outputStream, uri)
             }
         }
-        Log.i(TAG, "OutputStreamMediaOutput: $mediaOutput")
         return mediaOutput
     }
 
     private fun openOutputStream(uri: Uri): OutputStream? {
         return try {
-            Log.i(TAG, "uri: $uri")
             contentResolver.openOutputStream(uri)
         } catch (e: Exception) {
-            e.printStackTrace()
+            activity.showErrorToast(e)
             null
         }
     }
@@ -116,7 +133,6 @@ class MediaOutputHelper(
     private fun getFileDescriptorMediaOutput(): MediaOutput.FileDescriptorMediaOutput? {
         var mediaOutput: MediaOutput.FileDescriptorMediaOutput? = null
         val canWrite = canWriteToFilePath(mediaStorageDir)
-        Log.i(TAG, "getMediaOutput: canWrite=${canWrite}")
         if (canWrite) {
             val path = activity.getOutputMediaFile(false)
             val uri = getUriForFilePath(path)
@@ -127,16 +143,27 @@ class MediaOutputHelper(
                 }
             }
         }
-        Log.i(TAG, "FileDescriptorMediaOutput: $mediaOutput")
+        return mediaOutput
+    }
+
+    private fun getFileMediaOutput(): MediaOutput.FileMediaOutput? {
+        var mediaOutput: MediaOutput.FileMediaOutput? = null
+        val canWrite = canWriteToFilePath(mediaStorageDir)
+        if (canWrite) {
+            val path = activity.getOutputMediaFile(false)
+            val uri = getUriForFilePath(path)
+            if (uri != null) {
+                mediaOutput = MediaOutput.FileMediaOutput(File(path), uri)
+            }
+        }
         return mediaOutput
     }
 
     private fun openFileDescriptor(uri: Uri): ParcelFileDescriptor? {
         return try {
-            Log.i(TAG, "uri: $uri")
             contentResolver.openFileDescriptor(uri, MODE)
         } catch (e: Exception) {
-            e.printStackTrace()
+            activity.showErrorToast(e)
             null
         }
     }
@@ -178,7 +205,6 @@ class MediaOutputHelper(
                             documentFile.createFile(path.getMimeType(), path.getFilenameFromPath())?.uri
                         }
                     } catch (e: Exception) {
-                        e.printStackTrace()
                         null
                     }
                 }
@@ -187,7 +213,6 @@ class MediaOutputHelper(
                 try {
                     activity.createDocumentUriUsingFirstParentTreeUri(path)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     null
                 } ?: Uri.fromFile(targetFile)
             }

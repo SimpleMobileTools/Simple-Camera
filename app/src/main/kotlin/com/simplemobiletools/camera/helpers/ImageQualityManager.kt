@@ -6,20 +6,19 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.MediaRecorder
-import android.util.Log
 import android.util.Size
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.CameraSelectorImageQualities
 import com.simplemobiletools.camera.models.MySize
+import com.simplemobiletools.commons.extensions.showErrorToast
 
 class ImageQualityManager(
-    activity: AppCompatActivity,
+    private val activity: AppCompatActivity,
 ) {
 
     companion object {
-        private const val TAG = "ImageQualityManager"
         private const val MAX_VIDEO_WIDTH = 4096
         private const val MAX_VIDEO_HEIGHT = 2160
         private val CAMERA_LENS = arrayOf(CameraCharacteristics.LENS_FACING_FRONT, CameraCharacteristics.LENS_FACING_BACK)
@@ -39,11 +38,10 @@ class ImageQualityManager(
                         val imageSizes = configMap.getOutputSizes(ImageFormat.JPEG).map { MySize(it.width, it.height) }
                         val cameraSelector = lens.toCameraSelector()
                         imageQualities.add(CameraSelectorImageQualities(cameraSelector, imageSizes))
-                        Log.i(TAG, "initQualities: imageSizes=$imageSizes")
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Camera ID=$cameraId is not supported", e)
+                activity.showErrorToast(e)
             }
         }
     }
@@ -69,12 +67,7 @@ class ImageQualityManager(
             .sortedByDescending { it.pixels }
             .distinctBy { it.pixels }
             .map { Size(it.width, it.height) }
-            .also {
-                Log.i(TAG, "Resolutions: $it, index=$index")
-            }
-            .getOrNull(index).also {
-                Log.i(TAG, "getUserSelectedResolution: $it, index=$index")
-            }
+            .getOrNull(index)
     }
 
     fun getSupportedResolutions(cameraSelector: CameraSelector): List<MySize> {

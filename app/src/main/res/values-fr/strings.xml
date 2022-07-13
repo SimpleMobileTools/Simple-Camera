@@ -18,6 +18,14 @@
     <string name="camera_dnd_error">Le mode Ne pas déranger est activé. Veuillez le désactiver et réessayer</string>
     <string name="photo_capture_failed">Échec de la prise de photo</string>
     <string name="video_capture_insufficient_storage_error">L\'enregistrement vidéo a échoué en raison d\'un stockage insuffisant</string>
+
+    <!--Camera Screen Icons Content Description-->
+    <string name="toggle_photo_video">Toggle photo/video mode</string>
+    <string name="change_resolution">Change Resolution</string>
+    <string name="view_last_media">View last captured media</string>
+    <string name="toggle_camera">Toggle front/back camera</string>
+    <string name="toggle_flash">Toggle the flashlight mode</string>
+
     <!-- FAQ -->
     <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos \?</string>
     <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80 %, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100 %.</string>
