@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/view_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
+    <View
         android:id="@+id/capture_black_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +22,8 @@
         android:id="@+id/settings"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/settings"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_settings_cog_vector" />
 
@@ -30,7 +32,8 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_below="@+id/settings"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/toggle_photo_video"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_video_vector" />
 
@@ -39,7 +42,8 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_below="@+id/toggle_photo_video"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/resolution"
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_resolution_vector" />
 
@@ -48,13 +52,15 @@
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_below="@+id/change_resolution"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/view_last_media"
         android:padding="@dimen/medium_margin" />
 
     <LinearLayout
         android:id="@+id/btn_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|bottom">
 
@@ -63,6 +69,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
+            android:contentDescription="@string/toggle_camera"
             android:padding="@dimen/normal_margin"
             android:src="@drawable/ic_camera_front_vector" />
 
@@ -71,6 +78,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
+            android:contentDescription="@string/shutter"
             android:src="@drawable/ic_shutter_vector" />
 
         <ImageView
@@ -78,6 +86,7 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_weight="1"
+            android:contentDescription="@string/toggle_flash"
             android:padding="@dimen/normal_margin"
             android:src="@drawable/ic_flash_off_vector" />
 
@@ -89,8 +98,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_holder"
         android:layout_centerHorizontal="true"
-        android:text="00:00"
         android:textColor="@android:color/white"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:text="00:00" />
 
 </RelativeLayout>
