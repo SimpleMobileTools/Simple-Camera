@@ -6,7 +6,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.toCameraXQuality
 import com.simplemobiletools.camera.extensions.toVideoQuality
 import com.simplemobiletools.camera.models.CameraSelectorVideoQualities
 import com.simplemobiletools.camera.models.VideoQuality
@@ -45,10 +44,10 @@ class VideoQualityManager(
         }
     }
 
-    fun getUserSelectedQuality(cameraSelector: CameraSelector): Quality {
+    fun getUserSelectedQuality(cameraSelector: CameraSelector): VideoQuality {
         var selectionIndex = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontVideoResIndex else config.backVideoResIndex
         selectionIndex = selectionIndex.coerceAtLeast(0)
-        return getSupportedQualities(cameraSelector).getOrElse(selectionIndex) { VideoQuality.HD }.toCameraXQuality()
+        return getSupportedQualities(cameraSelector).getOrElse(selectionIndex) { VideoQuality.HD }
     }
 
     fun getSupportedQualities(cameraSelector: CameraSelector): List<VideoQuality> {
