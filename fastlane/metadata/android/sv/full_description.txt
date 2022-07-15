@@ -1,7 +1,0 @@
-Kameran kan användas för både fototagning och videoinspelning. Du kan växla mellan främre och bakre kamera, ändra sparsökvägen och begränsa upplösningen. Blixten kan slås på, stängas av och användas som en ficklampa. Du kan nypa ihop eller föra isär fingrarna för att zooma in och ut.
-
-Om du vill starta denna app genom att trycka på den fysiska kameraknappen, måste du kanske inaktivera den inbyggda Kamera-appen i Inställningar -> Appar -> Kamera -> Inaktivera.
-
-Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
-
-Denna app är bara en del av en större serie appar. Du hittar resten av dem på https://www.simplemobiletools.com

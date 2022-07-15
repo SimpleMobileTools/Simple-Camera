@@ -1,7 +1,0 @@
-Bu kamera həm şəkil çəkmək həm də video yazmaq üçün əlverişlidir. Ön və arxa kameralarda keçiş apara, fayl məkanını dəyişdirə və görüntü imkanını hüdudlandıra bilərsiniz. Fənər söndürülə yaxud da adi fənər işığı kimi istifadə oluna bilər. Çimdikləyərək yaxınlaşdıra ya da uzaqlaşdıra bilərsiniz.
-
-Əgər tətbiqi cihazın kamera düyməsinə basaraq açmaq istəyirsinizsə, Parametrlər -> Tətbiqlər -> Kamera -> Qapat\'dan daxili Kamera tətbiqini qapatmalısınız.
-
-Lazımsız reklam və ya icazə mövcud deyil. Tamamilə açıqlisanslıdır, rəng dəyişmə parametrləri var.
-
-Bu, böyük bir tətbiq seriyasının yalnız bir hissəsidir. Digər tətbiqləri buradan əldə edə bilərsiniz https://www.simplemobiletools.com

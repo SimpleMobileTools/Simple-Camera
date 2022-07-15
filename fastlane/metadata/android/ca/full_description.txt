@@ -18,7 +18,7 @@ Ve amb el Material Design i un tema fosc de manera predeterminada, proporciona u
 
 No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables i opcions per fer collages.
 
-<b>Consulteu el conjunt complet d'eines simples aquí:</b>
+Consulteu el conjunt complet d'eines simples aquí:
 https://www.simplemobiletools.com
 
 Facebook:
@@ -26,3 +26,6 @@ https://www.facebook.com/simplemobiletools
 
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

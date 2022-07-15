@@ -1,7 +1,7 @@
 <h4>ABANDONED: This app has been unpublished from Google Play due to the inability to make it work well enough. The way working with cameras can differ depending on the system and manufacturer turned out to be way too much for us and Android is not making it any easier. Making a camera app work reliably nowadays is a full time job for multiple people which is not something we can maintain. It's just getting worse with all those new devices coming out and Android pushing towards limiting the capabilities of downloaded apps, preferring preinstalled ones. We do not want to be reponsible for your photos or videos not being saved properly or saved in too low quality, thus we decided to remove it from Google Play altogether. It will still be available on Github, but use it with caution.</h4>
 
 # Simple Camera
-<img alt="Logo" src="fastlane/metadata/android/en-US/images/icon.png" width="120" />
+<img alt="Logo" src="graphics/icon.png" width="120" />
 
 A camera with flash, zoom and no ads.
 
@@ -17,7 +17,7 @@ This app is just one piece of a bigger series of apps. You can find the rest of 
 
 
 <div style="display:flex;">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/english/1.jpg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/english/2.jpg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/english/3.jpg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/english/1_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/english/2_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/english/3_en-GB.jpeg" width="30%">
 </div>

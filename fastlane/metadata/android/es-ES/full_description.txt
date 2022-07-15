@@ -1,0 +1,29 @@
+Esta práctica aplicación de cámara se puede utilizar tanto para tomar fotos como para grabar videos. También puede hacer diferentes marcos de fotos con este editor de fotos estético y la aplicación de cámara para crear collage. Puede cambiar rápidamente entre la cámara frontal y trasera en esta aplicación de cámara abierta, modificar la ruta de guardado o limitar la resolución de sus marcos de fotos. Esta aplicación de cámara abierta también le ayuda a definir marcos de fotos para que pueda tomar fotografías con alta resolución. Nunca te perderás los momentos importantes de tu vida. Hay muchas configuraciones útiles disponibles para hacerlo aún más personal, adecuado a sus necesidades. Enumeremos algunos de ellos.
+
+El flash se puede encender y apagar o usar como una linterna útil, que no se ve a menudo. Puede pellizcar la pantalla para acercar y alejar o alternar el intercambio de imágenes horizontales durante la captura de fantásticos retratos con diferentes marcos de fotos geniales. También puede realizar la eliminación de objetos con esta aplicación de cámara para enfocar el objeto principal en la imagen en lugar de permitir que entren otros ruidos en la imagen. La mayoría de las aplicaciones de la cámara no lo han hecho, pero esta aplicación de cámara de eliminación de objetos ha llevado la tecnología un nivel más arriba al brindar esta función en esta aplicación. También puede utilizar el intercambio de caras para crear divertidos marcos de fotos con sus amigos y familiares.
+
+Puede cambiar fácilmente la resolución de salida, la calidad o la relación de aspecto con unos pocos clics, como es de esperar de una aplicación de cámara abierta moderna. Esto se aplica tanto a fotos como a videos. La calidad de las imágenes y los videos se puede cambiar fácilmente según sus necesidades. También puede agregar marcos de fotos para que su foto o video final se vea más impresionante.
+
+Después de tomar una foto, verá la nueva miniatura de la foto, al presionar la cual puede abrirla rápidamente en su galería preferida usando esta aplicación de cámara abierta. Verá una indicación clara de cuándo se captura la foto, lo que garantiza que el archivo se ha guardado.
+
+La característica más avanzada que puede ver que falta en diferentes aplicaciones es el intercambio de caras. Esta aplicación de cámara también le da la opción de intercambiar caras con su familia y amigos para que pueda disfrutar de momentos divertidos con ellos. También puede hacer un collage de todas sus fotos y videos con esta cámara creadora de collage. La tecnología de eliminación de objetos le da una ventaja en comparación con otras aplicaciones, ya que esta función le da a sus imágenes un aspecto más impresionante. A través de la tecnología de eliminación de objetos, puede obtener imágenes más claras y sin ruido.
+
+Si desea iniciar esta aplicación de cámara de fácil apertura presionando el botón de la cámara del hardware de sus dispositivos, es posible que deba desactivar la aplicación de cámara incorporada en Configuración -> Aplicaciones -> Cámara -> Desactivar.
+
+En caso de que prefiera la calidad a la velocidad, puede habilitar una opción para enfocar siempre la cámara antes de tomar una foto, para asegurarse de que el resultado sea nítido.
+
+Tiene muchas otras configuraciones relacionadas con el sonido del obturador, flash, metadatos de la foto, calidad de la foto, etc. La ruta del archivo de salida se puede personalizar, para que pueda decidir dónde desea guardar sus medios. Admite tanto el almacenamiento interno como las tarjetas SD.
+
+No contiene anuncios ni permisos innecesarios. Es una fuente de cámara totalmente abierta, proporciona colores personalizables y opciones de un creador de collage.
+
+Consulte el conjunto completo de herramientas simples aquí:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
