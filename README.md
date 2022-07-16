@@ -17,7 +17,7 @@ This app is just one piece of a bigger series of apps. You can find the rest of 
 
 
 <div style="display:flex;">
-<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/english/1_en-GB.jpeg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/english/2_en-GB.jpeg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/english/3_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/1_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/2_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/3_en-GB.jpeg" width="30%">
 </div>
