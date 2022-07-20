@@ -1,14 +1,12 @@
-Ta poręczna aplikacja aparatu jest przydatna zarówno do łatwego robienia zdjęć, jak i nagrywania wideo. Możesz także tworzyć różne kadry za pomocą tego estetycznego edytora zdjęć i kreatora kolaży. Możesz szybko przełączać się między przednim i tylnym aparatem, zmieniać ścieżkę zapisu lub ograniczać rozdzielczość swoich zdjęć. Aplikacja pomaga Ci również w definiowaniu kadrów, dzięki czemu możesz robić zdjęcia w wysokiej rozdzielczości. Nigdy nie przegapisz ważnych chwil w swoim życiu. Dostępnych jest wiele pomocnych ustawień, aby była jeszcze bardziej osobista i dostosowana do Twoich potrzeb. Wymieńmy niektóre z nich.
+Ta poręczna aplikacja aparatu jest przydatna zarówno do łatwego robienia zdjęć, jak i nagrywania wideo. Możesz szybko przełączać się między przednim i tylnym aparatem, zmieniać ścieżkę zapisu lub ograniczać rozdzielczość swoich zdjęć. Nigdy nie przegapisz ważnych chwil w swoim życiu. Dostępnych jest wiele pomocnych ustawień, aby była jeszcze bardziej osobista i dostosowana do Twoich potrzeb. Wymieńmy niektóre z nich.
 
-Lampa błyskowa może być włączana lub wyłączana albo używana jako przydatna latarka, co nie jest często spotykane. Możesz wykonać gest zsunięcia palców na ekranie, aby powiększyć lub oddalić albo odbić lustrzanie zdjęcie podczas robienia wspaniałych portretów w różnych fajnych ramkach. Możesz także usunąć obiekt, aby móc skupić się na głównym obiekcie na zdjęciu zamiast pozwalać na rozpraszanie się przez inne. Większość aplikacji aparatu nie umie tego robić, a ta przeniosła technologię o jeden poziom wyżej, dając tę funkcję. Możesz również użyć funkcji zamiany twarzy, aby stworzyć zabawne kadry ze swoimi znajomymi i rodziną.
+Lampa błyskowa może być włączana lub wyłączana albo używana jako przydatna latarka, co nie jest często spotykane. Możesz wykonać gest zsunięcia palców na ekranie, aby powiększyć lub oddalić albo odbić lustrzanie zdjęcie podczas robienia wspaniałych portretów. Dzięki tej aplikacji możesz skupić się na głównym obiekcie na zdjęciu zamiast pozwalać na rozpraszanie się przez inne.
 
-Możesz łatwo zmienić wynikową rozdzielczość, jakość czy proporcje ekranu w parę naciśnięć, tak jak spodziewałbyś/spodziewałabyś się tego po nowoczesnej aplikacji aparatu. Dotyczy to zarówno zdjęć, jak i wideo. Ich jakość można łatwo zmieniać zgodnie z własnymi wymaganiami. Możesz także dodać ramkę, aby Twoje ostateczne zdjęcie lub wideo wyglądało bardziej oszałamiająco.
+Możesz łatwo zmienić wynikową rozdzielczość, jakość czy proporcje ekranu w parę naciśnięć, tak jak spodziewałbyś/spodziewałabyś się tego po nowoczesnej aplikacji aparatu. Dotyczy to zarówno zdjęć, jak i wideo. Ich jakość można łatwo zmieniać zgodnie z własnymi wymaganiami.
 
 Po zrobieniu zdjęcia zobaczysz jego miniaturkę, po naciśnięciu której otworzy się ono w preferowanej przez Ciebie galerii. Zobaczysz wyraźne wskazanie, gdy zdjęcie zostanie zrobione, co gwarantuje, że plik został zapisany.
 
 Jeśli chcesz, aby ten prosty aparat uruchamiał się po naciśnięciu przycisku aparatu Twojego urządzenia, będziesz prawdopodobnie musiał(a) wyłączyć wbudowaną aplikację aparatu w Ustawienia -> Aplikacje -> Aparat -> Wyłącz.
-
-Jeśli ważniejsza jest dla Ciebie jakość niż szybkość, możesz włączyć opcję, aby aparat zawsze ustawiał ostrość przed zrobieniem zdjęcia – będziesz wtedy mieć pewność idealnego rezultatu.
 
 Możesz skonfigurować go tak, aby używał przycisków głośności jako spustu migawki lub włączał latarkę domyślnie przy uruchomieniu.
 
@@ -16,7 +14,7 @@ Ma wiele innych ustawień związanych z dźwiękiem migawki, lampą błyskową, 
 
 Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje.
 
-Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę oraz opcje kreatora kolaży.
+Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę.
 
 Sprawdź pełen zestaw od Simple Tools tutaj:
 https://www.simplemobiletools.com
