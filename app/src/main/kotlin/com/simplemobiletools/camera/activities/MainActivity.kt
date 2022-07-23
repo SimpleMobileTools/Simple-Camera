@@ -51,12 +51,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     var mLastHandledOrientation = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
@@ -67,6 +61,22 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
+        if (isRPlus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else if (isOreoMr1Plus()) {
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else {
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     override fun onResume() {
@@ -433,15 +443,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         view.isClickable = value != .0f
     }
 
-    @Suppress("DEPRECATION")
-    private fun hideNavigationBarIcons() {
-        if (isRPlus()) {
-            window.insetsController?.hide(WindowInsets.Type.systemBars())
-        } else {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
-        }
-    }
-
     private fun showTimer() {
         video_rec_curr_timer.beVisible()
         setupTimer()
@@ -464,8 +465,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun resumeCameraItems() {
-        hideNavigationBarIcons()
-
         if (!mIsInPhotoMode) {
             initVideoButtons()
         }
