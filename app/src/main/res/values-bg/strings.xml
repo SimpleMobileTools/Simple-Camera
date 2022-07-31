@@ -12,13 +12,12 @@
     <string name="photo_not_saved">Снимката не можа да бъде записана</string>
     <string name="setting_resolution_failed">Задаването на резолюция бе неуспешно</string>
     <string name="video_recording_failed">Видеозаписът бе неуспешен, опитайте различна резолюция</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">Камерата се използва от друго приложение, моля, затворете приложението и опитайте отново</string>
+    <string name="camera_configure_error">Възникна грешка при конфигурирането на камерата</string>
+    <string name="camera_disabled_by_admin_error">Камерата е деактивирана от администратора</string>
+    <string name="camera_dnd_error">Режимът \"Не безпокойте\" е активиран. Моля, деактивирайте го и опитайте отново.</string>
+    <string name="photo_capture_failed">Заснемането на снимка е неуспешно</string>
+    <string name="video_capture_insufficient_storage_error">Записът на видео е неуспешен поради недостатъчно място за съхранение</string>
     <!--Camera Screen Icons Content Description-->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
