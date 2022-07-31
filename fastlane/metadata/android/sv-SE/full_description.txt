@@ -2,9 +2,11 @@ Kameran kan användas för både fototagning och videoinspelning. Du kan växla 
 
 Om du vill starta denna app genom att trycka på den fysiska kameraknappen, måste du kanske inaktivera den inbyggda Kamera-appen i Inställningar -> Appar -> Kamera -> Inaktivera.
 
+Den levereras med Material Design och mörkt tema som standard, och ger en bra användarupplevelse för enkel användning. Avsaknaden av internetåtkomst ger dig mer integritet, säkerhet och stabilitet än andra appar.
+
 Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
 
-Check out the full suite of Simple Tools here:
+Kolla in hela uppsättningen enkla verktyg här:
 https://www.simplemobiletools.com
 
 Facebook:

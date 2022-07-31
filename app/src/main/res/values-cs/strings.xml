@@ -2,50 +2,47 @@
 <resources>
     <string name="app_name">Jednoduchý fotoaparát</string>
     <string name="app_launcher_name">Fotoaparát</string>
-    <string name="camera_unavailable">Fotoaparát nedostupný</string>
-    <string name="camera_open_error">Při přístupu k fotoaparátu došlo k chybě</string>
-    <string name="video_creating_error">Při vytváření video souboru došlo k chybě</string>
+    <string name="camera_unavailable">Fotoaparát není dostupný</string>
+    <string name="camera_open_error">Při přístupu k fotoaparátu došlo k chybě</string>
+    <string name="video_creating_error">Při vytváření video souboru došlo k chybě</string>
     <string name="video_mode_error">Přepnutí do režimu videa se nezdařilo</string>
-    <string name="save_error_internal_storage">Došlo k chybě, složka pro uložení byla změněna na interní úložiště</string>
+    <string name="save_error_internal_storage">Došlo k chybě, složka pro uložení byla změněna na interní úložiště</string>
     <string name="camera_switch_error">Přepínání fotoaparátu selhalo</string>
     <string name="click_to_resume_preview">Pro pokračování prohlížení klepněte na obrázek</string>
     <string name="photo_not_saved">Fotografii se nepodařilo uložit</string>
     <string name="setting_resolution_failed">Nepodařilo se nastavit správné rozlišení</string>
     <string name="video_recording_failed">Nahrávání videa selhalo, zkuste použít jiné rozlišení</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">Fotoaparát je používán jinou aplikací. Zavřete aplikaci a zkuste to znovu</string>
+    <string name="camera_configure_error">Při nastavení fotoaparátu došlo k chybě</string>
+    <string name="camera_disabled_by_admin_error">Fotoaparát je zakázán správcem</string>
+    <string name="camera_dnd_error">Je povolený režim Nerušit. Prosím, zakažte jej a zkuste to znovu</string>
+    <string name="photo_capture_failed">Pořízení fotografie selhalo</string>
+    <string name="video_capture_insufficient_storage_error">Nahrávání videa selhalo kvůli nedostatečnému místu v úložišti</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
-
+    <string name="toggle_photo_video">Přepnout režim fotografie/video</string>
+    <string name="change_resolution">Změnit rozlišení</string>
+    <string name="view_last_media">Zobrazit poslední pořízený snímek</string>
+    <string name="toggle_camera">Přepnout přední/zadní fotoaparát</string>
+    <string name="toggle_flash">Přepnout režim blesku</string>
     <!-- FAQ -->
-    <string name="faq_1_title">Jakou kvalitu fotek bych měl použít?</string>
-    <string name="faq_1_text">Záleží to na vášem cíli. Pro obecné účely doporučuje většina lidí 75%-80%, kdy je kvalita fotek stále vysoká, ale výsledný soubor má o mnoho menší velikost v porovnání se 100% kvalitou.</string>
-
+    <string name="faq_1_title">Jakou úroveň komprese fotografií bych měl nastavit\?</string>
+    <string name="faq_1_text">To záleží na vašem záměru. Pro obecné účely doporučuje většina lidí 75%–80%, kdy je kvalita fotografií stále vysoká, ale výsledný soubor má o mnoho menší velikost v porovnání se 100% kvalitou.</string>
     <!-- Settings -->
-    <string name="save_photos">Ukládat fotky a videa do</string>
-    <string name="show_preview">Zobrazit náhled fotky po vytvoření</string>
+    <string name="save_photos">Ukládat fotografie a videa do</string>
+    <string name="show_preview">Zobrazit náhled fotografie po pořízení</string>
     <string name="shutter_sound">Zvuk závěrky</string>
     <string name="back_camera">Rozlišení zadního fotoaparátu</string>
     <string name="front_camera">Rozlišení předního fotoaparátu</string>
-    <string name="photo">Fotky</string>
+    <string name="photo">Fotografie</string>
     <string name="video">Videa</string>
     <string name="focus_before_capture">Zaostřit před focením</string>
     <string name="volume_buttons_as_shutter">Použít tlačítka ovládání hlasitosti jako spoušť</string>
     <string name="turn_flash_off_at_startup">Vypnout blesk při spuštění</string>
-    <string name="flip_front_camera_photos_horizontally">Překlopit fotky z přední kamery vodorovně</string>
+    <string name="flip_front_camera_photos_horizontally">Snímky z předního fotoaparátu vodorovně přetočit</string>
     <string name="keep_settings_visible">Neskrývat tlačítka nastavení</string>
-    <string name="always_open_back_camera">Aplikaci vždy otvírat s aktivní zadní kamerou</string>
+    <string name="always_open_back_camera">Aplikaci vždy otevřít s aktivním zadním fotoaparátem</string>
     <string name="save_photo_metadata">Ukládat exif metadata fotografií</string>
-    <string name="photo_compression_quality">Kvalita komprese fotek</string>
+    <string name="photo_compression_quality">Úroveň komprese fotografií</string>
     <string name="shutter">Spoušť</string>
     <!--
         Haven't found some strings? There's more at

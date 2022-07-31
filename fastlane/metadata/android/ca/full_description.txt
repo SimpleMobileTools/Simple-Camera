@@ -8,8 +8,6 @@ La funció més avançada que manca a diferents aplicacions és l'intercanvi de 
 
 Si voleu llançar aquesta càmera en prémer el botó de la càmera del maquinari dels vostres dispositius, és possible que hàgiu de desactivar l'aplicació Càmera integrada a la Configuració -> Aplicacions -> Càmera -> Desactiva.
 
-En cas que preferiu la qualitat a la velocitat, podeu activar una opció per enfocar sempre la càmera abans de fer una foto, per assegurar-vos que el resultat sigui nítid.
-
 Podeu configurar-ho per utilitzar els botons de volum com a obturador o per encendre la llanterna de manera predeterminada a l'inici.
 
 Té molts altres paràmetres relacionats amb el so de l'obturador, el flaix, les metadades de la foto, la qualitat de la foto, etc. El camí del fitxer de sortida es pot personalitzar, de manera que podeu decidir on voleu desar els fitxers multimèdia. Admet tant l'emmagatzematge intern com les targetes SD.
