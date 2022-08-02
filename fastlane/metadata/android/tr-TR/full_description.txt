@@ -1,24 +1,20 @@
-Bu kullanışlı kamera uygulaması hem kolay fotoğraf çekimi hem de video kaydı için kullanılabilir. Bu estetik fotoğraf editörü ve kolaj yapıcı kamera uygulamasıyla farklı fotoğraf çerçeveleri de yapabilirsiniz. Bu açık kamera uygulamasında ön ve arka kamera arasında hızlıca geçiş yapabilir, kaydetme yolunu değiştirebilir veya fotoğraf çerçevelerinizin çözünürlüğünü sınırlayabilirsiniz. Bu açık kamera uygulaması, yüksek çözünürlüklü fotoğraf çekebilmeniz için fotoğraf çerçevelerini tanımlamanıza da yardımcı olur. Hayatınızın önemli anlarını asla kaçırmayacaksınız. İhtiyaçlarınıza uygun, daha da kişisel hale getirmek için birçok yararlı ayar vardır. Bazılarını listeleyelim.
+Bu kullanışlı kamera uygulaması hem kolay fotoğraf çekimi hem de video kaydı için kullanılabilir. Bu açık kamera uygulamasında ön ve arka kamera arasında hızla geçiş yapabilir, kayıt yolunu değiştirebilir veya fotoğraf çerçevelerinizin çözünürlüğünü sınırlayabilirsiniz. Hayatınızın önemli anlarını asla kaçırmazsınız. Daha da kişisel ve ihtiyaçlarınıza uygun hale getirmek için birçok kullanışlı ayar bulunmaktadır. Bunlardan bazılarını listeleyelim.
 
-Flaş açılıp kapatılabilir veya sık görülmeyen kullanışlı bir el feneri olarak kullanılabilir. Farklı güzel fotoğraf çerçeveleriyle harika portre fotoğrafları çekerken yakınlaştırmak ve uzaklaştırmak için ekranı sıkıştırabilir veya yatay görüntü değiştirmeyi değiştirebilirsiniz. Diğer seslerin resme gelmesine izin vermek yerine resimdeki ana nesneye odaklanmak için bu kamera uygulamasını kullanarak nesne kaldırmayı da gerçekleştirebilirsiniz. Çoğu kamera uygulaması bunu başaramadı, ancak bu nesne kaldırma kamera uygulaması, bu özelliği bu uygulamada vererek teknolojiyi bir üst seviyeye çıkardı. Arkadaşlarınız ve ailenizle eğlenceli fotoğraf çerçeveleri için yüz değiştirmeyi de kullanabilirsiniz.
+Flaş açılıp kapatılabilir veya sık sık görülmeyen kullanışlı bir el feneri olarak kullanılabilir. Muhteşem portre fotoğrafları çekerken yatay görüntü değiştirmeyi değiştirmek için ekranı parmaklarınızla yakınlaştırıp uzaklaştırabilir veya değiştirebilirsiniz. Bu uygulamayla, fotoğrafa başka gürültülerin girmesine izin vermek yerine resimdeki ana nesneye odaklanabilirsiniz.
 
-Modern bir açık kamera uygulamasından beklediğiniz gibi çıktı çözünürlüğünü, kalitesini veya en boy oranını birkaç tıklamayla kolayca değiştirebilirsiniz. Bu hem fotoğraflar hem de videolar için geçerlidir. Görüntülerin ve videoların kalitesi, ihtiyacınıza göre kolayca değiştirilebilir. Son fotoğrafınızın veya videonuzun daha çarpıcı görünmesi için fotoğraf çerçeveleri de ekleyebilirsiniz.
+Modern bir açık kamera uygulamasından bekleyeceğiniz gibi, çıktı çözünürlüğünü, kalitesini veya en boy oranını birkaç tıklatmayla kolayca değiştirebilirsiniz. Bu, hem fotoğraflar hem de videolar için geçerlidir. Görüntü ve videoların kalitesi ihtiyacınıza göre kolayca değiştirilebilir.
 
-Bir resim çektikten sonra, bu açık kamera uygulamasını kullanarak tercih ettiğiniz galeride hızlıca açabileceğiniz düğmesine basarak yeni fotoğraf küçük resmini göreceksiniz. Dosyanın kaydedildiğini garanti eden, fotoğrafın ne zaman çekileceğine dair net bir gösterge göreceksiniz.
+Fotoğraf çektikten sonra yeni fotoğraf küçük resmini görürsünüz. Bu küçük resme basarak bu açık kamera uygulamasını kullanarak istediğiniz galeride hızlıca açabilirsiniz. Fotoğrafın ne zaman çekildiğini net bir şekilde gösterir ve dosyanın kaydedildiğini garanti eder.
 
-Farklı uygulamalarda eksik görebileceğiniz en gelişmiş özellik yüz değiştirmedir. Bu kamera uygulaması aynı zamanda aileniz ve arkadaşlarınızla yüz yüze değiştirme seçeneği sunar, böylece onlarla eğlenceli anların tadını çıkarabilirsiniz. Bu kolaj yapıcı kamera ile tüm fotoğraf ve videolarınızdan bir kolaj da yapabilirsiniz. Nesne kaldırma teknolojisi, bu özellik resimlerinize daha çarpıcı bir görünüm kazandırdığından, diğer uygulamalara kıyasla size üstünlük sağlar.
+Cihazınızın donanım kamerası düğmesine basarak bu kolay açılan kamera uygulamasını başlatmak istiyorsanız Ayarlar -> Uygulamalar -> Kamera -> Devre dışı Bırak bölümünden dahili Kamera uygulamasını devre dışı bırakmanız gerekebilir.
 
-Bu kolay açık kamera uygulamasını cihazlarınızın donanım kamera düğmesine basarak başlatmak istiyorsanız, Ayarlar -> Uygulamalar -> Kamera -> Devre Dışı Bırak bölümündeki yerleşik Kamera uygulamasını devre dışı bırakmanız gerekebilir.
+Bunu, başlatma sırasında ses düzeyi düğmelerini deklanşör olarak kullanacak veya varsayılan olarak flaş ışığını açmak üzere yapılandırabilirsiniz.
 
-Kaliteyi hıza tercih ederseniz, sonucun kristal netliğinde olduğundan emin olmak için fotoğraf çekmeden önce her zaman kamerayı odaklama seçeneğini etkinleştirebilirsiniz.
+Deklanşör sesi, flaş, fotoğraf meta verileri, fotoğraf kalitesi vb. ile ilgili birden fazla başka ayarı vardır. Çıktı dosyası yolu özelleştirilebilir, böylece ortamlarınızın nereye kaydedilmesini istediğinize karar verebilirsiniz. Hem dahili depolamayı hem de SD kartları destekler.
 
-Ses düğmelerini deklanşör olarak kullanacak veya başlangıçta varsayılan olarak el fenerini açacak şekilde yapılandırabilirsiniz.
+Malzeme tasarımı ve varsayılan olarak koyu renkli temasıyla birlikte, kolay kullanım için mükemmel bir kullanıcı deneyimi sunar. İnternet erişiminin olmaması size diğer uygulamalardan daha fazla gizlilik, güvenlik ve kararlılık sağlar.
 
-Deklanşör sesi, flaş, fotoğraf meta verileri, fotoğraf kalitesi vb. İle ilgili birçok başka ayara sahiptir. Çıktı dosyası yolu özelleştirilebilir, böylece medyanızın nereye kaydedileceğine karar verebilirsiniz. Hem dahili depolamayı hem de SD kartları destekler.
-
-Varsayılan olarak malzeme tasarımı ve koyu tema ile birlikte gelir, kolay kullanım için harika bir kullanıcı deneyimi sağlar. İnternet erişiminin olmaması size diğer uygulamalardan daha fazla gizlilik, güvenlik ve istikrar sağlar.
-
-Hiçbir reklam veya gereksiz izinler içermez. Tamamen açık kamera kaynağıdır, bir kolaj yapıcının özelleştirilebilir renklerini ve seçeneklerini sağlar.
+Reklam veya gereksiz izinler içermez. Tamamen açık bir kamera kaynağıdır ve özelleştirilebilir renkler sunar.
 
 Basit Araçlar paketinin tamamına buradan göz atın:
 https://www.simplemobiletools.com
@@ -29,5 +25,5 @@ https://www.facebook.com/simplemobiletools
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
 
-Telegram:
+Telgraf:
 https://t.me/SimpleMobileTools
