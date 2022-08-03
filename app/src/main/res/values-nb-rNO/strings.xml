@@ -12,20 +12,18 @@
     <string name="photo_not_saved">Kunne ikke lagre bildet</string>
     <string name="setting_resolution_failed">Kunne ikke sette riktig oppløsning</string>
     <string name="video_recording_failed">Videoopptak mislyktes. Prøv å bruke en annen oppløsning.</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">Kameraet er i bruk av en annen app.</string>
+    <string name="camera_configure_error">Det oppstod en feil under konfigurasjon av kameraet</string>
+    <string name="camera_disabled_by_admin_error">Kameraet er deaktivert av administratoren</string>
+    <string name="camera_dnd_error">Ikke forstyrr-modus er aktivert. Deaktiver og prøv på nytt</string>
+    <string name="photo_capture_failed">Fotoinnspilling mislyktes</string>
+    <string name="video_capture_insufficient_storage_error">Videoinnspilling mislyktes på grunn av utilstrekkelig lagring</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
-
+    <string name="toggle_photo_video">Aktivere/deaktivere bilde-/videomodus</string>
+    <string name="change_resolution">Endre oppløsning</string>
+    <string name="view_last_media">Vis medier som ble tatt sist</string>
+    <string name="toggle_camera">Veksle mellom front-/bakkamera</string>
+    <string name="toggle_flash">Aktivere/deaktivere lommelykt modus</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hvilket bildekomprimeringsnivå bør jeg bruke\?</string>
     <string name="faq_1_text">Det avhenger av hva du vil. Til alminnelige formål anbefales 75%-80%. Fremdeles god kvalitet, men vesentlig redusert filstørrelse sammenlignet med 100%.</string>
@@ -49,5 +47,5 @@
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
-    -->    
+    -->
 </resources>
