@@ -1,24 +1,22 @@
-Este prático aplicativo de câmera pode ser usado para tirar fotos e gravar vídeos com facilidade. Você também pode fazer diferentes molduras de fotos com este editor de fotos estético e aplicativo de câmera de colagem. Você pode alternar rapidamente entre a câmera frontal e traseira neste aplicativo de câmera aberto, modificar o caminho de salvamento ou limitar a resolução de seus porta-retratos. Este aplicativo de câmera aberta também ajuda a definir molduras para que você possa tirar fotos em alta resolução. Você nunca perderá os momentos importantes de sua vida. Existem muitas configurações úteis disponíveis para torná-lo ainda mais pessoal, adequado às suas necessidades. Vamos listar alguns deles.
+Esta prática aplicação da câmara é utilizável tanto para tirar fotografias fáceis como para a gravação de vídeo. Pode alternar rapidamente entre a câmara dianteira e traseira nesta aplicação de câmara aberta, modificar o caminho de gravação ou limitar a resolução das suas molduras fotográficas. Nunca perderá os momentos importantes da sua vida. Há muitas configurações úteis disponíveis para a tornar ainda mais pessoal, adequada às suas necessidades. Vamos enumerar algumas delas.
 
-O flash pode ser ligado e desligado ou usado como uma lanterna útil, o que não é visto com frequência. Você pode apertar a tela para aumentar e diminuir o zoom ou alternar a troca de imagem horizontal durante a captura de fantásticas fotos de retratos com diferentes molduras legais. Você também pode realizar a remoção de objetos usando este aplicativo de câmera para focar no objeto principal na imagem, em vez de permitir que outros ruídos entrem na imagem. A maioria dos aplicativos de câmera não conseguiu fazer isso, mas este aplicativo de câmera de remoção de objetos elevou a tecnologia um nível ao fornecer esse recurso neste aplicativo. Você também pode usar a troca de rosto para molduras divertidas com seus amigos e familiares.
+O flash pode ser ligado e desligado ou utilizado como uma lanterna útil, que não é vista com frequência. Pode beliscar o ecrã para aumentar e diminuir o zoom ou alternar a troca horizontal de imagens durante a captura de fotografias de retratos fantásticos. Com esta aplicação pode focar o objecto principal na fotografia em vez de permitir que outros ruídos entrem na fotografia. 
 
-Você pode alterar facilmente a resolução de saída, qualidade ou proporção da imagem com alguns cliques, como seria de esperar de um aplicativo de câmera aberto moderno. Isso se aplica a fotos e vídeos. A qualidade das imagens e vídeos pode ser facilmente alterada de acordo com sua necessidade. Você também pode adicionar molduras para fazer sua foto ou vídeo final parecer mais impressionante.
+Pode alterar facilmente a resolução de saída, qualidade, ou relação de aspecto com alguns cliques, como seria de esperar de uma aplicação moderna de câmara aberta. Isto aplica-se tanto a fotografias como a vídeos. A qualidade das imagens e vídeos pode ser facilmente alterada de acordo com os seus requisitos.
 
-Depois de tirar uma foto, você verá a nova miniatura da foto, pressionando a qual você pode abri-la rapidamente em sua galeria preferida usando este aplicativo de câmera aberto.
+Depois de tirar uma fotografia, verá a nova miniatura da fotografia, pressionando a qual poderá abri-la rapidamente na sua galeria preferida, utilizando esta aplicação de câmara aberta. Verá uma indicação clara de quando a fotografia é capturada, garantindo que o ficheiro foi guardado.
 
-O recurso mais avançado que você pode ver que falta em diferentes aplicativos é a troca de rosto. Este aplicativo de câmera também oferece a opção de trocar de rosto com sua família e amigos para que você possa desfrutar de momentos divertidos com eles. Você também pode fazer uma colagem de todas as suas fotos e vídeos com esta câmera criadora de colagem. A tecnologia de remoção de objetos dá a você uma vantagem em comparação com outros aplicativos, pois esse recurso dá às suas fotos uma aparência mais deslumbrante. Por meio da tecnologia de remoção de objetos, você pode obter imagens mais claras e sem ruído.
+Se quiser iniciar esta aplicação de câmara fácil de abrir ao premir o botão da câmara de hardware dos seus dispositivos, poderá ter de desactivar a aplicação da câmara incorporada em Definições -> Aplicações -> Câmara -> Desactivar.
 
-Se você deseja iniciar este aplicativo de câmera de fácil abertura ao pressionar o botão de hardware da câmera de seus dispositivos, pode ser necessário desativar o aplicativo de câmera integrado em Configurações -> Aplicativos -> Câmera -> Desativar.
+Pode configurá-la para usar os botões de volume como obturador, ou para ligar a lanterna por defeito no arranque.
 
-Caso prefira qualidade em vez de velocidade, você pode habilitar a opção de sempre focalizar a câmera antes de tirar uma foto, para garantir que o resultado seja nítido.
+Tem várias outras configurações relacionadas com o som do obturador, flash, metadados de fotografia, qualidade de fotografia, etc. O caminho do ficheiro de saída pode ser personalizado, para que possa decidir onde quer que o seu suporte de impressão seja guardado. Suporta tanto o armazenamento interno como cartões SD.
 
-Possui várias outras configurações relacionadas ao som do obturador, flash, metadados da foto, qualidade da foto, etc. O caminho do arquivo de saída pode ser personalizado, para que você possa decidir onde deseja salvar a mídia. Suporta armazenamento interno e cartões SD.
+Vem com design de material e tema escuro por defeito, proporciona uma óptima experiência ao utilizador para uma utilização fácil. A falta de acesso à Internet dá-lhe mais privacidade, segurança e estabilidade do que outras aplicações.
 
-Ele vem com design de material e tema escuro por padrão, oferece ótima experiência do usuário para fácil utilização. A falta de acesso à Internet oferece mais privacidade, segurança e estabilidade do que outros aplicativos.
+Não contém anúncios ou permissões desnecessárias. É uma fonte de câmara totalmente aberta, fornece cores personalizáveis.
 
-Não contém anúncios ou permissões desnecessárias. É uma fonte de câmera totalmente aberta, oferece cores e opções personalizáveis ​​de um criador de colagem.
-
-Confira o pacote completo de ferramentas simples aqui:
+Veja o conjunto completo de Ferramentas Simples aqui:
 https://www.simplemobiletools.com
 
 Facebook:
