@@ -1,0 +1,29 @@
+Esta prática aplicação da câmara é utilizável tanto para tirar fotografias fáceis como para a gravação de vídeo. Pode alternar rapidamente entre a câmara dianteira e traseira nesta aplicação de câmara aberta, modificar o caminho de gravação ou limitar a resolução das suas molduras fotográficas. Nunca perderá os momentos importantes da sua vida. Há muitas configurações úteis disponíveis para a tornar ainda mais pessoal, adequada às suas necessidades. Vamos enumerar algumas delas.
+
+O flash pode ser ligado e desligado ou utilizado como uma lanterna útil, que não é vista com frequência. Pode beliscar o ecrã para aumentar e diminuir o zoom ou alternar a troca horizontal de imagens durante a captura de fotografias de retratos fantásticos. Com esta aplicação pode focar o objecto principal na fotografia em vez de permitir que outros ruídos entrem na fotografia. 
+
+Pode alterar facilmente a resolução de saída, qualidade, ou relação de aspecto com alguns cliques, como seria de esperar de uma aplicação moderna de câmara aberta. Isto aplica-se tanto a fotografias como a vídeos. A qualidade das imagens e vídeos pode ser facilmente alterada de acordo com os seus requisitos.
+
+Depois de tirar uma fotografia, verá a nova miniatura da fotografia, pressionando a qual poderá abri-la rapidamente na sua galeria preferida, utilizando esta aplicação de câmara aberta. Verá uma indicação clara de quando a fotografia é capturada, garantindo que o ficheiro foi guardado.
+
+Se quiser iniciar esta aplicação de câmara fácil de abrir ao premir o botão da câmara de hardware dos seus dispositivos, poderá ter de desactivar a aplicação da câmara incorporada em Definições -> Aplicações -> Câmara -> Desactivar.
+
+Pode configurá-la para usar os botões de volume como obturador, ou para ligar a lanterna por defeito no arranque.
+
+Tem várias outras configurações relacionadas com o som do obturador, flash, metadados de fotografia, qualidade de fotografia, etc. O caminho do ficheiro de saída pode ser personalizado, para que possa decidir onde quer que o seu suporte de impressão seja guardado. Suporta tanto o armazenamento interno como cartões SD.
+
+Vem com design de material e tema escuro por defeito, proporciona uma óptima experiência ao utilizador para uma utilização fácil. A falta de acesso à Internet dá-lhe mais privacidade, segurança e estabilidade do que outras aplicações.
+
+Não contém anúncios ou permissões desnecessárias. É uma fonte de câmara totalmente aberta, fornece cores personalizáveis.
+
+Veja o conjunto completo de Ferramentas Simples aqui:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
