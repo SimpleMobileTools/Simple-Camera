@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Простая камера</string>
     <string name="app_launcher_name">Камера</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Невозможно получить доступ к камере</string>
@@ -8,7 +8,7 @@
     <string name="video_mode_error">Невозможно переключиться в режим видео</string>
     <string name="save_error_internal_storage">Произошла ошибка, так как место для сохранения изменено на внутреннюю память</string>
     <string name="camera_switch_error">Невозможно переключить камеру</string>
-    <string name="click_to_resume_preview">Чтобы возобновить предпросмотр, нажмите на изображение</string>
+    <string name="click_to_resume_preview">Нажмите на изображение для возобновления предварительного просмотра</string>
     <string name="photo_not_saved">Невозможно сохранить фото</string>
     <string name="setting_resolution_failed">Не удалось установить правильное разрешение</string>
     <string name="video_recording_failed">Ошибка при записи видео, попробуйте использовать другое разрешение</string>
@@ -17,11 +17,11 @@
     <string name="camera_disabled_by_admin_error">Камера отключена администратором</string>
     <string name="camera_dnd_error">Включён режим \"Не беспокоить\", отключите и повторите попытку</string>
     <string name="photo_capture_failed">Не удалось сделать снимок</string>
-    <string name="video_capture_insufficient_storage_error">Запись видео не удалась из-за нехватки памяти</string>
+    <string name="video_capture_insufficient_storage_error">Запись видео не удалась из-за недостаточного объема памяти</string>
     <!--Camera Screen Icons Content Description-->
     <string name="toggle_photo_video">Переключить режим фото/видео</string>
     <string name="change_resolution">Изменить разрешение</string>
-    <string name="view_last_media">Просмотр последнего снимка</string>
+    <string name="view_last_media">Просмотр последнего захваченного носителя</string>
     <string name="toggle_camera">Переключить переднюю/заднюю камеру</string>
     <string name="toggle_flash">Переключить режим фонарика</string>
     <!-- FAQ -->
@@ -29,19 +29,19 @@
     <string name="faq_1_text">Это зависит от вашей цели. В общем случае большинство людей советуют использовать 75%-80%, тогда изображение всё ещё действительно хорошего качества, но размер файла резко уменьшается по сравнению со 100%.</string>
     <!-- Settings -->
     <string name="save_photos">Сохранять фото и видео в</string>
-    <string name="show_preview">Показывать сделанное фото</string>
+    <string name="show_preview">Показать предварительный просмотр фотографии после съемки</string>
     <string name="shutter_sound">Звук затвора</string>
-    <string name="back_camera">Разрешения задней камеры</string>
-    <string name="front_camera">Разрешения фронтальной камеры</string>
+    <string name="back_camera">Разрешение задней камеры</string>
+    <string name="front_camera">Разрешение фронтальной камеры</string>
     <string name="photo">Фото</string>
     <string name="video">Видео</string>
-    <string name="focus_before_capture">Перефокусировка перед захватом</string>
+    <string name="focus_before_capture">Фокусировка перед съемкой</string>
     <string name="volume_buttons_as_shutter">Спускать затвор нажатием кнопок громкости</string>
     <string name="turn_flash_off_at_startup">Выключать вспышку при запуске</string>
     <string name="flip_front_camera_photos_horizontally">Отразить фотографии с фронтальной камеры по горизонтали</string>
     <string name="keep_settings_visible">Всегда показывать панель настроек</string>
     <string name="always_open_back_camera">Всегда включать заднюю камеру при запуске</string>
-    <string name="save_photo_metadata">Сохранять в фото данные EXIF</string>
+    <string name="save_photo_metadata">Сохраняйте метаданные exif фотографий</string>
     <string name="photo_compression_quality">Качество фото после сжатия</string>
     <string name="shutter">Затвор</string>
     <!--
