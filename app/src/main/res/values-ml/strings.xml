@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">സിമ്പിൾ ക്യാമറ</string>
     <string name="app_launcher_name">ക്യാമറ</string>
     <string name="camera_unavailable">ക്യാമറ ലഭ്യമല്ല</string>
     <string name="camera_open_error">ക്യാമറ ആക്‌സസ് ചെയ്യുന്നതിൽ ഒരു പിശക് സംഭവിച്ചു</string>
@@ -9,27 +9,24 @@
     <string name="save_error_internal_storage">ഒരു പിശക് സംഭവിച്ചു, സേവ് ഫോൾഡർ ഇന്റെർണൽ സ്റ്റോറേജിലേക്കു മാറ്റി</string>
     <string name="camera_switch_error">ക്യാമറ സ്വിച്ചുചെയ്യുന്നത് പരാജയപ്പെട്ടു</string>
     <string name="click_to_resume_preview">പ്രിവ്യൂ പുനരാരംഭിക്കാൻ ചിത്രത്തിൽ ക്ലിക്കുചെയ്യുക</string>
-    <string name="photo_not_saved">ഫോട്ടോ സംരക്ഷിക്കാൻ കഴിഞ്ഞില്ല</string>
+    <string name="photo_not_saved">ഫോട്ടോ സേവ് ചെയ്യാൻ കഴിഞ്ഞില്ല</string>
     <string name="setting_resolution_failed">ശരിയായ റെസലൂഷൻ സജ്ജമാക്കാൻ പരാജയപ്പെട്ടു</string>
     <string name="video_recording_failed">വീഡിയോ റെക്കോർഡിംഗ് പരാജയപ്പെട്ടു, മറ്റൊരു റെസലൂഷൻ ഉപയോഗിക്കുക</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">ക്യാമറ മറ്റൊരു ആപ്ലിക്കേഷൻ ഉപയോഗിക്കുന്നു, ദയവായി ആപ്പ് അടച്ച് വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="camera_configure_error">ക്യാമറ കോൺഫിഗർ ചെയ്യുമ്പോൾ ഒരു പിശക് സംഭവിച്ചു</string>
+    <string name="camera_disabled_by_admin_error">അഡ്മിൻ, ക്യാമറ പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
+    <string name="camera_dnd_error">ടു നോട്ട് ഡിസ്റ്റർബ്(DND) മോഡ് സജീവമാക്കിയിരിക്കുന്നു . ദയവായി അത് പ്രവർത്തനരഹിതമാക്കി വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="photo_capture_failed">ഫോട്ടോ എടുക്കൽ പരാജയപ്പെട്ടു</string>
+    <string name="video_capture_insufficient_storage_error">മതിയായ സ്റ്റോറേജ് ഇല്ലാത്തതിനാൽ വീഡിയോ റെക്കോർഡിംഗ് പരാജയപ്പെട്ടു</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
-
+    <string name="toggle_photo_video">ഫോട്ടോ/വീഡിയോ മോഡ് ടോഗിൾ ചെയ്യുക</string>
+    <string name="change_resolution">റെസല്യൂഷൻ മാറ്റുക</string>
+    <string name="view_last_media">അവസാനം പകർത്തിയ മീഡിയ കാണുക</string>
+    <string name="toggle_camera">ഫ്രണ്ട്/ബാക്ക് ക്യാമറ ടോഗിൾ ചെയ്യുക</string>
+    <string name="toggle_flash">ഫ്ലാഷ്‌ലൈറ്റ് മോഡ് ടോഗിൾ ചെയ്യുക</string>
     <!-- FAQ -->
     <string name="faq_1_title">ഏത് ഫോട്ടോ കംപ്രഷനാണ് ഞാൻ ഉപയോഗിക്കേണ്ടത്?</string>
-    <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
-
+    <string name="faq_1_text">അത് നിങ്ങളുടെ ആവശ്യകത ആശ്രയിച്ചിരിക്കുന്നു. പൊതുവായ ആവശ്യങ്ങൾക്കായി മിക്ക ആളുകളും 75%-80% ഉപയോഗിക്കാൻ ഉപദേശിക്കുന്നു, ചിത്രം ഇപ്പോഴും നല്ല ഗുണനിലവാരമാണ്, പക്ഷേ ഫയൽ വലുപ്പം 100% മായി താരതമ്യപ്പെടുത്തുമ്പോൾ ഗണ്യമായി കുറയുന്നു.</string>
     <!-- Settings -->
     <string name="save_photos">ഫോട്ടോകളും വീഡിയോകളും ഇതിലേക്ക് സംരക്ഷിക്കുക</string>
     <string name="show_preview">ക്യാപ്‌ചർ ചെയ്‌തതിന് ശേഷം ഒരു ഫോട്ടോ പ്രിവ്യൂ കാണിക്കുക</string>
@@ -44,7 +41,7 @@
     <string name="flip_front_camera_photos_horizontally">മുൻ ക്യാമറ ഫോട്ടോകൾ തിരശ്ചീനമായി ഫ്ലിപ്പുചെയ്യുക</string>
     <string name="keep_settings_visible">ക്രമീകരണ ബട്ടൺ ദൃശ്യമാക്കുക </string>
     <string name="always_open_back_camera">എല്ലായ്പ്പോഴും പുറകിലെ ക്യാമറ ഉപയോഗിച്ച് അപ്ലിക്കേഷൻ തുറക്കുക</string>
-    <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="save_photo_metadata">ഫോട്ടോ exif മെറ്റാഡാറ്റ സംരക്ഷിക്കുക</string>
     <string name="photo_compression_quality">ഫോട്ടോ കംപ്രഷൻ ക്വാളിറ്റി</string>
     <string name="shutter">ഷട്ടർ</string>
     <!--
