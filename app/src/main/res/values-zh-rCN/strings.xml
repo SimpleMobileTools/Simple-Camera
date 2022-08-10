@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">简易相机</string>
+    <string name="app_name">简单相机</string>
     <string name="app_launcher_name">相机</string>
     <string name="camera_unavailable">相机不可用</string>
     <string name="camera_open_error">访问相机出错</string>
