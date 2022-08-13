@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
-    <string name="app_launcher_name">Cámara Simple</string>
+    <string name="app_name">Cámara Simple</string>
+    <string name="app_launcher_name">Cámara</string>
     <string name="camera_unavailable">Cámara no disponible</string>
     <string name="camera_open_error">Ha ocurrido un error al acceder a la cámara</string>
     <string name="video_creating_error">Ha ocurrido un error creando el archivo de vídeo</string>
     <string name="video_mode_error">Ha fallado el cambio a modo de vídeo</string>
     <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta de destino al almacenamiento interno</string>
-    <string name="camera_switch_error">Ha fallado el cambio de cámara</string>
+    <string name="camera_switch_error">Cámara Simple</string>
     <string name="click_to_resume_preview">Haga clic en la imagen para reanudar la vista previa</string>
     <string name="photo_not_saved">No se pudo guardar la imagen</string>
-    <string name="setting_resolution_failed">Falló la configuración de la resolución apropiada</string>
+    <string name="setting_resolution_failed">Fallo en la configuración de la resolución apropiada</string>
     <string name="video_recording_failed">Grabación de video fallida, intenta usar una diferente resolución</string>
     <string name="camera_in_use_error">La cámara está siendo utilizada por otra aplicación, por favor cierra la aplicación e inténtalo de nuevo</string>
     <string name="camera_configure_error">Se ha producido un error al configurar la cámara</string>
@@ -19,11 +19,11 @@
     <string name="photo_capture_failed">Fallo en la captura de fotos</string>
     <string name="video_capture_insufficient_storage_error">La grabación de vídeo ha fallado debido a un almacenamiento insuficiente</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_photo_video">Cambiar modo foto/vídeo</string>
+    <string name="change_resolution">Cambiar Resolución</string>
+    <string name="view_last_media">Ver últimos archivos capturados</string>
+    <string name="toggle_camera">Cambiar cámara frontal/trasera</string>
+    <string name="toggle_flash">Cambiar modo linterna</string>
     <!-- FAQ -->
     <string name="faq_1_title">¿Qué calidad de compresión de foto debería establecer?</string>
     <string name="faq_1_text">Depende de tu objetivo. Para propósitos generales, la mayoría de las personas aconsejan usar 75%-80%, y la imagen seguirá siendo de calidad realmente buena, pero el tamaño del archivo es reducido drásticamente comparado con el 100%.</string>

@@ -1,20 +1,20 @@
-Questa pratica app per fotocamera è utilizzabile sia per scattare foto che per registrare video. Puoi anche creare diverse cornici per foto con questo editor di foto estetico e l'app per fotocamere collage. Puoi passare rapidamente dalla fotocamera anteriore a quella posteriore in questa app fotocamera aperta, modificare il percorso di salvataggio o limitare la risoluzione per le cornici fotografiche. Questa app per fotocamera aperta ti aiuta anche a definire cornici per foto in modo da poter scattare foto ad alta risoluzione. Non perderai mai i momenti importanti della tua vita. Sono disponibili molte impostazioni utili per renderlo ancora più personale, adatto alle tue esigenze. Elenchiamo alcuni di loro.
+Questa pratica app per fotocamera è utilizzabile sia per scattare foto che per registrare video. Puoi passare rapidamente dalla fotocamera anteriore a quella posteriore in questa app fotocamera aperta, modificare il percorso di salvataggio o limitare la risoluzione per le cornici fotografiche. Non perderai mai i momenti importanti della tua vita. Sono disponibili molte impostazioni utili per renderlo ancora più personale, adatto alle tue esigenze. Elenchiamo alcuni di loro.
 
-Il flash può essere acceso e spento o utilizzato come utile torcia, cosa che non si vede spesso. Puoi pizzicare lo schermo per ingrandire e rimpicciolire o attivare lo scambio di immagini orizzontali durante l'acquisizione di fantastici ritratti con diverse fantastiche cornici. Puoi anche eseguire la rimozione degli oggetti utilizzando questa app della fotocamera per mettere a fuoco l'oggetto principale nell'immagine piuttosto che consentire ad altri rumori di entrare nell'immagine. La maggior parte delle app della fotocamera non è riuscita a farlo, ma questa app della fotocamera per la rimozione di oggetti ha portato la tecnologia a un livello superiore fornendo questa funzione in questa app. Puoi anche utilizzare lo scambio di volti per divertenti cornici per foto con i tuoi amici e familiari.
+Il flash può essere acceso e spento o utilizzato come utile torcia, cosa che non si vede spesso. Puoi pizzicare lo schermo per ingrandire e rimpicciolire o attivare lo scambio di immagini orizzontali durante l'acquisizione di fantastici ritratti. Con questa app puoi mettere a fuoco l'oggetto principale nell'immagine piuttosto che consentire ad altri rumori di entrare nell'immagine.
 
-Puoi modificare facilmente la risoluzione, la qualità o le proporzioni dell'output con pochi clic, come ti aspetteresti da una moderna app per fotocamera aperta. Questo vale sia per le foto che per i video. La qualità delle immagini e dei video può essere facilmente modificata secondo le tue esigenze. È inoltre possibile aggiungere cornici per foto per rendere la foto o il video finale più sorprendente.
+Puoi modificare facilmente la risoluzione, la qualità o le proporzioni dell'output con pochi clic, come ti aspetteresti da una moderna app per fotocamera aperta. Questo vale sia per le foto che per i video. La qualità delle immagini e dei video può essere facilmente modificata secondo le tue esigenze.
 
 Dopo aver scattato una foto vedrai la nuova miniatura della foto, premendo la quale puoi aprirla rapidamente nella tua galleria preferita usando questa app fotocamera aperta. Vedrai una chiara indicazione di quando la foto viene catturata, garantendo che il file sia stato salvato.
 
-La funzionalità più avanzata che puoi vedere mancare in diverse app è lo scambio di faccia. Questa app della fotocamera ti offre anche la possibilità di scambiare faccia con la tua famiglia e gli amici in modo da poter godere di momenti divertenti con loro. Puoi anche creare un collage di tutte le tue foto e video con questa fotocamera per creare collage. La tecnologia di rimozione degli oggetti ti dà un vantaggio rispetto ad altre app poiché questa funzione conferisce alle tue immagini un aspetto più sorprendente. Attraverso la tecnologia di rimozione degli oggetti, è possibile ottenere immagini più chiare e prive di disturbi.
-
 Se desideri avviare questa app della fotocamera facilmente aperta premendo il pulsante della fotocamera hardware dei tuoi dispositivi, potresti dover disabilitare l'app Fotocamera incorporata in Impostazioni -> App -> Fotocamera -> Disabilita.
 
-Se preferisci la qualità alla velocità, puoi abilitare un'opzione per mettere sempre a fuoco la fotocamera prima di scattare una foto, per assicurarti che il risultato sia cristallino.
+È possibile configurarla in modo che utilizzi i tasti del volume come otturatore o che accenda la torcia per impostazione predefinita all'avvio.
 
 Ha molte altre impostazioni relative al suono dell'otturatore, al flash, ai metadati delle foto, alla qualità delle foto, ecc. Il percorso del file di output può essere personalizzato, così puoi decidere dove vuoi salvare i tuoi media. Supporta sia la memoria interna che le schede SD.
 
-Non contiene pubblicità o autorizzazioni non necessarie. È una fonte di fotocamera completamente aperta, offre colori personalizzabili e opzioni di un creatore di collage.
+È dotato di Material Design e tema scuro, per un'ottima esperienza utente dal facile utilizzo. L'assenza di accesso a Internet offre maggiore privacy, sicurezza e stabilità rispetto ad altre applicazioni.
+
+Non contiene pubblicità o autorizzazioni non necessarie. È una fonte di fotocamera completamente aperta, offre colori personalizzabili.
 
 Dai un'occhiata alla suite completa di Simple Tools qui:
 https://www.simplemobiletools.com

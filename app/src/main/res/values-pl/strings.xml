@@ -10,7 +10,7 @@
     <string name="camera_switch_error">Nie udało się przełączyć aparatu</string>
     <string name="click_to_resume_preview">Naciśnij obraz, aby wznowić podgląd</string>
     <string name="photo_not_saved">Nie udało się zapisać zdjęcia</string>
-    <string name="setting_resolution_failed">Nie udało się ustawić poprawnej rozdzielczości</string>
+    <string name="setting_resolution_failed">Ustawienie odpowiedniej rozdzielczości nie powiodło się</string>
     <string name="video_recording_failed">Nagrywanie wideo nie powiodło się. Spróbuj użyć innej rozdzielczości.</string>
     <string name="camera_in_use_error">Aparat jest używany przez inną aplikację. Zamknij aplikację i spróbuj ponownie.</string>
     <string name="camera_configure_error">Wystąpił błąd podczas konfigurowania aparatu</string>

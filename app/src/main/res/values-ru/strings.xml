@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Простая камера</string>
     <string name="app_launcher_name">Камера</string>
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Невозможно получить доступ к камере</string>
@@ -35,7 +35,7 @@
     <string name="front_camera">Разрешения фронтальной камеры</string>
     <string name="photo">Фото</string>
     <string name="video">Видео</string>
-    <string name="focus_before_capture">Перефокусировка перед захватом</string>
+    <string name="focus_before_capture">Перефокусировка перед съёмкой</string>
     <string name="volume_buttons_as_shutter">Спускать затвор нажатием кнопок громкости</string>
     <string name="turn_flash_off_at_startup">Выключать вспышку при запуске</string>
     <string name="flip_front_camera_photos_horizontally">Отразить фотографии с фронтальной камеры по горизонтали</string>
