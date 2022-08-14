@@ -1,0 +1,29 @@
+Tätä kätevää kamera sovellusta voi käyttää sekä valokuvien ottamiseen että videoiden tallentamiseen. Voit vaihtaa nopeasti etu- ja takakameran välillä tässä avoimessa kamera sovelluksessa, muuttaa tallennuspolkua tai rajoittaa valokuvakehysten resoluutiota. Et koskaan menetä elämäsi tärkeitä hetkiä. Käytettävissä on monia hyödyllisiä asetuksia, joiden avulla voit tehdä kamerasta entistäkin henkilökohtaisemman ja tarpeisiisi sopivamman. Luettelemme joitakin niistä.
+
+Salama voidaan kytkeä päälle ja pois päältä tai sitä voidaan käyttää hyödyllisenä taskulamppuna, jota ei usein näe. Voit nipistää näyttöä zoomataksesi sisään- ja ulospäin tai vaihtaa vaakasuoraa kuvanvaihtoa ottaessasi upeita muotokuvia. Tämän sovelluksen avulla voit keskittyä kuvan pääkohteeseen sen sijaan, että annat muiden äänien tulla kuvaan. 
+
+Voit helposti muuttaa tulostustarkkuutta, laatua tai kuvasuhdetta muutamalla napsautuksella, kuten nykyaikaiselta avoimelta kamera sovellukselta voi odottaa. Tämä koskee sekä valokuvia että videoita. Kuvien ja videoiden laatua voi helposti muuttaa tarpeen mukaan.
+
+Kun olet ottanut kuvan, näet uuden valokuvan pikkukuvan, jota painamalla voit nopeasti avata sen haluamassasi galleriassa tämän avoimen kamerasovelluksen avulla. Näet selkeän merkinnän siitä, milloin kuva on otettu, mikä takaa, että tiedosto on tallennettu.
+
+Jos haluat käynnistää tämän helpon avoimen kamera sovelluksen painamalla laitteesi laitteiston kamera painiketta, sinun on ehkä poistettava sisäänrakennettu kamera sovellus käytöstä kohdassa Asetukset -> Sovellukset -> Kamera -> Poista käytöstä.
+
+Voit määrittää sen käyttämään äänenvoimakkuuspainikkeita sulkimena tai kytkemään taskulampun päälle oletusarvoisesti käynnistyksen yhteydessä.
+
+Siinä on useita muita asetuksia, jotka liittyvät sulkimen ääneen, salamaan, valokuvan metatietoihin, valokuvan laatuun jne. Tulostustiedoston polkua voi mukauttaa, joten voit päättää, mihin haluat tallentaa mediasi. Se tukee sekä sisäistä tallennustilaa että SD-kortteja.
+
+Siinä on oletuksena materiaalinen muotoilu ja tumma teema, mikä tarjoaa loistavan käyttökokemuksen helppokäyttöisyyttä varten. Internet-yhteyden puuttuminen antaa sinulle enemmän yksityisyyttä, turvallisuutta ja vakautta kuin muut sovellukset.
+
+Ei sisällä mainoksia tai tarpeettomia käyttöoikeuksia. Se on täysin avoin kameran lähdekoodi ja tarjoaa muokattavia värejä.
+
+Tutustu koko Simple Tools -pakettiin täällä:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
