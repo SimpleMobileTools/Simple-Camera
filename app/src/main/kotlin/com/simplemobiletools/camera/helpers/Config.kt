@@ -66,6 +66,7 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getInt(FRONT_VIDEO_RESOLUTION_INDEX, 0)
         set(frontVideoResIndex) = prefs.edit().putInt(FRONT_VIDEO_RESOLUTION_INDEX, frontVideoResIndex).apply()
 
+    //TODO: Remove keepSettingsVisible since the view has moved to the top
     var keepSettingsVisible: Boolean
         get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)
         set(keepSettingsVisible) = prefs.edit().putBoolean(KEEP_SETTINGS_VISIBLE, keepSettingsVisible).apply()

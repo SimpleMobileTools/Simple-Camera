@@ -10,7 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.view.*
-import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -32,7 +32,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     companion object {
-        private const val FADE_DELAY = 5000L
         private const val CAPTURE_ANIMATION_DURATION = 100L
     }
 
@@ -84,7 +83,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (hasStorageAndCameraPermissions()) {
             resumeCameraItems()
             setupPreviewImage(mIsInPhotoMode)
-            scheduleFadeOut()
             mFocusCircleView.setStrokeColor(getProperPrimaryColor())
 
             if (isVideoCaptureIntent() && mIsInPhotoMode) {
@@ -216,11 +214,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (btn_holder.layoutParams as RelativeLayout.LayoutParams).setMargins(
+        (video_rec_curr_timer.layoutParams as ConstraintLayout.LayoutParams).setMargins(
             0,
             0,
             0,
-            (navigationBarHeight + resources.getDimension(R.dimen.activity_margin)).toInt()
+            (navigationBarHeight + resources.getDimension(R.dimen.big_margin)).toInt()
         )
 
         checkVideoCaptureIntent()
@@ -310,12 +308,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun launchSettings() {
-        if (settings.alpha == 1f) {
-            val intent = Intent(applicationContext, SettingsActivity::class.java)
-            startActivity(intent)
-        } else {
-            fadeInButtons()
-        }
+        val intent = Intent(applicationContext, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun handleTogglePhotoVideo() {
@@ -413,34 +407,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                     .into(last_photo_video_preview)
             }
         }
-    }
-
-    private fun scheduleFadeOut() {
-        if (!config.keepSettingsVisible) {
-            mFadeHandler.postDelayed({
-                fadeOutButtons()
-            }, FADE_DELAY)
-        }
-    }
-
-    private fun fadeOutButtons() {
-        fadeAnim(settings, .5f)
-        fadeAnim(toggle_photo_video, .0f)
-        fadeAnim(change_resolution, .0f)
-        fadeAnim(last_photo_video_preview, .0f)
-    }
-
-    private fun fadeInButtons() {
-        fadeAnim(settings, 1f)
-        fadeAnim(toggle_photo_video, 1f)
-        fadeAnim(change_resolution, 1f)
-        fadeAnim(last_photo_video_preview, 1f)
-        scheduleFadeOut()
-    }
-
-    private fun fadeAnim(view: View, value: Float) {
-        view.animate().alpha(value).start()
-        view.isClickable = value != .0f
     }
 
     private fun showTimer() {

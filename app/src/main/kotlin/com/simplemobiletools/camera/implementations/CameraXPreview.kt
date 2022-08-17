@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
+import android.util.Rational
 import android.util.Size
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
@@ -14,10 +15,12 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.*
 import androidx.camera.video.VideoCapture
 import androidx.camera.view.PreviewView
+import androidx.camera.view.PreviewView.ScaleType
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.dialogs.ChangeResolutionDialogX
@@ -49,6 +52,7 @@ class CameraXPreview(
     private val mainExecutor = ContextCompat.getMainExecutor(activity)
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     private val mediaSoundHelper = MediaSoundHelper()
+    private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
     private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
     private val exifRemover = ExifRemover(contentResolver)
@@ -120,7 +124,7 @@ class CameraXPreview(
 
     private fun bindCameraUseCases() {
         val cameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
-        val rotation = previewView.display.rotation
+
         val resolution = if (isPhotoCapture) {
             imageQualityManager.getUserSelectedResolution(cameraSelector)
         } else {
@@ -128,20 +132,92 @@ class CameraXPreview(
             MySize(selectedQuality.width, selectedQuality.height)
         }
 
+        val isFullSize = resolution.isFullScreen
+        previewView.scaleType = if (isFullSize) ScaleType.FILL_CENTER else ScaleType.FIT_CENTER
+        val rotation = previewView.display.rotation
         val rotatedResolution = getRotatedResolution(resolution, rotation)
 
-        preview = buildPreview(rotatedResolution, rotation)
+        val previewUseCase = buildPreview(rotatedResolution, rotation)
         val captureUseCase = getCaptureUseCase(rotatedResolution, rotation)
-        cameraProvider.unbindAll()
-        camera = cameraProvider.bindToLifecycle(
-            activity,
-            cameraSelector,
-            preview,
-            captureUseCase,
-        )
 
-        preview?.setSurfaceProvider(previewView.surfaceProvider)
+        cameraProvider.unbindAll()
+        camera = if (isFullSize) {
+            val metrics = windowMetricsCalculator.computeCurrentWindowMetrics(activity).bounds
+            val screenWidth = metrics.width()
+            val screenHeight = metrics.height()
+            val viewPort = ViewPort.Builder(Rational(screenWidth, screenHeight), rotation).build()
+
+            val useCaseGroup = UseCaseGroup.Builder()
+                .addUseCase(previewUseCase)
+                .addUseCase(captureUseCase)
+                .setViewPort(viewPort)
+                .build()
+
+            cameraProvider.bindToLifecycle(
+                activity,
+                cameraSelector,
+                useCaseGroup,
+            )
+        } else {
+            cameraProvider.bindToLifecycle(
+                activity,
+                cameraSelector,
+                previewUseCase,
+                captureUseCase,
+            )
+        }
+
+        previewUseCase.setSurfaceProvider(previewView.surfaceProvider)
+        preview = previewUseCase
         setupZoomAndFocus()
+    }
+
+    private fun getRotatedResolution(resolution: MySize, rotationDegrees: Int): Size {
+        return if (rotationDegrees == Surface.ROTATION_0 || rotationDegrees == Surface.ROTATION_180) {
+            Size(resolution.height, resolution.width)
+        } else {
+            Size(resolution.width, resolution.height)
+        }
+    }
+
+    private fun buildPreview(resolution: Size, rotation: Int): Preview {
+        return Preview.Builder()
+            .setTargetRotation(rotation)
+            .setTargetResolution(resolution)
+            .build()
+    }
+
+    private fun getCaptureUseCase(resolution: Size, rotation: Int): UseCase {
+        return if (isPhotoCapture) {
+            buildImageCapture(resolution, rotation).also {
+                imageCapture = it
+            }
+        } else {
+            buildVideoCapture().also {
+                videoCapture = it
+            }
+        }
+    }
+
+    private fun buildImageCapture(resolution: Size, rotation: Int): ImageCapture {
+        return Builder()
+            .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
+            .setFlashMode(flashMode)
+            .setJpegQuality(config.photoQuality)
+            .setTargetRotation(rotation)
+            .setTargetResolution(resolution)
+            .build()
+    }
+
+    private fun buildVideoCapture(): VideoCapture<Recorder> {
+        val qualitySelector = QualitySelector.from(
+            videoQualityManager.getUserSelectedQuality(cameraSelector).toCameraXQuality(),
+            FallbackStrategy.higherQualityOrLowerThan(Quality.SD),
+        )
+        val recorder = Recorder.Builder()
+            .setQualitySelector(qualitySelector)
+            .build()
+        return VideoCapture.withOutput(recorder)
     }
 
     private fun setupCameraObservers() {
@@ -164,56 +240,6 @@ class CameraXPreview(
 
             cameraErrorHandler.handleCameraError(cameraState?.error)
         }
-    }
-
-    private fun getCaptureUseCase(resolution: Size, rotation: Int): UseCase {
-        return if (isPhotoCapture) {
-            cameraProvider?.unbind(videoCapture)
-            buildImageCapture(resolution, rotation).also {
-                imageCapture = it
-            }
-        } else {
-            cameraProvider?.unbind(imageCapture)
-            buildVideoCapture().also {
-                videoCapture = it
-            }
-        }
-    }
-
-    private fun buildImageCapture(resolution: Size, rotation: Int): ImageCapture {
-        return Builder()
-            .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
-            .setFlashMode(flashMode)
-            .setJpegQuality(config.photoQuality)
-            .setTargetRotation(rotation)
-            .setTargetResolution(resolution)
-            .build()
-    }
-
-    private fun getRotatedResolution(resolution: MySize, rotationDegrees: Int): Size {
-        return if (rotationDegrees == Surface.ROTATION_0 || rotationDegrees == Surface.ROTATION_180) {
-            Size(resolution.height, resolution.width)
-        } else {
-            Size(resolution.width, resolution.height)
-        }
-    }
-
-    private fun buildPreview(resolution: Size, rotation: Int): Preview {
-        return Preview.Builder()
-            .setTargetRotation(rotation)
-            .setTargetResolution(resolution)
-            .build()
-    }
-
-    private fun buildVideoCapture(): VideoCapture<Recorder> {
-        val qualitySelector = QualitySelector.from(
-            videoQualityManager.getUserSelectedQuality(cameraSelector).toCameraXQuality(),
-            FallbackStrategy.higherQualityOrLowerThan(Quality.SD),
-        )
-        val recorder = Recorder.Builder()
-            .setQualitySelector(qualitySelector)
-            .build()
-        return VideoCapture.withOutput(recorder)
     }
 
     private fun hasBackCamera(): Boolean {

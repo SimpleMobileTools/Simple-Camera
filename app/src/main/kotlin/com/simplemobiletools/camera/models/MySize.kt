@@ -4,18 +4,19 @@ import android.content.Context
 import android.util.Size
 import com.simplemobiletools.camera.R
 
-data class MySize(val width: Int, val height: Int) {
+data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = false) {
     companion object {
         private const val ONE_MEGA_PIXEL = 1000000
+        private const val ZERO_MEGA_PIXEL = "0.0"
     }
 
-    val ratio = width / height.toFloat()
+    private val ratio = width / height.toFloat()
 
     val pixels: Int = width * height
 
-    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
+    val megaPixels: String = String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
 
-    fun isSixteenToNine() = ratio == 16 / 9f
+    private fun isSixteenToNine() = ratio == 16 / 9f
 
     private fun isFiveToThree() = ratio == 5 / 3f
 
@@ -36,6 +37,10 @@ data class MySize(val width: Int, val height: Int) {
     private fun isOneNineToOne() = ratio == 1.9f
 
     private fun isSquare() = width == height
+
+    fun isSupported(): Boolean {
+        return (isFourToThree() || isSixteenToNine() || isSquare()) && megaPixels != ZERO_MEGA_PIXEL
+    }
 
     fun getAspectRatio(context: Context) = when {
         isSixteenToNine() -> "16:9"
