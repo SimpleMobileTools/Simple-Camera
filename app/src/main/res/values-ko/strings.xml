@@ -12,24 +12,21 @@
     <string name="photo_not_saved">사진을 저장할 수 없습니다.</string>
     <string name="setting_resolution_failed">해상도 설정에 실패했습니다.</string>
     <string name="video_recording_failed">Video recording failed, try using a different resolution</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">다른 앱에서 카메라를 사용 중입니다. 앱을 닫고 다시 시도하십시오</string>
+    <string name="camera_configure_error">카메라를 구성하는 동안 오류가 발생했습니다</string>
+    <string name="camera_disabled_by_admin_error">관리자가 카메라를 비활성화했습니다</string>
+    <string name="camera_dnd_error">방해 금지 모드가 활성화되었습니다. 비활성화한 후 다시 시도하십시오</string>
+    <string name="photo_capture_failed">사진 캡처 실패</string>
+    <string name="video_capture_insufficient_storage_error">저장 공간이 부족하여 비디오 녹화에 실패했습니다</string>
     <!--Camera Screen Icons Content Description-->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>
     <string name="toggle_camera">Toggle front/back camera</string>
     <string name="toggle_flash">Toggle the flashlight mode</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">사진 압축품질을 무엇으로 설정해야 하나요?</string>
     <string name="faq_1_text">압축품질은 촬영용도에 따라 달라질 수 있지만, 일반적으로 75% -80%를 사용하도록 권고합니다. 75% -80%로 압축 품질을 설정하면 파일 크기는 100%에 비해 크게 줄어듭니다.</string>
-
     <!-- Settings -->
     <string name="save_photos">사진 및 비디오 저장 위치</string>
     <string name="show_preview">캡처 후 사진 미리보기 표시</string>

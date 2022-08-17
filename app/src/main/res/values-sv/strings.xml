@@ -16,7 +16,7 @@
     <string name="camera_configure_error">Ett fel inträffade när kameran konfigurerades</string>
     <string name="camera_disabled_by_admin_error">Kameran är inaktiverad av administratören</string>
     <string name="camera_dnd_error">Läget Stör inte är aktiverat. Inaktivera och försök igen.</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
+    <string name="photo_capture_failed">Det gick inte att ta bilder</string>
     <string name="video_capture_insufficient_storage_error">Videoinspelningen misslyckades på grund av otillräckligt lagringsutrymme</string>
     <!--Camera Screen Icons Content Description-->
     <string name="toggle_photo_video">Växla mellan foto-/videoläge</string>
