@@ -64,16 +64,21 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             setShowWhenLocked(true)
             setTurnScreenOn(true)
             window.insetsController?.hide(WindowInsets.Type.statusBars())
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         } else if (isOreoMr1Plus()) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN or
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
         } else {
             window.addFlags(
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                     WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN or
+                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
     }
@@ -213,6 +218,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
         initButtons()
+
+        (toggle_photo_video.layoutParams as ConstraintLayout.LayoutParams).setMargins(
+            0,
+            statusBarHeight,
+            0,
+            0,
+        )
+
+        val goneMargin = (navigationBarHeight + resources.getDimension(R.dimen.big_margin)).toInt()
+        (shutter.layoutParams as ConstraintLayout.LayoutParams).goneBottomMargin = goneMargin
 
         (video_rec_curr_timer.layoutParams as ConstraintLayout.LayoutParams).setMargins(
             0,
