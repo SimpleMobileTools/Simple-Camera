@@ -514,7 +514,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (available) {
             toggle_flash.beVisible()
         } else {
-            toggle_flash.beInvisible()
+            toggle_flash.beGone()
             toggle_flash.setImageResource(R.drawable.ic_flash_off_vector)
             mPreview?.setFlashlightState(FLASH_OFF)
         }
