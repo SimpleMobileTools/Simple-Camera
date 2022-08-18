@@ -14,7 +14,7 @@
         android:layout_height="match_parent" />
 
     <View
-        android:id="@+id/capture_black_screen"
+        android:id="@+id/shutter_animation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0"

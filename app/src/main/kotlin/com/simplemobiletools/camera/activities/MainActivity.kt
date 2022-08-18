@@ -314,9 +314,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
             mPreview?.tryTakePicture()
-            capture_black_screen.animate().alpha(0.8f).setDuration(CAPTURE_ANIMATION_DURATION).withEndAction {
-                capture_black_screen.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
-            }.start()
+            shutter_animation.alpha = 1.0f
+            shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
         } else {
             mPreview?.toggleRecording()
         }
@@ -527,11 +526,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun toggleBottomButtons(hide: Boolean) {
         runOnUiThread {
-            val alpha = if (hide) 0f else 1f
-            shutter.animate().alpha(alpha).start()
-            toggle_camera.animate().alpha(alpha).start()
-            toggle_flash.animate().alpha(alpha).start()
-
             shutter.isClickable = !hide
             toggle_camera.isClickable = !hide
             toggle_flash.isClickable = !hide
