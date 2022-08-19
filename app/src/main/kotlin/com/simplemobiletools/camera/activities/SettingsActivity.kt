@@ -34,7 +34,6 @@ class SettingsActivity : SimpleActivity() {
         setupSound()
         setupVolumeButtonsAsShutter()
         setupFlipPhotos()
-        setupKeepSettingsVisible()
         setupSavePhotoMetadata()
         setupSavePhotosFolder()
         setupPhotoQuality()
@@ -99,10 +98,6 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
         settings_use_english.isChecked = config.useEnglish
 
-        if (settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone()) {
-            settings_keep_settings_visible_holder.background = ResourcesCompat.getDrawable(resources, R.drawable.ripple_all_corners, theme)
-        }
-
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
@@ -151,14 +146,6 @@ class SettingsActivity : SimpleActivity() {
         settings_flip_photos_holder.setOnClickListener {
             settings_flip_photos.toggle()
             config.flipPhotos = settings_flip_photos.isChecked
-        }
-    }
-
-    private fun setupKeepSettingsVisible() {
-        settings_keep_settings_visible.isChecked = config.keepSettingsVisible
-        settings_keep_settings_visible_holder.setOnClickListener {
-            settings_keep_settings_visible.toggle()
-            config.keepSettingsVisible = settings_keep_settings_visible.isChecked
         }
     }
 
