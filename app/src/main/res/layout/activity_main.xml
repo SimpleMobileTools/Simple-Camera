@@ -30,21 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/toggle_photo_video"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/normal_margin"
-        android:contentDescription="@string/toggle_photo_video"
-        android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_video_vector"
-        app:layout_constraintEnd_toStartOf="@id/toggle_flash"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/toggle_flash"
         android:layout_width="@dimen/icon_size"
@@ -56,15 +41,15 @@
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_flash_off_vector"
         app:layout_constraintEnd_toStartOf="@id/change_resolution"
-        app:layout_constraintStart_toEndOf="@id/toggle_photo_video"
-        app:layout_constraintTop_toTopOf="@id/toggle_photo_video" />
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
         android:id="@+id/change_resolution"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_below="@+id/toggle_photo_video"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
@@ -73,7 +58,7 @@
         android:src="@drawable/ic_resolution_vector"
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/toggle_flash"
-        app:layout_constraintTop_toTopOf="@id/toggle_photo_video" />
+        app:layout_constraintTop_toTopOf="@id/toggle_flash" />
 
     <ImageView
         android:id="@+id/settings"
@@ -86,7 +71,7 @@
         android:src="@drawable/ic_settings_cog_vector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/change_resolution"
-        app:layout_constraintTop_toTopOf="@id/toggle_photo_video" />
+        app:layout_constraintTop_toTopOf="@id/toggle_flash" />
 
 
     <androidx.constraintlayout.widget.Barrier
@@ -94,8 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="settings,change_resolution,toggle_flash,toggle_photo_video" />
-
+        app:constraint_referenced_ids="settings,change_resolution,toggle_flash" />
 
     <View
         android:id="@+id/bottom_overlay"
@@ -105,7 +89,38 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/shutter" />
+        app:layout_constraintTop_toTopOf="@id/camera_mode_tab" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/camera_mode_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/shutter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@drawable/tab_indicator"
+        app:tabIndicator="@null"
+        app:tabMode="auto"
+        app:tabRippleColor="@color/md_grey_600_dark"
+        app:tabSelectedTextColor="@color/md_grey_600_dark"
+        app:tabTextColor="@color/md_grey_white">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/camera_mode_tab_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/video" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/camera_mode_tab_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/photo" />
+
+    </com.google.android.material.tabs.TabLayout>
+
 
     <ImageView
         android:id="@+id/toggle_camera"

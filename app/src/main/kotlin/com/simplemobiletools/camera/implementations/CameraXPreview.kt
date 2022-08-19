@@ -31,6 +31,7 @@ import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import kotlin.math.abs
 
 class CameraXPreview(
     private val activity: AppCompatActivity,
@@ -45,6 +46,7 @@ class CameraXPreview(
         // Auto focus is 1/6 of the area.
         private const val AF_SIZE = 1.0f / 6.0f
         private const val AE_SIZE = AF_SIZE * 1.5f
+        private const val MIN_SWIPE_DISTANCE_X = 100
     }
 
     private val config = activity.config
@@ -278,11 +280,26 @@ class CameraXPreview(
                     true
                 } ?: false
             }
+
+            override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                val deltaX = event1.x - event2.x
+                val deltaXAbs = abs(deltaX)
+
+                if (deltaXAbs >= MIN_SWIPE_DISTANCE_X) {
+                    if (deltaX > 0) {
+                        listener.onSwipeLeft()
+                    } else {
+                        listener.onSwipeRight()
+                    }
+                }
+
+                return true
+            }
         })
         previewView.setOnTouchListener { _, event ->
-            gestureDetector.onTouchEvent(event)
-            scaleGesture?.onTouchEvent(event)
-            true
+            val handledGesture = gestureDetector.onTouchEvent(event)
+            val handledScaleGesture = scaleGesture?.onTouchEvent(event)
+            handledGesture || handledScaleGesture ?: false
         }
     }
 

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
@@ -33,6 +34,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     companion object {
         private const val CAPTURE_ANIMATION_DURATION = 100L
+        private const val PHOTO_MODE_INDEX = 1
+        private const val VIDEO_MODE_INDEX = 0
     }
 
     lateinit var mTimerHandler: Handler
@@ -48,6 +51,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
     var mLastHandledOrientation = 0
+
+    private val tabSelectedListener = object : TabSelectedListener {
+        override fun onTabSelected(tab: TabLayout.Tab) {
+            handleTogglePhotoVideo()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
@@ -81,6 +90,32 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
+
+        selectPhotoTab()
+    }
+
+    private fun selectPhotoTab(triggerListener: Boolean = false) {
+        if (!triggerListener) {
+            removeTabListener()
+        }
+        camera_mode_tab.getTabAt(PHOTO_MODE_INDEX)?.select()
+        setTabListener()
+    }
+
+    private fun selectVideoTab(triggerListener: Boolean = false) {
+        if (!triggerListener) {
+            removeTabListener()
+        }
+        camera_mode_tab.getTabAt(VIDEO_MODE_INDEX)?.select()
+        setTabListener()
+    }
+
+    private fun setTabListener() {
+        camera_mode_tab.addOnTabSelectedListener(tabSelectedListener)
+    }
+
+    private fun removeTabListener() {
+        camera_mode_tab.removeOnTabSelectedListener(tabSelectedListener)
     }
 
     override fun onResume() {
@@ -158,9 +193,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun hideIntentButtons() {
-        toggle_photo_video.beGone()
+        camera_mode_tab.beGone()
         settings.beGone()
-        last_photo_video_preview.beGone()
+        last_photo_video_preview.beInvisible()
     }
 
     private fun tryInitCamera() {
@@ -193,6 +228,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
+    private fun is3rdPartyIntent() = isVideoCaptureIntent() || isImageCaptureIntent()
+
     private fun isImageCaptureIntent(): Boolean = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
 
     private fun isVideoCaptureIntent(): Boolean = intent?.action == MediaStore.ACTION_VIDEO_CAPTURE
@@ -219,7 +256,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (toggle_photo_video.layoutParams as ConstraintLayout.LayoutParams).setMargins(
+        (toggle_flash.layoutParams as ConstraintLayout.LayoutParams).setMargins(
             0,
             statusBarHeight,
             0,
@@ -237,8 +274,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         )
 
         checkVideoCaptureIntent()
+        if (mIsInPhotoMode) {
+            selectPhotoTab()
+        } else {
+            selectVideoTab()
+        }
+
         val outputUri = intent.extras?.get(MediaStore.EXTRA_OUTPUT) as? Uri
-        val is3rdPartyIntent = isVideoCaptureIntent() || isImageCaptureIntent()
+        val is3rdPartyIntent = is3rdPartyIntent()
         mPreview = CameraXInitializer(this).createCameraXPreview(
             preview_view,
             listener = this,
@@ -271,7 +314,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         toggle_flash.setOnClickListener { toggleFlash() }
         shutter.setOnClickListener { shutterPressed() }
         settings.setOnClickListener { launchSettings() }
-        toggle_photo_video.setOnClickListener { handleTogglePhotoVideo() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
     }
 
@@ -332,6 +374,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 togglePhotoVideo()
             } else {
                 toast(R.string.no_audio_permissions)
+                selectPhotoTab()
                 if (isVideoCaptureIntent()) {
                     finish()
                 }
@@ -369,10 +412,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initPhotoMode() {
-        toggle_photo_video.setImageResource(R.drawable.ic_video_vector)
         shutter.setImageResource(R.drawable.ic_shutter_vector)
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
+        selectPhotoTab()
     }
 
     private fun tryInitVideoMode() {
@@ -387,10 +430,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initVideoButtons() {
-        toggle_photo_video.setImageResource(R.drawable.ic_camera_vector)
         shutter.setImageResource(R.drawable.ic_video_rec)
         setupPreviewImage(false)
         mPreview?.checkFlashlight()
+        selectVideoTab()
     }
 
     private fun setupPreviewImage(isPhoto: Boolean) {
@@ -487,7 +530,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun animateViews(degrees: Int) {
-        val views = arrayOf<View>(toggle_camera, toggle_flash, toggle_photo_video, change_resolution, shutter, settings, last_photo_video_preview)
+        val views = arrayOf<View>(toggle_camera, toggle_flash, change_resolution, shutter, settings, last_photo_video_preview)
         for (view in views) {
             rotate(view, degrees)
         }
@@ -514,7 +557,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (available) {
             toggle_flash.beVisible()
         } else {
-            toggle_flash.beGone()
+            toggle_flash.beInvisible()
             toggle_flash.setImageResource(R.drawable.ic_flash_off_vector)
             mPreview?.setFlashlightState(FLASH_OFF)
         }
@@ -585,6 +628,18 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onFocusCamera(xPos: Float, yPos: Float) {
         mFocusCircleView.drawFocusCircle(xPos, yPos)
+    }
+
+    override fun onSwipeLeft() {
+        if (!is3rdPartyIntent()) {
+            selectPhotoTab(triggerListener = true)
+        }
+    }
+
+    override fun onSwipeRight() {
+        if (!is3rdPartyIntent()) {
+            selectVideoTab(triggerListener = true)
+        }
     }
 
     fun setRecordingState(isRecording: Boolean) {
