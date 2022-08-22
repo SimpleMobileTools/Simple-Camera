@@ -2,6 +2,8 @@ package com.simplemobiletools.camera.models
 
 import android.content.Context
 import android.util.Size
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import com.simplemobiletools.camera.R
 
 data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = false) {
@@ -55,6 +57,28 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
         isSquare() -> "1:1"
         isTwoToOne() -> "2:1"
         else -> context.resources.getString(R.string.other)
+    }
+
+    @DrawableRes
+    fun getImageResId(): Int = when {
+        isFullScreen -> R.drawable.ic_photo_full
+        isSixteenToNine() -> R.drawable.ic_photo_16x9
+        isFourToThree() -> R.drawable.ic_photo_4x3
+        isSquare() -> R.drawable.ic_photo_1x1
+        else -> throw UnsupportedOperationException("This size $this is not supported")
+    }
+
+    @IdRes
+    fun getButtonId(): Int = when {
+        isFullScreen -> R.id.photo_full
+        isSixteenToNine() -> R.id.photo_16x9
+        isFourToThree() -> R.id.photo_4x3
+        isSquare() -> R.id.photo_1x1
+        else -> throw UnsupportedOperationException("This size $this is not supported")
+    }
+
+    fun toResolutionOption(): ResolutionOption {
+        return ResolutionOption(buttonViewId = getButtonId(), imageDrawableResId = getImageResId())
     }
 
     fun toSize() = Size(width, height)

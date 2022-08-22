@@ -4,10 +4,24 @@
     <style name="AppTheme" parent="AppTheme.Base" />
 
     <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlineButton.IconOnly" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconTint">@null</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="iconSize">@dimen/toggle_icon_size</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minWidth">@dimen/icon_size</item>
+        <item name="android:minHeight">@dimen/icon_size</item>
     </style>
 
 </resources>

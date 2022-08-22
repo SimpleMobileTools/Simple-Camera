@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/preview_view"
@@ -20,20 +20,38 @@
         android:alpha="0"
         android:background="@color/md_grey_black" />
 
-    <View
-        android:id="@+id/top_overlay"
+    <include
+        layout="@layout/layout_media_size"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/gradient_background_flipped"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <include
+        layout="@layout/layout_flash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/top_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="settings,change_resolution,toggle_flash" />
 
     <ImageView
         android:id="@+id/toggle_flash"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/top_icon_size"
+        android:layout_height="@dimen/top_icon_size"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_weight="1"
@@ -48,22 +66,22 @@
 
     <ImageView
         android:id="@+id/change_resolution"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/top_icon_size"
+        android:layout_height="@dimen/top_icon_size"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:contentDescription="@string/resolution"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_resolution_vector"
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/toggle_flash"
-        app:layout_constraintTop_toTopOf="@id/toggle_flash" />
+        app:layout_constraintTop_toTopOf="@id/toggle_flash"
+        tools:src="@drawable/ic_photo_4x3" />
 
     <ImageView
         android:id="@+id/settings"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/top_icon_size"
+        android:layout_height="@dimen/top_icon_size"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:contentDescription="@string/settings"
@@ -85,7 +103,8 @@
         android:id="@+id/bottom_overlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/gradient_background"
+        android:alpha="0.3"
+        android:background="@color/gradient_grey_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

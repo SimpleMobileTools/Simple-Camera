@@ -20,7 +20,7 @@ interface MyPreview {
 
     fun toggleFrontBackCamera()
 
-    fun toggleFlashlight()
+    fun toggleFlashlight() = Unit
 
     fun tryTakePicture()
 
@@ -31,4 +31,6 @@ interface MyPreview {
     fun initVideoMode()
 
     fun checkFlashlight() = Unit
+
+    fun showChangeResolution() = Unit
 }

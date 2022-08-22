@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <item name="photo_full" type="id" />
+   <item name="photo_16x9" type="id" />
+   <item name="photo_4x3" type="id" />
+   <item name="photo_1x1" type="id" />
+   <item name="video_sd" type="id" />
+   <item name="video_hd" type="id" />
+   <item name="video_fhd" type="id" />
+   <item name="video_uhd" type="id" />
+</resources>

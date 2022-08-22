@@ -10,30 +10,41 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.view.*
+import android.widget.LinearLayout
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.WindowCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.idToAppFlashMode
+import com.simplemobiletools.camera.extensions.toFlashModeId
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.CameraXInitializer
 import com.simplemobiletools.camera.implementations.CameraXPreviewListener
 import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.ResolutionOption
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
 import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.flash_auto
+import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
+import kotlinx.android.synthetic.main.layout_media_size.media_size_toggle_group
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     companion object {
-        private const val CAPTURE_ANIMATION_DURATION = 100L
+        private const val CAPTURE_ANIMATION_DURATION = 500L
         private const val PHOTO_MODE_INDEX = 1
         private const val VIDEO_MODE_INDEX = 0
     }
@@ -43,9 +54,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCameraImpl
-
     private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
+    private var buttonCheckedListener: MaterialButtonToggleGroup.OnButtonCheckedListener? = null
     private var mIsInPhotoMode = true
     private var mIsCameraAvailable = false
     private var mIsHardwareShutterHandled = false
@@ -63,6 +74,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         initVariables()
         tryInitCamera()
@@ -153,6 +165,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onDestroy() {
         super.onDestroy()
         mPreview = null
+    }
+
+    override fun onBackPressed() {
+        if (!closeOptions()) {
+            super.onBackPressed()
+        }
     }
 
     private fun initVariables() {
@@ -263,14 +281,28 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             0,
         )
 
-        val goneMargin = (navigationBarHeight + resources.getDimension(R.dimen.big_margin)).toInt()
+        (flash_toggle_group.layoutParams as ConstraintLayout.LayoutParams).setMargins(
+            0,
+            statusBarHeight,
+            0,
+            0,
+        )
+
+        (media_size_toggle_group.layoutParams as ConstraintLayout.LayoutParams).setMargins(
+            0,
+            statusBarHeight,
+            0,
+            0,
+        )
+
+        val goneMargin = (navigationBarHeight + resources.getDimension(R.dimen.bigger_margin)).toInt()
         (shutter.layoutParams as ConstraintLayout.LayoutParams).goneBottomMargin = goneMargin
 
         (video_rec_curr_timer.layoutParams as ConstraintLayout.LayoutParams).setMargins(
             0,
             0,
             0,
-            (navigationBarHeight + resources.getDimension(R.dimen.big_margin)).toInt()
+            (navigationBarHeight + resources.getDimension(R.dimen.bigger_margin)).toInt()
         )
 
         checkVideoCaptureIntent()
@@ -314,7 +346,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         toggle_flash.setOnClickListener { toggleFlash() }
         shutter.setOnClickListener { shutterPressed() }
         settings.setOnClickListener { launchSettings() }
-        change_resolution.setOnClickListener { mPreview?.showChangeResolutionDialog() }
+        change_resolution.setOnClickListener { mPreview?.showChangeResolution() }
+        flash_toggle_group.check(config.flashlightState.toFlashModeId())
+        flash_toggle_group.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val flashMode = checkedId.idToAppFlashMode()
+                closeOptions()
+                mPreview?.setFlashlightState(flashMode)
+            }
+        }
     }
 
     private fun toggleCamera() {
@@ -332,7 +372,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun toggleFlash() {
         if (checkCameraAvailable()) {
-            mPreview?.toggleFlashlight()
+           showFlashOptions(mIsInPhotoMode)
         }
     }
 
@@ -640,6 +680,95 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!is3rdPartyIntent()) {
             selectVideoTab(triggerListener = true)
         }
+    }
+
+    override fun onTouchPreview() {
+        closeOptions()
+    }
+
+    private fun closeOptions(): Boolean {
+        if (media_size_toggle_group.isVisible()) {
+            media_size_toggle_group.beGone()
+            top_group.beVisible()
+            return true
+        }
+
+        if (flash_toggle_group.isVisible()) {
+            flash_toggle_group.beGone()
+            top_group.beVisible()
+            return true
+        }
+        return false
+    }
+
+    override fun displaySelectedResolution(resolutionOption: ResolutionOption) {
+        val imageRes = resolutionOption.imageDrawableResId
+        change_resolution.setImageResource(imageRes)
+    }
+
+    override fun showImageSizes(
+        selectedResolution: ResolutionOption,
+        resolutions: List<ResolutionOption>,
+        isPhotoCapture: Boolean,
+        isFrontCamera: Boolean,
+        onSelect: (changed: Boolean) -> Unit
+    ) {
+
+        media_size_toggle_group.removeAllViews()
+        media_size_toggle_group.clearChecked()
+
+        resolutions.map(::createButton).forEach { button ->
+            media_size_toggle_group.addView(button)
+        }
+
+        buttonCheckedListener?.let { media_size_toggle_group.removeOnButtonCheckedListener(it) }
+        buttonCheckedListener = MaterialButtonToggleGroup.OnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val index = resolutions.indexOfFirst { it.buttonViewId == checkedId }
+                if (isPhotoCapture) {
+                    if (isFrontCamera) {
+                        config.frontPhotoResIndex = index
+                    } else {
+                        config.backPhotoResIndex = index
+                    }
+                } else {
+                    if (isFrontCamera) {
+                        config.frontVideoResIndex = index
+                    } else {
+                        config.backVideoResIndex = index
+                    }
+                }
+                closeOptions()
+                onSelect.invoke(selectedResolution.buttonViewId != checkedId)
+            }
+        }
+        buttonCheckedListener?.let {
+            media_size_toggle_group.check(selectedResolution.buttonViewId)
+            media_size_toggle_group.addOnButtonCheckedListener(it)
+        }
+        showResolutionOptions()
+    }
+
+    private fun createButton(resolutionOption: ResolutionOption): MaterialButton {
+        val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+            weight = 1f
+        }
+        return (layoutInflater.inflate(R.layout.layout_button, null) as MaterialButton).apply {
+            layoutParams = params
+            icon = AppCompatResources.getDrawable(context, resolutionOption.imageDrawableResId)
+            id = resolutionOption.buttonViewId
+        }
+    }
+
+    private fun showResolutionOptions() {
+        top_group.beInvisible()
+        media_size_toggle_group.beVisible()
+    }
+
+    override fun showFlashOptions(photoCapture: Boolean) {
+        flash_auto.beVisibleIf(photoCapture)
+        top_group.beInvisible()
+        flash_toggle_group.beVisible()
     }
 
     fun setRecordingState(isRecording: Boolean) {

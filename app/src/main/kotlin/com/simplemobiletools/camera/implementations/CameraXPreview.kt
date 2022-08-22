@@ -29,6 +29,7 @@ import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.camera.models.MySize
+import com.simplemobiletools.camera.models.ResolutionOption
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import kotlin.math.abs
@@ -128,9 +129,13 @@ class CameraXPreview(
         val cameraProvider = cameraProvider ?: throw IllegalStateException("Camera initialization failed.")
 
         val resolution = if (isPhotoCapture) {
-            imageQualityManager.getUserSelectedResolution(cameraSelector)
+            imageQualityManager.getUserSelectedResolution(cameraSelector).also {
+                displaySelectedResolution(it.toResolutionOption())
+            }
         } else {
-            val selectedQuality = videoQualityManager.getUserSelectedQuality(cameraSelector)
+            val selectedQuality = videoQualityManager.getUserSelectedQuality(cameraSelector).also {
+                displaySelectedResolution(it.toResolutionOption())
+            }
             MySize(selectedQuality.width, selectedQuality.height)
         }
 
@@ -172,6 +177,10 @@ class CameraXPreview(
         previewUseCase.setSurfaceProvider(previewView.surfaceProvider)
         preview = previewUseCase
         setupZoomAndFocus()
+    }
+
+    private fun displaySelectedResolution(resolutionOption: ResolutionOption) {
+        listener.displaySelectedResolution(resolutionOption)
     }
 
     private fun getRotatedResolution(resolution: MySize, rotationDegrees: Int): Size {
@@ -261,6 +270,11 @@ class CameraXPreview(
     private fun setupZoomAndFocus() {
         val scaleGesture = camera?.let { ScaleGestureDetector(activity, PinchToZoomOnScaleGestureListener(it.cameraInfo, it.cameraControl)) }
         val gestureDetector = GestureDetector(activity, object : SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent?): Boolean {
+                listener.onTouchPreview()
+                return super.onDown(e)
+            }
+
             override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
                 return camera?.cameraInfo?.let {
                     val display = displayManager.getDisplay(Display.DEFAULT_DISPLAY)
@@ -326,6 +340,28 @@ class CameraXPreview(
         }
     }
 
+    override fun showChangeResolution() {
+        val imageSizes = imageQualityManager.getSupportedResolutions(cameraSelector)
+        val videoSizes = videoQualityManager.getSupportedQualities(cameraSelector)
+        val selectedVideoSize = videoQualityManager.getUserSelectedQuality(cameraSelector)
+        val selectedImageSize = imageQualityManager.getUserSelectedResolution(cameraSelector)
+
+        val selectedResolution = if (isPhotoCapture) selectedImageSize.toResolutionOption() else selectedVideoSize.toResolutionOption()
+        val resolutions = if (isPhotoCapture) imageSizes.map { it.toResolutionOption() } else videoSizes.map { it.toResolutionOption() }
+
+        listener.showImageSizes(
+            selectedResolution = selectedResolution,
+            resolutions = resolutions,
+            isPhotoCapture = isPhotoCapture,
+            isFrontCamera = isFrontCameraInUse()
+        ) { changed ->
+            if (changed) {
+                currentRecording?.stop()
+            }
+            startCamera()
+        }
+    }
+
     override fun toggleFrontBackCamera() {
         val newCameraSelector = if (isFrontCameraInUse()) {
             CameraSelector.DEFAULT_BACK_CAMERA
@@ -337,22 +373,10 @@ class CameraXPreview(
         startCamera(switching = true)
     }
 
-    override fun toggleFlashlight() {
-        val newFlashMode = if (isPhotoCapture) {
-            when (flashMode) {
-                FLASH_MODE_OFF -> FLASH_MODE_ON
-                FLASH_MODE_ON -> FLASH_MODE_AUTO
-                FLASH_MODE_AUTO -> FLASH_MODE_OFF
-                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
-            }
-        } else {
-            when (flashMode) {
-                FLASH_MODE_OFF -> FLASH_MODE_ON
-                FLASH_MODE_ON -> FLASH_MODE_OFF
-                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
-            }.also {
-                camera?.cameraControl?.enableTorch(it == FLASH_MODE_ON)
-            }
+    override fun setFlashlightState(state: Int) {
+        val newFlashMode = state.toCameraXFlashMode()
+        if (!isPhotoCapture) {
+            camera?.cameraControl?.enableTorch(newFlashMode == FLASH_MODE_ON)
         }
         flashMode = newFlashMode
         imageCapture?.flashMode = newFlashMode

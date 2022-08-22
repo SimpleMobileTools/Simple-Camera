@@ -53,7 +53,7 @@ class ImageQualityManager(
     fun getUserSelectedResolution(cameraSelector: CameraSelector): MySize {
         val resolutions = getSupportedResolutions(cameraSelector)
         var index = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontPhotoResIndex else config.backPhotoResIndex
-        index = index.coerceAtMost(resolutions.lastIndex)
+        index = index.coerceAtMost(resolutions.lastIndex).coerceAtLeast(0)
         return resolutions[index]
     }
 
