@@ -59,6 +59,7 @@ class CameraXPreview(
     private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
     private val exifRemover = ExifRemover(contentResolver)
+    private val mediaSizeStore = MediaSizeStore(config)
 
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
         @SuppressLint("RestrictedApi")
@@ -359,10 +360,11 @@ class CameraXPreview(
                 resolutions = resolutions,
                 isPhotoCapture = isPhotoCapture,
                 isFrontCamera = isFrontCameraInUse()
-            ) { changed ->
+            ) { index, changed ->
                 if (changed) {
                     currentRecording?.stop()
                 }
+                mediaSizeStore.storeSize(isPhotoCapture, isFrontCameraInUse(), index)
                 startCamera()
             }
         } else {
@@ -371,19 +373,7 @@ class CameraXPreview(
     }
 
     private fun toggleResolutions(resolutions: List<ResolutionOption>) {
-        val currentIndex = if (isPhotoCapture) {
-            if (isFrontCameraInUse()) {
-                config.frontPhotoResIndex
-            } else {
-                config.backPhotoResIndex
-            }
-        } else {
-            if (isFrontCameraInUse()) {
-                config.frontVideoResIndex
-            } else {
-                config.backVideoResIndex
-            }
-        }
+        val currentIndex = mediaSizeStore.getCurrentSizeIndex(isPhotoCapture, isFrontCameraInUse())
 
         val nextIndex = if (currentIndex >= resolutions.lastIndex) {
             0
@@ -391,19 +381,7 @@ class CameraXPreview(
             currentIndex + 1
         }
 
-        if (isPhotoCapture) {
-            if (isFrontCameraInUse()) {
-                config.frontPhotoResIndex = nextIndex
-            } else {
-                config.backPhotoResIndex = nextIndex
-            }
-        } else {
-            if (isFrontCameraInUse()) {
-                config.frontVideoResIndex = nextIndex
-            } else {
-                config.backVideoResIndex = nextIndex
-            }
-        }
+        mediaSizeStore.storeSize(isPhotoCapture, isFrontCameraInUse(), nextIndex)
         currentRecording?.stop()
         startCamera()
 

@@ -26,7 +26,8 @@ interface CameraXPreviewListener {
         resolutions: List<ResolutionOption>,
         isPhotoCapture: Boolean,
         isFrontCamera: Boolean,
-        onSelect: (changed:Boolean) -> Unit,
+        onSelect: (index: Int, changed: Boolean) -> Unit,
     )
+
     fun showFlashOptions(photoCapture: Boolean)
 }

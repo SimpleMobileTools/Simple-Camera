@@ -20,8 +20,8 @@ class VideoQualityManager(
         private val CAMERA_SELECTORS = arrayOf(CameraSelector.DEFAULT_BACK_CAMERA, CameraSelector.DEFAULT_FRONT_CAMERA)
     }
 
-    private val config = activity.config
     private val videoQualities = mutableListOf<CameraSelectorVideoQualities>()
+    private val mediaSizeStore = MediaSizeStore(activity.config)
 
     fun initSupportedQualities(cameraProvider: ProcessCameraProvider) {
         if (videoQualities.isEmpty()) {
@@ -45,8 +45,8 @@ class VideoQualityManager(
     }
 
     fun getUserSelectedQuality(cameraSelector: CameraSelector): VideoQuality {
-        var selectionIndex = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontVideoResIndex else config.backVideoResIndex
-        selectionIndex = selectionIndex.coerceAtLeast(0)
+        val isFrontCamera = cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
+        val selectionIndex = mediaSizeStore.getCurrentSizeIndex(isPhotoCapture = false, isFrontCamera = isFrontCamera).coerceAtLeast(0)
         return getSupportedQualities(cameraSelector).getOrElse(selectionIndex) { VideoQuality.HD }
     }
 

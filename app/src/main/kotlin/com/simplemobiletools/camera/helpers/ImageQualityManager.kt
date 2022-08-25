@@ -20,8 +20,8 @@ class ImageQualityManager(
     }
 
     private val cameraManager = activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-    private val config = activity.config
     private val imageQualities = mutableListOf<CameraSelectorImageQualities>()
+    private val mediaSizeStore = MediaSizeStore(activity.config)
 
     fun initSupportedQualities() {
         if (imageQualities.isEmpty()) {
@@ -52,7 +52,8 @@ class ImageQualityManager(
 
     fun getUserSelectedResolution(cameraSelector: CameraSelector): MySize {
         val resolutions = getSupportedResolutions(cameraSelector)
-        var index = if (cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA) config.frontPhotoResIndex else config.backPhotoResIndex
+        val isFrontCamera = cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
+        var index = mediaSizeStore.getCurrentSizeIndex(isPhotoCapture = true, isFrontCamera = isFrontCamera)
         index = index.coerceAtMost(resolutions.lastIndex).coerceAtLeast(0)
         return resolutions[index]
     }

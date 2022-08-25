@@ -702,29 +702,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         resolutions: List<ResolutionOption>,
         isPhotoCapture: Boolean,
         isFrontCamera: Boolean,
-        onSelect: (changed: Boolean) -> Unit
+        onSelect: (index: Int, changed: Boolean) -> Unit
     ) {
 
         media_size_toggle_group.removeAllViews()
         media_size_toggle_group.clearChecked()
 
         val onItemClick = { clickedViewId: Int ->
-            val index = resolutions.indexOfFirst { it.buttonViewId == clickedViewId }
-            if (isPhotoCapture) {
-                if (isFrontCamera) {
-                    config.frontPhotoResIndex = index
-                } else {
-                    config.backPhotoResIndex = index
-                }
-            } else {
-                if (isFrontCamera) {
-                    config.frontVideoResIndex = index
-                } else {
-                    config.backVideoResIndex = index
-                }
-            }
             closeOptions()
-            onSelect.invoke(selectedResolution.buttonViewId != clickedViewId)
+            val index = resolutions.indexOfFirst { it.buttonViewId == clickedViewId }
+            onSelect.invoke(index, selectedResolution.buttonViewId != clickedViewId)
         }
 
         resolutions.map {
