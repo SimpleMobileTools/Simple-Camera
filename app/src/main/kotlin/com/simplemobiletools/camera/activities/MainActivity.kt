@@ -21,7 +21,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
@@ -59,7 +58,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private lateinit var mCameraImpl: MyCameraImpl
     private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
-    private var buttonCheckedListener: MaterialButtonToggleGroup.OnButtonCheckedListener? = null
     private var mIsInPhotoMode = true
     private var mIsCameraAvailable = false
     private var mIsHardwareShutterHandled = false
@@ -361,7 +359,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun toggleFlash() {
         if (checkCameraAvailable()) {
-            showFlashOptions(mIsInPhotoMode)
+            if (mIsInPhotoMode) {
+                showFlashOptions(mIsInPhotoMode)
+            } else {
+                mPreview?.toggleFlashlight()
+            }
         }
     }
 
@@ -706,39 +708,36 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         media_size_toggle_group.removeAllViews()
         media_size_toggle_group.clearChecked()
 
-        resolutions.map(::createButton).forEach { button ->
+        val onItemClick = { clickedViewId: Int ->
+            val index = resolutions.indexOfFirst { it.buttonViewId == clickedViewId }
+            if (isPhotoCapture) {
+                if (isFrontCamera) {
+                    config.frontPhotoResIndex = index
+                } else {
+                    config.backPhotoResIndex = index
+                }
+            } else {
+                if (isFrontCamera) {
+                    config.frontVideoResIndex = index
+                } else {
+                    config.backVideoResIndex = index
+                }
+            }
+            closeOptions()
+            onSelect.invoke(selectedResolution.buttonViewId != clickedViewId)
+        }
+
+        resolutions.map {
+            createButton(it, onItemClick)
+        }.forEach { button ->
             media_size_toggle_group.addView(button)
         }
 
-        buttonCheckedListener?.let { media_size_toggle_group.removeOnButtonCheckedListener(it) }
-        buttonCheckedListener = MaterialButtonToggleGroup.OnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                val index = resolutions.indexOfFirst { it.buttonViewId == checkedId }
-                if (isPhotoCapture) {
-                    if (isFrontCamera) {
-                        config.frontPhotoResIndex = index
-                    } else {
-                        config.backPhotoResIndex = index
-                    }
-                } else {
-                    if (isFrontCamera) {
-                        config.frontVideoResIndex = index
-                    } else {
-                        config.backVideoResIndex = index
-                    }
-                }
-                closeOptions()
-                onSelect.invoke(selectedResolution.buttonViewId != checkedId)
-            }
-        }
-        buttonCheckedListener?.let {
-            media_size_toggle_group.check(selectedResolution.buttonViewId)
-            media_size_toggle_group.addOnButtonCheckedListener(it)
-        }
+        media_size_toggle_group.check(selectedResolution.buttonViewId)
         showResolutionOptions()
     }
 
-    private fun createButton(resolutionOption: ResolutionOption): MaterialButton {
+    private fun createButton(resolutionOption: ResolutionOption, onClick: (clickedViewId: Int) -> Unit): MaterialButton {
         val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             weight = 1f
         }
@@ -746,6 +745,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             layoutParams = params
             icon = AppCompatResources.getDrawable(context, resolutionOption.imageDrawableResId)
             id = resolutionOption.buttonViewId
+            setOnClickListener {
+                onClick.invoke(id)
+            }
         }
     }
 

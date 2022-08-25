@@ -341,25 +341,72 @@ class CameraXPreview(
     }
 
     override fun showChangeResolution() {
-        val imageSizes = imageQualityManager.getSupportedResolutions(cameraSelector)
-        val videoSizes = videoQualityManager.getSupportedQualities(cameraSelector)
-        val selectedVideoSize = videoQualityManager.getUserSelectedQuality(cameraSelector)
-        val selectedImageSize = imageQualityManager.getUserSelectedResolution(cameraSelector)
 
-        val selectedResolution = if (isPhotoCapture) selectedImageSize.toResolutionOption() else selectedVideoSize.toResolutionOption()
-        val resolutions = if (isPhotoCapture) imageSizes.map { it.toResolutionOption() } else videoSizes.map { it.toResolutionOption() }
-
-        listener.showImageSizes(
-            selectedResolution = selectedResolution,
-            resolutions = resolutions,
-            isPhotoCapture = isPhotoCapture,
-            isFrontCamera = isFrontCameraInUse()
-        ) { changed ->
-            if (changed) {
-                currentRecording?.stop()
-            }
-            startCamera()
+        val selectedResolution = if (isPhotoCapture) {
+            imageQualityManager.getUserSelectedResolution(cameraSelector).toResolutionOption()
+        } else {
+            videoQualityManager.getUserSelectedQuality(cameraSelector).toResolutionOption()
         }
+        val resolutions = if (isPhotoCapture) {
+            imageQualityManager.getSupportedResolutions(cameraSelector).map { it.toResolutionOption() }
+        } else {
+            videoQualityManager.getSupportedQualities(cameraSelector).map { it.toResolutionOption() }
+        }
+
+        if (resolutions.size > 2) {
+            listener.showImageSizes(
+                selectedResolution = selectedResolution,
+                resolutions = resolutions,
+                isPhotoCapture = isPhotoCapture,
+                isFrontCamera = isFrontCameraInUse()
+            ) { changed ->
+                if (changed) {
+                    currentRecording?.stop()
+                }
+                startCamera()
+            }
+        } else {
+            toggleResolutions(resolutions)
+        }
+    }
+
+    private fun toggleResolutions(resolutions: List<ResolutionOption>) {
+        val currentIndex = if (isPhotoCapture) {
+            if (isFrontCameraInUse()) {
+                config.frontPhotoResIndex
+            } else {
+                config.backPhotoResIndex
+            }
+        } else {
+            if (isFrontCameraInUse()) {
+                config.frontVideoResIndex
+            } else {
+                config.backVideoResIndex
+            }
+        }
+
+        val nextIndex = if (currentIndex >= resolutions.lastIndex) {
+            0
+        } else {
+            currentIndex + 1
+        }
+
+        if (isPhotoCapture) {
+            if (isFrontCameraInUse()) {
+                config.frontPhotoResIndex = nextIndex
+            } else {
+                config.backPhotoResIndex = nextIndex
+            }
+        } else {
+            if (isFrontCameraInUse()) {
+                config.frontVideoResIndex = nextIndex
+            } else {
+                config.backVideoResIndex = nextIndex
+            }
+        }
+        currentRecording?.stop()
+        startCamera()
+
     }
 
     override fun toggleFrontBackCamera() {
@@ -371,6 +418,24 @@ class CameraXPreview(
         cameraSelector = newCameraSelector
         config.lastUsedCameraLens = newCameraSelector.toLensFacing()
         startCamera(switching = true)
+    }
+
+    override fun toggleFlashlight() {
+        val newFlashMode = if (isPhotoCapture) {
+            when (flashMode) {
+                FLASH_MODE_OFF -> FLASH_MODE_ON
+                FLASH_MODE_ON -> FLASH_MODE_AUTO
+                FLASH_MODE_AUTO -> FLASH_MODE_OFF
+                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+            }
+        } else {
+            when (flashMode) {
+                FLASH_MODE_OFF -> FLASH_MODE_ON
+                FLASH_MODE_ON -> FLASH_MODE_OFF
+                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+            }
+        }
+        setFlashlightState(newFlashMode.toAppFlashMode())
     }
 
     override fun setFlashlightState(state: Int) {
