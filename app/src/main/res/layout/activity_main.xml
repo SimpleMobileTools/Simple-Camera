@@ -42,12 +42,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/top_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="settings,change_resolution,toggle_flash" />
-
     <ImageView
         android:id="@+id/toggle_flash"
         android:layout_width="@dimen/top_icon_size"

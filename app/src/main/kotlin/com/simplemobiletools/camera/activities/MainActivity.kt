@@ -261,7 +261,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun checkVideoCaptureIntent() {
-        if (intent?.action == MediaStore.ACTION_VIDEO_CAPTURE) {
+        if (isVideoCaptureIntent()) {
             mIsInPhotoMode = false
             hideIntentButtons()
             shutter.setImageResource(R.drawable.ic_video_rec)
@@ -386,6 +386,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun handleShutter() {
         if (mIsInPhotoMode) {
             toggleBottomButtons(true)
+            change_resolution.isEnabled = true
             mPreview?.tryTakePicture()
             shutter_animation.alpha = 1.0f
             shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
@@ -607,6 +608,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onMediaSaved(uri: Uri) {
+        change_resolution.isEnabled = true
         loadLastTakenMedia(uri)
         if (isImageCaptureIntent()) {
             Intent().apply {
@@ -642,6 +644,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onVideoRecordingStarted() {
         shutter.setImageResource(R.drawable.ic_video_stop)
         toggle_camera.beInvisible()
+        change_resolution.isEnabled = false
         video_rec_curr_timer.beVisible()
     }
 
@@ -649,6 +652,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         shutter.setImageResource(R.drawable.ic_video_rec)
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
+        change_resolution.isEnabled = true
         toggle_camera.beVisible()
     }
 
@@ -680,13 +684,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun closeOptions(): Boolean {
         if (media_size_toggle_group.isVisible()) {
             media_size_toggle_group.beGone()
-            top_group.beVisible()
+            showTopIcons()
             return true
         }
 
         if (flash_toggle_group.isVisible()) {
             flash_toggle_group.beGone()
-            top_group.beVisible()
+            showTopIcons()
             return true
         }
         return false
@@ -739,17 +743,26 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun showResolutionOptions() {
-        top_group.beInvisible()
+        hideTopIcons()
         media_size_toggle_group.beVisible()
         media_size_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
     override fun showFlashOptions(photoCapture: Boolean) {
         flash_auto.beVisibleIf(photoCapture)
-        top_group.beInvisible()
+        hideTopIcons()
         flash_toggle_group.beVisible()
         flash_toggle_group.check(config.flashlightState.toFlashModeId())
         flash_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
+    }
+
+    private fun showTopIcons() {
+        listOf(toggle_flash, change_resolution).forEach { it.beVisible() }
+        settings.beVisibleIf(!is3rdPartyIntent())
+    }
+
+    private fun hideTopIcons() {
+        listOf(toggle_flash, change_resolution, settings).forEach { it.beInvisible() }
     }
 
     private fun setButtonColors(button: MaterialButton) {
