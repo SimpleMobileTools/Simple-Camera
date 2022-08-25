@@ -2,6 +2,7 @@ package com.simplemobiletools.camera.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.hardware.SensorManager
 import android.net.Uri
@@ -736,11 +737,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         showResolutionOptions()
     }
 
-    private fun createButton(resolutionOption: ResolutionOption): MaterialButton? {
+    private fun createButton(resolutionOption: ResolutionOption): MaterialButton {
         val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             weight = 1f
         }
-        return (layoutInflater.inflate(R.layout.layout_button, null) as? MaterialButton)?.apply {
+        return (layoutInflater.inflate(R.layout.layout_button, null) as MaterialButton).apply {
             layoutParams = params
             icon = AppCompatResources.getDrawable(context, resolutionOption.imageDrawableResId)
             id = resolutionOption.buttonViewId
@@ -750,12 +751,23 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun showResolutionOptions() {
         top_group.beInvisible()
         media_size_toggle_group.beVisible()
+        media_size_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
     override fun showFlashOptions(photoCapture: Boolean) {
         flash_auto.beVisibleIf(photoCapture)
         top_group.beInvisible()
         flash_toggle_group.beVisible()
+        flash_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
+    }
+
+    private fun setButtonColors(button: MaterialButton) {
+        val primaryColor = getProperPrimaryColor()
+        val states = arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked))
+        val iconColors = intArrayOf(ContextCompat.getColor(this, R.color.md_grey_white), primaryColor)
+        val backgroundColors = intArrayOf(ContextCompat.getColor(this, android.R.color.transparent), primaryColor.adjustAlpha(0.1f))
+        button.iconTint = ColorStateList(states, iconColors)
+        button.backgroundTintList = ColorStateList(states, backgroundColors)
     }
 
     fun setRecordingState(isRecording: Boolean) {
