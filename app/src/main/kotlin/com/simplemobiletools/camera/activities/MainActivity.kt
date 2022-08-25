@@ -26,7 +26,6 @@ import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.idToAppFlashMode
 import com.simplemobiletools.camera.extensions.toFlashModeId
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.CameraXInitializer
@@ -41,6 +40,8 @@ import com.simplemobiletools.commons.models.Release
 import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_flash.flash_auto
+import kotlinx.android.synthetic.main.layout_flash.flash_off
+import kotlinx.android.synthetic.main.layout_flash.flash_on
 import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
 import kotlinx.android.synthetic.main.layout_media_size.media_size_toggle_group
 
@@ -335,14 +336,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         shutter.setOnClickListener { shutterPressed() }
         settings.setOnClickListener { launchSettings() }
         change_resolution.setOnClickListener { mPreview?.showChangeResolution() }
-        flash_toggle_group.check(config.flashlightState.toFlashModeId())
-        flash_toggle_group.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                val flashMode = checkedId.idToAppFlashMode()
-                closeOptions()
-                mPreview?.setFlashlightState(flashMode)
-            }
-        }
+        flash_on.setOnClickListener { selectFlashMode(FLASH_ON) }
+        flash_off.setOnClickListener { selectFlashMode(FLASH_OFF) }
+        flash_auto.setOnClickListener { selectFlashMode(FLASH_AUTO) }
+    }
+
+    private fun selectFlashMode(flashMode: Int) {
+        closeOptions()
+        mPreview?.setFlashlightState(flashMode)
     }
 
     private fun toggleCamera() {
@@ -758,6 +759,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         flash_auto.beVisibleIf(photoCapture)
         top_group.beInvisible()
         flash_toggle_group.beVisible()
+        flash_toggle_group.check(config.flashlightState.toFlashModeId())
         flash_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 

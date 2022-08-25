@@ -28,7 +28,7 @@ fun Int.toAppFlashMode(): Int {
 fun Int.toFlashModeId(): Int {
     return when (this) {
         FLASH_ON -> R.id.flash_on
-        FLASH_OFF -> R.id.flash_on
+        FLASH_OFF -> R.id.flash_off
         FLASH_AUTO -> R.id.flash_auto
         else -> throw IllegalArgumentException("Unknown mode: $this")
     }
