@@ -8,7 +8,7 @@
     app:singleSelection="true">
 
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/flash_off"
         style="@style/Widget.App.Button.OutlineButton.IconOnly"
         android:layout_width="0dp"
@@ -16,7 +16,7 @@
         android:layout_weight="1"
         app:icon="@drawable/ic_flash_off_vector" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/flash_auto"
         style="@style/Widget.App.Button.OutlineButton.IconOnly"
         android:layout_width="0dp"
@@ -24,7 +24,7 @@
         android:layout_weight="1"
         app:icon="@drawable/ic_flash_auto_vector" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/flash_on"
         style="@style/Widget.App.Button.OutlineButton.IconOnly"
         android:layout_width="0dp"

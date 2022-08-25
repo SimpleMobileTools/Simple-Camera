@@ -13,7 +13,8 @@ import android.view.*
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.WindowCompat
+import androidx.core.content.ContextCompat
+import androidx.core.view.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -81,29 +82,23 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         supportActionBar?.hide()
         checkWhatsNewDialog()
         setupOrientationEventListener()
-        if (isRPlus()) {
+
+        val windowInsetsController = ViewCompat.getWindowInsetsController(window.decorView)
+        windowInsetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController?.hide(WindowInsetsCompat.Type.statusBars())
+
+        if (isOreoMr1Plus()) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        } else if (isOreoMr1Plus()) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
         } else {
             window.addFlags(
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                     WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                     WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
 
-        selectPhotoTab()
     }
 
     private fun selectPhotoTab(triggerListener: Boolean = false) {
@@ -142,11 +137,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 checkButtons()
             }
             toggleBottomButtons(false)
-        }
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        if (hasStorageAndCameraPermissions()) {
             mOrientationEventListener.enable()
         }
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        ensureTransparentNavigationBar()
+    }
+
+    private fun ensureTransparentNavigationBar() {
+        window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
     }
 
     override fun onPause() {
@@ -274,36 +272,25 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         setContentView(R.layout.activity_main)
         initButtons()
 
-        (toggle_flash.layoutParams as ConstraintLayout.LayoutParams).setMargins(
-            0,
-            statusBarHeight,
-            0,
-            0,
-        )
+        ViewCompat.setOnApplyWindowInsetsListener(view_holder) { _, windowInsets ->
+            val safeInsetBottom = windowInsets.displayCutout?.safeInsetBottom ?: 0
+            val safeInsetTop = windowInsets.displayCutout?.safeInsetTop ?: 0
 
-        (flash_toggle_group.layoutParams as ConstraintLayout.LayoutParams).setMargins(
-            0,
-            statusBarHeight,
-            0,
-            0,
-        )
+            listOf(toggle_flash, flash_toggle_group, media_size_toggle_group).forEach { view ->
+                view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    topMargin = safeInsetTop
+                }
+            }
 
-        (media_size_toggle_group.layoutParams as ConstraintLayout.LayoutParams).setMargins(
-            0,
-            statusBarHeight,
-            0,
-            0,
-        )
+            val marginBottom = safeInsetBottom + navigationBarHeight + resources.getDimensionPixelSize(R.dimen.bigger_margin)
+            (shutter.layoutParams as ConstraintLayout.LayoutParams).goneBottomMargin = marginBottom
 
-        val goneMargin = (navigationBarHeight + resources.getDimension(R.dimen.bigger_margin)).toInt()
-        (shutter.layoutParams as ConstraintLayout.LayoutParams).goneBottomMargin = goneMargin
+            video_rec_curr_timer.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = marginBottom
+            }
 
-        (video_rec_curr_timer.layoutParams as ConstraintLayout.LayoutParams).setMargins(
-            0,
-            0,
-            0,
-            (navigationBarHeight + resources.getDimension(R.dimen.bigger_margin)).toInt()
-        )
+            WindowInsetsCompat.CONSUMED
+        }
 
         checkVideoCaptureIntent()
         if (mIsInPhotoMode) {
@@ -372,7 +359,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun toggleFlash() {
         if (checkCameraAvailable()) {
-           showFlashOptions(mIsInPhotoMode)
+            showFlashOptions(mIsInPhotoMode)
         }
     }
 
@@ -749,11 +736,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         showResolutionOptions()
     }
 
-    private fun createButton(resolutionOption: ResolutionOption): MaterialButton {
+    private fun createButton(resolutionOption: ResolutionOption): MaterialButton? {
         val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             weight = 1f
         }
-        return (layoutInflater.inflate(R.layout.layout_button, null) as MaterialButton).apply {
+        return (layoutInflater.inflate(R.layout.layout_button, null) as? MaterialButton)?.apply {
             layoutParams = params
             icon = AppCompatResources.getDrawable(context, resolutionOption.imageDrawableResId)
             id = resolutionOption.buttonViewId

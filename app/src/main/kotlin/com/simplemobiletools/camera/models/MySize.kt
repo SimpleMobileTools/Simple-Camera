@@ -18,7 +18,7 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
 
     val megaPixels: String = String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
 
-    private fun isSixteenToNine() = ratio == 16 / 9f
+    fun isSixteenToNine() = ratio == 16 / 9f
 
     private fun isFiveToThree() = ratio == 5 / 3f
 
@@ -40,8 +40,12 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
 
     private fun isSquare() = width == height
 
-    fun isSupported(): Boolean {
-        return (isFourToThree() || isSixteenToNine() || isSquare()) && megaPixels != ZERO_MEGA_PIXEL
+    fun isSupported(isFullScreenSize16x9: Boolean): Boolean {
+        return if (isFullScreenSize16x9) {
+            isFourToThree() || isSquare()
+        } else {
+            isFourToThree() || isSixteenToNine() || isSquare()
+        } && megaPixels != ZERO_MEGA_PIXEL
     }
 
     fun getAspectRatio(context: Context) = when {

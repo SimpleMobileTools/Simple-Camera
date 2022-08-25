@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="true">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/preview_view"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0"
-        android:background="@color/md_grey_black" />
+        android:background="@android:color/black" />
 
     <include
         layout="@layout/layout_media_size"
@@ -103,8 +103,7 @@
         android:id="@+id/bottom_overlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:alpha="0.3"
-        android:background="@color/gradient_grey_start"
+        android:background="@color/overlay_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +121,7 @@
         app:tabBackground="@drawable/tab_indicator"
         app:tabIndicator="@null"
         app:tabMode="auto"
-        app:tabRippleColor="@color/md_grey_600_dark"
+        app:tabRippleColor="@null"
         app:tabSelectedTextColor="@color/md_grey_600_dark"
         app:tabTextColor="@color/md_grey_white">
 

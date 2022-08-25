@@ -63,14 +63,14 @@ class ImageQualityManager(
             .flatMap { it.qualities }
             .sortedByDescending { it.pixels }
             .distinctBy { it.getAspectRatio(activity) }
-            .filter { it.isSupported() }
+            .filter { it.isSupported(fullScreenSize.isSixteenToNine()) }
     }
 
     private fun getFullScreenResolution(cameraSelector: CameraSelector): MySize {
         return imageQualities.filter { it.camSelector == cameraSelector }
             .flatMap { it.qualities }
             .sortedByDescending { it.width }
-            .first { it.isSupported() }
+            .first { it.isSupported(false) }
             .copy(isFullScreen = true)
     }
 }
