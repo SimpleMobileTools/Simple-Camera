@@ -54,7 +54,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     lateinit var mTimerHandler: Handler
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
-    private lateinit var mFadeHandler: Handler
     private lateinit var mCameraImpl: MyCameraImpl
     private var mPreview: MyPreview? = null
     private var mPreviewUri: Uri? = null
@@ -153,8 +152,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
             return
         }
-
-        mFadeHandler.removeCallbacksAndMessages(null)
 
         hideTimer()
         mOrientationEventListener.disable()
@@ -319,7 +316,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         view_holder.addView(mFocusCircleView)
 
         mTimerHandler = Handler(Looper.getMainLooper())
-        mFadeHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
 
         val initialFlashlightState = FLASH_OFF
@@ -769,9 +765,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val primaryColor = getProperPrimaryColor()
         val states = arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked))
         val iconColors = intArrayOf(ContextCompat.getColor(this, R.color.md_grey_white), primaryColor)
-        val backgroundColors = intArrayOf(ContextCompat.getColor(this, android.R.color.transparent), primaryColor.adjustAlpha(0.1f))
         button.iconTint = ColorStateList(states, iconColors)
-        button.backgroundTintList = ColorStateList(states, backgroundColors)
     }
 
     fun setRecordingState(isRecording: Boolean) {

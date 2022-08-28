@@ -98,6 +98,9 @@ class SettingsActivity : SimpleActivity() {
         settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
         settings_use_english.isChecked = config.useEnglish
 
+        settings_general_settings_holder.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone())
+        settings_general_settings_label.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone())
+
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
