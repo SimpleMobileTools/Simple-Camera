@@ -478,7 +478,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initVideoButtons() {
-        shutter.setImageResource(R.drawable.ic_video_rec)
+        shutter.setImageResource(R.drawable.ic_video_rec_animated)
         setupPreviewImage(false)
         mPreview?.checkFlashlight()
         selectVideoTab()
@@ -659,7 +659,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onVideoRecordingStarted() {
         camera_mode_tab.beInvisible()
-        shutter.setImageResource(R.drawable.ic_video_stop)
+        shutter.isSelected = true
         toggle_camera.beInvisible()
         change_resolution.isEnabled = false
         video_rec_curr_timer.beVisible()
@@ -667,7 +667,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onVideoRecordingStopped() {
         camera_mode_tab.beVisible()
-        shutter.setImageResource(R.drawable.ic_video_rec)
+        shutter.isSelected = false
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
         change_resolution.isEnabled = true
@@ -797,11 +797,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     fun setRecordingState(isRecording: Boolean) {
         runOnUiThread {
             if (isRecording) {
-                shutter.setImageResource(R.drawable.ic_video_stop)
+                shutter.isSelected = true
                 toggle_camera.beInvisible()
                 showTimer()
             } else {
-                shutter.setImageResource(R.drawable.ic_video_rec)
+                shutter.isSelected = false
                 hideTimer()
             }
         }
