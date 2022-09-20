@@ -7,7 +7,7 @@
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
-                    android:duration="@integer/shutter_anim_duration"
+                    android:duration="@integer/icon_anim_duration"
                     android:interpolator="@android:anim/accelerate_interpolator"
                     android:propertyName="scaleX"
                     android:valueFrom="0"
@@ -15,7 +15,7 @@
                     android:valueType="floatType" />
 
                 <objectAnimator
-                    android:duration="@integer/shutter_anim_duration"
+                    android:duration="@integer/icon_anim_duration"
                     android:interpolator="@android:anim/accelerate_interpolator"
                     android:propertyName="scaleY"
                     android:valueFrom="0"

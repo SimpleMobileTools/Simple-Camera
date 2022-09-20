@@ -703,7 +703,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (media_size_toggle_group.isVisible() ||
             flash_toggle_group.isVisible()
         ) {
-            val transitionSet = createTransition()
+            val transitionSet = createTransition(isClosing = true)
             TransitionManager.go(defaultScene, transitionSet)
             return true
         }
@@ -765,15 +765,17 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         media_size_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
-    private fun createTransition(): Transition {
+    private fun createTransition(isClosing: Boolean = false): Transition {
         val fadeTransition = Fade()
         val changeBounds = ChangeBounds().apply {
             interpolator = OvershootInterpolator()
         }
         return TransitionSet().apply {
-            addTransition(changeBounds)
+            if (!isClosing) {
+                addTransition(changeBounds)
+            }
             addTransition(fadeTransition)
-            this.duration = 200L
+            this.duration = resources.getInteger(R.integer.icon_anim_duration).toLong()
         }
     }
 
