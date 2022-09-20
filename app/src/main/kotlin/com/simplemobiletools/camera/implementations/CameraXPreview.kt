@@ -361,11 +361,11 @@ class CameraXPreview(
                 isPhotoCapture = isPhotoCapture,
                 isFrontCamera = isFrontCameraInUse()
             ) { index, changed ->
+                mediaSizeStore.storeSize(isPhotoCapture, isFrontCameraInUse(), index)
                 if (changed) {
                     currentRecording?.stop()
+                    startCamera()
                 }
-                mediaSizeStore.storeSize(isPhotoCapture, isFrontCameraInUse(), index)
-                startCamera()
             }
         } else {
             toggleResolutions(resolutions)
