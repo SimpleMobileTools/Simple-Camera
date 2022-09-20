@@ -19,12 +19,12 @@
         android:drawable="@drawable/ic_video_rec" />
 
     <transition
-        android:drawable="@drawable/video_rec_start_to_stop"
+        android:drawable="@drawable/video_rec_record_to_idle"
         android:fromId="@id/selected"
         android:toId="@id/default_state" />
 
     <transition
-        android:drawable="@drawable/video_rec_stop_to_start"
+        android:drawable="@drawable/video_rec_idle_to_record"
         android:fromId="@id/default_state"
         android:toId="@id/selected" />
 

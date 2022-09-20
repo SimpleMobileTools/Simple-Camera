@@ -5,13 +5,22 @@
 
     <target android:name="inner_big">
         <aapt:attr name="android:animation">
-            <objectAnimator
-                android:duration="3"
-                android:interpolator="@android:interpolator/decelerate_cubic"
-                android:propertyName="fillColor"
-                android:valueFrom="@color/md_red"
-                android:valueTo="@android:color/transparent"
-                android:valueType="colorType" />
+            <set>
+                <objectAnimator
+                    android:duration="@integer/shutter_anim_duration"
+                    android:interpolator="@android:anim/accelerate_interpolator"
+                    android:propertyName="scaleX"
+                    android:valueFrom="1"
+                    android:valueTo="0.9"
+                    android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@integer/shutter_anim_duration"
+                    android:interpolator="@android:anim/accelerate_interpolator"
+                    android:propertyName="scaleY"
+                    android:valueFrom="1"
+                    android:valueTo="0.9"
+                    android:valueType="floatType" />
+            </set>
         </aapt:attr>
     </target>
 </animated-vector>
