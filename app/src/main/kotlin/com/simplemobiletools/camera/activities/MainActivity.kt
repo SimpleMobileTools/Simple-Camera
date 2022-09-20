@@ -460,7 +460,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initPhotoMode() {
-        shutter.setImageResource(R.drawable.ic_shutter_vector)
+        shutter.setImageResource(R.drawable.ic_shutter_animated)
         mPreview?.initPhotoMode()
         setupPreviewImage(true)
         selectPhotoTab()

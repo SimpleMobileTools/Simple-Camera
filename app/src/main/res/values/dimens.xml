@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="icon_size">56dp</dimen>
+    <dimen name="large_icon_size">72dp</dimen>
     <dimen name="top_icon_size">48dp</dimen>
     <dimen name="toggle_icon_size">24dp</dimen>
     <dimen name="tab_indicator_margin">10dp</dimen>

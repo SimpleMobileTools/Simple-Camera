@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_shutter">
+
+    <target android:name="inner">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="3"
+                android:interpolator="@android:interpolator/decelerate_cubic"
+                android:propertyName="fillColor"
+                android:valueFrom="@android:color/transparent"
+                android:valueTo="@android:color/white"
+                android:valueType="colorType" />
+        </aapt:attr>
+    </target>
+</animated-vector>

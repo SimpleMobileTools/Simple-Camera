@@ -32,9 +32,7 @@
 
         <include layout="@layout/layout_top" />
 
-        <include
-            layout="@layout/layout_media_size"
-            />
+        <include layout="@layout/layout_media_size" />
 
         <include
             layout="@layout/layout_flash"
@@ -98,11 +96,11 @@
 
     <ImageView
         android:id="@+id/shutter"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="@dimen/large_icon_size"
+        android:layout_height="@dimen/large_icon_size"
         android:layout_marginBottom="@dimen/small_margin"
         android:contentDescription="@string/shutter"
-        android:src="@drawable/ic_shutter_vector"
+        android:src="@drawable/ic_shutter_animated"
         app:layout_constraintBottom_toTopOf="@id/video_rec_curr_timer"
         app:layout_constraintEnd_toStartOf="@id/last_photo_video_preview"
         app:layout_constraintStart_toEndOf="@id/toggle_camera"
