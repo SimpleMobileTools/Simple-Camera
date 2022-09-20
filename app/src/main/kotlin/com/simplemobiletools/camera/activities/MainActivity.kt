@@ -658,6 +658,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onVideoRecordingStarted() {
+        camera_mode_tab.beInvisible()
         shutter.setImageResource(R.drawable.ic_video_stop)
         toggle_camera.beInvisible()
         change_resolution.isEnabled = false
@@ -665,6 +666,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onVideoRecordingStopped() {
+        camera_mode_tab.beVisible()
         shutter.setImageResource(R.drawable.ic_video_rec)
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
@@ -682,13 +684,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onSwipeLeft() {
-        if (!is3rdPartyIntent()) {
+        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
             selectPhotoTab(triggerListener = true)
         }
     }
 
     override fun onSwipeRight() {
-        if (!is3rdPartyIntent()) {
+        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
             selectVideoTab(triggerListener = true)
         }
     }
