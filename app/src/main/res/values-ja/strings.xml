@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">シンプル カメラ</string>
     <string name="app_launcher_name">カメラ</string>
@@ -12,24 +12,21 @@
     <string name="photo_not_saved">この画像は保存されていません</string>
     <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
     <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">カメラは別のアプリで使用されています。アプリを閉じて、もう一度やり直してください</string>
+    <string name="camera_configure_error">カメラの設定中にエラーが発生しました</string>
+    <string name="camera_disabled_by_admin_error">カメラは管理者によって無効にされています</string>
+    <string name="camera_dnd_error">サイレントモードが有効になっています。 無効にしてから、もう一度やり直してください</string>
+    <string name="photo_capture_failed">写真のキャプチャに失敗しました</string>
+    <string name="video_capture_insufficient_storage_error">ストレージが不足しているため、ビデオ録画に失敗しました</string>
     <!--Camera Screen Icons Content Description-->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>
     <string name="toggle_camera">Toggle front/back camera</string>
     <string name="toggle_flash">Toggle the flashlight mode</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>
     <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質ですが、ファイルサイズは100%と比べて大幅に削減することができます。</string>
-
     <!-- Settings -->
     <string name="save_photos">写真とビデオの保存先</string>
     <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>

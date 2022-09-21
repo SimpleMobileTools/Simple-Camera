@@ -1,0 +1,29 @@
+Ta poręczna aplikacja aparatu jest przydatna zarówno do łatwego robienia zdjęć, jak i nagrywania wideo. Możesz szybko przełączać się między przednim i tylnym aparatem, zmieniać ścieżkę zapisu lub ograniczać rozdzielczość swoich zdjęć. Nigdy nie przegapisz ważnych chwil w swoim życiu. Dostępnych jest wiele pomocnych ustawień, aby była jeszcze bardziej osobista i dostosowana do Twoich potrzeb. Wymieńmy niektóre z nich.
+
+Lampa błyskowa może być włączana lub wyłączana albo używana jako przydatna latarka, co nie jest często spotykane. Możesz wykonać gest zsunięcia palców na ekranie, aby powiększyć lub oddalić albo odbić lustrzanie zdjęcie podczas robienia wspaniałych portretów. Dzięki tej aplikacji możesz skupić się na głównym obiekcie na zdjęciu zamiast pozwalać na rozpraszanie się przez inne.
+
+Możesz łatwo zmienić wynikową rozdzielczość, jakość czy proporcje ekranu w parę naciśnięć, tak jak spodziewałbyś/spodziewałabyś się tego po nowoczesnej aplikacji aparatu. Dotyczy to zarówno zdjęć, jak i wideo. Ich jakość można łatwo zmieniać zgodnie z własnymi wymaganiami.
+
+Po zrobieniu zdjęcia zobaczysz jego miniaturkę, po naciśnięciu której otworzy się ono w preferowanej przez Ciebie galerii. Zobaczysz wyraźne wskazanie, gdy zdjęcie zostanie zrobione, co gwarantuje, że plik został zapisany.
+
+Jeśli chcesz, aby ten prosty aparat uruchamiał się po naciśnięciu przycisku aparatu Twojego urządzenia, będziesz prawdopodobnie musiał(a) wyłączyć wbudowaną aplikację aparatu w Ustawienia -> Aplikacje -> Aparat -> Wyłącz.
+
+Możesz skonfigurować go tak, aby używał przycisków głośności jako spustu migawki lub włączał latarkę domyślnie przy uruchomieniu.
+
+Ma wiele innych ustawień związanych z dźwiękiem migawki, lampą błyskową, metadanymi zdjęć, jakością zdjęć itd. Ścieżkę pliku wyjściowego można dostosować, dzięki czemu możesz zdecydować, gdzie chcesz zapisywać swoje multimedia. Obsługuje zarówno pamięć wewnętrzną, jak i karty pamięci.
+
+Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje.
+
+Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę.
+
+Sprawdź pełen zestaw od Simple Tools tutaj:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

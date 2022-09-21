@@ -1,7 +1,32 @@
-Fotoaparatas naudojamas nuotraukoms ir vaizdo įrašams užfiksuoti. Galima persijungti tarp priekinės ir galinės kamerų, pakeisti išsaugojimo vietą, nustayti raišką. Žibintuvėlis gali būti įjungtas arba išjungtas, used as a flashlight. Galite spustelti, kad pritrauktumėte vaizdą.
+★ Reikia greitai pasižymėti, kad sudarytumėte pirkinių sąrašą, priminimą apie adresą ar pradedančiąją idėją? Tuomet daugiau neieškokite, nes tai yra paprastas organizatoriaus įrankis, kurio ieškojote: Paprasti užrašai: Užrašų knygelė: Darbų sąrašo organizatorius ir planuotojas! Geriausios užrašų programėlės ir lipnūs užrašai yra nemokami "Android" mobiliesiems telefonams. Nereikia jokių sudėtingų sąrankos veiksmų, tiesiog bakstelėkite ekraną ir įveskite, ko atėjote, ir kurkite užrašus, greituosius sąrašus, kontrolinį sąrašą ar atsarginę bet kokios idėjos kopiją. Naudodami paprastą asmeninę užrašų knygutę galėsite greitai prisiminti bet ką! Pirkinių sąrašas maisto produktams, darbų sąrašas jūsų dienotvarkei ir lengvesnis užrašų darymas, kad susitikimų rengimas taptų pasivaikščiojimu parke ★ 
 
-IJei norite pajungti šią programėlę paspausdami specialiai tam skirtą kameros mygtuką, Jūs turite išjunti numatytąją kamerą nustatymuose Nustaytmai -> Programėlės -> Kamera -> Išjungti.
+Paprastas užrašų planuoklis yra greitas, paprastas naudoti organizatorius ir nepaprastas užrašų spalvingas valdiklis, jis pasitarnaus kaip neįkainojama priemonė, padedanti prisiminti reikalingą informaciją ar pirkinių sąrašą prekybos centre!
 
-Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
+Mūsų priminimų dienotvarkės planavimo įrankis leidžia jums sekti savo pareigas ir kurti kasdienes lipnias idėjas ir pirkinių sąrašus daiktams ar idėjoms su precedento neturinčiu paprastumu, pastabumu ir neprilygstama laiko taupymo verte. Tvarkykite savo dienotvarkę tinkamai ir gerai užsirašydami - naudokite vieną iš mūsų užrašų programėlių - "Simple Notes" arba "Simple Notes Pro" :)
 
-Ši programėle yra viena iš keletos mūsų programėlių. Likusias Jūs galite rasti čia https://www.simplemobiletools.com
+Simple Notes Pro: Naudokite automatinio išsaugojimo funkciją, kad netyčia neišmestumėte savo pakeitimų. Ji taip pat labai greitai palaiko kelių nepriklausomų paprastojo teksto užrašų ir sąrašų kūrimą.
+
+Galite lengvai pasiekti savo sąrašus ir organizuoti savo darbų sąrašą užrašų knygelę akimirksniu naudodami pritaikomą ir keičiamo dydžio valdiklį, kuris atidaro geras užrašų organizavimo programas bakstelėjus.
+
+Jis yra patogus naudoti ir jame nėra visiškai jokių reklamų ar nereikalingų leidimų - nėra jokių įsipareigojimų. Tai visiškai atviro kodo gerų užrašų valdiklis ir jame pateikiamos pritaikomos spalvos, kurias galima greitai ir greitai koreguoti.
+
+Paprasti užrašai: Užrašai: Veiksmų sąrašo organizatorius ir planuoklis yra geriausios daiktų organizavimo ir užrašų programėlės, kurias galite naudoti be jokių reklamų. Jei jums reikia aukštos kokybės organizatoriaus greito, patikimo ir gero užrašų knygelės, paprasto pirkinių sąrašo priminimo, kurį tikrai lengva naudoti. Atsisiųskite mūsų užrašų programėles jau dabar :) Turėkite savo asmenines užrašų programėles kišenėje kiekvieną dieną ir atsarginį planą, kad nereikėtų jaudintis dėl to, jog pamiršite svarbų susitikimą ar pirkinių sąrašą :)
+
+Pagal numatytuosius nustatymus įdiegtas "Material" dizainas ir tamsi tema, užtikrinanti puikią naudotojo patirtį, kad būtų lengva naudotis. Interneto prieigos nebuvimas suteikia daugiau privatumo, saugumo ir stabilumo nei kitos programėlės.
+
+Nėra reklamų ar nereikalingų leidimų. Ji yra visiškai atviro kodo ir suteikia pritaikomas spalvas.
+
+Visą "Simple Tools" rinkinį peržiūrėkite čia:
+https://www.simplemobiletools.com.
+
+Atskira "Simple Notes Pro" svetainė:
+https://www.simplemobiletools.com/notes
+
+"Facebook":
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

@@ -18,14 +18,12 @@
     <string name="camera_dnd_error">Modus „Ne smetaj” je aktiviran. Deaktiviraj ga i pokušaj ponovo</string>
     <string name="photo_capture_failed">Snimanje fotografije nije uspjelo</string>
     <string name="video_capture_insufficient_storage_error">Snimanje videa nije uspjelo zbog nedovoljne memorije</string>
-
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
-
+    <string name="toggle_photo_video">Uklj./Isklj. snimanje fotografija/videa</string>
+    <string name="change_resolution">Promijeni rezoluciju</string>
+    <string name="view_last_media">Pogledaj zadnje snimljeni medij</string>
+    <string name="toggle_camera">Uklj./Isklj. prednju/stražnju kameru</string>
+    <string name="toggle_flash">Uklj./Isklj. modus svjetiljke</string>
     <!-- FAQ -->
     <string name="faq_1_title">Koju kvalitetu kompresije fotografija trebam postaviti\?</string>
     <string name="faq_1_text">Ovisi o tvom cilju. Za opće namjene, većina ljudi savjetuje korištenje 75 do 80 % kad je slika dobre kvalitete, ali se veličina datoteke drastično smanjuje u usporedbi sa 100 %.</string>

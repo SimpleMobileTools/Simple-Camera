@@ -1,7 +1,0 @@
-Kamera hem fotoğraf çekimi hem de video kaydı için kullanılabilir. Ön ve arka kamera arasında geçiş yapabilir, kayıt yolunu değiştirebilir ve çözünürlüğü sınırlayabilirsiniz. Flaş açılıp kapatılabilir veya el feneri olarak kullanılabilir. Çimdikle yakınlaştırabilir ve uzaklaştırabilirsiniz.
-
-Bu uygulamayı donanımsal kamera tuşuna basarak başlatmak istiyorsanız, Ayarlar -> Uygulamalar -> Kamera -> Devre Dışı Bırak özelliği ile yerleşik Kamera uygulamasını devre dışı bırakmanız gerekebilir.
-
-Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
-
-Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz

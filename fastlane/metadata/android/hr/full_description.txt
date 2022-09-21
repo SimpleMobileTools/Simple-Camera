@@ -1,7 +1,29 @@
-Kamera se može koristiti za snimanje slika, ali i videozapisa. Možete birati između prednje i stražnje kamere, promijeniti mapu za spremanje i ograničiti razlučivost. Bljeskalica se može uključiti, isključiti ili koristiti kao svjetiljka. Možete povećati ili smanjiti zumiranje prstima.
+Ova aplikacija za zgodne kamere može se koristiti i za jednostavno snimanje fotografija i za snimanje videa. U ovoj aplikaciji otvorene kamere možete brzo prebaciti prednju i stražnju kameru, izmijeniti put spremanja ili ograničiti razlučivost za vaše foto okvire. Nikada nećete propustiti važne trenutke svog života. Na raspolaganju su mnoge korisne postavke koje će učiniti još osobnijim i prikladnijim za vaše potrebe. Navedimo neke od njih.
 
-Ako želite pokrenuti ovu aplikaciju pritiskom hardverskog gumba kamere, možda ćete morati onemogućiti ugrađenu aplikaciju Kamere u Postavkama -> Aplikacije -> Kamera -> Onemogući.
+Bljeskalica se može uključiti i isključiti ili koristiti kao korisna svjetiljka, koja se ne vidi često. Možete prikvačiti ekran za zumiranje i isključivanje ili prebacivanje vodoravnih razmjena slika tijekom snimanja fantastičnih portretnih fotografija. Ovom se aplikacijom možete usredotočiti na glavni objekt na slici, a ne dopustiti da drugi zvukovi uđu u sliku. 
 
-Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
+Izlaznu razlučivost, kvalitetu ili omjer slike možete lako promijeniti s nekoliko klikova, kao što biste očekivali od moderne aplikacije otvorene kamere. To se odnosi i na fotografije i na videozapise. Kvaliteta slika i videozapisa lako se može promijeniti prema vašem zahtjevu.
 
-Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com
+Nakon fotografiranja vidjet ćete novu sličicu fotografije, pritiskom na nju možete je brzo otvoriti u svojoj preferiranoj galeriji pomoću ove otvorene aplikacije za fotoaparat. Vidjet ćete jasan pokazatelj kada se fotografija snima, što jamči da je datoteka spremljena.
+
+Ako želite pokrenuti ovu jednostavnu otvorenu aplikaciju za kameru pritiskom na hardverski gumb kamere vašeg uređaja, možda ćete morati onemogućiti ugrađenu aplikaciju Kamera u postavkama - > Aplikacije - > Kamera - > Onemogućiti.
+
+Možete ga konfigurirati za upotrebu gumba volumena kao zatvarača ili za uključivanje svjetiljke prema zadanim postavkama pri pokretanju.
+
+Ima više drugih postavki povezanih sa zvukom zatvarača, bljeskalicom, metapodacima fotografija, kvalitetom fotografije itd. Put izlazne datoteke može se prilagoditi tako da možete odlučiti gdje želite da se mediji spreme. Podržava i unutarnju pohranu i SD kartice.
+
+Dolazi s dizajnom materijala i tamnom temom prema zadanim postavkama, pružajući sjajno korisničko iskustvo za jednostavno korištenje. Nedostatak pristupa internetu daje vam više privatnosti, sigurnosti i stabilnosti od ostalih aplikacija.
+
+Ne sadrži oglase ili nepotrebne dozvole. Potpuno je otvoren izvor fotoaparata, pruža prilagođene boje.
+
+Ovdje pogledajte cijeli paket jednostavnih alata:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

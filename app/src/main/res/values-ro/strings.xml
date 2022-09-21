@@ -12,24 +12,21 @@
     <string name="photo_not_saved">Fotografia nu a putut fi salvată</string>
     <string name="setting_resolution_failed">Setarea rezoluției corespunzătoare a eșuat</string>
     <string name="video_recording_failed">Înregistrarea video a eșuat, încercați să utilizați o rezoluție diferită</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
-    <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="camera_in_use_error">Camera este utilizată de o altă aplicație, vă rugăm să închideți aplicația și să încercați din nou</string>
+    <string name="camera_configure_error">A apărut o eroare în timpul configurării camerei</string>
+    <string name="camera_disabled_by_admin_error">Camera este dezactivată de către administrator</string>
+    <string name="camera_dnd_error">Modul Nu deranjați este activat. Vă rugăm să dezactivați și să încercați din nou</string>
+    <string name="photo_capture_failed">Captură foto eșuată</string>
+    <string name="video_capture_insufficient_storage_error">Înregistrarea video a eșuat din cauza stocării insuficiente</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
-
+    <string name="toggle_photo_video">Comutați modul foto/video</string>
+    <string name="change_resolution">Modificarea Rezoluției</string>
+    <string name="view_last_media">Vizualizarea ultimei medii capturate</string>
+    <string name="toggle_camera">Comutați camera față/spate</string>
+    <string name="toggle_flash">Comutați modul lanternă</string>
     <!-- FAQ -->
     <string name="faq_1_title">Ce calitate de compresie a fotografiilor ar trebui să setez?</string>
     <string name="faq_1_text">Depinde de obiectivul dumneavoastră. În general, majoritatea oamenilor recomandă utilizarea a 75%-80%, atunci când calitatea imaginii este foarte bună, dar dimensiunea fișierului este redusă drastic în comparație cu 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Salvați fotografii și clipuri video pe</string>
     <string name="show_preview">Afișați o previzualizare a fotografiei după captură</string>

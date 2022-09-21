@@ -1,0 +1,29 @@
+Tuto praktickou aplikaci fotoaparátu lze použít pro snadné pořizování fotografií i nahrávání videa. V této otevřené aplikaci fotoaparátu můžete rychle přepínat mezi předním a zadním fotoaparátem, upravit cestu ukládání nebo omezit rozlišení snímků. Už nikdy vám neuniknou důležité okamžiky vašeho života. K dispozici je mnoho užitečných nastavení, díky nimž bude fotoaparát ještě osobnější a vhodnější pro vaše potřeby. Pojďme si některé z nich vyjmenovat.
+
+Blesk lze zapnout a vypnout nebo použít jako užitečnou svítilnu, což se často nevidí. Během pořizování fantastických portrétních fotografií můžete štípnutím obrazovky zvětšovat a zmenšovat obraz nebo přepínat horizontální výměnu snímků. S touto aplikací se můžete soustředit na hlavní objekt na snímku a nenechat do něj pronikat jiné zvuky. 
+
+Výstupní rozlišení, kvalitu nebo poměr stran můžete snadno změnit několika kliknutími, jak byste očekávali od moderní otevřené aplikace fotoaparátu. To platí jak pro fotografie, tak pro videa. Kvalitu snímků a videí lze snadno měnit podle vašich požadavků.
+
+Po pořízení snímku se zobrazí miniatura nové fotografie, jejímž stisknutím ji můžete rychle otevřít v preferované galerii pomocí této otevřené aplikace fotoaparátu. Uvidíte jasný údaj o tom, kdy byla fotografie pořízena, což zaručuje, že soubor byl uložen.
+
+Pokud chcete tuto snadno otevřenou aplikaci fotoaparátu spustit stisknutím hardwarového tlačítka fotoaparátu zařízení, možná budete muset zakázat vestavěnou aplikaci Fotoaparát v Nastavení -> Aplikace -> Fotoaparát -> Zakázat.
+
+Můžete ji nakonfigurovat tak, aby používala tlačítka hlasitosti jako spoušť nebo aby při spuštění ve výchozím nastavení zapínala svítilnu.
+
+Má několik dalších nastavení týkajících se zvuku závěrky, blesku, metadat fotografií, kvality fotografií atd. Cestu k výstupnímu souboru lze přizpůsobit, takže se můžete rozhodnout, kam chcete média uložit. Podporuje interní úložiště i karty SD.
+
+Ve výchozím nastavení je vybaven designem Material a tmavým motivem, což poskytuje skvělé uživatelské prostředí pro snadné používání. Absence přístupu k internetu vám poskytuje více soukromí, bezpečnosti a stability než jiné aplikace.
+
+Neobsahuje žádné reklamy ani zbytečná oprávnění. Jedná se o plně otevřený zdroj fotoaparátu a poskytuje přizpůsobitelné barvy.
+
+Kompletní sadu jednoduchých nástrojů si můžete prohlédnout zde:
+https://www.simplemobiletools.com.
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

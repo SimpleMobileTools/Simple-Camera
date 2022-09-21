@@ -1,7 +1,0 @@
-La cámara se puede usar para realizar tanto fotografías como para grabar vídeos. Usted puede cambiar entre la cámara delantera y trasera, modificar la ruta de guardado y establecer el límite de resolución. Se puede activar y desactivar el flash, hacer zoom&#8230; Mientras se graba un vídeo el flash puede ser usado como una linterna.
-
-Si usted quiere lanzar esta aplicación presionando el botón físico de cámara, puede que tenga que deshabilitar la aplicación nativa de cámara (Ajustes -> Aplicaciones -> Cámara -> Deshabilitar).
-
-No contiene publicidad ni permisos innecesarios. Es totalmente libre, proporciona colores personalizables.
-
-Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en https://www.simplemobiletools.com

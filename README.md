@@ -1,23 +1,47 @@
 <h4>ABANDONED: This app has been unpublished from Google Play due to the inability to make it work well enough. The way working with cameras can differ depending on the system and manufacturer turned out to be way too much for us and Android is not making it any easier. Making a camera app work reliably nowadays is a full time job for multiple people which is not something we can maintain. It's just getting worse with all those new devices coming out and Android pushing towards limiting the capabilities of downloaded apps, preferring preinstalled ones. We do not want to be reponsible for your photos or videos not being saved properly or saved in too low quality, thus we decided to remove it from Google Play altogether. It will still be available on Github, but use it with caution.</h4>
 
 # Simple Camera
-<img alt="Logo" src="fastlane/metadata/android/en-US/images/icon.png" width="120" />
+<img alt="Logo" src="graphics/icon.png" width="120" />
 
-A camera with flash, zoom and no ads.
+This handy camera app is usable for both easy photo taking and video recording. You can also make different photo frames with this aesthetic photo editor and collage maker camera app. You can quickly switch between the front and rear camera in this open camera app, modify the save path or limit the resolution for your photo frames. This open camera app also helps you in defining photo frames so that you can take pictures with high resolution. You will never miss the important moments of your life. There are many helpful settings available to make it even more personal, suited for your needs. Let's list some of them.
 
-The camera is usable for both photo taking and video recording. You can switch between front and rear camera, modify the save path and limit the resolution. The flash can be turned on and off or used as a flashlight. You can pinch to zoom in and out.
+The flash can be turned on and off or used as a useful flashlight, which is not seen often. You can pinch the screen to zoom in and out or toggle horizontal image swapping during capturing fantastic portrait photos with different cool photo frames. You can also perform object removal using this camera app to focus on the main object in picture rather than allowing other noises to come in picture. Most camera apps have failed to done so but this object removal camera app has taken the technology one level up by giving this feature in this app. You can also use face swap for fun photo frames with your friends and family.
 
-If you want to launch this app at pressing the hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+You can easily change the output resolution, quality, or aspect ratio with a few clicks, as you would expect from a modern open camera app. This applies to both photos and videos. The quality of the images and videos can easily be changed as per your requirement. You can also add photo frames to make your final photo or video look more stunning.
 
-Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+After taking a picture you will see the new photo thumbnail, by pressing which you can quickly open it in your preferred gallery using this open camera app. You will see a clear indication of when the photo gets captured, guaranteeing that the file has been saved.
 
-This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+The most advanced feature that you can see lacking in different apps is face swap. This camera app also gives you choice to face swap with your family and friends so you can enjoy fun moments with them. You can also make a collage of all your photos and videos with this collage maker camera. The object removal technology gives you an upper hand as compared to other apps as this feature gives your pictures a more stunning look. Through object removal technology, you can get more clear and noise free pictures.
+
+If you want to launch this easy open camera app at pressing your devices' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+
+In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
+
+You can configure it to use volume buttons as a shutter, or to turn on flashlight by default at startup.
+
+It has multiple other settings related to the shutter sound, flash, photo metadata, photo quality etc. The output file path can be customized, so you can decide where you want your media saved. It supports both the internal storage and SD cards.
+
+It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+
+Contains no ads or unnecessary permissions. It is fully open camera source, provides customizable colors and options of a collage maker.
+
+Check out the full suite of Simple Tools here:  
+https://www.simplemobiletools.com
+
+Facebook:  
+https://www.facebook.com/simplemobiletools
+
+Reddit:  
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:  
+https://t.me/SimpleMobileTools
 
 <a href='https://f-droid.org/packages/com.simplemobiletools.camera'><img src='https://simplemobiletools.com/images/button-f-droid.png' alt='Get it on F-Droid' height='45' /></a>
 
 
 <div style="display:flex;">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/english/1.jpg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/english/2.jpg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/english/3.jpg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/1_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/2_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/3_en-GB.jpeg" width="30%">
 </div>

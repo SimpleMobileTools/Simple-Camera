@@ -271,9 +271,9 @@ class CameraXPreview(
     private fun setupZoomAndFocus() {
         val scaleGesture = camera?.let { ScaleGestureDetector(activity, PinchToZoomOnScaleGestureListener(it.cameraInfo, it.cameraControl)) }
         val gestureDetector = GestureDetector(activity, object : SimpleOnGestureListener() {
-            override fun onDown(e: MotionEvent?): Boolean {
+            override fun onDown(event: MotionEvent): Boolean {
                 listener.onTouchPreview()
-                return super.onDown(e)
+                return super.onDown(event)
             }
 
             override fun onSingleTapConfirmed(event: MotionEvent): Boolean {

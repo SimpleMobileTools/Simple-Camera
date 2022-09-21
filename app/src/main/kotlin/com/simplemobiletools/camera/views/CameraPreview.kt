@@ -117,9 +117,9 @@ class CameraPreview : ViewGroup, TextureView.SurfaceTextureListener, MyPreview {
         mediaSoundHelper.loadSounds()
 
         val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-                if (e != null && mIsFocusSupported && mCaptureSession != null) {
-                    focusArea(e.rawX, e.rawY, true)
+            override fun onSingleTapConfirmed(event: MotionEvent): Boolean {
+                if (mIsFocusSupported && mCaptureSession != null) {
+                    focusArea(event.rawX, event.rawY, true)
                 }
                 return true
             }

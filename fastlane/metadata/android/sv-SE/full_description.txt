@@ -1,0 +1,29 @@
+Den här praktiska kameraappen är användbar för både enkel fotografering och videoinspelning. Du kan snabbt växla mellan den främre och bakre kameran i denna öppna kameraapp, ändra sparvägen eller begränsa upplösningen för dina fotoramar. Du kommer aldrig att missa viktiga ögonblick i ditt liv. Det finns många användbara inställningar tillgängliga för att göra den ännu mer personlig, anpassad för dina behov. Låt oss lista några av dem.
+
+Blixten kan slås på och av eller användas som en användbar ficklampa, vilket inte ses ofta. Du kan nypa skärmen för att zooma in och ut eller växla horisontell bildväxling när du tar fantastiska porträttbilder. Med den här appen kan du fokusera på huvudobjektet i bilden i stället för att låta andra ljud komma in i bilden. 
+
+Du kan enkelt ändra utgångsupplösning, kvalitet eller bildförhållande med några få klick, som du förväntar dig av en modern öppen kameraapp. Detta gäller både foton och videor. Kvaliteten på bilderna och videorna kan enkelt ändras enligt dina önskemål.
+
+När du har tagit en bild ser du den nya fotominiatyren, genom att trycka på den kan du snabbt öppna den i ditt favoritgalleri med hjälp av denna öppna kameraapp. Du ser en tydlig indikation på när fotot tas, vilket garanterar att filen har sparats.
+
+Om du vill starta den här enkla öppna kameraappen genom att trycka på enhetens kameraknapp kan du behöva inaktivera den inbyggda kameraappen i Inställningar -> Appar -> Kamera -> Inaktivera.
+
+Du kan konfigurera den så att den använder volymknapparna som slutare eller så att den som standard slår på ficklampan vid start.
+
+Den har flera andra inställningar som rör slutarljudet, blixten, fotometadata, fotokvalitet osv. Utdatafilens sökväg kan anpassas, så du kan bestämma var du vill att dina medier ska sparas. Den stöder både det interna lagret och SD-kort.
+
+Den levereras med materialdesign och mörkt tema som standard, ger bra användarupplevelse för enkel användning. Avsaknaden av internetåtkomst ger dig mer integritet, säkerhet och stabilitet än andra appar.
+
+Innehåller inga annonser eller onödiga behörigheter. Den är helt öppen kamerakälla, ger anpassningsbara färger.
+
+Kolla in hela sviten av Simple Tools här:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

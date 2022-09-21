@@ -1,7 +1,0 @@
-Pode utilizar esta aplicação para tirar fotografias ou gravar vídeos. Pode alternar entre a câmara frontal e a traseira, alterar o caminho para guardar os ficheiros e ajustar a resolução. Pode ativar o flash e apertar o ecrã para ampliar. Se estiver a gravar vídeos, pode utilizar o flash como lanterna.
-
-Se quiser iniciar esta aplicação ao tocar no botão de câmara do seu dispositivo, deve desativar a aplicação nativa em Definições -> Aplicações -> Câmara -> Desativar.
-
-Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente 'open source'.
-
-Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em https://www.simplemobiletools.com

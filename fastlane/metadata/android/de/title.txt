@@ -1,1 +1,0 @@
-Simple Camera - Enthält keine unnötigen Funktionen

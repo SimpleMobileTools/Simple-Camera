@@ -1,0 +1,29 @@
+Ez a praktikus kameraalkalmazás egyaránt használható egyszerű fényképek készítésére és videofelvételek rögzítésére. Ebben a nyitott kameraalkalmazásban gyorsan válthat az elülső és a hátsó kamera között, módosíthatja a mentési útvonalat, vagy korlátozhatja a képkockák felbontását. Így soha nem marad le életének fontos pillanatairól. Számos hasznos beállítás áll rendelkezésre, hogy még személyesebbé és az Ön igényeinek megfelelőbbé tegye. Soroljunk fel néhányat közülük.
+
+A vaku be- és kikapcsolható, illetve hasznos zseblámpaként is használható, amivel nem gyakran találkozunk. A képernyőt összecsípve nagyíthatsz és kicsinyíthetsz, vagy bekapcsolhatod a vízszintes képcserét fantasztikus portréfotók készítése közben. Ezzel az alkalmazással a kép fő tárgyára összpontosíthatsz, és nem engedheted, hogy más zajok kerüljenek a képbe. 
+
+A kimeneti felbontást, a minőséget vagy a képarányt néhány kattintással könnyedén megváltoztathatja, ahogyan azt egy modern, nyitott kameraalkalmazástól elvárhatja. Ez a fényképekre és a videókra egyaránt vonatkozik. A képek és videók minősége könnyen módosítható az igényeinek megfelelően.
+
+A fénykép elkészítése után megjelenik az új fénykép miniatűrje, amelynek megnyomásával gyorsan megnyithatja azt a kívánt galériában ezzel a nyitott kamera alkalmazással. Egyértelmű jelzést lát, amikor a fotó rögzítésre kerül, garantálva, hogy a fájl el lett mentve.
+
+Ha ezt az egyszerűen megnyitható kameraalkalmazást a készülék hardveres kameragombjának megnyomásával szeretné elindítani, akkor előfordulhat, hogy a Beállítások -> Alkalmazások -> Kamera -> Letiltás menüpontban le kell tiltania a beépített kameraalkalmazást.
+
+Beállíthatja, hogy a hangerőgombokat használja zárként, vagy hogy indításkor alapértelmezés szerint bekapcsolja a zseblámpát.
+
+Több más beállítása is van a zárhanggal, a vakuval, a fényképek metaadataival, a fényképek minőségével stb. kapcsolatban. A kimeneti fájl elérési útja testreszabható, így eldöntheti, hová szeretné menteni a médiát. Támogatja a belső tárhelyet és az SD-kártyákat is.
+
+Alapértelmezés szerint anyagi dizájnnal és sötét témával rendelkezik, ami nagyszerű felhasználói élményt nyújt a könnyű használathoz. Az internet-hozzáférés hiánya nagyobb magánéletet, biztonságot és stabilitást biztosít, mint más alkalmazások.
+
+Nem tartalmaz hirdetéseket vagy felesleges engedélyeket. Teljesen nyílt forráskódú kamera, és testreszabható színeket biztosít.
+
+Tekintse meg a Simple Tools teljes csomagját itt:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

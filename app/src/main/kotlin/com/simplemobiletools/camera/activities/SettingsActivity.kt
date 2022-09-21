@@ -2,9 +2,6 @@ package com.simplemobiletools.camera.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.core.content.res.ResourcesCompat
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
@@ -13,24 +10,28 @@ import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
 import com.simplemobiletools.commons.helpers.NavigationIcon
+import com.simplemobiletools.commons.helpers.isTiramisuPlus
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
-import java.util.Locale
-import kotlin.system.exitProcess
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.util.*
+import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        setupOptionsMenu()
     }
 
     override fun onResume() {
         super.onResume()
         setupToolbar(settings_toolbar, NavigationIcon.Arrow)
+
         setupPurchaseThankYou()
         setupCustomizeColors()
         setupUseEnglish()
+        setupLanguage()
         setupSound()
         setupVolumeButtonsAsShutter()
         setupFlipPhotos()
@@ -38,7 +39,6 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupPhotoQuality()
         updateTextColors(settings_holder)
-        invalidateOptionsMenu()
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayListOf(
@@ -60,18 +60,14 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        updateMenuItemColors(menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.about -> launchAbout()
-            else -> super.onOptionsItemSelected(item)
+    private fun setupOptionsMenu() {
+        settings_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.about -> launchAbout()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-        return true
     }
 
     private fun setupPurchaseThankYou() {
@@ -79,7 +75,8 @@ class SettingsActivity : SimpleActivity() {
 
         // make sure the corners at ripple fit the stroke rounded corners
         if (settings_purchase_thank_you_holder.isGone()) {
-            settings_use_english_holder.background = ResourcesCompat.getDrawable(resources, R.drawable.ripple_top_corners, theme)
+            settings_use_english_holder.background = resources.getDrawable(R.drawable.ripple_all_corners, theme)
+            settings_language_holder.background = resources.getDrawable(R.drawable.ripple_all_corners, theme)
         }
 
         settings_purchase_thank_you_holder.setOnClickListener {
@@ -95,16 +92,24 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
+        settings_use_english_holder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
         settings_use_english.isChecked = config.useEnglish
-
-        settings_general_settings_holder.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone())
-        settings_general_settings_label.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone())
-
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
             exitProcess(0)
+        }
+    }
+
+    private fun setupLanguage() {
+        settings_language.text = Locale.getDefault().displayLanguage
+        settings_language_holder.beVisibleIf(isTiramisuPlus())
+
+        settings_general_settings_holder.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone() && settings_language_holder.isGone())
+        settings_general_settings_label.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone() && settings_language_holder.isGone())
+
+        settings_language_holder.setOnClickListener {
+            launchChangeAppLanguageIntent()
         }
     }
 

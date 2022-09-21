@@ -1,0 +1,29 @@
+Denne praktiske kameraapp kan bruges til både nem fotografering og videooptagelse. Du kan hurtigt skifte mellem front- og bagkameraet i denne åbne kameraapp, ændre lagringsstien eller begrænse opløsningen for dine fotorammer. Du vil aldrig gå glip af de vigtige øjeblikke i dit liv. Der er mange nyttige indstillinger til rådighed for at gøre det endnu mere personligt og egnet til dine behov. Lad os liste nogle af dem.
+
+Blitzen kan tændes og slukkes eller bruges som en nyttig lommelygte, hvilket ikke ses ofte. Du kan knibe skærmen sammen for at zoome ind og ud eller slå vandret billedbytning til under optagelse af fantastiske portrætfotos. Med denne app kan du fokusere på hovedobjektet i billedet i stedet for at lade andre lyde komme ind i billedet. 
+
+Du kan nemt ændre outputopløsningen, kvaliteten eller billedformatet med få klik, som du ville forvente af en moderne åben kameraapp. Dette gælder både for fotos og videoer. Kvaliteten af billederne og videoerne kan nemt ændres efter dine behov.
+
+Når du har taget et billede, vil du se den nye fotominiatur, ved at trykke på den kan du hurtigt åbne det i dit foretrukne galleri ved hjælp af denne åbne kameraapp. Du vil se en klar indikation af, hvornår billedet bliver taget, hvilket garanterer, at filen er blevet gemt.
+
+Hvis du ønsker at starte denne nemme åbne kameraapp ved at trykke på enhedens hardware-kamera-knap, skal du muligvis deaktivere den indbyggede kameraapp i Indstillinger -> Apps -> Kamera -> Deaktivere.
+
+Du kan konfigurere den til at bruge lydstyrkeknapperne som lukker eller til at tænde lommelygten som standard ved opstart.
+
+Den har flere andre indstillinger i forbindelse med lukkerlyd, blitz, fotometadata, fotokvalitet osv. Outputfilens sti kan tilpasses, så du kan bestemme, hvor du vil have dine medier gemt. Den understøtter både intern lagring og SD-kort.
+
+Den leveres med material design og et mørkt tema som standard, hvilket giver en fantastisk brugeroplevelse til nem brug. Den manglende internetadgang giver dig mere privatliv, sikkerhed og stabilitet end andre apps.
+
+Indeholder ingen reklamer eller unødvendige tilladelser. Det er en fuldt åben kamerakilde og giver tilpassede farver.
+
+Se hele pakken af Simple Tools her:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

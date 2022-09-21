@@ -1,7 +1,0 @@
-Fotoaparát je použitelný pro fotografování, stejně jako k nahrávání videí. Můžete přepínat mezi přední a zadní kamerou, upravovat místo pro uložení a měnit rozlišení. Blesk můžete použít jako svítilnu. Gesty můžete přibližovat i oddalovat.
-
-Pro spouštění aplikace hardwarovým tlačítkem kamery pravděpodobně budete muset zakázat výchozí aplikaci fotoaparátu zařízení v Nastavení -> Aplikace -> Fotoaparát -> Zakázat.
-
-Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
-
-Tato aplikace je jen jednou ze sady aplikací. Ostatní si můžete prohlédnout na https://www.simplemobiletools.com

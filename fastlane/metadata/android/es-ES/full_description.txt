@@ -1,0 +1,29 @@
+Esta práctica aplicación de cámara sirve tanto para tomar fotos como para grabar vídeos de forma sencilla. Puedes cambiar rápidamente entre la cámara frontal y la trasera en esta aplicación de cámara abierta, modificar la ruta de guardado o limitar la resolución de tus marcos fotográficos. Nunca te perderás los momentos importantes de tu vida. Hay muchos ajustes útiles disponibles para hacerla aún más personal, adaptada a tus necesidades. Vamos a enumerar algunos de ellos.
+
+El flash puede encenderse y apagarse o utilizarse como una útil linterna, algo que no se ve a menudo. Puedes pellizcar la pantalla para acercar o alejar el zoom o alternar el intercambio de imágenes horizontales durante la captura de fantásticas fotos de retrato. Con esta aplicación puedes centrarte en el objeto principal de la foto en lugar de permitir que otros ruidos entren en la imagen. 
+
+Puedes cambiar fácilmente la resolución de salida, la calidad o la relación de aspecto con unos pocos clics, como cabría esperar de una moderna aplicación de cámara abierta. Esto se aplica tanto a las fotos como a los vídeos. La calidad de las imágenes y los vídeos se puede cambiar fácilmente según tus necesidades.
+
+Después de tomar una foto, verás la nueva miniatura de la foto, pulsando la cual puedes abrir rápidamente en tu galería preferida usando esta aplicación de cámara abierta. Verás una clara indicación del momento en que se captura la foto, garantizando que el archivo se ha guardado.
+
+Si quieres lanzar esta aplicación de cámara fácil de abrir al pulsar el botón de la cámara de hardware de tus dispositivos, puede que tengas que desactivar la aplicación de cámara integrada en Ajustes -> Aplicaciones -> Cámara -> Desactivar.
+
+Puedes configurarla para que utilice los botones de volumen como obturador, o para que encienda la linterna por defecto al iniciarse.
+
+Tiene otros múltiples ajustes relacionados con el sonido del obturador, el flash, los metadatos de la foto, la calidad de la foto, etc. La ruta del archivo de salida se puede personalizar, por lo que puedes decidir dónde quieres que se guarde tu material. Es compatible tanto con el almacenamiento interno como con las tarjetas SD.
+
+Viene con diseño material y tema oscuro por defecto, proporciona una gran experiencia de usuario para un uso fácil. La falta de acceso a Internet le da más privacidad, seguridad y estabilidad que otras aplicaciones.
+
+No contiene anuncios ni permisos innecesarios. Es completamente de código abierto de la cámara, proporciona colores personalizables.
+
+Consulta el conjunto completo de Simple Tools aquí:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

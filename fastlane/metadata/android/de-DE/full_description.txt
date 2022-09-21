@@ -1,0 +1,29 @@
+Diese praktische Kamera-App ist sowohl für einfache Fotoaufnahmen als auch für Videoaufnahmen geeignet. Sie können in dieser offenen Kamera-App schnell zwischen Vorder- und Rückkamera wechseln, den Speicherpfad ändern oder die Auflösung für Ihre Bilderrahmen einschränken. Sie werden nie die wichtigen Momente Ihres Lebens verpassen. Es gibt viele hilfreiche Einstellungen, um es noch persönlicher und für Ihre Bedürfnisse geeignet zu machen. Lassen Sie uns einige von ihnen auflisten.
+
+Der Blitz kann ein- und ausgeschaltet oder als nützliche Taschenlampe verwendet werden, was nicht oft zu sehen ist. Sie können den Bildschirm zum Vergrößern und Verkleinern oder zum Umschalten des horizontalen Bildwechsels während der Aufnahme fantastischer Porträtfotos antippen. Mit dieser App können Sie sich auf das Hauptobjekt im Bild konzentrieren, anstatt andere Geräusche ins Bild kommen zu lassen.
+
+Sie können die Ausgabeauflösung, die Qualität oder das Seitenverhältnis mit wenigen Klicks ändern, wie Sie es von einer modernen offenen Kamera-App erwarten würden. Dies gilt sowohl für Fotos als auch für Videos. Die Qualität der Bilder und Videos kann nach Ihren Anforderungen leicht geändert werden.
+
+Nachdem Sie ein Bild aufgenommen haben, sehen Sie das neue Foto-Thumbnail, indem Sie es drücken, können Sie es schnell in Ihrer bevorzugten Galerie mit dieser offenen Kamera-App öffnen. Sie sehen eine klare Anzeige, wann das Foto aufgenommen wird, um sicherzustellen, dass die Datei gespeichert wurde.
+
+Wenn Sie diese einfach zu öffnende Kamera-App starten möchten, indem Sie die Hardwarekamera-Taste Ihres Geräts drücken, müssen Sie möglicherweise die integrierte Kamera-App unter Einstellungen -> Apps -> Kamera -> Deaktivieren deaktivieren deaktivieren.
+
+Sie können es so konfigurieren, dass es Lautstärketasten als Auslöser verwendet oder die Taschenlampe standardmäßig beim Start einschaltet.
+
+Es hat mehrere andere Einstellungen in Bezug auf den Verschlusston, Blitz, Fotometadaten, Fotoqualität usw. Der Ausgabedateipfad kann angepasst werden, sodass Sie entscheiden können, wo Sie Ihre Medien speichern möchten. Es unterstützt sowohl internen Speicher als auch SD-Karten.
+
+Es kommt mit Material-Design und einem dunklen Thema standardmäßig, bietet eine großartige Benutzererfahrung für die einfache Verwendung. Der fehlende Internetzugang bietet Ihnen mehr Privatsphäre, Sicherheit und Stabilität als andere Apps.
+
+Enthält keine Anzeigen oder unnötige Berechtigungen. Es ist eine vollständig offene Kameraquelle und bietet anpassbare Farben.
+
+Sehen Sie sich hier die komplette Suite der Simple Tools an:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

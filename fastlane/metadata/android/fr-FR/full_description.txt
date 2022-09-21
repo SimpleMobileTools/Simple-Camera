@@ -1,0 +1,29 @@
+Cette application d'appareil photo pratique est utilisable pour la prise de photos et l'enregistrement vidéo faciles. Vous pouvez également créer différents cadres photo avec cet éditeur de photo esthétique et l'application de caméra de collage. Vous pouvez rapidement basculer entre la caméra avant et arrière dans cette application de caméra ouverte, modifier le chemin d'enregistrement ou limiter la résolution de vos cadres photo. Cette application de caméra ouverte vous aide également à définir des cadres photo afin que vous puissiez prendre des photos en haute résolution. Vous ne manquerez jamais les moments importants de votre vie. De nombreux paramètres utiles sont disponibles pour le rendre encore plus personnel, adapté à vos besoins. Énumérons certains d'entre eux.
+
+Le flash peut être allumé et éteint ou utilisé comme une lampe de poche utile, qui n’est pas vu souvent. Vous pouvez pincer l’écran pour faire un zoom avant et arrière ou basculer l’échange d’image horizontale pendant la capture de photos de portrait fantastiques. Avec cette application, vous pouvez vous concentrer sur l’objet principal de l’image plutôt que de laisser d’autres bruits entrer dans l’image.
+
+Vous pouvez facilement modifier la résolution de sortie, la qualité ou le rapport hauteur / largeur en quelques clics, comme vous pouvez vous y attendre d'une application de caméra ouverte moderne. Cela s'applique aux photos et aux vidéos. La qualité des images et des vidéos peut facilement être modifiée selon vos besoins.
+
+Après avoir pris une photo, vous verrez la nouvelle vignette de la photo, en appuyant sur laquelle vous pouvez l'ouvrir rapidement dans votre galerie préférée à l'aide de cette application de caméra ouverte. Vous verrez une indication claire du moment où la photo est capturée, garantissant que le fichier a été enregistré.
+
+Si vous souhaitez lancer cette application d'appareil photo facile à ouvrir en appuyant sur le bouton de l'appareil photo matériel de vos appareils, vous devrez peut-être désactiver l'application Appareil photo intégrée dans Paramètres -> Applications -> Appareil photo -> Désactiver.
+
+Vous pouvez le configurer pour utiliser les boutons de volume comme obturateur ou pour allumer la lampe de poche par défaut au démarrage.
+
+Il a plusieurs autres paramètres liés au son de l'obturateur, au flash, aux métadonnées de la photo, à la qualité de la photo, etc. Le chemin du fichier de sortie peut être personnalisé, de sorte que vous pouvez décider où vous voulez enregistrer votre média. Il prend en charge à la fois le stockage interne et les cartes SD.
+
+Il est livré avec la conception du matériel et un thème sombre par défaut, offrant une grande expérience utilisateur pour une utilisation facile. Le manque d’accès à Internet vous donne plus de confidentialité, de sécurité et de stabilité que d’autres applications.
+
+Ne contient aucune publicité ou autorisations inutiles. C'est une source de caméra entièrement ouverte, fournit des couleurs personnalisables et des options d'un créateur de collages.
+
+Découvrez la suite complète des outils simples ici:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
