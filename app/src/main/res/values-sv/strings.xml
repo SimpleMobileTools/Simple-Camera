@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Simpel kamera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="camera_unavailable">Kameran är inte tillgänglig</string>
     <string name="camera_open_error">Ett fel uppstod vid åtkomst till kameran</string>
@@ -20,7 +20,7 @@
     <string name="video_capture_insufficient_storage_error">Videoinspelningen misslyckades på grund av otillräckligt lagringsutrymme</string>
     <!--Camera Screen Icons Content Description-->
     <string name="toggle_photo_video">Växla mellan foto-/videoläge</string>
-    <string name="change_resolution">Ändra resolution</string>
+    <string name="change_resolution">Ändra upplösning</string>
     <string name="view_last_media">Visa de senast fångade medierna</string>
     <string name="toggle_camera">Växla mellan främre/bakre kamera</string>
     <string name="toggle_flash">Växla ficklampans läge</string>

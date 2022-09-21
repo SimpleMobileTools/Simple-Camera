@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Paprasta Kamera</string>
+    <string name="app_name">Paprasta kamera</string>
     <string name="app_launcher_name">Kamera</string>
-    <string name="camera_unavailable">Kamera negalima</string>
-    <string name="camera_open_error">Įvyko klaida bandant įjungti kamerą</string>
-    <string name="video_creating_error">Įvyko klaida bandant sukurti vaizdo bylą</string>
-    <string name="video_mode_error">Perjungimas į vaizdo rėžimą nepavyko</string>
-    <string name="save_error_internal_storage">Įvyko klaida, saugojimo aplankas pakeistas į vidinę atmintį</string>
-    <string name="camera_switch_error">Kameros perjungimas nepavyko</string>
-    <string name="click_to_resume_preview">Paspausti ant paveikslėlio peržiūros pratęsimui</string>
-    <string name="photo_not_saved">Nuotrauka negali būti išsaugota</string>
-    <string name="setting_resolution_failed">Nustatant tinkamą raišką įvyko klaida</string>
-    <string name="video_recording_failed">Vaizdo įrašymas nepavyko, pabandykite naudoti kitą skiriamąją gebą</string>
-    <string name="camera_in_use_error">Fotoaparatą naudoja kita programa, uždarykite programą ir bandykite dar kartą</string>
-    <string name="camera_configure_error">Konfigūruojant fotoaparatą įvyko klaida</string>
-    <string name="camera_disabled_by_admin_error">Administratorius išjungia kamerą</string>
-    <string name="camera_dnd_error">Įjungtas režimas \"Netrukdyti\". Išjunkite ir bandykite dar kartą</string>
-    <string name="photo_capture_failed">Nepavyko užfiksuoti nuotraukos</string>
-    <string name="video_capture_insufficient_storage_error">Vaizdo įrašymas nepavyko dėl nepakankamos saugyklos</string>
+    <string name="camera_unavailable">Kamera neprieinama</string>
+    <string name="camera_open_error">Bandant pasiekti kamerą įvyko klaida</string>
+    <string name="video_creating_error">Kuriant vaizdo įrašo failą įvyko klaida</string>
+    <string name="video_mode_error">Nepavyko perjungti į vaizdo įrašo veikseną</string>
+    <string name="save_error_internal_storage">Įvyko klaida, įrašymo aplankas pakeistas į vidinę atmintį</string>
+    <string name="camera_switch_error">Nepavyko perjungti kameros</string>
+    <string name="click_to_resume_preview">Norėdami pratęsti peržiūrą spustelėkite ant atvaizdo</string>
+    <string name="photo_not_saved">Nepavyko įrašyti nuotraukos</string>
+    <string name="setting_resolution_failed">Nepavyko nustatyti tinkamos raiškos</string>
+    <string name="video_recording_failed">Nepavyko įrašinėti vaizdo įrašo, pabandykite naudoti kitą raišką</string>
+    <string name="camera_in_use_error">Kamerą naudoja kita programėlė, užverkite programėlę ir bandykite dar kartą</string>
+    <string name="camera_configure_error">Konfigūruojant kamerą įvyko klaida</string>
+    <string name="camera_disabled_by_admin_error">Administratorius yra išjungęs kamerą</string>
+    <string name="camera_dnd_error">Yra įjungta veiksena „Netrukdyti“. Išjunkite ją ir bandykite dar kartą</string>
+    <string name="photo_capture_failed">Nepavyko padaryti nuotraukos</string>
+    <string name="video_capture_insufficient_storage_error">Vaizdo įrašymas dėl atminties trūkumo patyrė nesėkmę</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_photo_video">Perjungti nuotraukos/vaizdo įrašo veikseną</string>
+    <string name="change_resolution">Keisti raišką</string>
+    <string name="view_last_media">Rodyti paskiausiai fiksuotą mediją</string>
+    <string name="toggle_camera">Perjungti priekinę/galinę kamerą</string>
+    <string name="toggle_flash">Perjungti žibintuvėlio veikseną</string>
     <!-- FAQ -->
-    <string name="faq_1_title">Kokią nuotraukos suspaudimo kokybę turėčiau nustatyti?</string>
-    <string name="faq_1_text">Tai priklauso nuo Jūsų tikslų. Įprastiems tikslams dauguma žmonių pataria naudoti 75%-80%, kai nuotrauka vistiek yra geros kokybės, bet bylos dydis sumažėja kardinaliai palyginus su 100%.</string>
+    <string name="faq_1_title">Kokią nuotraukos glaudinimo kokybę turėčiau nustatyti\?</string>
+    <string name="faq_1_text">Tai priklauso nuo jūsų tikslų. Įprastiems tikslams dauguma žmonių pataria naudoti 75%–80%, kuomet nuotrauka yra vis dar geros kokybės, bet failo dydis, palyginus su 100%, iš esmės sumažėja.</string>
     <!-- Settings -->
-    <string name="save_photos">Išsaugoti nuotraukas ir vaizdo įrašus į</string>
-    <string name="show_preview">Rodyti nuotraukos peržiūrą po nufotografavimo</string>
-    <string name="shutter_sound">Užrakto garsas</string>
-    <string name="back_camera">Galinės kameros raiškos</string>
-    <string name="front_camera">Priekinės kameros raiškos</string>
+    <string name="save_photos">Įrašyti nuotraukas ir vaizdo įrašus į</string>
+    <string name="show_preview">Rodyti nufotografuotų nuotraukų peržiūrą</string>
+    <string name="shutter_sound">Sklendės garsas</string>
+    <string name="back_camera">Galinės kameros raiška</string>
+    <string name="front_camera">Priekinės kameros raiška</string>
     <string name="photo">Nuotrauka</string>
     <string name="video">Vaizdo įrašas</string>
     <string name="focus_before_capture">Fokusuoti prieš fotografuojant</string>
-    <string name="volume_buttons_as_shutter">Naudoti garso mygtukus, kaip kameros užraktą</string>
-    <string name="turn_flash_off_at_startup">Išsjungti žibintuvėlį pajungus fotoaparato programėlę</string>
-    <string name="flip_front_camera_photos_horizontally">Pasukti priekinės kameros nuotraukas horizontaliai</string>
-    <string name="keep_settings_visible">Padaryti nustatymų mygtukus matomus</string>
-    <string name="always_open_back_camera">Visada atidaryti programėlę su nustatyta galine kamera</string>
-    <string name="save_photo_metadata">Išsaugoti nuotraukos exif metaduomenis</string>
-    <string name="photo_compression_quality">Nuotraukos suspaudimo kokybė</string>
-    <string name="shutter">Shutter</string>
+    <string name="volume_buttons_as_shutter">Naudoti garso mygtukus kaip fotografavimo mygtuką</string>
+    <string name="turn_flash_off_at_startup">Paleidus kamerą išjungti žibintuvėlį</string>
+    <string name="flip_front_camera_photos_horizontally">Apversti priekinės kameros nuotraukas horizontaliai</string>
+    <string name="keep_settings_visible">Palikti nustatymų mygtukus matomus</string>
+    <string name="always_open_back_camera">Visada atverti programėlę su įjungta galine kamera</string>
+    <string name="save_photo_metadata">Įrašyti į nuotraukas EXIF metaduomenis</string>
+    <string name="photo_compression_quality">Nuotraukų glaudinimo kokybė</string>
+    <string name="shutter">Sklendė</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
