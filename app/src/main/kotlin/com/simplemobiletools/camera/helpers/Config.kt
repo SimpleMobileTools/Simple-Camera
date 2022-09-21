@@ -66,10 +66,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getInt(FRONT_VIDEO_RESOLUTION_INDEX, 0)
         set(frontVideoResIndex) = prefs.edit().putInt(FRONT_VIDEO_RESOLUTION_INDEX, frontVideoResIndex).apply()
 
-    var keepSettingsVisible: Boolean
-        get() = prefs.getBoolean(KEEP_SETTINGS_VISIBLE, false)
-        set(keepSettingsVisible) = prefs.edit().putBoolean(KEEP_SETTINGS_VISIBLE, keepSettingsVisible).apply()
-
     var savePhotoMetadata: Boolean
         get() = prefs.getBoolean(SAVE_PHOTO_METADATA, true)
         set(savePhotoMetadata) = prefs.edit().putBoolean(SAVE_PHOTO_METADATA, savePhotoMetadata).apply()

@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="18"
+    android:viewportHeight="18">
+    <path
+        android:fillColor="@color/camera_option_color"
+        android:pathData="M9,7m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0" />
+    <path
+        android:fillColor="@color/camera_option_color"
+        android:pathData="M9,11m-1,0a1,1 0,1 1,2 0a1,1 0,1 1,-2 0" />
+    <path
+        android:fillColor="@color/camera_option_color"
+        android:fillType="evenOdd"
+        android:pathData="M2,0C0.895,0 0,0.895 0,2V5H2V2L16,2V5H18V2C18,0.895 17.105,0 16,0H2ZM18,13H16V16H2V13H0V16C0,17.105 0.895,18 2,18H16C17.105,18 18,17.105 18,16V13Z" />
+    <path
+        android:fillColor="@color/camera_option_color"
+        android:pathData="M15,12H13.13V9.033C13.13,8.978 13.13,8.878 13.13,8.733C13.13,8.585 13.132,8.423 13.135,8.245C13.141,8.067 13.149,7.907 13.158,7.765C13.078,7.85 13.002,7.922 12.93,7.982C12.862,8.042 12.795,8.099 12.73,8.15L11.956,8.713L11,7.679L13.34,6H15V12Z" />
+    <path
+        android:fillColor="@color/camera_option_color"
+        android:pathData="M6,12H4.131V9.033C4.131,8.978 4.131,8.878 4.131,8.733C4.131,8.585 4.132,8.423 4.135,8.245C4.141,8.067 4.149,7.907 4.159,7.765C4.078,7.85 4.002,7.922 3.93,7.982C3.862,8.042 3.795,8.099 3.73,8.15L2.956,8.713L2,7.679L4.34,6H6V12Z" />
+</vector>

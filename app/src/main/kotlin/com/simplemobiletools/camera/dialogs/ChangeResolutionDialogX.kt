@@ -47,7 +47,12 @@ class ChangeResolutionDialogX(
         val items = photoResolutions.mapIndexed { index, resolution ->
             val megapixels = resolution.megaPixels
             val aspectRatio = resolution.getAspectRatio(activity)
-            RadioItem(index, "${resolution.width} x ${resolution.height}  ($megapixels MP,  $aspectRatio)")
+            if (resolution.isFullScreen) {
+                //TODO: Extract to string resource
+                RadioItem(index, "Full")
+            } else {
+                RadioItem(index, "${resolution.width} x ${resolution.height}  ($megapixels MP,  $aspectRatio)")
+            }
         }
         var selectionIndex = if (isFrontCamera) config.frontPhotoResIndex else config.backPhotoResIndex
         selectionIndex = selectionIndex.coerceAtLeast(0)

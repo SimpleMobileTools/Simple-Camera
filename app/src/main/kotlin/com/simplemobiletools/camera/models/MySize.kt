@@ -2,18 +2,21 @@ package com.simplemobiletools.camera.models
 
 import android.content.Context
 import android.util.Size
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import com.simplemobiletools.camera.R
 
-data class MySize(val width: Int, val height: Int) {
+data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = false) {
     companion object {
         private const val ONE_MEGA_PIXEL = 1000000
+        private const val ZERO_MEGA_PIXEL = "0.0"
     }
 
-    val ratio = width / height.toFloat()
+    private val ratio = width / height.toFloat()
 
     val pixels: Int = width * height
 
-    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
+    val megaPixels: String = String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
 
     fun isSixteenToNine() = ratio == 16 / 9f
 
@@ -37,6 +40,14 @@ data class MySize(val width: Int, val height: Int) {
 
     private fun isSquare() = width == height
 
+    fun isSupported(isFullScreenSize16x9: Boolean): Boolean {
+        return if (isFullScreenSize16x9) {
+            isFourToThree() || isSquare()
+        } else {
+            isFourToThree() || isSixteenToNine() || isSquare()
+        } && megaPixels != ZERO_MEGA_PIXEL
+    }
+
     fun getAspectRatio(context: Context) = when {
         isSixteenToNine() -> "16:9"
         isFiveToThree() -> "5:3"
@@ -50,6 +61,28 @@ data class MySize(val width: Int, val height: Int) {
         isSquare() -> "1:1"
         isTwoToOne() -> "2:1"
         else -> context.resources.getString(R.string.other)
+    }
+
+    @DrawableRes
+    fun getImageResId(): Int = when {
+        isFullScreen -> R.drawable.ic_photo_full
+        isSixteenToNine() -> R.drawable.ic_photo_16x9
+        isFourToThree() -> R.drawable.ic_photo_4x3
+        isSquare() -> R.drawable.ic_photo_1x1
+        else -> throw UnsupportedOperationException("This size $this is not supported")
+    }
+
+    @IdRes
+    fun getButtonId(): Int = when {
+        isFullScreen -> R.id.photo_full
+        isSixteenToNine() -> R.id.photo_16x9
+        isFourToThree() -> R.id.photo_4x3
+        isSquare() -> R.id.photo_1x1
+        else -> throw UnsupportedOperationException("This size $this is not supported")
+    }
+
+    fun toResolutionOption(): ResolutionOption {
+        return ResolutionOption(buttonViewId = getButtonId(), imageDrawableResId = getImageResId())
     }
 
     fun toSize() = Size(width, height)

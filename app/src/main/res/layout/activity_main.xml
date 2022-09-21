@@ -1,107 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/view_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:animateLayoutChanges="true"
+    android:background="@android:color/black"
+    android:fitsSystemWindows="true">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/preview_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:scaleType="fitStart" />
+        android:layout_height="match_parent" />
+
 
     <View
-        android:id="@+id/capture_black_screen"
+        android:id="@+id/shutter_animation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0"
-        android:background="@color/md_grey_black" />
+        android:background="@android:color/black" />
+
+    <FrameLayout
+        android:id="@+id/top_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/layout_top" />
+
+        <include layout="@layout/layout_media_size" />
+
+        <include
+            layout="@layout/layout_flash"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/bottom_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/overlay_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/camera_mode_tab" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/camera_mode_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/shutter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabBackground="@drawable/tab_indicator"
+        app:tabIndicator="@null"
+        app:tabMode="auto"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/md_grey_600_dark"
+        app:tabTextColor="@color/md_grey_white">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/camera_mode_tab_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/video" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/camera_mode_tab_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/photo" />
+
+    </com.google.android.material.tabs.TabLayout>
+
 
     <ImageView
-        android:id="@+id/settings"
+        android:id="@+id/toggle_camera"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_alignParentEnd="true"
-        android:contentDescription="@string/settings"
+        android:contentDescription="@string/toggle_camera"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_settings_cog_vector" />
+        android:src="@drawable/ic_camera_front_vector"
+        app:layout_constraintBottom_toBottomOf="@id/shutter"
+        app:layout_constraintEnd_toStartOf="@id/shutter"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/shutter" />
 
     <ImageView
-        android:id="@+id/toggle_photo_video"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_below="@+id/settings"
-        android:layout_alignParentEnd="true"
-        android:contentDescription="@string/toggle_photo_video"
-        android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_video_vector" />
-
-    <ImageView
-        android:id="@+id/change_resolution"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:layout_below="@+id/toggle_photo_video"
-        android:layout_alignParentEnd="true"
-        android:contentDescription="@string/resolution"
-        android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_resolution_vector" />
+        android:id="@+id/shutter"
+        android:layout_width="@dimen/large_icon_size"
+        android:layout_height="@dimen/large_icon_size"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:contentDescription="@string/shutter"
+        android:src="@drawable/ic_shutter_animated"
+        app:layout_constraintBottom_toTopOf="@id/video_rec_curr_timer"
+        app:layout_constraintEnd_toStartOf="@id/last_photo_video_preview"
+        app:layout_constraintStart_toEndOf="@id/toggle_camera"
+        app:layout_constraintVertical_bias="1"
+        app:layout_goneMarginBottom="@dimen/big_margin" />
 
     <ImageView
         android:id="@+id/last_photo_video_preview"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
-        android:layout_below="@+id/change_resolution"
-        android:layout_alignParentEnd="true"
         android:contentDescription="@string/view_last_media"
-        android:padding="@dimen/medium_margin" />
+        android:padding="@dimen/medium_margin"
+        app:layout_constraintBottom_toBottomOf="@id/shutter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/shutter"
+        app:layout_constraintTop_toTopOf="@id/shutter"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
-    <LinearLayout
-        android:id="@+id/btn_holder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal|bottom">
-
-        <ImageView
-            android:id="@+id/toggle_camera"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:layout_weight="1"
-            android:contentDescription="@string/toggle_camera"
-            android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_camera_front_vector" />
-
-        <ImageView
-            android:id="@+id/shutter"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:layout_weight="1"
-            android:contentDescription="@string/shutter"
-            android:src="@drawable/ic_shutter_vector" />
-
-        <ImageView
-            android:id="@+id/toggle_flash"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
-            android:layout_weight="1"
-            android:contentDescription="@string/toggle_flash"
-            android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_flash_off_vector" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/video_rec_curr_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_holder"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/big_margin"
         android:textColor="@android:color/white"
         android:visibility="gone"
-        tools:text="00:00" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="00:00"
+        tools:visibility="gone" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

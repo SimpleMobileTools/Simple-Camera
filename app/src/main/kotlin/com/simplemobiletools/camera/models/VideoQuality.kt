@@ -1,6 +1,8 @@
 package com.simplemobiletools.camera.models
 
 import android.content.Context
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import com.simplemobiletools.camera.R
 
 enum class VideoQuality(val width: Int, val height: Int) {
@@ -11,7 +13,7 @@ enum class VideoQuality(val width: Int, val height: Int) {
 
     val pixels: Int = width * height
 
-    val megaPixels: String =  String.format("%.1f", (width * height.toFloat()) / VideoQuality.ONE_MEGA_PIXEL)
+    val megaPixels: String = String.format("%.1f", (width * height.toFloat()) / VideoQuality.ONE_MEGA_PIXEL)
 
     val ratio = width / height.toFloat()
 
@@ -50,6 +52,26 @@ enum class VideoQuality(val width: Int, val height: Int) {
         isSquare() -> "1:1"
         isTwoToOne() -> "2:1"
         else -> context.resources.getString(R.string.other)
+    }
+
+    @DrawableRes
+    fun getImageResId(): Int = when (this) {
+        UHD -> R.drawable.ic_video_uhd
+        FHD -> R.drawable.ic_video_fhd
+        HD -> R.drawable.ic_video_hd
+        SD -> R.drawable.ic_video_sd
+    }
+
+    @IdRes
+    fun getButtonId(): Int = when (this) {
+        UHD -> R.id.video_uhd
+        FHD -> R.id.video_fhd
+        HD -> R.id.video_hd
+        SD -> R.id.video_sd
+    }
+
+    fun toResolutionOption(): ResolutionOption {
+        return ResolutionOption(buttonViewId = getButtonId(), imageDrawableResId = getImageResId())
     }
 
     companion object {
