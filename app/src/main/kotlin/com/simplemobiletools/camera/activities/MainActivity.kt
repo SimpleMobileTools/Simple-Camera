@@ -11,7 +11,6 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
 import android.view.*
-import android.view.animation.OvershootInterpolator
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -703,7 +702,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (media_size_toggle_group.isVisible() ||
             flash_toggle_group.isVisible()
         ) {
-            val transitionSet = createTransition(isClosing = true)
+            val transitionSet = createTransition()
             TransitionManager.go(defaultScene, transitionSet)
             media_size_toggle_group.beGone()
             flash_toggle_group.beGone()
@@ -768,15 +767,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         media_size_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
-    private fun createTransition(isClosing: Boolean = false): Transition {
+    private fun createTransition(): Transition {
         val fadeTransition = Fade()
-        val changeBounds = ChangeBounds().apply {
-            interpolator = OvershootInterpolator()
-        }
         return TransitionSet().apply {
-            if (!isClosing) {
-                addTransition(changeBounds)
-            }
             addTransition(fadeTransition)
             this.duration = resources.getInteger(R.integer.icon_anim_duration).toLong()
         }
