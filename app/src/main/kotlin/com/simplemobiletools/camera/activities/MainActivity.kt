@@ -705,6 +705,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         ) {
             val transitionSet = createTransition(isClosing = true)
             TransitionManager.go(defaultScene, transitionSet)
+            media_size_toggle_group.beGone()
+            flash_toggle_group.beGone()
             return true
         }
 
@@ -762,6 +764,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun showResolutionOptions() {
         val transitionSet = createTransition()
         TransitionManager.go(mediaSizeScene, transitionSet)
+        media_size_toggle_group.beVisible()
         media_size_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
