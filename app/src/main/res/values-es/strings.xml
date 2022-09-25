@@ -23,7 +23,7 @@
     <string name="change_resolution">Cambiar Resolución</string>
     <string name="view_last_media">Ver últimos archivos capturados</string>
     <string name="toggle_camera">Cambiar cámara frontal/trasera</string>
-    <string name="toggle_flash">Cambiar modo linterna</string>
+    <string name="toggle_flash">Cambiar a modo linterna</string>
     <!-- FAQ -->
     <string name="faq_1_title">¿Qué calidad de compresión de foto debería establecer?</string>
     <string name="faq_1_text">Depende de tu objetivo. Para propósitos generales, la mayoría de las personas aconsejan usar 75%-80%, y la imagen seguirá siendo de calidad realmente buena, pero el tamaño del archivo es reducido drásticamente comparado con el 100%.</string>
