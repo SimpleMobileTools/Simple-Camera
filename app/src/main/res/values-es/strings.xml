@@ -5,7 +5,7 @@
     <string name="camera_unavailable">Cámara no disponible</string>
     <string name="camera_open_error">Ha ocurrido un error al acceder a la cámara</string>
     <string name="video_creating_error">Ha ocurrido un error creando el archivo de vídeo</string>
-    <string name="video_mode_error">Ha fallado el cambio a modo de vídeo</string>
+    <string name="video_mode_error">Error al cambiar al modo de video</string>
     <string name="save_error_internal_storage">Ha ocurrido un error, se ha cambiado la carpeta de destino al almacenamiento interno</string>
     <string name="camera_switch_error">Cámara Simple</string>
     <string name="click_to_resume_preview">Haga clic en la imagen para reanudar la vista previa</string>
@@ -38,11 +38,11 @@
     <string name="focus_before_capture">Enfocar antes de la captura</string>
     <string name="volume_buttons_as_shutter">Utilizar los botones de volumen como obturador</string>
     <string name="turn_flash_off_at_startup">Apagar flash al iniciar</string>
-    <string name="flip_front_camera_photos_horizontally">Girar horizontalmente fotos con cámara frontal</string>
-    <string name="keep_settings_visible">Mantener los botones de configuración visibles</string>
-    <string name="always_open_back_camera">Siempre abrir la aplicación en la cámara trasera</string>
-    <string name="save_photo_metadata">Guardar metadatos exif de las fotos</string>
-    <string name="photo_compression_quality">Calidad de compresión de foto</string>
+    <string name="flip_front_camera_photos_horizontally">Voltee las fotos de la cámara frontal horizontalmente</string>
+    <string name="keep_settings_visible">Mantenga los botones de configuración visibles</string>
+    <string name="always_open_back_camera">Abra siempre la aplicación con la cámara trasera</string>
+    <string name="save_photo_metadata">Guardar los metadatos exif de las fotos</string>
+    <string name="photo_compression_quality">Calidad de compresión de la fotográfica</string>
     <string name="shutter">Obturador</string>
     <!--
         Haven't found some strings? There's more at
