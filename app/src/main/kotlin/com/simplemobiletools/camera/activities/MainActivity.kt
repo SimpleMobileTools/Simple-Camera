@@ -222,7 +222,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun tryInitCamera() {
         handlePermission(PERMISSION_CAMERA) { grantedCameraPermission ->
             if (grantedCameraPermission) {
-                handlePermission(PERMISSION_WRITE_STORAGE) { grantedStoragePermission ->
+                handleStoragePermission { grantedStoragePermission ->
                     if (grantedStoragePermission) {
                         if (mIsInPhotoMode) {
                             initializeCamera()
@@ -246,6 +246,20 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 toast(R.string.no_camera_permissions)
                 finish()
             }
+        }
+    }
+
+    private fun handleStoragePermission(callback: (granted: Boolean) -> Unit) {
+        if (isTiramisuPlus()) {
+            handlePermission(PERMISSION_READ_MEDIA_IMAGES) { grantedReadImages ->
+                if (grantedReadImages) {
+                    handlePermission(PERMISSION_READ_MEDIA_VIDEO) { grantedReadVideos ->
+                        callback.invoke(grantedReadVideos)
+                    }
+                }
+            }
+        } else {
+            handlePermission(PERMISSION_WRITE_STORAGE, callback)
         }
     }
 
