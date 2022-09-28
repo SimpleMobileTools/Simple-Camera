@@ -1,22 +1,22 @@
-Această aplicație practică pentru aparat foto poate fi utilizată atât pentru a face fotografii, cât și pentru a înregistra video cu ușurință. Puteți comuta rapid între camera frontală și cea din spate în această aplicație deschisă pentru cameră, puteți modifica calea de salvare sau limita rezoluția pentru cadrele foto. Nu veți rata niciodată momentele importante din viața dumneavoastră. Sunt disponibile numeroase setări utile pentru a o face și mai personală, potrivită pentru nevoile dvs. Să enumerăm câteva dintre ele.
+Această aplicație practică pentru cameră foto poate fi utilizată atât pentru a face fotografii, cât și pentru a înregistra video cu ușurință. Puteți comuta rapid între camera frontală și cea din spate în această aplicație pentru cameră, puteți modifica locul în care sunt salvare sau puteți limita rezoluția pentru cadrele foto. Nu veți rata niciodată momentele importante din viața dumneavoastră. Aveți la dispoziție numeroase setări utile pentru a o face și mai personală, adaptată nevoilor dumneavoastră. Să enumerăm câteva dintre ele.
 
-Blițul poate fi activat și dezactivat sau poate fi folosit ca o lanternă utilă, ceea ce nu se vede prea des. Puteți ciupi ecranul pentru a mări sau micșora imaginea sau pentru a comuta schimbarea orizontală a imaginii în timpul capturării unor fotografii portret fantastice. Cu această aplicație vă puteți concentra asupra obiectului principal din imagine, mai degrabă decât să permiteți altor zgomote să intre în imagine. 
+Blițul poate fi activat și dezactivat sau poate fi folosit ca o lanternă utilă, ceea ce nu se întâmplă prea des. Puteți ciupi ecranul pentru a mări sau micșora imaginea sau pentru a comuta schimbarea orizontală a imaginii în timpul capturării unor fotografii portret fantastice. Cu această aplicație vă puteți concentra asupra obiectului principal din imagine, mai degrabă decât să permiteți altor zgomote să intre în imagine. 
 
-Puteți schimba cu ușurință rezoluția de ieșire, calitatea sau raportul de aspect cu câteva clicuri, așa cum v-ați aștepta de la o aplicație modernă de cameră deschisă. Acest lucru este valabil atât pentru fotografii, cât și pentru videoclipuri. Calitatea imaginilor și a videoclipurilor poate fi modificată cu ușurință în funcție de cerințele dumneavoastră.
+Puteți schimba cu ușurință rezoluția de ieșire, calitatea sau raportul de aspect cu câteva clicuri, așa cum v-ați aștepta de la o aplicație modernă de cameră. Acest lucru este valabil atât pentru fotografii, cât și pentru videoclipuri. Calitatea imaginilor și a videoclipurilor poate fi modificată cu ușurință în funcție de cerințele dumneavoastră.
 
-După ce faceți o fotografie, veți vedea noua miniatură a fotografiei, apăsând pe care o puteți deschide rapid în galeria preferată cu ajutorul acestei aplicații de cameră deschisă. Veți vedea o indicație clară a momentului în care fotografia este capturată, garantând că fișierul a fost salvat.
+După ce faceți o fotografie, veți vedea noua miniatură a fotografiei, pe care o puteți deschide rapid în galeria preferată cu ajutorul acestei aplicații. Veți vedea o indicație clară a momentului în care fotografia este capturată, garantând că fișierul a fost salvat.
 
-Dacă doriți să lansați această aplicație de aparat foto ușor de deschis la apăsarea butonului hardware al aparatului foto al dispozitivului dumneavoastră, este posibil să trebuiască să dezactivați aplicația Camera încorporată din Settings -> Apps -> Camera -> Disable.
+Dacă doriți să lansați această aplicație de aparat foto ușor de pornit la apăsarea butonului hardware al aparatului foto, este posibil să trebuiască să dezactivați aplicația Camera din Setări -> Aplicații -> Cameră -> Dezactivare.
 
-Puteți să o configurați pentru a utiliza butoanele de volum pe post de declanșator sau pentru a porni în mod implicit lanterna la pornire.
+Puteți să o configurați pentru a utiliza butoanele de volum ca declanșator sau pentru a porni în mod implicit lanterna la pornire.
 
-Are numeroase alte setări legate de sunetul declanșatorului, bliț, metadatele fotografiilor, calitatea fotografiilor etc. Calea fișierului de ieșire poate fi personalizată, astfel încât puteți decide unde doriți să vă salvați mediile. Suportă atât memoria internă, cât și cardurile SD.
+Are numeroase alte setări legate de sunetul declanșatorului, bliț, metadatele fotografiilor, calitatea fotografiilor etc. Locul fișierului salvat poate fi personalizată, astfel încât puteți decide unde doriți să vă salvați fotografiile și videourile. Suportă atât memoria internă, cât și cardurile SD.
 
-Vine cu design material și temă întunecată în mod implicit, oferă o experiență de utilizare excelentă pentru o utilizare ușoară. Lipsa accesului la internet vă oferă mai multă intimitate, securitate și stabilitate decât alte aplicații.
+Este prevăzut cu design material și temă întunecată în mod implicit, oferă o experiență de utilizare excelentă și ușoară. Lipsa accesului la internet vă oferă mai multă intimitate, securitate și stabilitate decât alte aplicații.
 
 Nu conține reclame sau permisiuni inutile. Este o sursă de cameră complet deschisă, oferă culori personalizabile.
 
-Consultați suita completă de instrumente simple aici:
+Consultați gama completă de instrumente Simple Tools aici:
 https://www.simplemobiletools.com
 
 Facebook:
