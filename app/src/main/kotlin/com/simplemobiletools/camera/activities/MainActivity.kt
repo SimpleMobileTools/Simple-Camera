@@ -402,7 +402,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             FLASH_ON -> R.drawable.ic_flash_on_vector
             else -> R.drawable.ic_flash_auto_vector
         }
-        toggle_flash.setImageResource(flashDrawable)
+        toggle_flash.icon = AppCompatResources.getDrawable(this, flashDrawable)
         toggle_flash.transitionName = "${getString(R.string.toggle_flash)}$state"
     }
 
@@ -555,8 +555,20 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun hasStorageAndCameraPermissions(): Boolean {
-        return if (mIsInPhotoMode) {
+        return if (mIsInPhotoMode) hasPhotoModePermissions() else hasVideoModePermissions()
+    }
+
+    private fun hasPhotoModePermissions(): Boolean {
+        return if (isTiramisuPlus()) {
+            hasPermission(PERMISSION_READ_MEDIA_IMAGES) && hasPermission(PERMISSION_CAMERA)
+        } else {
             hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
+        }
+    }
+
+    private fun hasVideoModePermissions(): Boolean {
+        return if (isTiramisuPlus()) {
+            hasPermission(PERMISSION_READ_MEDIA_VIDEO) && hasPermission(PERMISSION_CAMERA) && hasPermission(PERMISSION_RECORD_AUDIO)
         } else {
             hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA) && hasPermission(PERMISSION_RECORD_AUDIO)
         }
@@ -619,7 +631,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             toggle_flash.beVisible()
         } else {
             toggle_flash.beInvisible()
-            toggle_flash.setImageResource(R.drawable.ic_flash_off_vector)
+            toggle_flash.icon = AppCompatResources.getDrawable(this, R.drawable.ic_flash_off_vector)
             mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
@@ -728,7 +740,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun displaySelectedResolution(resolutionOption: ResolutionOption) {
         val imageRes = resolutionOption.imageDrawableResId
-        change_resolution.setImageResource(imageRes)
+        change_resolution.icon = AppCompatResources.getDrawable(this, imageRes)
         change_resolution.transitionName = "${resolutionOption.buttonViewId}"
     }
 
