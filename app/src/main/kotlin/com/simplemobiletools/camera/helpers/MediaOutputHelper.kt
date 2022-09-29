@@ -34,52 +34,62 @@ class MediaOutputHelper(
     private val contentResolver = activity.contentResolver
 
     fun getImageMediaOutput(): MediaOutput {
-        return if (is3rdPartyIntent) {
-            if (outputUri != null) {
-                val outputStream = openOutputStream(outputUri)
-                if (outputStream != null) {
-                    MediaOutput.OutputStreamMediaOutput(outputStream, outputUri)
+        return try {
+            if (is3rdPartyIntent) {
+                if (outputUri != null) {
+                    val outputStream = openOutputStream(outputUri)
+                    if (outputStream != null) {
+                        MediaOutput.OutputStreamMediaOutput(outputStream, outputUri)
+                    } else {
+                        errorHandler.showSaveToInternalStorage()
+                        getMediaStoreOutput(isPhoto = true)
+                    }
                 } else {
-                    errorHandler.showSaveToInternalStorage()
-                    getMediaStoreOutput(isPhoto = true)
+                    MediaOutput.BitmapOutput
                 }
             } else {
-                MediaOutput.BitmapOutput
+                getOutputStreamMediaOutput() ?: getMediaStoreOutput(isPhoto = true)
             }
-        } else {
-            getOutputStreamMediaOutput() ?: getMediaStoreOutput(isPhoto = true)
+        } catch (e: Exception) {
+            errorHandler.showSaveToInternalStorage()
+            getMediaStoreOutput(isPhoto = true)
         }
     }
 
     fun getVideoMediaOutput(): MediaOutput {
-        return if (is3rdPartyIntent) {
-            if (outputUri != null) {
-                if (isOreoPlus()) {
-                    val fileDescriptor = openFileDescriptor(outputUri)
-                    if (fileDescriptor != null) {
-                        MediaOutput.FileDescriptorMediaOutput(fileDescriptor, outputUri)
+        return try {
+            if (is3rdPartyIntent) {
+                if (outputUri != null) {
+                    if (isOreoPlus()) {
+                        val fileDescriptor = openFileDescriptor(outputUri)
+                        if (fileDescriptor != null) {
+                            MediaOutput.FileDescriptorMediaOutput(fileDescriptor, outputUri)
+                        } else {
+                            errorHandler.showSaveToInternalStorage()
+                            getMediaStoreOutput(isPhoto = false)
+                        }
                     } else {
-                        errorHandler.showSaveToInternalStorage()
-                        getMediaStoreOutput(isPhoto = false)
+                        val path = activity.getRealPathFromURI(outputUri)
+                        if (path != null) {
+                            MediaOutput.FileMediaOutput(File(path), outputUri)
+                        } else {
+                            errorHandler.showSaveToInternalStorage()
+                            getMediaStoreOutput(isPhoto = false)
+                        }
                     }
                 } else {
-                    val path = activity.getRealPathFromURI(outputUri)
-                    if (path != null) {
-                        MediaOutput.FileMediaOutput(File(path), outputUri)
-                    } else {
-                        errorHandler.showSaveToInternalStorage()
-                        getMediaStoreOutput(isPhoto = false)
-                    }
+                    getMediaStoreOutput(isPhoto = false)
                 }
             } else {
-                getMediaStoreOutput(isPhoto = false)
+                if (isOreoPlus()) {
+                    getFileDescriptorMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
+                } else {
+                    getFileMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
+                }
             }
-        } else {
-            if (isOreoPlus()) {
-                getFileDescriptorMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
-            } else {
-                getFileMediaOutput() ?: getMediaStoreOutput(isPhoto = false)
-            }
+        } catch (e: Exception) {
+            errorHandler.showSaveToInternalStorage()
+            getMediaStoreOutput(isPhoto = false)
         }
     }
 

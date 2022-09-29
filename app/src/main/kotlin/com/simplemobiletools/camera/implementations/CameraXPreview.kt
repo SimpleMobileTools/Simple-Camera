@@ -373,18 +373,19 @@ class CameraXPreview(
     }
 
     private fun toggleResolutions(resolutions: List<ResolutionOption>) {
-        val currentIndex = mediaSizeStore.getCurrentSizeIndex(isPhotoCapture, isFrontCameraInUse())
+        if (resolutions.size >= 2) {
+            val currentIndex = mediaSizeStore.getCurrentSizeIndex(isPhotoCapture, isFrontCameraInUse())
 
-        val nextIndex = if (currentIndex >= resolutions.lastIndex) {
-            0
-        } else {
-            currentIndex + 1
+            val nextIndex = if (currentIndex >= resolutions.lastIndex) {
+                0
+            } else {
+                currentIndex + 1
+            }
+
+            mediaSizeStore.storeSize(isPhotoCapture, isFrontCameraInUse(), nextIndex)
+            currentRecording?.stop()
+            startCamera()
         }
-
-        mediaSizeStore.storeSize(isPhotoCapture, isFrontCameraInUse(), nextIndex)
-        currentRecording?.stop()
-        startCamera()
-
     }
 
     override fun toggleFrontBackCamera() {
@@ -438,7 +439,7 @@ class CameraXPreview(
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
 
         if (mediaOutput is MediaOutput.BitmapOutput) {
-            imageCapture.takePicture(mainExecutor, object : ImageCapture.OnImageCapturedCallback() {
+            imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     listener.toggleBottomButtons(false)
                     val bitmap = BitmapUtils.makeBitmap(image.toJpegByteArray())
@@ -457,7 +458,6 @@ class CameraXPreview(
             val outputOptionsBuilder = when (mediaOutput) {
                 is MediaOutput.MediaStoreOutput -> OutputFileOptions.Builder(contentResolver, mediaOutput.contentUri, mediaOutput.contentValues)
                 is MediaOutput.OutputStreamMediaOutput -> OutputFileOptions.Builder(mediaOutput.outputStream)
-                is MediaOutput.BitmapOutput -> throw IllegalStateException("Cannot produce an OutputFileOptions for a bitmap output")
                 else -> throw IllegalArgumentException("Unexpected option for image ")
             }
 
