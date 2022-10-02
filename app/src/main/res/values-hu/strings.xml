@@ -12,7 +12,7 @@
     <string name="photo_not_saved">A fényképet nem lehetett elmenteni</string>
     <string name="setting_resolution_failed">A megfelelő felbontás beállítása nem sikerült</string>
     <string name="video_recording_failed">A videófelvétel sikertelen, próbáljon más felbontást használni</string>
-    <string name="camera_in_use_error">A kamerát egy másik alkalmazás használja, kérjük, zárja be az alkalmazást, és próbálja meg újra.</string>
+    <string name="camera_in_use_error">A kamerát egy másik alkalmazás használja, zárja be az alkalmazást, és próbálja meg újra</string>
     <string name="camera_configure_error">Hiba történt a kamera konfigurálása közben</string>
     <string name="camera_disabled_by_admin_error">A kamerát az admin letiltotta</string>
     <string name="camera_dnd_error">A Ne zavarjanak üzemmód engedélyezve van. Kérjük, kapcsolja ki és próbálja újra</string>
