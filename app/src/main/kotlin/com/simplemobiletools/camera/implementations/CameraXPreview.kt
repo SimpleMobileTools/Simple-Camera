@@ -441,12 +441,18 @@ class CameraXPreview(
         if (mediaOutput is MediaOutput.BitmapOutput) {
             imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
-                    listener.toggleBottomButtons(false)
-                    val bitmap = BitmapUtils.makeBitmap(image.toJpegByteArray())
-                    if (bitmap != null) {
-                        listener.onImageCaptured(bitmap)
-                    } else {
-                        cameraErrorHandler.handleImageCaptureError(ERROR_CAPTURE_FAILED)
+                    ensureBackgroundThread {
+                        image.use {
+                            val bitmap = BitmapUtils.makeBitmap(image.toJpegByteArray())
+                            activity.runOnUiThread {
+                                listener.toggleBottomButtons(false)
+                                if (bitmap != null) {
+                                    listener.onImageCaptured(bitmap)
+                                } else {
+                                    cameraErrorHandler.handleImageCaptureError(ERROR_CAPTURE_FAILED)
+                                }
+                            }
+                        }
                     }
                 }
 
