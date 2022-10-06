@@ -283,7 +283,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (isVideoCaptureIntent()) {
             mIsInPhotoMode = false
             hideIntentButtons()
-            shutter.setImageResource(R.drawable.ic_video_rec)
+            shutter.setImageResource(R.drawable.ic_video_rec_vector)
         }
     }
 

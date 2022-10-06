@@ -6,17 +6,17 @@
     android:viewportHeight="168">
     <item
         android:id="@+id/selected"
-        android:drawable="@drawable/ic_video_rec"
+        android:drawable="@drawable/ic_video_rec_vector"
         android:state_selected="true" />
 
     <item
         android:id="@+id/pressed"
-        android:drawable="@drawable/ic_video_rec"
+        android:drawable="@drawable/ic_video_rec_vector"
         android:state_pressed="true" />
 
     <item
         android:id="@+id/default_state"
-        android:drawable="@drawable/ic_video_rec" />
+        android:drawable="@drawable/ic_video_rec_vector" />
 
     <transition
         android:drawable="@drawable/video_rec_record_to_idle"

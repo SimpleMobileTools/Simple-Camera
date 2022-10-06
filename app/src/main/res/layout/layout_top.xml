@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/toggle_flash"
         app:layout_constraintTop_toTopOf="@id/toggle_flash"
-        tools:icon="@drawable/ic_photo_4x3" />
+        tools:icon="@drawable/ic_photo_4x3_vector" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/settings"

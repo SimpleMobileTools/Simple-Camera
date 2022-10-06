@@ -4,5 +4,5 @@
     style="@style/Widget.App.Button.OutlineButton.IconOnly"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:icon="@drawable/ic_photo_1x1" />
+    tools:icon="@drawable/ic_photo_1x1_vector" />
 

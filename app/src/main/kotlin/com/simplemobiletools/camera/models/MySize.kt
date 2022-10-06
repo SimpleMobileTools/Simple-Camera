@@ -65,10 +65,10 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
 
     @DrawableRes
     fun getImageResId(): Int = when {
-        isFullScreen -> R.drawable.ic_photo_full
-        isSixteenToNine() -> R.drawable.ic_photo_16x9
-        isFourToThree() -> R.drawable.ic_photo_4x3
-        isSquare() -> R.drawable.ic_photo_1x1
+        isFullScreen -> R.drawable.ic_photo_full_vector
+        isSixteenToNine() -> R.drawable.ic_photo_16x9_vector
+        isFourToThree() -> R.drawable.ic_photo_4x3_vector
+        isSquare() -> R.drawable.ic_photo_1x1_vector
         else -> throw UnsupportedOperationException("This size $this is not supported")
     }
 

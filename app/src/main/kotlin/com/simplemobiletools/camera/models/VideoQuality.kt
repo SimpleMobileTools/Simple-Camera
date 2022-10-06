@@ -56,10 +56,10 @@ enum class VideoQuality(val width: Int, val height: Int) {
 
     @DrawableRes
     fun getImageResId(): Int = when (this) {
-        UHD -> R.drawable.ic_video_uhd
-        FHD -> R.drawable.ic_video_fhd
-        HD -> R.drawable.ic_video_hd
-        SD -> R.drawable.ic_video_sd
+        UHD -> R.drawable.ic_video_uhd_vector
+        FHD -> R.drawable.ic_video_fhd_vector
+        HD -> R.drawable.ic_video_hd_vector
+        SD -> R.drawable.ic_video_sd_vector
     }
 
     @IdRes

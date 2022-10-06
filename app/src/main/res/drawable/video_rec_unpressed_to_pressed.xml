@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:drawable="@drawable/ic_video_rec">
+    android:drawable="@drawable/ic_video_rec_vector">
 
     <target android:name="inner_big">
         <aapt:attr name="android:animation">
