@@ -6,11 +6,11 @@
     android:viewportHeight="168">
     <item
         android:id="@+id/pressed"
-        android:drawable="@drawable/ic_shutter"
+        android:drawable="@drawable/ic_shutter_vector"
         android:state_pressed="true" />
     <item
         android:id="@+id/unpressed"
-        android:drawable="@drawable/ic_shutter" />
+        android:drawable="@drawable/ic_shutter_vector" />
 
     <transition
         android:drawable="@drawable/shutter_pressed_to_unpressed"
