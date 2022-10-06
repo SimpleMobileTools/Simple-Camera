@@ -38,10 +38,16 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.*
-import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.flash_auto
+import kotlinx.android.synthetic.main.layout_flash.flash_off
+import kotlinx.android.synthetic.main.layout_flash.flash_on
+import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
+import kotlinx.android.synthetic.main.layout_top.change_resolution
+import kotlinx.android.synthetic.main.layout_top.default_icons
+import kotlinx.android.synthetic.main.layout_top.settings
+import kotlinx.android.synthetic.main.layout_top.toggle_flash
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -342,7 +348,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mTimerHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
 
-        val initialFlashlightState = FLASH_OFF
+        val initialFlashlightState = if (mIsInPhotoMode) config.flashlightState else FLASH_OFF
         mPreview!!.setFlashlightState(initialFlashlightState)
         updateFlashlightState(initialFlashlightState)
         initFlashModeTransitionNames()
@@ -395,7 +401,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    fun updateFlashlightState(state: Int) {
+    private fun updateFlashlightState(state: Int) {
         config.flashlightState = state
         val flashDrawable = when (state) {
             FLASH_OFF -> R.drawable.ic_flash_off_vector
