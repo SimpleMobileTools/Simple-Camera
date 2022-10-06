@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.button.MaterialButtonToggleGroup xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/flash_toggle_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:visibility="gone"
     app:selectionRequired="true"
-    app:singleSelection="true">
+    app:singleSelection="true"
+    tools:visibility="visible">
 
 
     <Button

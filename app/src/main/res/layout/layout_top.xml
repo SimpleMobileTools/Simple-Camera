@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/default_icons"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/toggle_flash"
-        android:layout_width="@dimen/top_icon_size"
-        android:layout_height="@dimen/top_icon_size"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/normal_margin"
+        style="@style/Widget.App.Button.OutlineButton.IconOnly"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:contentDescription="@string/toggle_flash"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_flash_off_vector"
+        app:icon="@drawable/ic_flash_off_vector"
         app:layout_constraintEnd_toStartOf="@id/change_resolution"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/change_resolution"
-        android:layout_width="@dimen/top_icon_size"
-        android:layout_height="@dimen/top_icon_size"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/normal_margin"
+        style="@style/Widget.App.Button.OutlineButton.IconOnly"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:contentDescription="@string/resolution"
         android:padding="@dimen/normal_margin"
         android:transitionName="one_by_one"
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/toggle_flash"
         app:layout_constraintTop_toTopOf="@id/toggle_flash"
-        tools:src="@drawable/ic_photo_4x3" />
+        tools:icon="@drawable/ic_photo_4x3" />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/settings"
-        android:layout_width="@dimen/top_icon_size"
-        android:layout_height="@dimen/top_icon_size"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/normal_margin"
+        style="@style/Widget.App.Button.OutlineButton.IconOnly"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:contentDescription="@string/settings"
         android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_settings_cog_vector"
+        app:icon="@drawable/ic_settings_cog_vector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/change_resolution"
         app:layout_constraintTop_toTopOf="@id/toggle_flash" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
