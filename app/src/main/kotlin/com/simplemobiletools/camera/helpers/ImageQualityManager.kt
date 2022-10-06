@@ -64,6 +64,7 @@ class ImageQualityManager(
             .flatMap { it.qualities }
             .sortedByDescending { it.pixels }
             .distinctBy { it.getAspectRatio(activity) }
+            .sortedByDescending { it.getAspectRatio(activity).split(":").firstOrNull()?.toIntOrNull() }
             .filter { it.isSupported(fullScreenSize.isSixteenToNine()) }
     }
 
