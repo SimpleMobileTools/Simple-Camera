@@ -1,8 +1,6 @@
 package com.simplemobiletools.camera.helpers
 
-class MediaSizeStore(
-    private val config: Config,
-) {
+class MediaSizeStore(private val config: Config) {
 
     fun storeSize(isPhotoCapture: Boolean, isFrontCamera: Boolean, currentIndex: Int) {
         if (isPhotoCapture) {

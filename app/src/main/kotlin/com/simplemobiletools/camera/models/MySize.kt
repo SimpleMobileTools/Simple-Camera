@@ -1,7 +1,6 @@
 package com.simplemobiletools.camera.models
 
 import android.content.Context
-import android.util.Size
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.simplemobiletools.camera.R
@@ -84,6 +83,4 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
     fun toResolutionOption(): ResolutionOption {
         return ResolutionOption(buttonViewId = getButtonId(), imageDrawableResId = getImageResId())
     }
-
-    fun toSize() = Size(width, height)
 }

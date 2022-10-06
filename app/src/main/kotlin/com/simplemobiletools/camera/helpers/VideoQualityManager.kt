@@ -14,7 +14,6 @@ import com.simplemobiletools.commons.extensions.showErrorToast
 class VideoQualityManager(
     private val activity: AppCompatActivity,
 ) {
-
     companion object {
         private val QUALITIES = listOf(Quality.UHD, Quality.FHD, Quality.HD, Quality.SD)
         private val CAMERA_SELECTORS = arrayOf(CameraSelector.DEFAULT_BACK_CAMERA, CameraSelector.DEFAULT_FRONT_CAMERA)

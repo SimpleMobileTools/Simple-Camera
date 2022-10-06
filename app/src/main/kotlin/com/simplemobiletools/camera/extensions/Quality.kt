@@ -1,6 +1,5 @@
 package com.simplemobiletools.camera.extensions
 
-import androidx.camera.core.AspectRatio
 import androidx.camera.video.Quality
 import com.simplemobiletools.camera.models.VideoQuality
 
@@ -20,13 +19,5 @@ fun VideoQuality.toCameraXQuality(): Quality {
         VideoQuality.FHD -> Quality.FHD
         VideoQuality.HD -> Quality.HD
         VideoQuality.SD -> Quality.SD
-    }
-}
-
-fun Quality.getAspectRatio(): Int {
-    return when(this) {
-        Quality.UHD, Quality.FHD, Quality.HD -> AspectRatio.RATIO_16_9
-        Quality.SD -> AspectRatio.RATIO_4_3
-        else -> throw IllegalArgumentException("Unsupported quality: $this")
     }
 }

@@ -23,7 +23,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
 import com.simplemobiletools.camera.R
-import com.simplemobiletools.camera.dialogs.ChangeResolutionDialogX
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
@@ -324,21 +323,6 @@ class CameraXPreview(
 
     override fun onStop(owner: LifecycleOwner) {
         orientationEventListener.disable()
-    }
-
-    override fun showChangeResolutionDialog() {
-        val oldQuality = videoQualityManager.getUserSelectedQuality(cameraSelector)
-        ChangeResolutionDialogX(
-            activity,
-            isFrontCameraInUse(),
-            imageQualityManager.getSupportedResolutions(cameraSelector),
-            videoQualityManager.getSupportedQualities(cameraSelector),
-        ) {
-            if (oldQuality != videoQualityManager.getUserSelectedQuality(cameraSelector)) {
-                currentRecording?.stop()
-            }
-            startCamera()
-        }
     }
 
     override fun showChangeResolution() {

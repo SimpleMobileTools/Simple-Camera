@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.hardware.SensorManager
+import android.hardware.camera2.CameraCharacteristics
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -31,7 +32,6 @@ import com.simplemobiletools.camera.extensions.toFlashModeId
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.CameraXInitializer
 import com.simplemobiletools.camera.implementations.CameraXPreviewListener
-import com.simplemobiletools.camera.implementations.MyCameraImpl
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.ResolutionOption
 import com.simplemobiletools.camera.views.FocusCircleView
@@ -55,7 +55,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private lateinit var flashModeScene: Scene
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
-    private lateinit var mCameraImpl: MyCameraImpl
     private var mPreview: MyPreview? = null
     private var mediaSizeToggleGroup: MaterialButtonToggleGroup? = null
     private var mPreviewUri: Uri? = null
@@ -181,8 +180,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mIsHardwareShutterHandled = false
         mCurrVideoRecTimer = 0
         mLastHandledOrientation = 0
-        mCameraImpl = MyCameraImpl(applicationContext)
-        config.lastUsedCamera = mCameraImpl.getBackCameraId().toString()
+        config.lastUsedCamera = CameraCharacteristics.LENS_FACING_BACK.toString()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -330,8 +328,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         checkImageCaptureIntent()
         mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
-        val imageDrawable =
-            if (config.lastUsedCamera == mCameraImpl.getBackCameraId().toString()) R.drawable.ic_camera_front_vector else R.drawable.ic_camera_rear_vector
+        val imageDrawable = if (config.lastUsedCamera == CameraCharacteristics.LENS_FACING_BACK.toString()) {
+            R.drawable.ic_camera_front_vector
+        } else {
+            R.drawable.ic_camera_rear_vector
+        }
+
         toggle_camera.setImageResource(imageDrawable)
 
         mFocusCircleView = FocusCircleView(applicationContext)

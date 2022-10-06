@@ -34,15 +34,6 @@ fun Int.toFlashModeId(): Int {
     }
 }
 
-fun Int.idToAppFlashMode(): Int {
-    return when (this) {
-        R.id.flash_on -> FLASH_ON
-        R.id.flash_off -> FLASH_OFF
-        R.id.flash_auto -> FLASH_AUTO
-        else -> throw IllegalArgumentException("Unknown mode: $this")
-    }
-}
-
 fun Int.toCameraSelector(): CameraSelector {
     return if (this == CameraSelector.LENS_FACING_FRONT) {
         CameraSelector.DEFAULT_FRONT_CAMERA
