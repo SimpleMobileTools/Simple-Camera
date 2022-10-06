@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Semplice Fotocamera</string>
+    <string name="app_name">Fotocamera Semplice</string>
     <string name="app_launcher_name">Fotocamera</string>
     <string name="camera_unavailable">Fotocamera non disponibile</string>
     <string name="camera_open_error">Impossibile accedere alla telecamera</string>

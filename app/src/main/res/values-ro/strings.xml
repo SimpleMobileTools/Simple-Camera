@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Camera simplă</string>
     <string name="app_launcher_name">Cameră</string>
     <string name="camera_unavailable">Cameră indisponibilă</string>
     <string name="camera_open_error">A apărut o eroare la accesarea camerei</string>
     <string name="video_creating_error">S-a produs o eroare la crearea fișierului video</string>
     <string name="video_mode_error">Trecerea la modul video a eșuat</string>
-    <string name="save_error_internal_storage">A apărut o eroare, dosarul de salvare a fost schimbat în memoria internă</string>
+    <string name="save_error_internal_storage">A apărut o eroare, folderul de salvare a fost schimbat în memoria internă</string>
     <string name="camera_switch_error">Schimbarea camerei a eșuat</string>
     <string name="click_to_resume_preview">Faceți clic pe imagine pentru a relua previzualizarea</string>
     <string name="photo_not_saved">Fotografia nu a putut fi salvată</string>
@@ -15,22 +15,22 @@
     <string name="camera_in_use_error">Camera este utilizată de o altă aplicație, vă rugăm să închideți aplicația și să încercați din nou</string>
     <string name="camera_configure_error">A apărut o eroare în timpul configurării camerei</string>
     <string name="camera_disabled_by_admin_error">Camera este dezactivată de către administrator</string>
-    <string name="camera_dnd_error">Modul Nu deranjați este activat. Vă rugăm să dezactivați și să încercați din nou</string>
+    <string name="camera_dnd_error">Modul Nu deranjați este activat. Vă rugăm să-l dezactivați și să încercați din nou</string>
     <string name="photo_capture_failed">Captură foto eșuată</string>
     <string name="video_capture_insufficient_storage_error">Înregistrarea video a eșuat din cauza stocării insuficiente</string>
     <!--Camera Screen Icons Content Description-->
-    <string name="toggle_photo_video">Comutați modul foto/video</string>
-    <string name="change_resolution">Modificarea Rezoluției</string>
-    <string name="view_last_media">Vizualizarea ultimei medii capturate</string>
-    <string name="toggle_camera">Comutați camera față/spate</string>
-    <string name="toggle_flash">Comutați modul lanternă</string>
+    <string name="toggle_photo_video">Comutarea modului foto/video</string>
+    <string name="change_resolution">Modificarea rezoluției</string>
+    <string name="view_last_media">Vizualizați ultimul suport media capturat</string>
+    <string name="toggle_camera">Comutarea camerei față/spate</string>
+    <string name="toggle_flash">Comutatarea modului lanternă</string>
     <!-- FAQ -->
     <string name="faq_1_title">Ce calitate de compresie a fotografiilor ar trebui să setez?</string>
     <string name="faq_1_text">Depinde de obiectivul dumneavoastră. În general, majoritatea oamenilor recomandă utilizarea a 75%-80%, atunci când calitatea imaginii este foarte bună, dar dimensiunea fișierului este redusă drastic în comparație cu 100%.</string>
     <!-- Settings -->
     <string name="save_photos">Salvați fotografii și clipuri video pe</string>
     <string name="show_preview">Afișați o previzualizare a fotografiei după captură</string>
-    <string name="shutter_sound">Sunet la realizarea fotografiei</string>
+    <string name="shutter_sound">Sunetul de declanșare</string>
     <string name="back_camera">Rezoluțiile camerei din spate</string>
     <string name="front_camera">Rezoluțiile camerei frontale</string>
     <string name="photo">Foto</string>
@@ -43,7 +43,7 @@
     <string name="always_open_back_camera">Deschideți întotdeauna aplicația cu camera din spate</string>
     <string name="save_photo_metadata">Salvați metadatele exif ale fotografiilor</string>
     <string name="photo_compression_quality">Calitatea comprimării fotografiilor</string>
-    <string name="shutter">Obturator</string>
+    <string name="shutter">Declanșator</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

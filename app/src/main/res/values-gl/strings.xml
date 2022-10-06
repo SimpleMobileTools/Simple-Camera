@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Cámara sinxela</string>
     <string name="app_launcher_name">Cámara</string>
     <string name="camera_unavailable">Cámara non dispoñible</string>
     <string name="camera_open_error">Fallou o acceso á cámara</string>
