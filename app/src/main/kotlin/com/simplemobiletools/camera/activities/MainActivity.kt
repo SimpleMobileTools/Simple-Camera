@@ -22,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
@@ -43,7 +44,6 @@ import kotlinx.android.synthetic.main.layout_flash.flash_auto
 import kotlinx.android.synthetic.main.layout_flash.flash_off
 import kotlinx.android.synthetic.main.layout_flash.flash_on
 import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
-import kotlinx.android.synthetic.main.layout_media_size.media_size_toggle_group
 import kotlinx.android.synthetic.main.layout_top.change_resolution
 import kotlinx.android.synthetic.main.layout_top.default_icons
 import kotlinx.android.synthetic.main.layout_top.settings
@@ -58,12 +58,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     lateinit var mTimerHandler: Handler
     private lateinit var defaultScene: Scene
-    private lateinit var mediaSizeScene: Scene
     private lateinit var flashModeScene: Scene
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mCameraImpl: MyCameraImpl
     private var mPreview: MyPreview? = null
+    private var mediaSizeToggleGroup: MaterialButtonToggleGroup? = null
     private var mPreviewUri: Uri? = null
     private var mIsInPhotoMode = true
     private var mIsCameraAvailable = false
@@ -287,12 +287,17 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
+    private fun createToggleGroup(): MaterialButtonToggleGroup {
+        return MaterialButtonToggleGroup(this).apply {
+            isSingleSelection = true
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
         initButtons()
-
         defaultScene = Scene(top_options, default_icons)
-        mediaSizeScene = Scene(top_options, media_size_toggle_group)
         flashModeScene = Scene(top_options, flash_toggle_group)
 
         ViewCompat.setOnApplyWindowInsetsListener(view_holder) { _, windowInsets ->
@@ -725,13 +730,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun closeOptions(): Boolean {
-        if (media_size_toggle_group.isVisible() ||
+        if (mediaSizeToggleGroup?.isVisible() == true ||
             flash_toggle_group.isVisible()
         ) {
             val transitionSet = createTransition()
             TransitionManager.go(defaultScene, transitionSet)
-            media_size_toggle_group.beGone()
+            mediaSizeToggleGroup?.beGone()
             flash_toggle_group.beGone()
+            default_icons.beVisible()
             return true
         }
 
@@ -752,8 +758,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         onSelect: (index: Int, changed: Boolean) -> Unit
     ) {
 
-        media_size_toggle_group.removeAllViews()
-        media_size_toggle_group.clearChecked()
+        top_options.removeView(mediaSizeToggleGroup)
+        val mediaSizeToggleGroup = createToggleGroup().apply {
+            mediaSizeToggleGroup = this
+        }
+        top_options.addView(mediaSizeToggleGroup)
 
         val onItemClick = { clickedViewId: Int ->
             closeOptions()
@@ -764,11 +773,17 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         resolutions.map {
             createButton(it, onItemClick)
         }.forEach { button ->
-            media_size_toggle_group.addView(button)
+            mediaSizeToggleGroup.addView(button)
         }
 
-        media_size_toggle_group.check(selectedResolution.buttonViewId)
-        showResolutionOptions()
+        mediaSizeToggleGroup.check(selectedResolution.buttonViewId)
+
+        val transitionSet = createTransition()
+        val mediaSizeScene = Scene(top_options, mediaSizeToggleGroup)
+        TransitionManager.go(mediaSizeScene, transitionSet)
+        default_icons.beGone()
+        mediaSizeToggleGroup.beVisible()
+        mediaSizeToggleGroup.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
     private fun createButton(resolutionOption: ResolutionOption, onClick: (clickedViewId: Int) -> Unit): MaterialButton {
@@ -784,13 +799,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 onClick.invoke(id)
             }
         }
-    }
-
-    private fun showResolutionOptions() {
-        val transitionSet = createTransition()
-        TransitionManager.go(mediaSizeScene, transitionSet)
-        media_size_toggle_group.beVisible()
-        media_size_toggle_group.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
 
     private fun createTransition(): Transition {

@@ -31,12 +31,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include layout="@layout/layout_top" />
-
-        <include layout="@layout/layout_media_size" />
-
-        <include
-            layout="@layout/layout_flash"
-            android:visibility="gone" />
+        <include layout="@layout/layout_flash" />
 
     </FrameLayout>
 
