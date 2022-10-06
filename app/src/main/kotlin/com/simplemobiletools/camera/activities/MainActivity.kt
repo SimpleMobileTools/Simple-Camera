@@ -14,7 +14,6 @@ import android.provider.MediaStore
 import android.view.*
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.transition.*
@@ -306,9 +305,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             }
 
             val marginBottom = safeInsetBottom + navigationBarHeight + resources.getDimensionPixelSize(R.dimen.bigger_margin)
-            (shutter.layoutParams as ConstraintLayout.LayoutParams).goneBottomMargin = marginBottom
 
-            video_rec_curr_timer.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            shutter.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = marginBottom
             }
 
