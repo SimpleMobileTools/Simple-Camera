@@ -687,6 +687,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         shutter.isSelected = true
         toggle_camera.beInvisible()
         change_resolution.isEnabled = false
+        settings.isEnabled = false
         video_rec_curr_timer.beVisible()
     }
 
@@ -696,6 +697,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
         change_resolution.isEnabled = true
+        settings.isEnabled = true
         toggle_camera.beVisible()
     }
 
