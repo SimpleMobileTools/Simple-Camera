@@ -10,7 +10,6 @@ import android.hardware.camera2.*
 import android.hardware.camera2.params.MeteringRectangle
 import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.ImageReader
-import android.media.MediaActionSound
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Handler

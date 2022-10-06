@@ -31,7 +31,6 @@
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
         <LinearLayout
             android:id="@+id/settings_holder"
             android:layout_width="match_parent"
@@ -286,7 +285,5 @@
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

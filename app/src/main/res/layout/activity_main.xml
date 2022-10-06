@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <View
         android:id="@+id/shutter_animation"
         android:layout_width="match_parent"
@@ -31,6 +30,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include layout="@layout/layout_top" />
+
         <include layout="@layout/layout_flash" />
 
     </FrameLayout>
@@ -75,7 +75,6 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-
     <ImageView
         android:id="@+id/toggle_camera"
         android:layout_width="@dimen/icon_size"
@@ -113,7 +112,6 @@
         app:layout_constraintStart_toEndOf="@id/shutter"
         app:layout_constraintTop_toTopOf="@id/shutter"
         tools:src="@tools:sample/backgrounds/scenic" />
-
 
     <TextView
         android:id="@+id/video_rec_curr_timer"

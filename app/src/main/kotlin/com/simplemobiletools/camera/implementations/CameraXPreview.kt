@@ -342,12 +342,12 @@ class CameraXPreview(
     }
 
     override fun showChangeResolution() {
-
         val selectedResolution = if (isPhotoCapture) {
             imageQualityManager.getUserSelectedResolution(cameraSelector).toResolutionOption()
         } else {
             videoQualityManager.getUserSelectedQuality(cameraSelector).toResolutionOption()
         }
+
         val resolutions = if (isPhotoCapture) {
             imageQualityManager.getSupportedResolutions(cameraSelector).map { it.toResolutionOption() }
         } else {
@@ -394,6 +394,7 @@ class CameraXPreview(
         } else {
             CameraSelector.DEFAULT_FRONT_CAMERA
         }
+
         cameraSelector = newCameraSelector
         config.lastUsedCameraLens = newCameraSelector.toLensFacing()
         startCamera(switching = true)
@@ -437,7 +438,6 @@ class CameraXPreview(
         }
 
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
-
         if (mediaOutput is MediaOutput.BitmapOutput) {
             imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
                 override fun onCaptureSuccess(image: ImageProxy) {
