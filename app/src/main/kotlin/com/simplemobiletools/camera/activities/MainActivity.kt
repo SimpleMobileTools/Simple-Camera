@@ -14,7 +14,6 @@ import android.provider.MediaStore
 import android.view.*
 import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.transition.*
@@ -38,10 +37,16 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.*
-import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.flash_auto
+import kotlinx.android.synthetic.main.layout_flash.flash_off
+import kotlinx.android.synthetic.main.layout_flash.flash_on
+import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
+import kotlinx.android.synthetic.main.layout_top.change_resolution
+import kotlinx.android.synthetic.main.layout_top.default_icons
+import kotlinx.android.synthetic.main.layout_top.settings
+import kotlinx.android.synthetic.main.layout_top.toggle_flash
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -300,9 +305,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             }
 
             val marginBottom = safeInsetBottom + navigationBarHeight + resources.getDimensionPixelSize(R.dimen.bigger_margin)
-            (shutter.layoutParams as ConstraintLayout.LayoutParams).goneBottomMargin = marginBottom
 
-            video_rec_curr_timer.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            shutter.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = marginBottom
             }
 
@@ -342,7 +346,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mTimerHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
 
-        val initialFlashlightState = FLASH_OFF
+        val initialFlashlightState = if (mIsInPhotoMode) config.flashlightState else FLASH_OFF
         mPreview!!.setFlashlightState(initialFlashlightState)
         updateFlashlightState(initialFlashlightState)
         initFlashModeTransitionNames()
@@ -395,7 +399,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    fun updateFlashlightState(state: Int) {
+    private fun updateFlashlightState(state: Int) {
         config.flashlightState = state
         val flashDrawable = when (state) {
             FLASH_OFF -> R.drawable.ic_flash_off_vector
@@ -687,6 +691,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         shutter.isSelected = true
         toggle_camera.beInvisible()
         change_resolution.isEnabled = false
+        settings.isEnabled = false
         video_rec_curr_timer.beVisible()
     }
 
@@ -696,6 +701,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
         change_resolution.isEnabled = true
+        settings.isEnabled = true
         toggle_camera.beVisible()
     }
 
