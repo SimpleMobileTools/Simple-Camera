@@ -43,7 +43,7 @@
         android:layout_weight="1"
         android:contentDescription="@string/settings"
         android:padding="@dimen/normal_margin"
-        app:icon="@drawable/ic_settings"
+        app:icon="@drawable/ic_settings_vector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/change_resolution"
         app:layout_constraintTop_toTopOf="@id/toggle_flash" />
