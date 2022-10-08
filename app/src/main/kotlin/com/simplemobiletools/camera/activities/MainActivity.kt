@@ -254,6 +254,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                     handlePermission(PERMISSION_READ_MEDIA_VIDEO) { grantedReadVideos ->
                         callback.invoke(grantedReadVideos)
                     }
+                } else {
+                    callback.invoke(false)
                 }
             }
         } else {
