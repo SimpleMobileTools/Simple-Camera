@@ -111,8 +111,8 @@
         android:contentDescription="@string/shutter"
         android:src="@drawable/ic_shutter_animated"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/last_photo_video_preview"
-        app:layout_constraintStart_toEndOf="@id/toggle_camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1" />
 
     <ImageView

@@ -27,6 +27,8 @@ import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.extensions.fadeIn
+import com.simplemobiletools.camera.extensions.fadeOut
 import com.simplemobiletools.camera.extensions.toFlashModeId
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.implementations.CameraXInitializer
@@ -37,10 +39,16 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.*
-import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.flash_auto
+import kotlinx.android.synthetic.main.layout_flash.flash_off
+import kotlinx.android.synthetic.main.layout_flash.flash_on
+import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
+import kotlinx.android.synthetic.main.layout_top.change_resolution
+import kotlinx.android.synthetic.main.layout_top.default_icons
+import kotlinx.android.synthetic.main.layout_top.settings
+import kotlinx.android.synthetic.main.layout_top.toggle_flash
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -524,25 +532,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun showTimer() {
-        video_rec_curr_timer.beVisible()
-        setupTimer()
-    }
-
     private fun hideTimer() {
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
         mCurrVideoRecTimer = 0
         mTimerHandler.removeCallbacksAndMessages(null)
-    }
-
-    private fun setupTimer() {
-        runOnUiThread(object : Runnable {
-            override fun run() {
-                video_rec_curr_timer.text = mCurrVideoRecTimer++.getFormattedDuration()
-                mTimerHandler.postDelayed(this, 1000L)
-            }
-        })
     }
 
     private fun resumeCameraItems() {
@@ -681,21 +675,28 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onVideoRecordingStarted() {
         camera_mode_tab.beInvisible()
-        shutter.isSelected = true
-        toggle_camera.beInvisible()
+        video_rec_curr_timer.beVisible()
+
+        toggle_camera.fadeOut()
+        last_photo_video_preview.fadeOut()
+
         change_resolution.isEnabled = false
         settings.isEnabled = false
-        video_rec_curr_timer.beVisible()
+        shutter.isSelected = true
     }
 
     override fun onVideoRecordingStopped() {
         camera_mode_tab.beVisible()
-        shutter.isSelected = false
+
+        toggle_camera.fadeIn()
+        last_photo_video_preview.fadeIn()
+
         video_rec_curr_timer.text = 0.getFormattedDuration()
         video_rec_curr_timer.beGone()
+
+        shutter.isSelected = false
         change_resolution.isEnabled = true
         settings.isEnabled = true
-        toggle_camera.beVisible()
     }
 
     override fun onVideoDurationChanged(durationNanos: Long) {
@@ -819,33 +820,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val iconColors = intArrayOf(ContextCompat.getColor(this, R.color.md_grey_white), primaryColor)
         button.iconTint = ColorStateList(states, iconColors)
     }
-
-    fun setRecordingState(isRecording: Boolean) {
-        runOnUiThread {
-            if (isRecording) {
-                shutter.isSelected = true
-                toggle_camera.beInvisible()
-                showTimer()
-            } else {
-                shutter.isSelected = false
-                hideTimer()
-            }
-        }
-    }
-
-    fun videoSaved(uri: Uri) {
-        setupPreviewImage(false)
-        if (isVideoCaptureIntent()) {
-            Intent().apply {
-                data = uri
-                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                setResult(Activity.RESULT_OK, this)
-            }
-            finish()
-        }
-    }
-
-    fun drawFocusCircle(x: Float, y: Float) = mFocusCircleView.drawFocusCircle(x, y)
 
     override fun mediaSaved(path: String) {
         rescanPaths(arrayListOf(path)) {
