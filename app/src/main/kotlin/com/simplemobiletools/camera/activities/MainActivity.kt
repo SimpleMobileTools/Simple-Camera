@@ -251,9 +251,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (isTiramisuPlus()) {
             handlePermission(PERMISSION_READ_MEDIA_IMAGES) { grantedReadImages ->
                 if (grantedReadImages) {
-                    handlePermission(PERMISSION_READ_MEDIA_VIDEO) { grantedReadVideos ->
-                        callback.invoke(grantedReadVideos)
-                    }
+                    handlePermission(PERMISSION_READ_MEDIA_VIDEO, callback)
                 } else {
                     callback.invoke(false)
                 }
@@ -553,7 +551,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun hasPhotoModePermissions(): Boolean {
         return if (isTiramisuPlus()) {
-            hasPermission(PERMISSION_READ_MEDIA_IMAGES) && hasPermission(PERMISSION_CAMERA)
+            hasPermission(PERMISSION_READ_MEDIA_IMAGES) && hasPermission(PERMISSION_READ_MEDIA_VIDEO)  && hasPermission(PERMISSION_CAMERA)
         } else {
             hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
         }
