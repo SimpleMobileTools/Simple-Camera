@@ -200,7 +200,6 @@ object ImageUtil {
         return out.toByteArray()
     }
 
-
     /**
      * Checks whether the image's crop rectangle is the same as the source image size.
      */
