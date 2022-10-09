@@ -82,7 +82,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         initVariables()
         tryInitCamera()
@@ -298,6 +297,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         defaultScene = Scene(top_options, default_icons)
         flashModeScene = Scene(top_options, flash_toggle_group)
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         ViewCompat.setOnApplyWindowInsetsListener(view_holder) { _, windowInsets ->
             val safeInsetBottom = windowInsets.displayCutout?.safeInsetBottom ?: 0
             val safeInsetTop = windowInsets.displayCutout?.safeInsetTop ?: 0
