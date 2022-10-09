@@ -57,7 +57,6 @@ class CameraXPreview(
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
     private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
-    private val exifRemover = ExifRemover(contentResolver)
     private val mediaSizeStore = MediaSizeStore(config)
 
     private val orientationEventListener = object : OrientationEventListener(activity, SensorManager.SENSOR_DELAY_NORMAL) {
@@ -422,12 +421,14 @@ class CameraXPreview(
         }
 
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
-        if (mediaOutput is MediaOutput.BitmapOutput) {
-            imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
-                override fun onCaptureSuccess(image: ImageProxy) {
-                    ensureBackgroundThread {
-                        image.use {
-                            val bitmap = BitmapUtils.makeBitmap(image.toJpegByteArray())
+        imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
+            override fun onCaptureSuccess(image: ImageProxy) {
+                playShutterSoundIfEnabled()
+                ensureBackgroundThread {
+                    image.use {
+                        if (mediaOutput is MediaOutput.BitmapOutput) {
+                            val imageBytes = ImageUtil.jpegImageToJpegByteArray(image)
+                            val bitmap = BitmapUtils.makeBitmap(imageBytes)
                             activity.runOnUiThread {
                                 listener.toggleBottomButtons(false)
                                 if (bitmap != null) {
@@ -436,44 +437,31 @@ class CameraXPreview(
                                     cameraErrorHandler.handleImageCaptureError(ERROR_CAPTURE_FAILED)
                                 }
                             }
+                        } else {
+                            ImageSaver.saveImage(
+                                contentResolver = contentResolver,
+                                image = image,
+                                mediaOutput = mediaOutput,
+                                metadata = metadata,
+                                jpegQuality = config.photoQuality,
+                                saveExifAttributes = config.savePhotoMetadata,
+                                onImageSaved = { savedUri ->
+                                    activity.runOnUiThread {
+                                        listener.toggleBottomButtons(false)
+                                        listener.onMediaSaved(savedUri)
+                                    }
+                                },
+                                onError = ::handleImageCaptureError
+                            )
                         }
                     }
                 }
-
-                override fun onError(exception: ImageCaptureException) {
-                    handleImageCaptureError(exception)
-                }
-            })
-        } else {
-            val outputOptionsBuilder = when (mediaOutput) {
-                is MediaOutput.MediaStoreOutput -> OutputFileOptions.Builder(contentResolver, mediaOutput.contentUri, mediaOutput.contentValues)
-                is MediaOutput.OutputStreamMediaOutput -> OutputFileOptions.Builder(mediaOutput.outputStream)
-                else -> throw IllegalArgumentException("Unexpected option for image ")
             }
 
-            val outputOptions = outputOptionsBuilder.setMetadata(metadata).build()
-
-            imageCapture.takePicture(outputOptions, mainExecutor, object : OnImageSavedCallback {
-                override fun onImageSaved(outputFileResults: OutputFileResults) {
-                    ensureBackgroundThread {
-                        val savedUri = mediaOutput.uri ?: outputFileResults.savedUri!!
-                        if (!config.savePhotoMetadata) {
-                            exifRemover.removeExif(savedUri)
-                        }
-
-                        activity.runOnUiThread {
-                            listener.toggleBottomButtons(false)
-                            listener.onMediaSaved(savedUri)
-                        }
-                    }
-                }
-
-                override fun onError(exception: ImageCaptureException) {
-                    handleImageCaptureError(exception)
-                }
-            })
-        }
-        playShutterSoundIfEnabled()
+            override fun onError(exception: ImageCaptureException) {
+                handleImageCaptureError(exception)
+            }
+        })
     }
 
     private fun handleImageCaptureError(exception: ImageCaptureException) {
@@ -518,7 +506,6 @@ class CameraXPreview(
                 MediaStoreOutputOptions.Builder(contentResolver, mediaOutput.contentUri).setContentValues(mediaOutput.contentValues).build()
                     .let { videoCapture.output.prepareRecording(activity, it) }
             }
-            else -> throw IllegalArgumentException("Unexpected output option for video $mediaOutput")
         }
 
         currentRecording = recording.withAudioEnabled()
@@ -540,7 +527,7 @@ class CameraXPreview(
                         if (recordEvent.hasError()) {
                             cameraErrorHandler.handleVideoRecordingError(recordEvent.error)
                         } else {
-                            listener.onMediaSaved(mediaOutput.uri ?: recordEvent.outputResults.outputUri)
+                            listener.onMediaSaved(recordEvent.outputResults.outputUri)
                         }
                     }
                 }

@@ -33,7 +33,7 @@ class MediaOutputHelper(
     private val mediaStorageDir = activity.config.savePhotosFolder
     private val contentResolver = activity.contentResolver
 
-    fun getImageMediaOutput(): MediaOutput {
+    fun getImageMediaOutput(): MediaOutput.ImageCaptureOutput {
         return try {
             if (is3rdPartyIntent) {
                 if (outputUri != null) {
@@ -56,7 +56,7 @@ class MediaOutputHelper(
         }
     }
 
-    fun getVideoMediaOutput(): MediaOutput {
+    fun getVideoMediaOutput(): MediaOutput.VideoCaptureOutput {
         return try {
             if (is3rdPartyIntent) {
                 if (outputUri != null) {
