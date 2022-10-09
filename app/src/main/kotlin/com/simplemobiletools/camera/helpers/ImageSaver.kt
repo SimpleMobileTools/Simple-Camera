@@ -21,7 +21,6 @@ import com.simplemobiletools.commons.helpers.isQPlus
 import java.io.*
 import java.util.UUID
 
-
 /**
  * Inspired by
  * @see androidx.camera.core.ImageSaver
@@ -36,7 +35,6 @@ class ImageSaver private constructor(
     private val onImageSaved: (Uri) -> Unit,
     private val onError: (ImageCaptureException) -> Unit,
 ) {
-
 
     companion object {
         private const val TEMP_FILE_PREFIX = "SimpleCamera"
@@ -65,7 +63,6 @@ class ImageSaver private constructor(
             onError = onError,
         ).saveImage()
     }
-
 
     fun saveImage() {
         ensureBackgroundThread {
@@ -288,7 +285,6 @@ class ImageSaver private constructor(
             }
         }
     }
-
 
     /** Type of error that occurred during save  */
     enum class SaveError {
