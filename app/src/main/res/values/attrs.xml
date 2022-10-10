@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ShadowDrawable">
+        <attr name="android:shadowColor" format="color" />
+        <attr name="android:shadowDx" format="float" />
+        <attr name="android:shadowDy" format="float" />
+        <attr name="android:shadowRadius" format="float" />
+    </declare-styleable>
+</resources>

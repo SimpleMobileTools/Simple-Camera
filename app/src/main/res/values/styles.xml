@@ -24,4 +24,11 @@
         <item name="android:minHeight">@dimen/icon_size</item>
     </style>
 
+    <style name="TopIconShadow">
+        <item name="android:shadowColor">@color/md_grey_400_dark</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">10</item>
+    </style>
+
 </resources>
