@@ -432,8 +432,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             toggleBottomButtons(true)
             change_resolution.isEnabled = true
             mPreview?.tryTakePicture()
-            shutter_animation.alpha = 1.0f
-            shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
         } else {
             mPreview?.toggleRecording()
         }
@@ -646,6 +644,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             toggle_camera.isClickable = !hide
             toggle_flash.isClickable = !hide
         }
+    }
+
+    override fun shutterAnimation() {
+        shutter_animation.alpha = 1.0f
+        shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
     }
 
     override fun onMediaSaved(uri: Uri) {

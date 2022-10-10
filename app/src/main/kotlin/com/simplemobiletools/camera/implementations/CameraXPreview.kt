@@ -423,6 +423,7 @@ class CameraXPreview(
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
         imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
             override fun onCaptureSuccess(image: ImageProxy) {
+                listener.shutterAnimation()
                 playShutterSoundIfEnabled()
                 ensureBackgroundThread {
                     image.use {
