@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 5.4.0 *(2022-10-11)*
+----------------------------
+
+ * Rewrote the app from scratch, based it on CameraX
+ * Added Monochrome icon and Language picker support on Android 13+
+ * Adding a Get Simple Phone button into the About section
+ * Added many translation, stability and UX improvements
+
 Version 5.3.1 *(2021-04-19)*
 ----------------------------
 
