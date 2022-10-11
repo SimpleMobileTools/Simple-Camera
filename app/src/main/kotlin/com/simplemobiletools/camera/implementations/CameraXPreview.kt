@@ -211,7 +211,7 @@ class CameraXPreview(
 
     private fun buildImageCapture(resolution: Size, rotation: Int): ImageCapture {
         return Builder()
-            .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
+            .setCaptureMode(CAPTURE_MODE_MINIMIZE_LATENCY)
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
             .setTargetRotation(rotation)
