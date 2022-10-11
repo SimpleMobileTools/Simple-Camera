@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Càmera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Mode de captura</string>
+    <string name="maximize_quality">Maximitza la qualitat</string>
+    <string name="minimize_latency">Minimitza la latència</string>
     <!--  Errors -->
     <string name="camera_unavailable">Càmera no disponible</string>
     <string name="camera_open_error">S\'ha produït un error en accedir a la càmera</string>
