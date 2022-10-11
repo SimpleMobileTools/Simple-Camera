@@ -9,7 +9,7 @@ interface CameraXPreviewListener {
     fun setHasFrontAndBackCamera(hasFrontAndBack: Boolean)
     fun setFlashAvailable(available: Boolean)
     fun onChangeCamera(frontCamera: Boolean)
-    fun toggleBottomButtons(hide: Boolean)
+    fun toggleBottomButtons(enabled: Boolean)
     fun shutterAnimation()
     fun onMediaSaved(uri: Uri)
     fun onImageCaptured(bitmap: Bitmap)
