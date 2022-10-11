@@ -141,7 +141,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 handleTogglePhotoVideo()
                 checkButtons()
             }
-            toggleBottomButtons(false)
+            toggleBottomButtons(enabled = true)
             mOrientationEventListener.enable()
         }
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -429,11 +429,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun handleShutter() {
         if (mIsInPhotoMode) {
-            toggleBottomButtons(true)
+            toggleBottomButtons(enabled = false)
             change_resolution.isEnabled = true
             mPreview?.tryTakePicture()
-            shutter_animation.alpha = 1.0f
-            shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
         } else {
             mPreview?.toggleRecording()
         }
@@ -471,7 +469,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         hideTimer()
         togglePhotoVideoMode()
         checkButtons()
-        toggleBottomButtons(false)
+        toggleBottomButtons(enabled = true)
     }
 
     private fun togglePhotoVideoMode() {
@@ -640,12 +638,18 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         toggle_camera.setImageResource(if (frontCamera) R.drawable.ic_camera_rear_vector else R.drawable.ic_camera_front_vector)
     }
 
-    override fun toggleBottomButtons(hide: Boolean) {
+    override fun toggleBottomButtons(enabled: Boolean) {
         runOnUiThread {
-            shutter.isClickable = !hide
-            toggle_camera.isClickable = !hide
-            toggle_flash.isClickable = !hide
+            shutter.isClickable = enabled
+            preview_view.isEnabled = enabled
+            toggle_camera.isClickable = enabled
+            toggle_flash.isClickable = enabled
         }
+    }
+
+    override fun shutterAnimation() {
+        shutter_animation.alpha = 1.0f
+        shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
     }
 
     override fun onMediaSaved(uri: Uri) {

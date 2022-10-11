@@ -423,6 +423,7 @@ class CameraXPreview(
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
         imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
             override fun onCaptureSuccess(image: ImageProxy) {
+                listener.shutterAnimation()
                 playShutterSoundIfEnabled()
                 ensureBackgroundThread {
                     image.use {
@@ -430,7 +431,7 @@ class CameraXPreview(
                             val imageBytes = ImageUtil.jpegImageToJpegByteArray(image)
                             val bitmap = BitmapUtils.makeBitmap(imageBytes)
                             activity.runOnUiThread {
-                                listener.toggleBottomButtons(false)
+                                listener.toggleBottomButtons(enabled = true)
                                 if (bitmap != null) {
                                     listener.onImageCaptured(bitmap)
                                 } else {
@@ -447,7 +448,7 @@ class CameraXPreview(
                                 saveExifAttributes = config.savePhotoMetadata,
                                 onImageSaved = { savedUri ->
                                     activity.runOnUiThread {
-                                        listener.toggleBottomButtons(false)
+                                        listener.toggleBottomButtons(enabled = true)
                                         listener.onMediaSaved(savedUri)
                                     }
                                 },
@@ -465,7 +466,7 @@ class CameraXPreview(
     }
 
     private fun handleImageCaptureError(exception: ImageCaptureException) {
-        listener.toggleBottomButtons(false)
+        listener.toggleBottomButtons(enabled = true)
         cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
     }
 
