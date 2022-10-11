@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:2e9ca234a7'
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:78b27e9f16'
     implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation "androidx.exifinterface:exifinterface:1.3.4"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
