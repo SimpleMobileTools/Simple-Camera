@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Egyszerű kamera</string>
     <string name="app_launcher_name">Kamera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Kamera nem elérhető</string>
     <string name="camera_open_error">Hiba történt a kamera elérésében</string>
     <string name="video_creating_error">Hiba történt a videó fájl létrehozásakor</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">A Ne zavarjanak üzemmód engedélyezve van. Kérjük, kapcsolja ki és próbálja újra</string>
     <string name="photo_capture_failed">A fényképfelvétel sikertelen</string>
     <string name="video_capture_insufficient_storage_error">A videofelvétel nem sikerült az elégtelen tárhely miatt</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Fotó/videó üzemmód váltása</string>
     <string name="change_resolution">Felbontás módosítása</string>
     <string name="view_last_media">Utoljára rögzített média megtekintése</string>

@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Schlichte Kamera</string>
     <string name="app_launcher_name">Kamera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
     <string name="camera_open_error">Kein Zugriff auf die Kamera möglich</string>
     <string name="video_creating_error">Die Videodatei konnte nicht erstellt werden</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Der „Bitte nicht stören“-Modus ist aktiviert. Bitte deaktivieren Sie ihn und versuchen Sie es erneut</string>
     <string name="photo_capture_failed">Fotoaufnahme fehlgeschlagen</string>
     <string name="video_capture_insufficient_storage_error">Videoaufzeichnung aufgrund unzureichender Speicherkapazität fehlgeschlagen</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Zwischen Foto- und Videomodus umschalten</string>
     <string name="change_resolution">Auflösung ändern</string>
     <string name="view_last_media">Zuletzt erfasste Medien anzeigen</string>

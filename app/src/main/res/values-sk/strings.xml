@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Jednoduchý fotoaparát</string>
     <string name="app_launcher_name">Fotoaparát</string>
+    <string name="capture_mode">Režim snímania</string>
+    <string name="maximize_quality">Maximálna kvalita</string>
+    <string name="minimize_latency">Minimálne oneskorenie</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Fotoaparát nedostupný</string>
     <string name="camera_open_error">Počas prístupu ku fotoaparátu došlo k chybe</string>
     <string name="video_creating_error">Došlo k chybe počas vytvárania video súboru</string>
@@ -19,7 +23,7 @@
     <string name="photo_capture_failed">Snímanie fotografie zlyhalo</string>
     <string name="video_capture_insufficient_storage_error">Nahrávanie videa zlyhalo pre nedostatok miesta</string>
 
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Prepnúť foto/video mód</string>
     <string name="change_resolution">Zmeniť rozlíšenie</string>
     <string name="view_last_media">Zobraziť posledný súbor</string>

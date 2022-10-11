@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">シンプル カメラ</string>
     <string name="app_launcher_name">カメラ</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">カメラは利用できません</string>
     <string name="camera_open_error">カメラへのアクセス時にエラーが発生しました</string>
     <string name="video_creating_error">ビデオファイルの作成時にエラーが発生しました</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">サイレントモードが有効になっています。 無効にしてから、もう一度やり直してください</string>
     <string name="photo_capture_failed">写真のキャプチャに失敗しました</string>
     <string name="video_capture_insufficient_storage_error">ストレージが不足しているため、ビデオ録画に失敗しました</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>

@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Câmera Simples</string>
     <string name="app_launcher_name">Câmera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Câmera indisponível</string>
     <string name="camera_open_error">Ocorreu um erro ao acessar a câmera</string>
     <string name="video_creating_error">Ocorreu um erro ao criar o arquivo de vídeo</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">O modo Não perturbe está ativado. Desative e tente novamente</string>
     <string name="photo_capture_failed">Erro ao tirar foto</string>
     <string name="video_capture_insufficient_storage_error">Erro ao gravar vídeo devido a armazenamento insuficiente</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Alternar o modo foto/vídeo</string>
     <string name="change_resolution">Alterar resolução</string>
     <string name="view_last_media">Exibir a última mídia capturada</string>

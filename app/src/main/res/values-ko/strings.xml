@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">심플 카메라</string>
     <string name="app_launcher_name">카메라</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">카메라를 사용할 수 없습니다.</string>
     <string name="camera_open_error">카메라에 액세스하는 중에 오류가 발생했습니다.</string>
     <string name="video_creating_error">비디오 파일을 만드는 중 오류가 발생했습니다.</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">방해 금지 모드가 활성화되었습니다. 비활성화한 후 다시 시도하십시오</string>
     <string name="photo_capture_failed">사진 캡처 실패</string>
     <string name="video_capture_insufficient_storage_error">저장 공간이 부족하여 비디오 녹화에 실패했습니다</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>

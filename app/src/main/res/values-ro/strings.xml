@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Camera simplă</string>
     <string name="app_launcher_name">Cameră</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Cameră indisponibilă</string>
     <string name="camera_open_error">A apărut o eroare la accesarea camerei</string>
     <string name="video_creating_error">S-a produs o eroare la crearea fișierului video</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Modul Nu deranjați este activat. Vă rugăm să-l dezactivați și să încercați din nou</string>
     <string name="photo_capture_failed">Captură foto eșuată</string>
     <string name="video_capture_insufficient_storage_error">Înregistrarea video a eșuat din cauza stocării insuficiente</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Comutarea modului foto/video</string>
     <string name="change_resolution">Modificarea rezoluției</string>
     <string name="view_last_media">Vizualizați ultimul suport media capturat</string>

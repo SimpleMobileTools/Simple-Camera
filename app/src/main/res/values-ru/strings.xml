@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Простая камера</string>
     <string name="app_launcher_name">Камера</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Невозможно получить доступ к камере</string>
     <string name="video_creating_error">Невозможно создать видеофайл</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Включён режим \"Не беспокоить\", отключите и повторите попытку</string>
     <string name="photo_capture_failed">Не удалось сделать снимок</string>
     <string name="video_capture_insufficient_storage_error">Запись видео не удалась из-за нехватки памяти</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Переключить режим фото/видео</string>
     <string name="change_resolution">Изменить разрешение</string>
     <string name="view_last_media">Просмотр последнего снимка</string>

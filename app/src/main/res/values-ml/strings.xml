@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">സിമ്പിൾ ക്യാമറ</string>
     <string name="app_launcher_name">ക്യാമറ</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">ക്യാമറ ലഭ്യമല്ല</string>
     <string name="camera_open_error">ക്യാമറ ആക്‌സസ് ചെയ്യുന്നതിൽ ഒരു പിശക് സംഭവിച്ചു</string>
     <string name="video_creating_error">വീഡിയോ ഫയൽ സൃഷ്ടിക്കുന്നതിൽ ഒരു പിശക് സംഭവിച്ചു</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">ടു നോട്ട് ഡിസ്റ്റർബ്(DND) മോഡ് സജീവമാക്കിയിരിക്കുന്നു . ദയവായി അത് പ്രവർത്തനരഹിതമാക്കി വീണ്ടും ശ്രമിക്കുക</string>
     <string name="photo_capture_failed">ഫോട്ടോ എടുക്കൽ പരാജയപ്പെട്ടു</string>
     <string name="video_capture_insufficient_storage_error">മതിയായ സ്റ്റോറേജ് ഇല്ലാത്തതിനാൽ വീഡിയോ റെക്കോർഡിംഗ് പരാജയപ്പെട്ടു</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">ഫോട്ടോ/വീഡിയോ മോഡ് ടോഗിൾ ചെയ്യുക</string>
     <string name="change_resolution">റെസല്യൂഷൻ മാറ്റുക</string>
     <string name="view_last_media">അവസാനം പകർത്തിയ മീഡിയ കാണുക</string>

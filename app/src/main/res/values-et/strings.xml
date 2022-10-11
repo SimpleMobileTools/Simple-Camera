@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Lihtne kaamera</string>
     <string name="app_launcher_name">Kaamera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Kaamera pole kasutatav</string>
     <string name="camera_open_error">Kaameraühenduse loomisel tekki viga</string>
     <string name="video_creating_error">Videofaili loomisel tekkis viga</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Ära häiri režiim on sisse lülitatud. Palun lülita see välja ja proovi uuesti</string>
     <string name="photo_capture_failed">Foto jäädvustamine ei õnnestunud</string>
     <string name="video_capture_insufficient_storage_error">Video salvestamine ei õnnestunud ebapiisava salvestusruumi tõttu</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Foto/video režiimi ümberlülitamine</string>
     <string name="change_resolution">Muuda resolutsiooni</string>
     <string name="view_last_media">Vaadake viimast salvestatud meediat</string>

@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Càmera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!--  Errors -->
     <string name="camera_unavailable">Càmera no disponible</string>
     <string name="camera_open_error">S\'ha produït un error en accedir a la càmera</string>
     <string name="video_creating_error">S\'ha produït un error en crear el fitxer de vídeo</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">El mode «No molestar» està habilitat. Desactiveu-lo i torneu-ho a provar</string>
     <string name="photo_capture_failed">La captura de fotos ha fallat</string>
     <string name="video_capture_insufficient_storage_error">La gravació del vídeo ha fallat a causa d\'un emmagatzematge insuficient</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Commuta el mode de foto/vídeo</string>
     <string name="change_resolution">Canvia la resolució</string>
     <string name="view_last_media">Visualitza el darrer contingut multimèdia capturat</string>

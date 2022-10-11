@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Kamera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Kamera ikke tilgængeligt</string>
     <string name="camera_open_error">Kunne ikke få adgang til kameraet</string>
     <string name="video_creating_error">Kunne ikke oprette videofilen</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Tilstanden for ikke forstyrre er aktiveret. Deaktiver den og prøv igen</string>
     <string name="photo_capture_failed">Fotooptagelse mislykkedes</string>
     <string name="video_capture_insufficient_storage_error">Videooptagelse mislykkedes på grund af utilstrækkelig lagerplads</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>

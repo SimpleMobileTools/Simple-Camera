@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">सिम्पल क्यामेरा</string>
     <string name="app_launcher_name">क्यामेरा</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">क्यामेरा उपलब्ध छैन</string>
     <string name="camera_open_error">क्यामेरा पहुचहुनमा समस्या आयो</string>
     <string name="video_creating_error">भिडियो फाईल सिर्जना हुनमा समस्या आयो</string>
@@ -19,7 +23,7 @@
     <string name="photo_capture_failed">Photo capture failed</string>
     <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
 
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>

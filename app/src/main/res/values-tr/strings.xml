@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Basit Kamera</string>
     <string name="app_launcher_name">Kamera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Kamera kullanılamıyor</string>
     <string name="camera_open_error">Kameraya erişilemedi</string>
     <string name="video_creating_error">Video dosyası oluşturulamadı</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Rahatsız Etmeyin modu etkinleştirildi. Lütfen devre dışı bırakın ve tekrar deneyin</string>
     <string name="photo_capture_failed">Fotoğraf çekimi başarısız oldu</string>
     <string name="video_capture_insufficient_storage_error">Yetersiz depolama alanı nedeniyle video kaydı başarısız oldu</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Fotoğraf/video modunu değiştir</string>
     <string name="change_resolution">Çözünürlüğü Değiştir</string>
     <string name="view_last_media">Son çekilen medyayı görüntüle</string>

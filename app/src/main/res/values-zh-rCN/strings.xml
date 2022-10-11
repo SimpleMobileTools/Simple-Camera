@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">简单相机</string>
     <string name="app_launcher_name">相机</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">相机不可用</string>
     <string name="camera_open_error">访问相机出错</string>
     <string name="video_creating_error">创建视频文件出错</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">勿扰模式处于开启状态。 请禁用并重试</string>
     <string name="photo_capture_failed">照片拍摄失败</string>
     <string name="video_capture_insufficient_storage_error">由于存储空间不足，视频录制失败</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">切换照片/视频模式</string>
     <string name="change_resolution">更改分辨率</string>
     <string name="view_last_media">查看上次拍的媒体文件</string>

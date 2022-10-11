@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Fotocamera Semplice</string>
     <string name="app_launcher_name">Fotocamera</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Fotocamera non disponibile</string>
     <string name="camera_open_error">Impossibile accedere alla telecamera</string>
     <string name="video_creating_error">Impossibile creare il file video</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">La modalità non disturbare è abilitata. Disabilitare e riprovare</string>
     <string name="photo_capture_failed">Acquisizione di foto non riuscita</string>
     <string name="video_capture_insufficient_storage_error">Registrazione video non riuscita a causa dello spazio d\'archiviazione insufficiente</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Alterna la modalità foto/video</string>
     <string name="change_resolution">Modifica risoluzione</string>
     <string name="view_last_media">Visualizza gli ultimi media acquisiti</string>

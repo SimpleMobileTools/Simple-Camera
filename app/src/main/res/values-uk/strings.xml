@@ -2,6 +2,10 @@
 <resources>
     <string name="app_name">Проста Камера</string>
     <string name="app_launcher_name">Камера</string>
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Трапилася помилка під час доступу до камери</string>
     <string name="video_creating_error">Трапилася помилка під час створення відеофайлу</string>
@@ -18,7 +22,7 @@
     <string name="camera_dnd_error">Увімкнено режим «Не турбувати». Будь ласка, вимкніть і спробуйте знову</string>
     <string name="photo_capture_failed">Не вдалося зняти світлину</string>
     <string name="video_capture_insufficient_storage_error">Через нестачу пам’яті не вдалося записати відео</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Перемкнути стан світлин/відео</string>
     <string name="change_resolution">Змінити роздільну здатність</string>
     <string name="view_last_media">Перегляд останньої знятки</string>

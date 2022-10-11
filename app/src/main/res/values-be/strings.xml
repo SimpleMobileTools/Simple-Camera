@@ -2,7 +2,10 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Camera</string>
-    <!--Errors-->
+    <string name="capture_mode">Capture mode</string>
+    <string name="maximize_quality">Maximize quality</string>
+    <string name="minimize_latency">Minimize latency</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Камера недаступная</string>
     <string name="camera_open_error">Адбылася памылка доступу да камеры</string>
     <string name="video_creating_error">Адбылася памылка пры стварэнні відэафайла</string>
@@ -19,7 +22,7 @@
     <string name="camera_dnd_error">Уключаны рэжым «Не турбаваць». Адключыце і паўтарыце спробу</string>
     <string name="photo_capture_failed">Збой фотаздымкі</string>
     <string name="video_capture_insufficient_storage_error">Збой запісу відэа з-за недахопу памяці</string>
-    <!--Camera Screen Icons Content Description-->
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
     <string name="view_last_media">View last captured media</string>
