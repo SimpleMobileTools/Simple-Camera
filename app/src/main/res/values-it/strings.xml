@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Fotocamera Semplice</string>
     <string name="app_launcher_name">Fotocamera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Modalità di cattura</string>
+    <string name="maximize_quality">Massimizza la qualità</string>
+    <string name="minimize_latency">Minimizza la latenza</string>
     <!-- Errors -->
     <string name="camera_unavailable">Fotocamera non disponibile</string>
     <string name="camera_open_error">Impossibile accedere alla telecamera</string>
