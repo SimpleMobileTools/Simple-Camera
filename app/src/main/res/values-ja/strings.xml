@@ -2,44 +2,44 @@
 <resources>
     <string name="app_name">シンプル カメラ</string>
     <string name="app_launcher_name">カメラ</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">撮影モード</string>
+    <string name="maximize_quality">品質の最大化</string>
+    <string name="minimize_latency">遅延時間の最小化</string>
     <!-- Errors -->
     <string name="camera_unavailable">カメラは利用できません</string>
     <string name="camera_open_error">カメラへのアクセス時にエラーが発生しました</string>
-    <string name="video_creating_error">ビデオファイルの作成時にエラーが発生しました</string>
-    <string name="video_mode_error">ビデオモードへの切り替えに失敗しました</string>
+    <string name="video_creating_error">動画ファイルの作成時にエラーが発生しました</string>
+    <string name="video_mode_error">動画モードへの切り替えに失敗しました</string>
     <string name="save_error_internal_storage">エラーが発生しました。保存フォルダは内部ストレージに変更されました</string>
     <string name="camera_switch_error">カメラの切り替えに失敗しました</string>
     <string name="click_to_resume_preview">プレビューを再開するには画像をタップ</string>
-    <string name="photo_not_saved">この画像は保存されていません</string>
+    <string name="photo_not_saved">写真を保存できませんでした</string>
     <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
     <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
     <string name="camera_in_use_error">カメラは別のアプリで使用されています。アプリを閉じて、もう一度やり直してください</string>
     <string name="camera_configure_error">カメラの設定中にエラーが発生しました</string>
     <string name="camera_disabled_by_admin_error">カメラは管理者によって無効にされています</string>
     <string name="camera_dnd_error">サイレントモードが有効になっています。 無効にしてから、もう一度やり直してください</string>
-    <string name="photo_capture_failed">写真のキャプチャに失敗しました</string>
-    <string name="video_capture_insufficient_storage_error">ストレージが不足しているため、ビデオ録画に失敗しました</string>
+    <string name="photo_capture_failed">写真の撮影に失敗しました</string>
+    <string name="video_capture_insufficient_storage_error">ストレージが不足しているため、動画の録画に失敗しました</string>
     <!-- Camera Screen Icons Content Description -->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_photo_video">写真/動画モードの切り替え</string>
+    <string name="change_resolution">解像度の変更</string>
+    <string name="view_last_media">最後に撮影したメディアを表示</string>
+    <string name="toggle_camera">前面/背面カメラの切り替え</string>
+    <string name="toggle_flash">フレッシュライトモードへ切り替え</string>
     <!-- FAQ -->
     <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>
     <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質ですが、ファイルサイズは100%と比べて大幅に削減することができます。</string>
     <!-- Settings -->
-    <string name="save_photos">写真とビデオの保存先</string>
-    <string name="show_preview">キャプチャ後に写真のプレビューを表示</string>
+    <string name="save_photos">写真と動画の保存先</string>
+    <string name="show_preview">撮影後に写真のプレビューを表示</string>
     <string name="shutter_sound">シャッター音</string>
     <string name="back_camera">背面カメラ解像度</string>
     <string name="front_camera">前面カメラ解像度</string>
-    <string name="photo">画像</string>
+    <string name="photo">写真</string>
     <string name="video">動画</string>
-    <string name="focus_before_capture">キャプチャ前に再度焦点を合わせる</string>
+    <string name="focus_before_capture">撮影前に再度焦点を合わせる</string>
     <string name="volume_buttons_as_shutter">音量ボタンで撮影</string>
     <string name="turn_flash_off_at_startup">起動時にライトをオンにする</string>
     <string name="flip_front_camera_photos_horizontally">前面カメラの写真を左右に反転</string>
