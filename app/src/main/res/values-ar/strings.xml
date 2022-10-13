@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">الكاميرا البسيطة</string>
     <string name="app_launcher_name">الكاميرا</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">وضع الالتقاط</string>
+    <string name="maximize_quality">زيادة الجودة</string>
+    <string name="minimize_latency">تقليل التأخير</string>
     <!-- Errors -->
     <string name="camera_unavailable">الكاميرا غير متاحة</string>
     <string name="camera_open_error">تعذر الوصول إلى الكاميرا</string>
