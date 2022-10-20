@@ -27,7 +27,7 @@
     <string name="change_resolution">解像度の変更</string>
     <string name="view_last_media">最後に撮影したメディアを表示</string>
     <string name="toggle_camera">前面/背面カメラの切り替え</string>
-    <string name="toggle_flash">フレッシュライトモードへ切り替え</string>
+    <string name="toggle_flash">フラッシュライトモードへ切り替え</string>
     <!-- FAQ -->
     <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>
     <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質ですが、ファイルサイズは100%と比べて大幅に削減することができます。</string>
