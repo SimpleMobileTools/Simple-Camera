@@ -15,10 +15,10 @@
     <string name="photo_not_saved">Ni bilo mogoče shraniti fotografije</string>
     <string name="setting_resolution_failed">Ni uspela nastavitev pravilne ločljivosti</string>
     <string name="video_recording_failed">P oskusite uporabiti drugo ločljivost, ker snemanje videoposnetka ni uspelo</string>
-    <string name="camera_in_use_error">Kamero uporablja druga aplikacija, zato zaprite aplikacijo in poskusite znova.</string>
+    <string name="camera_in_use_error">Kamero uporablja druga aplikacija, zato zaprite aplikacijo in poskusite znova</string>
     <string name="camera_configure_error">Do napake je prišlo med konfiguriranjem kamere</string>
     <string name="camera_disabled_by_admin_error">Kamero je onemogočil upravitelj</string>
-    <string name="camera_dnd_error">Omogočen je način Ne moti. Prosimo, da ga onemogočite in poskusite znova.</string>
+    <string name="camera_dnd_error">Omogočen je način Ne moti. Prosimo, da ga onemogočite in poskusite znova</string>
     <string name="photo_capture_failed">Ni uspel zajem fotografije</string>
     <string name="video_capture_insufficient_storage_error">Ni uspelo snemanje videoposnetka zaradi nezadostne količine pomnilnika</string>
     <string name="toggle_photo_video">Preklapljanje med fotografskim ter video načinom</string>
