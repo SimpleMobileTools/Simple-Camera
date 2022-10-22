@@ -26,6 +26,7 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.CaptureMode
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.camera.models.ResolutionOption
@@ -210,13 +211,21 @@ class CameraXPreview(
     }
 
     private fun buildImageCapture(resolution: Size, rotation: Int): ImageCapture {
+        val captureMode = getCaptureMode()
         return Builder()
-            .setCaptureMode(CAPTURE_MODE_MINIMIZE_LATENCY)
+            .setCaptureMode(captureMode)
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
             .setTargetRotation(rotation)
             .setTargetResolution(resolution)
             .build()
+    }
+
+    private fun getCaptureMode(): Int {
+        return when(config.captureMode){
+            CaptureMode.MINIMISE_LATENCY -> CAPTURE_MODE_MINIMIZE_LATENCY
+            CaptureMode.MAXIMISE_QUALITY -> CAPTURE_MODE_MAXIMIZE_QUALITY
+        }
     }
 
     private fun buildVideoCapture(): VideoCapture<Recorder> {
