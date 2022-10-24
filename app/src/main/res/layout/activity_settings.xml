@@ -265,7 +265,7 @@
                     style="@style/SettingsHolderTextViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bottom_corners">
+                    android:background="@drawable/ripple_background">
 
                     <com.simplemobiletools.commons.views.MyTextView
                         android:id="@+id/settings_photo_quality_label"
@@ -281,6 +281,30 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/settings_photo_quality_label"
                         tools:text="80%" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/settings_capture_mode_holder"
+                    style="@style/SettingsHolderTextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_bottom_corners">
+
+                    <com.simplemobiletools.commons.views.MyTextView
+                        android:id="@+id/settings_capture_mode_label"
+                        style="@style/SettingsTextLabelStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/capture_mode" />
+
+                    <com.simplemobiletools.commons.views.MyTextView
+                        android:id="@+id/settings_capture_mode"
+                        style="@style/SettingsTextValueStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/settings_capture_mode_label"
+                        tools:text="@string/minimize_latency" />
 
                 </RelativeLayout>
             </LinearLayout>
