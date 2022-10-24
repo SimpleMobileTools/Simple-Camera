@@ -1,5 +1,6 @@
 package com.simplemobiletools.camera.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -39,16 +40,24 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.*
-import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
+import kotlin.math.abs
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.flash_auto
+import kotlinx.android.synthetic.main.layout_flash.flash_off
+import kotlinx.android.synthetic.main.layout_flash.flash_on
+import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
+import kotlinx.android.synthetic.main.layout_top.change_resolution
+import kotlinx.android.synthetic.main.layout_top.default_icons
+import kotlinx.android.synthetic.main.layout_top.settings
+import kotlinx.android.synthetic.main.layout_top.toggle_flash
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
         const val CAPTURE_ANIMATION_DURATION = 500L
         const val PHOTO_MODE_INDEX = 1
         const val VIDEO_MODE_INDEX = 0
+        private const val MIN_SWIPE_DISTANCE_X = 100
     }
 
     lateinit var mTimerHandler: Handler
@@ -288,6 +297,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun initializeCamera() {
         setContentView(R.layout.activity_main)
         initButtons()
+        initModeSwitcher()
         defaultScene = Scene(top_options, default_icons)
         flashModeScene = Scene(top_options, flash_toggle_group)
 
@@ -375,6 +385,43 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         flash_auto.setShadowIcon(R.drawable.ic_flash_auto_vector)
         flash_auto.setOnClickListener { selectFlashMode(FLASH_AUTO) }
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initModeSwitcher(){
+        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                val deltaX = event1.x - event2.x
+                val deltaXAbs = abs(deltaX)
+
+                if (deltaXAbs >= MIN_SWIPE_DISTANCE_X) {
+                    if (deltaX > 0) {
+                        onSwipeLeft()
+                    } else {
+                        onSwipeRight()
+                    }
+                }
+
+                return true
+            }
+        })
+
+        camera_mode_tab.setOnTouchListener { _, event ->
+            gestureDetector.onTouchEvent(event)
+        }
+    }
+
+    private fun onSwipeLeft() {
+        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
+            selectPhotoTab(triggerListener = true)
+        }
+    }
+
+    private fun onSwipeRight() {
+        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
+            selectVideoTab(triggerListener = true)
+        }
+    }
+
 
     private fun selectFlashMode(flashMode: Int) {
         closeOptions()
@@ -713,18 +760,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onFocusCamera(xPos: Float, yPos: Float) {
         mFocusCircleView.drawFocusCircle(xPos, yPos)
-    }
-
-    override fun onSwipeLeft() {
-        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
-            selectPhotoTab(triggerListener = true)
-        }
-    }
-
-    override fun onSwipeRight() {
-        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
-            selectVideoTab(triggerListener = true)
-        }
     }
 
     override fun onTouchPreview() {

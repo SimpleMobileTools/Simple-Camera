@@ -18,8 +18,6 @@ interface CameraXPreviewListener {
     fun onVideoRecordingStopped()
     fun onVideoDurationChanged(durationNanos: Long)
     fun onFocusCamera(xPos: Float, yPos: Float)
-    fun onSwipeLeft()
-    fun onSwipeRight()
     fun onTouchPreview()
     fun displaySelectedResolution(resolutionOption: ResolutionOption)
     fun showImageSizes(
