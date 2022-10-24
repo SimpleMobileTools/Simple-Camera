@@ -211,9 +211,8 @@ class CameraXPreview(
     }
 
     private fun buildImageCapture(resolution: Size, rotation: Int): ImageCapture {
-        val captureMode = getCaptureMode()
         return Builder()
-            .setCaptureMode(captureMode)
+            .setCaptureMode(getCaptureMode())
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
             .setTargetRotation(rotation)
@@ -222,7 +221,7 @@ class CameraXPreview(
     }
 
     private fun getCaptureMode(): Int {
-        return when(config.captureMode){
+        return when (config.captureMode) {
             CaptureMode.MINIMISE_LATENCY -> CAPTURE_MODE_MINIMIZE_LATENCY
             CaptureMode.MAXIMISE_QUALITY -> CAPTURE_MODE_MAXIMIZE_QUALITY
         }
