@@ -1,0 +1,29 @@
+Priročna aplikacija za kamero je uporabna za slike in videoposnetke. V aplikaciji za kamero lahko preklapljate med kamerama, spremenite pot shranjevanja ali omejite ločljivost okvirjev fotografij. Nikoli več ne boste zamudili pomembnih trenutkov življenja. Na voljo je precej nastavitev, s katerimi bo kamera še bolj prilagojena vašim potrebam. Naštejmo nekaj izmed njih.
+
+Bliskavico lahko preklapljate ali jo uporabite kot uporabno svetilko, kar je redko. Med slikanjem s ščipanjem zaslona povečate in pomanjšate sliko ali preklopite na vodoravno sliko. Z aplikacijo se osredotočite na glavni predmet na sliki, namesto da bi dovolili drugim šumom pojavljanje v sliko-
+
+S kliki lahko spremenite izhodno ločljivost, kakovost ali razmerje stranic, kot bi pričakovali od odprte aplikacije. To velja za fotografije in videoposnetke. Kakovost slik in videoposnetkov lahko preprosto spremenite glede na svoje zahteve.
+
+Ko posnamete fotografijo, se prikaže majhna fotografija, in jo s pritiskom lahko odprete v želeni galeriji z aplikacijo odprte kamere. Videli boste jasen prikaz, kdaj je bila fotografija zajeta in da je bila datoteka shranjena.
+
+Če želite preprosto aplikacijo kamere zagnati s pritiskom na strojni gumb v napravi, boste morali vgrajeno aplikacijo kamere onemogočiti v Nastavitve -> Aplikacije -> Kamera -> Onemogoči.
+
+Nastavite jo lahko tako, da gumbe za glasnost uporablja kot zaklop ali da ob zagonu privzeto vklopi svetilko.
+
+Ima še več nastavitev, povezanih z zvokom zaklopa, bliskavico, metapodatki in kakovostjo fotografij itd. Pot izhodne datoteke lahko prilagodite, tako da se lahko odločite, kam želite shraniti svoj medij. Podpira tako notranji pomnilnik kot kartice SD.
+
+Privzeto je opremljen z materialno zasnovo in temno temo, kar zagotavlja odlično uporabniško izkušnjo za enostavno uporabo. Zaradi odsotnosti dostopa do interneta vam zagotavlja več zasebnosti, varnosti in stabilnosti kot druge aplikacije.
+
+Ne vsebuje oglasov ali nepotrebnih dovoljenj. Je popolnoma odprta izvorna kamera, zagotavlja prilagodljive barve.
+
+Celoten nabor preprostih orodij si oglejte tukaj:
+https://www.simplemobiletools.com.
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

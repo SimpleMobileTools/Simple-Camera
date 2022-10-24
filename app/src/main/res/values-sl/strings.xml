@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Enostavna kamera</string>
+    <string name="app_launcher_name">Kamera</string>
+    <string name="capture_mode">Način slikanja</string>
+    <string name="maximize_quality">Povečanje kakovosti</string>
+    <string name="minimize_latency">Zmanjšanje zakasnitve</string>
+    <!-- Errors -->
+    <string name="camera_unavailable">Kamera ni na razpolago</string>
+    <string name="camera_open_error">Prišlo je do napake pri dostopu do kamere</string>
+    <string name="video_creating_error">Pri ustvarjanju video datoteke je prišlo do napake</string>
+    <string name="video_mode_error">Ni uspel preklop na video način</string>
+    <string name="save_error_internal_storage">Prišlo je do napake, mapa za shranjevanje se je spremenila v notranji pomnilnik</string>
+    <string name="camera_switch_error">Ni uspel preklop kamere</string>
+    <string name="click_to_resume_preview">Za nadaljevanje predogleda kliknite na sliko</string>
+    <string name="photo_not_saved">Ni bilo mogoče shraniti fotografije</string>
+    <string name="setting_resolution_failed">Ni uspela nastavitev pravilne ločljivosti</string>
+    <string name="video_recording_failed">P oskusite uporabiti drugo ločljivost, ker snemanje videoposnetka ni uspelo</string>
+    <string name="camera_in_use_error">Kamero uporablja druga aplikacija, zato zaprite aplikacijo in poskusite znova</string>
+    <string name="camera_configure_error">Do napake je prišlo med konfiguriranjem kamere</string>
+    <string name="camera_disabled_by_admin_error">Kamero je onemogočil upravitelj</string>
+    <string name="camera_dnd_error">Omogočen je način Ne moti. Prosimo, da ga onemogočite in poskusite znova</string>
+    <string name="photo_capture_failed">Ni uspel zajem fotografije</string>
+    <string name="video_capture_insufficient_storage_error">Ni uspelo snemanje videoposnetka zaradi nezadostne količine pomnilnika</string>
+    <!-- Camera Screen Icons Content Description -->
+    <string name="toggle_photo_video">Preklapljanje med fotografskim ter video načinom</string>
+    <string name="change_resolution">Spremenite resolucijo</string>
+    <string name="view_last_media">Oglejte si najnovejše zajete medije</string>
+    <string name="toggle_camera">Preklopite med sprednjo in zadnjo kamero</string>
+    <string name="toggle_flash">Preklopite načina svetilke</string>
+    <!-- FAQ -->
+    <string name="faq_1_title">Kakšno kakovost stiskanja fotografij nastavim\?</string>
+    <string name="faq_1_text">Odvisno od vašega cilja. Za splošne namene svetuje večina ljudi uporabo 75–80 %, ko je slika še vedno zelo dobre kakovosti, vendar se velikost datoteke drastično zmanjša v primerjavi s 100 % .</string>
+    <!-- Settings -->
+    <string name="save_photos">Shranite fotografije in videoposnetke v</string>
+    <string name="show_preview">Pokažite po zajemu predogled fotografije</string>
+    <string name="shutter_sound">Zvok zaklopa</string>
+    <string name="back_camera">Več ločljivosti zadnje kamere</string>
+    <string name="front_camera">Ločljivosti sprednje kamere</string>
+    <string name="photo">Fotografija</string>
+    <string name="video">Videoposnetek</string>
+    <string name="focus_before_capture">Ostrenje pred zajemom</string>
+    <string name="volume_buttons_as_shutter">Gumbi za glasnost se uporabijo kot zaklop</string>
+    <string name="turn_flash_off_at_startup">Izklopite bliskavico ob zagonu</string>
+    <string name="flip_front_camera_photos_horizontally">Obrnite fotografije sprednje kamere vodoravno</string>
+    <string name="keep_settings_visible">Ohranite vidne gumbe za nastavitve</string>
+    <string name="always_open_back_camera">Aplikacijo odprite vedno z zadnjo kamero</string>
+    <string name="save_photo_metadata">Shranite exif metapodatke fotografije</string>
+    <string name="photo_compression_quality">Kakovost stiskanja fotografij</string>
+    <string name="shutter">Zaklopka</string>
+</resources>

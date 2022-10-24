@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Eenvoudige Camera</string>
     <string name="app_launcher_name">Camera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Opnamemodus</string>
+    <string name="maximize_quality">Kwaliteit maximaliseren</string>
+    <string name="minimize_latency">Vertraging minimaliseren</string>
     <!-- Errors -->
     <string name="camera_unavailable">Camera niet beschikbaar</string>
     <string name="camera_open_error">Fout opgetreden bij toegang verkrijgen tot de camera</string>
