@@ -4,6 +4,6 @@ import androidx.annotation.StringRes
 import com.simplemobiletools.camera.R
 
 enum class CaptureMode(@StringRes val stringResId: Int) {
-    MINIMISE_LATENCY(R.string.minimize_latency),
-    MAXIMISE_QUALITY(R.string.maximize_quality)
+    MINIMIZE_LATENCY(R.string.minimize_latency),
+    MAXIMIZE_QUALITY(R.string.maximize_quality)
 }

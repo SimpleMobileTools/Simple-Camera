@@ -76,7 +76,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(photoQuality) = prefs.edit().putInt(PHOTO_QUALITY, photoQuality).apply()
 
     var captureMode: CaptureMode
-        get() = CaptureMode.values()[prefs.getInt(CAPTURE_MODE, CaptureMode.MINIMISE_LATENCY.ordinal)]
+        get() = CaptureMode.values()[prefs.getInt(CAPTURE_MODE, CaptureMode.MINIMIZE_LATENCY.ordinal)]
         set(captureMode) = prefs.edit().putInt(CAPTURE_MODE, captureMode.ordinal).apply()
 
 }

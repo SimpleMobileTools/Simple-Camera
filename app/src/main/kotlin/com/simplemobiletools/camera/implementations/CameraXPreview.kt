@@ -220,8 +220,8 @@ class CameraXPreview(
 
     private fun getCaptureMode(): Int {
         return when (config.captureMode) {
-            CaptureMode.MINIMISE_LATENCY -> CAPTURE_MODE_MINIMIZE_LATENCY
-            CaptureMode.MAXIMISE_QUALITY -> CAPTURE_MODE_MAXIMIZE_QUALITY
+            CaptureMode.MINIMIZE_LATENCY -> CAPTURE_MODE_MINIMIZE_LATENCY
+            CaptureMode.MAXIMIZE_QUALITY -> CAPTURE_MODE_MAXIMIZE_QUALITY
         }
     }
 
@@ -230,9 +230,11 @@ class CameraXPreview(
             videoQualityManager.getUserSelectedQuality(cameraSelector).toCameraXQuality(),
             FallbackStrategy.higherQualityOrLowerThan(Quality.SD),
         )
+
         val recorder = Recorder.Builder()
             .setQualitySelector(qualitySelector)
             .build()
+
         return VideoCapture.withOutput(recorder)
     }
 
