@@ -11,7 +11,7 @@ After taking a picture you will see the new photo thumbnail, by pressing which y
 
 The most advanced feature that you can see lacking in different apps is face swap. This camera app also gives you choice to face swap with your family and friends so you can enjoy fun moments with them. You can also make a collage of all your photos and videos with this collage maker camera. The object removal technology gives you an upper hand as compared to other apps as this feature gives your pictures a more stunning look. Through object removal technology, you can get more clear and noise free pictures.
 
-If you want to launch this easy open camera app at pressing your devices' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable.
+If you want to launch this easy open camera app at pressing your devices' hardware camera button, you might have to disable the built in Camera app in Settings -> Apps -> Camera -> Disable. You may also need to disable the built-in camera app in order for Simple Camera to work correctly when launched from the lockscreen.
 
 In case you prefer quality over speed, you can enable an option for always focusing the camera in before taking a picture, to make sure the result is crystal clear.
 
