@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Prosty aparat</string>
     <string name="app_launcher_name">Aparat</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Tryb przechwytywania</string>
+    <string name="maximize_quality">Maksymalizuj jakość</string>
+    <string name="minimize_latency">Minimalizuj opóźnienie</string>
     <!-- Errors -->
     <string name="camera_unavailable">Aparat niedostępny</string>
     <string name="camera_open_error">Nie udało się uzyskać dostępu do aparatu</string>

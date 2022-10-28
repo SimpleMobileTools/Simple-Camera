@@ -82,8 +82,6 @@ class ShadowDrawable(context: Context, private val drawable: Drawable, @StyleRes
         }
         shadowPaint.isAntiAlias = true
         shadowPaint.isFilterBitmap = true
-        shadowPaint.isAntiAlias = true
-        shadowPaint.isFilterBitmap = true
     }
 
     override fun draw(canvas: Canvas) {

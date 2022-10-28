@@ -3,6 +3,7 @@ package com.simplemobiletools.camera.helpers
 import android.content.Context
 import android.os.Environment
 import androidx.camera.core.CameraSelector
+import com.simplemobiletools.camera.models.CaptureMode
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
 
@@ -73,4 +74,9 @@ class Config(context: Context) : BaseConfig(context) {
     var photoQuality: Int
         get() = prefs.getInt(PHOTO_QUALITY, 80)
         set(photoQuality) = prefs.edit().putInt(PHOTO_QUALITY, photoQuality).apply()
+
+    var captureMode: CaptureMode
+        get() = CaptureMode.values()[prefs.getInt(CAPTURE_MODE, CaptureMode.MINIMIZE_LATENCY.ordinal)]
+        set(captureMode) = prefs.edit().putInt(CAPTURE_MODE, captureMode.ordinal).apply()
+
 }

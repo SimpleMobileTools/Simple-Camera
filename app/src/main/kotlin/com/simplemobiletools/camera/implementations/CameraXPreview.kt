@@ -26,12 +26,12 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.CaptureMode
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.camera.models.ResolutionOption
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import kotlin.math.abs
 
 class CameraXPreview(
     private val activity: AppCompatActivity,
@@ -46,7 +46,6 @@ class CameraXPreview(
         // Auto focus is 1/6 of the area.
         private const val AF_SIZE = 1.0f / 6.0f
         private const val AE_SIZE = AF_SIZE * 1.5f
-        private const val MIN_SWIPE_DISTANCE_X = 100
     }
 
     private val config = activity.config
@@ -211,7 +210,7 @@ class CameraXPreview(
 
     private fun buildImageCapture(resolution: Size, rotation: Int): ImageCapture {
         return Builder()
-            .setCaptureMode(CAPTURE_MODE_MINIMIZE_LATENCY)
+            .setCaptureMode(getCaptureMode())
             .setFlashMode(flashMode)
             .setJpegQuality(config.photoQuality)
             .setTargetRotation(rotation)
@@ -219,14 +218,23 @@ class CameraXPreview(
             .build()
     }
 
+    private fun getCaptureMode(): Int {
+        return when (config.captureMode) {
+            CaptureMode.MINIMIZE_LATENCY -> CAPTURE_MODE_MINIMIZE_LATENCY
+            CaptureMode.MAXIMIZE_QUALITY -> CAPTURE_MODE_MAXIMIZE_QUALITY
+        }
+    }
+
     private fun buildVideoCapture(): VideoCapture<Recorder> {
         val qualitySelector = QualitySelector.from(
             videoQualityManager.getUserSelectedQuality(cameraSelector).toCameraXQuality(),
             FallbackStrategy.higherQualityOrLowerThan(Quality.SD),
         )
+
         val recorder = Recorder.Builder()
             .setQualitySelector(qualitySelector)
             .build()
+
         return VideoCapture.withOutput(recorder)
     }
 
@@ -292,21 +300,6 @@ class CameraXPreview(
                     listener.onFocusCamera(xPos, yPos)
                     true
                 } ?: false
-            }
-
-            override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                val deltaX = event1.x - event2.x
-                val deltaXAbs = abs(deltaX)
-
-                if (deltaXAbs >= MIN_SWIPE_DISTANCE_X) {
-                    if (deltaX > 0) {
-                        listener.onSwipeLeft()
-                    } else {
-                        listener.onSwipeRight()
-                    }
-                }
-
-                return true
             }
         })
         previewView.setOnTouchListener { _, event ->

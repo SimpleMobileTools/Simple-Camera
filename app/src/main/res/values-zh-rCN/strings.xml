@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">简单相机</string>
     <string name="app_launcher_name">相机</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">拍照模式</string>
+    <string name="maximize_quality">最高画质</string>
+    <string name="minimize_latency">最小延迟</string>
     <!-- Errors -->
     <string name="camera_unavailable">相机不可用</string>
     <string name="camera_open_error">访问相机出错</string>

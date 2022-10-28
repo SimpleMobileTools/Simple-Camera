@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
+import com.simplemobiletools.camera.models.CaptureMode
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -13,9 +14,9 @@ import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.isTiramisuPlus
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
-import kotlinx.android.synthetic.main.activity_settings.*
-import java.util.*
+import java.util.Locale
 import kotlin.system.exitProcess
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotoMetadata()
         setupSavePhotosFolder()
         setupPhotoQuality()
+        setupCaptureMode()
         updateTextColors(settings_holder)
 
         val properPrimaryColor = getProperPrimaryColor()
@@ -209,4 +211,23 @@ class SettingsActivity : SimpleActivity() {
     private fun updatePhotoQuality(quality: Int) {
         settings_photo_quality.text = "$quality%"
     }
+
+    private fun setupCaptureMode() {
+        updateCaptureMode(config.captureMode)
+        settings_capture_mode_holder.setOnClickListener {
+            val items = CaptureMode.values().mapIndexed { index, captureMode ->
+                RadioItem(index, getString(captureMode.stringResId), captureMode)
+            }
+
+            RadioGroupDialog(this@SettingsActivity, ArrayList(items), config.captureMode.ordinal) {
+                config.captureMode = it as CaptureMode
+                updateCaptureMode(it)
+            }
+        }
+    }
+
+    private fun updateCaptureMode(captureMode: CaptureMode) {
+        settings_capture_mode.text = getString(captureMode.stringResId)
+    }
+
 }

@@ -19,6 +19,7 @@ const val FRONT_PHOTO_RESOLUTION_INDEX = "front_photo_resolution_index_3"
 const val FRONT_VIDEO_RESOLUTION_INDEX = "front_video_resolution_index_3"
 const val SAVE_PHOTO_METADATA = "save_photo_metadata"
 const val PHOTO_QUALITY = "photo_quality"
+const val CAPTURE_MODE = "capture_mode"
 
 const val FLASH_OFF = 0
 const val FLASH_ON = 1
