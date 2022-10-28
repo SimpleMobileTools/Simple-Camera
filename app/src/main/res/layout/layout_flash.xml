@@ -10,7 +10,6 @@
     app:singleSelection="true"
     tools:visibility="visible">
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/flash_off"
         style="@style/Widget.App.Button.OutlineButton.IconOnly"
@@ -35,7 +34,6 @@
         android:layout_weight="1"
         app:icon="@drawable/ic_flash_on_vector" />
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/flash_always_on"
         style="@style/Widget.App.Button.OutlineButton.IconOnly"
@@ -43,6 +41,5 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         app:icon="@drawable/ic_flashlight_vector" />
-
 
 </com.google.android.material.button.MaterialButtonToggleGroup>
