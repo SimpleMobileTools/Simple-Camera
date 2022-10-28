@@ -257,7 +257,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun is3rdPartyIntent() = isVideoCaptureIntent() || isImageCaptureIntent()
+    private fun isThirdPartyIntent() = isVideoCaptureIntent() || isImageCaptureIntent()
 
     private fun isImageCaptureIntent(): Boolean = intent?.action == MediaStore.ACTION_IMAGE_CAPTURE || intent?.action == MediaStore.ACTION_IMAGE_CAPTURE_SECURE
 
@@ -321,12 +321,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
 
         val outputUri = intent.extras?.get(MediaStore.EXTRA_OUTPUT) as? Uri
-        val is3rdPartyIntent = is3rdPartyIntent()
+        val isThirdPartyIntent = isThirdPartyIntent()
         mPreview = CameraXInitializer(this).createCameraXPreview(
             preview_view,
             listener = this,
             outputUri = outputUri,
-            is3rdPartyIntent = is3rdPartyIntent,
+            isThirdPartyIntent = isThirdPartyIntent,
             initInPhotoMode = mIsInPhotoMode,
         )
         checkImageCaptureIntent()
@@ -409,13 +409,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun onSwipeLeft() {
-        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
+        if (!isThirdPartyIntent() && camera_mode_tab.isVisible()) {
             selectPhotoTab(triggerListener = true)
         }
     }
 
     private fun onSwipeRight() {
-        if (!is3rdPartyIntent() && camera_mode_tab.isVisible()) {
+        if (!isThirdPartyIntent() && camera_mode_tab.isVisible()) {
             selectVideoTab(triggerListener = true)
         }
     }
