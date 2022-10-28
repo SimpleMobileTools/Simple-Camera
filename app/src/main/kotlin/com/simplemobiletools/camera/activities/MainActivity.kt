@@ -40,16 +40,11 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.flash_auto
-import kotlinx.android.synthetic.main.layout_flash.flash_off
-import kotlinx.android.synthetic.main.layout_flash.flash_on
-import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
-import kotlinx.android.synthetic.main.layout_top.change_resolution
-import kotlinx.android.synthetic.main.layout_top.default_icons
-import kotlinx.android.synthetic.main.layout_top.settings
-import kotlinx.android.synthetic.main.layout_top.toggle_flash
+import kotlinx.android.synthetic.main.layout_flash.*
+import kotlinx.android.synthetic.main.layout_top.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -390,7 +385,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun initModeSwitcher(){
+    private fun initModeSwitcher() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 val deltaX = event1.x - event2.x
