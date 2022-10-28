@@ -24,6 +24,7 @@ const val CAPTURE_MODE = "capture_mode"
 const val FLASH_OFF = 0
 const val FLASH_ON = 1
 const val FLASH_AUTO = 2
+const val FLASH_ALWAYS_ON = 3
 
 fun compensateDeviceRotation(orientation: Int) = when (orientation) {
     ORIENT_LANDSCAPE_LEFT -> 270

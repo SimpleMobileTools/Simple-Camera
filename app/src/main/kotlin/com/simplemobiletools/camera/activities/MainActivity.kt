@@ -40,17 +40,11 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.*
+import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.flash_auto
-import kotlinx.android.synthetic.main.layout_flash.flash_off
-import kotlinx.android.synthetic.main.layout_flash.flash_on
-import kotlinx.android.synthetic.main.layout_flash.flash_toggle_group
-import kotlinx.android.synthetic.main.layout_top.change_resolution
-import kotlinx.android.synthetic.main.layout_top.default_icons
-import kotlinx.android.synthetic.main.layout_top.settings
-import kotlinx.android.synthetic.main.layout_top.toggle_flash
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -352,7 +346,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mTimerHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
 
-        val initialFlashlightState = if (mIsInPhotoMode) config.flashlightState else FLASH_OFF
+        val initialFlashlightState = if (mIsInPhotoMode && config.flashlightState != FLASH_ALWAYS_ON) config.flashlightState else FLASH_OFF
         mPreview!!.setFlashlightState(initialFlashlightState)
         updateFlashlightState(initialFlashlightState)
         initFlashModeTransitionNames()
@@ -363,6 +357,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         flash_auto.transitionName = "$baseName$FLASH_AUTO"
         flash_off.transitionName = "$baseName$FLASH_OFF"
         flash_on.transitionName = "$baseName$FLASH_ON"
+        flash_always_on.transitionName = "$baseName$FLASH_ALWAYS_ON"
     }
 
     private fun initButtons() {
@@ -384,10 +379,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         flash_auto.setShadowIcon(R.drawable.ic_flash_auto_vector)
         flash_auto.setOnClickListener { selectFlashMode(FLASH_AUTO) }
+
+        flash_always_on.setShadowIcon(R.drawable.ic_flashlight_vector)
+        flash_always_on.setOnClickListener { selectFlashMode(FLASH_ALWAYS_ON) }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun initModeSwitcher(){
+    private fun initModeSwitcher() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 val deltaX = event1.x - event2.x
@@ -456,7 +454,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val flashDrawable = when (state) {
             FLASH_OFF -> R.drawable.ic_flash_off_vector
             FLASH_ON -> R.drawable.ic_flash_on_vector
-            else -> R.drawable.ic_flash_auto_vector
+            FLASH_AUTO -> R.drawable.ic_flash_auto_vector
+            else -> R.drawable.ic_flashlight_vector
         }
         toggle_flash.setShadowIcon(flashDrawable)
         toggle_flash.transitionName = "${getString(R.string.toggle_flash)}$state"
@@ -849,6 +848,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val transitionSet = createTransition()
         TransitionManager.go(flashModeScene, transitionSet)
         flash_auto.beVisibleIf(photoCapture)
+        flash_always_on.beVisibleIf(photoCapture)
         flash_toggle_group.check(config.flashlightState.toFlashModeId())
 
         flash_toggle_group.beVisible()

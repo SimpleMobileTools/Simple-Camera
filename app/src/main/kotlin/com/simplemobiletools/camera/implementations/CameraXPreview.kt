@@ -395,15 +395,17 @@ class CameraXPreview(
     }
 
     override fun setFlashlightState(state: Int) {
-        val newFlashMode = state.toCameraXFlashMode()
-        if (!isPhotoCapture) {
-            camera?.cameraControl?.enableTorch(newFlashMode == FLASH_MODE_ON)
+        if (isPhotoCapture) {
+            camera?.cameraControl?.enableTorch(state == FLASH_ALWAYS_ON)
+        } else {
+            camera?.cameraControl?.enableTorch(state == FLASH_ON || state == FLASH_ALWAYS_ON)
         }
+        val newFlashMode = state.toCameraXFlashMode()
         flashMode = newFlashMode
         imageCapture?.flashMode = newFlashMode
-        val appFlashMode = flashMode.toAppFlashMode()
-        config.flashlightState = appFlashMode
-        listener.onChangeFlashMode(appFlashMode)
+
+        config.flashlightState = state
+        listener.onChangeFlashMode(state)
     }
 
     override fun tryTakePicture() {
