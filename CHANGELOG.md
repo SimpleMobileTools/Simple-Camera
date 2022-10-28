@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 5.4.1 *(2022-10-28)*
+----------------------------
+
+ * Added an Always on torch mode
+ * Allow toggling capture mode between min latency and max quality
+ * Allow toggling camera states with gestures only at the bottom part
+ * Added many translation, stability and UX improvements
+
 Version 5.4.0 *(2022-10-11)*
 ----------------------------
 
