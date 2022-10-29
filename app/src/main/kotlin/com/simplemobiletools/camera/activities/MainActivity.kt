@@ -425,7 +425,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-
     private fun selectFlashMode(flashMode: Int) {
         closeOptions()
         mPreview?.setFlashlightState(flashMode)
