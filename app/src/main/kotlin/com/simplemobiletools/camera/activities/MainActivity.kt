@@ -388,6 +388,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun initModeSwitcher() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+                // these can be null even if the docs say they cannot
+                if (event1 == null && event2 == null) {
+                    return true
+                }
+
                 val deltaX = event1.x - event2.x
                 val deltaXAbs = abs(deltaX)
 
