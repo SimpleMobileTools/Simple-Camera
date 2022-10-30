@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Απλή Κάμερα</string>
     <string name="app_launcher_name">Κάμερα</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Λειτουργία λήψης</string>
+    <string name="maximize_quality">Μέγιστη ποιότητα</string>
+    <string name="minimize_latency">Ελάχιστη καθυστέρηση</string>
     <!-- Errors -->
     <string name="camera_unavailable">Μη διαθέσιμη κάμερα</string>
     <string name="camera_open_error">Παρουσιάστηκε σφάλμα κατά την πρόσβαση στην κάμερα</string>
@@ -28,7 +28,7 @@
     <string name="change_resolution">Αλλαγή ανάλυσης</string>
     <string name="view_last_media">Προβολή των τελευταίων αποθηκευμένων πολυμέσων</string>
     <string name="toggle_camera">Εναλλαγή εμπρός/πίσω κάμερας</string>
-    <string name="toggle_flash">Εναλλαγή της λειτουργίας φακού</string>
+    <string name="toggle_flash">Εναλλαγή σε λειτουργία φακού</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Ποια ποιότητα συμπίεσης φωτογραφιών πρέπει να ορίσω;</string>
