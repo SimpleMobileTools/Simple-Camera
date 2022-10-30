@@ -389,7 +389,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 // these can be null even if the docs say they cannot
-                if (event1 == null && event2 == null) {
+                if (event1 == null || event2 == null) {
                     return true
                 }
 
