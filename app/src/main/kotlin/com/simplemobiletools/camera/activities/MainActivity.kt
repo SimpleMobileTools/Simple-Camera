@@ -40,11 +40,11 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_flash.*
 import kotlinx.android.synthetic.main.layout_top.*
-import java.util.concurrent.TimeUnit
-import kotlin.math.abs
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -345,10 +345,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         mTimerHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
-
-        val initialFlashlightState = if (mIsInPhotoMode && config.flashlightState != FLASH_ALWAYS_ON) config.flashlightState else FLASH_OFF
-        mPreview!!.setFlashlightState(initialFlashlightState)
-        updateFlashlightState(initialFlashlightState)
         initFlashModeTransitionNames()
     }
 
@@ -451,18 +447,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 mPreview?.toggleFlashlight()
             }
         }
-    }
-
-    private fun updateFlashlightState(state: Int) {
-        config.flashlightState = state
-        val flashDrawable = when (state) {
-            FLASH_OFF -> R.drawable.ic_flash_off_vector
-            FLASH_ON -> R.drawable.ic_flash_on_vector
-            FLASH_AUTO -> R.drawable.ic_flash_auto_vector
-            else -> R.drawable.ic_flashlight_vector
-        }
-        toggle_flash.setShadowIcon(flashDrawable)
-        toggle_flash.transitionName = "${getString(R.string.toggle_flash)}$state"
     }
 
     private fun shutterPressed() {
@@ -727,7 +711,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onChangeFlashMode(flashMode: Int) {
-        updateFlashlightState(flashMode)
+        val flashDrawable = when (flashMode) {
+            FLASH_OFF -> R.drawable.ic_flash_off_vector
+            FLASH_ON -> R.drawable.ic_flash_on_vector
+            FLASH_AUTO -> R.drawable.ic_flash_auto_vector
+            else -> R.drawable.ic_flashlight_vector
+        }
+        toggle_flash.setShadowIcon(flashDrawable)
+        toggle_flash.transitionName = "${getString(R.string.toggle_flash)}$flashMode"
     }
 
     override fun onVideoRecordingStarted() {

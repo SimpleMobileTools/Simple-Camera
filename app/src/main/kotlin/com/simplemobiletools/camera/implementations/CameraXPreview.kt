@@ -175,6 +175,7 @@ class CameraXPreview(
         previewUseCase.setSurfaceProvider(previewView.surfaceProvider)
         preview = previewUseCase
         setupZoomAndFocus()
+        setFlashlightState(config.flashlightState)
     }
 
     private fun displaySelectedResolution(resolutionOption: ResolutionOption) {
