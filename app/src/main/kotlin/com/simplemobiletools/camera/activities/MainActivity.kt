@@ -384,8 +384,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun initModeSwitcher() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                // these can be null even if the docs say they cannot
-                if (event1 == null || event2 == null) {
+                // these can be null even if the docs say they cannot, getting event1.x in itself can cause crashes
+                try {
+                    if (event1 == null || event2 == null || event1.x == null || event2.x == null) {
+                        return true
+                    }
+                } catch (e: NullPointerException) {
                     return true
                 }
 
