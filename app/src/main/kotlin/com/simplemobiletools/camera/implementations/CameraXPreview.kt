@@ -244,20 +244,23 @@ class CameraXPreview(
         listener.onChangeCamera(isFrontCameraInUse())
 
         camera?.cameraInfo?.cameraState?.observe(activity) { cameraState ->
-            when (cameraState.type) {
-                CameraState.Type.OPEN,
-                CameraState.Type.OPENING -> {
-                    listener.setHasFrontAndBackCamera(hasFrontCamera() && hasBackCamera())
-                    listener.setCameraAvailable(true)
+            if (cameraState.error == null) {
+                when (cameraState.type) {
+                    CameraState.Type.OPEN-> {
+                        listener.setHasFrontAndBackCamera(hasFrontCamera() && hasBackCamera())
+                        listener.setCameraAvailable(true)
+                    }
+                    CameraState.Type.OPENING,
+                    CameraState.Type.PENDING_OPEN,
+                    CameraState.Type.CLOSING,
+                    CameraState.Type.CLOSED -> {
+                        listener.setCameraAvailable(false)
+                    }
                 }
-                CameraState.Type.PENDING_OPEN,
-                CameraState.Type.CLOSING,
-                CameraState.Type.CLOSED -> {
-                    listener.setCameraAvailable(false)
-                }
+            } else {
+                listener.setCameraAvailable(false)
+                cameraErrorHandler.handleCameraError(cameraState.error)
             }
-
-            cameraErrorHandler.handleCameraError(cameraState?.error)
         }
     }
 

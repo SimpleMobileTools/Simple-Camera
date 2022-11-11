@@ -52,6 +52,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         const val PHOTO_MODE_INDEX = 1
         const val VIDEO_MODE_INDEX = 0
         private const val MIN_SWIPE_DISTANCE_X = 100
+        private const val DELAY_BETWEEN_MODE_SWITCH = 300L
     }
 
     lateinit var mTimerHandler: Handler
@@ -67,10 +68,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mIsHardwareShutterHandled = false
     private var mCurrVideoRecTimer = 0
     var mLastHandledOrientation = 0
+    private val togglePhotoVideoRunnable = Runnable {
+        handleTogglePhotoVideo()
+    }
 
     private val tabSelectedListener = object : TabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
-            handleTogglePhotoVideo()
+            camera_mode_tab.removeCallbacks(togglePhotoVideoRunnable)
+            camera_mode_tab.postDelayed(togglePhotoVideoRunnable, DELAY_BETWEEN_MODE_SWITCH)
         }
     }
 
@@ -382,7 +387,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initModeSwitcher() {
-        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+        val gestureDetector = GestureDetectorCompat(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean {
+                // we have to return true here so ACTION_UP
+                // (and onFling) can be dispatched
+                return true
+            }
+
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 // these can be null even if the docs say they cannot
                 if (event1 == null || event2 == null) {
@@ -404,7 +415,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             }
         })
 
-        camera_mode_tab.setOnTouchListener { _, event ->
+        bottom_overlay.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
         }
     }
