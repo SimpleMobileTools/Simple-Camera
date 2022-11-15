@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Απλή Κάμερα</string>
     <string name="app_launcher_name">Κάμερα</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Λειτουργία καταγραφής</string>
+    <string name="maximize_quality">Μέγιστη ποιότητα</string>
+    <string name="minimize_latency">Ελαχιστοποίηση καθυστέρησης</string>
     <!-- Errors -->
     <string name="camera_unavailable">Μη διαθέσιμη κάμερα</string>
     <string name="camera_open_error">Παρουσιάστηκε σφάλμα κατά την πρόσβαση στην κάμερα</string>
@@ -28,7 +28,7 @@
     <string name="change_resolution">Αλλαγή ανάλυσης</string>
     <string name="view_last_media">Προβολή των τελευταίων αποθηκευμένων πολυμέσων</string>
     <string name="toggle_camera">Εναλλαγή εμπρός/πίσω κάμερας</string>
-    <string name="toggle_flash">Εναλλαγή της λειτουργίας φακού</string>
+    <string name="toggle_flash">Εναλλαγή λειτουργίας φακού</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Ποια ποιότητα συμπίεσης φωτογραφιών πρέπει να ορίσω;</string>
@@ -45,7 +45,7 @@
     <string name="focus_before_capture">Εστίαση πριν τη λήψη</string>
     <string name="volume_buttons_as_shutter">Χρήση κουμπιών έντασης ως κλείστρο</string>
     <string name="turn_flash_off_at_startup">Απενεργοποίηση φλας κατά την εκκίνηση</string>
-    <string name="flip_front_camera_photos_horizontally">Οριζόντια αναστροφή φωτογραφιών μπροστινής κάμερας</string>
+    <string name="flip_front_camera_photos_horizontally">Οριζόντια αναστροφή φωτογραφιών εμπρός κάμερας</string>
     <string name="keep_settings_visible">Διατήρηση εμφανών κουμπιών ρύθμισης</string>
     <string name="always_open_back_camera">Πάντα άνοιγμα της εφαρμογής με την πίσω κάμερα</string>
     <string name="save_photo_metadata">Αποθήκευση μεταδεδομένων exif φωτογραφίας</string>
