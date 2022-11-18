@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Schlichte Kamera</string>
     <string name="app_launcher_name">Kamera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Aufnahmemodus</string>
+    <string name="maximize_quality">Qualität maximieren</string>
+    <string name="minimize_latency">Latenz minimieren</string>
     <!-- Errors -->
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
     <string name="camera_open_error">Kein Zugriff auf die Kamera möglich</string>
