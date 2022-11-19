@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Schlichte Kamera</string>
+    <string name="app_name">Einfache Kamera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="capture_mode">Aufnahmemodus</string>
     <string name="maximize_quality">Qualität maximieren</string>
