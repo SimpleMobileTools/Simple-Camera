@@ -35,10 +35,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(FLIP_PHOTOS, true)
         set(flipPhotos) = prefs.edit().putBoolean(FLIP_PHOTOS, flipPhotos).apply()
 
-    var lastUsedCamera: String
-        get() = prefs.getString(LAST_USED_CAMERA, "0")!!
-        set(cameraId) = prefs.edit().putString(LAST_USED_CAMERA, cameraId).apply()
-
     var lastUsedCameraLens: Int
         get() = prefs.getInt(LAST_USED_CAMERA_LENS, CameraSelector.LENS_FACING_BACK)
         set(lens) = prefs.edit().putInt(LAST_USED_CAMERA_LENS, lens).apply()

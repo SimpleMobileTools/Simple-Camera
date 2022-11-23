@@ -23,7 +23,8 @@ class CameraXInitializer(private val activity: BaseSimpleActivity) {
             mediaOutputHelper,
             cameraErrorHandler,
             listener,
-            initInPhotoMode,
+            isThirdPartyIntent = isThirdPartyIntent,
+            initInPhotoMode = initInPhotoMode,
         )
     }
 

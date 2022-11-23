@@ -1,18 +1,14 @@
 package com.simplemobiletools.camera.interfaces
 
-import android.net.Uri
-
 interface MyPreview {
 
-    fun setTargetUri(uri: Uri) = Unit
+    fun isInPhotoMode(): Boolean
 
-    fun setIsImageCaptureIntent(isImageCaptureIntent: Boolean) = Unit
-
-    fun setFlashlightState(state: Int) = Unit
+    fun setFlashlightState(state: Int)
 
     fun toggleFrontBackCamera()
 
-    fun toggleFlashlight() = Unit
+    fun handleFlashlightClick()
 
     fun tryTakePicture()
 
@@ -22,7 +18,5 @@ interface MyPreview {
 
     fun initVideoMode()
 
-    fun checkFlashlight() = Unit
-
-    fun showChangeResolution() = Unit
+    fun showChangeResolution()
 }
