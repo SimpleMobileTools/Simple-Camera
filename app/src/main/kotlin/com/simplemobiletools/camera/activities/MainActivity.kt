@@ -393,7 +393,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             }
         })
 
-        bottom_overlay.setOnTouchListener { _, event ->
+        camera_mode_tab.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
         }
     }
