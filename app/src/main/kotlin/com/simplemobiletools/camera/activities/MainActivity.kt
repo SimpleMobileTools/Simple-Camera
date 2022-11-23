@@ -37,11 +37,11 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import java.util.concurrent.TimeUnit
-import kotlin.math.abs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_flash.*
 import kotlinx.android.synthetic.main.layout_top.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -68,7 +68,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                     when (tab.position) {
                         VIDEO_MODE_INDEX -> mPreview?.initVideoMode()
                         PHOTO_MODE_INDEX -> mPreview?.initPhotoMode()
-                        else -> throw IllegalStateException("Unsupported  tab position ${tab.position}")
+                        else -> throw IllegalStateException("Unsupported tab position ${tab.position}")
                     }
                 } else {
                     toast(R.string.no_audio_permissions)
@@ -113,6 +113,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!triggerListener) {
             removeTabListener()
         }
+
         camera_mode_tab.getTabAt(PHOTO_MODE_INDEX)?.select()
         setTabListener()
     }
@@ -142,6 +143,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             toggleBottomButtons(enabled = true)
             mOrientationEventListener.enable()
         }
+
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         ensureTransparentNavigationBar()
     }
@@ -156,6 +158,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
             return
         }
+
         mOrientationEventListener.disable()
     }
 
@@ -238,14 +241,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun isInPhotoMode(): Boolean {
-        return mPreview?.isInPhotoMode()
-            ?: if (isVideoCaptureIntent()) {
-                false
-            } else if (isImageCaptureIntent()) {
-                true
-            } else {
-                config.initPhotoMode
-            }
+        return mPreview?.isInPhotoMode() ?: if (isVideoCaptureIntent()) {
+            false
+        } else if (isImageCaptureIntent()) {
+            true
+        } else {
+            config.initPhotoMode
+        }
     }
 
     private fun handleStoragePermission(callback: (granted: Boolean) -> Unit) {
@@ -479,7 +481,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-
     private fun hasStorageAndCameraPermissions(): Boolean {
         return if (isInPhotoMode()) hasPhotoModePermissions() else hasVideoModePermissions()
     }
@@ -677,11 +678,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         isFrontCamera: Boolean,
         onSelect: (index: Int, changed: Boolean) -> Unit
     ) {
-
         top_options.removeView(mediaSizeToggleGroup)
         val mediaSizeToggleGroup = createToggleGroup().apply {
             mediaSizeToggleGroup = this
         }
+
         top_options.addView(mediaSizeToggleGroup)
 
         val onItemClick = { clickedViewId: Int ->
@@ -709,6 +710,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             weight = 1f
         }
+
         return (layoutInflater.inflate(R.layout.layout_button, null) as MaterialButton).apply {
             layoutParams = params
             setShadowIcon(resolutionOption.imageDrawableResId)
