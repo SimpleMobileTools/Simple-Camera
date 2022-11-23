@@ -6,11 +6,8 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.hardware.SensorManager
-import android.hardware.camera2.CameraCharacteristics
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.MediaStore
 import android.view.*
 import android.widget.LinearLayout
@@ -40,11 +37,11 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import java.util.concurrent.TimeUnit
-import kotlin.math.abs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_flash.*
 import kotlinx.android.synthetic.main.layout_top.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -54,7 +51,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         private const val MIN_SWIPE_DISTANCE_X = 100
     }
 
-    lateinit var mTimerHandler: Handler
     private lateinit var defaultScene: Scene
     private lateinit var flashModeScene: Scene
     private lateinit var mOrientationEventListener: OrientationEventListener
@@ -62,15 +58,26 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mPreview: MyPreview? = null
     private var mediaSizeToggleGroup: MaterialButtonToggleGroup? = null
     private var mPreviewUri: Uri? = null
-    private var mIsInPhotoMode = true
-    private var mIsCameraAvailable = false
     private var mIsHardwareShutterHandled = false
-    private var mCurrVideoRecTimer = 0
-    var mLastHandledOrientation = 0
+    private var mLastHandledOrientation = 0
 
     private val tabSelectedListener = object : TabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
-            handleTogglePhotoVideo()
+            handlePermission(PERMISSION_RECORD_AUDIO) {
+                if (it) {
+                    when (tab.position) {
+                        VIDEO_MODE_INDEX -> mPreview?.initVideoMode()
+                        PHOTO_MODE_INDEX -> mPreview?.initPhotoMode()
+                        else -> throw IllegalStateException("Unsupported tab position ${tab.position}")
+                    }
+                } else {
+                    toast(R.string.no_audio_permissions)
+                    selectPhotoTab()
+                    if (isVideoCaptureIntent()) {
+                        finish()
+                    }
+                }
+            }
         }
     }
 
@@ -79,7 +86,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         super.onCreate(savedInstanceState)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-
         initVariables()
         tryInitCamera()
         supportActionBar?.hide()
@@ -107,6 +113,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!triggerListener) {
             removeTabListener()
         }
+
         camera_mode_tab.getTabAt(PHOTO_MODE_INDEX)?.select()
         setTabListener()
     }
@@ -130,17 +137,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onResume() {
         super.onResume()
         if (hasStorageAndCameraPermissions()) {
-            resumeCameraItems()
-            setupPreviewImage(mIsInPhotoMode)
+            val isInPhotoMode = isInPhotoMode()
+            setupPreviewImage(isInPhotoMode)
             mFocusCircleView.setStrokeColor(getProperPrimaryColor())
-
-            if (isVideoCaptureIntent() && mIsInPhotoMode) {
-                handleTogglePhotoVideo()
-                checkButtons()
-            }
             toggleBottomButtons(enabled = true)
             mOrientationEventListener.enable()
         }
+
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         ensureTransparentNavigationBar()
     }
@@ -156,7 +159,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             return
         }
 
-        hideTimer()
         mOrientationEventListener.disable()
     }
 
@@ -172,18 +174,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initVariables() {
-        mIsInPhotoMode = if (isVideoCaptureIntent()) {
-            false
-        } else if (isImageCaptureIntent()) {
-            true
-        } else {
-            config.initPhotoMode
-        }
-        mIsCameraAvailable = false
         mIsHardwareShutterHandled = false
-        mCurrVideoRecTimer = 0
-        mLastHandledOrientation = 0
-        config.lastUsedCamera = CameraCharacteristics.LENS_FACING_BACK.toString()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -218,16 +209,22 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             if (grantedCameraPermission) {
                 handleStoragePermission { grantedStoragePermission ->
                     if (grantedStoragePermission) {
-                        if (mIsInPhotoMode) {
-                            initializeCamera()
+                        val isInPhotoMode = isInPhotoMode()
+                        if (isInPhotoMode) {
+                            initializeCamera(true)
                         } else {
                             handlePermission(PERMISSION_RECORD_AUDIO) { grantedRecordAudioPermission ->
                                 if (grantedRecordAudioPermission) {
-                                    initializeCamera()
+                                    initializeCamera(false)
                                 } else {
                                     toast(R.string.no_audio_permissions)
-                                    togglePhotoVideoMode()
-                                    tryInitCamera()
+                                    if (isThirdPartyIntent()) {
+                                        finish()
+                                    } else {
+                                        // re-initialize in photo mode
+                                        config.initPhotoMode = true
+                                        tryInitCamera()
+                                    }
                                 }
                             }
                         }
@@ -240,6 +237,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 toast(R.string.no_camera_permissions)
                 finish()
             }
+        }
+    }
+
+    private fun isInPhotoMode(): Boolean {
+        return mPreview?.isInPhotoMode() ?: if (isVideoCaptureIntent()) {
+            false
+        } else if (isImageCaptureIntent()) {
+            true
+        } else {
+            config.initPhotoMode
         }
     }
 
@@ -263,24 +270,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun isVideoCaptureIntent(): Boolean = intent?.action == MediaStore.ACTION_VIDEO_CAPTURE
 
-    private fun checkImageCaptureIntent() {
-        if (isImageCaptureIntent()) {
-            hideIntentButtons()
-            val output = intent.extras?.get(MediaStore.EXTRA_OUTPUT)
-            if (output != null && output is Uri) {
-                mPreview?.setTargetUri(output)
-            }
-        }
-    }
-
-    private fun checkVideoCaptureIntent() {
-        if (isVideoCaptureIntent()) {
-            mIsInPhotoMode = false
-            hideIntentButtons()
-            shutter.setImageResource(R.drawable.ic_video_rec_vector)
-        }
-    }
-
     private fun createToggleGroup(): MaterialButtonToggleGroup {
         return MaterialButtonToggleGroup(this).apply {
             isSingleSelection = true
@@ -288,7 +277,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun initializeCamera() {
+    private fun initializeCamera(isInPhotoMode: Boolean) {
         setContentView(R.layout.activity_main)
         initButtons()
         initModeSwitcher()
@@ -313,8 +302,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             WindowInsetsCompat.CONSUMED
         }
 
-        checkVideoCaptureIntent()
-        if (mIsInPhotoMode) {
+        if (isInPhotoMode) {
             selectPhotoTab()
         } else {
             selectVideoTab()
@@ -327,25 +315,18 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             listener = this,
             outputUri = outputUri,
             isThirdPartyIntent = isThirdPartyIntent,
-            initInPhotoMode = mIsInPhotoMode,
+            initInPhotoMode = isInPhotoMode,
         )
-        checkImageCaptureIntent()
-        mPreview?.setIsImageCaptureIntent(isImageCaptureIntent())
 
-        val imageDrawable = if (config.lastUsedCamera == CameraCharacteristics.LENS_FACING_BACK.toString()) {
-            R.drawable.ic_camera_front_vector
-        } else {
-            R.drawable.ic_camera_rear_vector
-        }
-
-        toggle_camera.setImageResource(imageDrawable)
-
-        mFocusCircleView = FocusCircleView(applicationContext)
+        mFocusCircleView = FocusCircleView(this)
         view_holder.addView(mFocusCircleView)
 
-        mTimerHandler = Handler(Looper.getMainLooper())
         setupPreviewImage(true)
         initFlashModeTransitionNames()
+
+        if (isThirdPartyIntent) {
+            hideIntentButtons()
+        }
     }
 
     private fun initFlashModeTransitionNames() {
@@ -357,9 +338,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initButtons() {
-        toggle_camera.setOnClickListener { toggleCamera() }
+        toggle_camera.setOnClickListener { mPreview!!.toggleFrontBackCamera() }
         last_photo_video_preview.setOnClickListener { showLastMediaPreview() }
-        toggle_flash.setOnClickListener { toggleFlash() }
+        toggle_flash.setOnClickListener { mPreview!!.handleFlashlightClick() }
         shutter.setOnClickListener { shutterPressed() }
 
         settings.setShadowIcon(R.drawable.ic_settings_vector)
@@ -382,7 +363,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initModeSwitcher() {
-        val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+        val gestureDetector = GestureDetectorCompat(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean {
+                // we have to return true here so ACTION_UP
+                // (and onFling) can be dispatched
+                return true
+            }
+
             override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
                 // these can be null even if the docs say they cannot, getting event1.x in itself can cause crashes
                 try {
@@ -430,11 +417,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mPreview?.setFlashlightState(flashMode)
     }
 
-    private fun toggleCamera() {
-        if (checkCameraAvailable()) {
-            mPreview!!.toggleFrontBackCamera()
-        }
-    }
 
     private fun showLastMediaPreview() {
         if (mPreviewUri != null) {
@@ -443,24 +425,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun toggleFlash() {
-        if (checkCameraAvailable()) {
-            if (mIsInPhotoMode) {
-                showFlashOptions(true)
-            } else {
-                mPreview?.toggleFlashlight()
-            }
-        }
-    }
-
     private fun shutterPressed() {
-        if (checkCameraAvailable()) {
-            handleShutter()
-        }
-    }
-
-    private fun handleShutter() {
-        if (mIsInPhotoMode) {
+        if (isInPhotoMode()) {
             toggleBottomButtons(enabled = false)
             change_resolution.isEnabled = true
             mPreview?.tryTakePicture()
@@ -474,71 +440,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         startActivity(intent)
     }
 
-    private fun handleTogglePhotoVideo() {
-        handlePermission(PERMISSION_RECORD_AUDIO) {
-            if (it) {
-                togglePhotoVideo()
-            } else {
-                toast(R.string.no_audio_permissions)
-                selectPhotoTab()
-                if (isVideoCaptureIntent()) {
-                    finish()
-                }
-            }
-        }
-    }
-
-    private fun togglePhotoVideo() {
-        if (!checkCameraAvailable()) {
-            return
-        }
-
-        if (isVideoCaptureIntent()) {
-            mPreview?.initVideoMode()
-        }
-
-        mPreview?.setFlashlightState(FLASH_OFF)
-        hideTimer()
-        togglePhotoVideoMode()
-        checkButtons()
-        toggleBottomButtons(enabled = true)
-    }
-
-    private fun togglePhotoVideoMode() {
-        mIsInPhotoMode = !mIsInPhotoMode
-        config.initPhotoMode = mIsInPhotoMode
-    }
-
-    private fun checkButtons() {
-        if (mIsInPhotoMode) {
-            initPhotoMode()
-        } else {
-            tryInitVideoMode()
-        }
-    }
-
-    private fun initPhotoMode() {
+    override fun onInitPhotoMode() {
         shutter.setImageResource(R.drawable.ic_shutter_animated)
-        mPreview?.initPhotoMode()
         setupPreviewImage(true)
         selectPhotoTab()
     }
 
-    private fun tryInitVideoMode() {
-        try {
-            mPreview?.initVideoMode()
-            initVideoButtons()
-        } catch (e: Exception) {
-            if (!isVideoCaptureIntent()) {
-                toast(R.string.video_mode_error)
-            }
-        }
-    }
-
-    private fun initVideoButtons() {
+    override fun onInitVideoMode() {
         shutter.setImageResource(R.drawable.ic_video_rec_animated)
         setupPreviewImage(false)
-        mPreview?.checkFlashlight()
         selectVideoTab()
     }
 
@@ -571,21 +481,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun hideTimer() {
-        video_rec_curr_timer.text = 0.getFormattedDuration()
-        video_rec_curr_timer.beGone()
-        mCurrVideoRecTimer = 0
-        mTimerHandler.removeCallbacksAndMessages(null)
-    }
-
-    private fun resumeCameraItems() {
-        if (!mIsInPhotoMode) {
-            initVideoButtons()
-        }
-    }
-
     private fun hasStorageAndCameraPermissions(): Boolean {
-        return if (mIsInPhotoMode) hasPhotoModePermissions() else hasVideoModePermissions()
+        return if (isInPhotoMode()) hasPhotoModePermissions() else hasVideoModePermissions()
     }
 
     private fun hasPhotoModePermissions(): Boolean {
@@ -640,17 +537,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun rotate(view: View, degrees: Int) = view.animate().rotation(degrees.toFloat()).start()
-
-    private fun checkCameraAvailable(): Boolean {
-        if (!mIsCameraAvailable) {
-            toast(R.string.camera_unavailable)
-        }
-        return mIsCameraAvailable
-    }
-
-    override fun setCameraAvailable(available: Boolean) {
-        mIsCameraAvailable = available
-    }
 
     override fun setHasFrontAndBackCamera(hasFrontAndBack: Boolean) {
         toggle_camera?.beVisibleIf(hasFrontAndBack)
@@ -792,11 +678,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         isFrontCamera: Boolean,
         onSelect: (index: Int, changed: Boolean) -> Unit
     ) {
-
         top_options.removeView(mediaSizeToggleGroup)
         val mediaSizeToggleGroup = createToggleGroup().apply {
             mediaSizeToggleGroup = this
         }
+
         top_options.addView(mediaSizeToggleGroup)
 
         val onItemClick = { clickedViewId: Int ->
@@ -824,6 +710,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             weight = 1f
         }
+
         return (layoutInflater.inflate(R.layout.layout_button, null) as MaterialButton).apply {
             layoutParams = params
             setShadowIcon(resolutionOption.imageDrawableResId)

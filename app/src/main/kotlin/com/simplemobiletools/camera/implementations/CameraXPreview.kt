@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.SensorManager
 import android.hardware.display.DisplayManager
+import android.os.Handler
+import android.os.Looper
 import android.util.Rational
 import android.util.Size
 import android.view.*
@@ -19,6 +21,7 @@ import androidx.camera.view.PreviewView.ScaleType
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.window.layout.WindowMetricsCalculator
 import com.bumptech.glide.load.ImageHeaderParser.UNKNOWN_ORIENTATION
@@ -39,6 +42,7 @@ class CameraXPreview(
     private val mediaOutputHelper: MediaOutputHelper,
     private val cameraErrorHandler: CameraErrorHandler,
     private val listener: CameraXPreviewListener,
+    private val isThirdPartyIntent: Boolean,
     initInPhotoMode: Boolean,
 ) : MyPreview, DefaultLifecycleObserver {
 
@@ -46,6 +50,7 @@ class CameraXPreview(
         // Auto focus is 1/6 of the area.
         private const val AF_SIZE = 1.0f / 6.0f
         private const val AE_SIZE = AF_SIZE * 1.5f
+        private const val CAMERA_MODE_SWITCH_WAIT_TIME = 500L
     }
 
     private val config = activity.config
@@ -80,6 +85,29 @@ class CameraXPreview(
             }
         }
     }
+    private val startCameraHandler = Handler(Looper.getMainLooper())
+    private val photoModeRunnable = Runnable {
+        if (imageCapture == null) {
+            isPhotoCapture = true
+            if (!isThirdPartyIntent) { // we don't want to store the state for 3rd party intents
+                config.initPhotoMode = true
+            }
+            startCamera()
+        } else {
+            listener.onInitPhotoMode()
+        }
+    }
+    private val videoModeRunnable = Runnable {
+        if (videoCapture == null) {
+            isPhotoCapture = false
+            if (!isThirdPartyIntent) { // we don't want to store the state for 3rd party intents
+                config.initPhotoMode = false
+            }
+            startCamera()
+        } else {
+            listener.onInitVideoMode()
+        }
+    }
 
     private var preview: Preview? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -92,13 +120,11 @@ class CameraXPreview(
     private var flashMode = FLASH_MODE_OFF
     private var isPhotoCapture = initInPhotoMode
     private var lastRotation = 0
+    private var lastCameraStartTime = 0L
 
     init {
         bindToLifeCycle()
         mediaSoundHelper.loadSounds()
-        previewView.doOnLayout {
-            startCamera()
-        }
     }
 
     private fun bindToLifeCycle() {
@@ -106,13 +132,12 @@ class CameraXPreview(
     }
 
     private fun startCamera(switching: Boolean = false) {
-        imageQualityManager.initSupportedQualities()
-
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(activity)
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(activity.applicationContext)
         cameraProviderFuture.addListener({
             try {
                 val provider = cameraProviderFuture.get()
                 cameraProvider = provider
+                imageQualityManager.initSupportedQualities()
                 videoQualityManager.initSupportedQualities(provider)
                 bindCameraUseCases()
                 setupCameraObservers()
@@ -128,11 +153,11 @@ class CameraXPreview(
 
         val resolution = if (isPhotoCapture) {
             imageQualityManager.getUserSelectedResolution(cameraSelector).also {
-                displaySelectedResolution(it.toResolutionOption())
+                listener.displaySelectedResolution(it.toResolutionOption())
             }
         } else {
             val selectedQuality = videoQualityManager.getUserSelectedQuality(cameraSelector).also {
-                displaySelectedResolution(it.toResolutionOption())
+                listener.displaySelectedResolution(it.toResolutionOption())
             }
             MySize(selectedQuality.width, selectedQuality.height)
         }
@@ -178,10 +203,6 @@ class CameraXPreview(
         setFlashlightState(config.flashlightState)
     }
 
-    private fun displaySelectedResolution(resolutionOption: ResolutionOption) {
-        listener.displaySelectedResolution(resolutionOption)
-    }
-
     private fun getRotatedResolution(resolution: MySize, rotationDegrees: Int): Size {
         return if (rotationDegrees == Surface.ROTATION_0 || rotationDegrees == Surface.ROTATION_180) {
             Size(resolution.height, resolution.width)
@@ -201,10 +222,12 @@ class CameraXPreview(
         return if (isPhotoCapture) {
             buildImageCapture(resolution, rotation).also {
                 imageCapture = it
+                videoCapture = null
             }
         } else {
             buildVideoCapture().also {
                 videoCapture = it
+                imageCapture = null
             }
         }
     }
@@ -242,22 +265,29 @@ class CameraXPreview(
     private fun setupCameraObservers() {
         listener.setFlashAvailable(camera?.cameraInfo?.hasFlashUnit() ?: false)
         listener.onChangeCamera(isFrontCameraInUse())
-
+        if (isPhotoCapture) {
+            listener.onInitPhotoMode()
+        } else {
+            listener.onInitVideoMode()
+        }
         camera?.cameraInfo?.cameraState?.observe(activity) { cameraState ->
-            when (cameraState.type) {
-                CameraState.Type.OPEN,
-                CameraState.Type.OPENING -> {
-                    listener.setHasFrontAndBackCamera(hasFrontCamera() && hasBackCamera())
-                    listener.setCameraAvailable(true)
+            if (cameraState.error == null) {
+                when (cameraState.type) {
+                    CameraState.Type.OPENING,
+                    CameraState.Type.OPEN -> {
+                        listener.setHasFrontAndBackCamera(hasFrontCamera() && hasBackCamera())
+                        listener.setCameraAvailable(true)
+                    }
+                    CameraState.Type.PENDING_OPEN,
+                    CameraState.Type.CLOSING,
+                    CameraState.Type.CLOSED -> {
+                        listener.setCameraAvailable(false)
+                    }
                 }
-                CameraState.Type.PENDING_OPEN,
-                CameraState.Type.CLOSING,
-                CameraState.Type.CLOSED -> {
-                    listener.setCameraAvailable(false)
-                }
+            } else {
+                listener.setCameraAvailable(false)
+                cameraErrorHandler.handleCameraError(cameraState.error)
             }
-
-            cameraErrorHandler.handleCameraError(cameraState?.error)
         }
     }
 
@@ -312,10 +342,19 @@ class CameraXPreview(
 
     override fun onStart(owner: LifecycleOwner) {
         orientationEventListener.enable()
+        previewView.doOnLayout {
+            if (owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                startCamera()
+            }
+        }
     }
 
     override fun onStop(owner: LifecycleOwner) {
         orientationEventListener.disable()
+    }
+
+    override fun isInPhotoMode(): Boolean {
+        return isPhotoCapture
     }
 
     override fun showChangeResolution() {
@@ -377,7 +416,15 @@ class CameraXPreview(
         startCamera(switching = true)
     }
 
-    override fun toggleFlashlight() {
+    override fun handleFlashlightClick() {
+        if (isPhotoCapture) {
+            listener.showFlashOptions(true)
+        } else {
+            toggleFlashlight()
+        }
+    }
+
+    private fun toggleFlashlight() {
         val newFlashMode = if (isPhotoCapture) {
             when (flashMode) {
                 FLASH_MODE_OFF -> FLASH_MODE_ON
@@ -396,17 +443,22 @@ class CameraXPreview(
     }
 
     override fun setFlashlightState(state: Int) {
+        var flashState = state
         if (isPhotoCapture) {
-            camera?.cameraControl?.enableTorch(state == FLASH_ALWAYS_ON)
+            camera?.cameraControl?.enableTorch(flashState == FLASH_ALWAYS_ON)
         } else {
-            camera?.cameraControl?.enableTorch(state == FLASH_ON || state == FLASH_ALWAYS_ON)
+            camera?.cameraControl?.enableTorch(flashState == FLASH_ON || flashState == FLASH_ALWAYS_ON)
+            // reset to the FLASH_ON for video capture
+            if (flashState == FLASH_ALWAYS_ON) {
+                flashState = FLASH_ON
+            }
         }
-        val newFlashMode = state.toCameraXFlashMode()
+        val newFlashMode = flashState.toCameraXFlashMode()
         flashMode = newFlashMode
         imageCapture?.flashMode = newFlashMode
 
-        config.flashlightState = state
-        listener.onChangeFlashMode(state)
+        config.flashlightState = flashState
+        listener.onChangeFlashMode(flashState)
     }
 
     override fun tryTakePicture() {
@@ -467,13 +519,23 @@ class CameraXPreview(
     }
 
     override fun initPhotoMode() {
-        isPhotoCapture = true
-        startCamera()
+        debounceChangeCameraMode(photoModeRunnable)
     }
 
     override fun initVideoMode() {
-        isPhotoCapture = false
-        startCamera()
+        debounceChangeCameraMode(videoModeRunnable)
+    }
+
+    private fun debounceChangeCameraMode(cameraModeRunnable: Runnable) {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastCameraStartTime > CAMERA_MODE_SWITCH_WAIT_TIME) {
+            cameraModeRunnable.run()
+        } else {
+            startCameraHandler.removeCallbacks(photoModeRunnable)
+            startCameraHandler.removeCallbacks(videoModeRunnable)
+            startCameraHandler.postDelayed(cameraModeRunnable, CAMERA_MODE_SWITCH_WAIT_TIME)
+        }
+        lastCameraStartTime = currentTime
     }
 
     override fun toggleRecording() {
@@ -489,8 +551,7 @@ class CameraXPreview(
     private fun startRecording() {
         val videoCapture = videoCapture ?: throw IllegalStateException("Camera initialization failed.")
 
-        val mediaOutput = mediaOutputHelper.getVideoMediaOutput()
-        val recording = when (mediaOutput) {
+        val recording = when (val mediaOutput = mediaOutputHelper.getVideoMediaOutput()) {
             is MediaOutput.FileDescriptorMediaOutput -> {
                 FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
                     .let { videoCapture.output.prepareRecording(activity, it) }

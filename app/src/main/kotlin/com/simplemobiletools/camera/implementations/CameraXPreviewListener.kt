@@ -5,7 +5,9 @@ import android.net.Uri
 import com.simplemobiletools.camera.models.ResolutionOption
 
 interface CameraXPreviewListener {
-    fun setCameraAvailable(available: Boolean)
+    fun onInitPhotoMode()
+    fun onInitVideoMode()
+    fun setCameraAvailable(available: Boolean) {}
     fun setHasFrontAndBackCamera(hasFrontAndBack: Boolean)
     fun setFlashAvailable(available: Boolean)
     fun onChangeCamera(frontCamera: Boolean)
