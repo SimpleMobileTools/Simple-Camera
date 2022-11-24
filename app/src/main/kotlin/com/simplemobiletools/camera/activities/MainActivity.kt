@@ -620,7 +620,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         change_resolution.isEnabled = false
         settings.isEnabled = false
-        shutter.isSelected = true
+        shutter.post {
+            if (!isDestroyed) {
+                shutter.isSelected = true
+            }
+        }
     }
 
     override fun onVideoRecordingStopped() {
