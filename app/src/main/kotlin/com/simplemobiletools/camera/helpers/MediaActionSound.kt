@@ -66,7 +66,7 @@ class MediaActionSound(private val context: Context) {
                 if (status != 0) {
                     sound.state = STATE_NOT_LOADED
                     sound.id = 0
-                    Log.e(TAG, "OnLoadCompleteListener() error: $status  loading sound: ${sound.name}")
+                    Log.e(TAG, "OnLoadCompleteListener() error: $status loading sound: ${sound.name}")
                     return@OnLoadCompleteListener
                 }
                 when (sound.state) {
@@ -75,7 +75,7 @@ class MediaActionSound(private val context: Context) {
                         soundToBePlayed = sound
                         sound.state = STATE_LOADED
                     }
-                    else -> Log.e(TAG, "OnLoadCompleteListener() called in wrong state: ${sound.state}  for sound: ${sound.name}")
+                    else -> Log.e(TAG, "OnLoadCompleteListener() called in wrong state: ${sound.state} for sound: ${sound.name}")
                 }
             }
             if (soundToBePlayed != null) {
@@ -172,7 +172,7 @@ class MediaActionSound(private val context: Context) {
                     sound.id = 0
                 }
             }
-            soundPool!!.release()
+            soundPool?.release()
             soundPool = null
         }
         removeHandlerCallbacks()
