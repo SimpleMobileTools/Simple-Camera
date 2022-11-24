@@ -57,7 +57,7 @@ class CameraXPreview(
     private val contentResolver = activity.contentResolver
     private val mainExecutor = ContextCompat.getMainExecutor(activity)
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-    private val mediaSoundHelper = MediaSoundHelper()
+    private val mediaSoundHelper = MediaSoundHelper(activity)
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
     private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
@@ -353,6 +353,11 @@ class CameraXPreview(
         orientationEventListener.disable()
     }
 
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        mediaSoundHelper.release()
+    }
+
     override fun isInPhotoMode(): Boolean {
         return isPhotoCapture
     }
@@ -540,7 +545,14 @@ class CameraXPreview(
 
     override fun toggleRecording() {
         if (currentRecording == null || recordingState is VideoRecordEvent.Finalize) {
-            startRecording()
+            if (config.isSoundEnabled) {
+                mediaSoundHelper.playStartVideoRecordingSound(onPlayComplete = {
+                    startRecording()
+                })
+                listener.onVideoRecordingStarted()
+            } else {
+                startRecording()
+            }
         } else {
             currentRecording?.stop()
             currentRecording = null
@@ -571,7 +583,6 @@ class CameraXPreview(
                 recordingState = recordEvent
                 when (recordEvent) {
                     is VideoRecordEvent.Start -> {
-                        playStartVideoRecordingSoundIfEnabled()
                         listener.onVideoRecordingStarted()
                     }
 
@@ -595,12 +606,6 @@ class CameraXPreview(
     private fun playShutterSoundIfEnabled() {
         if (config.isSoundEnabled) {
             mediaSoundHelper.playShutterSound()
-        }
-    }
-
-    private fun playStartVideoRecordingSoundIfEnabled() {
-        if (config.isSoundEnabled) {
-            mediaSoundHelper.playStartVideoRecordingSound()
         }
     }
 

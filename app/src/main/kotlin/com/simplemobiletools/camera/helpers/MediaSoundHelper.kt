@@ -1,9 +1,9 @@
 package com.simplemobiletools.camera.helpers
 
-import android.media.MediaActionSound
+import android.content.Context
 
-class MediaSoundHelper {
-    private val mediaActionSound = MediaActionSound()
+class MediaSoundHelper(context: Context) {
+    private val mediaActionSound = MediaActionSound(context)
 
     fun loadSounds() {
         mediaActionSound.load(MediaActionSound.START_VIDEO_RECORDING)
@@ -15,11 +15,15 @@ class MediaSoundHelper {
         mediaActionSound.play(MediaActionSound.SHUTTER_CLICK)
     }
 
-    fun playStartVideoRecordingSound() {
-        mediaActionSound.play(MediaActionSound.START_VIDEO_RECORDING)
+    fun playStartVideoRecordingSound(onPlayComplete: () -> Unit) {
+        mediaActionSound.play(MediaActionSound.START_VIDEO_RECORDING, onPlayComplete)
     }
 
     fun playStopVideoRecordingSound() {
         mediaActionSound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+    }
+
+    fun release() {
+        mediaActionSound.release()
     }
 }
