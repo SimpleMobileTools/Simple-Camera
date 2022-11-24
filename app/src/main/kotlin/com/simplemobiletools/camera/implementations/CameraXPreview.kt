@@ -196,8 +196,6 @@ class CameraXPreview(
                 captureUseCase,
             )
         }
-
-        previewUseCase.setSurfaceProvider(previewView.surfaceProvider)
         preview = previewUseCase
         setupZoomAndFocus()
         setFlashlightState(config.flashlightState)
@@ -215,7 +213,9 @@ class CameraXPreview(
         return Preview.Builder()
             .setTargetRotation(rotation)
             .setTargetResolution(resolution)
-            .build()
+            .build().apply {
+                setSurfaceProvider(previewView.surfaceProvider)
+            }
     }
 
     private fun getCaptureUseCase(resolution: Size, rotation: Int): UseCase {
