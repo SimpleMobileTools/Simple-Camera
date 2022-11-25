@@ -366,20 +366,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initModeSwitcher() {
-        val gestureDetector = GestureDetectorCompat(this, object : GestureDetector.SimpleOnGestureListener() {
+        val gestureDetector = GestureDetectorCompat(this, object : GestureDetectorListener() {
             override fun onDown(e: MotionEvent): Boolean {
                 // we have to return true here so ACTION_UP
                 // (and onFling) can be dispatched
                 return true
             }
 
-            override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            override fun onFling(event1: MotionEvent?, event2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
                 // these can be null even if the docs say they cannot, getting event1.x in itself can cause crashes
-                try {
-                    if (event1 == null || event2 == null || event1.x == null || event2.x == null) {
-                        return true
-                    }
-                } catch (e: NullPointerException) {
+                if (event1 == null || event2 == null) {
                     return true
                 }
 
