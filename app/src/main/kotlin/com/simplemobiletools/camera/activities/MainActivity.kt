@@ -847,7 +847,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         timer_text.beVisible()
         countDownTimer = object : CountDownTimer(timerMode.millisInFuture, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                mPreview!!.toggleFlash()
                 val seconds = (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1).toString()
                 timer_text.setText(seconds)
             }

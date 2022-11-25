@@ -29,9 +29,4 @@
         android:drawable="@drawable/shutter_unpressed_to_pressed"
         android:fromId="@id/unpressed"
         android:toId="@id/pressed" />
-
-    <transition
-        android:drawable="@drawable/shutter_pressed_to_timer_cancel"
-        android:fromId="@id/pressed"
-        android:toId="@id/timer_cancel" />
 </animated-selector>

@@ -465,16 +465,6 @@ class CameraXPreview(
         listener.onChangeFlashMode(flashState)
     }
 
-    override fun toggleFlash() {
-        if (config.isSoundEnabled) {
-            mediaSoundHelper.playFocusCompleteSound()
-        }
-        camera?.cameraControl?.enableTorch(true)
-        cameraHandler.postDelayed({
-            camera?.cameraControl?.enableTorch(false)
-        }, TOGGLE_FLASH_DELAY)
-    }
-
     override fun tryTakePicture() {
         val imageCapture = imageCapture ?: throw IllegalStateException("Camera initialization failed.")
 

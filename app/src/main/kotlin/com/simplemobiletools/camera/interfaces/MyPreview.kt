@@ -19,6 +19,4 @@ interface MyPreview {
     fun initVideoMode()
 
     fun showChangeResolution()
-
-    fun toggleFlash()
 }

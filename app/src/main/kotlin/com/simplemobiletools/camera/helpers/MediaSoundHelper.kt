@@ -23,10 +23,6 @@ class MediaSoundHelper(context: Context) {
         mediaActionSound.play(MediaActionSound.STOP_VIDEO_RECORDING)
     }
 
-    fun playFocusCompleteSound() {
-        mediaActionSound.play(MediaActionSound.FOCUS_COMPLETE)
-    }
-
     fun release() {
         mediaActionSound.release()
     }
