@@ -28,6 +28,7 @@
     <string name="view_last_media">View last captured media</string>
     <string name="toggle_camera">Toggle front/back camera</string>
     <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">사진 압축품질을 무엇으로 설정해야 하나요?</string>
     <string name="faq_1_text">압축품질은 촬영용도에 따라 달라질 수 있지만, 일반적으로 75% -80%를 사용하도록 권고합니다. 75% -80%로 압축 품질을 설정하면 파일 크기는 100%에 비해 크게 줄어듭니다.</string>

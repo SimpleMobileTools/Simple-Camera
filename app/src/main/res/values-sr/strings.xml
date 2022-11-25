@@ -28,6 +28,7 @@
     <string name="view_last_media">Погледајте последње снимљене медије</string>
     <string name="toggle_camera">Укључите предњу/задњу камеру</string>
     <string name="toggle_flash">Укључите режим батеријске лампе</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Који квалитет компресије фотографија треба да поставим\?</string>
     <string name="faq_1_text">Зависи од вашег циља. За опште сврхе већина људи саветује коришћење 75%-80%, када је слика и даље стварно доброг квалитета, али је величина датотеке драстично смањена у поређењу са 100%.</string>

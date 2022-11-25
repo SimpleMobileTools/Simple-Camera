@@ -28,6 +28,7 @@
     <string name="view_last_media">Vis medier som ble tatt sist</string>
     <string name="toggle_camera">Veksle mellom front-/bakkamera</string>
     <string name="toggle_flash">Aktivere/deaktivere lommelykt modus</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hvilket bildekomprimeringsnivå bør jeg bruke\?</string>
     <string name="faq_1_text">Det avhenger av hva du vil. Til alminnelige formål anbefales 75%-80%. Fremdeles god kvalitet, men vesentlig redusert filstørrelse sammenlignet med 100%.</string>

@@ -28,6 +28,7 @@
     <string name="view_last_media">Exibir a última mídia capturada</string>
     <string name="toggle_camera">Alternar câmera frontal/traseira</string>
     <string name="toggle_flash">Alternar o modo lanterna</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir\?</string>
     <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>

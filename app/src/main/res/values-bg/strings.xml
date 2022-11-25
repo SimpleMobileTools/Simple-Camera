@@ -28,6 +28,7 @@
     <string name="view_last_media">Преглед на последно заснети медии</string>
     <string name="toggle_camera">Превключване на предна/задна камера</string>
     <string name="toggle_flash">Превключване на режим фенерче</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Колко трябва да компресирам качеството на снимките\?</string>
     <string name="faq_1_text">Зависи. За общо ползване повечето хора съветват да 75%-80%, като изображението все още е с наистина добро качество, но размерът на файла е драстично намален в сравнение със 100%.</string>

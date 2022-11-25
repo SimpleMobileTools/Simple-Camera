@@ -30,6 +30,7 @@
     <string name="view_last_media">View last captured media</string>
     <string name="toggle_camera">Toggle front/back camera</string>
     <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">What photo compression quality should I set?</string>

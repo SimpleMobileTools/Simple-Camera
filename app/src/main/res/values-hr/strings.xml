@@ -28,6 +28,7 @@
     <string name="view_last_media">Pogledaj zadnje snimljeni medij</string>
     <string name="toggle_camera">Uklj./Isklj. prednju/stražnju kameru</string>
     <string name="toggle_flash">Uklj./Isklj. modus svjetiljke</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Koju kvalitetu kompresije fotografija trebam postaviti\?</string>
     <string name="faq_1_text">Ovisi o tvom cilju. Za opće namjene, većina ljudi savjetuje korištenje 75 do 80 % kad je slika dobre kvalitete, ali se veličina datoteke drastično smanjuje u usporedbi sa 100 %.</string>

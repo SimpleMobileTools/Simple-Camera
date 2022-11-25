@@ -28,6 +28,7 @@
     <string name="view_last_media">Rodyti paskiausiai fiksuotą mediją</string>
     <string name="toggle_camera">Perjungti priekinę/galinę kamerą</string>
     <string name="toggle_flash">Perjungti žibintuvėlio veikseną</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Kokią nuotraukos glaudinimo kokybę turėčiau nustatyti\?</string>
     <string name="faq_1_text">Tai priklauso nuo jūsų tikslų. Įprastiems tikslams dauguma žmonių pataria naudoti 75%–80%, kuomet nuotrauka yra vis dar geros kokybės, bet failo dydis, palyginus su 100%, iš esmės sumažėja.</string>

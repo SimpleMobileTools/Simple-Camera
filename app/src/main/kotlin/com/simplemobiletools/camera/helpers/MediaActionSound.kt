@@ -28,6 +28,7 @@ class MediaActionSound(private val context: Context) {
         )
         private const val TAG = "MediaActionSound"
         const val SHUTTER_CLICK = 0
+        const val FOCUS_COMPLETE = 1
         const val START_VIDEO_RECORDING = 2
         const val STOP_VIDEO_RECORDING = 3
         private const val STATE_NOT_LOADED = 0

@@ -28,6 +28,7 @@
     <string name="view_last_media">Ollalos derradeiros medios capturados</string>
     <string name="toggle_camera">Troca entre a cámara frontal/traseira</string>
     <string name="toggle_flash">Troca a modo lanterna</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Que calidade de compresión debo escoller para a foto?</string>
     <string name="faq_1_text">Depende do obxectivo. Para uso xeral a maioría das persoas usuarias recomendan entre un 75%-80%, que é un valor bastante bo, pero o tamaño do ficheiro redúcese drasticamente comparado co 100%.</string>

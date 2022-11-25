@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:width="@dimen/icon_size"
     android:height="@dimen/icon_size"
     android:viewportWidth="168"
     android:viewportHeight="168">
+
+    <item
+        android:id="@+id/timer_cancel"
+        android:drawable="@drawable/ic_shutter_timer_cancel"
+        app:state_timer_cancel="true" />
+
     <item
         android:id="@+id/pressed"
         android:drawable="@drawable/ic_shutter_vector"
         android:state_pressed="true" />
+
     <item
         android:id="@+id/unpressed"
         android:drawable="@drawable/ic_shutter_vector" />
@@ -21,4 +29,9 @@
         android:drawable="@drawable/shutter_unpressed_to_pressed"
         android:fromId="@id/unpressed"
         android:toId="@id/pressed" />
+
+    <transition
+        android:drawable="@drawable/shutter_pressed_to_timer_cancel"
+        android:fromId="@id/pressed"
+        android:toId="@id/timer_cancel" />
 </animated-selector>

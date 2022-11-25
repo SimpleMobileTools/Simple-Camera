@@ -28,6 +28,7 @@
     <string name="view_last_media">View last captured media</string>
     <string name="toggle_camera">Toggle front/back camera</string>
     <string name="toggle_flash">Toggle the flashlight mode</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hvilken fotokomprimeringskvalitet skal jeg anvende\?</string>
     <string name="faq_1_text">Det afhænger af dit mål. Til almindelige formål anbefaler de fleste at bruge 75-80 %, hvor billedet stadig har en rigtig god kvalitet, men hvor filstørrelsen er reduceret drastisk i forhold til 100 %.</string>

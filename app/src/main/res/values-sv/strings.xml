@@ -28,6 +28,7 @@
     <string name="view_last_media">Visa de senast fångade medierna</string>
     <string name="toggle_camera">Växla mellan främre/bakre kamera</string>
     <string name="toggle_flash">Växla ficklampans läge</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Vilken kvalitet för fotokomprimering ska jag ställa in\?</string>
     <string name="faq_1_text">Det beror på ditt mål. För generiska ändamål rekommenderar de flesta att man använder 75-80 %, då bilden fortfarande har riktigt bra kvalitet, men filstorleken minskar drastiskt jämfört med 100 %.</string>
