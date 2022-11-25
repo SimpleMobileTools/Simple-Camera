@@ -17,6 +17,10 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
 
     val megaPixels: String = String.format("%.1f", (width * height.toFloat()) / ONE_MEGA_PIXEL)
 
+    fun requiresCentering(): Boolean {
+        return !isFullScreen && (isFourToThree() || isThreeToTwo() || isSquare())
+    }
+
     fun isSixteenToNine() = ratio == 16 / 9f
 
     private fun isFiveToThree() = ratio == 5 / 3f
