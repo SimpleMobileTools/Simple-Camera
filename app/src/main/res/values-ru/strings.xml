@@ -28,6 +28,7 @@
     <string name="view_last_media">Просмотр последнего снимка</string>
     <string name="toggle_camera">Переключить переднюю/заднюю камеру</string>
     <string name="toggle_flash">Переключить режим фонарика</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Какое качество сжатия фото нужно установить?</string>
     <string name="faq_1_text">Это зависит от вашей цели. В общем случае большинство людей советуют использовать 75%-80%, тогда изображение всё ещё действительно хорошего качества, но размер файла резко уменьшается по сравнению со 100%.</string>

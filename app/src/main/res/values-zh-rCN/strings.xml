@@ -28,6 +28,7 @@
     <string name="view_last_media">查看上次拍的媒体文件</string>
     <string name="toggle_camera">切换前置/后置摄像头</string>
     <string name="toggle_flash">切换闪光灯模式</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">我应该选用怎样的照片压缩率呢？</string>
     <string name="faq_1_text">这取决于您的目的。对大多数人的一般用途来说，建议使用 75%-80%，此时图片仍有不错的品质，而文件大小相比 100% 时大幅减小。</string>

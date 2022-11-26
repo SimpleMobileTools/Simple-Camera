@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:shadowColor="@color/md_grey_400_dark"
+    android:shadowDx="0"
+    android:shadowDy="2"
+    android:shadowRadius="6"
+    android:textAlignment="center"
+    android:textAppearance="@style/TextAppearance.Material3.DisplayLarge"
+    android:textColor="@color/md_grey_white"
+    android:textSize="@dimen/timer_text_size"
+    tools:text="3" />

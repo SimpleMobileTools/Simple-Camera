@@ -28,6 +28,7 @@
     <string name="view_last_media">Wyświetl ostatnio zrobiony plik</string>
     <string name="toggle_camera">Przełącz między przednim a tylnym aparatem</string>
     <string name="toggle_flash">Włącz lub wyłącz latarkę</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Jaką jakość kompresji zdjęć powinienem ustawić\?</string>
     <string name="faq_1_text">Zależy to od Twojego celu. Do celów ogólnych większość ludzi zaleca poziom 75-80% — wtedy obraz jest nadal w dobrej jakości, ale rozmiar pliku znacznie zmniejsza się w porównaniu do 100%.</string>

@@ -28,6 +28,7 @@
     <string name="view_last_media">Utoljára rögzített média megtekintése</string>
     <string name="toggle_camera">Elülső/hátsó kamera átkapcsolása</string>
     <string name="toggle_flash">A zseblámpa üzemmód váltása</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Milyen fotótömörítési minőséget kell beállítanom\?</string>
     <string name="faq_1_text">Ez a céltól függ. Általános célokra a legtöbben 75%-80%-ot javasolnak, amikor a kép még mindig nagyon jó minőségű, de a fájlméret drasztikusan csökken a 100%-hoz képest.</string>

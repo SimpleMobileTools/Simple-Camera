@@ -28,6 +28,7 @@
     <string name="view_last_media">Näytä viimeksi kaapattu media</string>
     <string name="toggle_camera">Vaihda etu-/takakameraa</string>
     <string name="toggle_flash">Vaihda taskulampputilaa</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Mitä valokuvan pakkauslaatua minun pitäisi käyttää?</string>
     <string name="faq_1_text">Se riippuu tarkoituksestasi. Yleisissä tarkoituksissa useimmat ihmiset suosittelevat käyttämään 75-80%, kun kuva on edelleen todella hyvälaatuinen, mutta tiedoston koko pienenee huomattavasti verrattuna 100%:iin.</string>

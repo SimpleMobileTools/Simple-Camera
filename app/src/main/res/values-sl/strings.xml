@@ -28,6 +28,7 @@
     <string name="view_last_media">Oglejte si najnovejše zajete medije</string>
     <string name="toggle_camera">Preklopite med sprednjo in zadnjo kamero</string>
     <string name="toggle_flash">Preklopite načina svetilke</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Kakšno kakovost stiskanja fotografij nastavim\?</string>
     <string name="faq_1_text">Odvisno od vašega cilja. Za splošne namene svetuje večina ljudi uporabo 75–80 %, ko je slika še vedno zelo dobre kakovosti, vendar se velikost datoteke drastično zmanjša v primerjavi s 100 % .</string>

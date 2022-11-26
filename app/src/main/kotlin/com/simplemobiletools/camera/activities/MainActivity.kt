@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.view.*
 import android.widget.LinearLayout
@@ -33,15 +34,17 @@ import com.simplemobiletools.camera.implementations.CameraXInitializer
 import com.simplemobiletools.camera.implementations.CameraXPreviewListener
 import com.simplemobiletools.camera.interfaces.MyPreview
 import com.simplemobiletools.camera.models.ResolutionOption
+import com.simplemobiletools.camera.models.TimerMode
 import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.*
-import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_flash.*
+import kotlinx.android.synthetic.main.layout_timer.*
+import kotlinx.android.synthetic.main.layout_top.*
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -53,6 +56,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private lateinit var defaultScene: Scene
     private lateinit var flashModeScene: Scene
+    private lateinit var timerScene: Scene
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
     private var mPreview: MyPreview? = null
@@ -60,6 +64,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mPreviewUri: Uri? = null
     private var mIsHardwareShutterHandled = false
     private var mLastHandledOrientation = 0
+    private var countDownTimer: CountDownTimer? = null
 
     private val tabSelectedListener = object : TabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
@@ -140,7 +145,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             val isInPhotoMode = isInPhotoMode()
             setupPreviewImage(isInPhotoMode)
             mFocusCircleView.setStrokeColor(getProperPrimaryColor())
-            toggleBottomButtons(enabled = true)
+            toggleActionButtons(enabled = true)
             mOrientationEventListener.enable()
         }
 
@@ -155,6 +160,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onPause() {
         super.onPause()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        cancelTimer()
         if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
             return
         }
@@ -283,6 +289,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         initModeSwitcher()
         defaultScene = Scene(top_options, default_icons)
         flashModeScene = Scene(top_options, flash_toggle_group)
+        timerScene = Scene(top_options, timer_toggle_group)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         ViewCompat.setOnApplyWindowInsetsListener(view_holder) { _, windowInsets ->
@@ -323,6 +330,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         setupPreviewImage(true)
         initFlashModeTransitionNames()
+        initTimerModeTransitionNames()
 
         if (isThirdPartyIntent) {
             hideIntentButtons()
@@ -337,10 +345,26 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         flash_always_on.transitionName = "$baseName$FLASH_ALWAYS_ON"
     }
 
+    private fun initTimerModeTransitionNames() {
+        val baseName = getString(R.string.toggle_timer)
+        timer_off.transitionName = "$baseName${TimerMode.OFF.name}"
+        timer_3s.transitionName = "$baseName${TimerMode.TIMER_3.name}"
+        timer_5s.transitionName = "$baseName${TimerMode.TIMER_5.name}"
+        timer_10_s.transitionName = "$baseName${TimerMode.TIMER_10.name}"
+    }
+
     private fun initButtons() {
+        timer_text.setFactory { layoutInflater.inflate(R.layout.timer_text, null) }
         toggle_camera.setOnClickListener { mPreview!!.toggleFrontBackCamera() }
         last_photo_video_preview.setOnClickListener { showLastMediaPreview() }
         toggle_flash.setOnClickListener { mPreview!!.handleFlashlightClick() }
+        toggle_timer.setOnClickListener {
+            val transitionSet = createTransition()
+            TransitionManager.go(timerScene, transitionSet)
+            timer_toggle_group.beVisible()
+            timer_toggle_group.check(config.timerMode.getTimerModeResId())
+            timer_toggle_group.children.forEach { setButtonColors(it as MaterialButton) }
+        }
         shutter.setOnClickListener { shutterPressed() }
 
         settings.setShadowIcon(R.drawable.ic_settings_vector)
@@ -359,6 +383,30 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         flash_always_on.setShadowIcon(R.drawable.ic_flashlight_vector)
         flash_always_on.setOnClickListener { selectFlashMode(FLASH_ALWAYS_ON) }
+
+        timer_off.setShadowIcon(R.drawable.ic_timer_off_vector)
+        timer_off.setOnClickListener { selectTimerMode(TimerMode.OFF) }
+
+        timer_3s.setShadowIcon(R.drawable.ic_timer_3_vector)
+        timer_3s.setOnClickListener { selectTimerMode(TimerMode.TIMER_3) }
+
+        timer_5s.setShadowIcon(R.drawable.ic_timer_5_vector)
+        timer_5s.setOnClickListener { selectTimerMode(TimerMode.TIMER_5) }
+
+        timer_10_s.setShadowIcon(R.drawable.ic_timer_10_vector)
+        timer_10_s.setOnClickListener { selectTimerMode(TimerMode.TIMER_10) }
+        setTimerModeIcon(config.timerMode)
+    }
+
+    private fun selectTimerMode(timerMode: TimerMode) {
+        config.timerMode = timerMode
+        setTimerModeIcon(timerMode)
+        closeOptions()
+    }
+
+    private fun setTimerModeIcon(timerMode: TimerMode) {
+        toggle_timer.setShadowIcon(timerMode.getTimerModeDrawableRes())
+        toggle_timer.transitionName = "${getString(R.string.toggle_timer)}${timerMode.name}"
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -426,13 +474,24 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun shutterPressed() {
-        if (isInPhotoMode()) {
-            toggleBottomButtons(enabled = false)
-            change_resolution.isEnabled = true
-            mPreview?.tryTakePicture()
+        if (countDownTimer != null) {
+            cancelTimer()
+        } else if (isInPhotoMode()) {
+            val timerMode = config.timerMode
+            if (timerMode == TimerMode.OFF) {
+                mPreview?.tryTakePicture()
+            } else {
+                scheduleTimer(timerMode)
+            }
         } else {
             mPreview?.toggleRecording()
         }
+    }
+
+    private fun cancelTimer() {
+        countDownTimer?.cancel()
+        countDownTimer = null
+        resetViewsOnTimerFinish()
     }
 
     private fun launchSettings() {
@@ -442,12 +501,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     override fun onInitPhotoMode() {
         shutter.setImageResource(R.drawable.ic_shutter_animated)
+        toggle_timer.beVisible()
+        toggle_timer.fadeIn()
         setupPreviewImage(true)
         selectPhotoTab()
     }
 
     override fun onInitVideoMode() {
         shutter.setImageResource(R.drawable.ic_video_rec_animated)
+        toggle_timer.fadeOut()
+        toggle_timer.beGone()
         setupPreviewImage(false)
         selectVideoTab()
     }
@@ -546,8 +609,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (available) {
             toggle_flash.beVisible()
         } else {
-            toggle_flash.beInvisible()
-            toggle_flash.setShadowIcon(R.drawable.ic_flash_off_vector)
+            toggle_flash.beGone()
             mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
@@ -556,10 +618,19 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         toggle_camera.setImageResource(if (frontCamera) R.drawable.ic_camera_rear_vector else R.drawable.ic_camera_front_vector)
     }
 
-    override fun toggleBottomButtons(enabled: Boolean) {
+    override fun onPhotoCaptureStart() {
+        toggleActionButtons(enabled = false)
+    }
+
+    override fun onPhotoCaptureEnd() {
+        toggleActionButtons(enabled = true)
+    }
+
+    private fun toggleActionButtons(enabled: Boolean) {
         runOnUiThread {
             shutter.isClickable = enabled
             preview_view.isEnabled = enabled
+            change_resolution.isEnabled = enabled
             toggle_camera.isClickable = enabled
             toggle_flash.isClickable = enabled
         }
@@ -656,12 +727,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun closeOptions(): Boolean {
         if (mediaSizeToggleGroup?.isVisible() == true ||
-            flash_toggle_group.isVisible()
+            flash_toggle_group.isVisible() || timer_toggle_group.isVisible()
         ) {
             val transitionSet = createTransition()
             TransitionManager.go(defaultScene, transitionSet)
             mediaSizeToggleGroup?.beGone()
             flash_toggle_group.beGone()
+            timer_toggle_group.beGone()
             default_icons.beVisible()
             return true
         }
@@ -766,6 +838,39 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             setResult(Activity.RESULT_OK)
             finish()
         }
+    }
+
+    private fun scheduleTimer(timerMode: TimerMode) {
+        hideViewsOnTimerStart()
+        shutter.setImageState(intArrayOf(R.attr.state_timer_cancel), true)
+        timer_text.beVisible()
+        countDownTimer = object : CountDownTimer(timerMode.millisInFuture, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val seconds = (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1).toString()
+                timer_text.setText(seconds)
+            }
+
+            override fun onFinish() {
+                cancelTimer()
+                mPreview!!.tryTakePicture()
+            }
+        }.start()
+    }
+
+    private fun hideViewsOnTimerStart() {
+        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_tab).forEach {
+            it.fadeOut()
+            it.beInvisible()
+        }
+    }
+
+    private fun resetViewsOnTimerFinish() {
+        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_tab).forEach {
+            it.fadeIn()
+            it.beVisible()
+        }
+        timer_text.beGone()
+        shutter.setImageState(intArrayOf(-R.attr.state_timer_cancel), true)
     }
 
     private fun checkWhatsNewDialog() {

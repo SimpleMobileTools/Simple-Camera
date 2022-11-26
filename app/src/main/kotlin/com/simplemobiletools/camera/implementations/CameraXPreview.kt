@@ -29,10 +29,8 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
+import com.simplemobiletools.camera.models.*
 import com.simplemobiletools.camera.models.CaptureMode
-import com.simplemobiletools.camera.models.MediaOutput
-import com.simplemobiletools.camera.models.MySize
-import com.simplemobiletools.camera.models.ResolutionOption
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 
@@ -51,6 +49,7 @@ class CameraXPreview(
         private const val AF_SIZE = 1.0f / 6.0f
         private const val AE_SIZE = AF_SIZE * 1.5f
         private const val CAMERA_MODE_SWITCH_WAIT_TIME = 500L
+        private const val TOGGLE_FLASH_DELAY = 700L
     }
 
     private val config = activity.config
@@ -85,7 +84,7 @@ class CameraXPreview(
             }
         }
     }
-    private val startCameraHandler = Handler(Looper.getMainLooper())
+    private val cameraHandler = Handler(Looper.getMainLooper())
     private val photoModeRunnable = Runnable {
         if (imageCapture == null) {
             isPhotoCapture = true
@@ -484,7 +483,7 @@ class CameraXPreview(
                             val imageBytes = ImageUtil.jpegImageToJpegByteArray(image)
                             val bitmap = BitmapUtils.makeBitmap(imageBytes)
                             activity.runOnUiThread {
-                                listener.toggleBottomButtons(enabled = true)
+                                listener.onPhotoCaptureEnd()
                                 if (bitmap != null) {
                                     listener.onImageCaptured(bitmap)
                                 } else {
@@ -501,7 +500,7 @@ class CameraXPreview(
                                 saveExifAttributes = config.savePhotoMetadata,
                                 onImageSaved = { savedUri ->
                                     activity.runOnUiThread {
-                                        listener.toggleBottomButtons(enabled = true)
+                                        listener.onPhotoCaptureEnd()
                                         listener.onMediaSaved(savedUri)
                                     }
                                 },
@@ -519,7 +518,7 @@ class CameraXPreview(
     }
 
     private fun handleImageCaptureError(exception: ImageCaptureException) {
-        listener.toggleBottomButtons(enabled = true)
+        listener.onPhotoCaptureEnd()
         cameraErrorHandler.handleImageCaptureError(exception.imageCaptureError)
     }
 
@@ -536,9 +535,9 @@ class CameraXPreview(
         if (currentTime - lastCameraStartTime > CAMERA_MODE_SWITCH_WAIT_TIME) {
             cameraModeRunnable.run()
         } else {
-            startCameraHandler.removeCallbacks(photoModeRunnable)
-            startCameraHandler.removeCallbacks(videoModeRunnable)
-            startCameraHandler.postDelayed(cameraModeRunnable, CAMERA_MODE_SWITCH_WAIT_TIME)
+            cameraHandler.removeCallbacks(photoModeRunnable)
+            cameraHandler.removeCallbacks(videoModeRunnable)
+            cameraHandler.postDelayed(cameraModeRunnable, CAMERA_MODE_SWITCH_WAIT_TIME)
         }
         lastCameraStartTime = currentTime
     }

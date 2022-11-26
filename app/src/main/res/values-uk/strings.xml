@@ -28,6 +28,7 @@
     <string name="view_last_media">Перегляд останньої знятки</string>
     <string name="toggle_camera">Перемкнути передній/задній знімач</string>
     <string name="toggle_flash">Перемкнути стан ліхтарика</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Який ступінь стиснення фото слід встановити?</string>
     <string name="faq_1_text">Це залежить від вашої мети. Загалом більшість людей радять використовувати 75%-80%, тоді зображення ще дійсно гарної якості, але розмір файлу істотно зменшується порівняно зі 100%.</string>

@@ -28,6 +28,7 @@
     <string name="view_last_media">Zuletzt erfasste Medien anzeigen</string>
     <string name="toggle_camera">Zwischen Front- und Rückkamera umschalten</string>
     <string name="toggle_flash">Taschenlampenmodus umschalten</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Was für eine Fotokomprimierungsqualität soll ich einstellen?</string>
     <string name="faq_1_text">Das hängt von deinem Ziel ab. Für allgemeine Zwecke empfehlen die meisten 75 - 80 %, wodurch die Qualität immer noch sehr gut bleibt, aber die Dateigrösse drastisch reduziert ist im Vergleich zu 100 %.</string>

@@ -28,6 +28,7 @@
     <string name="view_last_media">Vaadake viimast salvestatud meediat</string>
     <string name="toggle_camera">Vahetamine esi-/tagakaamera</string>
     <string name="toggle_flash">Lülitage taskulambi režiim sisse</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Missugust piltide pakkimise kvaliteeti peaksin kasutama\?</string>
     <string name="faq_1_text">See sõltub sinu eesmärkidest. Üldiselt soovitame 75-80-protsendilist pakkimist, mispuhul piltide kvaliteet on jätkuvalt mõistlik, kuid piltide suurus on 100-protsendilise kvaliteediga võrreldes väiksem.</string>

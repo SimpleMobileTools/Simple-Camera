@@ -28,6 +28,7 @@
     <string name="view_last_media">Afficher les derniers médias capturés</string>
     <string name="toggle_camera">Basculer la caméra avant/arrière</string>
     <string name="toggle_flash">Activer/désactiver le mode lampe de poche</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Quelle valeur devrais-je mettre pour la qualité des photos \?</string>
     <string name="faq_1_text">Tout dépend de ce que vous voulez en faire. Pour la plupart des usages, il est recommandé entre 75 et 80 %, ce qui est reste de qualité acceptable, tout en générant un fichier de taille bien inférieure à une photo avec une qualité de 100 %.</string>

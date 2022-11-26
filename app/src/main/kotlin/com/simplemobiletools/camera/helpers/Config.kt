@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Environment
 import androidx.camera.core.CameraSelector
 import com.simplemobiletools.camera.models.CaptureMode
+import com.simplemobiletools.camera.models.TimerMode
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
 
@@ -74,5 +75,9 @@ class Config(context: Context) : BaseConfig(context) {
     var captureMode: CaptureMode
         get() = CaptureMode.values()[prefs.getInt(CAPTURE_MODE, CaptureMode.MINIMIZE_LATENCY.ordinal)]
         set(captureMode) = prefs.edit().putInt(CAPTURE_MODE, captureMode.ordinal).apply()
+
+    var timerMode: TimerMode
+        get() = TimerMode.values().getOrNull(prefs.getInt(TIMER_MODE, TimerMode.OFF.ordinal)) ?: TimerMode.OFF
+        set(timerMode) = prefs.edit().putInt(TIMER_MODE, timerMode.ordinal).apply()
 
 }

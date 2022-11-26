@@ -28,6 +28,7 @@
     <string name="view_last_media">Zobrazit poslední pořízený snímek</string>
     <string name="toggle_camera">Přepnout přední/zadní fotoaparát</string>
     <string name="toggle_flash">Přepnout režim blesku</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Jakou úroveň komprese fotografií bych měl nastavit\?</string>
     <string name="faq_1_text">To záleží na vašem záměru. Pro obecné účely doporučuje většina lidí 75%–80%, kdy je kvalita fotografií stále vysoká, ale výsledný soubor má o mnoho menší velikost v porovnání se 100% kvalitou.</string>

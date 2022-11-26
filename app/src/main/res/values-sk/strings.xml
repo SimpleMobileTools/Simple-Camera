@@ -29,6 +29,7 @@
     <string name="view_last_media">Zobraziť posledný súbor</string>
     <string name="toggle_camera">Prepnúť prednú/zadnú kameru</string>
     <string name="toggle_flash">Prepnúť blesk</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Akú kvalitu fotiek by som mal použiť?</string>

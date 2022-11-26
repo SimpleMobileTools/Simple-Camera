@@ -5,4 +5,5 @@
     <dimen name="top_icon_size">48dp</dimen>
     <dimen name="toggle_icon_size">24dp</dimen>
     <dimen name="tab_indicator_margin">10dp</dimen>
+    <dimen name="timer_text_size">180sp</dimen>
 </resources>

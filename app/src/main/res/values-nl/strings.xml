@@ -28,6 +28,7 @@
     <string name="view_last_media">Laatste opname bekijken</string>
     <string name="toggle_camera">Camera voor/achter</string>
     <string name="toggle_flash">Zaklampmodus wisselen</string>
+    <string name="toggle_timer">Toggle the timer mode</string>
     <!-- FAQ -->
     <string name="faq_1_title">Welke kwaliteit voor foto\'s moet ik instellen?</string>
     <string name="faq_1_text">Voor normaal gebruik adviseren de meeste mensen een compressie van 75%-80%. De afbeelding zal dan nog steeds van goede kwaliteit zijn en de bestandsgrootte zal enorm veel kleiner zijn dan met 100%.</string>
