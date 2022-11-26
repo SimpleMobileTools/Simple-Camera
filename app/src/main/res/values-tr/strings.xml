@@ -28,7 +28,7 @@
     <string name="view_last_media">Son çekilen medyayı görüntüle</string>
     <string name="toggle_camera">Ön/arka kamerayı değiştir</string>
     <string name="toggle_flash">El feneri modunu değiştir</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Zamanlayıcı modunu değiştir</string>
     <!-- FAQ -->
     <string name="faq_1_title">Hangi fotoğraf sıkıştırma kalitesini ayarlamalıyım?</string>
     <string name="faq_1_text">Hedefinize bağlı. Genel amaçlar için çoğu kişi %75-%80\'i kullanmanızı önerir, görüntü hala gerçekten kaliteliyken, dosya boyutu %100\'e göre büyük ölçüde azalır.</string>
