@@ -12,6 +12,7 @@ import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.view.*
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.*
 import androidx.transition.*
@@ -325,7 +326,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             initInPhotoMode = isInPhotoMode,
         )
 
-        mFocusCircleView = FocusCircleView(this)
+        mFocusCircleView = FocusCircleView(this).apply {
+            id = View.generateViewId()
+        }
         view_holder.addView(mFocusCircleView)
 
         setupPreviewImage(true)
@@ -411,20 +414,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initModeSwitcher() {
-        val gestureDetector = GestureDetectorCompat(this, object : GestureDetector.SimpleOnGestureListener() {
+        val gestureDetector = GestureDetectorCompat(this, object : GestureDetectorListener() {
             override fun onDown(e: MotionEvent): Boolean {
                 // we have to return true here so ACTION_UP
                 // (and onFling) can be dispatched
                 return true
             }
 
-            override fun onFling(event1: MotionEvent, event2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-                // these can be null even if the docs say they cannot, getting event1.x in itself can cause crashes
-                try {
-                    if (event1 == null || event2 == null || event1.x == null || event2.x == null) {
-                        return true
-                    }
-                } catch (e: NullPointerException) {
+            override fun onFling(event1: MotionEvent?, event2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+                if (event1 == null || event2 == null) {
                     return true
                 }
 
@@ -822,6 +820,19 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val states = arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked))
         val iconColors = intArrayOf(ContextCompat.getColor(this, R.color.md_grey_white), primaryColor)
         button.iconTint = ColorStateList(states, iconColors)
+    }
+
+    override fun adjustPreviewView(requiresCentering: Boolean) {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(view_holder)
+        if (requiresCentering) {
+            constraintSet.connect(preview_view.id, ConstraintSet.TOP, top_options.id, ConstraintSet.BOTTOM)
+            constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, camera_mode_tab.id, ConstraintSet.TOP)
+        } else {
+            constraintSet.connect(preview_view.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+            constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+        }
+        constraintSet.applyTo(view_holder)
     }
 
     override fun mediaSaved(path: String) {

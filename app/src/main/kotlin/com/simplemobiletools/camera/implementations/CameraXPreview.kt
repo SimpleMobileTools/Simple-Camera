@@ -161,6 +161,8 @@ class CameraXPreview(
             MySize(selectedQuality.width, selectedQuality.height)
         }
 
+        listener.adjustPreviewView(resolution.requiresCentering())
+
         val isFullSize = resolution.isFullScreen
         previewView.scaleType = if (isFullSize) ScaleType.FILL_CENTER else ScaleType.FIT_CENTER
         val rotation = previewView.display.rotation

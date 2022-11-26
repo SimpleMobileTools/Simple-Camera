@@ -30,6 +30,6 @@ interface CameraXPreviewListener {
         isFrontCamera: Boolean,
         onSelect: (index: Int, changed: Boolean) -> Unit,
     )
-
     fun showFlashOptions(photoCapture: Boolean)
+    fun adjustPreviewView(requiresCentering: Boolean)
 }
