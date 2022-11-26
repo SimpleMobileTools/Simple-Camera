@@ -19,7 +19,7 @@ import com.simplemobiletools.commons.extensions.copyTo
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isQPlus
 import java.io.*
-import java.util.UUID
+import java.util.*
 
 /**
  * Inspired by
@@ -116,9 +116,11 @@ class ImageSaver private constructor(
                 if (metadata.isReversedHorizontal) {
                     exifInterface.flipHorizontally()
                 }
+
                 if (metadata.isReversedVertical) {
                     exifInterface.flipVertically()
                 }
+
                 if (metadata.location != null) {
                     exifInterface.setGpsInfo(metadata.location)
                 }
@@ -274,9 +276,7 @@ class ImageSaver private constructor(
     }
 
     @Throws(IOException::class)
-    private fun copyTempFileToOutputStream(
-        tempFile: File, outputStream: OutputStream
-    ) {
+    private fun copyTempFileToOutputStream(tempFile: File, outputStream: OutputStream) {
         FileInputStream(tempFile).use { inputStream ->
             val buf = ByteArray(COPY_BUFFER_SIZE)
             var len: Int
