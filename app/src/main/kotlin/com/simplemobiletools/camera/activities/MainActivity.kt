@@ -374,7 +374,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             }
 
             override fun onFling(event1: MotionEvent?, event2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-                // these can be null even if the docs say they cannot, getting event1.x in itself can cause crashes
                 if (event1 == null || event2 == null) {
                     return true
                 }
