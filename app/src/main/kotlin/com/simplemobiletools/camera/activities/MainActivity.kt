@@ -609,8 +609,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (available) {
             toggle_flash.beVisible()
         } else {
-            toggle_flash.beInvisible()
-            toggle_flash.setShadowIcon(R.drawable.ic_flash_off_vector)
+            toggle_flash.beGone()
             mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
@@ -859,25 +858,17 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun hideViewsOnTimerStart() {
-        top_options.fadeOut()
-        top_options.beInvisible()
-        toggle_camera.fadeOut()
-        toggle_camera.beInvisible()
-        last_photo_video_preview.fadeOut()
-        last_photo_video_preview.beInvisible()
-        camera_mode_tab.fadeOut()
-        camera_mode_tab.beInvisible()
+        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_tab).forEach {
+            it.fadeOut()
+            it.beInvisible()
+        }
     }
 
     private fun resetViewsOnTimerFinish() {
-        top_options.fadeIn()
-        top_options.beVisible()
-        toggle_camera.fadeIn()
-        toggle_camera.beVisible()
-        last_photo_video_preview.fadeIn()
-        last_photo_video_preview.beVisible()
-        camera_mode_tab.fadeIn()
-        camera_mode_tab.beVisible()
+        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_tab).forEach {
+            it.fadeIn()
+            it.beVisible()
+        }
         timer_text.beGone()
         shutter.setImageState(intArrayOf(-R.attr.state_timer_cancel), true)
     }
