@@ -416,8 +416,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun initModeSwitcher() {
         val gestureDetector = GestureDetectorCompat(this, object : GestureDetectorListener() {
             override fun onDown(e: MotionEvent): Boolean {
-                // we have to return true here so ACTION_UP
-                // (and onFling) can be dispatched
+                // we have to return true here so ACTION_UP (and onFling) can be dispatched
                 return true
             }
 
