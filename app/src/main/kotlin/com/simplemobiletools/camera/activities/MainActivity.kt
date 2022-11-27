@@ -40,12 +40,12 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import java.util.concurrent.TimeUnit
-import kotlin.math.abs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_flash.*
 import kotlinx.android.synthetic.main.layout_timer.*
 import kotlinx.android.synthetic.main.layout_top.*
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
 
 class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, CameraXPreviewListener {
     private companion object {
@@ -163,7 +163,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onPause() {
         super.onPause()
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        cancelTimer()
+        if (!isAskingPermissions) {
+            cancelTimer()
+        }
+
         if (!hasStorageAndCameraPermissions() || isAskingPermissions) {
             return
         }
