@@ -37,6 +37,7 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 class CameraXPreview(
     private val activity: AppCompatActivity,
     private val previewView: PreviewView,
+    private val mediaSoundHelper: MediaSoundHelper,
     private val mediaOutputHelper: MediaOutputHelper,
     private val cameraErrorHandler: CameraErrorHandler,
     private val listener: CameraXPreviewListener,
@@ -49,14 +50,12 @@ class CameraXPreview(
         private const val AF_SIZE = 1.0f / 6.0f
         private const val AE_SIZE = AF_SIZE * 1.5f
         private const val CAMERA_MODE_SWITCH_WAIT_TIME = 500L
-        private const val TOGGLE_FLASH_DELAY = 700L
     }
 
     private val config = activity.config
     private val contentResolver = activity.contentResolver
     private val mainExecutor = ContextCompat.getMainExecutor(activity)
     private val displayManager = activity.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-    private val mediaSoundHelper = MediaSoundHelper(activity)
     private val windowMetricsCalculator = WindowMetricsCalculator.getOrCreate()
     private val videoQualityManager = VideoQualityManager(activity)
     private val imageQualityManager = ImageQualityManager(activity)
@@ -123,7 +122,6 @@ class CameraXPreview(
 
     init {
         bindToLifeCycle()
-        mediaSoundHelper.loadSounds()
     }
 
     private fun bindToLifeCycle() {
@@ -352,11 +350,6 @@ class CameraXPreview(
 
     override fun onStop(owner: LifecycleOwner) {
         orientationEventListener.disable()
-    }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        super.onDestroy(owner)
-        mediaSoundHelper.release()
     }
 
     override fun isInPhotoMode(): Boolean {
