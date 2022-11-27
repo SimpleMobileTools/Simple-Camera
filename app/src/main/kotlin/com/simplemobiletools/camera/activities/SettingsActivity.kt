@@ -24,6 +24,7 @@ class SettingsActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         setupOptionsMenu()
+        refreshMenuItems()
     }
 
     override fun onResume() {
@@ -63,9 +64,16 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
+    fun refreshMenuItems() {
+        settings_toolbar.menu.apply {
+            findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
+        }
+    }
+
     private fun setupOptionsMenu() {
         settings_toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                 R.id.about -> launchAbout()
                 else -> return@setOnMenuItemClickListener false
             }
