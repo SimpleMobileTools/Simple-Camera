@@ -6,6 +6,7 @@ import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.CaptureMode
+import com.simplemobiletools.commons.dialogs.FeatureLockedDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -14,9 +15,9 @@ import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.isTiramisuPlus
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
-import java.util.Locale
-import kotlin.system.exitProcess
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.util.*
+import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -169,16 +170,21 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupSavePhotosFolder() {
+        settings_save_photos_label.text = addLockedLabelIfNeeded(R.string.save_photos)
         settings_save_photos.text = getLastPart(config.savePhotosFolder)
         settings_save_photos_holder.setOnClickListener {
-            FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
-                val path = it
-                handleSAFDialog(it) { success ->
-                    if (success) {
-                        config.savePhotosFolder = path
-                        settings_save_photos.text = getLastPart(config.savePhotosFolder)
+            if (isOrWasThankYouInstalled()) {
+                FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
+                    val path = it
+                    handleSAFDialog(it) { success ->
+                        if (success) {
+                            config.savePhotosFolder = path
+                            settings_save_photos.text = getLastPart(config.savePhotosFolder)
+                        }
                     }
                 }
+            } else {
+                FeatureLockedDialog(this) { }
             }
         }
     }
