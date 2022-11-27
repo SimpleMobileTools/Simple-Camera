@@ -211,7 +211,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun hideIntentButtons() {
-        camera_mode_tab.beGone()
+        camera_mode_holder.beGone()
         settings.beGone()
         last_photo_video_preview.beInvisible()
     }
@@ -452,13 +452,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun onSwipeLeft() {
-        if (!isThirdPartyIntent() && camera_mode_tab.isVisible()) {
+        if (!isThirdPartyIntent() && camera_mode_holder.isVisible()) {
             selectPhotoTab(triggerListener = true)
         }
     }
 
     private fun onSwipeRight() {
-        if (!isThirdPartyIntent() && camera_mode_tab.isVisible()) {
+        if (!isThirdPartyIntent() && camera_mode_holder.isVisible()) {
             selectVideoTab(triggerListener = true)
         }
     }
@@ -687,7 +687,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onVideoRecordingStarted() {
-        camera_mode_tab.beInvisible()
+        camera_mode_holder.beInvisible()
         video_rec_curr_timer.beVisible()
 
         toggle_camera.fadeOut()
@@ -703,7 +703,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onVideoRecordingStopped() {
-        camera_mode_tab.beVisible()
+        camera_mode_holder.beVisible()
 
         toggle_camera.fadeIn()
         last_photo_video_preview.fadeIn()
@@ -833,7 +833,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         constraintSet.clone(view_holder)
         if (requiresCentering) {
             constraintSet.connect(preview_view.id, ConstraintSet.TOP, top_options.id, ConstraintSet.BOTTOM)
-            constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, camera_mode_tab.id, ConstraintSet.TOP)
+            constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, camera_mode_holder.id, ConstraintSet.TOP)
         } else {
             constraintSet.connect(preview_view.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
@@ -884,14 +884,14 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun hideViewsOnTimerStart() {
-        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_tab).forEach {
+        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_holder).forEach {
             it.fadeOut()
             it.beInvisible()
         }
     }
 
     private fun resetViewsOnTimerFinish() {
-        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_tab).forEach {
+        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_holder).forEach {
             it.fadeIn()
             it.beVisible()
         }

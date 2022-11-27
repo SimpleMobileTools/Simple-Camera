@@ -55,37 +55,44 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/camera_mode_tab" />
+        app:layout_constraintTop_toTopOf="@id/camera_mode_holder" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/camera_mode_tab"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/camera_mode_holder"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/big_margin"
-        android:background="@android:color/transparent"
+        android:paddingTop="@dimen/medium_margin"
         app:layout_constraintBottom_toTopOf="@id/shutter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tabBackground="@drawable/tab_indicator"
-        app:tabIndicator="@null"
-        app:tabMode="auto"
-        app:tabRippleColor="@null"
-        app:tabSelectedTextColor="@color/md_grey_600_dark"
-        app:tabTextColor="@color/md_grey_white">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/camera_mode_tab_video"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/camera_mode_tab"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/video" />
+            android:layout_marginBottom="@dimen/big_margin"
+            android:background="@android:color/transparent"
+            app:tabBackground="@drawable/tab_indicator"
+            app:tabIndicator="@null"
+            app:tabMode="auto"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/md_grey_600_dark"
+            app:tabTextColor="@color/md_grey_white">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/camera_mode_tab_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/photo" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/camera_mode_tab_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/video" />
 
-    </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/camera_mode_tab_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photo" />
+
+        </com.google.android.material.tabs.TabLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/video_rec_curr_timer"
