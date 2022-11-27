@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.5.0 *(2022-11-27)*
+----------------------------
+
+ * Added a timer function for delayed capturing
+ * Added some stability, translation and UI improvements
+
 Version 5.4.3 *(2022-10-30)*
 ----------------------------
 
