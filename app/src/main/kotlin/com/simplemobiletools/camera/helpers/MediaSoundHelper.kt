@@ -9,6 +9,8 @@ class MediaSoundHelper(context: Context) {
         mediaActionSound.load(MediaActionSound.START_VIDEO_RECORDING)
         mediaActionSound.load(MediaActionSound.STOP_VIDEO_RECORDING)
         mediaActionSound.load(MediaActionSound.SHUTTER_CLICK)
+        mediaActionSound.load(MediaActionSound.TIMER_COUNTDOWN)
+        mediaActionSound.load(MediaActionSound.TIMER_COUNTDOWN_2_SECONDS)
     }
 
     fun playShutterSound() {
@@ -21,6 +23,18 @@ class MediaSoundHelper(context: Context) {
 
     fun playStopVideoRecordingSound() {
         mediaActionSound.play(MediaActionSound.STOP_VIDEO_RECORDING)
+    }
+
+    fun playTimerCountdownSound() {
+        mediaActionSound.play(MediaActionSound.TIMER_COUNTDOWN)
+    }
+
+    fun playTimerCountdown2SecondsSound() {
+        mediaActionSound.play(MediaActionSound.TIMER_COUNTDOWN_2_SECONDS)
+    }
+
+    fun stopTimerCountdown2SecondsSound() {
+        mediaActionSound.stop(MediaActionSound.TIMER_COUNTDOWN_2_SECONDS)
     }
 
     fun release() {

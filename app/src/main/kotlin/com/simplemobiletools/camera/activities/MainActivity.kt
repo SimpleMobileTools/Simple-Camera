@@ -53,6 +53,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         const val PHOTO_MODE_INDEX = 1
         const val VIDEO_MODE_INDEX = 0
         private const val MIN_SWIPE_DISTANCE_X = 100
+        private const val TIMER_2_SECONDS = 2001
     }
 
     private lateinit var defaultScene: Scene
@@ -60,6 +61,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private lateinit var timerScene: Scene
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
+    private lateinit var mediaSoundHelper: MediaSoundHelper
     private var mPreview: MyPreview? = null
     private var mediaSizeToggleGroup: MaterialButtonToggleGroup? = null
     private var mPreviewUri: Uri? = null
@@ -172,6 +174,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onDestroy() {
         super.onDestroy()
         mPreview = null
+        mediaSoundHelper.release()
     }
 
     override fun onBackPressed() {
@@ -182,6 +185,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun initVariables() {
         mIsHardwareShutterHandled = false
+        mediaSoundHelper = MediaSoundHelper(this)
+        mediaSoundHelper.loadSounds()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -321,6 +326,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mPreview = CameraXInitializer(this).createCameraXPreview(
             preview_view,
             listener = this,
+            mediaSoundHelper = mediaSoundHelper,
             outputUri = outputUri,
             isThirdPartyIntent = isThirdPartyIntent,
             initInPhotoMode = isInPhotoMode,
@@ -487,6 +493,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun cancelTimer() {
+        mediaSoundHelper.stopTimerCountdown2SecondsSound()
         countDownTimer?.cancel()
         countDownTimer = null
         resetViewsOnTimerFinish()
@@ -855,10 +862,19 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         hideViewsOnTimerStart()
         shutter.setImageState(intArrayOf(R.attr.state_timer_cancel), true)
         timer_text.beVisible()
+        var playSound = true
         countDownTimer = object : CountDownTimer(timerMode.millisInFuture, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1).toString()
                 timer_text.setText(seconds)
+                if (playSound && config.isSoundEnabled) {
+                    if (millisUntilFinished <= TIMER_2_SECONDS) {
+                        mediaSoundHelper.playTimerCountdown2SecondsSound()
+                        playSound = false
+                    } else {
+                        mediaSoundHelper.playTimerCountdownSound()
+                    }
+                }
             }
 
             override fun onFinish() {
