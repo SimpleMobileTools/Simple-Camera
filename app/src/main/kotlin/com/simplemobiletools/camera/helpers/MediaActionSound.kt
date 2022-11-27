@@ -25,9 +25,7 @@ class MediaActionSound(private val context: Context) {
         val TIMER_COUNTDOWN_2_SECONDS = MediaSound.RawResSound(R.raw.beep_2_secs)
 
         private const val NUM_MEDIA_SOUND_STREAMS = 1
-        private val SOUND_DIRS = arrayOf(
-            "/product/media/audio/ui/", "/system/media/audio/ui/"
-        )
+        private val SOUND_DIRS = arrayOf("/product/media/audio/ui/", "/system/media/audio/ui/")
         private const val TAG = "MediaActionSound"
         private const val STATE_NOT_LOADED = 0
         private const val STATE_LOADING = 1
