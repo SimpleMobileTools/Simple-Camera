@@ -327,7 +327,7 @@ class CameraXPreview(
                         .disableAutoCancel()
                         .build()
                     camera?.cameraControl?.startFocusAndMetering(focusMeteringAction)
-                    listener.onFocusCamera(xPos, yPos)
+                    listener.onFocusCamera(event.rawX, event.rawY)
                     true
                 } ?: false
             }
