@@ -28,7 +28,7 @@
     <string name="view_last_media">عرض آخر الوسائط الملتقطة</string>
     <string name="toggle_camera">تبديل الكاميرا الأمامية / الخلفية</string>
     <string name="toggle_flash">تبديل وضع الفلاش اليدوي</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">تبديل وضع المؤقت</string>
     <!-- FAQ -->
     <string name="faq_1_title">ما هي جودة ضغط الصور التي يجب تعيينها؟</string>
     <string name="faq_1_text">ذلك يعتمد على هدفك. لأغراض عامة ينصح معظم الناس باستخدام 75٪ -80٪، عندما تكون الصورة لا تزال ذات نوعية جيدة حقا، ولكن يتم تقليل حجم الملف بشكل كبير مقارنة مع 100٪.</string>
