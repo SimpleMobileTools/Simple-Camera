@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Jednoduchý fotoaparát</string>
     <string name="app_launcher_name">Fotoaparát</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Režim snímání</string>
+    <string name="maximize_quality">Maximalizovat kvalitu</string>
+    <string name="minimize_latency">Minimalizovat zpoždění</string>
     <!-- Errors -->
     <string name="camera_unavailable">Fotoaparát není dostupný</string>
     <string name="camera_open_error">Při přístupu k fotoaparátu došlo k chybě</string>
@@ -28,7 +28,7 @@
     <string name="view_last_media">Zobrazit poslední pořízený snímek</string>
     <string name="toggle_camera">Přepnout přední/zadní fotoaparát</string>
     <string name="toggle_flash">Přepnout režim blesku</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Přepnout režim časovače</string>
     <!-- FAQ -->
     <string name="faq_1_title">Jakou úroveň komprese fotografií bych měl nastavit\?</string>
     <string name="faq_1_text">To záleží na vašem záměru. Pro obecné účely doporučuje většina lidí 75%–80%, kdy je kvalita fotografií stále vysoká, ale výsledný soubor má o mnoho menší velikost v porovnání se 100% kvalitou.</string>
