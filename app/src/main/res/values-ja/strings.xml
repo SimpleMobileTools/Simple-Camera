@@ -30,8 +30,8 @@
     <string name="toggle_flash">フラッシュライトモードへ切り替え</string>
     <string name="toggle_timer">タイマーモードへ切り替え</string>
     <!-- FAQ -->
-    <string name="faq_1_title">写真の圧縮品質はどのように設定すればよいですか？</string>
-    <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質ですが、ファイルサイズは100%と比べて大幅に削減することができます。</string>
+    <string name="faq_1_title">写真の圧縮品質はどのくらいに設定すればよいですか？</string>
+    <string name="faq_1_text">これはあなたの求める目標によります。一般的な用途には、75%～80%の使用をおすすめします。この設定でも画像は十分に良い品質で、100%と比べてファイルサイズを大幅に削減することができます。</string>
     <!-- Settings -->
     <string name="save_photos">写真と動画の保存先</string>
     <string name="show_preview">撮影後に写真のプレビューを表示</string>
