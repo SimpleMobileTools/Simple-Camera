@@ -36,30 +36,26 @@
                 android:layout_height="wrap_content"
                 android:text="@string/color_customization" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/settings_color_customization_holder"
+                style="@style/SettingsHolderTextViewOneLinerStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/section_holder_stroke"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <RelativeLayout
-                    android:id="@+id/settings_customize_colors_holder"
-                    style="@style/SettingsHolderTextViewOneLinerStyle"
-                    android:layout_width="match_parent"
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/settings_customize_colors_label"
+                    style="@style/SettingsTextLabelStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_all_corners">
+                    android:text="@string/customize_colors"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.simplemobiletools.commons.views.MyTextView
-                        android:id="@+id/settings_customize_colors_label"
-                        style="@style/SettingsTextLabelStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/customize_colors" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </RelativeLayout>
-            </LinearLayout>
+            <include
+                android:id="@+id/settings_color_customization_divider"
+                layout="@layout/divider" />
 
             <TextView
                 android:id="@+id/settings_general_settings_label"
@@ -72,16 +68,13 @@
                 android:id="@+id/settings_general_settings_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/section_holder_stroke"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/settings_purchase_thank_you_holder"
                     style="@style/SettingsHolderTextViewOneLinerStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_top_corners">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyTextView
                         android:id="@+id/settings_purchase_thank_you"
@@ -96,8 +89,7 @@
                     android:id="@+id/settings_use_english_holder"
                     style="@style/SettingsHolderCheckboxStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_background">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyAppCompatCheckbox
                         android:id="@+id/settings_use_english"
@@ -112,8 +104,7 @@
                     android:id="@+id/settings_language_holder"
                     style="@style/SettingsHolderTextViewStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bottom_corners">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyTextView
                         android:id="@+id/settings_language_label"
@@ -133,6 +124,10 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <include
+                android:id="@+id/settings_general_settings_divider"
+                layout="@layout/divider" />
+
             <TextView
                 android:id="@+id/settings_shutter_label"
                 style="@style/SettingsSectionLabelStyle"
@@ -144,16 +139,13 @@
                 android:id="@+id/settings_shutter_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/section_holder_stroke"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/settings_sound_holder"
                     style="@style/SettingsHolderCheckboxStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_top_corners">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyAppCompatCheckbox
                         android:id="@+id/settings_sound"
@@ -168,8 +160,7 @@
                     android:id="@+id/settings_volume_buttons_as_shutter_holder"
                     style="@style/SettingsHolderCheckboxStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bottom_corners">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyAppCompatCheckbox
                         android:id="@+id/settings_volume_buttons_as_shutter"
@@ -180,6 +171,10 @@
 
                 </RelativeLayout>
             </LinearLayout>
+
+            <include
+                android:id="@+id/settings_shutter_divider"
+                layout="@layout/divider" />
 
             <TextView
                 android:id="@+id/settings_saving_label"
@@ -192,16 +187,13 @@
                 android:id="@+id/settings_saving_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
-                android:background="@drawable/section_holder_stroke"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/settings_save_photo_metadata_holder"
                     style="@style/SettingsHolderCheckboxStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_top_corners">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyAppCompatCheckbox
                         android:id="@+id/settings_save_photo_metadata"
@@ -216,8 +208,7 @@
                     android:id="@+id/settings_flip_photos_holder"
                     style="@style/SettingsHolderCheckboxStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_background">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyAppCompatCheckbox
                         android:id="@+id/settings_flip_photos"
@@ -232,8 +223,7 @@
                     android:id="@+id/settings_save_photos_holder"
                     style="@style/SettingsHolderTextViewStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_background">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyTextView
                         android:id="@+id/settings_save_photos_label"
@@ -256,8 +246,7 @@
                     android:id="@+id/settings_photo_quality_holder"
                     style="@style/SettingsHolderTextViewStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_background">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyTextView
                         android:id="@+id/settings_photo_quality_label"
@@ -280,8 +269,7 @@
                     android:id="@+id/settings_capture_mode_holder"
                     style="@style/SettingsHolderTextViewStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ripple_bottom_corners">
+                    android:layout_height="wrap_content">
 
                     <com.simplemobiletools.commons.views.MyTextView
                         android:id="@+id/settings_capture_mode_label"

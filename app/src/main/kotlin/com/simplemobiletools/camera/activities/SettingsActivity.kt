@@ -57,18 +57,9 @@ class SettingsActivity : SimpleActivity() {
         ).forEach {
             it.setTextColor(properPrimaryColor)
         }
-
-        arrayOf(
-            settings_color_customization_holder,
-            settings_general_settings_holder,
-            settings_shutter_holder,
-            settings_saving_holder
-        ).forEach {
-            it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
-        }
     }
 
-    fun refreshMenuItems() {
+    private fun refreshMenuItems() {
         settings_toolbar.menu.apply {
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
@@ -87,13 +78,6 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupPurchaseThankYou() {
         settings_purchase_thank_you_holder.beGoneIf(isOrWasThankYouInstalled())
-
-        // make sure the corners at ripple fit the stroke rounded corners
-        if (settings_purchase_thank_you_holder.isGone()) {
-            settings_use_english_holder.background = resources.getDrawable(R.drawable.ripple_all_corners, theme)
-            settings_language_holder.background = resources.getDrawable(R.drawable.ripple_all_corners, theme)
-        }
-
         settings_purchase_thank_you_holder.setOnClickListener {
             launchPurchaseThankYouIntent()
         }
@@ -101,7 +85,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupCustomizeColors() {
         settings_customize_colors_label.text = getCustomizeColorsString()
-        settings_customize_colors_holder.setOnClickListener {
+        settings_color_customization_holder.setOnClickListener {
             handleCustomizeColorsClick()
         }
     }
