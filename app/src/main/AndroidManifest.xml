@@ -23,7 +23,8 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <uses-permission
@@ -85,18 +86,21 @@
 
         <activity
             android:name="com.simplemobiletools.commons.activities.AboutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:label="@string/about"
             android:parentActivityName=".activities.SettingsActivity" />
 
         <activity
             android:name="com.simplemobiletools.commons.activities.CustomizationActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:label="@string/customize_colors"
             android:parentActivityName=".activities.SettingsActivity" />
 
         <activity
             android:name=".activities.SettingsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity">
