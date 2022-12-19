@@ -21,10 +21,14 @@ import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         setupOptionsMenu()
         refreshMenuItems()
+
+        updateMaterialActivityViews(settings_coordinator, settings_holder)
+        setupMaterialScrollListener(settings_nested_scrollview, settings_toolbar)
     }
 
     override fun onResume() {

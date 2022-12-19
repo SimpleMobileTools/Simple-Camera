@@ -47,10 +47,15 @@ class MediaActionSound(private val context: Context) {
         var state: Int = STATE_NOT_LOADED
     )
 
-    private var soundPool: SoundPool? = SoundPool.Builder().setMaxStreams(NUM_MEDIA_SOUND_STREAMS).setAudioAttributes(
-        AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION).setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build()
-    ).build()
+    private var soundPool: SoundPool? = SoundPool.Builder().setMaxStreams(NUM_MEDIA_SOUND_STREAMS)
+        .setAudioAttributes(
+            AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+        ).build()
+
     private var mediaPlayer: MediaPlayer? = null
     private var playCompletionRunnable: Runnable? = null
 
@@ -62,6 +67,7 @@ class MediaActionSound(private val context: Context) {
             if (sound.loadId != sampleId) {
                 continue
             }
+
             var soundToBePlayed: SoundState? = null
             synchronized(sound) {
                 if (status != 0) {
@@ -79,6 +85,7 @@ class MediaActionSound(private val context: Context) {
                     else -> Log.e(TAG, "OnLoadCompleteListener() called in wrong state: ${sound.state} for sound: ${sound.mediaSound}")
                 }
             }
+
             if (soundToBePlayed != null) {
                 playWithSoundPool(soundToBePlayed!!)
             }
