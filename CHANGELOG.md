@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 5.6.0 *(2022-12-19)*
+----------------------------
+
+ * Fixed a glitch with misplaced focus on click
+ * Use Material You theme by default on Android 12+
+ * Added some UI, translation and stability improvements
+
 Version 5.5.0 *(2022-11-27)*
 ----------------------------
 
