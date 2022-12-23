@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Проста Камера</string>
     <string name="app_launcher_name">Камера</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Режим зйомки</string>
+    <string name="maximize_quality">Максимальна якість</string>
+    <string name="minimize_latency">Мінімізувати затримку</string>
     <!-- Errors -->
     <string name="camera_unavailable">Камера недоступна</string>
     <string name="camera_open_error">Трапилася помилка під час доступу до камери</string>
@@ -28,7 +28,7 @@
     <string name="view_last_media">Перегляд останньої знятки</string>
     <string name="toggle_camera">Перемкнути передній/задній знімач</string>
     <string name="toggle_flash">Перемкнути стан ліхтарика</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Перемикання режиму таймера</string>
     <!-- FAQ -->
     <string name="faq_1_title">Який ступінь стиснення фото слід встановити?</string>
     <string name="faq_1_text">Це залежить від вашої мети. Загалом більшість людей радять використовувати 75%-80%, тоді зображення ще дійсно гарної якості, але розмір файлу істотно зменшується порівняно зі 100%.</string>
