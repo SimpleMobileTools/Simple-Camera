@@ -40,7 +40,15 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".activities.QrcodeActivity"
+            android:exported="false"
+            android:label="@string/qrcode"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activities.SplashActivity"
             android:exported="false"

@@ -382,6 +382,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         settings.setShadowIcon(R.drawable.ic_settings_vector)
         settings.setOnClickListener { launchSettings() }
 
+        qrcode.setOnClickListener { qrcodeScanner() }
+
         change_resolution.setOnClickListener { mPreview?.showChangeResolution() }
 
         flash_on.setShadowIcon(R.drawable.ic_flash_on_vector)
@@ -503,6 +505,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun launchSettings() {
         val intent = Intent(applicationContext, SettingsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun qrcodeScanner() {
+        val intent = Intent(applicationContext, QrcodeActivity::class.java)
         startActivity(intent)
     }
 
