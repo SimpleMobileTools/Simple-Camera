@@ -15,13 +15,13 @@
     <string name="click_to_resume_preview">プレビューを再開するには画像をタップ</string>
     <string name="photo_not_saved">写真を保存できませんでした</string>
     <string name="setting_resolution_failed">適切な解像度の設定に失敗しました</string>
-    <string name="video_recording_failed">動画の録画に失敗しました。別の解像度を試してください</string>
+    <string name="video_recording_failed">動画の記録に失敗しました。別の解像度を試してください</string>
     <string name="camera_in_use_error">カメラは別のアプリで使用されています。アプリを閉じて、もう一度やり直してください</string>
     <string name="camera_configure_error">カメラの設定中にエラーが発生しました</string>
     <string name="camera_disabled_by_admin_error">カメラは管理者によって無効にされています</string>
     <string name="camera_dnd_error">サイレントモードが有効になっています。 無効にしてから、もう一度やり直してください</string>
     <string name="photo_capture_failed">写真の撮影に失敗しました</string>
-    <string name="video_capture_insufficient_storage_error">ストレージが不足しているため、動画の録画に失敗しました</string>
+    <string name="video_capture_insufficient_storage_error">ストレージが不足しているため、動画の記録に失敗しました</string>
     <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">写真/動画モードの切り替え</string>
     <string name="change_resolution">解像度の変更</string>
