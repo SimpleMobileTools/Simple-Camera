@@ -33,8 +33,8 @@
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir?</string>
     <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade mas o tamanho é drasticamente reduzido em comparação a 100%.</string>
     <!-- Settings -->
-    <string name="save_photos">Salvar fotos e vídeos em</string>
-    <string name="show_preview">Mostrar pré-visualização após a captura</string>
+    <string name="save_photos">Guardar fotos e vídeos em</string>
+    <string name="show_preview">Pré-visualização após a captura</string>
     <string name="shutter_sound">Som do obturador</string>
     <string name="back_camera">Resoluções da câmera traseira</string>
     <string name="front_camera">Resoluções da câmera frontal</string>
@@ -42,12 +42,12 @@
     <string name="video">Vídeo</string>
     <string name="focus_before_capture">Focar antes da captura</string>
     <string name="volume_buttons_as_shutter">Usar botões de volume para tirar fotos</string>
-    <string name="turn_flash_off_at_startup">Desligar o flash no início</string>
-    <string name="flip_front_camera_photos_horizontally">Girar as fotos da câmera frontal horizontalmente</string>
-    <string name="keep_settings_visible">Manter o botão de configurações visível</string>
-    <string name="always_open_back_camera">Sempre abrir o app com a câmera traseira</string>
-    <string name="save_photo_metadata">Salvar metadados exif com a foto</string>
-    <string name="photo_compression_quality">Qualidade de compresão de imagem</string>
+    <string name="turn_flash_off_at_startup">Desligar flash ao iniciar</string>
+    <string name="flip_front_camera_photos_horizontally">Rodar fotos da câmera frontal horizontalmente</string>
+    <string name="keep_settings_visible">Manter botão de definições visível</string>
+    <string name="always_open_back_camera">Abrir sempre a aplicação com a câmera traseira</string>
+    <string name="save_photo_metadata">Guardar dados exif com a foto</string>
+    <string name="photo_compression_quality">Qualidade de compressão da foto</string>
     <string name="shutter">Obturador</string>
     <!--
         Não encontrou todas as cadeias a traduzir? Existem mais algumas em:
