@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Camera</string>
+    <string name="app_name">Kamera Simpel</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="capture_mode">Mode tangkapan</string>
     <string name="maximize_quality">Tingkatkan kualitas</string>
@@ -28,7 +28,7 @@
     <string name="view_last_media">Lihat media yang terakhir kali ditangkap</string>
     <string name="toggle_camera">Ubah kamera depan/belakang</string>
     <string name="toggle_flash">Saklar mode senter</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Saklar mode pewaktu</string>
     <!-- FAQ -->
     <string name="faq_1_title">Kualitas kompresi foto mana yang harus saya gunakan?</string>
     <string name="faq_1_text">Tergantung tujuan anda. Untuk hal-hal yang umum direkomendasikan menggunakan 75%-80%, kualitas gambar masih sangat bagus, tetapi ukuran berkas berkurang signifikan dibandingkan dengan 100%.</string>
