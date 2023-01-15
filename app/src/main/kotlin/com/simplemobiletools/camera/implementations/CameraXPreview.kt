@@ -10,6 +10,7 @@ import android.util.Rational
 import android.util.Size
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.core.ImageCapture.*
@@ -29,8 +30,10 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.*
 import com.simplemobiletools.camera.helpers.*
 import com.simplemobiletools.camera.interfaces.MyPreview
-import com.simplemobiletools.camera.models.*
 import com.simplemobiletools.camera.models.CaptureMode
+import com.simplemobiletools.camera.models.MediaOutput
+import com.simplemobiletools.camera.models.MySize
+import com.simplemobiletools.camera.models.ResolutionOption
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 
@@ -461,14 +464,19 @@ class CameraXPreview(
     }
 
     override fun tryTakePicture() {
-        val imageCapture = imageCapture ?: throw IllegalStateException("Camera initialization failed.")
+        if (imageCapture == null) {
+            activity.toast(R.string.camera_open_error)
+            return
+        }
+
+        val imageCapture = imageCapture
 
         val metadata = Metadata().apply {
             isReversedHorizontal = isFrontCameraInUse() && config.flipPhotos
         }
 
         val mediaOutput = mediaOutputHelper.getImageMediaOutput()
-        imageCapture.takePicture(mainExecutor, object : OnImageCapturedCallback() {
+        imageCapture!!.takePicture(mainExecutor, object : OnImageCapturedCallback() {
             override fun onCaptureSuccess(image: ImageProxy) {
                 listener.shutterAnimation()
                 playShutterSoundIfEnabled()
@@ -555,20 +563,25 @@ class CameraXPreview(
 
     @SuppressLint("MissingPermission", "NewApi")
     private fun startRecording() {
-        val videoCapture = videoCapture ?: throw IllegalStateException("Camera initialization failed.")
+        if (videoCapture == null) {
+            activity.toast(R.string.camera_open_error)
+            return
+        }
+
+        val videoCapture = videoCapture
 
         val recording = when (val mediaOutput = mediaOutputHelper.getVideoMediaOutput()) {
             is MediaOutput.FileDescriptorMediaOutput -> {
                 FileDescriptorOutputOptions.Builder(mediaOutput.fileDescriptor).build()
-                    .let { videoCapture.output.prepareRecording(activity, it) }
+                    .let { videoCapture!!.output.prepareRecording(activity, it) }
             }
             is MediaOutput.FileMediaOutput -> {
                 FileOutputOptions.Builder(mediaOutput.file).build()
-                    .let { videoCapture.output.prepareRecording(activity, it) }
+                    .let { videoCapture!!.output.prepareRecording(activity, it) }
             }
             is MediaOutput.MediaStoreOutput -> {
                 MediaStoreOutputOptions.Builder(contentResolver, mediaOutput.contentUri).setContentValues(mediaOutput.contentValues).build()
-                    .let { videoCapture.output.prepareRecording(activity, it) }
+                    .let { videoCapture!!.output.prepareRecording(activity, it) }
             }
         }
 

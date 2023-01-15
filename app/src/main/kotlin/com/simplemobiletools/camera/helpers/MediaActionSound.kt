@@ -40,7 +40,7 @@ class MediaActionSound(private val context: Context) {
     }
 
     private class SoundState(
-        val mediaSound: MediaSound,
+        val mediaSound: MediaSound?,
         // 0 is an invalid sample ID.
         var loadId: Int = 0,
         var streamId: Int = 0,
@@ -99,7 +99,11 @@ class MediaActionSound(private val context: Context) {
 
     private fun loadSound(sound: SoundState): Int {
         var id = 0
-        when (val mediaSound = sound.mediaSound) {
+        if (sound.mediaSound == null) {
+            return 0
+        }
+
+        when (val mediaSound = sound.mediaSound!!) {
             is MediaSound.ManufacturerSound -> {
                 for (soundDir in SOUND_DIRS) {
                     val soundPath = soundDir + mediaSound.fileName
@@ -167,7 +171,7 @@ class MediaActionSound(private val context: Context) {
     }
 
     private fun playWithSoundPool(sound: SoundState) {
-        if (playCompletionRunnable != null) {
+        if (playCompletionRunnable != null && sound.mediaSound != null) {
             val duration = getSoundDuration(sound.mediaSound)
             playTimeHandler.postDelayed(playCompletionRunnable!!, duration)
         }

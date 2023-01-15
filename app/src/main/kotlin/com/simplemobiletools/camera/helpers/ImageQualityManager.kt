@@ -11,10 +11,7 @@ import com.simplemobiletools.camera.models.CameraSelectorImageQualities
 import com.simplemobiletools.camera.models.MySize
 import com.simplemobiletools.commons.extensions.showErrorToast
 
-class ImageQualityManager(
-    private val activity: AppCompatActivity,
-) {
-
+class ImageQualityManager(private val activity: AppCompatActivity) {
     companion object {
         private val CAMERA_LENS = arrayOf(CameraCharacteristics.LENS_FACING_FRONT, CameraCharacteristics.LENS_FACING_BACK)
     }
@@ -59,7 +56,7 @@ class ImageQualityManager(
     }
 
     fun getSupportedResolutions(cameraSelector: CameraSelector): List<MySize> {
-        val fullScreenSize = getFullScreenResolution(cameraSelector)
+        val fullScreenSize = getFullScreenResolution(cameraSelector) ?: return ArrayList()
         return listOf(fullScreenSize) + imageQualities.filter { it.camSelector == cameraSelector }
             .flatMap { it.qualities }
             .sortedByDescending { it.pixels }
@@ -68,11 +65,11 @@ class ImageQualityManager(
             .filter { it.isSupported(fullScreenSize.isSixteenToNine()) }
     }
 
-    private fun getFullScreenResolution(cameraSelector: CameraSelector): MySize {
+    private fun getFullScreenResolution(cameraSelector: CameraSelector): MySize? {
         return imageQualities.filter { it.camSelector == cameraSelector }
             .flatMap { it.qualities }
             .sortedByDescending { it.width }
-            .first { it.isSupported(false) }
-            .copy(isFullScreen = true)
+            .firstOrNull { it.isSupported(false) }
+            ?.copy(isFullScreen = true)
     }
 }

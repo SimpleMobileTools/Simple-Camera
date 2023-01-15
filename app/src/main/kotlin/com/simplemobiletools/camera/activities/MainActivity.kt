@@ -895,9 +895,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun resetViewsOnTimerFinish() {
         arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_holder).forEach {
-            it.fadeIn()
-            it.beVisible()
+            it?.fadeIn()
+            it?.beVisible()
         }
+
         timer_text.beGone()
         shutter.setImageState(intArrayOf(-R.attr.state_timer_cancel), true)
     }
