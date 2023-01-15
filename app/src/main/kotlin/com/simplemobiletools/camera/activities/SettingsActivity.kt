@@ -27,7 +27,7 @@ class SettingsActivity : SimpleActivity() {
         setupOptionsMenu()
         refreshMenuItems()
 
-        updateMaterialActivityViews(settings_coordinator, settings_holder)
+        updateMaterialActivityViews(settings_coordinator, settings_holder, useTransparentNavigation = true, useTopSearchMenu = false)
         setupMaterialScrollListener(settings_nested_scrollview, settings_toolbar)
     }
 
