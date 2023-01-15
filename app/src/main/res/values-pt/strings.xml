@@ -2,39 +2,39 @@
 <resources>
     <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Câmera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Modo de captura</string>
+    <string name="maximize_quality">Maximizar qualidade</string>
+    <string name="minimize_latency">Minimizar latência</string>
     <!-- Errors -->
     <string name="camera_unavailable">Câmera indisponível</string>
-    <string name="camera_open_error">Ocorreu um erro ao acessar a câmera</string>
-    <string name="video_creating_error">Ocorreu um erro ao criar o arquivo de vídeo</string>
+    <string name="camera_open_error">Ocorreu um erro ao aceder à câmera</string>
+    <string name="video_creating_error">Ocorreu um erro ao criar o ficheiro de vídeo</string>
     <string name="video_mode_error">Falha ao mudar para o modo de vídeo</string>
-    <string name="save_error_internal_storage">Erro! A pasta para guardar arquivos foi alterada para o armazenamento interno</string>
+    <string name="save_error_internal_storage">Erro! A pasta para guardar ficheiros foi alterada para o armazenamento interno</string>
     <string name="camera_switch_error">Falha ao mudar de câmera</string>
-    <string name="click_to_resume_preview">Clique na imagem para resumir a pré-visualização</string>
-    <string name="photo_not_saved">A foto não pôde ser salva</string>
-    <string name="setting_resolution_failed">Falha no ajuste da resolução</string>
-    <string name="video_recording_failed">Falha na gravação de vídeo. Tente alterar a resoluçãon</string>
-    <string name="camera_in_use_error">The camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">Ocorreu um erro durante a configuração da câmara</string>
-    <string name="camera_disabled_by_admin_error">A câmara é desactivada pelo administrador</string>
-    <string name="camera_dnd_error">O modo Não Perturbar está activado. Por favor, desactivar e tentar novamente</string>
-    <string name="photo_capture_failed">A captura de fotos falhou</string>
-    <string name="video_capture_insufficient_storage_error">Gravação de vídeo falhou devido a armazenamento insuficiente</string>
+    <string name="click_to_resume_preview">Clique na imagem para continuar a pré-visualização</string>
+    <string name="photo_not_saved">Não foi possível guardar a foto</string>
+    <string name="setting_resolution_failed">Falha ao ajustar a resolução</string>
+    <string name="video_recording_failed">Falha ao gravar o vídeo. Tente alterar a resolução</string>
+    <string name="camera_in_use_error">A câmera está a ser utilizada por outra aplicação. Feche essa aplicação e tente novamente</string>
+    <string name="camera_configure_error">Ocorreu um erro ao configurar a câmera</string>
+    <string name="camera_disabled_by_admin_error">A câmera foi desativada pelo administrador</string>
+    <string name="camera_dnd_error">O modo Não perturbar está ativado. Desative e tente novamente</string>
+    <string name="photo_capture_failed">Falha ao capturar a foto</string>
+    <string name="video_capture_insufficient_storage_error">A gravação do vídeo falhou porque não existe espaço livre disponível</string>
     <!-- Camera Screen Icons Content Description -->
-    <string name="toggle_photo_video">Toggle photo/video mode</string>
-    <string name="change_resolution">Change Resolution</string>
-    <string name="view_last_media">View last captured media</string>
-    <string name="toggle_camera">Toggle front/back camera</string>
-    <string name="toggle_flash">Toggle the flashlight mode</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_photo_video">Comutar modo foto/vídeo</string>
+    <string name="change_resolution">Alterar resolução</string>
+    <string name="view_last_media">Ver último ficheiro capturado</string>
+    <string name="toggle_camera">Comutar câmera frontal/retaguarda</string>
+    <string name="toggle_flash">Comutar modo de flash</string>
+    <string name="toggle_timer">Comutar modo temporizador</string>
     <!-- FAQ -->
     <string name="faq_1_title">Que qualidade de compressão de imagem devo definir?</string>
-    <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade, porém tamanho drasticamente reduzido em comparação a 100%.</string>
+    <string name="faq_1_text">Depende de seu objetivo. Para fins genéricos, aconselha-se o uso de 75%-80%, no qual a imagem ainda apresenta boa qualidade mas o tamanho é drasticamente reduzido em comparação a 100%.</string>
     <!-- Settings -->
-    <string name="save_photos">Salvar fotos e vídeos em</string>
-    <string name="show_preview">Mostrar pré-visualização após a captura</string>
+    <string name="save_photos">Guardar fotos e vídeos em</string>
+    <string name="show_preview">Pré-visualização após a captura</string>
     <string name="shutter_sound">Som do obturador</string>
     <string name="back_camera">Resoluções da câmera traseira</string>
     <string name="front_camera">Resoluções da câmera frontal</string>
@@ -42,12 +42,12 @@
     <string name="video">Vídeo</string>
     <string name="focus_before_capture">Focar antes da captura</string>
     <string name="volume_buttons_as_shutter">Usar botões de volume para tirar fotos</string>
-    <string name="turn_flash_off_at_startup">Desligar o flash no início</string>
-    <string name="flip_front_camera_photos_horizontally">Girar as fotos da câmera frontal horizontalmente</string>
-    <string name="keep_settings_visible">Manter o botão de configurações visível</string>
-    <string name="always_open_back_camera">Sempre abrir o app com a câmera traseira</string>
-    <string name="save_photo_metadata">Salvar metadados exif com a foto</string>
-    <string name="photo_compression_quality">Qualidade de compresão de imagem</string>
+    <string name="turn_flash_off_at_startup">Desligar flash ao iniciar</string>
+    <string name="flip_front_camera_photos_horizontally">Rodar fotos da câmera frontal horizontalmente</string>
+    <string name="keep_settings_visible">Manter botão de definições visível</string>
+    <string name="always_open_back_camera">Abrir sempre a aplicação com a câmera traseira</string>
+    <string name="save_photo_metadata">Guardar dados exif com a foto</string>
+    <string name="photo_compression_quality">Qualidade de compressão da foto</string>
     <string name="shutter">Obturador</string>
     <!--
         Não encontrou todas as cadeias a traduzir? Existem mais algumas em:
