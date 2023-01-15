@@ -152,6 +152,7 @@ class MediaActionSound(private val context: Context) {
                     val soundId = loadSound(sound)
                     if (soundId <= 0) {
                         Log.e(TAG, "play() error loading sound: $mediaSound")
+                        onPlayComplete?.invoke()
                     } else {
                         sound.state = STATE_LOADING_PLAY_REQUESTED
                     }
