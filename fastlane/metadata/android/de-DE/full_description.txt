@@ -6,7 +6,7 @@ Sie können die Ausgabeauflösung, die Qualität oder das Seitenverhältnis mit 
 
 Nachdem Sie ein Bild aufgenommen haben, sehen Sie das neue Foto-Thumbnail, indem Sie es drücken, können Sie es schnell in Ihrer bevorzugten Galerie mit dieser offenen Kamera-App öffnen. Sie sehen eine klare Anzeige, wann das Foto aufgenommen wird, um sicherzustellen, dass die Datei gespeichert wurde.
 
-Wenn Sie diese einfach zu öffnende Kamera-App starten möchten, indem Sie die Hardwarekamera-Taste Ihres Geräts drücken, müssen Sie möglicherweise die integrierte Kamera-App unter Einstellungen -> Apps -> Kamera -> Deaktivieren deaktivieren deaktivieren.
+Wenn Sie diese einfach zu öffnende Kamera-App starten möchten, indem Sie die Hardwarekamera-Taste Ihres Geräts drücken, müssen Sie möglicherweise die integrierte Kamera-App unter Einstellungen -> Apps -> Kamera -> Deaktivieren.
 
 Sie können es so konfigurieren, dass es Lautstärketasten als Auslöser verwendet oder die Taschenlampe standardmäßig beim Start einschaltet.
 
