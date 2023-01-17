@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Egyszerű kamera</string>
     <string name="app_launcher_name">Kamera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Rögzítési mód</string>
+    <string name="maximize_quality">Minőség maximalizálása</string>
+    <string name="minimize_latency">Késleltetés minimalizálása</string>
     <!-- Errors -->
     <string name="camera_unavailable">Kamera nem elérhető</string>
     <string name="camera_open_error">Hiba történt a kamera elérésében</string>
@@ -28,7 +28,7 @@
     <string name="view_last_media">Utoljára rögzített média megtekintése</string>
     <string name="toggle_camera">Elülső/hátsó kamera átkapcsolása</string>
     <string name="toggle_flash">A zseblámpa üzemmód váltása</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Időzítési mód be/ki</string>
     <!-- FAQ -->
     <string name="faq_1_title">Milyen fotótömörítési minőséget kell beállítanom\?</string>
     <string name="faq_1_text">Ez a céltól függ. Általános célokra a legtöbben 75%-80%-ot javasolnak, amikor a kép még mindig nagyon jó minőségű, de a fájlméret drasztikusan csökken a 100%-hoz képest.</string>
