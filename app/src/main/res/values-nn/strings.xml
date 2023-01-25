@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Enkelt kamera</string>
+    <string name="app_name">Einfelt kamera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="capture_mode">Opptaksmodus</string>
     <string name="maximize_quality">Best kvalitet</string>
