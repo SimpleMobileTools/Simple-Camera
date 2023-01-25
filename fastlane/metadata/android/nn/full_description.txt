@@ -1,0 +1,29 @@
+Denne opne kameraappen kan verta nytta til bilet- og videoopptak. Du kan lett byta mellom kamera føre og bak, brigde stad å gøyma, eller avgrense oppløysinga til bilete. Det er fleire innstillingar å brigde på, her er somme av dei:
+
+Kameraljoset kan verta slegen på heile tida, på når du tek eit bilete, eller av. Klyp skjermen for å gå nærare/lengre unna. Slå på vassrett vending av bilete tekne av kameraet føre. Fokuser kameraet der du vil.
+
+Brigd oppløysinga, kvaliteten eller storleikshøvet med nokre få trykk. Gjeld både bilete og videoar.
+
+Etter å ha teke eit bilete vil det verta vist som eit småbilete ved sida av opptaksknappen. Trykk på det for å opne det i ein galleriapp. Småbiletet gjer det lett å sjå at bilete du tek vert gøymde.
+
+Det kan henda du må slå av den innebygde kameraappen for å kunne opne denne med eininga di si kameraknapp (Innstillingar → Appar → Kamera → Slå av).
+
+Du kan ta opp med ljodstyrkeknappane og slå på kameraljoset ved kvar byrjing.
+
+Fleire innstillingar til opptaksljod, ljos, biletmetadata, biletkvalitet, osv. Brigd kvar bilete vert gøymde. Appen stør både indre og ytre gøyme.
+
+Som forval har appen «Material Design» og mørk drakt, som er lette på augo. Han har ikkje tilgjenge til internettet, som gjer han meir trygg og stø enn mange andre appar.
+
+Appen har ingen annonsar, krev ingen uturvande tilgjenge, har ein open kjeldekode, og lèt deg fargeleggja han litt.
+
+Sjå heile samlinga til «Simple Tools» her:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
