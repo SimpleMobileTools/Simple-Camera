@@ -10,7 +10,7 @@ import androidx.exifinterface.media.ExifInterface
 import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getOutputMediaFile
+import com.simplemobiletools.camera.extensions.getOutputMediaFilePath
 import com.simplemobiletools.commons.extensions.*
 import java.io.File
 import java.io.FileNotFoundException
@@ -30,7 +30,7 @@ class PhotoProcessor(
             path = if (saveUri != null) {
                 saveUri.path!!
             } else {
-                activity.getOutputMediaFile(true)
+                activity.getOutputMediaFilePath(true)
             }
 
             if (path.isEmpty()) {
