@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 5.6.2 *(2023-02-07)*
+----------------------------
+
+ * Fixed an error with videos not being saved on SD cards
+ * Fixed status bar not being hidden on some devices
+ * Added some UI, translation and stability improvements
+
 Version 5.6.1 *(2023-01-15)*
 ----------------------------
 
