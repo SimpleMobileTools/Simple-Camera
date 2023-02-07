@@ -117,31 +117,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun selectPhotoTab(triggerListener: Boolean = false) {
-        if (!triggerListener) {
-            removeTabListener()
-        }
-
-        camera_mode_tab.getTabAt(PHOTO_MODE_INDEX)?.select()
-        setTabListener()
-    }
-
-    private fun selectVideoTab(triggerListener: Boolean = false) {
-        if (!triggerListener) {
-            removeTabListener()
-        }
-        camera_mode_tab.getTabAt(VIDEO_MODE_INDEX)?.select()
-        setTabListener()
-    }
-
-    private fun setTabListener() {
-        camera_mode_tab.addOnTabSelectedListener(tabSelectedListener)
-    }
-
-    private fun removeTabListener() {
-        camera_mode_tab.removeOnTabSelectedListener(tabSelectedListener)
-    }
-
     override fun onResume() {
         super.onResume()
         if (hasStorageAndCameraPermissions()) {
@@ -154,10 +129,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         ensureTransparentNavigationBar()
-    }
 
-    private fun ensureTransparentNavigationBar() {
-        window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
+        if (ViewCompat.getWindowInsetsController(window.decorView) == null) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        }
     }
 
     override fun onPause() {
@@ -184,6 +159,35 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!closeOptions()) {
             super.onBackPressed()
         }
+    }
+
+    private fun selectPhotoTab(triggerListener: Boolean = false) {
+        if (!triggerListener) {
+            removeTabListener()
+        }
+
+        camera_mode_tab.getTabAt(PHOTO_MODE_INDEX)?.select()
+        setTabListener()
+    }
+
+    private fun selectVideoTab(triggerListener: Boolean = false) {
+        if (!triggerListener) {
+            removeTabListener()
+        }
+        camera_mode_tab.getTabAt(VIDEO_MODE_INDEX)?.select()
+        setTabListener()
+    }
+
+    private fun setTabListener() {
+        camera_mode_tab.addOnTabSelectedListener(tabSelectedListener)
+    }
+
+    private fun removeTabListener() {
+        camera_mode_tab.removeOnTabSelectedListener(tabSelectedListener)
+    }
+
+    private fun ensureTransparentNavigationBar() {
+        window.navigationBarColor = ContextCompat.getColor(this, android.R.color.transparent)
     }
 
     private fun initVariables() {

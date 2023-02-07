@@ -8,6 +8,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="Widget.App.Button.OutlineButton.IconOnly" parent="Widget.MaterialComponents.Button.TextButton">
