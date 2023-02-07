@@ -32,7 +32,7 @@ class MediaOutputHelper(
         private const val VIDEO_MIME_TYPE = "video/mp4"
     }
 
-    private val mediaStorageDir = activity.config.savePhotosFolder
+    private var config = activity.config
     private val contentResolver = activity.contentResolver
 
     fun getImageMediaOutput(): MediaOutput.ImageCaptureOutput {
@@ -121,7 +121,7 @@ class MediaOutputHelper(
 
     private fun getOutputStreamMediaOutput(): MediaOutput.OutputStreamMediaOutput? {
         var mediaOutput: MediaOutput.OutputStreamMediaOutput? = null
-        val canWrite = canWriteToFilePath(mediaStorageDir)
+        val canWrite = canWriteToFilePath(config.savePhotosFolder)
         if (canWrite) {
             val path = activity.getOutputMediaFilePath(true)
             val uri = getUriForFilePath(path)
@@ -144,9 +144,9 @@ class MediaOutputHelper(
 
     private fun getFileDescriptorMediaOutput(): MediaOutput.FileDescriptorMediaOutput? {
         var mediaOutput: MediaOutput.FileDescriptorMediaOutput? = null
-        val canWrite = canWriteToFilePath(mediaStorageDir)
+        val canWrite = canWriteToFilePath(config.savePhotosFolder)
         if (canWrite) {
-            val parentUri = getUriForFilePath(mediaStorageDir) ?: return null
+            val parentUri = getUriForFilePath(config.savePhotosFolder) ?: return null
             val videoFileName = activity.getOutputMediaFileName(false)
             val documentUri = DocumentsContract.createDocument(
                 contentResolver,
@@ -162,7 +162,7 @@ class MediaOutputHelper(
 
     private fun getFileMediaOutput(): MediaOutput.FileMediaOutput? {
         var mediaOutput: MediaOutput.FileMediaOutput? = null
-        val canWrite = canWriteToFilePath(mediaStorageDir)
+        val canWrite = canWriteToFilePath(config.savePhotosFolder)
         if (canWrite) {
             val path = activity.getOutputMediaFilePath(false)
             val uri = getUriForFilePath(path)
