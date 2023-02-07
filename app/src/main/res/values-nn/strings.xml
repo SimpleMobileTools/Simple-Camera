@@ -5,6 +5,7 @@
     <string name="capture_mode">Opptaksmodus</string>
     <string name="maximize_quality">Best kvalitet</string>
     <string name="minimize_latency">Stuttast ventetid</string>
+    <!-- Errors -->
     <string name="camera_unavailable">Kameraet er utilgjengeleg</string>
     <string name="camera_open_error">Fekk ikkje tilgjenge til kameraet</string>
     <string name="video_creating_error">Kunne ikkje lage videofila</string>
@@ -21,14 +22,17 @@
     <string name="camera_dnd_error">Ikkje uroe-modusen er slegen på. Slå han av og røyn att</string>
     <string name="photo_capture_failed">Kunne ikkje ta biletet</string>
     <string name="video_capture_insufficient_storage_error">Det er for lite ledig rom til å ta opp videoar</string>
+    <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Byt mellom bilete- og videopptak</string>
     <string name="change_resolution">Brigd oppløysinga</string>
     <string name="view_last_media">Vis sist tekne medium</string>
     <string name="toggle_camera">Byt mellom kameraet føre/bak</string>
     <string name="toggle_flash">Vel ljosmodus</string>
     <string name="toggle_timer">Still tidsnedteljinga</string>
+    <!-- FAQ -->
     <string name="faq_1_title">Kva bør biletekvaliteten vera på\?</string>
     <string name="faq_1_text">Me råder til å nytte 75 - 80 %. Bilete vil framleis sjå bra ut, men dei vil nytte mindre rom enn ved 100 %.</string>
+    <!-- Settings -->
     <string name="save_photos">Gøym bilete og videoar i</string>
     <string name="show_preview">Vis ei førehandsvising av bilete etter at du tek dei</string>
     <string name="shutter_sound">Opptaksljod</string>
@@ -45,4 +49,8 @@
     <string name="save_photo_metadata">Gøym Exif-metadata i bilete</string>
     <string name="photo_compression_quality">Biletekvalitet (Merk: høgre % tek au meir rom)</string>
     <string name="shutter">Opptak</string>
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
 </resources>
