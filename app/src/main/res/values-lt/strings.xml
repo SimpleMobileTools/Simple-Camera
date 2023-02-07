@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Paprasta kamera</string>
     <string name="app_launcher_name">Kamera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Fotografavimo veiksena</string>
+    <string name="maximize_quality">Pagerinti kokybę</string>
+    <string name="minimize_latency">Sumažinti delsą</string>
     <!-- Errors -->
     <string name="camera_unavailable">Kamera neprieinama</string>
     <string name="camera_open_error">Bandant pasiekti kamerą įvyko klaida</string>
@@ -28,7 +28,7 @@
     <string name="view_last_media">Rodyti paskiausiai fiksuotą mediją</string>
     <string name="toggle_camera">Perjungti priekinę/galinę kamerą</string>
     <string name="toggle_flash">Perjungti žibintuvėlio veikseną</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Perjungti laikmačio veikseną</string>
     <!-- FAQ -->
     <string name="faq_1_title">Kokią nuotraukos glaudinimo kokybę turėčiau nustatyti\?</string>
     <string name="faq_1_text">Tai priklauso nuo jūsų tikslų. Įprastiems tikslams dauguma žmonių pataria naudoti 75%–80%, kuomet nuotrauka yra vis dar geros kokybės, bet failo dydis, palyginus su 100%, iš esmės sumažėja.</string>
