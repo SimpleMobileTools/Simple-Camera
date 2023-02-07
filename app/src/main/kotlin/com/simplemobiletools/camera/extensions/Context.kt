@@ -8,7 +8,7 @@ import java.util.*
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
-fun Context.getOutputMediaFile(isPhoto: Boolean): String {
+fun Context.getOutputMediaFilePath(isPhoto: Boolean): String {
     val mediaStorageDir = File(config.savePhotosFolder)
 
     if (!mediaStorageDir.exists()) {
@@ -22,6 +22,14 @@ fun Context.getOutputMediaFile(isPhoto: Boolean): String {
         "${mediaStorageDir.path}/$mediaName.jpg"
     } else {
         "${mediaStorageDir.path}/$mediaName.mp4"
+    }
+}
+fun Context.getOutputMediaFileName(isPhoto: Boolean): String {
+    val mediaName = getRandomMediaName(isPhoto)
+    return if (isPhoto) {
+        "$mediaName.jpg"
+    } else {
+        "$mediaName.mp4"
     }
 }
 

@@ -4,9 +4,11 @@ import android.content.ContentValues
 import android.net.Uri
 import android.os.Environment
 import android.os.ParcelFileDescriptor
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import com.simplemobiletools.camera.extensions.config
-import com.simplemobiletools.camera.extensions.getOutputMediaFile
+import com.simplemobiletools.camera.extensions.getOutputMediaFileName
+import com.simplemobiletools.camera.extensions.getOutputMediaFilePath
 import com.simplemobiletools.camera.extensions.getRandomMediaName
 import com.simplemobiletools.camera.models.MediaOutput
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
@@ -20,7 +22,7 @@ class MediaOutputHelper(
     private val activity: BaseSimpleActivity,
     private val errorHandler: CameraErrorHandler,
     private val outputUri: Uri?,
-    private val is3rdPartyIntent: Boolean,
+    private val is3rdPartyIntent: Boolean
 ) {
 
     companion object {
@@ -121,7 +123,7 @@ class MediaOutputHelper(
         var mediaOutput: MediaOutput.OutputStreamMediaOutput? = null
         val canWrite = canWriteToFilePath(mediaStorageDir)
         if (canWrite) {
-            val path = activity.getOutputMediaFile(true)
+            val path = activity.getOutputMediaFilePath(true)
             val uri = getUriForFilePath(path)
             val outputStream = activity.getFileOutputStreamSync(path, path.getMimeType())
             if (uri != null && outputStream != null) {
@@ -144,14 +146,16 @@ class MediaOutputHelper(
         var mediaOutput: MediaOutput.FileDescriptorMediaOutput? = null
         val canWrite = canWriteToFilePath(mediaStorageDir)
         if (canWrite) {
-            val path = activity.getOutputMediaFile(false)
-            val uri = getUriForFilePath(path)
-            if (uri != null) {
-                val fileDescriptor = contentResolver.openFileDescriptor(uri, MODE)
-                if (fileDescriptor != null) {
-                    mediaOutput = MediaOutput.FileDescriptorMediaOutput(fileDescriptor, uri)
-                }
-            }
+            val parentUri = getUriForFilePath(mediaStorageDir) ?: return null
+            val videoFileName = activity.getOutputMediaFileName(false)
+            val documentUri = DocumentsContract.createDocument(
+                contentResolver,
+                parentUri,
+                DocumentsContract.Document.COLUMN_MIME_TYPE,
+                videoFileName
+            ) ?: return null
+            val fileDescriptor = contentResolver.openFileDescriptor(documentUri, MODE) ?: return null
+            mediaOutput = MediaOutput.FileDescriptorMediaOutput(fileDescriptor, documentUri)
         }
         return mediaOutput
     }
@@ -160,7 +164,7 @@ class MediaOutputHelper(
         var mediaOutput: MediaOutput.FileMediaOutput? = null
         val canWrite = canWriteToFilePath(mediaStorageDir)
         if (canWrite) {
-            val path = activity.getOutputMediaFile(false)
+            val path = activity.getOutputMediaFilePath(false)
             val uri = getUriForFilePath(path)
             if (uri != null) {
                 mediaOutput = MediaOutput.FileMediaOutput(File(path), uri)
