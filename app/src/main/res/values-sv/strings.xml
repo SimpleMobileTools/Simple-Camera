@@ -16,10 +16,10 @@
     <string name="photo_not_saved">Fotot kunde inte sparas</string>
     <string name="setting_resolution_failed">Det gick inte att ställa in den valda upplösningen</string>
     <string name="video_recording_failed">Videoinspelningen misslyckades, prova med en annan upplösning</string>
-    <string name="camera_in_use_error">Kameran används av en annan app, stäng appen och försök igen.</string>
+    <string name="camera_in_use_error">Kameran används av en annan app, stäng appen och försök igen</string>
     <string name="camera_configure_error">Ett fel inträffade när kameran konfigurerades</string>
     <string name="camera_disabled_by_admin_error">Kameran är inaktiverad av administratören</string>
-    <string name="camera_dnd_error">Läget Stör inte är aktiverat. Inaktivera och försök igen.</string>
+    <string name="camera_dnd_error">Läget Stör inte är aktiverat. Inaktivera och försök igen</string>
     <string name="photo_capture_failed">Det gick inte att ta bilder</string>
     <string name="video_capture_insufficient_storage_error">Videoinspelningen misslyckades på grund av otillräckligt lagringsutrymme</string>
     <!-- Camera Screen Icons Content Description -->
