@@ -2,9 +2,9 @@
 <resources>
     <string name="app_name">Yksinkertainen kamera</string>
     <string name="app_launcher_name">Kamera</string>
-    <string name="capture_mode">Capture mode</string>
-    <string name="maximize_quality">Maximize quality</string>
-    <string name="minimize_latency">Minimize latency</string>
+    <string name="capture_mode">Kaappaustila</string>
+    <string name="maximize_quality">Paras mahdollinen laatu</string>
+    <string name="minimize_latency">Paras mahdollinen nopeus</string>
     <!-- Errors -->
     <string name="camera_unavailable">Kamera ei ole käytettävissä</string>
     <string name="camera_open_error">Kameraa ei saatu käyttöön</string>
@@ -28,7 +28,7 @@
     <string name="view_last_media">Näytä viimeksi kaapattu media</string>
     <string name="toggle_camera">Vaihda etu-/takakameraa</string>
     <string name="toggle_flash">Vaihda taskulampputilaa</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Kytke ajastimen tila</string>
     <!-- FAQ -->
     <string name="faq_1_title">Mitä valokuvan pakkauslaatua minun pitäisi käyttää?</string>
     <string name="faq_1_text">Se riippuu tarkoituksestasi. Yleisissä tarkoituksissa useimmat ihmiset suosittelevat käyttämään 75-80%, kun kuva on edelleen todella hyvälaatuinen, mutta tiedoston koko pienenee huomattavasti verrattuna 100%:iin.</string>
