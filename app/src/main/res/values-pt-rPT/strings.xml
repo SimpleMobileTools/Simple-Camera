@@ -16,13 +16,12 @@
     <string name="photo_not_saved">Não foi possível guardar a foto</string>
     <string name="setting_resolution_failed">Falha ao definir a resolução ideal</string>
     <string name="video_recording_failed">Falha ao gravar o vídeo. Tente com outra resolução.</string>
-    <string name="camera_in_use_error">Camera is in use by another app, please close the app and try again</string>
-    <string name="camera_configure_error">An error occurred while configuring the camera</string>
-    <string name="camera_disabled_by_admin_error">Camera is disabled by the admin</string>
+    <string name="camera_in_use_error">A camera está a ser usada por outra applicação, feche a outra applicação e tente outravez</string>
+    <string name="camera_configure_error">Aconteceu um erro a configurar a camera</string>
+    <string name="camera_disabled_by_admin_error">A camera está desabilitada pelo admin</string>
     <string name="camera_dnd_error">"Do Not Disturb" mode is enabled. Please disable and try again</string>
-    <string name="photo_capture_failed">Photo capture failed</string>
-    <string name="video_capture_insufficient_storage_error">Video recording failed due to insufficient storage</string>
-
+    <string name="photo_capture_failed">A captura da foto falhou</string>
+    <string name="video_capture_insufficient_storage_error">Captura de video falhou por não ter espaço suficiente</string>
     <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Toggle photo/video mode</string>
     <string name="change_resolution">Change Resolution</string>
@@ -30,11 +29,9 @@
     <string name="toggle_camera">Toggle front/back camera</string>
     <string name="toggle_flash">Toggle the flashlight mode</string>
     <string name="toggle_timer">Toggle the timer mode</string>
-
     <!-- FAQ -->
     <string name="faq_1_title">What photo compression quality should I set?</string>
     <string name="faq_1_text">It depends on your goal. For generic purposes most people advise using 75%-80%, when the image is still really good quality, but the file size is reduced drastically compared to 100%.</string>
-
     <!-- Settings -->
     <string name="save_photos">Guardar fotos e vídeos em</string>
     <string name="show_preview">Mostrar pré-visualização após a captura</string>
