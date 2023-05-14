@@ -103,17 +103,17 @@ class MediaActionSound(private val context: Context) {
             return 0
         }
 
-        when (val mediaSound = sound.mediaSound!!) {
+        when (sound.mediaSound) {
             is MediaSound.ManufacturerSound -> {
                 for (soundDir in SOUND_DIRS) {
-                    val soundPath = soundDir + mediaSound.fileName
-                    mediaSound.path = soundPath
+                    val soundPath = soundDir + sound.mediaSound.fileName
+                    sound.mediaSound.path = soundPath
                     id = soundPool!!.load(soundPath, 1)
                     break
                 }
             }
             is MediaSound.RawResSound -> {
-                id = soundPool!!.load(context, mediaSound.resId, 1)
+                id = soundPool!!.load(context, sound.mediaSound.resId, 1)
             }
         }
 
