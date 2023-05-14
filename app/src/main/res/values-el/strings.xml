@@ -29,7 +29,7 @@
     <string name="view_last_media">Προβολή των τελευταίων αποθηκευμένων πολυμέσων</string>
     <string name="toggle_camera">Εναλλαγή εμπρός/πίσω κάμερας</string>
     <string name="toggle_flash">Εναλλαγή λειτουργίας φακού</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
+    <string name="toggle_timer">Εναλλαγή λειτουργίας χρονοδιακόπτη</string>
 
     <!-- FAQ -->
     <string name="faq_1_title">Ποια ποιότητα συμπίεσης φωτογραφιών πρέπει να ορίσω;</string>
