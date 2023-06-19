@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Behold innstillingsknappene synlig</string>
     <string name="always_open_back_camera">Alltid åpne programmet med kameraet på baksiden</string>
     <string name="save_photo_metadata">Lagre Exif-metadata i bilder</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Bildekompresjonskvalitet</string>
     <string name="shutter">Lukker</string>
     <!--

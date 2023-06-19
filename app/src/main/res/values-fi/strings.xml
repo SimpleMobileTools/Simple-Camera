@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Pidä asetuspainikkeet näkyvissä</string>
     <string name="always_open_back_camera">Avaa sovellus aina takakamera aktiivisena</string>
     <string name="save_photo_metadata">Tallenna valokuvien Exif-metatiedot</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Valokuvien pakkauslaatu</string>
     <string name="shutter">Suljin</string>
     <!--

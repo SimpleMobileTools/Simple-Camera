@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">설정 버튼 표시 유지</string>
     <string name="always_open_back_camera">항상 후면카메라로 실행</string>
     <string name="save_photo_metadata">사진 exif 메타 데이터 저장</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">사진 압축 품질</string>
     <string name="shutter">Shutter</string>
     <!--

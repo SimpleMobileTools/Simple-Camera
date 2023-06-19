@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Held innstillingknappen synleg</string>
     <string name="always_open_back_camera">Byt til kameraet bak når appen vert opna</string>
     <string name="save_photo_metadata">Gøym Exif-metadata i bilete</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Biletekvalitet (Merk: høgre % tek au meir rom)</string>
     <string name="shutter">Opptak</string>
     <!--

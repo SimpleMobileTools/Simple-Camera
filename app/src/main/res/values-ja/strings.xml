@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">設定ボタンを表示したままにする</string>
     <string name="always_open_back_camera">常に背面カメラでアプリを開く</string>
     <string name="save_photo_metadata">写真のEXIFデータを保存する</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">写真の圧縮品質</string>
     <string name="shutter">シャッター</string>
     <!--

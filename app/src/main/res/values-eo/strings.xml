@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Keep the setting buttons visible</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
     <string name="save_photo_metadata">Save photo exif metadata</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Photo compression quality</string>
     <string name="shutter">Shutter</string>
     <!--

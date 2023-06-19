@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Ostavi gumbe postavki vidljivima</string>
     <string name="always_open_back_camera">Otvori aplikaciju uvijek pomoću stražnje kamere</string>
     <string name="save_photo_metadata">Spremi exif metapodatke fotografije</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Kvaliteta kompresije fotografije</string>
     <string name="shutter">Otvor objektiva</string>
     <!--

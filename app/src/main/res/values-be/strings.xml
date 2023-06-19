@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Трымайце кнопкі налад бачнымі</string>
     <string name="always_open_back_camera">Заўсёды адкрывайце праграму з задняй камерай</string>
     <string name="save_photo_metadata">Захоўваць метаданые EXIF</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Якасць сціску фота</string>
     <string name="shutter">Затвор</string>
     <!--

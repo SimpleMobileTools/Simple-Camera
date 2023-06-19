@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Hoia seadistusnupud nähtaval</string>
     <string name="always_open_back_camera">Rakenduse käivitamisel kasuta esmalt tagakaamerat</string>
     <string name="save_photo_metadata">Salvesta fotofaili EXIF-metateave</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Fotode pakkimise tase</string>
     <string name="shutter">Katik</string>
     <!--

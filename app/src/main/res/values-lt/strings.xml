@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Palikti nustatymų mygtukus matomus</string>
     <string name="always_open_back_camera">Visada atverti programėlę su įjungta galine kamera</string>
     <string name="save_photo_metadata">Įrašyti į nuotraukas EXIF metaduomenis</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Nuotraukų glaudinimo kokybė</string>
     <string name="shutter">Sklendė</string>
     <!--

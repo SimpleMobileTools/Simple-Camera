@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Behåll inställningsknapparna synliga</string>
     <string name="always_open_back_camera">Växla till den bakre kameran när appen öppnas</string>
     <string name="save_photo_metadata">Spara fotonas Exif-metadata</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Fotokomprimeringskvalitet</string>
     <string name="shutter">Slutare</string>
     <!--

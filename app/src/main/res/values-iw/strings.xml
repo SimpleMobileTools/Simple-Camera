@@ -49,6 +49,7 @@
     <string name="keep_settings_visible">השאר את לחצני ההגדרה גלויים</string>
     <string name="always_open_back_camera">פתח את האפליקציה תמיד עם המצלמה האחורית</string>
     <string name="save_photo_metadata">שמור מטא נתונים של Exif של תמונה</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">איכות דחיסת תמונה</string>
     <string name="shutter">תריס</string>
     <!--

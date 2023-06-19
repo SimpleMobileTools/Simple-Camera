@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Всегда показывать панель настроек</string>
     <string name="always_open_back_camera">Всегда включать заднюю камеру при запуске</string>
     <string name="save_photo_metadata">Сохранять в фото данные EXIF</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Качество фото после сжатия</string>
     <string name="shutter">Затвор</string>
     <!--

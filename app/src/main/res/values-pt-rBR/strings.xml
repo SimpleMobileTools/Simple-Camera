@@ -47,6 +47,7 @@
     <string name="keep_settings_visible">Mantenha os botões de configuração visíveis</string>
     <string name="always_open_back_camera">Sempre abra o aplicativo com a câmera traseira</string>
     <string name="save_photo_metadata">Salvar metadados exif da foto</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Qualidade de compresão de imagem</string>
     <string name="shutter">Obturador</string>
     <!--

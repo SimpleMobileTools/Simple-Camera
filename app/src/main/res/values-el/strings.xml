@@ -50,6 +50,7 @@
     <string name="keep_settings_visible">Διατήρηση εμφανών κουμπιών ρύθμισης</string>
     <string name="always_open_back_camera">Πάντα άνοιγμα της εφαρμογής με την πίσω κάμερα</string>
     <string name="save_photo_metadata">Αποθήκευση μεταδεδομένων exif φωτογραφίας</string>
+    <string name="save_photo_location">Save photo location</string>
     <string name="photo_compression_quality">Ποιότητα συμπίεσης φωτογραφιών</string>
     <string name="shutter">Κλείστρο</string>
     <!--
