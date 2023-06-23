@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Ayar düğmelerini görünür durumda tut</string>
     <string name="always_open_back_camera">Uygulamayı her zaman arka kamera ile aç</string>
     <string name="save_photo_metadata">Fotoğraflara Exif meta verilerini kaydet</string>
-    <string name="save_photo_location">Save photo location</string>
+    <string name="save_photo_location">Fotoğraf konumunu kaydet</string>
     <string name="photo_compression_quality">Fotoğraf sıkıştırma kalitesi</string>
     <string name="shutter">Deklanşör</string>
     <!--
