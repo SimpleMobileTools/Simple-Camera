@@ -7,10 +7,10 @@
     <string name="minimize_latency">Eelista väiksemat viivitust</string>
     <!-- Errors -->
     <string name="camera_unavailable">Kaamera pole kasutatav</string>
-    <string name="camera_open_error">Kaameraühenduse loomisel tekki viga</string>
+    <string name="camera_open_error">Kaameraühenduse loomisel tekkis viga</string>
     <string name="video_creating_error">Videofaili loomisel tekkis viga</string>
     <string name="video_mode_error">Videorežiimi vahetamine ei õnnestunud</string>
-    <string name="save_error_internal_storage">Tekkis viga ja salvestamise kaust asub on nüüd sisemälus</string>
+    <string name="save_error_internal_storage">Tekkis viga ja salvestamise kaust asub nüüd sisemälus</string>
     <string name="camera_switch_error">Kaamera vahetamine ei õnnestunud</string>
     <string name="click_to_resume_preview">Eelvaate jätkamiseks klõpsi pilti</string>
     <string name="photo_not_saved">Foto salvestamine ei õnnestunud</string>
@@ -19,16 +19,16 @@
     <string name="camera_in_use_error">Kaamerat kasutab üks teine rakendus, palun sulge see ja proovi uuesti</string>
     <string name="camera_configure_error">Kaamera seadistamisel tekkis viga</string>
     <string name="camera_disabled_by_admin_error">Nutiseadme haldaja on kaamera välja lülitanud</string>
-    <string name="camera_dnd_error">Ära häiri režiim on sisse lülitatud. Palun lülita see välja ja proovi uuesti</string>
+    <string name="camera_dnd_error">„Ära häiri“ režiim on sisse lülitatud. Palun lülita see välja ja proovi uuesti</string>
     <string name="photo_capture_failed">Foto jäädvustamine ei õnnestunud</string>
     <string name="video_capture_insufficient_storage_error">Video salvestamine ei õnnestunud ebapiisava salvestusruumi tõttu</string>
     <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Foto/video režiimi ümberlülitamine</string>
     <string name="change_resolution">Muuda resolutsiooni</string>
-    <string name="view_last_media">Vaadake viimast salvestatud meediat</string>
-    <string name="toggle_camera">Vahetamine esi-/tagakaamera</string>
-    <string name="toggle_flash">Lülitage taskulambi režiim sisse</string>
-    <string name="toggle_timer">Lülita taimerirežiim sisse/välja</string>
+    <string name="view_last_media">Vaata viimast salvestatud meediat</string>
+    <string name="toggle_camera">Vaheta ees- ja tagakaamera</string>
+    <string name="toggle_flash">Lülita taskulambi režiim sisse ja välja</string>
+    <string name="toggle_timer">Lülita taimerirežiim sisse ja välja</string>
     <!-- FAQ -->
     <string name="faq_1_title">Missugust piltide pakkimise kvaliteeti peaksin kasutama\?</string>
     <string name="faq_1_text">See sõltub sinu eesmärkidest. Üldiselt soovitame 75-80-protsendilist pakkimist, mispuhul piltide kvaliteet on jätkuvalt mõistlik, kuid piltide suurus on 100-protsendilise kvaliteediga võrreldes väiksem.</string>
