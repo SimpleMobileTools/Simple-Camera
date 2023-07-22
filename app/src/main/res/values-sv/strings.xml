@@ -27,7 +27,7 @@
     <string name="change_resolution">Ändra upplösning</string>
     <string name="view_last_media">Visa senast sparade media</string>
     <string name="toggle_camera">Växla mellan främre/bakre kamera</string>
-    <string name="toggle_flash">Växla ficklampans läge</string>
+    <string name="toggle_flash">Växla mellan ficklampans lägen</string>
     <string name="toggle_timer">Växla mellan timerlägena</string>
     <!-- FAQ -->
     <string name="faq_1_title">Vilken kvalitet för fotokomprimering ska jag ställa in\?</string>
@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Behåll inställningsknapparna synliga</string>
     <string name="always_open_back_camera">Växla till den bakre kameran när appen öppnas</string>
     <string name="save_photo_metadata">Spara fotonas Exif-metadata</string>
-    <string name="save_photo_location">Save photo location</string>
+    <string name="save_photo_location">Spara platser för foton</string>
     <string name="photo_compression_quality">Fotokomprimeringskvalitet</string>
     <string name="shutter">Slutare</string>
     <!--
