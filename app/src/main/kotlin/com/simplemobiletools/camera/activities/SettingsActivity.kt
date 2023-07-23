@@ -4,15 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.extensions.checkLocationPermission
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.CaptureMode
 import com.simplemobiletools.commons.dialogs.FeatureLockedDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.dialogs.OpenAppSettingsDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
-import com.simplemobiletools.commons.helpers.NavigationIcon
-import com.simplemobiletools.commons.helpers.isTiramisuPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -43,6 +43,7 @@ class SettingsActivity : SimpleActivity() {
         setupVolumeButtonsAsShutter()
         setupFlipPhotos()
         setupSavePhotoMetadata()
+        setupSaveMediaLocation()
         setupSavePhotosFolder()
         setupPhotoQuality()
         setupCaptureMode()
@@ -163,6 +164,34 @@ class SettingsActivity : SimpleActivity() {
             settings_save_photo_metadata.toggle()
             config.savePhotoMetadata = settings_save_photo_metadata.isChecked
         }
+    }
+
+    private fun setupSaveMediaLocation() {
+        settings_save_media_location.isChecked = config.saveMediaLocation
+        settings_save_media_location_holder.setOnClickListener {
+            val willEnableSaveMediaLocation = !config.saveMediaLocation
+
+            if (willEnableSaveMediaLocation) {
+                if (checkLocationPermission()) {
+                    updateSaveMediaLocationConfig(true)
+                } else {
+                    handlePermission(PERMISSION_ACCESS_FINE_LOCATION) { _ ->
+                        if (checkLocationPermission()) {
+                            updateSaveMediaLocationConfig(true)
+                        } else {
+                            OpenAppSettingsDialog(activity = this@SettingsActivity, permissionId = R.string.permission_name_location)
+                        }
+                    }
+                }
+            } else {
+                updateSaveMediaLocationConfig(false)
+            }
+        }
+    }
+
+    private fun updateSaveMediaLocationConfig(enabled: Boolean) {
+        settings_save_media_location.isChecked = enabled
+        config.saveMediaLocation = enabled
     }
 
     private fun setupSavePhotosFolder() {

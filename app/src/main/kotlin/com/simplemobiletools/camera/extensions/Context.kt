@@ -2,9 +2,13 @@ package com.simplemobiletools.camera.extensions
 
 import android.content.Context
 import com.simplemobiletools.camera.helpers.Config
+import com.simplemobiletools.commons.extensions.hasPermission
+import com.simplemobiletools.commons.helpers.PERMISSION_ACCESS_COARSE_LOCATION
+import com.simplemobiletools.commons.helpers.PERMISSION_ACCESS_FINE_LOCATION
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 
@@ -40,4 +44,8 @@ fun getRandomMediaName(isPhoto: Boolean): String {
     } else {
         "VID_$timestamp"
     }
+}
+
+fun Context.checkLocationPermission(): Boolean {
+    return hasPermission(PERMISSION_ACCESS_FINE_LOCATION) || hasPermission(PERMISSION_ACCESS_COARSE_LOCATION)
 }
