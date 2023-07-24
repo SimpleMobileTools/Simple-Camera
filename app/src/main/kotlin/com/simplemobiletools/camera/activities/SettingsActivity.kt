@@ -7,10 +7,7 @@ import com.simplemobiletools.camera.R
 import com.simplemobiletools.camera.extensions.checkLocationPermission
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.CaptureMode
-import com.simplemobiletools.commons.dialogs.FeatureLockedDialog
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.dialogs.OpenAppSettingsDialog
-import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
@@ -179,7 +176,7 @@ class SettingsActivity : SimpleActivity() {
                         if (checkLocationPermission()) {
                             updateSavePhotoVideoLocationConfig(true)
                         } else {
-                            OpenAppSettingsDialog(activity = this@SettingsActivity, message = getString(R.string.allow_location_permission))
+                            OpenDeviceSettingsDialog(activity = this@SettingsActivity, message = getString(R.string.allow_location_permission))
                         }
                     }
                 }
