@@ -358,7 +358,23 @@ class CameraXPreview(
             if (simpleLocationManager == null) {
                 simpleLocationManager = SimpleLocationManager(activity)
             }
-            simpleLocationManager?.requestLocationUpdates()
+            requestLocationUpdates()
+        }
+    }
+
+    private fun requestLocationUpdates() {
+        activity.apply {
+            if (checkLocationPermission()) {
+                simpleLocationManager?.requestLocationUpdates()
+            } else {
+                handlePermission(PERMISSION_ACCESS_FINE_LOCATION) { _ ->
+                    if (checkLocationPermission()) {
+                        simpleLocationManager?.requestLocationUpdates()
+                    } else {
+                        config.savePhotoVideoLocation = false
+                    }
+                }
+            }
         }
     }
 

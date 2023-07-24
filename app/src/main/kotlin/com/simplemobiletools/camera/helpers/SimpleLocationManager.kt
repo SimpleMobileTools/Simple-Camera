@@ -6,9 +6,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.annotation.RequiresPermission
 import com.simplemobiletools.camera.extensions.checkLocationPermission
-import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.helpers.PERMISSION_ACCESS_FINE_LOCATION
 
 class SimpleLocationManager(private val activity: BaseSimpleActivity) {
 
@@ -47,24 +45,8 @@ class SimpleLocationManager(private val activity: BaseSimpleActivity) {
         }
     }
 
-    fun requestLocationUpdates() {
-        activity.apply {
-            if (checkLocationPermission()) {
-                registerLocationUpdateListener()
-            } else {
-                handlePermission(PERMISSION_ACCESS_FINE_LOCATION) { _ ->
-                    if (checkLocationPermission()) {
-                        registerLocationUpdateListener()
-                    } else {
-                        config.saveMediaLocation = false
-                    }
-                }
-            }
-        }
-    }
-
     @RequiresPermission(anyOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
-    private fun registerLocationUpdateListener() {
+    fun requestLocationUpdates() {
         locationManager.allProviders.forEach { provider ->
             locationManager.requestLocationUpdates(
                 provider,

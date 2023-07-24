@@ -2,12 +2,12 @@ package com.simplemobiletools.camera.implementations
 
 import android.net.Uri
 import androidx.camera.view.PreviewView
-import com.simplemobiletools.camera.activities.MainActivity
 import com.simplemobiletools.camera.helpers.CameraErrorHandler
 import com.simplemobiletools.camera.helpers.MediaOutputHelper
 import com.simplemobiletools.camera.helpers.MediaSoundHelper
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 
-class CameraXInitializer(private val activity: MainActivity) {
+class CameraXInitializer(private val activity: BaseSimpleActivity) {
 
     fun createCameraXPreview(
         previewView: PreviewView,
