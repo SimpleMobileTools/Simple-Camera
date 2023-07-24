@@ -51,6 +51,7 @@
     <string name="always_open_back_camera">Tətbiqi həmişə Arxa kamerada başlat</string>
     <string name="save_photo_metadata">Şəklin haqqında əlavələri saxla</string>
     <string name="save_photo_location">Save photo location</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Şəkil sıxışdırma keyfiyyəti</string>
     <string name="shutter">Çəkən</string>
     <!--

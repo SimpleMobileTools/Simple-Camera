@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Åbn altid appen med kameraet på bagsiden</string>
     <string name="save_photo_metadata">Gem Exif-metadata i fotos</string>
     <string name="save_photo_location">Save photo location</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Fotokomprimeringskvalitet</string>
     <string name="shutter">Lukker</string>
     <!--

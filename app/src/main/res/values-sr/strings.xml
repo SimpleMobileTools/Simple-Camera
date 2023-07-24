@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Увек отварајте апликацију помоћу задње камере</string>
     <string name="save_photo_metadata">Сачувајте екиф метаподатке фотографије</string>
     <string name="save_photo_location">Save photo location</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Квалитет компресије фотографија</string>
     <string name="shutter">Затварач</string>
 </resources>

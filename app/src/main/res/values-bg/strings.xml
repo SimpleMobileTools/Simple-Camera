@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Приложението винаги се отваря със Задната камера</string>
     <string name="save_photo_metadata">Запазване на снимкови exif метаданни</string>
     <string name="save_photo_location">Save photo location</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Ниво на компресия на снимките</string>
     <string name="shutter">Затвор</string>
     <!--

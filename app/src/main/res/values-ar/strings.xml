@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">افتح التطبيق دائمًا بالكاميرا الخلفية</string>
     <string name="save_photo_metadata">حفظ بيانات الصورة الوصفية</string>
     <string name="save_photo_location">حفظ موقع الصورة</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">جودة ضغط الصور</string>
     <string name="shutter">الغالق</string>
     <!--

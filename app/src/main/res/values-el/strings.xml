@@ -51,6 +51,7 @@
     <string name="always_open_back_camera">Πάντα άνοιγμα της εφαρμογής με την πίσω κάμερα</string>
     <string name="save_photo_metadata">Αποθήκευση μεταδεδομένων exif φωτογραφίας</string>
     <string name="save_photo_location">Αποθήκευση τοποθεσίας φωτογραφίας</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Ποιότητα συμπίεσης φωτογραφιών</string>
     <string name="shutter">Κλείστρο</string>
     <!--

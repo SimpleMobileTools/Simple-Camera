@@ -51,6 +51,7 @@
     <string name="always_open_back_camera">Stále otvárať aplikáciu s aktívnou zadnou kamerou</string>
     <string name="save_photo_metadata">Ukladať exif metadáta fotografií</string>
     <string name="save_photo_location">Ukladať údaje o polohe</string>
+    <string name="save_photo_video_location">Ukladať údaje o polohe fotiek a videí</string>
     <string name="photo_compression_quality">Kvalita kompresie fotiek</string>
     <string name="shutter">Spúšť</string>
     <!--

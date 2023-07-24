@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Bij openen app altijd camera achterop activeren</string>
     <string name="save_photo_metadata">EXIF-metadata in foto\'s opslaan</string>
     <string name="save_photo_location">Fotolocatie opslaan</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Kwaliteit foto\'s</string>
     <string name="shutter">Sluiter</string>
     <!--

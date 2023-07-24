@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączonym tylnym aparatem</string>
     <string name="save_photo_metadata">Zapisuj metadane EXIF w zdjęciach</string>
     <string name="save_photo_location">Zapisuj lokalizację zdjęcia</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Jakość kompresji zdjęć</string>
     <string name="shutter">Migawka</string>
     <!--

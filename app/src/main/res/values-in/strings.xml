@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Selalu buka aplikasi dengan kamera belakang</string>
     <string name="save_photo_metadata">Simpan metadata exif foto</string>
     <string name="save_photo_location">Lokasi penyimpanan foto</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Kualitas kompresi foto</string>
     <string name="shutter">Rana</string>
     <!--

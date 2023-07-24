@@ -48,6 +48,7 @@
     <string name="always_open_back_camera">Toujours ouvrir l\'application avec l\'appareil photo arrière</string>
     <string name="save_photo_metadata">Enregistrer les métadonnées Exif dans les photos</string>
     <string name="save_photo_location">Enregistrer l’emplacement de la photo</string>
+    <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Qualité des photos</string>
     <string name="shutter">Obturateur</string>
     <!--
