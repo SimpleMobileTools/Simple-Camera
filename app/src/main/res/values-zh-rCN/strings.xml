@@ -47,10 +47,10 @@
     <string name="keep_settings_visible">设置按钮保持可见</string>
     <string name="always_open_back_camera">打开应用时切换到后置相机</string>
     <string name="save_photo_metadata">保存照片 EXIF 元数据</string>
-    <string name="save_photo_location">保存照片位置</string>
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">照片压缩品质</string>
     <string name="shutter">快门</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

@@ -49,10 +49,10 @@
     <string name="keep_settings_visible">設定按鈕不消失</string>
     <string name="always_open_back_camera">開啟程式總是用後鏡頭</string>
     <string name="save_photo_metadata">儲存相片EXIF資訊</string>
-    <string name="save_photo_location">Save photo location</string>
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">相片壓縮品質</string>
     <string name="shutter">快門</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

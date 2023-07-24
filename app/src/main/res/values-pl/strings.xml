@@ -47,10 +47,10 @@
     <string name="keep_settings_visible">Pozostawiaj przyciski ustawień widoczne</string>
     <string name="always_open_back_camera">Zawsze otwieraj aplikację z włączonym tylnym aparatem</string>
     <string name="save_photo_metadata">Zapisuj metadane EXIF w zdjęciach</string>
-    <string name="save_photo_location">Zapisuj lokalizację zdjęcia</string>
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Jakość kompresji zdjęć</string>
     <string name="shutter">Migawka</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

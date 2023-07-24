@@ -47,10 +47,10 @@
     <string name="keep_settings_visible">Knop Instellingen altijd tonen</string>
     <string name="always_open_back_camera">Bij openen app altijd camera achterop activeren</string>
     <string name="save_photo_metadata">EXIF-metadata in foto\'s opslaan</string>
-    <string name="save_photo_location">Fotolocatie opslaan</string>
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Kwaliteit foto\'s</string>
     <string name="shutter">Sluiter</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

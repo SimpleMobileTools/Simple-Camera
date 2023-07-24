@@ -43,7 +43,7 @@ class SettingsActivity : SimpleActivity() {
         setupVolumeButtonsAsShutter()
         setupFlipPhotos()
         setupSavePhotoMetadata()
-        setupSaveMediaLocation()
+        setupSavePhotoVideoLocation()
         setupSavePhotosFolder()
         setupPhotoQuality()
         setupCaptureMode()
@@ -166,32 +166,32 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupSaveMediaLocation() {
-        settings_save_media_location.isChecked = config.saveMediaLocation
-        settings_save_media_location_holder.setOnClickListener {
-            val willEnableSaveMediaLocation = !config.saveMediaLocation
+    private fun setupSavePhotoVideoLocation() {
+        settings_save_photo_video_location.isChecked = config.savePhotoVideoLocation
+        settings_save_photo_video_location_holder.setOnClickListener {
+            val willEnableSavePhotoVideoLocation = !config.savePhotoVideoLocation
 
-            if (willEnableSaveMediaLocation) {
+            if (willEnableSavePhotoVideoLocation) {
                 if (checkLocationPermission()) {
-                    updateSaveMediaLocationConfig(true)
+                    updateSavePhotoVideoLocationConfig(true)
                 } else {
                     handlePermission(PERMISSION_ACCESS_FINE_LOCATION) { _ ->
                         if (checkLocationPermission()) {
-                            updateSaveMediaLocationConfig(true)
+                            updateSavePhotoVideoLocationConfig(true)
                         } else {
-                            OpenAppSettingsDialog(activity = this@SettingsActivity, permissionId = R.string.permission_name_location)
+                            OpenAppSettingsDialog(activity = this@SettingsActivity, message = getString(R.string.allow_location_permission))
                         }
                     }
                 }
             } else {
-                updateSaveMediaLocationConfig(false)
+                updateSavePhotoVideoLocationConfig(false)
             }
         }
     }
 
-    private fun updateSaveMediaLocationConfig(enabled: Boolean) {
-        settings_save_media_location.isChecked = enabled
-        config.saveMediaLocation = enabled
+    private fun updateSavePhotoVideoLocationConfig(enabled: Boolean) {
+        settings_save_photo_video_location.isChecked = enabled
+        config.savePhotoVideoLocation = enabled
     }
 
     private fun setupSavePhotosFolder() {
