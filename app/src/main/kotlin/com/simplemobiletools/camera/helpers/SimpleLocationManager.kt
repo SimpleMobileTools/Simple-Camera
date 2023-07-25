@@ -11,7 +11,7 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 class SimpleLocationManager(private val activity: BaseSimpleActivity) {
 
     companion object {
-        private const val LOCATION_UPDATE_MIN_TIME_INTERVAL_MS = 5_000L
+        private const val LOCATION_UPDATE_MIN_TIME_INTERVAL_MS = 5000L
         private const val LOCATION_UPDATE_MIN_DISTANCE_M = 10F
     }
 
