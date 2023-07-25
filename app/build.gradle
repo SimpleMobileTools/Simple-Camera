@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.fatihergin:Simple-Commons:db3c379ac2' // TODO: replace it with SimpleMobileTools after merging the Commons PR
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:a113438b6b'
     implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation "androidx.exifinterface:exifinterface:1.3.5"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
