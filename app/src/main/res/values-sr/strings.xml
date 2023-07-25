@@ -50,5 +50,4 @@
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Квалитет компресије фотографија</string>
     <string name="shutter">Затварач</string>
-    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
 </resources>

@@ -50,7 +50,6 @@
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Qualidade da compressão</string>
     <string name="shutter">Obturador</string>
-    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Não encontrou todas as cadeias a traduzir? Existem mais algumas em:
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
