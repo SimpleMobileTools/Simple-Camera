@@ -50,10 +50,10 @@
     <string name="keep_settings_visible">Neskrývať tlačidlá nastavení</string>
     <string name="always_open_back_camera">Stále otvárať aplikáciu s aktívnou zadnou kamerou</string>
     <string name="save_photo_metadata">Ukladať exif metadáta fotografií</string>
-    <string name="save_photo_location">Ukladať údaje o polohe</string>
     <string name="save_photo_video_location">Ukladať údaje o polohe fotiek a videí</string>
     <string name="photo_compression_quality">Kvalita kompresie fotiek</string>
     <string name="shutter">Spúšť</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

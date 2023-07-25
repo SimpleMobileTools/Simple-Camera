@@ -205,6 +205,21 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/settings_save_photo_video_location_holder"
+                    style="@style/SettingsHolderCheckboxStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.simplemobiletools.commons.views.MyAppCompatCheckbox
+                        android:id="@+id/settings_save_photo_video_location"
+                        style="@style/SettingsCheckboxStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save_photo_video_location" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/settings_flip_photos_holder"
                     style="@style/SettingsHolderCheckboxStyle"
                     android:layout_width="match_parent"

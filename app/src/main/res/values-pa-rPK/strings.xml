@@ -47,8 +47,8 @@
     <string name="keep_settings_visible">Keep the setting buttons visible</string>
     <string name="always_open_back_camera">Always open the app with the Back camera</string>
     <string name="save_photo_metadata">ایکسیف میٹاڈیٹا سامبھو</string>
-    <string name="save_photo_location">Save photo location</string>
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Photo compression quality</string>
     <string name="shutter">Shutter</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
 </resources>

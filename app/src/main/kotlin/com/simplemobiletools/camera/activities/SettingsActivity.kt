@@ -4,15 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.extensions.checkLocationPermission
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.CaptureMode
-import com.simplemobiletools.commons.dialogs.FeatureLockedDialog
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.LICENSE_GLIDE
-import com.simplemobiletools.commons.helpers.NavigationIcon
-import com.simplemobiletools.commons.helpers.isTiramisuPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -43,6 +40,7 @@ class SettingsActivity : SimpleActivity() {
         setupVolumeButtonsAsShutter()
         setupFlipPhotos()
         setupSavePhotoMetadata()
+        setupSavePhotoVideoLocation()
         setupSavePhotosFolder()
         setupPhotoQuality()
         setupCaptureMode()
@@ -163,6 +161,34 @@ class SettingsActivity : SimpleActivity() {
             settings_save_photo_metadata.toggle()
             config.savePhotoMetadata = settings_save_photo_metadata.isChecked
         }
+    }
+
+    private fun setupSavePhotoVideoLocation() {
+        settings_save_photo_video_location.isChecked = config.savePhotoVideoLocation
+        settings_save_photo_video_location_holder.setOnClickListener {
+            val willEnableSavePhotoVideoLocation = !config.savePhotoVideoLocation
+
+            if (willEnableSavePhotoVideoLocation) {
+                if (checkLocationPermission()) {
+                    updateSavePhotoVideoLocationConfig(true)
+                } else {
+                    handlePermission(PERMISSION_ACCESS_FINE_LOCATION) { _ ->
+                        if (checkLocationPermission()) {
+                            updateSavePhotoVideoLocationConfig(true)
+                        } else {
+                            OpenDeviceSettingsDialog(activity = this@SettingsActivity, message = getString(R.string.allow_location_permission))
+                        }
+                    }
+                }
+            } else {
+                updateSavePhotoVideoLocationConfig(false)
+            }
+        }
+    }
+
+    private fun updateSavePhotoVideoLocationConfig(enabled: Boolean) {
+        settings_save_photo_video_location.isChecked = enabled
+        config.savePhotoVideoLocation = enabled
     }
 
     private fun setupSavePhotosFolder() {

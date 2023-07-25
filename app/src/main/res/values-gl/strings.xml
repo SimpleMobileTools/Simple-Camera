@@ -47,10 +47,10 @@
     <string name="keep_settings_visible">Manter visibles os botóns dos axustes</string>
     <string name="always_open_back_camera">Abrir sempre o aplicativo coa cámara traseira</string>
     <string name="save_photo_metadata">Gardar metadatos EXIF da foto</string>
-    <string name="save_photo_location">Save photo location</string>
     <string name="save_photo_video_location">Save photo and video location</string>
     <string name="photo_compression_quality">Calidade da compresión da foto</string>
     <string name="shutter">Obturador</string>
+    <string name="allow_location_permission">You must allow Camera accessing location, else it cannot complete this action.</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
