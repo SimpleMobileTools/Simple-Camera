@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Mantén els botons de configuració visibles</string>
     <string name="always_open_back_camera">Obre sempre l\'aplicació amb la càmera del darrere</string>
     <string name="save_photo_metadata">Desa les metadades Exif de la foto</string>
-    <string name="save_photo_video_location">Save photo and video location</string>
+    <string name="save_photo_video_location">Desa la ubicació de les fotos i els vídeos</string>
     <string name="photo_compression_quality">Qualitat de compressió fotogràfica</string>
     <string name="shutter">Obturador</string>
     <!--
