@@ -82,6 +82,7 @@ class MediaActionSound(private val context: Context) {
                         soundToBePlayed = sound
                         sound.state = STATE_LOADED
                     }
+
                     else -> Log.e(TAG, "OnLoadCompleteListener() called in wrong state: ${sound.state} for sound: ${sound.mediaSound}")
                 }
             }
@@ -112,6 +113,7 @@ class MediaActionSound(private val context: Context) {
                     break
                 }
             }
+
             is MediaSound.RawResSound -> {
                 id = soundPool!!.load(context, sound.mediaSound.resId, 1)
             }
@@ -127,7 +129,7 @@ class MediaActionSound(private val context: Context) {
     }
 
     fun load(mediaSound: MediaSound) {
-        val sound = sounds.first { it.mediaSound == mediaSound }
+        val sound = sounds.firstOrNull() { it.mediaSound == mediaSound } ?: return
         synchronized(sound) {
             when (sound.state) {
                 STATE_NOT_LOADED -> {
@@ -137,6 +139,7 @@ class MediaActionSound(private val context: Context) {
                         }
                     }
                 }
+
                 else -> Log.e(TAG, "load() called in wrong state: $sound for sound: $mediaSound")
             }
         }
@@ -161,10 +164,12 @@ class MediaActionSound(private val context: Context) {
                         sound.state = STATE_LOADING_PLAY_REQUESTED
                     }
                 }
+
                 STATE_LOADING -> sound.state = STATE_LOADING_PLAY_REQUESTED
                 STATE_LOADED -> {
                     playWithSoundPool(sound)
                 }
+
                 else -> Log.e(TAG, "play() called in wrong state: ${sound.state} for sound: $mediaSound")
             }
         }
@@ -195,6 +200,7 @@ class MediaActionSound(private val context: Context) {
                 STATE_LOADED -> {
                     soundPool!!.stop(sound.streamId)
                 }
+
                 else -> Log.w(TAG, "stop() should be called after sound is loaded for sound: $mediaSound")
             }
         }

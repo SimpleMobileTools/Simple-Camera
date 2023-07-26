@@ -463,14 +463,12 @@ class CameraXPreview(
             when (flashMode) {
                 FLASH_MODE_OFF -> FLASH_MODE_ON
                 FLASH_MODE_ON -> FLASH_MODE_AUTO
-                FLASH_MODE_AUTO -> FLASH_MODE_OFF
-                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+                else -> FLASH_MODE_OFF
             }
         } else {
             when (flashMode) {
                 FLASH_MODE_OFF -> FLASH_MODE_ON
-                FLASH_MODE_ON -> FLASH_MODE_OFF
-                else -> throw IllegalArgumentException("Unknown mode: $flashMode")
+                else -> FLASH_MODE_OFF
             }
         }
         setFlashlightState(newFlashMode.toAppFlashMode())
