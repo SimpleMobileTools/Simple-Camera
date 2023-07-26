@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Taste für Einstellungen immer sichtbar</string>
     <string name="always_open_back_camera">Anwendung immer mit der Rückkamera starten</string>
     <string name="save_photo_metadata">Exif-Metadaten in Fotos speichern</string>
-    <string name="save_photo_video_location">Save photo and video location</string>
+    <string name="save_photo_video_location">Foto- und Videostandort speichern</string>
     <string name="photo_compression_quality">Fotokomprimierungsqualität</string>
     <string name="shutter">Verschluss</string>
     <!--
