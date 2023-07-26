@@ -1,0 +1,2 @@
+ * Allow storing photo and video location
+ * Added some UI, translation and stability improvements

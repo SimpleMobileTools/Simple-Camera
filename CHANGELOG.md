@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.7.0 *(2023-07-26)*
+----------------------------
+
+ * Allow storing photo and video location
+ * Added some UI, translation and stability improvements
+
 Version 5.6.3 *(2023-05-14)*
 ----------------------------
 
