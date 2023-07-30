@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.databinding.ActivitySettingsBinding
 import com.simplemobiletools.camera.extensions.checkLocationPermission
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.models.CaptureMode
@@ -12,25 +13,27 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
-import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
+    private lateinit var binding: ActivitySettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupOptionsMenu()
         refreshMenuItems()
 
-        updateMaterialActivityViews(settings_coordinator, settings_holder, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(settings_nested_scrollview, settings_toolbar)
+        updateMaterialActivityViews(binding.settingsCoordinator, binding.settingsHolder, useTransparentNavigation = true, useTopSearchMenu = false)
+        setupMaterialScrollListener(binding.settingsNestedScrollview, binding.settingsToolbar)
     }
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(settings_toolbar, NavigationIcon.Arrow)
+        setupToolbar(binding.settingsToolbar, NavigationIcon.Arrow)
 
         setupPurchaseThankYou()
         setupCustomizeColors()
@@ -44,27 +47,27 @@ class SettingsActivity : SimpleActivity() {
         setupSavePhotosFolder()
         setupPhotoQuality()
         setupCaptureMode()
-        updateTextColors(settings_holder)
+        updateTextColors(binding.settingsHolder)
 
         val properPrimaryColor = getProperPrimaryColor()
         arrayListOf(
-            settings_color_customization_label,
-            settings_general_settings_label,
-            settings_shutter_label,
-            settings_saving_label
+            binding.settingsColorCustomizationLabel,
+            binding.settingsGeneralSettingsLabel,
+            binding.settingsShutterLabel,
+            binding.settingsSavingLabel,
         ).forEach {
             it.setTextColor(properPrimaryColor)
         }
     }
 
     private fun refreshMenuItems() {
-        settings_toolbar.menu.apply {
+        binding.settingsToolbar.menu.apply {
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
         }
     }
 
     private fun setupOptionsMenu() {
-        settings_toolbar.setOnMenuItemClickListener { menuItem ->
+        binding.settingsToolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                 R.id.about -> launchAbout()
@@ -75,38 +78,38 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupPurchaseThankYou() {
-        settings_purchase_thank_you_holder.beGoneIf(isOrWasThankYouInstalled())
-        settings_purchase_thank_you_holder.setOnClickListener {
+        binding.settingsPurchaseThankYouHolder.beGoneIf(isOrWasThankYouInstalled())
+        binding.settingsPurchaseThankYouHolder.setOnClickListener {
             launchPurchaseThankYouIntent()
         }
     }
 
     private fun setupCustomizeColors() {
-        settings_customize_colors_label.text = getCustomizeColorsString()
-        settings_color_customization_holder.setOnClickListener {
+        binding.settingsCustomizeColorsLabel.text = getCustomizeColorsString()
+        binding.settingsColorCustomizationHolder.setOnClickListener {
             handleCustomizeColorsClick()
         }
     }
 
     private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
-        settings_use_english.isChecked = config.useEnglish
-        settings_use_english_holder.setOnClickListener {
-            settings_use_english.toggle()
-            config.useEnglish = settings_use_english.isChecked
+        binding.settingsUseEnglishHolder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
+        binding.settingsUseEnglish.isChecked = config.useEnglish
+        binding.settingsUseEnglishHolder.setOnClickListener {
+            binding.settingsUseEnglish.toggle()
+            config.useEnglish = binding.settingsUseEnglish.isChecked
             exitProcess(0)
         }
     }
 
     private fun setupLanguage() {
-        settings_language.text = Locale.getDefault().displayLanguage
-        settings_language_holder.beVisibleIf(isTiramisuPlus())
+        binding.settingsLanguage.text = Locale.getDefault().displayLanguage
+        binding.settingsLanguageHolder.beVisibleIf(isTiramisuPlus())
 
-        listOf(settings_general_settings_holder, settings_general_settings_label).forEach {
-            it.beGoneIf(settings_use_english_holder.isGone() && settings_purchase_thank_you_holder.isGone() && settings_language_holder.isGone())
+        listOf(binding.settingsGeneralSettingsHolder, binding.settingsGeneralSettingsLabel).forEach {
+            it.beGoneIf(binding.settingsUseEnglishHolder.isGone() && binding.settingsPurchaseThankYouHolder.isGone() && binding.settingsLanguageHolder.isGone())
         }
 
-        settings_language_holder.setOnClickListener {
+        binding.settingsLanguageHolder.setOnClickListener {
             launchChangeAppLanguageIntent()
         }
     }
@@ -132,40 +135,40 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupSound() {
-        settings_sound.isChecked = config.isSoundEnabled
-        settings_sound_holder.setOnClickListener {
-            settings_sound.toggle()
-            config.isSoundEnabled = settings_sound.isChecked
+        binding.settingsSound.isChecked = config.isSoundEnabled
+        binding.settingsSoundHolder.setOnClickListener {
+            binding.settingsSound.toggle()
+            config.isSoundEnabled = binding.settingsSound.isChecked
         }
     }
 
     private fun setupVolumeButtonsAsShutter() {
-        settings_volume_buttons_as_shutter.isChecked = config.volumeButtonsAsShutter
-        settings_volume_buttons_as_shutter_holder.setOnClickListener {
-            settings_volume_buttons_as_shutter.toggle()
-            config.volumeButtonsAsShutter = settings_volume_buttons_as_shutter.isChecked
+        binding.settingsVolumeButtonsAsShutter.isChecked = config.volumeButtonsAsShutter
+        binding.settingsVolumeButtonsAsShutterHolder.setOnClickListener {
+            binding.settingsVolumeButtonsAsShutter.toggle()
+            config.volumeButtonsAsShutter = binding.settingsVolumeButtonsAsShutter.isChecked
         }
     }
 
     private fun setupFlipPhotos() {
-        settings_flip_photos.isChecked = config.flipPhotos
-        settings_flip_photos_holder.setOnClickListener {
-            settings_flip_photos.toggle()
-            config.flipPhotos = settings_flip_photos.isChecked
+        binding.settingsFlipPhotos.isChecked = config.flipPhotos
+        binding.settingsFlipPhotosHolder.setOnClickListener {
+            binding.settingsFlipPhotos.toggle()
+            config.flipPhotos = binding.settingsFlipPhotos.isChecked
         }
     }
 
     private fun setupSavePhotoMetadata() {
-        settings_save_photo_metadata.isChecked = config.savePhotoMetadata
-        settings_save_photo_metadata_holder.setOnClickListener {
-            settings_save_photo_metadata.toggle()
-            config.savePhotoMetadata = settings_save_photo_metadata.isChecked
+        binding.settingsSavePhotoMetadata.isChecked = config.savePhotoMetadata
+        binding.settingsSavePhotoMetadataHolder.setOnClickListener {
+            binding.settingsSavePhotoMetadata.toggle()
+            config.savePhotoMetadata = binding.settingsSavePhotoMetadata.isChecked
         }
     }
 
     private fun setupSavePhotoVideoLocation() {
-        settings_save_photo_video_location.isChecked = config.savePhotoVideoLocation
-        settings_save_photo_video_location_holder.setOnClickListener {
+        binding.settingsSavePhotoVideoLocation.isChecked = config.savePhotoVideoLocation
+        binding.settingsSavePhotoVideoLocationHolder.setOnClickListener {
             val willEnableSavePhotoVideoLocation = !config.savePhotoVideoLocation
 
             if (willEnableSavePhotoVideoLocation) {
@@ -187,21 +190,21 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun updateSavePhotoVideoLocationConfig(enabled: Boolean) {
-        settings_save_photo_video_location.isChecked = enabled
+        binding.settingsSavePhotoVideoLocation.isChecked = enabled
         config.savePhotoVideoLocation = enabled
     }
 
     private fun setupSavePhotosFolder() {
-        settings_save_photos_label.text = addLockedLabelIfNeeded(R.string.save_photos)
-        settings_save_photos.text = getLastPart(config.savePhotosFolder)
-        settings_save_photos_holder.setOnClickListener {
+        binding.settingsSavePhotosLabel.text = addLockedLabelIfNeeded(R.string.save_photos)
+        binding.settingsSavePhotos.text = getLastPart(config.savePhotosFolder)
+        binding.settingsSavePhotosHolder.setOnClickListener {
             if (isOrWasThankYouInstalled()) {
                 FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
                     val path = it
                     handleSAFDialog(it) { success ->
                         if (success) {
                             config.savePhotosFolder = path
-                            settings_save_photos.text = getLastPart(config.savePhotosFolder)
+                            binding.settingsSavePhotos.text = getLastPart(config.savePhotosFolder)
                         }
                     }
                 }
@@ -213,7 +216,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupPhotoQuality() {
         updatePhotoQuality(config.photoQuality)
-        settings_photo_quality_holder.setOnClickListener {
+        binding.settingsPhotoQualityHolder.setOnClickListener {
             val items = arrayListOf(
                 RadioItem(100, "100%"),
                 RadioItem(95, "95%"),
@@ -237,12 +240,12 @@ class SettingsActivity : SimpleActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun updatePhotoQuality(quality: Int) {
-        settings_photo_quality.text = "$quality%"
+        binding.settingsPhotoQuality.text = "$quality%"
     }
 
     private fun setupCaptureMode() {
         updateCaptureMode(config.captureMode)
-        settings_capture_mode_holder.setOnClickListener {
+        binding.settingsCaptureModeHolder.setOnClickListener {
             val items = CaptureMode.values().mapIndexed { index, captureMode ->
                 RadioItem(index, getString(captureMode.stringResId), captureMode)
             }
@@ -255,7 +258,6 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun updateCaptureMode(captureMode: CaptureMode) {
-        settings_capture_mode.text = getString(captureMode.stringResId)
+        binding.settingsCaptureMode.text = getString(captureMode.stringResId)
     }
-
 }

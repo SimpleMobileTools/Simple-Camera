@@ -30,11 +30,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <include layout="@layout/layout_top" />
+        <include
+            android:id="@+id/layout_top"
+            layout="@layout/layout_top" />
 
-        <include layout="@layout/layout_flash" />
+        <include
+            android:id="@+id/layout_flash"
+            layout="@layout/layout_flash" />
 
-        <include layout="@layout/layout_timer" />
+        <include
+            android:id="@+id/layout_timer"
+            layout="@layout/layout_timer" />
 
     </FrameLayout>
 
@@ -80,13 +86,11 @@
             app:tabTextColor="@color/md_grey_white">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/camera_mode_tab_video"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/video" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/camera_mode_tab_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/photo" />
