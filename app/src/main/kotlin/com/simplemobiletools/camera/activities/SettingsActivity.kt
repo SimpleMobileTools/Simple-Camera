@@ -23,12 +23,14 @@ class SettingsActivity : SimpleActivity() {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setupOptionsMenu()
-        refreshMenuItems()
+        binding.apply {
+            setContentView(root)
+            setupOptionsMenu()
+            refreshMenuItems()
 
-        updateMaterialActivityViews(binding.settingsCoordinator, binding.settingsHolder, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(binding.settingsNestedScrollview, binding.settingsToolbar)
+            updateMaterialActivityViews(settingsCoordinator, settingsHolder, useTransparentNavigation = true, useTopSearchMenu = false)
+            setupMaterialScrollListener(settingsNestedScrollview, settingsToolbar)
+        }
     }
 
     override fun onResume() {
@@ -50,13 +52,15 @@ class SettingsActivity : SimpleActivity() {
         updateTextColors(binding.settingsHolder)
 
         val properPrimaryColor = getProperPrimaryColor()
-        arrayListOf(
-            binding.settingsColorCustomizationLabel,
-            binding.settingsGeneralSettingsLabel,
-            binding.settingsShutterLabel,
-            binding.settingsSavingLabel,
-        ).forEach {
-            it.setTextColor(properPrimaryColor)
+        binding.apply {
+            arrayListOf(
+                settingsColorCustomizationLabel,
+                settingsGeneralSettingsLabel,
+                settingsShutterLabel,
+                settingsSavingLabel,
+            ).forEach {
+                it.setTextColor(properPrimaryColor)
+            }
         }
     }
 
@@ -91,25 +95,25 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupUseEnglish() {
-        binding.settingsUseEnglishHolder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
-        binding.settingsUseEnglish.isChecked = config.useEnglish
-        binding.settingsUseEnglishHolder.setOnClickListener {
-            binding.settingsUseEnglish.toggle()
-            config.useEnglish = binding.settingsUseEnglish.isChecked
+    private fun setupUseEnglish() = binding.apply {
+        settingsUseEnglishHolder.beVisibleIf((config.wasUseEnglishToggled || Locale.getDefault().language != "en") && !isTiramisuPlus())
+        settingsUseEnglish.isChecked = config.useEnglish
+        settingsUseEnglishHolder.setOnClickListener {
+            settingsUseEnglish.toggle()
+            config.useEnglish = settingsUseEnglish.isChecked
             exitProcess(0)
         }
     }
 
-    private fun setupLanguage() {
-        binding.settingsLanguage.text = Locale.getDefault().displayLanguage
-        binding.settingsLanguageHolder.beVisibleIf(isTiramisuPlus())
+    private fun setupLanguage() = binding.apply {
+        settingsLanguage.text = Locale.getDefault().displayLanguage
+        settingsLanguageHolder.beVisibleIf(isTiramisuPlus())
 
-        listOf(binding.settingsGeneralSettingsHolder, binding.settingsGeneralSettingsLabel).forEach {
-            it.beGoneIf(binding.settingsUseEnglishHolder.isGone() && binding.settingsPurchaseThankYouHolder.isGone() && binding.settingsLanguageHolder.isGone())
+        listOf(settingsGeneralSettingsHolder, settingsGeneralSettingsLabel).forEach {
+            it.beGoneIf(settingsUseEnglishHolder.isGone() && settingsPurchaseThankYouHolder.isGone() && settingsLanguageHolder.isGone())
         }
 
-        binding.settingsLanguageHolder.setOnClickListener {
+        settingsLanguageHolder.setOnClickListener {
             launchChangeAppLanguageIntent()
         }
     }
@@ -134,41 +138,41 @@ class SettingsActivity : SimpleActivity() {
         return humanized.substringAfterLast("/", humanized)
     }
 
-    private fun setupSound() {
-        binding.settingsSound.isChecked = config.isSoundEnabled
-        binding.settingsSoundHolder.setOnClickListener {
-            binding.settingsSound.toggle()
-            config.isSoundEnabled = binding.settingsSound.isChecked
+    private fun setupSound() = binding.apply {
+        settingsSound.isChecked = config.isSoundEnabled
+        settingsSoundHolder.setOnClickListener {
+            settingsSound.toggle()
+            config.isSoundEnabled = settingsSound.isChecked
         }
     }
 
-    private fun setupVolumeButtonsAsShutter() {
-        binding.settingsVolumeButtonsAsShutter.isChecked = config.volumeButtonsAsShutter
-        binding.settingsVolumeButtonsAsShutterHolder.setOnClickListener {
-            binding.settingsVolumeButtonsAsShutter.toggle()
-            config.volumeButtonsAsShutter = binding.settingsVolumeButtonsAsShutter.isChecked
+    private fun setupVolumeButtonsAsShutter() = binding.apply {
+        settingsVolumeButtonsAsShutter.isChecked = config.volumeButtonsAsShutter
+        settingsVolumeButtonsAsShutterHolder.setOnClickListener {
+            settingsVolumeButtonsAsShutter.toggle()
+            config.volumeButtonsAsShutter = settingsVolumeButtonsAsShutter.isChecked
         }
     }
 
-    private fun setupFlipPhotos() {
-        binding.settingsFlipPhotos.isChecked = config.flipPhotos
-        binding.settingsFlipPhotosHolder.setOnClickListener {
-            binding.settingsFlipPhotos.toggle()
-            config.flipPhotos = binding.settingsFlipPhotos.isChecked
+    private fun setupFlipPhotos() = binding.apply {
+        settingsFlipPhotos.isChecked = config.flipPhotos
+        settingsFlipPhotosHolder.setOnClickListener {
+            settingsFlipPhotos.toggle()
+            config.flipPhotos = settingsFlipPhotos.isChecked
         }
     }
 
-    private fun setupSavePhotoMetadata() {
-        binding.settingsSavePhotoMetadata.isChecked = config.savePhotoMetadata
-        binding.settingsSavePhotoMetadataHolder.setOnClickListener {
-            binding.settingsSavePhotoMetadata.toggle()
-            config.savePhotoMetadata = binding.settingsSavePhotoMetadata.isChecked
+    private fun setupSavePhotoMetadata() = binding.apply {
+        settingsSavePhotoMetadata.isChecked = config.savePhotoMetadata
+        settingsSavePhotoMetadataHolder.setOnClickListener {
+            settingsSavePhotoMetadata.toggle()
+            config.savePhotoMetadata = settingsSavePhotoMetadata.isChecked
         }
     }
 
-    private fun setupSavePhotoVideoLocation() {
-        binding.settingsSavePhotoVideoLocation.isChecked = config.savePhotoVideoLocation
-        binding.settingsSavePhotoVideoLocationHolder.setOnClickListener {
+    private fun setupSavePhotoVideoLocation() = binding.apply {
+        settingsSavePhotoVideoLocation.isChecked = config.savePhotoVideoLocation
+        settingsSavePhotoVideoLocationHolder.setOnClickListener {
             val willEnableSavePhotoVideoLocation = !config.savePhotoVideoLocation
 
             if (willEnableSavePhotoVideoLocation) {
@@ -194,22 +198,22 @@ class SettingsActivity : SimpleActivity() {
         config.savePhotoVideoLocation = enabled
     }
 
-    private fun setupSavePhotosFolder() {
-        binding.settingsSavePhotosLabel.text = addLockedLabelIfNeeded(R.string.save_photos)
-        binding.settingsSavePhotos.text = getLastPart(config.savePhotosFolder)
-        binding.settingsSavePhotosHolder.setOnClickListener {
+    private fun setupSavePhotosFolder() = binding.apply {
+        settingsSavePhotosLabel.text = addLockedLabelIfNeeded(R.string.save_photos)
+        settingsSavePhotos.text = getLastPart(config.savePhotosFolder)
+        settingsSavePhotosHolder.setOnClickListener {
             if (isOrWasThankYouInstalled()) {
-                FilePickerDialog(this, config.savePhotosFolder, false, showFAB = true) {
+                FilePickerDialog(this@SettingsActivity, config.savePhotosFolder, false, showFAB = true) {
                     val path = it
                     handleSAFDialog(it) { success ->
                         if (success) {
                             config.savePhotosFolder = path
-                            binding.settingsSavePhotos.text = getLastPart(config.savePhotosFolder)
+                            settingsSavePhotos.text = getLastPart(config.savePhotosFolder)
                         }
                     }
                 }
             } else {
-                FeatureLockedDialog(this) { }
+                FeatureLockedDialog(this@SettingsActivity) { }
             }
         }
     }
