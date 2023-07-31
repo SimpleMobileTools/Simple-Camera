@@ -66,7 +66,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun refreshMenuItems() {
         binding.settingsToolbar.menu.apply {
-            findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
+            findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(com.simplemobiletools.commons.R.bool.hide_google_relations)
         }
     }
 
@@ -125,9 +125,9 @@ class SettingsActivity : SimpleActivity() {
             FAQItem(R.string.faq_1_title, R.string.faq_1_text)
         )
 
-        if (!resources.getBoolean(R.bool.hide_google_relations)) {
-            faqItems.add(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
-            faqItems.add(FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons))
+        if (!resources.getBoolean(com.simplemobiletools.commons.R.bool.hide_google_relations)) {
+            faqItems.add(FAQItem(com.simplemobiletools.commons.R.string.faq_2_title_commons, com.simplemobiletools.commons.R.string.faq_2_text_commons))
+            faqItems.add(FAQItem(com.simplemobiletools.commons.R.string.faq_6_title_commons, com.simplemobiletools.commons.R.string.faq_6_text_commons))
         }
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
@@ -183,7 +183,7 @@ class SettingsActivity : SimpleActivity() {
                         if (checkLocationPermission()) {
                             updateSavePhotoVideoLocationConfig(true)
                         } else {
-                            OpenDeviceSettingsDialog(activity = this@SettingsActivity, message = getString(R.string.allow_location_permission))
+                            OpenDeviceSettingsDialog(activity = this@SettingsActivity, message = getString(com.simplemobiletools.commons.R.string.allow_location_permission))
                         }
                     }
                 }

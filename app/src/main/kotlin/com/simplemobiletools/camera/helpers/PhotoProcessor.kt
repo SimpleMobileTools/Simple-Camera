@@ -98,13 +98,15 @@ class PhotoProcessor(
                     try {
                         image = Bitmap.createBitmap(image, 0, 0, image.width, image.height, matrix, false)
                     } catch (e: OutOfMemoryError) {
-                        activity.toast(R.string.out_of_memory_error)
+                        activity.toast(com.simplemobiletools.commons.R.string.out_of_memory_error)
                     }
                 }
             }
 
             try {
-                image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
+                if (fos != null) {
+                    image.compress(Bitmap.CompressFormat.JPEG, activity.config.photoQuality, fos)
+                }
                 if (!isThirdPartyIntent) {
                     activity.saveImageRotation(path, totalRotation)
                 }

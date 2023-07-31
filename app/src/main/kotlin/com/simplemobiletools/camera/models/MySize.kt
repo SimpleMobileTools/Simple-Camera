@@ -63,7 +63,7 @@ data class MySize(val width: Int, val height: Int, val isFullScreen: Boolean = f
         isNineteenToEight() -> "19:8"
         isSquare() -> "1:1"
         isTwoToOne() -> "2:1"
-        else -> context.resources.getString(R.string.other)
+        else -> context.resources.getString(com.simplemobiletools.commons.R.string.other)
     }
 
     @DrawableRes

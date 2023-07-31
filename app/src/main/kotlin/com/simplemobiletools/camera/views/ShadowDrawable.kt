@@ -65,7 +65,7 @@ class ShadowDrawable(context: Context, private val drawable: Drawable, @StyleRes
         if (styleResId != 0) {
             val obtainStyledAttributes = context.obtainStyledAttributes(styleResId, R.styleable.ShadowDrawable)
             shadowColor =
-                obtainStyledAttributes.getColor(R.styleable.ShadowDrawable_android_shadowColor, ContextCompat.getColor(context, R.color.md_grey_400_dark))
+                obtainStyledAttributes.getColor(R.styleable.ShadowDrawable_android_shadowColor, ContextCompat.getColor(context, com.simplemobiletools.commons.R.color.md_grey_400_dark))
             shadowDx = obtainStyledAttributes.getFloat(R.styleable.ShadowDrawable_android_shadowDx, 0f).toInt()
             shadowDy = obtainStyledAttributes.getFloat(R.styleable.ShadowDrawable_android_shadowDy, 0f).toInt()
             val shadowRadius = obtainStyledAttributes.getFloat(R.styleable.ShadowDrawable_android_shadowRadius, 0.0f).coerceAtLeast(0.0f)

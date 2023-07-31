@@ -77,7 +77,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                         else -> throw IllegalStateException("Unsupported tab position ${tab.position}")
                     }
                 } else {
-                    toast(R.string.no_audio_permissions)
+                    toast(com.simplemobiletools.commons.R.string.no_audio_permissions)
                     selectPhotoTab()
                     if (isVideoCaptureIntent()) {
                         finish()
@@ -235,7 +235,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                                 if (grantedRecordAudioPermission) {
                                     initializeCamera(false)
                                 } else {
-                                    toast(R.string.no_audio_permissions)
+                                    toast(com.simplemobiletools.commons.R.string.no_audio_permissions)
                                     if (isThirdPartyIntent()) {
                                         finish()
                                     } else {
@@ -247,12 +247,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                             }
                         }
                     } else {
-                        toast(R.string.no_storage_permissions)
+                        toast(com.simplemobiletools.commons.R.string.no_storage_permissions)
                         finish()
                     }
                 }
             } else {
-                toast(R.string.no_camera_permissions)
+                toast(com.simplemobiletools.commons.R.string.no_camera_permissions)
                 finish()
             }
         }
@@ -314,7 +314,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                 topMargin = safeInsetTop
             }
 
-            val marginBottom = safeInsetBottom + navigationBarHeight + resources.getDimensionPixelSize(R.dimen.bigger_margin)
+            val marginBottom = safeInsetBottom + navigationBarHeight + resources.getDimensionPixelSize(com.simplemobiletools.commons.R.dimen.bigger_margin)
 
             binding.shutter.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = marginBottom
@@ -861,7 +861,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun setButtonColors(button: MaterialButton) {
         val primaryColor = getProperPrimaryColor()
         val states = arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked))
-        val iconColors = intArrayOf(ContextCompat.getColor(this, R.color.md_grey_white), primaryColor)
+        val iconColors = intArrayOf(ContextCompat.getColor(this, com.simplemobiletools.commons.R.color.md_grey_white), primaryColor)
         button.iconTint = ColorStateList(states, iconColors)
     }
 
