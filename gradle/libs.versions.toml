@@ -1,0 +1,51 @@
+[versions]
+#jetbrains
+kotlin = "1.9.0"
+#Androidx
+androidx-document-file = "1.0.1"
+androidx-exif-interface = "1.3.6"
+androidx-lifecycle = "2.6.1"
+androidx-window = "1.2.0-beta01"
+androidx-camera = "1.3.0-beta02"
+androidx-ktx = "2.6.1"
+#Simple tools
+lifecycleRuntimeKtx = "2.6.1"
+simple-commons = "53ad279f5e"
+#Gradle
+gradlePlugins-agp = "8.1.0"
+#build
+app-build-compileSDKVersion = "34"
+app-build-targetSDK = "33"
+app-build-minimumSDK = "23"
+app-build-javaVersion = "VERSION_17"
+app-build-kotlinJVMTarget = "17"
+#versioning
+app-version-appId = "com.simplemobiletools.camera"
+app-version-versionCode = "87"
+app-version-versionName = "5.7.0"
+[libraries]
+#Android X
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
+androidx-camera-video = { module = "androidx.camera:camera-video", version.ref = "androidx-camera" }
+androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "androidx-camera" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "androidx-camera" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera" }
+androidx-window = { module = "androidx.window:window", version.ref = "androidx-window" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-ktx" }
+androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "androidx-exif-interface" }
+androidx-documentfile = { module = "androidx.documentfile:documentfile", version.ref = "androidx-document-file" }
+#Simple Mobile Tools
+simple-tools-commons = { module = "com.github.SimpleMobileTools:Simple-Commons", version.ref = "simple-commons" }
+[bundles]
+androidx-camera = [
+    "androidx-camera-core",
+    "androidx-camera-camera2",
+    "androidx-camera-video",
+    "androidx-camera-extensions",
+    "androidx-camera-lifecycle",
+    "androidx-camera-view"
+]
+[plugins]
+android = { id = "com.android.application", version.ref = "gradlePlugins-agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
