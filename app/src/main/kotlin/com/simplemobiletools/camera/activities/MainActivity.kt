@@ -25,6 +25,7 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.tabs.TabLayout
 import com.simplemobiletools.camera.BuildConfig
 import com.simplemobiletools.camera.R
+import com.simplemobiletools.camera.databinding.ActivityMainBinding
 import com.simplemobiletools.camera.extensions.config
 import com.simplemobiletools.camera.extensions.fadeIn
 import com.simplemobiletools.camera.extensions.fadeOut
@@ -40,10 +41,6 @@ import com.simplemobiletools.camera.views.FocusCircleView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.Release
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_flash.*
-import kotlinx.android.synthetic.main.layout_timer.*
-import kotlinx.android.synthetic.main.layout_top.*
 import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 
@@ -62,6 +59,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mediaSoundHelper: MediaSoundHelper
+    private lateinit var binding: ActivityMainBinding
     private var mPreview: MyPreview? = null
     private var mediaSizeToggleGroup: MaterialButtonToggleGroup? = null
     private var mPreviewUri: Uri? = null
@@ -92,6 +90,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         initVariables()
@@ -166,7 +165,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             removeTabListener()
         }
 
-        camera_mode_tab.getTabAt(PHOTO_MODE_INDEX)?.select()
+        binding.cameraModeTab.getTabAt(PHOTO_MODE_INDEX)?.select()
         setTabListener()
     }
 
@@ -174,16 +173,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         if (!triggerListener) {
             removeTabListener()
         }
-        camera_mode_tab.getTabAt(VIDEO_MODE_INDEX)?.select()
+        binding.cameraModeTab.getTabAt(VIDEO_MODE_INDEX)?.select()
         setTabListener()
     }
 
     private fun setTabListener() {
-        camera_mode_tab.addOnTabSelectedListener(tabSelectedListener)
+        binding.cameraModeTab.addOnTabSelectedListener(tabSelectedListener)
     }
 
     private fun removeTabListener() {
-        camera_mode_tab.removeOnTabSelectedListener(tabSelectedListener)
+        binding.cameraModeTab.removeOnTabSelectedListener(tabSelectedListener)
     }
 
     private fun ensureTransparentNavigationBar() {
@@ -217,10 +216,10 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         return super.onKeyUp(keyCode, event)
     }
 
-    private fun hideIntentButtons() {
-        camera_mode_holder.beGone()
-        settings.beGone()
-        last_photo_video_preview.beInvisible()
+    private fun hideIntentButtons() = binding.apply {
+        cameraModeHolder.beGone()
+        layoutTop.settings.beGone()
+        lastPhotoVideoPreview.beInvisible()
     }
 
     private fun tryInitCamera() {
@@ -297,25 +296,27 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun initializeCamera(isInPhotoMode: Boolean) {
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         initButtons()
         initModeSwitcher()
-        defaultScene = Scene(top_options, default_icons)
-        flashModeScene = Scene(top_options, flash_toggle_group)
-        timerScene = Scene(top_options, timer_toggle_group)
+        binding.apply {
+            defaultScene = Scene(topOptions, layoutTop.defaultIcons)
+            flashModeScene = Scene(topOptions, layoutFlash.flashToggleGroup)
+            timerScene = Scene(topOptions, layoutTimer.timerToggleGroup)
+        }
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        ViewCompat.setOnApplyWindowInsetsListener(view_holder) { _, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.viewHolder) { _, windowInsets ->
             val safeInsetBottom = windowInsets.displayCutout?.safeInsetBottom ?: 0
             val safeInsetTop = windowInsets.displayCutout?.safeInsetTop ?: 0
 
-            top_options.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            binding.topOptions.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = safeInsetTop
             }
 
             val marginBottom = safeInsetBottom + navigationBarHeight + resources.getDimensionPixelSize(R.dimen.bigger_margin)
 
-            shutter.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            binding.shutter.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = marginBottom
             }
 
@@ -331,7 +332,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         val outputUri = intent.extras?.get(MediaStore.EXTRA_OUTPUT) as? Uri
         val isThirdPartyIntent = isThirdPartyIntent()
         mPreview = CameraXInitializer(this).createCameraXPreview(
-            preview_view,
+            binding.previewView,
             listener = this,
             mediaSoundHelper = mediaSoundHelper,
             outputUri = outputUri,
@@ -342,7 +343,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mFocusCircleView = FocusCircleView(this).apply {
             id = View.generateViewId()
         }
-        view_holder.addView(mFocusCircleView)
+        binding.viewHolder.addView(mFocusCircleView)
 
         setupPreviewImage(true)
         initFlashModeTransitionNames()
@@ -353,64 +354,72 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun initFlashModeTransitionNames() {
+    private fun initFlashModeTransitionNames() = binding.layoutFlash.apply {
         val baseName = getString(R.string.toggle_flash)
-        flash_auto.transitionName = "$baseName$FLASH_AUTO"
-        flash_off.transitionName = "$baseName$FLASH_OFF"
-        flash_on.transitionName = "$baseName$FLASH_ON"
-        flash_always_on.transitionName = "$baseName$FLASH_ALWAYS_ON"
+        flashAuto.transitionName = "$baseName$FLASH_AUTO"
+        flashOff.transitionName = "$baseName$FLASH_OFF"
+        flashOn.transitionName = "$baseName$FLASH_ON"
+        flashAlwaysOn.transitionName = "$baseName$FLASH_ALWAYS_ON"
     }
 
-    private fun initTimerModeTransitionNames() {
+    private fun initTimerModeTransitionNames() = binding.layoutTimer.apply {
         val baseName = getString(R.string.toggle_timer)
-        timer_off.transitionName = "$baseName${TimerMode.OFF.name}"
-        timer_3s.transitionName = "$baseName${TimerMode.TIMER_3.name}"
-        timer_5s.transitionName = "$baseName${TimerMode.TIMER_5.name}"
-        timer_10_s.transitionName = "$baseName${TimerMode.TIMER_10.name}"
+        timerOff.transitionName = "$baseName${TimerMode.OFF.name}"
+        timer3s.transitionName = "$baseName${TimerMode.TIMER_3.name}"
+        timer5s.transitionName = "$baseName${TimerMode.TIMER_5.name}"
+        timer10S.transitionName = "$baseName${TimerMode.TIMER_10.name}"
     }
 
-    private fun initButtons() {
-        timer_text.setFactory { layoutInflater.inflate(R.layout.timer_text, null) }
-        toggle_camera.setOnClickListener { mPreview!!.toggleFrontBackCamera() }
-        last_photo_video_preview.setOnClickListener { showLastMediaPreview() }
-        toggle_flash.setOnClickListener { mPreview!!.handleFlashlightClick() }
-        toggle_timer.setOnClickListener {
-            val transitionSet = createTransition()
-            TransitionManager.go(timerScene, transitionSet)
-            timer_toggle_group.beVisible()
-            timer_toggle_group.check(config.timerMode.getTimerModeResId())
-            timer_toggle_group.children.forEach { setButtonColors(it as MaterialButton) }
+    private fun initButtons() = binding.apply {
+        timerText.setFactory { layoutInflater.inflate(R.layout.timer_text, null) }
+        toggleCamera.setOnClickListener { mPreview!!.toggleFrontBackCamera() }
+        lastPhotoVideoPreview.setOnClickListener { showLastMediaPreview() }
+
+        layoutTop.apply {
+            toggleFlash.setOnClickListener { mPreview!!.handleFlashlightClick() }
+            toggleTimer.setOnClickListener {
+                val transitionSet = createTransition()
+                TransitionManager.go(timerScene, transitionSet)
+                layoutTimer.timerToggleGroup.beVisible()
+                layoutTimer.timerToggleGroup.check(config.timerMode.getTimerModeResId())
+                layoutTimer.timerToggleGroup.children.forEach { setButtonColors(it as MaterialButton) }
+            }
+
+            settings.setShadowIcon(R.drawable.ic_settings_vector)
+            settings.setOnClickListener { launchSettings() }
+            changeResolution.setOnClickListener { mPreview?.showChangeResolution() }
         }
+
         shutter.setOnClickListener { shutterPressed() }
 
-        settings.setShadowIcon(R.drawable.ic_settings_vector)
-        settings.setOnClickListener { launchSettings() }
+        layoutFlash.apply {
+            flashOn.setShadowIcon(R.drawable.ic_flash_on_vector)
+            flashOn.setOnClickListener { selectFlashMode(FLASH_ON) }
 
-        change_resolution.setOnClickListener { mPreview?.showChangeResolution() }
+            flashOff.setShadowIcon(R.drawable.ic_flash_off_vector)
+            flashOff.setOnClickListener { selectFlashMode(FLASH_OFF) }
 
-        flash_on.setShadowIcon(R.drawable.ic_flash_on_vector)
-        flash_on.setOnClickListener { selectFlashMode(FLASH_ON) }
+            flashAuto.setShadowIcon(R.drawable.ic_flash_auto_vector)
+            flashAuto.setOnClickListener { selectFlashMode(FLASH_AUTO) }
 
-        flash_off.setShadowIcon(R.drawable.ic_flash_off_vector)
-        flash_off.setOnClickListener { selectFlashMode(FLASH_OFF) }
+            flashAlwaysOn.setShadowIcon(R.drawable.ic_flashlight_vector)
+            flashAlwaysOn.setOnClickListener { selectFlashMode(FLASH_ALWAYS_ON) }
+        }
 
-        flash_auto.setShadowIcon(R.drawable.ic_flash_auto_vector)
-        flash_auto.setOnClickListener { selectFlashMode(FLASH_AUTO) }
+        layoutTimer.apply {
+            timerOff.setShadowIcon(R.drawable.ic_timer_off_vector)
+            timerOff.setOnClickListener { selectTimerMode(TimerMode.OFF) }
 
-        flash_always_on.setShadowIcon(R.drawable.ic_flashlight_vector)
-        flash_always_on.setOnClickListener { selectFlashMode(FLASH_ALWAYS_ON) }
+            timer3s.setShadowIcon(R.drawable.ic_timer_3_vector)
+            timer3s.setOnClickListener { selectTimerMode(TimerMode.TIMER_3) }
 
-        timer_off.setShadowIcon(R.drawable.ic_timer_off_vector)
-        timer_off.setOnClickListener { selectTimerMode(TimerMode.OFF) }
+            timer5s.setShadowIcon(R.drawable.ic_timer_5_vector)
+            timer5s.setOnClickListener { selectTimerMode(TimerMode.TIMER_5) }
 
-        timer_3s.setShadowIcon(R.drawable.ic_timer_3_vector)
-        timer_3s.setOnClickListener { selectTimerMode(TimerMode.TIMER_3) }
+            timer10S.setShadowIcon(R.drawable.ic_timer_10_vector)
+            timer10S.setOnClickListener { selectTimerMode(TimerMode.TIMER_10) }
+        }
 
-        timer_5s.setShadowIcon(R.drawable.ic_timer_5_vector)
-        timer_5s.setOnClickListener { selectTimerMode(TimerMode.TIMER_5) }
-
-        timer_10_s.setShadowIcon(R.drawable.ic_timer_10_vector)
-        timer_10_s.setOnClickListener { selectTimerMode(TimerMode.TIMER_10) }
         setTimerModeIcon(config.timerMode)
     }
 
@@ -420,9 +429,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         closeOptions()
     }
 
-    private fun setTimerModeIcon(timerMode: TimerMode) {
-        toggle_timer.setShadowIcon(timerMode.getTimerModeDrawableRes())
-        toggle_timer.transitionName = "${getString(R.string.toggle_timer)}${timerMode.name}"
+    private fun setTimerModeIcon(timerMode: TimerMode) = binding.layoutTop.toggleTimer.apply {
+        setShadowIcon(timerMode.getTimerModeDrawableRes())
+        transitionName = "${getString(R.string.toggle_timer)}${timerMode.name}"
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -453,19 +462,19 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
             }
         })
 
-        camera_mode_tab.setOnTouchListener { _, event ->
+        binding.cameraModeTab.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
         }
     }
 
     private fun onSwipeLeft() {
-        if (!isThirdPartyIntent() && camera_mode_holder.isVisible()) {
+        if (!isThirdPartyIntent() && binding.cameraModeHolder.isVisible()) {
             selectPhotoTab(triggerListener = true)
         }
     }
 
     private fun onSwipeRight() {
-        if (!isThirdPartyIntent() && camera_mode_holder.isVisible()) {
+        if (!isThirdPartyIntent() && binding.cameraModeHolder.isVisible()) {
             selectVideoTab(triggerListener = true)
         }
     }
@@ -511,17 +520,21 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onInitPhotoMode() {
-        shutter.setImageResource(R.drawable.ic_shutter_animated)
-        toggle_timer.beVisible()
-        toggle_timer.fadeIn()
+        binding.apply {
+            shutter.setImageResource(R.drawable.ic_shutter_animated)
+            layoutTop.toggleTimer.beVisible()
+            layoutTop.toggleTimer.fadeIn()
+        }
         setupPreviewImage(true)
         selectPhotoTab()
     }
 
     override fun onInitVideoMode() {
-        shutter.setImageResource(R.drawable.ic_video_rec_animated)
-        toggle_timer.fadeOut()
-        toggle_timer.beGone()
+        binding.apply {
+            shutter.setImageResource(R.drawable.ic_video_rec_animated)
+            layoutTop.toggleTimer.fadeOut()
+            layoutTop.toggleTimer.beGone()
+        }
         setupPreviewImage(false)
         selectVideoTab()
     }
@@ -550,7 +563,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
                     .load(uri)
                     .apply(options)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(last_photo_video_preview)
+                    .into(binding.lastPhotoVideoPreview)
             }
         }
     }
@@ -603,8 +616,15 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }
     }
 
-    private fun animateViews(degrees: Int) {
-        val views = arrayOf<View>(toggle_camera, toggle_flash, change_resolution, shutter, settings, last_photo_video_preview)
+    private fun animateViews(degrees: Int) = binding.apply {
+        val views = arrayOf(
+            toggleCamera,
+            layoutTop.toggleFlash,
+            layoutTop.changeResolution,
+            shutter,
+            layoutTop.settings,
+            lastPhotoVideoPreview
+        )
         for (view in views) {
             rotate(view, degrees)
         }
@@ -613,20 +633,20 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun rotate(view: View, degrees: Int) = view.animate().rotation(degrees.toFloat()).start()
 
     override fun setHasFrontAndBackCamera(hasFrontAndBack: Boolean) {
-        toggle_camera?.beVisibleIf(hasFrontAndBack)
+        binding.toggleCamera?.beVisibleIf(hasFrontAndBack)
     }
 
     override fun setFlashAvailable(available: Boolean) {
         if (available) {
-            toggle_flash.beVisible()
+            binding.layoutTop.toggleFlash.beVisible()
         } else {
-            toggle_flash.beGone()
+            binding.layoutTop.toggleFlash.beGone()
             mPreview?.setFlashlightState(FLASH_OFF)
         }
     }
 
     override fun onChangeCamera(frontCamera: Boolean) {
-        toggle_camera.setImageResource(if (frontCamera) R.drawable.ic_camera_rear_vector else R.drawable.ic_camera_front_vector)
+        binding.toggleCamera.setImageResource(if (frontCamera) R.drawable.ic_camera_rear_vector else R.drawable.ic_camera_front_vector)
     }
 
     override fun onPhotoCaptureStart() {
@@ -637,23 +657,23 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         toggleActionButtons(enabled = true)
     }
 
-    private fun toggleActionButtons(enabled: Boolean) {
+    private fun toggleActionButtons(enabled: Boolean) = binding.apply {
         runOnUiThread {
             shutter.isClickable = enabled
-            preview_view.isEnabled = enabled
-            change_resolution.isEnabled = enabled
-            toggle_camera.isClickable = enabled
-            toggle_flash.isClickable = enabled
+            previewView.isEnabled = enabled
+            layoutTop.changeResolution.isEnabled = enabled
+            toggleCamera.isClickable = enabled
+            layoutTop.toggleFlash.isClickable = enabled
         }
     }
 
     override fun shutterAnimation() {
-        shutter_animation.alpha = 1.0f
-        shutter_animation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
+        binding.shutterAnimation.alpha = 1.0f
+        binding.shutterAnimation.animate().alpha(0f).setDuration(CAPTURE_ANIMATION_DURATION).start()
     }
 
     override fun onMediaSaved(uri: Uri) {
-        change_resolution.isEnabled = true
+        binding.layoutTop.changeResolution.isEnabled = true
         loadLastTakenMedia(uri)
         if (isImageCaptureIntent()) {
             Intent().apply {
@@ -683,49 +703,55 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun onChangeFlashMode(flashMode: Int) {
-        val flashDrawable = when (flashMode) {
-            FLASH_OFF -> R.drawable.ic_flash_off_vector
-            FLASH_ON -> R.drawable.ic_flash_on_vector
-            FLASH_AUTO -> R.drawable.ic_flash_auto_vector
-            else -> R.drawable.ic_flashlight_vector
+        binding.layoutTop.apply {
+            val flashDrawable = when (flashMode) {
+                FLASH_OFF -> R.drawable.ic_flash_off_vector
+                FLASH_ON -> R.drawable.ic_flash_on_vector
+                FLASH_AUTO -> R.drawable.ic_flash_auto_vector
+                else -> R.drawable.ic_flashlight_vector
+            }
+            toggleFlash.setShadowIcon(flashDrawable)
+            toggleFlash.transitionName = "${getString(R.string.toggle_flash)}$flashMode"
         }
-        toggle_flash.setShadowIcon(flashDrawable)
-        toggle_flash.transitionName = "${getString(R.string.toggle_flash)}$flashMode"
     }
 
     override fun onVideoRecordingStarted() {
-        camera_mode_holder.beInvisible()
-        video_rec_curr_timer.beVisible()
+        binding.apply {
+            cameraModeHolder.beInvisible()
+            videoRecCurrTimer.beVisible()
 
-        toggle_camera.fadeOut()
-        last_photo_video_preview.fadeOut()
+            toggleCamera.fadeOut()
+            lastPhotoVideoPreview.fadeOut()
 
-        change_resolution.isEnabled = false
-        settings.isEnabled = false
-        shutter.post {
-            if (!isDestroyed) {
-                shutter.isSelected = true
+            layoutTop.changeResolution.isEnabled = false
+            layoutTop.settings.isEnabled = false
+            shutter.post {
+                if (!isDestroyed) {
+                    shutter.isSelected = true
+                }
             }
         }
     }
 
     override fun onVideoRecordingStopped() {
-        camera_mode_holder.beVisible()
+        binding.apply {
+            cameraModeHolder.beVisible()
 
-        toggle_camera.fadeIn()
-        last_photo_video_preview.fadeIn()
+            toggleCamera.fadeIn()
+            lastPhotoVideoPreview.fadeIn()
 
-        video_rec_curr_timer.text = 0.getFormattedDuration()
-        video_rec_curr_timer.beGone()
+            videoRecCurrTimer.text = 0.getFormattedDuration()
+            videoRecCurrTimer.beGone()
 
-        shutter.isSelected = false
-        change_resolution.isEnabled = true
-        settings.isEnabled = true
+            shutter.isSelected = false
+            layoutTop.changeResolution.isEnabled = true
+            layoutTop.settings.isEnabled = true
+        }
     }
 
     override fun onVideoDurationChanged(durationNanos: Long) {
         val seconds = TimeUnit.NANOSECONDS.toSeconds(durationNanos).toInt()
-        video_rec_curr_timer.text = seconds.getFormattedDuration()
+        binding.videoRecCurrTimer.text = seconds.getFormattedDuration()
     }
 
     override fun onFocusCamera(xPos: Float, yPos: Float) {
@@ -737,25 +763,27 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     private fun closeOptions(): Boolean {
-        if (mediaSizeToggleGroup?.isVisible() == true ||
-            flash_toggle_group.isVisible() || timer_toggle_group.isVisible()
-        ) {
-            val transitionSet = createTransition()
-            TransitionManager.go(defaultScene, transitionSet)
-            mediaSizeToggleGroup?.beGone()
-            flash_toggle_group.beGone()
-            timer_toggle_group.beGone()
-            default_icons.beVisible()
-            return true
-        }
+        binding.apply {
+            if (mediaSizeToggleGroup?.isVisible() == true ||
+                layoutFlash.flashToggleGroup.isVisible() || layoutTimer.timerToggleGroup.isVisible()
+            ) {
+                val transitionSet = createTransition()
+                TransitionManager.go(defaultScene, transitionSet)
+                mediaSizeToggleGroup?.beGone()
+                layoutFlash.flashToggleGroup.beGone()
+                layoutTimer.timerToggleGroup.beGone()
+                layoutTop.defaultIcons.beVisible()
+                return true
+            }
 
-        return false
+            return false
+        }
     }
 
     override fun displaySelectedResolution(resolutionOption: ResolutionOption) {
         val imageRes = resolutionOption.imageDrawableResId
-        change_resolution.setShadowIcon(imageRes)
-        change_resolution.transitionName = "${resolutionOption.buttonViewId}"
+        binding.layoutTop.changeResolution.setShadowIcon(imageRes)
+        binding.layoutTop.changeResolution.transitionName = "${resolutionOption.buttonViewId}"
     }
 
     override fun showImageSizes(
@@ -765,12 +793,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         isFrontCamera: Boolean,
         onSelect: (index: Int, changed: Boolean) -> Unit
     ) {
-        top_options.removeView(mediaSizeToggleGroup)
+        binding.topOptions.removeView(mediaSizeToggleGroup)
         val mediaSizeToggleGroup = createToggleGroup().apply {
             mediaSizeToggleGroup = this
         }
 
-        top_options.addView(mediaSizeToggleGroup)
+        binding.topOptions.addView(mediaSizeToggleGroup)
 
         val onItemClick = { clickedViewId: Int ->
             closeOptions()
@@ -786,9 +814,9 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         mediaSizeToggleGroup.check(selectedResolution.buttonViewId)
 
         val transitionSet = createTransition()
-        val mediaSizeScene = Scene(top_options, mediaSizeToggleGroup)
+        val mediaSizeScene = Scene(binding.topOptions, mediaSizeToggleGroup)
         TransitionManager.go(mediaSizeScene, transitionSet)
-        default_icons.beGone()
+        binding.layoutTop.defaultIcons.beGone()
         mediaSizeToggleGroup.beVisible()
         mediaSizeToggleGroup.children.map { it as MaterialButton }.forEach(::setButtonColors)
     }
@@ -818,14 +846,16 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun showFlashOptions(photoCapture: Boolean) {
-        val transitionSet = createTransition()
-        TransitionManager.go(flashModeScene, transitionSet)
-        flash_auto.beVisibleIf(photoCapture)
-        flash_always_on.beVisibleIf(photoCapture)
-        flash_toggle_group.check(config.flashlightState.toFlashModeId())
+        binding.layoutFlash.apply {
+            val transitionSet = createTransition()
+            TransitionManager.go(flashModeScene, transitionSet)
+            flashAuto.beVisibleIf(photoCapture)
+            flashAlwaysOn.beVisibleIf(photoCapture)
+            flashToggleGroup.check(config.flashlightState.toFlashModeId())
 
-        flash_toggle_group.beVisible()
-        flash_toggle_group.children.forEach { setButtonColors(it as MaterialButton) }
+            flashToggleGroup.beVisible()
+            flashToggleGroup.children.forEach { setButtonColors(it as MaterialButton) }
+        }
     }
 
     private fun setButtonColors(button: MaterialButton) {
@@ -836,16 +866,18 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     }
 
     override fun adjustPreviewView(requiresCentering: Boolean) {
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(view_holder)
-        if (requiresCentering) {
-            constraintSet.connect(preview_view.id, ConstraintSet.TOP, top_options.id, ConstraintSet.BOTTOM)
-            constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, camera_mode_holder.id, ConstraintSet.TOP)
-        } else {
-            constraintSet.connect(preview_view.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
-            constraintSet.connect(preview_view.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+        binding.apply {
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(viewHolder)
+            if (requiresCentering) {
+                constraintSet.connect(previewView.id, ConstraintSet.TOP, topOptions.id, ConstraintSet.BOTTOM)
+                constraintSet.connect(previewView.id, ConstraintSet.BOTTOM, cameraModeHolder.id, ConstraintSet.TOP)
+            } else {
+                constraintSet.connect(previewView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+                constraintSet.connect(previewView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+            }
+            constraintSet.applyTo(viewHolder)
         }
-        constraintSet.applyTo(view_holder)
     }
 
     override fun mediaSaved(path: String) {
@@ -866,13 +898,13 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun scheduleTimer(timerMode: TimerMode) {
         hideViewsOnTimerStart()
-        shutter.setImageState(intArrayOf(R.attr.state_timer_cancel), true)
-        timer_text.beVisible()
+        binding.shutter.setImageState(intArrayOf(R.attr.state_timer_cancel), true)
+        binding.timerText.beVisible()
         var playSound = true
         countDownTimer = object : CountDownTimer(timerMode.millisInFuture, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val seconds = (TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) + 1).toString()
-                timer_text.setText(seconds)
+                binding.timerText.setText(seconds)
                 if (playSound && config.isSoundEnabled) {
                     if (millisUntilFinished <= TIMER_2_SECONDS) {
                         mediaSoundHelper.playTimerCountdown2SecondsSound()
@@ -890,20 +922,20 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         }.start()
     }
 
-    private fun hideViewsOnTimerStart() {
-        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_holder).forEach {
+    private fun hideViewsOnTimerStart() = binding.apply {
+        arrayOf(topOptions, toggleCamera, lastPhotoVideoPreview, cameraModeHolder).forEach {
             it.fadeOut()
             it.beInvisible()
         }
     }
 
-    private fun resetViewsOnTimerFinish() {
-        arrayOf(top_options, toggle_camera, last_photo_video_preview, camera_mode_holder).forEach {
+    private fun resetViewsOnTimerFinish() = binding.apply {
+        arrayOf(topOptions, toggleCamera, lastPhotoVideoPreview, cameraModeHolder).forEach {
             it?.fadeIn()
             it?.beVisible()
         }
 
-        timer_text.beGone()
+        timerText.beGone()
         shutter.setImageState(intArrayOf(-R.attr.state_timer_cancel), true)
     }
 
