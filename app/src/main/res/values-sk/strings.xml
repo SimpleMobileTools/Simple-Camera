@@ -22,19 +22,16 @@
     <string name="camera_dnd_error">Je zapnutý mód "Nevyrušujte". Prosím vypnite ho a skúste znova</string>
     <string name="photo_capture_failed">Snímanie fotografie zlyhalo</string>
     <string name="video_capture_insufficient_storage_error">Nahrávanie videa zlyhalo pre nedostatok miesta</string>
-
     <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Prepnúť foto/video mód</string>
     <string name="change_resolution">Zmeniť rozlíšenie</string>
     <string name="view_last_media">Zobraziť posledný súbor</string>
     <string name="toggle_camera">Prepnúť prednú/zadnú kameru</string>
     <string name="toggle_flash">Prepnúť blesk</string>
-    <string name="toggle_timer">Toggle the timer mode</string>
-
+    <string name="toggle_timer">Toggle moderátor</string>
     <!-- FAQ -->
     <string name="faq_1_title">Akú kvalitu fotiek by som mal použiť?</string>
     <string name="faq_1_text">Záleží to od vášho cieľa. Pre všeobecné použitie odporúča väčšina ľudí 75%-80% kedy je kvalita fotiek stále vysoká, ale výsledný súbor má oveľa menšiu veľkosť v porovnaní so 100% kvalitou.</string>
-
     <!-- Settings -->
     <string name="save_photos">Ukladať fotky a videá do</string>
     <string name="show_preview">Zobraziť náhľad fotky po vytvorení</string>
