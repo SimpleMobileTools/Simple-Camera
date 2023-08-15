@@ -19,7 +19,7 @@
     <string name="camera_in_use_error">Kameran används av en annan app, stäng appen och försök igen</string>
     <string name="camera_configure_error">Ett fel inträffade när kameran konfigurerades</string>
     <string name="camera_disabled_by_admin_error">Kameran är inaktiverad av administratören</string>
-    <string name="camera_dnd_error">Läget Stör inte är aktiverat. Inaktivera och försök igen</string>
+    <string name="camera_dnd_error">Läget Stör ej är aktiverat. Inaktivera det och försök igen</string>
     <string name="photo_capture_failed">Det gick inte att ta bilder</string>
     <string name="video_capture_insufficient_storage_error">Videoinspelningen misslyckades på grund av otillräckligt lagringsutrymme</string>
     <!-- Camera Screen Icons Content Description -->
@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Behåll inställningsknapparna synliga</string>
     <string name="always_open_back_camera">Växla till den bakre kameran när appen öppnas</string>
     <string name="save_photo_metadata">Spara fotonas Exif-metadata</string>
-    <string name="save_photo_video_location">Save photo and video location</string>
+    <string name="save_photo_video_location">Spara platser för foton och videor</string>
     <string name="photo_compression_quality">Fotokomprimeringskvalitet</string>
     <string name="shutter">Slutare</string>
     <!--
