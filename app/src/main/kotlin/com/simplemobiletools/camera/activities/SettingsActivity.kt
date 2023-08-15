@@ -17,12 +17,11 @@ import java.util.*
 import kotlin.system.exitProcess
 
 class SettingsActivity : SimpleActivity() {
-    private lateinit var binding: ActivitySettingsBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivitySettingsBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
         binding.apply {
             setContentView(root)
             setupOptionsMenu()
