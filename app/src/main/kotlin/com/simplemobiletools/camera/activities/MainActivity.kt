@@ -59,7 +59,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private lateinit var mOrientationEventListener: OrientationEventListener
     private lateinit var mFocusCircleView: FocusCircleView
     private lateinit var mediaSoundHelper: MediaSoundHelper
-    private lateinit var binding: ActivityMainBinding
     private var mPreview: MyPreview? = null
     private var mediaSizeToggleGroup: MaterialButtonToggleGroup? = null
     private var mPreviewUri: Uri? = null
@@ -67,6 +66,7 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mLastHandledOrientation = 0
     private var countDownTimer: CountDownTimer? = null
 
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityMainBinding.inflate(layoutInflater) }
     private val tabSelectedListener = object : TabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
             handlePermission(PERMISSION_RECORD_AUDIO) {
@@ -90,7 +90,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         appLaunched(BuildConfig.APPLICATION_ID)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         initVariables()
@@ -225,30 +224,25 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private fun tryInitCamera() {
         handlePermission(PERMISSION_CAMERA) { grantedCameraPermission ->
             if (grantedCameraPermission) {
-                handleStoragePermission { grantedStoragePermission ->
-                    if (grantedStoragePermission) {
-                        val isInPhotoMode = isInPhotoMode()
-                        if (isInPhotoMode) {
-                            initializeCamera(true)
-                        } else {
-                            handlePermission(PERMISSION_RECORD_AUDIO) { grantedRecordAudioPermission ->
-                                if (grantedRecordAudioPermission) {
-                                    initializeCamera(false)
+                handleStoragePermission {
+                    val isInPhotoMode = isInPhotoMode()
+                    if (isInPhotoMode) {
+                        initializeCamera(true)
+                    } else {
+                        handlePermission(PERMISSION_RECORD_AUDIO) { grantedRecordAudioPermission ->
+                            if (grantedRecordAudioPermission) {
+                                initializeCamera(false)
+                            } else {
+                                toast(com.simplemobiletools.commons.R.string.no_audio_permissions)
+                                if (isThirdPartyIntent()) {
+                                    finish()
                                 } else {
-                                    toast(com.simplemobiletools.commons.R.string.no_audio_permissions)
-                                    if (isThirdPartyIntent()) {
-                                        finish()
-                                    } else {
-                                        // re-initialize in photo mode
-                                        config.initPhotoMode = true
-                                        tryInitCamera()
-                                    }
+                                    // re-initialize in photo mode
+                                    config.initPhotoMode = true
+                                    tryInitCamera()
                                 }
                             }
                         }
-                    } else {
-                        toast(com.simplemobiletools.commons.R.string.no_storage_permissions)
-                        finish()
                     }
                 }
             } else {
@@ -270,13 +264,12 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun handleStoragePermission(callback: (granted: Boolean) -> Unit) {
         if (isTiramisuPlus()) {
-            handlePermission(PERMISSION_READ_MEDIA_IMAGES) { grantedReadImages ->
-                if (grantedReadImages) {
-                    handlePermission(PERMISSION_READ_MEDIA_VIDEO, callback)
-                } else {
-                    callback.invoke(false)
-                }
+            val mediaPermissionIds = mutableListOf(PERMISSION_READ_MEDIA_IMAGES, PERMISSION_READ_MEDIA_VIDEO)
+            if (isUpsideDownCakePlus()) {
+                mediaPermissionIds.add(PERMISSION_READ_MEDIA_VISUAL_USER_SELECTED)
             }
+
+            handlePartialMediaPermissions(permissionIds = mediaPermissionIds, callback = callback)
         } else {
             handlePermission(PERMISSION_WRITE_STORAGE, callback)
         }
@@ -574,7 +567,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun hasPhotoModePermissions(): Boolean {
         return if (isTiramisuPlus()) {
-            hasPermission(PERMISSION_READ_MEDIA_IMAGES) && hasPermission(PERMISSION_READ_MEDIA_VIDEO) && hasPermission(PERMISSION_CAMERA)
+            var hasMediaPermission = hasPermission(PERMISSION_READ_MEDIA_IMAGES) || hasPermission(PERMISSION_READ_MEDIA_VIDEO)
+            if (isUpsideDownCakePlus()) {
+                hasMediaPermission = hasMediaPermission || hasPermission(PERMISSION_READ_MEDIA_VISUAL_USER_SELECTED)
+            }
+            hasMediaPermission && hasPermission(PERMISSION_CAMERA)
         } else {
             hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA)
         }
@@ -582,7 +579,11 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
 
     private fun hasVideoModePermissions(): Boolean {
         return if (isTiramisuPlus()) {
-            hasPermission(PERMISSION_READ_MEDIA_VIDEO) && hasPermission(PERMISSION_CAMERA) && hasPermission(PERMISSION_RECORD_AUDIO)
+            var hasMediaPermission = hasPermission(PERMISSION_READ_MEDIA_VIDEO)
+            if (isUpsideDownCakePlus()) {
+                hasMediaPermission = hasMediaPermission || hasPermission(PERMISSION_READ_MEDIA_VISUAL_USER_SELECTED)
+            }
+            hasMediaPermission && hasPermission(PERMISSION_CAMERA) && hasPermission(PERMISSION_RECORD_AUDIO)
         } else {
             hasPermission(PERMISSION_WRITE_STORAGE) && hasPermission(PERMISSION_CAMERA) && hasPermission(PERMISSION_RECORD_AUDIO)
         }
