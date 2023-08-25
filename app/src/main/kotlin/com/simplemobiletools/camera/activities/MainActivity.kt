@@ -53,6 +53,8 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
         private const val TIMER_2_SECONDS = 2001
     }
 
+    private val binding by viewBinding(ActivityMainBinding::inflate)
+
     private lateinit var defaultScene: Scene
     private lateinit var flashModeScene: Scene
     private lateinit var timerScene: Scene
@@ -66,7 +68,6 @@ class MainActivity : SimpleActivity(), PhotoProcessor.MediaSavedListener, Camera
     private var mLastHandledOrientation = 0
     private var countDownTimer: CountDownTimer? = null
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityMainBinding.inflate(layoutInflater) }
     private val tabSelectedListener = object : TabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
             handlePermission(PERMISSION_RECORD_AUDIO) {
