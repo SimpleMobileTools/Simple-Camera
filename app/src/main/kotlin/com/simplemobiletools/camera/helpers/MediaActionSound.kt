@@ -100,7 +100,7 @@ class MediaActionSound(private val context: Context) {
 
     private fun loadSound(sound: SoundState): Int {
         var id = 0
-        if (sound.mediaSound == null) {
+        if (sound.mediaSound == null || soundPool == null) {
             return 0
         }
 
