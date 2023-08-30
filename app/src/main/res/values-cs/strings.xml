@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Neskrývat tlačítka nastavení</string>
     <string name="always_open_back_camera">Aplikaci vždy otevřít s aktivním zadním fotoaparátem</string>
     <string name="save_photo_metadata">Ukládat exif metadata fotografií</string>
-    <string name="save_photo_video_location">Save photo and video location</string>
+    <string name="save_photo_video_location">Uložit polohu fotografie a videa</string>
     <string name="photo_compression_quality">Úroveň komprese fotografií</string>
     <string name="shutter">Spoušť</string>
     <!--

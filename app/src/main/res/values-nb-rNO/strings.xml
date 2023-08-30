@@ -16,11 +16,11 @@
     <string name="photo_not_saved">Kunne ikke lagre bildet</string>
     <string name="setting_resolution_failed">Kunne ikke sette riktig oppløsning</string>
     <string name="video_recording_failed">Videoopptak mislyktes. Prøv å bruke en annen oppløsning.</string>
-    <string name="camera_in_use_error">Kameraet er i bruk av en annen app.</string>
-    <string name="camera_configure_error">Det oppstod en feil under konfigurasjon av kameraet</string>
+    <string name="camera_in_use_error">Kameraet er i bruk av en annen app, lukk appen og prøv igjen</string>
+    <string name="camera_configure_error">Det oppstod en feil under innstilling av kameraet</string>
     <string name="camera_disabled_by_admin_error">Kameraet er deaktivert av administratoren</string>
     <string name="camera_dnd_error">Ikke forstyrr-modus er aktivert. Deaktiver og prøv på nytt</string>
-    <string name="photo_capture_failed">Fotoinnspilling mislyktes</string>
+    <string name="photo_capture_failed">Kunne ikke ta bilde</string>
     <string name="video_capture_insufficient_storage_error">Videoinnspilling mislyktes på grunn av utilstrekkelig lagring</string>
     <!-- Camera Screen Icons Content Description -->
     <string name="toggle_photo_video">Aktivere/deaktivere bilde-/videomodus</string>
