@@ -47,7 +47,7 @@
     <string name="keep_settings_visible">Завжди показувати панель налаштувань</string>
     <string name="always_open_back_camera">Завжди активувати задню камеру під час запуску додатка</string>
     <string name="save_photo_metadata">Зберігати метадані EXIF</string>
-    <string name="save_photo_video_location">Save photo and video location</string>
+    <string name="save_photo_video_location">Зберігати місцезнаходження фото та відео</string>
     <string name="photo_compression_quality">Якість фото після стиснення</string>
     <string name="shutter">Затвор</string>
     <!--
