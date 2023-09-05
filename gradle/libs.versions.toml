@@ -20,8 +20,8 @@ app-build-javaVersion = "VERSION_17"
 app-build-kotlinJVMTarget = "17"
 #versioning
 app-version-appId = "com.simplemobiletools.camera"
-app-version-versionCode = "88"
-app-version-versionName = "5.7.1"
+app-version-versionCode = "89"
+app-version-versionName = "5.7.2"
 [libraries]
 #Android X
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
