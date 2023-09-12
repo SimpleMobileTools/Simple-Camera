@@ -7,7 +7,7 @@
     <string name="minimize_latency">Latenz minimieren</string>
     <!-- Errors -->
     <string name="camera_unavailable">Kamera nicht verfügbar</string>
-    <string name="camera_open_error">Kein Zugriff auf die Kamera möglich</string>
+    <string name="camera_open_error">Beim Zugriff auf die Kamera ist ein Fehler aufgetreten</string>
     <string name="video_creating_error">Die Videodatei konnte nicht erstellt werden</string>
     <string name="video_mode_error">Konnte nicht in den Videomodus wechseln</string>
     <string name="save_error_internal_storage">Es ist ein Fehler aufgetreten, weil der Speicherordner in den internen Speicher geändert wurde</string>
