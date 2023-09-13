@@ -1,10 +1,15 @@
-import java.io.FileInputStream
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.kotlinAndroid)
+    base
+}
+
+base {
+    archivesName.set("camera")
 }
 
 val keystorePropertiesFile: File = rootProject.file("keystore.properties")
@@ -22,7 +27,6 @@ android {
         targetSdk = project.libs.versions.app.build.targetSDK.get().toInt()
         versionName = project.libs.versions.app.version.versionName.get()
         versionCode = project.libs.versions.app.version.versionCode.get().toInt()
-        setProperty("archivesBaseName", "camera")
         vectorDrawables.useSupportLibrary = true
     }
 
