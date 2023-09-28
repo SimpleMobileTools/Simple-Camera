@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simpel kamera</string>
+    <string name="app_name">Simple Camera</string>
     <string name="app_launcher_name">Kamera</string>
     <string name="capture_mode">Tagningsläge</string>
     <string name="maximize_quality">Maximera kvalitet</string>
