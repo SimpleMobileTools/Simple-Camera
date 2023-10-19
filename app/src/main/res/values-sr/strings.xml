@@ -30,7 +30,7 @@
     <string name="toggle_flash">Укључите режим батеријске лампе</string>
     <string name="toggle_timer">Укључите режим тајмера</string>
     <!-- FAQ -->
-    <string name="faq_1_title">Који квалитет компресије фотографија треба да поставим\?</string>
+    <string name="faq_1_title">Који квалитет компримовања фотографија треба да поставим\?</string>
     <string name="faq_1_text">Зависи од вашег циља. За опште сврхе већина људи саветује коришћење 75%-80%, када је слика и даље стварно доброг квалитета, али је величина фајла драстично смањена у поређењу са 100%.</string>
     <!-- Settings -->
     <string name="save_photos">Чување фотографија и видео снимака на</string>
@@ -48,6 +48,6 @@
     <string name="always_open_back_camera">Увек отварати апликацију помоћу задње камере</string>
     <string name="save_photo_metadata">Чување exif метаподатака фотографије</string>
     <string name="save_photo_video_location">Чување локације фотографије и видео снимка</string>
-    <string name="photo_compression_quality">Квалитет компресије фотографија</string>
+    <string name="photo_compression_quality">Квалитет компримовања фотографија</string>
     <string name="shutter">Окидач</string>
 </resources>
