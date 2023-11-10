@@ -1,0 +1,29 @@
+Ứng dụng máy ảnh tiện dụng này có thể được sử dụng để chụp ảnh và quay video dễ dàng. Bạn có thể nhanh chóng chuyển đổi giữa camera trước và sau trong ứng dụng camera đang mở này, sửa đổi đường dẫn lưu hoặc giới hạn độ phân giải cho khung ảnh của mình. Bạn sẽ không bao giờ bỏ lỡ những khoảnh khắc quan trọng của cuộc đời mình. Có nhiều thiết lập hữu ích có sẵn để làm cho nó trở nên cá nhân hơn, phù hợp với nhu cầu của bạn. Hãy liệt kê một trong số chúng.
+
+Đèn flash có thể được bật và tắt hoặc được sử dụng như một đèn pin hữu ích, điều mà không thường thấy. Bạn có thể chụm màn hình để phóng to và thu nhỏ hoặc chuyển đổi hình ảnh theo chiều ngang trong khi chụp những bức ảnh chân dung tuyệt vời. Với ứng dụng này, bạn có thể tập trung vào đối tượng chính trong ảnh thay vì để các tiếng động khác xuất hiện trong ảnh. 
+
+Bạn có thể dễ dàng thay đổi độ phân giải, chất lượng hoặc tỷ lệ khung hình đầu ra chỉ bằng một vài cú nhấp chuột, như bạn mong đợi từ một ứng dụng máy ảnh mở hiện đại. Điều này áp dụng cho cả ảnh và video. Chất lượng của hình ảnh và video có thể dễ dàng thay đổi theo yêu cầu của bạn.
+
+Sau khi chụp ảnh, bạn sẽ thấy hình thu nhỏ của ảnh mới, bằng cách nhấn vào đó, bạn có thể nhanh chóng mở nó trong thư viện ưa thích của mình bằng ứng dụng máy ảnh đang mở này. Bạn sẽ thấy dấu hiệu rõ ràng về thời điểm ảnh được chụp, đảm bảo rằng tệp đã được lưu.
+
+Nếu bạn muốn khởi chạy ứng dụng máy ảnh mở dễ dàng này bằng cách nhấn nút máy ảnh phần cứng của thiết bị, bạn có thể phải tắt ứng dụng Máy ảnh tích hợp trong Cài đặt -> Ứng dụng -> Máy ảnh -> Tắt.
+
+Bạn có thể định cấu hình nó để sử dụng các nút âm lượng làm màn trập hoặc bật đèn pin theo mặc định khi khởi động.
+
+Nó có nhiều cài đặt khác liên quan đến âm thanh màn trập, đèn flash, siêu dữ liệu ảnh, chất lượng ảnh, v.v. Đường dẫn tệp đầu ra có thể được tùy chỉnh để bạn có thể quyết định nơi bạn muốn lưu phương tiện của mình. Nó hỗ trợ cả bộ nhớ trong và thẻ SD.
+
+Nó đi kèm với thiết kế vật liệu và chủ đề tối theo mặc định, mang lại trải nghiệm người dùng tuyệt vời để dễ dàng sử dụng. Việc không có quyền truy cập Internet mang lại cho bạn sự riêng tư, bảo mật và ổn định hơn các ứng dụng khác.
+
+Không chứa quảng cáo hoặc quyền không cần thiết. Nó là nguồn camera mở hoàn toàn, cung cấp màu sắc có thể tùy chỉnh.
+
+Kiểm tra bộ công cụ đơn giản đầy đủ ở đây:
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
